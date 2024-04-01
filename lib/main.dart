@@ -31,7 +31,7 @@ class Mediezy extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Mediezy',
+          title: 'Mediezy User',
           theme: appThemeStyle(),
           home: const SplashScreen(),
         );
