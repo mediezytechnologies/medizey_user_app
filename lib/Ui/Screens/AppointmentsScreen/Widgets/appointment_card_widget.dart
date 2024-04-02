@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +71,6 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    log("appointment for ${widget.appointmentFor}");
     return Container(
       margin: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 4.h),
       decoration: BoxDecoration(

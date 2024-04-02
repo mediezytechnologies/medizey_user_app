@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
@@ -96,55 +97,55 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const VerticalSpacingWidget(height: 20),
-                // Stack(
-                //   children: [
-                //     Align(
-                //       alignment: Alignment.center,
-                //       child: Container(
-                //         height: 100.h,
-                //         width: 100.w,
-                //         decoration: const BoxDecoration(
-                //           shape: BoxShape.circle,
-                //         ),
-                //         child: FadedScaleAnimation(
-                //           scaleDuration: const Duration(milliseconds: 400),
-                //           fadeDuration: const Duration(milliseconds: 400),
-                //           child: ClipOval(
-                //             child: imageFromGallery != null
-                //                 ? Image.file(
-                //                     imageFromGallery!,
-                //                     height: 80.h,
-                //                     width: 80.w,
-                //                     fit: BoxFit.cover,
-                //                   )
-                //                 : Image.asset(
-                //                     "assets/icons/profile pic.png",
-                //                     height: 80.h,
-                //                     width: 80.w,
-                //                     color: kMainColor,
-                //                     fit: BoxFit.cover,
-                //                   ),
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     Positioned(
-                //       bottom: -10.h,
-                //       right: 100.w,
-                //       child: IconButton(
-                //         onPressed: () {
-                //           pickImageFromGallery();
-                //         },
-                //         icon: Icon(
-                //           Icons.add_a_photo,
-                //           size: 26.sp,
-                //           weight: 5,
-                //           color: kMainColor,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 100.h,
+                        width: 100.w,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: FadedScaleAnimation(
+                          scaleDuration: const Duration(milliseconds: 400),
+                          fadeDuration: const Duration(milliseconds: 400),
+                          child: ClipOval(
+                            child: imageFromGallery != null
+                                ? Image.file(
+                                    imageFromGallery!,
+                                    height: 80.h,
+                                    width: 80.w,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    "assets/icons/profile pic.png",
+                                    height: 80.h,
+                                    width: 80.w,
+                                    color: kMainColor,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: -10.h,
+                      right: 100.w,
+                      child: IconButton(
+                        onPressed: () {
+                          pickImageFromGallery();
+                        },
+                        icon: Icon(
+                          Icons.add_a_photo,
+                          size: 26.sp,
+                          weight: 5,
+                          color: kMainColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 const VerticalSpacingWidget(height: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,7 +210,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             cursorColor: kMainColor,
                             controller: phoneNumberController,
                             keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
                             maxLength: 10,
                             decoration: InputDecoration(
                               counterText: "",
@@ -1075,7 +1075,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     } else if (regularMedicine == "Yes" &&
                         (medicineDataList.isEmpty)) {
                       GeneralServices.instance.showErrorMessage(
-                          context, "Fill illness and medicine details");
+                          context, "Add illness and medicine details");
                     } else if (allergies.isEmpty) {
                       GeneralServices.instance
                           .showErrorMessage(context, "Select allergy");
@@ -1088,20 +1088,33 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     } else {
                       BlocProvider.of<AddMemberBloc>(context).add(
                         FetchAddMember(
-                            fullName: fullNameController.text,
-                            age: DateFormat('yyy-MM-dd').format(dateOfBirth!),
-                            allergies: allergies,
-                            gender: selectedGender,
-                            mobileNumber: phoneNumberController.text,
-                            regularMedicine: regularMedicine,
-                            surgeyName: selectedSurgery.toString(),
-                            treatmentTaken: selectedTreatment.toString(),
-                            suregeryDetails: otherSurgeryController.text,
-                            treatmentTakenDetails:
-                                otherTreatmentController.text,
-                            patientImage: imageFromGallery,
-                            medicines: medicineDataList),
+                          fullName: fullNameController.text,
+                          age: DateFormat('yyy-MM-dd').format(dateOfBirth!),
+                          allergies: allergies,
+                          gender: selectedGender,
+                          mobileNumber: phoneNumberController.text,
+                          regularMedicine: regularMedicine,
+                          surgeyName: selectedSurgery.toString(),
+                          treatmentTaken: selectedTreatment.toString(),
+                          suregeryDetails: otherSurgeryController.text,
+                          treatmentTakenDetails: otherTreatmentController.text,
+                          medicines: medicineDataList,
+                        ),
                       );
+                      // Future.delayed(const Duration(seconds: 2), () {
+                      //   if (imageFromGallery != null) {
+                      //     BlocProvider.of<AddMemberBloc>(context).add(
+                      //       AddFamilyMemberImageEvent(image: imageFromGallery!),
+                      //     );
+                      //   }
+                      // });
+                      if (imageFromGallery != null) {
+                        BlocProvider.of<AddMemberBloc>(context).add(
+                          AddFamilyMemberImageEvent(
+                            image: imageFromGallery!,
+                          ),
+                        );
+                      }
                     }
                   },
                 ),

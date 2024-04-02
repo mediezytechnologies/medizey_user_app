@@ -16,19 +16,24 @@ class FetchAddMember extends AddMemberEvent {
   final String suregeryDetails;
   final String treatmentTakenDetails;
   List<Map<String, dynamic>>? medicines;
-  File? patientImage;
 
-  FetchAddMember(
-      {required this.fullName,
-      required this.age,
-      required this.allergies,
-      required this.gender,
-      required this.mobileNumber,
-      required this.regularMedicine,
-      required this.surgeyName,
-      required this.treatmentTaken,
-      this.medicines,
-      required this.suregeryDetails,
-      required this.treatmentTakenDetails,
-      this.patientImage});
+  FetchAddMember({
+    required this.fullName,
+    required this.age,
+    required this.allergies,
+    required this.gender,
+    required this.mobileNumber,
+    required this.regularMedicine,
+    required this.surgeyName,
+    required this.treatmentTaken,
+    this.medicines,
+    required this.suregeryDetails,
+    required this.treatmentTakenDetails,
+  });
+}
+
+class AddFamilyMemberImageEvent extends AddMemberEvent {
+  final File image;
+
+  AddFamilyMemberImageEvent({required this.image});
 }

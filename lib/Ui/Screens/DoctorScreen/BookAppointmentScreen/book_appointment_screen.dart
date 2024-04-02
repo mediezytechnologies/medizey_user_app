@@ -51,6 +51,16 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
     } else {}
   }
 
+  Future<void> _refreshData() async {
+    BlocProvider.of<GetTokenBloc>(context).add(
+      FetchToken(
+        date: formatDate(),
+        doctorId: widget.doctorId,
+        hospitalId: selectedClinicId,
+      ),
+    );
+  }
+
   @override
   void initState() {
     selectedClinicId = widget.clinicList.first.clinicId.toString();
@@ -88,500 +98,503 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
           if (connectivityResult == ConnectivityResult.none) {
             return const InternetHandleScreen();
           } else {
-            return FadedSlideAnimation(
-              beginOffset: const Offset(0, 0.3),
-              endOffset: const Offset(0, 0),
-              slideCurve: Curves.linearToEaseOut,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const VerticalSpacingWidget(height: 10),
-                      ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: widget.clinicList.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          bool isSelected = selectedClinicId ==
-                              widget.clinicList[index].clinicId.toString();
-                          return InkWell(
-                            onTap: () {
-                              setState(() {
-                                selectedClinicId = widget
-                                    .clinicList[index].clinicId
-                                    .toString();
-                                selectedClinicName = widget
-                                    .clinicList[index].clinicName
-                                    .toString();
-                                selectedClinicAddress = widget
-                                    .clinicList[index].clinicAddress
-                                    .toString();
-                                selectedClinicLocation = widget
-                                    .clinicList[index].clinicLocation
-                                    .toString();
-                                BlocProvider.of<GetTokenBloc>(context).add(
-                                  FetchToken(
-                                    date: formatDate(),
-                                    doctorId: widget.doctorId,
-                                    hospitalId: selectedClinicId,
-                                  ),
-                                );
-                              });
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 5.h),
-                              padding: const EdgeInsets.all(4),
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isSelected
-                                    ? kMainColor
-                                    : const Color(0xFFEAF3F8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          widget.clinicList[index].clinicName
-                                                  ?.toString() ??
-                                              "N/A",
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: isSelected
-                                                ? Colors.white
-                                                : kTextColor,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              widget.clinicList[index]
-                                                      .clinicStartTime
-                                                      ?.toString() ??
-                                                  "N/A",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: isSelected
-                                                    ? Colors.white
-                                                    : kTextColor,
-                                              ),
-                                            ),
-                                            Text(
-                                              " - ",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: isSelected
-                                                    ? Colors.white
-                                                    : kTextColor,
-                                              ),
-                                            ),
-                                            Text(
-                                              widget.clinicList[index]
-                                                      .clinicEndTime
-                                                      ?.toString() ??
-                                                  "N/A",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: isSelected
-                                                    ? Colors.white
-                                                    : kTextColor,
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
+            return RefreshIndicator(
+              onRefresh: _refreshData,
+              child: FadedSlideAnimation(
+                beginOffset: const Offset(0, 0.3),
+                endOffset: const Offset(0, 0),
+                slideCurve: Curves.linearToEaseOut,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const VerticalSpacingWidget(height: 10),
+                        ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: widget.clinicList.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            bool isSelected = selectedClinicId ==
+                                widget.clinicList[index].clinicId.toString();
+                            return InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedClinicId = widget
+                                      .clinicList[index].clinicId
+                                      .toString();
+                                  selectedClinicName = widget
+                                      .clinicList[index].clinicName
+                                      .toString();
+                                  selectedClinicAddress = widget
+                                      .clinicList[index].clinicAddress
+                                      .toString();
+                                  selectedClinicLocation = widget
+                                      .clinicList[index].clinicLocation
+                                      .toString();
+                                  BlocProvider.of<GetTokenBloc>(context).add(
+                                    FetchToken(
+                                      date: formatDate(),
+                                      doctorId: widget.doctorId,
+                                      hospitalId: selectedClinicId,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          width: 200.w,
-                                          child: Text(
-                                            "${widget.clinicList[index].clinicAddress.toString()} ${widget.clinicList[index].clinicLocation.toString()} ",
+                                  );
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 5.h),
+                                padding: const EdgeInsets.all(4),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: isSelected
+                                      ? kMainColor
+                                      : const Color(0xFFEAF3F8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            widget.clinicList[index].clinicName
+                                                    ?.toString() ??
+                                                "N/A",
                                             style: TextStyle(
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.bold,
                                               color: isSelected
                                                   ? Colors.white
                                                   : kTextColor,
                                             ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              widget.clinicList[index]
-                                                  .availableTokenCount
-                                                  .toString(),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                widget.clinicList[index]
+                                                        .clinicStartTime
+                                                        ?.toString() ??
+                                                    "N/A",
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: isSelected
+                                                      ? Colors.white
+                                                      : kTextColor,
+                                                ),
+                                              ),
+                                              Text(
+                                                " - ",
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: isSelected
+                                                      ? Colors.white
+                                                      : kTextColor,
+                                                ),
+                                              ),
+                                              Text(
+                                                widget.clinicList[index]
+                                                        .clinicEndTime
+                                                        ?.toString() ??
+                                                    "N/A",
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: isSelected
+                                                      ? Colors.white
+                                                      : kTextColor,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width: 200.w,
+                                            child: Text(
+                                              "${widget.clinicList[index].clinicAddress.toString()} ${widget.clinicList[index].clinicLocation.toString()} ",
                                               style: TextStyle(
                                                 fontSize: 12.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: isSelected
-                                                    ? Colors.white
-                                                    : kTextColor,
-                                              ),
-                                            ),
-                                            const HorizontalSpacingWidget(
-                                                width: 2),
-                                            Text(
-                                              "slots available",
-                                              style: TextStyle(
-                                                fontSize: 11.sp,
                                                 fontWeight: FontWeight.w400,
                                                 color: isSelected
                                                     ? Colors.white
                                                     : kTextColor,
                                               ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                widget.clinicList[index]
+                                                    .availableTokenCount
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: isSelected
+                                                      ? Colors.white
+                                                      : kTextColor,
+                                                ),
+                                              ),
+                                              const HorizontalSpacingWidget(
+                                                  width: 2),
+                                              Text(
+                                                "slots available",
+                                                style: TextStyle(
+                                                  fontSize: 11.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: isSelected
+                                                      ? Colors.white
+                                                      : kTextColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                      EasyDateTimeLine(
-                        initialDate: selectedDate,
-                        disabledDates: _getDisabledDates(),
-                        onDateChange: (date) {
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(date);
-                          setState(() {
-                            selectedDate = date;
-                          });
-                          BlocProvider.of<GetTokenBloc>(context).add(
-                            FetchToken(
-                              date: formattedDate,
-                              doctorId: widget.doctorId,
-                              hospitalId: selectedClinicId,
-                            ),
-                          );
-                        },
-                        activeColor: kMainColor,
-                        dayProps: EasyDayProps(
-                          height: 80.h,
-                          width: 65.w,
-                          activeDayNumStyle: TextStyle(
-                            color: kCardColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.sp,
-                          ),
-                          activeDayStrStyle: TextStyle(
-                            color: kCardColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.sp,
-                          ),
-                          activeMothStrStyle: TextStyle(
-                            color: kCardColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.sp,
-                          ),
-                          todayHighlightStyle:
-                              TodayHighlightStyle.withBackground,
-                          todayHighlightColor: const Color(0xffE1ECC8),
-                          borderColor: kMainColor,
+                            );
+                          },
                         ),
-                      ),
-                      BlocBuilder<GetTokenBloc, GetTokenState>(
-                        builder: (context, state) {
-                          if (state is GetTokenLoading) {
-                            return SizedBox(
-                              height: 200.h,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: kMainColor,
-                                ),
+                        EasyDateTimeLine(
+                          initialDate: selectedDate,
+                          disabledDates: _getDisabledDates(),
+                          onDateChange: (date) {
+                            String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(date);
+                            setState(() {
+                              selectedDate = date;
+                            });
+                            BlocProvider.of<GetTokenBloc>(context).add(
+                              FetchToken(
+                                date: formattedDate,
+                                doctorId: widget.doctorId,
+                                hospitalId: selectedClinicId,
                               ),
                             );
-                          }
-                          if (state is GetTokenError) {
-                            return Center(
-                              child: Image(
-                                image: const AssetImage(
-                                    "assets/images/something went wrong-01.png"),
+                          },
+                          activeColor: kMainColor,
+                          dayProps: EasyDayProps(
+                            height: 80.h,
+                            width: 65.w,
+                            activeDayNumStyle: TextStyle(
+                              color: kCardColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.sp,
+                            ),
+                            activeDayStrStyle: TextStyle(
+                              color: kCardColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.sp,
+                            ),
+                            activeMothStrStyle: TextStyle(
+                              color: kCardColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.sp,
+                            ),
+                            todayHighlightStyle:
+                                TodayHighlightStyle.withBackground,
+                            todayHighlightColor: const Color(0xffE1ECC8),
+                            borderColor: kMainColor,
+                          ),
+                        ),
+                        BlocBuilder<GetTokenBloc, GetTokenState>(
+                          builder: (context, state) {
+                            if (state is GetTokenLoading) {
+                              return SizedBox(
                                 height: 200.h,
-                                width: 200.w,
-                              ),
-                            );
-                          }
-                          if (state is GetTokenLoaded) {
-                            getTokenModel =
-                                BlocProvider.of<GetTokenBloc>(context)
-                                    .getTokenModel;
-                            if (getTokenModel.schedule == null) {
-                              return Center(
-                                child: Column(
-                                  children: [
-                                    const VerticalSpacingWidget(height: 10),
-                                    Image(
-                                      image: const AssetImage(
-                                          "assets/icons/no token.png"),
-                                      height: 250.h,
-                                      width: 250.w,
-                                    ),
-                                    Text(
-                                      getTokenModel.message.toString(),
-                                      style: TextStyle(
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: kMainColor,
+                                  ),
                                 ),
                               );
                             }
-                            //! shedule 1
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (getTokenModel
-                                        .schedule?.schedule1?.isNotEmpty ==
-                                    true)
-                                  const Column(
+                            if (state is GetTokenError) {
+                              return Center(
+                                child: Image(
+                                  image: const AssetImage(
+                                      "assets/images/something went wrong-01.png"),
+                                  height: 200.h,
+                                  width: 200.w,
+                                ),
+                              );
+                            }
+                            if (state is GetTokenLoaded) {
+                              getTokenModel =
+                                  BlocProvider.of<GetTokenBloc>(context)
+                                      .getTokenModel;
+                              if (getTokenModel.schedule == null) {
+                                return Center(
+                                  child: Column(
                                     children: [
-                                      VerticalSpacingWidget(height: 10),
-                                      Text(
-                                        "Schedule 1",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      const VerticalSpacingWidget(height: 10),
+                                      Image(
+                                        image: const AssetImage(
+                                            "assets/icons/no token.png"),
+                                        height: 250.h,
+                                        width: 250.w,
                                       ),
-                                      VerticalSpacingWidget(height: 5),
+                                      Text(
+                                        getTokenModel.message.toString(),
+                                        style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      )
                                     ],
                                   ),
-                                if (getTokenModel
-                                        .schedule?.schedule1?.isNotEmpty ==
-                                    true)
-                                  GridView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    itemCount: getTokenModel
-                                        .schedule!.schedule1!.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
-                                      crossAxisCount: 5,
-                                      mainAxisExtent: 78,
-                                    ),
-                                    itemBuilder: (context, index) {
-                                      return TokenCardWidget(
-                                        clinicAddress: selectedClinicAddress,
-                                        clinicLocation: selectedClinicLocation,
-                                        clinicName: selectedClinicName,
-                                        doctorFirstName: widget.doctorFirstName,
-                                        doctorSecondName:
-                                            widget.doctorSecondName,
-                                        clinicId: selectedClinicId,
-                                        date: selectedDate,
-                                        isReserved: getTokenModel.schedule!
-                                            .schedule1![index].isReserved
-                                            .toString(),
-                                        isTimeOut: getTokenModel.schedule!
-                                            .schedule1![index].isTimeout
-                                            .toString(),
-                                        tokenNumber: getTokenModel.schedule!
-                                            .schedule1![index].tokenNumber
-                                            .toString(),
-                                        isBooked: getTokenModel.schedule!
-                                            .schedule1![index].isBooked
-                                            .toString(),
-                                        doctorId: widget.doctorId,
-                                        formatedTime: getTokenModel
-                                            .schedule!
-                                            .schedule1![index]
-                                            .formattedStartTime
-                                            .toString(),
-                                        sheduleType: getTokenModel.schedule!
-                                            .schedule1![index].scheduleType
-                                            .toString(),
-                                        estimatedTime: getTokenModel.schedule!
-                                            .schedule1![index].estimateStartTime
-                                            .toString(),
-                                      );
-                                    },
-                                  ),
-
-                                //! shedule 2
-                                if (getTokenModel
-                                        .schedule?.schedule2?.isNotEmpty ==
-                                    true)
-                                  const Column(
-                                    children: [
-                                      VerticalSpacingWidget(height: 10),
-                                      Text(
-                                        "Schedule 2",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
+                                );
+                              }
+                              //! shedule 1
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (getTokenModel
+                                          .schedule?.schedule1?.isNotEmpty ==
+                                      true)
+                                    const Column(
+                                      children: [
+                                        VerticalSpacingWidget(height: 10),
+                                        Text(
+                                          "Schedule 1",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      VerticalSpacingWidget(height: 5),
-                                    ],
-                                  ),
-
-                                if (getTokenModel
-                                        .schedule?.schedule2?.isNotEmpty ==
-                                    true)
-                                  GridView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    shrinkWrap: true,
-                                    itemCount: getTokenModel
-                                        .schedule!.schedule2!.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
-                                      crossAxisCount: 5,
-                                      mainAxisExtent: 70,
+                                        VerticalSpacingWidget(height: 5),
+                                      ],
                                     ),
-                                    itemBuilder: (context, index) {
-                                      return TokenCardWidget(
-                                        clinicAddress: selectedClinicAddress,
-                                        clinicLocation: selectedClinicLocation,
-                                        clinicName: selectedClinicName,
-                                        doctorFirstName: widget.doctorFirstName,
-                                        isReserved: getTokenModel.schedule!
-                                            .schedule2![index].isReserved
-                                            .toString(),
-                                        doctorSecondName:
-                                            widget.doctorSecondName,
-                                        clinicId: selectedClinicId,
-                                        date: selectedDate,
-                                        isTimeOut: getTokenModel.schedule!
-                                            .schedule2![index].isTimeout
-                                            .toString(),
-                                        tokenNumber: getTokenModel.schedule!
-                                            .schedule2![index].tokenNumber
-                                            .toString(),
-                                        isBooked: getTokenModel.schedule!
-                                            .schedule2![index].isBooked
-                                            .toString(),
-                                        doctorId: widget.doctorId,
-                                        formatedTime: getTokenModel
-                                            .schedule!
-                                            .schedule2![index]
-                                            .formattedStartTime
-                                            .toString(),
-                                        sheduleType: getTokenModel.schedule!
-                                            .schedule2![index].scheduleType
-                                            .toString(),
-                                        estimatedTime: getTokenModel.schedule!
-                                            .schedule2![index].estimateStartTime
-                                            .toString(),
-                                      );
-                                    },
-                                  ),
-
-                                //! shedule 3
-                                if (getTokenModel
-                                        .schedule?.schedule3?.isNotEmpty ==
-                                    true)
-                                  const Column(
-                                    children: [
-                                      VerticalSpacingWidget(height: 10),
-                                      Text(
-                                        "Schedule 3",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
+                                  if (getTokenModel
+                                          .schedule?.schedule1?.isNotEmpty ==
+                                      true)
+                                    GridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      itemCount: getTokenModel
+                                          .schedule!.schedule1!.length,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 10,
+                                        crossAxisCount: 5,
+                                        mainAxisExtent: 78,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return TokenCardWidget(
+                                          clinicAddress: selectedClinicAddress,
+                                          clinicLocation: selectedClinicLocation,
+                                          clinicName: selectedClinicName,
+                                          doctorFirstName: widget.doctorFirstName,
+                                          doctorSecondName:
+                                              widget.doctorSecondName,
+                                          clinicId: selectedClinicId,
+                                          date: selectedDate,
+                                          isReserved: getTokenModel.schedule!
+                                              .schedule1![index].isReserved
+                                              .toString(),
+                                          isTimeOut: getTokenModel.schedule!
+                                              .schedule1![index].isTimeout
+                                              .toString(),
+                                          tokenNumber: getTokenModel.schedule!
+                                              .schedule1![index].tokenNumber
+                                              .toString(),
+                                          isBooked: getTokenModel.schedule!
+                                              .schedule1![index].isBooked
+                                              .toString(),
+                                          doctorId: widget.doctorId,
+                                          formatedTime: getTokenModel
+                                              .schedule!
+                                              .schedule1![index]
+                                              .formattedStartTime
+                                              .toString(),
+                                          sheduleType: getTokenModel.schedule!
+                                              .schedule1![index].scheduleType
+                                              .toString(),
+                                          estimatedTime: getTokenModel.schedule!
+                                              .schedule1![index].estimateStartTime
+                                              .toString(),
+                                        );
+                                      },
+                                    ),
+              
+                                  //! shedule 2
+                                  if (getTokenModel
+                                          .schedule?.schedule2?.isNotEmpty ==
+                                      true)
+                                    const Column(
+                                      children: [
+                                        VerticalSpacingWidget(height: 10),
+                                        Text(
+                                          "Schedule 2",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      VerticalSpacingWidget(height: 5),
-                                    ],
-                                  ),
-
-                                if (getTokenModel
-                                        .schedule?.schedule3?.isNotEmpty ==
-                                    true)
-                                  GridView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    shrinkWrap: true,
-                                    itemCount: getTokenModel
-                                        .schedule!.schedule3!.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
-                                      crossAxisCount: 5,
-                                      mainAxisExtent: 70,
+                                        VerticalSpacingWidget(height: 5),
+                                      ],
                                     ),
-                                    itemBuilder: (context, index) {
-                                      return TokenCardWidget(
-                                        clinicAddress: selectedClinicAddress,
-                                        clinicLocation: selectedClinicLocation,
-                                        clinicName: selectedClinicName,
-                                        doctorFirstName: widget.doctorFirstName,
-                                        doctorSecondName:
-                                            widget.doctorSecondName,
-                                        clinicId: selectedClinicId,
-                                        date: selectedDate,
-                                        isReserved: getTokenModel.schedule!
-                                            .schedule3![index].isReserved
-                                            .toString(),
-                                        isTimeOut: getTokenModel.schedule!
-                                            .schedule3![index].isTimeout
-                                            .toString(),
-                                        tokenNumber: getTokenModel.schedule!
-                                            .schedule3![index].tokenNumber
-                                            .toString(),
-                                        isBooked: getTokenModel.schedule!
-                                            .schedule3![index].isBooked
-                                            .toString(),
-                                        doctorId: widget.doctorId,
-                                        formatedTime: getTokenModel
-                                            .schedule!
-                                            .schedule3![index]
-                                            .formattedStartTime
-                                            .toString(),
-                                        sheduleType: getTokenModel.schedule!
-                                            .schedule3![index].scheduleType
-                                            .toString(),
-                                        estimatedTime: getTokenModel.schedule!
-                                            .schedule3![index].estimateStartTime
-                                            .toString(),
-                                      );
-                                    },
-                                  ),
-                                const VerticalSpacingWidget(height: 10),
-                              ],
+              
+                                  if (getTokenModel
+                                          .schedule?.schedule2?.isNotEmpty ==
+                                      true)
+                                    GridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      shrinkWrap: true,
+                                      itemCount: getTokenModel
+                                          .schedule!.schedule2!.length,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 10,
+                                        crossAxisCount: 5,
+                                        mainAxisExtent: 70,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return TokenCardWidget(
+                                          clinicAddress: selectedClinicAddress,
+                                          clinicLocation: selectedClinicLocation,
+                                          clinicName: selectedClinicName,
+                                          doctorFirstName: widget.doctorFirstName,
+                                          isReserved: getTokenModel.schedule!
+                                              .schedule2![index].isReserved
+                                              .toString(),
+                                          doctorSecondName:
+                                              widget.doctorSecondName,
+                                          clinicId: selectedClinicId,
+                                          date: selectedDate,
+                                          isTimeOut: getTokenModel.schedule!
+                                              .schedule2![index].isTimeout
+                                              .toString(),
+                                          tokenNumber: getTokenModel.schedule!
+                                              .schedule2![index].tokenNumber
+                                              .toString(),
+                                          isBooked: getTokenModel.schedule!
+                                              .schedule2![index].isBooked
+                                              .toString(),
+                                          doctorId: widget.doctorId,
+                                          formatedTime: getTokenModel
+                                              .schedule!
+                                              .schedule2![index]
+                                              .formattedStartTime
+                                              .toString(),
+                                          sheduleType: getTokenModel.schedule!
+                                              .schedule2![index].scheduleType
+                                              .toString(),
+                                          estimatedTime: getTokenModel.schedule!
+                                              .schedule2![index].estimateStartTime
+                                              .toString(),
+                                        );
+                                      },
+                                    ),
+              
+                                  //! shedule 3
+                                  if (getTokenModel
+                                          .schedule?.schedule3?.isNotEmpty ==
+                                      true)
+                                    const Column(
+                                      children: [
+                                        VerticalSpacingWidget(height: 10),
+                                        Text(
+                                          "Schedule 3",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        VerticalSpacingWidget(height: 5),
+                                      ],
+                                    ),
+              
+                                  if (getTokenModel
+                                          .schedule?.schedule3?.isNotEmpty ==
+                                      true)
+                                    GridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      shrinkWrap: true,
+                                      itemCount: getTokenModel
+                                          .schedule!.schedule3!.length,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 10,
+                                        crossAxisCount: 5,
+                                        mainAxisExtent: 70,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return TokenCardWidget(
+                                          clinicAddress: selectedClinicAddress,
+                                          clinicLocation: selectedClinicLocation,
+                                          clinicName: selectedClinicName,
+                                          doctorFirstName: widget.doctorFirstName,
+                                          doctorSecondName:
+                                              widget.doctorSecondName,
+                                          clinicId: selectedClinicId,
+                                          date: selectedDate,
+                                          isReserved: getTokenModel.schedule!
+                                              .schedule3![index].isReserved
+                                              .toString(),
+                                          isTimeOut: getTokenModel.schedule!
+                                              .schedule3![index].isTimeout
+                                              .toString(),
+                                          tokenNumber: getTokenModel.schedule!
+                                              .schedule3![index].tokenNumber
+                                              .toString(),
+                                          isBooked: getTokenModel.schedule!
+                                              .schedule3![index].isBooked
+                                              .toString(),
+                                          doctorId: widget.doctorId,
+                                          formatedTime: getTokenModel
+                                              .schedule!
+                                              .schedule3![index]
+                                              .formattedStartTime
+                                              .toString(),
+                                          sheduleType: getTokenModel.schedule!
+                                              .schedule3![index].scheduleType
+                                              .toString(),
+                                          estimatedTime: getTokenModel.schedule!
+                                              .schedule3![index].estimateStartTime
+                                              .toString(),
+                                        );
+                                      },
+                                    ),
+                                  const VerticalSpacingWidget(height: 10),
+                                ],
+                              );
+                            }
+                            return Container(
+                              color: Colors.yellow,
                             );
-                          }
-                          return Container(
-                            color: Colors.yellow,
-                          );
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

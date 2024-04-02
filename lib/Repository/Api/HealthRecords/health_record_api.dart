@@ -40,14 +40,13 @@ class HealthRecordApi {
     required String treatmentTakenDetails,
     required List<Map<String, dynamic>> allergies,
     List<Map<String, dynamic>>? medicines,
-    File? patientImage,
   }) async {
     try {
       String? userId;
       final preference = await SharedPreferences.getInstance();
       userId = preference.getString('userId').toString();
       String basePath = "patient/addFamilyMember";
-      
+
       final body = {
         "user_id": userId,
         "full_name": fullName,
@@ -61,18 +60,11 @@ class HealthRecordApi {
         "treatment_taken": treatmentTaken,
         "surgery_details": surgeryDetails,
         "treatment_taken_details": treatmentTakenDetails,
-        "user_image": patientImage,
       };
 
       log(body.toString());
-      Response response = patientImage == null
-          ? await apiClient.invokeAPI(
-              path: basePath, method: "POST", body: body)
-          : await multiApiClient.uploadFiles(
-              files: patientImage,
-              uploadPath: basePath,
-              uploadFileTitle: "patient_image",
-              bodyData: body);
+      Response response =
+          await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
       if (response.statusCode == 200) {
         print("ADD MEMBER SUCCESS");
         log("response body ${response.body}");
@@ -84,12 +76,29 @@ class HealthRecordApi {
       }
     } catch (e) {
       print("ADD MEMBER ERROR: $e");
-      log("ERROR $e");
+      log(e.toString());
       throw ApiException(message: e.toString(), statusCode: 500);
     }
   }
 
-  
+  //* add patient image
+  Future<String> addFamilyMemberImage({required File patientImage}) async {
+    int? patientId;
+    final preference = await SharedPreferences.getInstance();
+    patientId = preference.getInt('patientId');
+    String basePath = "patient/addFamilyMember/savePatientImage";
+    final body = {"patient_id": patientId, "user_image": patientImage};
+    log("Added data call ${body.toString()}");
+    var response = await multiApiClient.uploadFiles(
+        files: patientImage,
+        uploadPath: basePath,
+        uploadFileTitle: "user_image",
+        bodyData: body);
+    log("response body call ${response.body.toString()}");
+    await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+    print("<<<<<< GET ALL MEMBERS WORKED SUCCESSFULLY >>>>>>");
+    return response.body;
+  }
 
   //* get all members
   Future<GetAllMembersModel> getAllMembers() async {
