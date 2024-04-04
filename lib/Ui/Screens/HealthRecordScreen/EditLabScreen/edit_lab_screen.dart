@@ -315,11 +315,11 @@ class _EditLabScreenState extends State<EditLabScreen> {
                                     type: "1",
                                     document: imageFromGallery!),
                               );
-                               GeneralServices.instance.showToastMessage(
-                                "Update lab report successfully");
-                            Navigator.pop(context);
-                            BlocProvider.of<GetAllMembersBloc>(context)
-                                .add(FetchAllMembers());
+                              GeneralServices.instance.showToastMessage(
+                                  "Update lab report successfully");
+                              Navigator.pop(context);
+                              BlocProvider.of<GetAllMembersBloc>(context)
+                                  .add(FetchAllMembers());
                             } else {
                               BlocProvider.of<UploadDocumentFinalBloc>(context)
                                   .add(

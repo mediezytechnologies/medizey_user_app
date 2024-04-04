@@ -19,8 +19,7 @@ class GetDoctorBloc extends Bloc<GetDoctorEvent, GetDoctorState> {
           doctorModel = await getDoctorsApi.getDoctor();
           emit(GetDoctorLoaded());
         } catch (error) {
-          print(
-              "<<<<< GET ALL DOCTORS ERROR : $error >>>>>");
+          print("<<<<< GET ALL DOCTORS ERROR : $error >>>>>");
           emit(GetDoctorError());
         }
       },

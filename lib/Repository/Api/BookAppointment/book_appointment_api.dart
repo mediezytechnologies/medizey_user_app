@@ -12,25 +12,23 @@ class BookAppointmentApi {
   ApiClient apiClient = ApiClient();
 
   //* book appointment
-  Future<BookAppointmentModel> bookAppointment({
-    required String patientName,
-    required String doctorId,
-    required String clinicId,
-    required String date,
-    required String whenitcomes,
-    required String whenitstart,
-    required String tokenTime,
-    required String tokenNumber,
-    required String gender,
-    required String age,
-    required String mobileNo,
-    required String bookingType,
-    required List<String> appoinmentfor1,
-    required List<int> appoinmentfor2,
-    required String patientId,
-    required String sheduleType,
-    required String tokenId,
-  }) async {
+  Future<BookAppointmentModel> bookAppointment(
+      {required String patientName,
+      required String doctorId,
+      required String clinicId,
+      required String date,
+      required String whenitcomes,
+      required String whenitstart,
+      required String tokenTime,
+      required String tokenNumber,
+      required String gender,
+      required String age,
+      required String mobileNo,
+      required String bookingType,
+      required List<String> appoinmentfor1,
+      required List<int> appoinmentfor2,
+      required String patientId,
+      required String sheduleType}) async {
     String basePath = "patient/patientBookGeneratedTokens";
     final preferences = await SharedPreferences.getInstance();
     String? userId = preferences.getString('userId');

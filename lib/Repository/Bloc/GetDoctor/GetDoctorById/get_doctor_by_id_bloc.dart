@@ -11,16 +11,14 @@ class GetDoctorByIdBloc extends Bloc<GetDoctorByIdEvent, GetDoctorByIdState> {
   late GetDoctorByIdModel getDoctorByIdModel;
   GetDoctorsApi getDoctorsApi = GetDoctorsApi();
   GetDoctorByIdBloc() : super(GetDoctorByIdInitial()) {
-    on<FetchDoctorById>((event, emit)async {
+    on<FetchDoctorById>((event, emit) async {
       emit(GetDoctorByIdLoading());
       try {
         getDoctorByIdModel = await GetDoctorsApi().getDoctorById(event.id);
         emit(GetDoctorByIdLoaded());
       } catch (error) {
-         print(
-              "<<<<< GET DOCTORS BY ID ERROR : $error >>>>>");
-          emit(GetDoctorByIdError());
-        
+        print("<<<<< GET DOCTORS BY ID ERROR : $error >>>>>");
+        emit(GetDoctorByIdError());
       }
     });
   }

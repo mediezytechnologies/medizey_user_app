@@ -5,7 +5,6 @@ abstract class BannerState {}
 
 class BannerInitial extends BannerState {}
 
-
 class BannerLoading extends BannerState {}
 
 class BannerLoaded extends BannerState {}

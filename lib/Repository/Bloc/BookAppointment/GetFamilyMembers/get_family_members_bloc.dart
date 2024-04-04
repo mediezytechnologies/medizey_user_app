@@ -15,8 +15,8 @@ class GetFamilyMembersBloc
     on<FetchFamilyMember>((event, emit) async {
       emit(GetFamilyMembersLoading());
       try {
-        getFamilyMembersModel =await bookAppointmentApi.getFamilyMembers();
-        emit(GetFamilyMembersLoaded ());
+        getFamilyMembersModel = await bookAppointmentApi.getFamilyMembers();
+        emit(GetFamilyMembersLoaded());
       } catch (error) {
         print("<<<<<<<GET FAMILY MEMBERS ERROR : $error >>>>>>>>");
         emit(GetFamilyMembersError());

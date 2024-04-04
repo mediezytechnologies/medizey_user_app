@@ -6,19 +6,18 @@ part 'get_hospital_event.dart';
 part 'get_hospital_state.dart';
 
 class GetHospitalBloc extends Bloc<GetHospitalEvent, GetHospitalState> {
-   late GetHospitalModel getHospitalModel;
+  late GetHospitalModel getHospitalModel;
   HospitalApi hospitalApi = HospitalApi();
   GetHospitalBloc() : super(GetHospitalInitial()) {
-    on<GetHospitalEvent>((event, emit)async {
-       emit(GetHospitalLoading());
-        try {
-          getHospitalModel = await hospitalApi.getHospitals();
-          emit(GetHospitalLoaded());
-        } catch (error) {
-          print(
-              "<<<<< GET ALL HOSPITAL ERROR : $error >>>>>");
-          emit(GetHospitalError());
-        }
+    on<GetHospitalEvent>((event, emit) async {
+      emit(GetHospitalLoading());
+      try {
+        getHospitalModel = await hospitalApi.getHospitals();
+        emit(GetHospitalLoaded());
+      } catch (error) {
+        print("<<<<< GET ALL HOSPITAL ERROR : $error >>>>>");
+        emit(GetHospitalError());
+      }
     });
   }
 }

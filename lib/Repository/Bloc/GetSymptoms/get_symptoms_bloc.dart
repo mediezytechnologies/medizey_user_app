@@ -9,12 +9,13 @@ part 'get_symptoms_state.dart';
 
 class GetSymptomsBloc extends Bloc<GetSymptomsEvent, GetSymptomsState> {
   late GetSymptomsModel getSymptomsModel;
-  GetTokenApi getTokenApi =GetTokenApi();
+  GetTokenApi getTokenApi = GetTokenApi();
   GetSymptomsBloc() : super(GetSymptomsInitial()) {
     on<FetchSymptoms>((event, emit) async {
       emit(GetSymptomsLoading());
       try {
-        getSymptomsModel = await getTokenApi.getSymptoms(doctorId: event.doctorId);
+        getSymptomsModel =
+            await getTokenApi.getSymptoms(doctorId: event.doctorId);
         emit(GetSymptomsLoaded());
       } catch (error) {
         print("<<<<< GET SYMPTOMS ERROR : $error >>>>>");

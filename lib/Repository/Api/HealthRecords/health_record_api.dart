@@ -81,15 +81,17 @@ class HealthRecordApi {
     }
   }
 
+  //edit ===================================//
+
   //* add patient image
-  Future<String> addFamilyMemberImage({required File patientImage}) async {
+  Future<String> addFamilyMemberImage({String? patientImage}) async {
     int? patientId;
     final preference = await SharedPreferences.getInstance();
     patientId = preference.getInt('patientId');
     String basePath = "patient/addFamilyMember/savePatientImage";
     final body = {"patient_id": patientId, "user_image": patientImage};
     log("Added data call ${body.toString()}");
-    var response = await multiApiClient.uploadFiles(
+    var response = await multiApiClient.uploadFamilyFiles(
         files: patientImage,
         uploadPath: basePath,
         uploadFileTitle: "user_image",

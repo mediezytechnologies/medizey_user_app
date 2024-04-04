@@ -23,8 +23,7 @@ class GetDoctorsByHealthCategoriesModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (healthConcern != null) {
-      data['health_concern'] =
-          healthConcern!.map((v) => v.toJson()).toList();
+      data['health_concern'] = healthConcern!.map((v) => v.toJson()).toList();
     }
     data['message'] = message;
     return data;
@@ -86,5 +85,3 @@ class HealthConcern {
     return data;
   }
 }
-
-

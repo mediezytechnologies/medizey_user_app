@@ -43,10 +43,3 @@ class AddFavouritesBloc extends Bloc<AddFavouritesEvent, AddFavouritesState> {
     });
   }
 }
-
-
-
-
-
-
-
