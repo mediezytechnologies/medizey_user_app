@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'add_member_bloc.dart';
+part of 'add_members_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$AddMemberEvent {
+mixin _$AddMembersEvent {
   String get fullName => throw _privateConstructorUsedError;
   String get age => throw _privateConstructorUsedError;
   String get mobileNumber => throw _privateConstructorUsedError;
@@ -25,9 +25,9 @@ mixin _$AddMemberEvent {
   String get treatmentTaken => throw _privateConstructorUsedError;
   String get surgeryDetails => throw _privateConstructorUsedError;
   String get treatmentTakenDetails => throw _privateConstructorUsedError;
-  List<Map<String, dynamic>> get allergies =>
-      throw _privateConstructorUsedError;
-  List<Medicines>? get medicines => throw _privateConstructorUsedError;
+  BuildContext get context => throw _privateConstructorUsedError;
+  List<Allergy>? get allergies => throw _privateConstructorUsedError;
+  List<Medicine>? get medicines => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -40,8 +40,9 @@ mixin _$AddMemberEvent {
             String treatmentTaken,
             String surgeryDetails,
             String treatmentTakenDetails,
-            List<Map<String, dynamic>> allergies,
-            List<Medicines>? medicines)
+            BuildContext context,
+            List<Allergy>? allergies,
+            List<Medicine>? medicines)
         started,
   }) =>
       throw _privateConstructorUsedError;
@@ -57,8 +58,9 @@ mixin _$AddMemberEvent {
             String treatmentTaken,
             String surgeryDetails,
             String treatmentTakenDetails,
-            List<Map<String, dynamic>> allergies,
-            List<Medicines>? medicines)?
+            BuildContext context,
+            List<Allergy>? allergies,
+            List<Medicine>? medicines)?
         started,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,8 +76,9 @@ mixin _$AddMemberEvent {
             String treatmentTaken,
             String surgeryDetails,
             String treatmentTakenDetails,
-            List<Map<String, dynamic>> allergies,
-            List<Medicines>? medicines)?
+            BuildContext context,
+            List<Allergy>? allergies,
+            List<Medicine>? medicines)?
         started,
     required TResult orElse(),
   }) =>
@@ -98,15 +101,15 @@ mixin _$AddMemberEvent {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $AddMemberEventCopyWith<AddMemberEvent> get copyWith =>
+  $AddMembersEventCopyWith<AddMembersEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddMemberEventCopyWith<$Res> {
-  factory $AddMemberEventCopyWith(
-          AddMemberEvent value, $Res Function(AddMemberEvent) then) =
-      _$AddMemberEventCopyWithImpl<$Res, AddMemberEvent>;
+abstract class $AddMembersEventCopyWith<$Res> {
+  factory $AddMembersEventCopyWith(
+          AddMembersEvent value, $Res Function(AddMembersEvent) then) =
+      _$AddMembersEventCopyWithImpl<$Res, AddMembersEvent>;
   @useResult
   $Res call(
       {String fullName,
@@ -118,14 +121,15 @@ abstract class $AddMemberEventCopyWith<$Res> {
       String treatmentTaken,
       String surgeryDetails,
       String treatmentTakenDetails,
-      List<Map<String, dynamic>> allergies,
-      List<Medicines>? medicines});
+      BuildContext context,
+      List<Allergy>? allergies,
+      List<Medicine>? medicines});
 }
 
 /// @nodoc
-class _$AddMemberEventCopyWithImpl<$Res, $Val extends AddMemberEvent>
-    implements $AddMemberEventCopyWith<$Res> {
-  _$AddMemberEventCopyWithImpl(this._value, this._then);
+class _$AddMembersEventCopyWithImpl<$Res, $Val extends AddMembersEvent>
+    implements $AddMembersEventCopyWith<$Res> {
+  _$AddMembersEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -144,7 +148,8 @@ class _$AddMemberEventCopyWithImpl<$Res, $Val extends AddMemberEvent>
     Object? treatmentTaken = null,
     Object? surgeryDetails = null,
     Object? treatmentTakenDetails = null,
-    Object? allergies = null,
+    Object? context = null,
+    Object? allergies = freezed,
     Object? medicines = freezed,
   }) {
     return _then(_value.copyWith(
@@ -184,21 +189,25 @@ class _$AddMemberEventCopyWithImpl<$Res, $Val extends AddMemberEvent>
           ? _value.treatmentTakenDetails
           : treatmentTakenDetails // ignore: cast_nullable_to_non_nullable
               as String,
-      allergies: null == allergies
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      allergies: freezed == allergies
           ? _value.allergies
           : allergies // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+              as List<Allergy>?,
       medicines: freezed == medicines
           ? _value.medicines
           : medicines // ignore: cast_nullable_to_non_nullable
-              as List<Medicines>?,
+              as List<Medicine>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$StartedImplCopyWith<$Res>
-    implements $AddMemberEventCopyWith<$Res> {
+    implements $AddMembersEventCopyWith<$Res> {
   factory _$$StartedImplCopyWith(
           _$StartedImpl value, $Res Function(_$StartedImpl) then) =
       __$$StartedImplCopyWithImpl<$Res>;
@@ -214,13 +223,14 @@ abstract class _$$StartedImplCopyWith<$Res>
       String treatmentTaken,
       String surgeryDetails,
       String treatmentTakenDetails,
-      List<Map<String, dynamic>> allergies,
-      List<Medicines>? medicines});
+      BuildContext context,
+      List<Allergy>? allergies,
+      List<Medicine>? medicines});
 }
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$AddMemberEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$AddMembersEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
@@ -238,54 +248,59 @@ class __$$StartedImplCopyWithImpl<$Res>
     Object? treatmentTaken = null,
     Object? surgeryDetails = null,
     Object? treatmentTakenDetails = null,
-    Object? allergies = null,
+    Object? context = null,
+    Object? allergies = freezed,
     Object? medicines = freezed,
   }) {
     return _then(_$StartedImpl(
-      fullName: null == fullName
+      null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      age: null == age
+      null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
               as String,
-      mobileNumber: null == mobileNumber
+      null == mobileNumber
           ? _value.mobileNumber
           : mobileNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      gender: null == gender
+      null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as String,
-      regularMedicine: null == regularMedicine
+      null == regularMedicine
           ? _value.regularMedicine
           : regularMedicine // ignore: cast_nullable_to_non_nullable
               as String,
-      surgeryName: null == surgeryName
+      null == surgeryName
           ? _value.surgeryName
           : surgeryName // ignore: cast_nullable_to_non_nullable
               as String,
-      treatmentTaken: null == treatmentTaken
+      null == treatmentTaken
           ? _value.treatmentTaken
           : treatmentTaken // ignore: cast_nullable_to_non_nullable
               as String,
-      surgeryDetails: null == surgeryDetails
+      null == surgeryDetails
           ? _value.surgeryDetails
           : surgeryDetails // ignore: cast_nullable_to_non_nullable
               as String,
-      treatmentTakenDetails: null == treatmentTakenDetails
+      null == treatmentTakenDetails
           ? _value.treatmentTakenDetails
           : treatmentTakenDetails // ignore: cast_nullable_to_non_nullable
               as String,
-      allergies: null == allergies
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      freezed == allergies
           ? _value._allergies
           : allergies // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
-      medicines: freezed == medicines
+              as List<Allergy>?,
+      freezed == medicines
           ? _value._medicines
           : medicines // ignore: cast_nullable_to_non_nullable
-              as List<Medicines>?,
+              as List<Medicine>?,
     ));
   }
 }
@@ -294,17 +309,18 @@ class __$$StartedImplCopyWithImpl<$Res>
 
 class _$StartedImpl implements _Started {
   const _$StartedImpl(
-      {required this.fullName,
-      required this.age,
-      required this.mobileNumber,
-      required this.gender,
-      required this.regularMedicine,
-      required this.surgeryName,
-      required this.treatmentTaken,
-      required this.surgeryDetails,
-      required this.treatmentTakenDetails,
-      required final List<Map<String, dynamic>> allergies,
-      final List<Medicines>? medicines})
+      this.fullName,
+      this.age,
+      this.mobileNumber,
+      this.gender,
+      this.regularMedicine,
+      this.surgeryName,
+      this.treatmentTaken,
+      this.surgeryDetails,
+      this.treatmentTakenDetails,
+      this.context,
+      final List<Allergy>? allergies,
+      final List<Medicine>? medicines)
       : _allergies = allergies,
         _medicines = medicines;
 
@@ -326,17 +342,21 @@ class _$StartedImpl implements _Started {
   final String surgeryDetails;
   @override
   final String treatmentTakenDetails;
-  final List<Map<String, dynamic>> _allergies;
   @override
-  List<Map<String, dynamic>> get allergies {
+  final BuildContext context;
+  final List<Allergy>? _allergies;
+  @override
+  List<Allergy>? get allergies {
+    final value = _allergies;
+    if (value == null) return null;
     if (_allergies is EqualUnmodifiableListView) return _allergies;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_allergies);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<Medicines>? _medicines;
+  final List<Medicine>? _medicines;
   @override
-  List<Medicines>? get medicines {
+  List<Medicine>? get medicines {
     final value = _medicines;
     if (value == null) return null;
     if (_medicines is EqualUnmodifiableListView) return _medicines;
@@ -346,7 +366,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'AddMemberEvent.started(fullName: $fullName, age: $age, mobileNumber: $mobileNumber, gender: $gender, regularMedicine: $regularMedicine, surgeryName: $surgeryName, treatmentTaken: $treatmentTaken, surgeryDetails: $surgeryDetails, treatmentTakenDetails: $treatmentTakenDetails, allergies: $allergies, medicines: $medicines)';
+    return 'AddMembersEvent.started(fullName: $fullName, age: $age, mobileNumber: $mobileNumber, gender: $gender, regularMedicine: $regularMedicine, surgeryName: $surgeryName, treatmentTaken: $treatmentTaken, surgeryDetails: $surgeryDetails, treatmentTakenDetails: $treatmentTakenDetails, context: $context, allergies: $allergies, medicines: $medicines)';
   }
 
   @override
@@ -370,6 +390,7 @@ class _$StartedImpl implements _Started {
                 other.surgeryDetails == surgeryDetails) &&
             (identical(other.treatmentTakenDetails, treatmentTakenDetails) ||
                 other.treatmentTakenDetails == treatmentTakenDetails) &&
+            (identical(other.context, context) || other.context == context) &&
             const DeepCollectionEquality()
                 .equals(other._allergies, _allergies) &&
             const DeepCollectionEquality()
@@ -388,6 +409,7 @@ class _$StartedImpl implements _Started {
       treatmentTaken,
       surgeryDetails,
       treatmentTakenDetails,
+      context,
       const DeepCollectionEquality().hash(_allergies),
       const DeepCollectionEquality().hash(_medicines));
 
@@ -410,8 +432,9 @@ class _$StartedImpl implements _Started {
             String treatmentTaken,
             String surgeryDetails,
             String treatmentTakenDetails,
-            List<Map<String, dynamic>> allergies,
-            List<Medicines>? medicines)
+            BuildContext context,
+            List<Allergy>? allergies,
+            List<Medicine>? medicines)
         started,
   }) {
     return started(
@@ -424,6 +447,7 @@ class _$StartedImpl implements _Started {
         treatmentTaken,
         surgeryDetails,
         treatmentTakenDetails,
+        context,
         allergies,
         medicines);
   }
@@ -441,8 +465,9 @@ class _$StartedImpl implements _Started {
             String treatmentTaken,
             String surgeryDetails,
             String treatmentTakenDetails,
-            List<Map<String, dynamic>> allergies,
-            List<Medicines>? medicines)?
+            BuildContext context,
+            List<Allergy>? allergies,
+            List<Medicine>? medicines)?
         started,
   }) {
     return started?.call(
@@ -455,6 +480,7 @@ class _$StartedImpl implements _Started {
         treatmentTaken,
         surgeryDetails,
         treatmentTakenDetails,
+        context,
         allergies,
         medicines);
   }
@@ -472,8 +498,9 @@ class _$StartedImpl implements _Started {
             String treatmentTaken,
             String surgeryDetails,
             String treatmentTakenDetails,
-            List<Map<String, dynamic>> allergies,
-            List<Medicines>? medicines)?
+            BuildContext context,
+            List<Allergy>? allergies,
+            List<Medicine>? medicines)?
         started,
     required TResult orElse(),
   }) {
@@ -488,6 +515,7 @@ class _$StartedImpl implements _Started {
           treatmentTaken,
           surgeryDetails,
           treatmentTakenDetails,
+          context,
           allergies,
           medicines);
     }
@@ -523,19 +551,20 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements AddMemberEvent {
+abstract class _Started implements AddMembersEvent {
   const factory _Started(
-      {required final String fullName,
-      required final String age,
-      required final String mobileNumber,
-      required final String gender,
-      required final String regularMedicine,
-      required final String surgeryName,
-      required final String treatmentTaken,
-      required final String surgeryDetails,
-      required final String treatmentTakenDetails,
-      required final List<Map<String, dynamic>> allergies,
-      final List<Medicines>? medicines}) = _$StartedImpl;
+      final String fullName,
+      final String age,
+      final String mobileNumber,
+      final String gender,
+      final String regularMedicine,
+      final String surgeryName,
+      final String treatmentTaken,
+      final String surgeryDetails,
+      final String treatmentTakenDetails,
+      final BuildContext context,
+      final List<Allergy>? allergies,
+      final List<Medicine>? medicines) = _$StartedImpl;
 
   @override
   String get fullName;
@@ -556,9 +585,11 @@ abstract class _Started implements AddMemberEvent {
   @override
   String get treatmentTakenDetails;
   @override
-  List<Map<String, dynamic>> get allergies;
+  BuildContext get context;
   @override
-  List<Medicines>? get medicines;
+  List<Allergy>? get allergies;
+  @override
+  List<Medicine>? get medicines;
   @override
   @JsonKey(ignore: true)
   _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
@@ -566,34 +597,34 @@ abstract class _Started implements AddMemberEvent {
 }
 
 /// @nodoc
-mixin _$AddMemberState {
+mixin _$AddMembersState {
   bool get isloding => throw _privateConstructorUsedError;
-  AddMemberModel? get model => throw _privateConstructorUsedError;
-  Option<Either<MainFailure, AddMemberModel>>
+  ClintClinicModelData? get model => throw _privateConstructorUsedError;
+  Option<Either<MainFailure, ClintClinicModelData>>
       get registerFaileurOrSuccessOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $AddMemberStateCopyWith<AddMemberState> get copyWith =>
+  $AddMembersStateCopyWith<AddMembersState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddMemberStateCopyWith<$Res> {
-  factory $AddMemberStateCopyWith(
-          AddMemberState value, $Res Function(AddMemberState) then) =
-      _$AddMemberStateCopyWithImpl<$Res, AddMemberState>;
+abstract class $AddMembersStateCopyWith<$Res> {
+  factory $AddMembersStateCopyWith(
+          AddMembersState value, $Res Function(AddMembersState) then) =
+      _$AddMembersStateCopyWithImpl<$Res, AddMembersState>;
   @useResult
   $Res call(
       {bool isloding,
-      AddMemberModel? model,
-      Option<Either<MainFailure, AddMemberModel>>
+      ClintClinicModelData? model,
+      Option<Either<MainFailure, ClintClinicModelData>>
           registerFaileurOrSuccessOption});
 }
 
 /// @nodoc
-class _$AddMemberStateCopyWithImpl<$Res, $Val extends AddMemberState>
-    implements $AddMemberStateCopyWith<$Res> {
-  _$AddMemberStateCopyWithImpl(this._value, this._then);
+class _$AddMembersStateCopyWithImpl<$Res, $Val extends AddMembersState>
+    implements $AddMembersStateCopyWith<$Res> {
+  _$AddMembersStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -615,18 +646,18 @@ class _$AddMemberStateCopyWithImpl<$Res, $Val extends AddMemberState>
       model: freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as AddMemberModel?,
+              as ClintClinicModelData?,
       registerFaileurOrSuccessOption: null == registerFaileurOrSuccessOption
           ? _value.registerFaileurOrSuccessOption
           : registerFaileurOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailure, AddMemberModel>>,
+              as Option<Either<MainFailure, ClintClinicModelData>>,
     ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$InitialImplCopyWith<$Res>
-    implements $AddMemberStateCopyWith<$Res> {
+    implements $AddMembersStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
@@ -634,14 +665,14 @@ abstract class _$$InitialImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isloding,
-      AddMemberModel? model,
-      Option<Either<MainFailure, AddMemberModel>>
+      ClintClinicModelData? model,
+      Option<Either<MainFailure, ClintClinicModelData>>
           registerFaileurOrSuccessOption});
 }
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$AddMemberStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$AddMembersStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -662,11 +693,11 @@ class __$$InitialImplCopyWithImpl<$Res>
       model: freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as AddMemberModel?,
+              as ClintClinicModelData?,
       registerFaileurOrSuccessOption: null == registerFaileurOrSuccessOption
           ? _value.registerFaileurOrSuccessOption
           : registerFaileurOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailure, AddMemberModel>>,
+              as Option<Either<MainFailure, ClintClinicModelData>>,
     ));
   }
 }
@@ -682,14 +713,14 @@ class _$InitialImpl implements _Initial {
   @override
   final bool isloding;
   @override
-  final AddMemberModel? model;
+  final ClintClinicModelData? model;
   @override
-  final Option<Either<MainFailure, AddMemberModel>>
+  final Option<Either<MainFailure, ClintClinicModelData>>
       registerFaileurOrSuccessOption;
 
   @override
   String toString() {
-    return 'AddMemberState(isloding: $isloding, model: $model, registerFaileurOrSuccessOption: $registerFaileurOrSuccessOption)';
+    return 'AddMembersState(isloding: $isloding, model: $model, registerFaileurOrSuccessOption: $registerFaileurOrSuccessOption)';
   }
 
   @override
@@ -717,19 +748,19 @@ class _$InitialImpl implements _Initial {
       __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 }
 
-abstract class _Initial implements AddMemberState {
+abstract class _Initial implements AddMembersState {
   const factory _Initial(
       {required final bool isloding,
-      final AddMemberModel? model,
-      required final Option<Either<MainFailure, AddMemberModel>>
+      final ClintClinicModelData? model,
+      required final Option<Either<MainFailure, ClintClinicModelData>>
           registerFaileurOrSuccessOption}) = _$InitialImpl;
 
   @override
   bool get isloding;
   @override
-  AddMemberModel? get model;
+  ClintClinicModelData? get model;
   @override
-  Option<Either<MainFailure, AddMemberModel>>
+  Option<Either<MainFailure, ClintClinicModelData>>
       get registerFaileurOrSuccessOption;
   @override
   @JsonKey(ignore: true)

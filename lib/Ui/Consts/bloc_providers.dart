@@ -55,9 +55,10 @@ import 'package:mediezy_user/Repository/Bloc/SearchDoctor/search_doctor_bloc.dar
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/ContactUs/contact_us_bloc.dart';
+import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
-import '../../ddd/application/add_member/add_member_bloc.dart';
+import '../../ddd/application/add_members/add_members_bloc.dart';
 
 class AppBlocProviders {
   static get allBlocProviders => [
@@ -120,7 +121,10 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetDischargeSummaryByIdDartBloc()),
         BlocProvider(create: (context) => ContactUsBloc()),
         BlocProvider(
-          create: (context) => getIt<AddMemberBloc>(),
+          create: (context) => getIt<AddMembersBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<AddMemberImageBloc>(),
         ),
       ];
 }

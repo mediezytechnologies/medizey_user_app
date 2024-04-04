@@ -13,41 +13,39 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:injectable/injectable.dart';
-import 'package:dio/dio.dart';
-import 'package:mediezy_user/ddd/domain/add_member/model/medicines.dart';
 import 'package:mediezy_user/ddd/domain/core/failures/main_failure.dart';
-import 'package:mediezy_user/ddd/infrastructure/add_member/md.dart';
-import 'package:mediezy_user/ddd/infrastructure/add_member/model.dart';
+import 'package:mediezy_user/ddd/domain/add_member_image/model/add_member_image.dart';
+import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/add_member/add_member_service.dart';
-import '../../domain/add_member/model/add_member_model.dart';
 
 @LazySingleton(as: AddMemberRepo)
 class RegisterServiceImpl implements AddMemberRepo {
   @override
-  Future<Either<MainFailure, AddMemberModel>> getdoctersData({
-    required String fullName,
-    required String age,
-    required String mobileNumber,
-    required String gender,
-    required String regularMedicine,
-    required String surgeryName,
-    required String treatmentTaken,
-    required String surgeryDetails,
-    required String treatmentTakenDetails,
-    required List<Map<String, dynamic>> allergies,
-    List<Medicines>? medicines,
-  }) async {
+  Future<Either<MainFailure, ClintClinicModelData?>> getdoctersData(
+     String fullName,
+     String age,
+     String mobileNumber,
+     String gender,
+     String regularMedicine,
+     String surgeryName,
+     String treatmentTaken,
+     String surgeryDetails,
+     String treatmentTakenDetails,
+     List<Allergy>? allergies,
+    List<Medicine>? medicines,
+    BuildContext context
+  ) async {
     final preference = await SharedPreferences.getInstance();
     String userId = preference.getString('userId').toString();
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
     try {
       final response = await Dio(BaseOptions(
-        headers: {'Authorization': 'Bearer $token'},
-        contentType: 'application/x-www-form-urlencoded',
+      headers: {'Authorization': 'Bearer $token'},
+        contentType: 'application/json',
       )).post(
         ApiEndPoints.addMember,
         data: {
@@ -65,12 +63,21 @@ class RegisterServiceImpl implements AddMemberRepo {
           "medicines": medicines,
         },
       );
-      // print(response);
+      print(response);
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final result = AddMemberModel.fromJson(response.data);
+        final result = ClintClinicModelData.fromJson(response.data);
 
         log("result : $result");
+        await preference.setInt('patientId', result.patientId!);
+        log("message id is : ${result.patientId}");
+
+        int? patianrId;
+        patianrId = preference.getInt('patientId');
+        log('Response data id : $patianrId');
+
+        log('Response: ${response.requestOptions}');
+        log('Response data: ${response.data}');
 
         return Right(result);
       } else {
@@ -80,6 +87,9 @@ class RegisterServiceImpl implements AddMemberRepo {
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message!);
+      log(e.error.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.response!.data['response'].toString())));
       log(e.error.toString());
       log("${MainFailure.serverFailure()}");
       return Left(MainFailure.serverFailure());
@@ -202,12 +212,9 @@ class ApiService {
     return null;
   }
 
-
-
 //imageeeeeee//
 
-
- Future<AddMemberImags?> imageUplodService(
+  Future<AddMemberImags?> imageUplodService(
       String imagePath, BuildContext context) async {
     final preference = await SharedPreferences.getInstance();
     String? token =
@@ -215,6 +222,7 @@ class ApiService {
     int? patianrId;
     patianrId = preference.getInt('patientId');
     try {
+      log("message  : $patianrId ");
       MultipartFile addMemberImage = await MultipartFile.fromFile(imagePath,
           filename: imagePath, contentType: MediaType('image', 'jpg'));
       FormData formData = FormData.fromMap({
@@ -224,7 +232,8 @@ class ApiService {
       var response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
-      )).post('https://mediezy.com/api/patient/addFamilyMember',
+      )).post(
+          'https://mediezy.com/api/patient/addFamilyMember/savePatientImage',
           data: formData);
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = AddMemberImags.fromJson(response.data);
@@ -241,21 +250,17 @@ class ApiService {
       log('fjklsfjkdfs');
       log(e.response!.statusCode.toString());
       log(e.response!.data!['response'].toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.response!.data['response'].toString())));
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(content: Text(e.response!.data['response'].toString())));
       log(e.error.toString());
     } catch (e) {
       // Exception occurred
       print('Exception: $e');
     }
   }
-
-
 }
 // To parse this JSON data, do
 //
 //     final clintClinicModels = clintClinicModelsFromJson(jsonString);
 
-class AddMemberImageService {
- 
-}
+class AddMemberImageService {}
