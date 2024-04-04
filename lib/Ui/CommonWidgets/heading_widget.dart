@@ -4,9 +4,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class HeadingWidget extends StatelessWidget {
   const HeadingWidget(
-      {super.key,
-      required this.title,
-      required this.viewAllFunction});
+      {super.key, required this.title, required this.viewAllFunction});
 
   final String title;
   final Function viewAllFunction;
@@ -23,18 +21,18 @@ class HeadingWidget extends StatelessWidget {
               fontWeight: FontWeight.w500,
               color: kSubTextColor),
         ),
-       InkWell(
-                onTap: () {
-                  viewAllFunction();
-                },
-                child: Text(
-                  "View all",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: kMainColor),
-                ),
-              )
+        InkWell(
+          onTap: () {
+            viewAllFunction();
+          },
+          child: Text(
+            "View all",
+            style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+                color: kMainColor),
+          ),
+        )
       ],
     );
   }

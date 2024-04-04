@@ -1,4 +1,3 @@
-
 import 'package:http/http.dart';
 import 'package:mediezy_user/Repository/Api/ApiClient.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +20,7 @@ class ContactUsApi {
       "UserId": userId,
     };
     Response response =
-    await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+        await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
     return response.body;
   }
 }

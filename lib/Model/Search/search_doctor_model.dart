@@ -25,8 +25,7 @@ class SearchDoctorModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     if (searchDoctors != null) {
-      data['Search Doctors'] =
-          searchDoctors!.map((v) => v.toJson()).toList();
+      data['Search Doctors'] = searchDoctors!.map((v) => v.toJson()).toList();
     }
     data['code'] = code;
     data['message'] = message;

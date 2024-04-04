@@ -9,19 +9,21 @@ part 'get_uploaded_prescription_by_id_state.dart';
 class GetUploadedPrescriptionByIdBloc extends Bloc<
     GetUploadedPrescriptionByIdEvent, GetUploadedPrescriptionByIdState> {
   HealthRecordApi healthRecordApi = HealthRecordApi();
- 
+
   GetUploadedPrescriptionByIdBloc()
       : super(GetUploadedPrescriptionByIdInitial()) {
-    on<FetchUploadedPrescriptionById>((event, emit)async {
+    on<FetchUploadedPrescriptionById>((event, emit) async {
       emit(GetUploadedPrescriptionByIdLoading());
       try {
-        final prescriptionById = await healthRecordApi.getUploadedPrescriptionAsPerId(documentId: event.documentId);
-        emit(GetUploadedPrescriptionByIdLoaded(getUploadedPrescriptionByIdModel: prescriptionById));
+        final prescriptionById = await healthRecordApi
+            .getUploadedPrescriptionAsPerId(documentId: event.documentId);
+        emit(GetUploadedPrescriptionByIdLoaded(
+            getUploadedPrescriptionByIdModel: prescriptionById));
       } catch (error) {
-         print("<<<<<<<<<<GetUploadedPrescriptionAsPerIdError>>>>>>>>>>" + error.toString());
+        print("<<<<<<<<<<GetUploadedPrescriptionAsPerIdError>>>>>>>>>>" +
+            error.toString());
         emit(GetUploadedPrescriptionByIdError(errorMessage: error.toString()));
       }
-
     });
   }
 }

@@ -12,131 +12,120 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<GetCompletedAppointmetsByPatientIdBloc,
-              GetCompletedAppointmetsByPatientIdState>(
-            builder: (context, state) {
-              if (state is GetCompletedAppointmetsByPatientIdLoading) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: kMainColor,
-                  ),
-                );
-              }
-              if (state is GetCompletedAppointmetsByPatientIdError) {
-                return Center(
-                  child: Image(
-                    image: const AssetImage(
-                        "assets/images/something went wrong-01.png"),
-                    height: 200.h,
-                    width: 200.w,
-                  ),
-                );
-              }
-              if (state is GetCompletedAppointmetsByPatientIdLoaded) {
-                final completedAppointment = state.getCompletedAppointmentsModel;
-                return completedAppointment
-                            .completedAppointments!.isEmpty ||
-                        completedAppointment.completedAppointments ==
-                            null
-                    ? Center(
-                        child: Image.asset("assets/icons/no data.png"),
-                      )
-                    : ListView.builder(
-                        itemCount: completedAppointment
-                            .completedAppointments!.length,
-                        itemBuilder: (context, index) {
-                          return CompletedAppointmentCardWidget(
-                            prescriptions: completedAppointment
-                                .completedAppointments![index]
-                                .medicalPrescriptions!
-                                .toList(),
-                            clinicName: completedAppointment
-                                .completedAppointments![index].clinicName
+          GetCompletedAppointmetsByPatientIdState>(
+        builder: (context, state) {
+          if (state is GetCompletedAppointmetsByPatientIdLoading) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: kMainColor,
+              ),
+            );
+          }
+          if (state is GetCompletedAppointmetsByPatientIdError) {
+            return Center(
+              child: Image(
+                image: const AssetImage(
+                    "assets/images/something went wrong-01.png"),
+                height: 200.h,
+                width: 200.w,
+              ),
+            );
+          }
+          if (state is GetCompletedAppointmetsByPatientIdLoaded) {
+            final completedAppointment = state.getCompletedAppointmentsModel;
+            return completedAppointment.completedAppointments!.isEmpty ||
+                    completedAppointment.completedAppointments == null
+                ? Center(
+                    child: Image.asset("assets/icons/no data.png"),
+                  )
+                : ListView.builder(
+                    itemCount:
+                        completedAppointment.completedAppointments!.length,
+                    itemBuilder: (context, index) {
+                      return CompletedAppointmentCardWidget(
+                        prescriptions: completedAppointment
+                            .completedAppointments![index].medicalPrescriptions!
+                            .toList(),
+                        clinicName: completedAppointment
+                            .completedAppointments![index].clinicName
+                            .toString(),
+                        doctorImage: completedAppointment
+                            .completedAppointments![index].doctorImage
+                            .toString(),
+                        doctorName: completedAppointment
+                            .completedAppointments![index].doctorName
+                            .toString(),
+                        labName: completedAppointment
+                                    .completedAppointments![index].labName ==
+                                null
+                            ? ""
+                            : completedAppointment
+                                .completedAppointments![index].labName
                                 .toString(),
-                            doctorImage: completedAppointment
-                                .completedAppointments![index].doctorImage
+                        labTestName: completedAppointment
+                                    .completedAppointments![index].labTest ==
+                                null
+                            ? ""
+                            : completedAppointment
+                                .completedAppointments![index].labTest
                                 .toString(),
-                            doctorName: completedAppointment
-                                .completedAppointments![index].doctorName
-                                .toString(),
-                            labName: completedAppointment
-                                        .completedAppointments![index]
-                                        .labName ==
-                                    null
-                                ? ""
-                                : completedAppointment
-                                    .completedAppointments![index].labName
-                                    .toString(),
-                            labTestName: completedAppointment
-                                        .completedAppointments![index]
-                                        .labTest ==
-                                    null
-                                ? ""
-                                : completedAppointment
-                                    .completedAppointments![index].labTest
-                                    .toString(),
-                            medicalStoreName: completedAppointment
-                                        .completedAppointments![index]
-                                        .medicalStoreName ==
-                                    null
-                                ? ""
-                                : completedAppointment
+                        medicalStoreName: completedAppointment
                                     .completedAppointments![index]
-                                    .medicalStoreName
-                                    .toString(),
-                            note: completedAppointment
-                                        .completedAppointments![index].notes ==
-                                    null
-                                ? ""
-                                : completedAppointment
-                                    .completedAppointments![index].notes
-                                    .toString(),
-                            patientName: completedAppointment
-                                .completedAppointments![index].patientName
+                                    .medicalStoreName ==
+                                null
+                            ? ""
+                            : completedAppointment
+                                .completedAppointments![index].medicalStoreName
                                 .toString(),
-                            prescriptionImage: completedAppointment
-                                        .completedAppointments![index]
-                                        .prescriptionImage ==
-                                    null
-                                ? ""
-                                : completedAppointment
+                        note: completedAppointment
+                                    .completedAppointments![index].notes ==
+                                null
+                            ? ""
+                            : completedAppointment
+                                .completedAppointments![index].notes
+                                .toString(),
+                        patientName: completedAppointment
+                            .completedAppointments![index].patientName
+                            .toString(),
+                        prescriptionImage: completedAppointment
                                     .completedAppointments![index]
-                                    .prescriptionImage
-                                    .toString(),
-                            reviewAfter: completedAppointment
-                                        .completedAppointments![index]
-                                        .reviewAfter ==
-                                    null
-                                ? ""
-                                : completedAppointment
-                                    .completedAppointments![index].reviewAfter
-                                    .toString(),
-                            tokenDate: completedAppointment
-                                .completedAppointments![index].tokenDate
+                                    .prescriptionImage ==
+                                null
+                            ? ""
+                            : completedAppointment
+                                .completedAppointments![index].prescriptionImage
                                 .toString(),
-                            tokenTime: completedAppointment
-                                .completedAppointments![index].tokenTime
-                                .toString(),
-                            symptoms: completedAppointment
-                                        .completedAppointments![index]
-                                        .mainSymptoms!
-                                        .mainsymptoms ==
-                                    null
-                                ? completedAppointment
+                        reviewAfter: completedAppointment
                                     .completedAppointments![index]
-                                    .otherSymptom!
-                                    .symtoms
-                                    .toString()
-                                : completedAppointment
+                                    .reviewAfter ==
+                                null
+                            ? ""
+                            : completedAppointment
+                                .completedAppointments![index].reviewAfter
+                                .toString(),
+                        tokenDate: completedAppointment
+                            .completedAppointments![index].tokenDate
+                            .toString(),
+                        tokenTime: completedAppointment
+                            .completedAppointments![index].tokenTime
+                            .toString(),
+                        symptoms: completedAppointment
                                     .completedAppointments![index]
                                     .mainSymptoms!
-                                    .mainsymptoms
-                                    .toString(),
-                          );
-                        });
-              }
-              return Container();
-            },
-          ),
+                                    .mainsymptoms ==
+                                null
+                            ? completedAppointment.completedAppointments![index]
+                                .otherSymptom!.symtoms
+                                .toString()
+                            : completedAppointment.completedAppointments![index]
+                                .mainSymptoms!.mainsymptoms
+                                .toString(),
+                      );
+                    });
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

@@ -343,28 +343,27 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
     }
   }
 }
-  //*pick file from mobile
-  // Future<void> pickFile() async {
-  //   try {
-  //     FilePickerResult? result = await FilePicker.platform.pickFiles();
-  //     if (result != null) {
-  //       String path = result.files.single.path!;
-  //       setState(() {
-  //         filePath = path;
-  //         print("<<<<PICK FILE PATH>>>>>>> $filePath");
-  //         Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (context) =>
-  //                 DocumentPreviewScreen(imageUrl: filePath!, type: widget.type),
-  //           ),
-  //         );
-  //       });
-  //     } else {
-  //       // User canceled the file picker
-  //     }
-  //   } catch (e) {
-  //     print('Error picking file: $e');
-  //   }
-  // }
-
+//*pick file from mobile
+// Future<void> pickFile() async {
+//   try {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles();
+//     if (result != null) {
+//       String path = result.files.single.path!;
+//       setState(() {
+//         filePath = path;
+//         print("<<<<PICK FILE PATH>>>>>>> $filePath");
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) =>
+//                 DocumentPreviewScreen(imageUrl: filePath!, type: widget.type),
+//           ),
+//         );
+//       });
+//     } else {
+//       // User canceled the file picker
+//     }
+//   } catch (e) {
+//     print('Error picking file: $e');
+//   }
+// }

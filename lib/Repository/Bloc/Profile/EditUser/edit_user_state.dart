@@ -5,6 +5,8 @@ sealed class EditUserState {}
 
 final class EditUserInitial extends EditUserState {}
 
-class EditUserDetailsLoading extends EditUserState{}
-class EditUserDetailsLoaded extends EditUserState{}
-class EditUserDetailsError extends EditUserState{}
+class EditUserDetailsLoading extends EditUserState {}
+
+class EditUserDetailsLoaded extends EditUserState {}
+
+class EditUserDetailsError extends EditUserState {}

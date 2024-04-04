@@ -7,9 +7,8 @@ class GetTokenModel {
 
   GetTokenModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    schedule = json['schedule'] != null
-        ? Schedule.fromJson(json['schedule'])
-        : null;
+    schedule =
+        json['schedule'] != null ? Schedule.fromJson(json['schedule']) : null;
     message = json['message'];
   }
 
@@ -156,7 +155,6 @@ class Schedule2 {
     return data;
   }
 }
-
 
 class Schedule3 {
   int? scheduleId;

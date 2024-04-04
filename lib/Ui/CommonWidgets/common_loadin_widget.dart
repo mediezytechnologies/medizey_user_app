@@ -4,7 +4,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 //* loading doctor card
 Widget doctorCardLoadingWidget() {
   return Shimmer.fromColors(

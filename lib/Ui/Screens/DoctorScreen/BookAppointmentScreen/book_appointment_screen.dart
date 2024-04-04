@@ -156,7 +156,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -402,9 +403,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       itemBuilder: (context, index) {
                                         return TokenCardWidget(
                                           clinicAddress: selectedClinicAddress,
-                                          clinicLocation: selectedClinicLocation,
+                                          clinicLocation:
+                                              selectedClinicLocation,
                                           clinicName: selectedClinicName,
-                                          doctorFirstName: widget.doctorFirstName,
+                                          doctorFirstName:
+                                              widget.doctorFirstName,
                                           doctorSecondName:
                                               widget.doctorSecondName,
                                           clinicId: selectedClinicId,
@@ -430,13 +433,15 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           sheduleType: getTokenModel.schedule!
                                               .schedule1![index].scheduleType
                                               .toString(),
-                                          estimatedTime: getTokenModel.schedule!
-                                              .schedule1![index].estimateStartTime
+                                          estimatedTime: getTokenModel
+                                              .schedule!
+                                              .schedule1![index]
+                                              .estimateStartTime
                                               .toString(),
                                         );
                                       },
                                     ),
-              
+
                                   //! shedule 2
                                   if (getTokenModel
                                           .schedule?.schedule2?.isNotEmpty ==
@@ -454,7 +459,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                         VerticalSpacingWidget(height: 5),
                                       ],
                                     ),
-              
+
                                   if (getTokenModel
                                           .schedule?.schedule2?.isNotEmpty ==
                                       true)
@@ -476,9 +481,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       itemBuilder: (context, index) {
                                         return TokenCardWidget(
                                           clinicAddress: selectedClinicAddress,
-                                          clinicLocation: selectedClinicLocation,
+                                          clinicLocation:
+                                              selectedClinicLocation,
                                           clinicName: selectedClinicName,
-                                          doctorFirstName: widget.doctorFirstName,
+                                          doctorFirstName:
+                                              widget.doctorFirstName,
                                           isReserved: getTokenModel.schedule!
                                               .schedule2![index].isReserved
                                               .toString(),
@@ -504,13 +511,15 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           sheduleType: getTokenModel.schedule!
                                               .schedule2![index].scheduleType
                                               .toString(),
-                                          estimatedTime: getTokenModel.schedule!
-                                              .schedule2![index].estimateStartTime
+                                          estimatedTime: getTokenModel
+                                              .schedule!
+                                              .schedule2![index]
+                                              .estimateStartTime
                                               .toString(),
                                         );
                                       },
                                     ),
-              
+
                                   //! shedule 3
                                   if (getTokenModel
                                           .schedule?.schedule3?.isNotEmpty ==
@@ -528,7 +537,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                         VerticalSpacingWidget(height: 5),
                                       ],
                                     ),
-              
+
                                   if (getTokenModel
                                           .schedule?.schedule3?.isNotEmpty ==
                                       true)
@@ -550,9 +559,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       itemBuilder: (context, index) {
                                         return TokenCardWidget(
                                           clinicAddress: selectedClinicAddress,
-                                          clinicLocation: selectedClinicLocation,
+                                          clinicLocation:
+                                              selectedClinicLocation,
                                           clinicName: selectedClinicName,
-                                          doctorFirstName: widget.doctorFirstName,
+                                          doctorFirstName:
+                                              widget.doctorFirstName,
                                           doctorSecondName:
                                               widget.doctorSecondName,
                                           clinicId: selectedClinicId,
@@ -578,8 +589,10 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           sheduleType: getTokenModel.schedule!
                                               .schedule3![index].scheduleType
                                               .toString(),
-                                          estimatedTime: getTokenModel.schedule!
-                                              .schedule3![index].estimateStartTime
+                                          estimatedTime: getTokenModel
+                                              .schedule!
+                                              .schedule3![index]
+                                              .estimateStartTime
                                               .toString(),
                                         );
                                       },

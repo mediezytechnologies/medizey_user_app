@@ -9,5 +9,4 @@ class DeleteMedicineLoading extends DeleteMedicineState {}
 
 class DeleteMedicineLoaded extends DeleteMedicineState {}
 
-class DeleteMedicineError extends DeleteMedicineState {
-}
+class DeleteMedicineError extends DeleteMedicineState {}

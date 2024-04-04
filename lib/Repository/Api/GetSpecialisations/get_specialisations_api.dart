@@ -20,16 +20,13 @@ class GetSpecialisationsApi {
 
   //* get doctor as per specialisations
   Future<GetDoctersAsPerSpecialisationModel> getDoctorsAsPerSpecialisation(
-    {required String id}
-  ) async {
+      {required String id}) async {
     String basePath = "docter/docterByspecialization/$id";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
-    print("<<<<< GET DOCTORS AS PER SPECIALISATIONS WORKED SUCCESSFULLY >>>>>>");
-    return GetDoctersAsPerSpecialisationModel.fromJson(json.decode(response.body));
+    print(
+        "<<<<< GET DOCTORS AS PER SPECIALISATIONS WORKED SUCCESSFULLY >>>>>>");
+    return GetDoctersAsPerSpecialisationModel.fromJson(
+        json.decode(response.body));
   }
-
-
-
-  
 }

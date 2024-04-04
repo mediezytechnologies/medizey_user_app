@@ -5,9 +5,8 @@ sealed class GetFamilyMembersState {}
 
 final class GetFamilyMembersInitial extends GetFamilyMembersState {}
 
+class GetFamilyMembersLoading extends GetFamilyMembersState {}
 
-class GetFamilyMembersLoading extends GetFamilyMembersState{}
+class GetFamilyMembersLoaded extends GetFamilyMembersState {}
 
-class GetFamilyMembersLoaded extends GetFamilyMembersState{}
-
-class GetFamilyMembersError extends GetFamilyMembersState{}
+class GetFamilyMembersError extends GetFamilyMembersState {}
