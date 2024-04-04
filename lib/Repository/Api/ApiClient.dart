@@ -6,21 +6,21 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiException.dart';
 
-
 class ApiClient {
   static const String basePath = "https://mediezy.com/api/";
+// static const String basePath = "https://test.mediezy.com/api/";
 
   String orignalToken = '';
 
   Future<Response> invokeAPI(
       {required String path,
-        required String method,
-        required Object? body}) async {
+      required String method,
+      required Object? body}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token') ?? prefs.getString('tokenD');
-   
+
     print(prefs.getString('token'));
-    
+
     print("Invoke Api worked");
     print(method);
     print(token);
@@ -30,7 +30,6 @@ class ApiClient {
       headerParams = {
         "authorization": "Bearer $token",
         'Accept': 'application/json',
-       
         "content-type": "multipart/form-data"
       };
       print(jsonEncode(body));
@@ -111,6 +110,6 @@ class ApiClient {
       return jsonDecode(response.body)['message'];
     } else {
       return response.body;
-}
-}
+    }
+  }
 }

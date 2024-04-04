@@ -238,9 +238,14 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
               ],
             ),
             const VerticalSpacingWidget(height: 150),
-            CommonButtonWidget(title: "Submit", onTapFunction: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>const CommonSymptomsScreen()));
-            })
+            CommonButtonWidget(
+                title: "Submit",
+                onTapFunction: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CommonSymptomsScreen()));
+                })
           ],
         ),
       ),

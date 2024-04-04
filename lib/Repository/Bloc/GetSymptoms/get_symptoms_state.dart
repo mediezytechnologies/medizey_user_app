@@ -4,6 +4,7 @@ part of 'get_symptoms_bloc.dart';
 abstract class GetSymptomsState {}
 
 class GetSymptomsInitial extends GetSymptomsState {}
+
 final class GetSymptomsLoading extends GetSymptomsState {}
 
 final class GetSymptomsLoaded extends GetSymptomsState {}

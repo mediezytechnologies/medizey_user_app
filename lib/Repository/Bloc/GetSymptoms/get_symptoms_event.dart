@@ -5,7 +5,5 @@ abstract class GetSymptomsEvent {}
 
 class FetchSymptoms extends GetSymptomsEvent {
   final String doctorId;
-  FetchSymptoms({
-    required this.doctorId
-});
+  FetchSymptoms({required this.doctorId});
 }

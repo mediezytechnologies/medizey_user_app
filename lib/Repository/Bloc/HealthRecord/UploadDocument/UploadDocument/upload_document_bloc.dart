@@ -7,14 +7,16 @@ import 'package:meta/meta.dart';
 part 'upload_document_event.dart';
 part 'upload_document_state.dart';
 
-class UploadDocumentBloc extends Bloc<UploadDocumentEvent, UploadDocumentState> {
+class UploadDocumentBloc
+    extends Bloc<UploadDocumentEvent, UploadDocumentState> {
   late UpLoadDocumentModel uploadDocumentModel;
-  UploadDocumentApi uploadDocumentApi=UploadDocumentApi();
+  UploadDocumentApi uploadDocumentApi = UploadDocumentApi();
   UploadDocumentBloc() : super(UploadDocumentInitial()) {
     on<FetchUploadDocuments>((event, emit) async {
       emit(UploadDocumentLoading());
       try {
-        uploadDocumentModel = await uploadDocumentApi.uploadDocument(document: event.document);
+        uploadDocumentModel =
+            await uploadDocumentApi.uploadDocument(document: event.document);
         emit(UploadDocumentLoaded());
       } catch (error) {
         print("<<<<<<<<<<GetAllAddedMembersError>>>>>>>>>>" + error.toString());

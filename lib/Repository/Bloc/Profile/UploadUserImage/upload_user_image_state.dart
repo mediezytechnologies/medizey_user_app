@@ -5,8 +5,8 @@ sealed class UploadUserImageState {}
 
 final class UploadUserImageInitial extends UploadUserImageState {}
 
+class UploadUserImageLoading extends UploadUserImageState {}
 
-class UploadUserImageLoading extends UploadUserImageState{}
-class UploadUserImageLoaded extends UploadUserImageState{}
-class UploadUserImageError extends UploadUserImageState{}
+class UploadUserImageLoaded extends UploadUserImageState {}
 
+class UploadUserImageError extends UploadUserImageState {}

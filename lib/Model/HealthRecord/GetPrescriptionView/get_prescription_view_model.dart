@@ -18,8 +18,7 @@ class GetPrescriptionViewModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (prescriptions != null) {
-      data['prescriptions'] =
-          prescriptions!.map((v) => v.toJson()).toList();
+      data['prescriptions'] = prescriptions!.map((v) => v.toJson()).toList();
     }
     return data;
   }

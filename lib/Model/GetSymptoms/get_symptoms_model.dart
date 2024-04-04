@@ -1,6 +1,7 @@
 class GetSymptomsModel {
   GetSymptomsModel({
-    this.symptoms,});
+    this.symptoms,
+  });
 
   GetSymptomsModel.fromJson(dynamic json) {
     if (json['symptoms'] != null) {
@@ -19,7 +20,6 @@ class GetSymptomsModel {
     }
     return map;
   }
-
 }
 
 class Symptoms {
@@ -28,7 +28,8 @@ class Symptoms {
     this.specializationId,
     this.symtoms,
     this.createdAt,
-    this.updatedAt,});
+    this.updatedAt,
+  });
 
   Symptoms.fromJson(dynamic json) {
     id = json['id'];
@@ -52,5 +53,4 @@ class Symptoms {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

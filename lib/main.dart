@@ -5,12 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
+import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
-void main() {
+import 'package:get_storage/get_storage.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await configureInjection();
+  await GetStorage.init();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-  ]); 
+  ]);
   runApp(
     MultiBlocProvider(
       providers: AppBlocProviders.allBlocProviders,
@@ -31,7 +36,7 @@ class Mediezy extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Mediezy',
+          title: 'Mediezy User',
           theme: appThemeStyle(),
           home: const SplashScreen(),
         );

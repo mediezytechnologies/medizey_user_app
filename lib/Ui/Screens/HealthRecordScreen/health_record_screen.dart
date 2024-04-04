@@ -456,7 +456,8 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                   Row(
                                                     children: [
                                                       IconButton(
-                                                        padding: EdgeInsets.zero,
+                                                        padding:
+                                                            EdgeInsets.zero,
                                                         onPressed: () async {
                                                           bool addedData =
                                                               await Navigator
@@ -575,7 +576,9 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                       index == 0
                                                           ? Container()
                                                           : IconButton(
-                                                             padding: EdgeInsets.zero,
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
                                                               onPressed: () {
                                                                 GeneralServices
                                                                     .instance

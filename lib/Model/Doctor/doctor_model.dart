@@ -91,5 +91,3 @@ class AllDoctors {
     return data;
   }
 }
-
-

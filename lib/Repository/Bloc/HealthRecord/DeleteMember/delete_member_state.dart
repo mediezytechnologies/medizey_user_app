@@ -5,8 +5,8 @@ sealed class DeleteMemberState {}
 
 final class DeleteMemberInitial extends DeleteMemberState {}
 
+class DeleteMemberLoading extends DeleteMemberState {}
 
-class DeleteMemberLoading extends DeleteMemberState{}
-class DeleteMemberLoaded extends DeleteMemberState{}
-class DeleteMemberError extends DeleteMemberState{}
+class DeleteMemberLoaded extends DeleteMemberState {}
 
+class DeleteMemberError extends DeleteMemberState {}

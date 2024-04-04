@@ -42,7 +42,8 @@ class _DocumentPreviewScreenState extends State<DocumentPreviewScreen> {
           if (state is UploadDocumentLoaded) {
             upLoadDocumentModel = BlocProvider.of<UploadDocumentBloc>(context)
                 .uploadDocumentModel;
-                print("<<<<document id ${upLoadDocumentModel.document!.id.toString()}");
+            print(
+                "<<<<document id ${upLoadDocumentModel.document!.id.toString()}");
             Navigator.push(
               context,
               MaterialPageRoute(

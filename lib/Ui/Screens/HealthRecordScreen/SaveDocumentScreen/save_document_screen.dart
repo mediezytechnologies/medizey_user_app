@@ -432,7 +432,7 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                     controller: additionalNoteController,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
-                     maxLines: 2,
+                    maxLines: 2,
                     decoration: InputDecoration(
                       hintStyle:
                           TextStyle(fontSize: 13.sp, color: kSubTextColor),

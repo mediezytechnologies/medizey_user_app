@@ -10,16 +10,16 @@ class GetMemberByIdBloc extends Bloc<GetMemberByIdEvent, GetMemberByIdState> {
   HealthRecordApi healthRecordApi = HealthRecordApi();
   late GetMemberAsPerIdModel getMemberAsPerIdModel;
   GetMemberByIdBloc() : super(GetMemberByIdInitial()) {
-    on<FetchMemberById>((event, emit)async {
+    on<FetchMemberById>((event, emit) async {
       emit(GetMemberByIdLoading());
       try {
-        getMemberAsPerIdModel = await healthRecordApi.getMemberAsPerId(patientId: event.patientId);
+        getMemberAsPerIdModel =
+            await healthRecordApi.getMemberAsPerId(patientId: event.patientId);
         emit(GetMemberByIdLoaded());
       } catch (error) {
-         print("<<<<<<<<<<GetMemberAsPerIdError>>>>>>>>>>" + error.toString());
+        print("<<<<<<<<<<GetMemberAsPerIdError>>>>>>>>>>" + error.toString());
         emit(GetMemberByIdError());
       }
-
     });
   }
 }

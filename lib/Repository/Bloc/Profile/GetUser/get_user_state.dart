@@ -5,7 +5,8 @@ sealed class GetUserState {}
 
 final class GetUserInitial extends GetUserState {}
 
-class GetUserDetailsLoading extends GetUserState{}
-class GetUserDetailsLoaded extends GetUserState{}
-class GetUserDetailsError extends GetUserState{}
+class GetUserDetailsLoading extends GetUserState {}
 
+class GetUserDetailsLoaded extends GetUserState {}
+
+class GetUserDetailsError extends GetUserState {}

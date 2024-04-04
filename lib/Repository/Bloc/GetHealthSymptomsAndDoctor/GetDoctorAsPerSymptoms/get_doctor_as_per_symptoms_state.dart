@@ -5,8 +5,9 @@ sealed class GetDoctorAsPerSymptomsState {}
 
 final class GetDoctorAsPerSymptomsInitial extends GetDoctorAsPerSymptomsState {}
 
-class GetDoctorsAsperHealthSymptomsLoading extends GetDoctorAsPerSymptomsState{}
+class GetDoctorsAsperHealthSymptomsLoading
+    extends GetDoctorAsPerSymptomsState {}
 
-class GetDoctorsAsperHealthSymptomsLoaded extends GetDoctorAsPerSymptomsState{}
+class GetDoctorsAsperHealthSymptomsLoaded extends GetDoctorAsPerSymptomsState {}
 
-class GetDoctorsAsperHealthSymptomsError extends GetDoctorAsPerSymptomsState{}
+class GetDoctorsAsperHealthSymptomsError extends GetDoctorAsPerSymptomsState {}
