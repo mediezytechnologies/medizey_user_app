@@ -51,6 +51,7 @@ import 'package:mediezy_user/Repository/Bloc/LoginAndSignUp/login_and_signup_blo
 import 'package:mediezy_user/Repository/Bloc/Profile/EditUser/edit_user_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Profile/UploadUserImage/upload_user_image_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/SearchDoctor/search_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
@@ -116,5 +117,6 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetScanReportByIdBloc()),
         BlocProvider(create: (context) => GetDischargeSummaryByIdDartBloc()),
         BlocProvider(create: (context) => ContactUsBloc()),
+        BlocProvider(create: (context) => QrCodeScanBloc()),
       ];
 }

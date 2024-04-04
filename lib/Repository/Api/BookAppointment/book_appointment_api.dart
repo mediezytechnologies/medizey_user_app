@@ -28,7 +28,8 @@ class BookAppointmentApi {
     required List<String> appoinmentfor1,
     required List<int> appoinmentfor2,
     required String patientId,
-    required String sheduleType
+    required String sheduleType,
+    required String tokenId,
   }) async {
     String basePath = "patient/patientBookGeneratedTokens";
     final preferences = await SharedPreferences.getInstance();
@@ -50,7 +51,8 @@ class BookAppointmentApi {
       "clinic_id": clinicId,
       "Bookingtype": bookingType,
       "patient_id": patientId,
-      "schedule_type":sheduleType
+      "schedule_type": sheduleType,
+      "token_id": tokenId
     };
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);

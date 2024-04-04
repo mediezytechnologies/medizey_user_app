@@ -39,8 +39,6 @@ class AddMemberBloc extends Bloc<AddMemberEvent, AddMemberState> {
           } else {
             emit(AddMemberErrorState(errorMessage: message));
           }
-        } else {
-          emit(AddMemberErrorState(errorMessage: "Unexpected response format"));
         }
       } catch (e) {
         final errorMessage = _extractErrorMessage(e.toString());

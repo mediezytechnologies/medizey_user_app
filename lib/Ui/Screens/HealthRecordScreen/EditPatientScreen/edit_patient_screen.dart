@@ -727,7 +727,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "Edit",
+                                  "Add",
                                   style: TextStyle(
                                       fontSize: 18.sp,
                                       fontWeight: FontWeight.bold,

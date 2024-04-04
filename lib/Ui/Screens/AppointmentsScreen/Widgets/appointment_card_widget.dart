@@ -1,14 +1,19 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
+import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
+import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
   const AppointmentCardWidget(
@@ -33,7 +38,11 @@ class AppointmentCardWidget extends StatefulWidget {
       required this.clinicList,
       required this.isPatientAbsent,
       required this.nextAvailableDateAndTime,
-      required this.nextAvailableTokenNumber});
+      required this.nextAvailableTokenNumber,
+      required this.patientId,
+      required this.tokenId,
+      required this.doctorUniqueId,
+      required this.isReached});
 
   final String doctorId;
   final String docterImage;
@@ -56,6 +65,10 @@ class AppointmentCardWidget extends StatefulWidget {
   final String nextAvailableDateAndTime;
   final String nextAvailableTokenNumber;
   final String isPatientAbsent;
+  final int patientId;
+  final int tokenId;
+  final String doctorUniqueId;
+  final int isReached;
 
   @override
   State<AppointmentCardWidget> createState() => _AppointmentCardWidgetState();
@@ -64,6 +77,7 @@ class AppointmentCardWidget extends StatefulWidget {
 class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
   bool isSecondContainerVisible = false;
   DateTime currentDate = DateTime.now();
+  String? mediezyDoctorId;
   String formatDate() {
     String formattedSelectedDate = DateFormat('yyyy-MM-dd').format(currentDate);
     return formattedSelectedDate;
@@ -272,16 +286,21 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               ),
                             )
                           : Container(),
-                      const HorizontalSpacingWidget(width: 25),
+                      const HorizontalSpacingWidget(width: 10),
                       widget.isPatientAbsent == "Absent"
-                          ? Text(
-                              "Token will be considered\n as the last token",
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: Colors.red,
-                                fontWeight: FontWeight.w700,
-                                fontStyle: FontStyle.normal,
-                                letterSpacing: -1,
+                          ? SizedBox(
+                              height: 40.h,
+                              width: 180.w,
+                              child: Text(
+                                "You failed to reach on time, token will be considered as the last token",
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w700,
+                                  fontStyle: FontStyle.normal,
+                                  letterSpacing: -.5,
+                                ),
+                                maxLines: 3,
                               ),
                             )
                           : Row(
@@ -424,14 +443,15 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: Center(
-                                            child: Text(
-                                          "Book now",
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kCardColor,
-                                            fontWeight: FontWeight.bold,
+                                          child: Text(
+                                            "Book now",
+                                            style: TextStyle(
+                                              fontSize: 15.sp,
+                                              color: kCardColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        )),
+                                        ),
                                       ),
                                     ),
                                     const VerticalSpacingWidget(height: 3),
@@ -511,27 +531,52 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
           const VerticalSpacingWidget(height: 5),
           isSecondContainerVisible
               ? Container()
-              : Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-                    child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            isSecondContainerVisible =
-                                !isSecondContainerVisible;
-                          });
-                        },
-                        child: widget.leaveMessage == 0 &&
-                                widget.resheduleStatus == 0
-                            ? Text(
-                                isSecondContainerVisible
-                                    ? "See less"
-                                    : "See More",
-                                style: TextStyle(
-                                    fontSize: 15.sp, color: Colors.blue),
-                              )
-                            : Container()),
+              : Padding(
+                  padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      widget.appointmentDate == formatDate()
+                          ? widget.isReached == 1
+                              ? Text(
+                                  "Reached",
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xFF55B79B),
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () async {
+                                    await scanQR();
+                                  },
+                                  child: widget.leaveMessage == 0 &&
+                                          widget.resheduleStatus == 0
+                                      ? Icon(
+                                          Icons.qr_code_scanner_outlined,
+                                          color: Colors.blue,
+                                          size: 28.sp,
+                                        )
+                                      : Container())
+                          : const SizedBox(),
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              isSecondContainerVisible =
+                                  !isSecondContainerVisible;
+                            });
+                          },
+                          child: widget.leaveMessage == 0 &&
+                                  widget.resheduleStatus == 0
+                              ? Text(
+                                  isSecondContainerVisible
+                                      ? "See less"
+                                      : "See more",
+                                  style: TextStyle(
+                                      fontSize: 15.sp, color: Colors.blue),
+                                )
+                              : Container()),
+                    ],
                   ),
                 ),
           const VerticalSpacingWidget(height: 5),
@@ -686,5 +731,28 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
         ],
       ),
     );
+  }
+
+  Future<void> scanQR() async {
+    String qRcodeScanRes;
+    try {
+      qRcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#070606', 'Cancel', true, ScanMode.QR);
+    } on PlatformException {
+      qRcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+    setState(() {
+      if (widget.doctorUniqueId == qRcodeScanRes) {
+        BlocProvider.of<QrCodeScanBloc>(context).add(CheckQRCodeScan(
+            patientId: widget.patientId.toString(),
+            tokenId: widget.tokenId.toString(),
+            reachedStatus: "1"));
+        GeneralServices.instance.showToastMessage("Scanned successfully");
+      } else {
+        GeneralServices.instance.showToastMessage(
+            "Please try again");
+      }
+    });
   }
 }

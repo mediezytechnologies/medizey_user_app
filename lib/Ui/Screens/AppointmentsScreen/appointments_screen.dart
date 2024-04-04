@@ -178,6 +178,20 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                         .upcomingAppointments!.length,
                                     itemBuilder: (context, index) {
                                       return AppointmentCardWidget(
+                                        isReached: getUpComingAppointmentsModel
+                                            .upcomingAppointments![index]
+                                            .isReached!,
+                                        doctorUniqueId:
+                                            getUpComingAppointmentsModel
+                                                .upcomingAppointments![index]
+                                                .mediezyDoctorId
+                                                .toString(),
+                                        patientId: getUpComingAppointmentsModel
+                                            .upcomingAppointments![index]
+                                            .patientId!,
+                                        tokenId: getUpComingAppointmentsModel
+                                            .upcomingAppointments![index]
+                                            .tokenId!,
                                         isPatientAbsent:
                                             getUpComingAppointmentsModel
                                                         .upcomingAppointments![

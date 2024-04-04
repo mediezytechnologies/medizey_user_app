@@ -20,6 +20,7 @@ class PassBookAppointMentEvent extends BookAppointmentEvent {
   final List<int> appoinmentfor2;
   final String patientId;
   final String sheduleType;
+  final String tokenId;
 
   PassBookAppointMentEvent(
       {required this.patientName,
@@ -37,5 +38,6 @@ class PassBookAppointMentEvent extends BookAppointmentEvent {
       required this.appoinmentfor1,
       required this.appoinmentfor2,
       required this.patientId,
-      required this.sheduleType});
+      required this.sheduleType,
+      required this.tokenId});
 }

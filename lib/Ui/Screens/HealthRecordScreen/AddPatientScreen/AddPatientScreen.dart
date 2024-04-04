@@ -146,31 +146,51 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     ),
                   ],
                 ),
-                const VerticalSpacingWidget(height: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Full Name",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.sp,
-                          color: kSubTextColor),
+                const VerticalSpacingWidget(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: TextFormField(
+                    style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                    cursorColor: kMainColor,
+                    controller: fullNameController,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      hintStyle:
+                          TextStyle(fontSize: 13.sp, color: kSubTextColor),
+                      hintText: "Enter full name",
+                      filled: true,
+                      fillColor: kCardColor,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 10.0),
                     ),
-                    VerticalSpacingWidget(height: 5.h),
+                  ),
+                ),
+                VerticalSpacingWidget(height: 5.h),
+                Row(
+                  children: [
+                    const VerticalSpacingWidget(height: 5),
                     SizedBox(
-                      width: double.infinity,
-                      height: 50,
+                      height: 50.h,
+                      width: 200.w,
                       child: TextFormField(
+                        onTapOutside: (event) =>
+                            FocusScope.of(context).unfocus(),
                         style: TextStyle(fontSize: 13.sp, color: kTextColor),
                         cursorColor: kMainColor,
-                        controller: fullNameController,
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
+                        controller: phoneNumberController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 10,
                         decoration: InputDecoration(
+                          counterText: "",
                           hintStyle:
                               TextStyle(fontSize: 13.sp, color: kSubTextColor),
-                          hintText: "Enter full name",
+                          hintText: "Enter Phone Number",
                           filled: true,
                           fillColor: kCardColor,
                           border: OutlineInputBorder(
@@ -178,108 +198,49 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             borderSide: BorderSide.none,
                           ),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15.0, horizontal: 10.0),
+                              vertical: 16.0, horizontal: 10.0),
                         ),
                       ),
                     ),
-                  ],
-                ),
-                VerticalSpacingWidget(height: 5.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Phone Number",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13.sp,
-                              color: kSubTextColor),
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                        SizedBox(
-                          height: 50.h,
-                          width: 200.w,
-                          child: TextFormField(
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            style:
-                                TextStyle(fontSize: 13.sp, color: kTextColor),
-                            cursorColor: kMainColor,
-                            controller: phoneNumberController,
-                            keyboardType: TextInputType.number,
-                            maxLength: 10,
-                            decoration: InputDecoration(
-                              counterText: "",
-                              hintStyle: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
-                              hintText: "Enter Phone Number",
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 10.0),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "DOB",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13.sp,
-                              color: kSubTextColor),
-                        ),
-                        VerticalSpacingWidget(height: 5.h),
-                        InkWell(
-                          onTap: () {
-                            selectDate(
-                              context: context,
-                              date: dateOfBirth ?? DateTime.now(),
-                              onDateSelected: (DateTime picked) async {
-                                setState(() {
-                                  dateOfBirth = picked;
-                                });
-                              },
-                            );
+                    VerticalSpacingWidget(height: 5.h),
+                    InkWell(
+                      onTap: () {
+                        selectDate(
+                          context: context,
+                          date: dateOfBirth ?? DateTime.now(),
+                          onDateSelected: (DateTime picked) async {
+                            setState(() {
+                              dateOfBirth = picked;
+                            });
                           },
-                          child: Container(
-                            height: 48.h,
-                            width: 130.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
+                        );
+                      },
+                      child: Container(
+                        height: 48.h,
+                        width: 130.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              dateOfBirth != null
+                                  ? DateFormat('dd-MM-yyyy')
+                                      .format(dateOfBirth!)
+                                  : 'DOB',
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: kTextColor),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  dateOfBirth != null
-                                      ? DateFormat('dd-MM-yyyy')
-                                          .format(dateOfBirth!)
-                                      : 'DOB',
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: kTextColor),
-                                ),
-                                Icon(
-                                  IconlyLight.calendar,
-                                  color: kMainColor,
-                                ),
-                              ],
+                            Icon(
+                              IconlyLight.calendar,
+                              color: kMainColor,
                             ),
-                          ),
-                        )
-                      ],
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -1108,13 +1069,13 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       //     );
                       //   }
                       // });
-                      if (imageFromGallery != null) {
-                        BlocProvider.of<AddMemberBloc>(context).add(
-                          AddFamilyMemberImageEvent(
-                            image: imageFromGallery!,
-                          ),
-                        );
-                      }
+                      // if (imageFromGallery != null) {
+                      //   BlocProvider.of<AddMemberBloc>(context).add(
+                      //     AddFamilyMemberImageEvent(
+                      //       image: imageFromGallery!,
+                      //     ),
+                      //   );
+                      // }
                     }
                   },
                 ),

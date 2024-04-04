@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mediezy_user/Model/GetFamilyMembers/get_family_members_model.dart';
 import 'package:mediezy_user/Model/GetSymptoms/get_symptoms_model.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/AutoFetch/auto_fetch_bloc.dart';
@@ -36,7 +37,8 @@ class AppointmentDoneScreen extends StatefulWidget {
       required this.doctorFirstName,
       required this.doctorSecondName,
       required this.sheduleType,
-      required this.estimatedTime});
+      required this.estimatedTime,
+      required this.tokenId});
 
   final String bookingTime;
   final DateTime bookingDate;
@@ -50,6 +52,7 @@ class AppointmentDoneScreen extends StatefulWidget {
   final String clinicLocation;
   final String sheduleType;
   final String estimatedTime;
+  final String tokenId;
 
   @override
   State<AppointmentDoneScreen> createState() => _AppointmentDoneScreenState();
@@ -172,6 +175,50 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                           estimatedTime: widget.estimatedTime,
                         ),
                       ),
+                    );
+                  }
+                  if (state is BookAppointmentError) {
+                    showDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: ((context) {
+                        return AlertDialog(
+                          backgroundColor: Theme.of(context).cardColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              state.errorMessage ==
+                                      "Nearby Appointment already exists."
+                                  ? const SizedBox()
+                                  : Text(
+                                      "Just missed",
+                                      style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                              const VerticalSpacingWidget(height: 2),
+                              Lottie.asset("assets/animations/error.json",
+                                  height: 100.h),
+                              const VerticalSpacingWidget(height: 2),
+                              Text(
+                                state.errorMessage,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: kTextColor,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
                     );
                   }
                 },
@@ -1109,7 +1156,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                       appoinmentfor2: selectedSymptoms,
                                       bookingType: selectedBookingFor,
                                       patientId: patientId,
-                                      sheduleType: widget.sheduleType),
+                                      sheduleType: widget.sheduleType,
+                                      tokenId: widget.tokenId),
                                 );
                               }
                             },

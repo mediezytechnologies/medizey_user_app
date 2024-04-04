@@ -48,7 +48,7 @@ class LoginAndSignupBloc
     //* signup bloc
     on<SignUpEvent>((event, emit) async {
       emit(SignUpLoading());
-    
+
       try {
         // Check if userImage is not null before using it
         signUpModel = await loginAndSignUpApi.signUp(
@@ -64,7 +64,6 @@ class LoginAndSignupBloc
         );
         emit(SignUpLoaded());
       } catch (error) {
-        print("SIGN UP ERROR>>>>>>>>>>>>>>>>>>>>>>" + error.toString());
         GeneralServices.instance.showToastMessage(error.toString());
         emit(SignUpError());
       }

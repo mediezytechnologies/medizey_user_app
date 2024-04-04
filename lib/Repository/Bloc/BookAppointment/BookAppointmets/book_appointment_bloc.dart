@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Model/BookAppointment/book_appointment_model.dart';
 import 'package:mediezy_user/Repository/Api/BookAppointment/book_appointment_api.dart';
-import 'package:mediezy_user/Ui/Services/general_services.dart';
 part 'book_appointment_event.dart';
 part 'book_appointment_state.dart';
 
@@ -32,12 +31,12 @@ class BookAppointmentBloc
             clinicId: event.clinicId,
             bookingType: event.bookingType,
             patientId: event.patientId,
-            sheduleType: event.sheduleType);
+            sheduleType: event.sheduleType,
+            tokenId: event.tokenId);
         emit(BookAppointmentLoaded());
       } catch (error) {
         print("<<<<<<BOOK APPOINTMENT ERROR : $error>>>>>");
-        GeneralServices.instance.showToastMessage(error.toString());
-        emit(BookAppointmentError());
+        emit(BookAppointmentError(errorMessage: error.toString()));
       }
     });
   }
