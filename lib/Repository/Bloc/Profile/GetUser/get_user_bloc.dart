@@ -10,9 +10,9 @@ class GetUserBloc extends Bloc<GetUserEvent, GetUserState> {
   late GetUserModel getUserModel;
   ProfileApi profileApi = ProfileApi();
   GetUserBloc() : super(GetUserInitial()) {
-    on<FetchUserDetails>((event, emit)async {
+    on<FetchUserDetails>((event, emit) async {
       emit(GetUserDetailsLoading());
-       try {
+      try {
         getUserModel = await profileApi.getUserDetails();
         emit(GetUserDetailsLoaded());
       } catch (e) {

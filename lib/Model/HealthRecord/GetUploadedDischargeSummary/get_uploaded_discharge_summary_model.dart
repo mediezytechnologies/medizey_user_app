@@ -18,8 +18,7 @@ class GetUploadedDischargeSummaryModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (documentData != null) {
-      data['document_data'] =
-          documentData!.map((v) => v.toJson()).toList();
+      data['document_data'] = documentData!.map((v) => v.toJson()).toList();
     }
     return data;
   }

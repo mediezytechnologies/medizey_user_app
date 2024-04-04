@@ -18,13 +18,13 @@ class GetAppointmentApi {
     String basePath = "patient/upcomingEstimateCalculation/$userId";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
-    print("<<<<<< GET All UPCOMING APPOINTMENTS ARE WORKED SUCCESSFULLY >>>>>>");
+    print(
+        "<<<<<< GET All UPCOMING APPOINTMENTS ARE WORKED SUCCESSFULLY >>>>>>");
     return GetUpComingAppointmentsModel.fromJson(json.decode(response.body));
   }
 
-
   //* get completd appointments
-  Future<GetCompletedAppointmentsModel>getCompletedApointments() async {
+  Future<GetCompletedAppointmentsModel> getCompletedApointments() async {
     String? userId;
     final preference = await SharedPreferences.getInstance();
     userId = preference.getString('userId').toString();

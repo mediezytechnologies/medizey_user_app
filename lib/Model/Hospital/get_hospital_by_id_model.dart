@@ -21,8 +21,7 @@ class GetHospitalByIdModel {
     data['status'] = status;
     data['message'] = message;
     if (clinicDetails != null) {
-      data['clinic_details'] =
-          clinicDetails!.map((v) => v.toJson()).toList();
+      data['clinic_details'] = clinicDetails!.map((v) => v.toJson()).toList();
     }
     return data;
   }

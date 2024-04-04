@@ -8,9 +8,8 @@ class UpLoadDocumentModel {
   UpLoadDocumentModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     response = json['response'];
-    document = json['document'] != null
-        ? Document.fromJson(json['document'])
-        : null;
+    document =
+        json['document'] != null ? Document.fromJson(json['document']) : null;
   }
 
   Map<String, dynamic> toJson() {

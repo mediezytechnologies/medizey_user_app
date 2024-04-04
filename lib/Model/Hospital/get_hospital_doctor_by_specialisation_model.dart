@@ -24,8 +24,7 @@ class GetHospitalDoctorBySpecialisationModel {
     data['status'] = status;
     data['message'] = message;
     if (doctorDetails != null) {
-      data['doctor_details'] =
-          doctorDetails!.map((v) => v.toJson()).toList();
+      data['doctor_details'] = doctorDetails!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -86,5 +85,3 @@ class DoctorDetails {
     return data;
   }
 }
-
-

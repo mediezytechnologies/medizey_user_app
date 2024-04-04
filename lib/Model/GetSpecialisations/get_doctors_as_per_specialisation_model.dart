@@ -89,5 +89,3 @@ class DoctorBySpecialization {
     return data;
   }
 }
-
-

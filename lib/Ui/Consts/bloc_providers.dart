@@ -56,6 +56,10 @@ import 'package:mediezy_user/Repository/Bloc/SearchDoctor/search_doctor_bloc.dar
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/ContactUs/contact_us_bloc.dart';
+import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
+import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
+
+import '../../ddd/application/add_members/add_members_bloc.dart';
 
 class AppBlocProviders {
   static get allBlocProviders => [
@@ -76,7 +80,7 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetDoctorsByHealthCategoryBloc()),
         BlocProvider(create: (context) => GetUserBloc()),
         BlocProvider(create: (context) => EditUserBloc()),
-        BlocProvider(create: (context) => AddMemberBloc()),
+        //  BlocProvider(create: (context) => AddMemberBloc()),
         BlocProvider(create: (context) => GetAllMembersBloc()),
         BlocProvider(create: (context) => UploadDocumentBloc()),
         BlocProvider(create: (context) => UploadDocumentFinalBloc()),
@@ -117,6 +121,15 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetScanReportByIdBloc()),
         BlocProvider(create: (context) => GetDischargeSummaryByIdDartBloc()),
         BlocProvider(create: (context) => ContactUsBloc()),
+<<<<<<< HEAD
         BlocProvider(create: (context) => QrCodeScanBloc()),
+=======
+        BlocProvider(
+          create: (context) => getIt<AddMembersBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<AddMemberImageBloc>(),
+        ),
+>>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
       ];
 }

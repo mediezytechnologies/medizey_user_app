@@ -9,7 +9,4 @@ class UpdateMedicineLoading extends UpdateMedicineState {}
 
 class UpdateMedicineLoaded extends UpdateMedicineState {}
 
-class UpdateMedicineError extends UpdateMedicineState {
- 
-
-}
+class UpdateMedicineError extends UpdateMedicineState {}

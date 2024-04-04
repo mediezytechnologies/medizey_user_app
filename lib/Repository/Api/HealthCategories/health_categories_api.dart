@@ -19,12 +19,14 @@ class HealthCategoriesApi {
   }
 
   //* get doctors by health categories
-   Future<GetDoctorsByHealthCategoriesModel> getDoctorsByHealthCategories({required String healthCategoryId}) async {
+  Future<GetDoctorsByHealthCategoriesModel> getDoctorsByHealthCategories(
+      {required String healthCategoryId}) async {
     String basePath = "ShowCategoriesdocter/$healthCategoryId";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
-    print("<<<<<<<<<<GET DOCTORS BY HEALTH CATEGORIES WORKED SUCCESSFULLY>>>>>>>>>>");
-    return GetDoctorsByHealthCategoriesModel.fromJson(json.decode(response.body));
+    print(
+        "<<<<<<<<<<GET DOCTORS BY HEALTH CATEGORIES WORKED SUCCESSFULLY>>>>>>>>>>");
+    return GetDoctorsByHealthCategoriesModel.fromJson(
+        json.decode(response.body));
   }
-
 }

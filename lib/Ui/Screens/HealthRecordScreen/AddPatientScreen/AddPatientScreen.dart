@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -19,6 +20,11 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../ddd/application/add_members/add_members_bloc.dart';
+import '../../../../ddd/infrastructure/add_member/add_member_impl.dart';
+import '../../../../ddd/domain/add_member/model/add_member_model.dart';
 
 class AddPatientScreen extends StatefulWidget {
   const AddPatientScreen({super.key});
@@ -57,8 +63,16 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   String treatmentIndex = "";
   File? imageFromGallery;
   List<Map<String, dynamic>> medicineDataList = [];
-  List<Map<String, dynamic>> allergies = [];
+  List<Medicine>? medicineDataLists = [];
+  List<Medicine>? medicineLists = [];
+  List<Allergy> allergies = [];
   DateTime? dateOfBirth;
+  final ImagePicker imagePicker = ImagePicker();
+//secnd edit//
+
+  final ApiService _apiService = ApiService();
+
+  String? imagePath;
 
   @override
   void initState() {
@@ -73,6 +87,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         title: const Text("Add Family Member"),
         centerTitle: true,
       ),
+<<<<<<< HEAD
       body: BlocListener<AddMemberBloc, AddMemberState>(
         listener: (context, state) {
           if (state is AddMemberLoadedState) {
@@ -495,26 +510,148 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             )
                           ],
                         ),
+=======
+      body:
+          // BlocListener<AddMemberBloc, AddMemberState>(
+          //   listener: (context, state) {
+          //     if (state is AddMemberLoadedState) {
+          //       GeneralServices.instance.showToastMessage(state.successMessage);
+          //       Navigator.pushAndRemoveUntil(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => const BottomNavigationControlWidget(),
+          //           ),
+          //           (route) => false);
+          //     }
+          //     if (state is AddMemberErrorState) {
+          //       log("message ${state.errorMessage}");
+          //       General Services.instance
+          //           .showErrorMessage(context, state.errorMessage);
+          //     }
+          //   },
+          //   child:
+          SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: BlocConsumer<AddMembersBloc, AddMembersState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const VerticalSpacingWidget(height: 20),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final preference = await SharedPreferences.getInstance();
+                      await _apiService.postData(
+                        fullNameController.text,
+                        "1990-05-15",
+                        "177567890",
+                        "1",
+                        "Yes",
+                        "Surgery name",
+                        "Treatment taken",
+                        "Surgery details",
+                        "Treatment details",
+                        allergies,
+                        medicineDataLists,
+                        context,
+>>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
                       );
-                    })),
-                regularMedicine == "Yes"
-                    ? Column(
+
+                      if (imagePath != null) {
+                        log(imagePath!);
+                        await _apiService.imageUplodService(
+                            imagePath!, context);
+                        preference.remove('patientId');
+                      }
+                    },
+                    child: Text('Send Data'),
+                  ),
+                  const VerticalSpacingWidget(height: 20),
+
+                  Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          height: 100.h,
+                          width: 100.w,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: FadedScaleAnimation(
+                            scaleDuration: const Duration(milliseconds: 400),
+                            fadeDuration: const Duration(milliseconds: 400),
+                            child: ClipOval(
+                              child: imagePath != null
+                                  ? Image.file(
+                                      File(imagePath!),
+                                      height: 80.h,
+                                      width: 80.w,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(
+                                      "assets/icons/profile pic.png",
+                                      height: 80.h,
+                                      width: 80.w,
+                                      color: kMainColor,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: -10.h,
+                        right: 100.w,
+                        child: IconButton(
+                          onPressed: () {
+                            placePicImage();
+                          },
+                          icon: Icon(
+                            Icons.add_a_photo,
+                            size: 26.sp,
+                            weight: 5,
+                            color: kMainColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const VerticalSpacingWidget(height: 10),
+                  BlocConsumer<AddMembersBloc, AddMembersState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            "Full Name",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 13.sp,
+                                color: kSubTextColor),
+                          ),
+                          VerticalSpacingWidget(height: 5.h),
                           SizedBox(
-                            height: 50.h,
+                            width: double.infinity,
+                            height: 50,
                             child: TextFormField(
                               style:
                                   TextStyle(fontSize: 13.sp, color: kTextColor),
                               cursorColor: kMainColor,
-                              controller: illnessController,
+                              controller: fullNameController,
                               keyboardType: TextInputType.text,
-                              onChanged: (value) {},
                               textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 hintStyle: TextStyle(
                                     fontSize: 13.sp, color: kSubTextColor),
-                                hintText: "In which illness",
+                                hintText: "Enter full name",
                                 filled: true,
                                 fillColor: kCardColor,
                                 border: OutlineInputBorder(
@@ -526,487 +663,798 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               ),
                             ),
                           ),
+                        ],
+                      );
+                    },
+                  ),
+                  VerticalSpacingWidget(height: 5.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Phone Number",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 13.sp,
+                                color: kSubTextColor),
+                          ),
                           const VerticalSpacingWidget(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: 250.w,
-                                height: 50.h,
-                                child: TextFormField(
-                                  style: TextStyle(
-                                      fontSize: 13.sp, color: kTextColor),
-                                  cursorColor: kMainColor,
-                                  controller: medicineController,
-                                  onChanged: (value) {},
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    hintStyle: TextStyle(
-                                        fontSize: 13.sp, color: kSubTextColor),
-                                    hintText: "Enter medicine name",
-                                    filled: true,
-                                    fillColor: kCardColor,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                      borderSide: BorderSide.none,
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 10.0),
-                                  ),
+                          SizedBox(
+                            height: 50.h,
+                            width: 200.w,
+                            child: TextFormField(
+                              onTapOutside: (event) =>
+                                  FocusScope.of(context).unfocus(),
+                              style:
+                                  TextStyle(fontSize: 13.sp, color: kTextColor),
+                              cursorColor: kMainColor,
+                              controller: phoneNumberController,
+                              keyboardType: TextInputType.number,
+                              maxLength: 10,
+                              decoration: InputDecoration(
+                                counterText: "",
+                                hintStyle: TextStyle(
+                                    fontSize: 13.sp, color: kSubTextColor),
+                                hintText: "Enter Phone Number",
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
                                 ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 10.0),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  if (medicineController.text.isNotEmpty &&
-                                      illnessController.text.isNotEmpty) {
-                                    setState(() {
-                                      Map<String, dynamic> newData = {
-                                        'medicineName': medicineController.text,
-                                        'illness': illnessController.text,
-                                      };
-                                      medicineDataList.add(newData);
-                                      medicineController.clear();
-                                      illnessController.clear();
-                                    });
-                                  } else {
-                                    GeneralServices.instance.showToastMessage(
-                                        "Please fill the details");
-                                  }
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "DOB",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 13.sp,
+                                color: kSubTextColor),
+                          ),
+                          VerticalSpacingWidget(height: 5.h),
+                          InkWell(
+                            onTap: () {
+                              selectDate(
+                                context: context,
+                                date: dateOfBirth ?? DateTime.now(),
+                                onDateSelected: (DateTime picked) async {
+                                  setState(() {
+                                    dateOfBirth = picked;
+                                  });
                                 },
-                                child: Container(
-                                  height: 45.h,
-                                  width: 70.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
+                              );
+                            },
+                            child: Container(
+                              height: 48.h,
+                              width: 130.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    dateOfBirth != null
+                                        ? DateFormat('dd-MM-yyyy')
+                                            .format(dateOfBirth!)
+                                        : 'DOB',
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: kTextColor),
+                                  ),
+                                  Icon(
+                                    IconlyLight.calendar,
                                     color: kMainColor,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      "Add",
-                                      style: TextStyle(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: kCardColor),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  const VerticalSpacingWidget(height: 5),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Gender",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13.sp,
+                            color: kSubTextColor),
+                      ),
+                      VerticalSpacingWidget(height: 2.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    genderValue = "Male";
+                                    selectedGender = "1";
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Radio<String>(
+                                      visualDensity:
+                                          const VisualDensity(horizontal: -4),
+                                      activeColor: kMainColor,
+                                      value: "Male",
+                                      groupValue: genderValue,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          genderValue = value!;
+                                          selectedGender = "1";
+                                        });
+                                      },
                                     ),
+                                    Text("Male",
+                                        style: TextStyle(fontSize: 13.sp)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    genderValue = "Female";
+                                    selectedGender = "2";
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Radio<String>(
+                                      visualDensity:
+                                          const VisualDensity(horizontal: -4),
+                                      activeColor: kMainColor,
+                                      value: "Female",
+                                      groupValue: genderValue,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          genderValue = value!;
+                                          selectedGender = "2";
+                                        });
+                                      },
+                                    ),
+                                    Text("Female",
+                                        style: TextStyle(fontSize: 13.sp)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    genderValue = "Other";
+                                    selectedGender = "3";
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Radio<String>(
+                                      visualDensity:
+                                          const VisualDensity(horizontal: -4),
+                                      activeColor: kMainColor,
+                                      value: "Other",
+                                      groupValue: genderValue,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          genderValue = value!;
+                                          selectedGender = "3";
+                                        });
+                                      },
+                                    ),
+                                    Text("Other",
+                                        style: TextStyle(fontSize: 13.sp)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Using any regular medicines?",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13.sp,
+                            color: kSubTextColor),
+                      ),
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      regularMedicine = "Yes";
+                                    });
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Radio<String>(
+                                        visualDensity:
+                                            const VisualDensity(horizontal: -4),
+                                        activeColor: kMainColor,
+                                        value: "Yes",
+                                        groupValue: regularMedicine,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            regularMedicine = value!;
+                                          });
+                                        },
+                                      ),
+                                      Text(
+                                        "Yes",
+                                        style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: kSubTextColor),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      regularMedicine = "No";
+                                    });
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Radio<String>(
+                                        visualDensity:
+                                            const VisualDensity(horizontal: -4),
+                                        activeColor: kMainColor,
+                                        value: "No",
+                                        groupValue: regularMedicine,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            regularMedicine = value!;
+                                          });
+                                        },
+                                      ),
+                                      Text(
+                                        "No",
+                                        style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: kSubTextColor),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const VerticalSpacingWidget(height: 2),
+                  ListView.builder(
+                      itemCount: medicineDataLists!.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: ((context, index) {
+                        return Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                              color: kCardColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "Illness name : ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13.sp,
+                                        color: kSubTextColor),
+                                  ),
+                                  Text(
+                                    medicineDataLists![index].illness!,
+                                    //          medicineDataList[index]['illness'].toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13.sp,
+                                        color: kTextColor),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Medicine name : ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13.sp,
+                                        color: kSubTextColor),
+                                  ),
+                                  Text(
+                                    medicineDataLists![index]
+                                        .medicineName
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13.sp,
+                                        color: kTextColor),
+                                  ),
+                                ],
                               )
                             ],
                           ),
-                          const VerticalSpacingWidget(height: 5),
-                        ],
-                      )
-                    : Container(),
-                Text(
-                  "Any Allergy?",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13.sp,
-                      color: kSubTextColor),
-                ),
-                VerticalSpacingWidget(height: 2.h),
-                BlocBuilder<GetAllergyBloc, GetAllergyState>(
-                  builder: (context, state) {
-                    if (state is GetAllergyLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: kCardColor,
-                        ),
-                      );
-                    }
-                    if (state is GetAllergyError) {
-                      return const Center(
-                        child: Text("Something went wrong"),
-                      );
-                    }
-                    if (state is GetAllergyLoaded) {
-                      getAllergyModel = BlocProvider.of<GetAllergyBloc>(context)
-                          .getAllergyModel;
-                      return Wrap(
-                        children: List.generate(
-                          getAllergyModel.allergies!.length,
-                          (index) => GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (index == 4) {
-                                  if (selectedAllergies.contains(index)) {
-                                    selectedAllergies.remove(index);
-                                    allergies.removeWhere((element) =>
-                                        element['allergy_id'] == index + 1);
-                                  } else {
-                                    selectedAllergies = {index};
-                                    allergies.clear();
-                                    allergies.add({
-                                      'allergy_id': index + 1,
-                                      'allergy_details': '',
-                                    });
-                                  }
-                                } else {
-                                  if (selectedAllergies.contains(index)) {
-                                    selectedAllergies.remove(index);
-                                    allergies.removeWhere((element) =>
-                                        element['allergy_id'] == index + 1);
-                                  } else {
-                                    selectedAllergies.add(index);
-                                    allergies.add({
-                                      'allergy_id': index + 1,
-                                      'allergy_details': '',
-                                    });
-                                  }
-                                }
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: selectedAllergies.contains(index)
-                                    ? Colors.grey
-                                    : kCardColor,
-                                border: Border.all(color: kMainColor, width: 1),
-                              ),
-                              margin: const EdgeInsets.all(3.0),
-                              padding: const EdgeInsets.all(6.0),
-                              child: Text(
-                                getAllergyModel.allergies![index].allergy
-                                    .toString(),
+                        );
+                      })),
+                  regularMedicine == "Yes"
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 50.h,
+                              child: TextFormField(
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 9.8.sp,
+                                    fontSize: 13.sp, color: kTextColor),
+                                cursorColor: kMainColor,
+                                controller: illnessController,
+                                keyboardType: TextInputType.text,
+                                onChanged: (value) {},
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hintStyle: TextStyle(
+                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintText: "In which illness",
+                                  filled: true,
+                                  fillColor: kCardColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15.0, horizontal: 10.0),
+                                ),
+                              ),
+                            ),
+                            const VerticalSpacingWidget(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 250.w,
+                                  height: 50.h,
+                                  child: TextFormField(
+                                    style: TextStyle(
+                                        fontSize: 13.sp, color: kTextColor),
+                                    cursorColor: kMainColor,
+                                    controller: medicineController,
+                                    onChanged: (value) {},
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.next,
+                                    decoration: InputDecoration(
+                                      hintStyle: TextStyle(
+                                          fontSize: 13.sp,
+                                          color: kSubTextColor),
+                                      hintText: "Enter medicine name",
+                                      filled: true,
+                                      fillColor: kCardColor,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 10.0),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    if (medicineController.text.isNotEmpty &&
+                                        illnessController.text.isNotEmpty) {
+                                      setState(() {
+                                        final medicineName =
+                                            medicineController.text;
+                                        final illness = illnessController.text;
+                                        medicineDataLists!.add(Medicine(
+                                            medicineName: medicineName,
+                                            illness: illness));
+                                        log("${medicineDataLists!.length}");
+                                        // Map<String, dynamic> newData = {
+                                        //   'medicineName': medicineController.text,
+                                        //   'illness': illnessController.text,
+                                        // };
+                                        // medicineDataList.add(newData);
+                                        medicineController.clear();
+                                        illnessController.clear();
+                                      });
+                                    } else {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Please fill the details");
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 45.h,
+                                    width: 70.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: kMainColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Add",
+                                        style: TextStyle(
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: kCardColor),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const VerticalSpacingWidget(height: 5),
+                          ],
+                        )
+                      : Container(),
+                  Text(
+                    "Any Allergy?",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13.sp,
+                        color: kSubTextColor),
+                  ),
+                  VerticalSpacingWidget(height: 2.h),
+                  BlocBuilder<GetAllergyBloc, GetAllergyState>(
+                    builder: (context, state) {
+                      if (state is GetAllergyLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: kCardColor,
+                          ),
+                        );
+                      }
+                      if (state is GetAllergyError) {
+                        return const Center(
+                          child: Text("Something went wrong"),
+                        );
+                      }
+                      if (state is GetAllergyLoaded) {
+                        getAllergyModel =
+                            BlocProvider.of<GetAllergyBloc>(context)
+                                .getAllergyModel;
+                        return Wrap(
+                          children: List.generate(
+                            getAllergyModel.allergies!.length,
+                            (index) => GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (index == 4) {
+                                    if (selectedAllergies.contains(index)) {
+                                      selectedAllergies.remove(index);
+                                      allergies.removeWhere((element) =>
+                                          element.allergyId! == index + 1);
+                                    } else {
+                                      selectedAllergies = {index};
+                                      allergies.clear();
+                                      allergies.add(Allergy(
+                                              allergyDetails: '',
+                                              allergyId: index + 1)
+
+                                          //   {
+                                          //   'allergy_id': index + 1,
+                                          //   'allergy_details': '',
+                                          // }
+                                          );
+                                    }
+                                  } else {
+                                    if (selectedAllergies.contains(index)) {
+                                      selectedAllergies.remove(index);
+                                      allergies.removeWhere((element) =>
+                                          element.allergyId! == index + 1);
+                                    } else {
+                                      selectedAllergies.add(index);
+                                      allergies.add(Allergy(
+                                          allergyDetails: '',
+                                          allergyId: index + 1));
+                                    }
+                                  }
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
                                   color: selectedAllergies.contains(index)
-                                      ? Colors.white
-                                      : kTextColor,
+                                      ? Colors.grey
+                                      : kCardColor,
+                                  border:
+                                      Border.all(color: kMainColor, width: 1),
+                                ),
+                                margin: const EdgeInsets.all(3.0),
+                                padding: const EdgeInsets.all(6.0),
+                                child: Text(
+                                  getAllergyModel.allergies![index].allergy
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 9.8.sp,
+                                    color: selectedAllergies.contains(index)
+                                        ? Colors.white
+                                        : kTextColor,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }
-                    return Container();
-                  },
-                ),
-                const VerticalSpacingWidget(height: 2),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: selectedAllergies.length,
-                  itemBuilder: (context, index) {
-                    switch (selectedAllergies.elementAt(index)) {
-                      case 0:
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: TextFormField(
-                            cursorColor: kMainColor,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              setState(() {
-                                allergies[index]['allergy_details'] = value;
-                              });
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 14.sp, color: kSubTextColor),
-                              hintText: "Enter Drug Name",
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
-                            ),
-                          ),
                         );
-                      case 1:
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: TextFormField(
-                            cursorColor: kMainColor,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              setState(() {
-                                allergies[index]['allergy_details'] = value;
-                              });
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 14.sp, color: kSubTextColor),
-                              hintText: "Enter skin allergy",
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
+                      }
+                      return Container();
+                    },
+                  ),
+                  const VerticalSpacingWidget(height: 2),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: selectedAllergies.length,
+                    itemBuilder: (context, index) {
+                      switch (selectedAllergies.elementAt(index)) {
+                        case 0:
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: TextFormField(
+                              cursorColor: kMainColor,
+                              keyboardType: TextInputType.text,
+                              onChanged: (value) {
+                                setState(() {
+                                  allergies[index].allergyDetails = value;
+                                });
+                              },
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(
+                                    fontSize: 14.sp, color: kSubTextColor),
+                                hintText: "Enter Drug Name",
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 10.0),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
                             ),
-                          ),
-                        );
-                      case 2:
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: TextFormField(
-                            cursorColor: kMainColor,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              setState(() {
-                                allergies[index]['allergy_details'] = value;
-                              });
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 14.sp, color: kSubTextColor),
-                              hintText: "Enter dust allergy",
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
+                          );
+                        case 1:
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: TextFormField(
+                              cursorColor: kMainColor,
+                              keyboardType: TextInputType.text,
+                              onChanged: (value) {
+                                setState(() {
+                                  allergies[index].allergyDetails = value;
+                                });
+                              },
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(
+                                    fontSize: 14.sp, color: kSubTextColor),
+                                hintText: "Enter skin allergy",
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 10.0),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
                             ),
-                          ),
-                        );
-                      case 3:
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: TextFormField(
-                            cursorColor: kMainColor,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              setState(() {
-                                allergies[index]['allergy_details'] = value;
-                              });
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 14.sp, color: kSubTextColor),
-                              hintText: "Enter food allergy",
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
+                          );
+                        case 2:
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: TextFormField(
+                              cursorColor: kMainColor,
+                              keyboardType: TextInputType.text,
+                              onChanged: (value) {
+                                setState(() {
+                                  allergies[index].allergyDetails = value;
+                                });
+                              },
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(
+                                    fontSize: 14.sp, color: kSubTextColor),
+                                hintText: "Enter dust allergy",
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 10.0),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
                             ),
-                          ),
-                        );
-                      case 5:
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: TextFormField(
-                            cursorColor: kMainColor,
-                            // controller: TextEditingController(
-                            //     text: allergies[index]['allergy_details']),
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            onChanged: (value) {
-                              setState(() {
-                                allergies[index]['allergy_details'] = value;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 14.sp, color: kSubTextColor),
-                              hintText: "Enter allergy details",
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
+                          );
+                        case 3:
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: TextFormField(
+                              cursorColor: kMainColor,
+                              keyboardType: TextInputType.text,
+                              onChanged: (value) {
+                                setState(() {
+                                  allergies[index].allergyDetails = value;
+                                });
+                              },
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(
+                                    fontSize: 14.sp, color: kSubTextColor),
+                                hintText: "Enter food allergy",
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 10.0),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
                             ),
-                          ),
-                        );
-                      default:
-                        return Container();
-                    }
-                  },
-                ),
+                          );
+                        case 5:
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: TextFormField(
+                              cursorColor: kMainColor,
+                              // controller: TextEditingController(
+                              //     text: allergies[index]['allergy_details']),
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              onChanged: (value) {
+                                setState(() {
+                                  allergies[index].allergyDetails = value;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(
+                                    fontSize: 14.sp, color: kSubTextColor),
+                                hintText: "Enter allergy details",
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 10.0),
+                              ),
+                            ),
+                          );
+                        default:
+                          return Container();
+                      }
+                    },
+                  ),
 
-                const VerticalSpacingWidget(height: 5),
-                //! surgery
-                Text(
-                  "Any Surgery?",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13.sp,
-                      color: kSubTextColor),
-                ),
-                VerticalSpacingWidget(height: 2.h),
-                Wrap(
-                  children: List.generate(
-                    surgeryTypes.length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (surgeryTypes[index] == "No") {
-                            if (!selectedSurgeryStart.contains(index)) {
-                              selectedSurgery.clear();
-                              selectedSurgeryStart.clear();
-                              selectedSurgeryStart.add(index);
-                              selectedSurgery.add(surgeryTypes[index]);
-                            }
-                          } else {
-                            if (selectedSurgeryStart.contains(index)) {
-                              surgeryIndex = "";
-                              selectedSurgery.remove(surgeryTypes[index]);
-                              selectedSurgeryStart.remove(index);
+                  const VerticalSpacingWidget(height: 5),
+                  //! surgery
+                  Text(
+                    "Any Surgery?",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13.sp,
+                        color: kSubTextColor),
+                  ),
+                  VerticalSpacingWidget(height: 2.h),
+                  Wrap(
+                    children: List.generate(
+                      surgeryTypes.length,
+                      (index) => GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (surgeryTypes[index] == "No") {
+                              if (!selectedSurgeryStart.contains(index)) {
+                                selectedSurgery.clear();
+                                selectedSurgeryStart.clear();
+                                selectedSurgeryStart.add(index);
+                                selectedSurgery.add(surgeryTypes[index]);
+                              }
                             } else {
-                              surgeryIndex = surgeryTypes[index];
-                              selectedSurgeryStart.add(index);
-                              selectedSurgery.add(surgeryTypes[index]);
+                              if (selectedSurgeryStart.contains(index)) {
+                                surgeryIndex = "";
+                                selectedSurgery.remove(surgeryTypes[index]);
+                                selectedSurgeryStart.remove(index);
+                              } else {
+                                surgeryIndex = surgeryTypes[index];
+                                selectedSurgeryStart.add(index);
+                                selectedSurgery.add(surgeryTypes[index]);
+                              }
+                              if (selectedSurgery.contains("No")) {
+                                selectedSurgery.remove("No");
+                                selectedSurgeryStart.removeWhere((element) =>
+                                    element == surgeryTypes.indexOf("No"));
+                              }
                             }
-                            if (selectedSurgery.contains("No")) {
-                              selectedSurgery.remove("No");
-                              selectedSurgeryStart.removeWhere((element) =>
-                                  element == surgeryTypes.indexOf("No"));
-                            }
-                          }
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: selectedSurgeryStart.contains(index)
-                              ? Colors.grey
-                              : kCardColor,
-                          border: Border.all(
-                            color: kMainColor,
-                            width: 1,
-                          ),
-                        ),
-                        margin: const EdgeInsets.all(3.0),
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(
-                          surgeryTypes[index],
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10.sp,
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
                             color: selectedSurgeryStart.contains(index)
-                                ? Colors.white
-                                : kTextColor,
+                                ? Colors.grey
+                                : kCardColor,
+                            border: Border.all(
+                              color: kMainColor,
+                              width: 1,
+                            ),
+                          ),
+                          margin: const EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            surgeryTypes[index],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10.sp,
+                              color: selectedSurgeryStart.contains(index)
+                                  ? Colors.white
+                                  : kTextColor,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const VerticalSpacingWidget(height: 5),
-                if (surgeryIndex == "Other")
-                  TextFormField(
-                    cursorColor: kMainColor,
-                    controller: otherSurgeryController,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      hintStyle:
-                          TextStyle(fontSize: 13.sp, color: kSubTextColor),
-                      hintText: "Which Surgery",
-                      filled: true,
-                      fillColor: kCardColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 10.0),
-                    ),
-                  ),
-                const VerticalSpacingWidget(height: 5),
-                //! treatment taken
-                Text(
-                  "Any Treatment taken for?",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13.sp,
-                      color: kSubTextColor),
-                ),
-                VerticalSpacingWidget(height: 2.h),
-                Wrap(
-                  children: List.generate(
-                    treatmentTypes.length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (treatmentTypes[index] == "No") {
-                            if (!selectedTreatmentStart.contains(index)) {
-                              selectedTreatment.clear();
-                              selectedTreatmentStart.clear();
-                              selectedTreatmentStart.add(index);
-                              selectedTreatment.add(treatmentTypes[index]);
-                            }
-                          } else {
-                            if (selectedTreatmentStart.contains(index)) {
-                              treatmentIndex = "";
-                              selectedTreatment.remove(treatmentTypes[index]);
-                              selectedTreatmentStart.remove(index);
-                            } else {
-                              treatmentIndex = treatmentTypes[index];
-                              selectedTreatmentStart.add(index);
-                              selectedTreatment.add(treatmentTypes[index]);
-                            }
-                            if (selectedTreatment.contains("No")) {
-                              selectedTreatment.remove("No");
-                              selectedTreatmentStart.removeWhere((element) =>
-                                  element == treatmentTypes.indexOf("No"));
-                            }
-                          }
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: selectedTreatmentStart.contains(index)
-                              ? Colors.grey
-                              : kCardColor,
-                          border: Border.all(
-                            color: kMainColor,
-                            width: 1,
-                          ),
-                        ),
-                        margin: const EdgeInsets.all(3.0),
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(
-                          treatmentTypes[index],
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10.sp,
-                            color: selectedTreatmentStart.contains(index)
-                                ? Colors.white
-                                : kTextColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const VerticalSpacingWidget(height: 5),
-                if (treatmentIndex == "Other")
-                  SizedBox(
-                    height: 50.h,
-                    child: TextFormField(
-                      style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                  const VerticalSpacingWidget(height: 5),
+                  if (surgeryIndex == "Other")
+                    TextFormField(
                       cursorColor: kMainColor,
-                      controller: otherTreatmentController,
+                      controller: otherSurgeryController,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         hintStyle:
                             TextStyle(fontSize: 13.sp, color: kSubTextColor),
-                        hintText: "Which Treatment",
+                        hintText: "Which Surgery",
                         filled: true,
                         fillColor: kCardColor,
                         border: OutlineInputBorder(
@@ -1017,7 +1465,27 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             vertical: 15, horizontal: 10.0),
                       ),
                     ),
+                  const VerticalSpacingWidget(height: 5),
+
+                  //
+                  ElevatedButton(
+                      onPressed: () {
+                        medicineDataLists!.forEach((person) {
+                          print(
+                              'Name: ${person.medicineName}, Age: ${person.illness}, ');
+                        });
+                      },
+                      child: Text("data")),
+                  //
+                  //! treatment taken
+                  Text(
+                    "Any Treatment taken for?",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13.sp,
+                        color: kSubTextColor),
                   ),
+<<<<<<< HEAD
                 const VerticalSpacingWidget(height: 20),
                 CommonButtonWidget(
                   title: "Add Member",
@@ -1082,12 +1550,327 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 VerticalSpacingWidget(height: 5.h),
               ],
             ),
+=======
+                  VerticalSpacingWidget(height: 2.h),
+                  Wrap(
+                    children: List.generate(
+                      treatmentTypes.length,
+                      (index) => GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (treatmentTypes[index] == "No") {
+                              if (!selectedTreatmentStart.contains(index)) {
+                                selectedTreatment.clear();
+                                selectedTreatmentStart.clear();
+                                selectedTreatmentStart.add(index);
+                                selectedTreatment.add(treatmentTypes[index]);
+                              }
+                            } else {
+                              if (selectedTreatmentStart.contains(index)) {
+                                treatmentIndex = "";
+                                selectedTreatment.remove(treatmentTypes[index]);
+                                selectedTreatmentStart.remove(index);
+                              } else {
+                                treatmentIndex = treatmentTypes[index];
+                                selectedTreatmentStart.add(index);
+                                selectedTreatment.add(treatmentTypes[index]);
+                              }
+                              if (selectedTreatment.contains("No")) {
+                                selectedTreatment.remove("No");
+                                selectedTreatmentStart.removeWhere((element) =>
+                                    element == treatmentTypes.indexOf("No"));
+                              }
+                            }
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: selectedTreatmentStart.contains(index)
+                                ? Colors.grey
+                                : kCardColor,
+                            border: Border.all(
+                              color: kMainColor,
+                              width: 1,
+                            ),
+                          ),
+                          margin: const EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            treatmentTypes[index],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10.sp,
+                              color: selectedTreatmentStart.contains(index)
+                                  ? Colors.white
+                                  : kTextColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const VerticalSpacingWidget(height: 5),
+                  if (treatmentIndex == "Other")
+                    SizedBox(
+                      height: 50.h,
+                      child: TextFormField(
+                        style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                        cursorColor: kMainColor,
+                        controller: otherTreatmentController,
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          hintStyle:
+                              TextStyle(fontSize: 13.sp, color: kSubTextColor),
+                          hintText: "Which Treatment",
+                          filled: true,
+                          fillColor: kCardColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 10.0),
+                        ),
+                      ),
+                    ),
+                  const VerticalSpacingWidget(height: 20),
+                  CommonButtonWidget(
+                    title: "Add Member",
+                    onTapFunction: state.isloding
+                        ? () {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        : () async {
+                            log(medicineDataList.toString());
+                            if (fullNameController.text.isEmpty) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Fill family member name");
+                            } else if (dateOfBirth == null) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Fill date of birth");
+                            } else if (phoneNumberController.text.isEmpty ||
+                                phoneNumberController.text.length < 10) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Fill family member number");
+                            } else if (regularMedicine == "Yes" &&
+                                (medicineDataLists!.isEmpty)) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Add illness and medicine details");
+                            } else if (allergies.isEmpty) {
+                              GeneralServices.instance
+                                  .showErrorMessage(context, "Select allergy");
+                            } else if (selectedSurgery.isEmpty) {
+                              GeneralServices.instance
+                                  .showErrorMessage(context, "Select surgery");
+                            } else if (selectedTreatment.isEmpty) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Select treatment");
+                            } else {
+                              log("message ${allergies}");
+                              log(" jkfhsdjkf : $regularMedicine");
+
+                              log(" medisi : $medicineDataLists");
+                              BlocProvider.of<AddMembersBloc>(context).add(
+                                AddMembersEvent.started(
+                                  fullNameController.text,
+                                  DateFormat('yyy-MM-dd').format(dateOfBirth!),
+                                  phoneNumberController.text,
+                                  selectedGender,
+                                  regularMedicine,
+                                  selectedSurgery.toString(),
+                                  selectedTreatment.toString(),
+                                  otherSurgeryController.text,
+                                  otherTreatmentController.text,
+                                  // ignore: use_build_context_synchronously
+                                  context,
+                                  allergies,
+                                  medicineDataLists!,
+                                ),
+                              );
+                              final preference =
+                                  await SharedPreferences.getInstance();
+                              int? pId = preference.getInt('patientId');
+                              log('pid is get $pId');
+                              // Future.delayed(Duration(seconds: 2));
+                              if (imagePath != null) {
+                                log(imagePath!);
+                              }
+                              log('button pressed');
+                              // if (imagePath != null && pId != null) {
+                              //   log(imagePath!);
+                              //   // ignore: use_build_context_synchronously
+                              // BlocProvider.of<AddMemberImageBloc>(context)
+                              //     .add(AddMemberImageEvent.started(imagePath!));
+                              //   // preference.remove('patientId');
+                              //   log("message ui patiant id :${preference.remove('patientId')} ");
+                              //   Navigator.pushAndRemoveUntil(
+                              //       // ignore: use_build_context_synchronously
+                              //       context,
+                              //       MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             const BottomNavigationControlWidget(),
+                              //       ),
+                              //       (route) => false);
+                              // } else {
+                              //   log("image null get off");
+                              // Navigator.pushAndRemoveUntil(
+                              // ignore: use_build_context_synchronously
+                              // context,
+                              // MaterialPageRoute(
+                              //   builder: (context) =>
+                              //       const BottomNavigationControlWidget(),
+                              // ),
+                              // (route) => false);
+                              //    }
+                            }
+                          },
+                  ),
+                  VerticalSpacingWidget(height: 5.h),
+                  ElevatedButton(
+                      onPressed: state.isloding
+                          ? () {
+                              Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          : () async {
+                              log(medicineDataList.toString());
+                              if (fullNameController.text.isEmpty) {
+                                GeneralServices.instance.showErrorMessage(
+                                    context, "Fill family member name");
+                              } else if (dateOfBirth == null) {
+                                GeneralServices.instance.showErrorMessage(
+                                    context, "Fill date of birth");
+                              } else if (phoneNumberController.text.isEmpty ||
+                                  phoneNumberController.text.length < 10) {
+                                GeneralServices.instance.showErrorMessage(
+                                    context, "Fill family member number");
+                              } else if (regularMedicine == "Yes" &&
+                                  (medicineDataLists!.isEmpty)) {
+                                GeneralServices.instance.showErrorMessage(
+                                    context,
+                                    "Add illness and medicine details");
+                              } else if (allergies.isEmpty) {
+                                GeneralServices.instance.showErrorMessage(
+                                    context, "Select allergy");
+                              } else if (selectedSurgery.isEmpty) {
+                                GeneralServices.instance.showErrorMessage(
+                                    context, "Select surgery");
+                              } else if (selectedTreatment.isEmpty) {
+                                GeneralServices.instance.showErrorMessage(
+                                    context, "Select treatment");
+                              } else {
+                                log("message ${allergies}");
+                                log(" jkfhsdjkf : $regularMedicine");
+
+                                log(" medisi : $medicineDataLists");
+                                BlocProvider.of<AddMembersBloc>(context).add(
+                                  AddMembersEvent.started(
+                                    fullNameController.text,
+                                    DateFormat('yyy-MM-dd')
+                                        .format(dateOfBirth!),
+                                    phoneNumberController.text,
+                                    selectedGender,
+                                    regularMedicine,
+                                    selectedSurgery.toString(),
+                                    selectedTreatment.toString(),
+                                    otherSurgeryController.text,
+                                    otherTreatmentController.text,
+                                    // ignore: use_build_context_synchronously
+                                    context,
+                                    allergies,
+                                    medicineDataLists!,
+                                  ),
+                                );
+                                final preference =
+                                    await SharedPreferences.getInstance();
+                                int? pId = preference.getInt('patientId');
+                                ;
+                                Future.delayed(Duration(seconds: 2))
+                                    .then((value) => log('pid is get $pId'));
+                                if (imagePath != null) {
+                                  log(imagePath!);
+                                  Future.delayed(Duration(seconds: 3)).then(
+                                      (value) =>
+                                          BlocProvider.of<AddMemberImageBloc>(
+                                                  context)
+                                              .add(AddMemberImageEvent.started(
+                                                  imagePath!)));
+                                  Future.delayed(Duration(seconds: 3)).then(
+                                      (value) => Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const BottomNavigationControlWidget(),
+                                          ),
+                                          (route) => false));
+                                }
+                                Future.delayed(Duration(seconds: 3)).then(
+                                      (value) => Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const BottomNavigationControlWidget(),
+                                          ),
+                                          (route) => false));
+                                log('button pressed');
+                              }
+                            },
+                      child: Text("data")),
+                  VerticalSpacingWidget(height: 5.h),
+                ],
+              );
+            },
+>>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
           ),
         ),
       ),
+      //  ),
     );
   }
 
+  //mahesh code ===========================================
+  Future<void> pickImageGallery() async {
+    log("message");
+    final picker = ImagePicker();
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 30);
+
+    if (pickedFile != null) {
+      final imageTemporary = pickedFile.path;
+      log("$imageTemporary======= image");
+      //   File imageFile = File(pickedFile.path);
+      // File compressedImage = await compressImage(imageFile);
+      setState(() {
+        imagePath = imageTemporary;
+      });
+    } else {
+      setState(() {
+        GeneralServices.instance.showToastMessage('Please select an image');
+      });
+    }
+  }
+
+  Future placePicImage() async {
+    var image = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 30,
+    );
+    if (image == null) return;
+    final imageTemporary = image.path;
+    setState(() {
+      imagePath = imageTemporary;
+      print("$imageTemporary======= image");
+    });
+
+    // Get.back();
+  }
+
+//akber code ===================================
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);

@@ -85,5 +85,3 @@ class FavoriteDoctors {
     return data;
   }
 }
-
-

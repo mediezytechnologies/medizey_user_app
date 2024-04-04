@@ -8,7 +8,7 @@ part 'get_prescription_view_state.dart';
 
 class GetPrescriptionViewBloc
     extends Bloc<GetPrescriptionViewEvent, GetPrescriptionViewState> {
-        late GetPrescriptionViewModel getPrescriptionViewModel;
+  late GetPrescriptionViewModel getPrescriptionViewModel;
   HealthRecordApi healthRecordsApi = HealthRecordApi();
   GetPrescriptionViewBloc() : super(GetPrescriptionViewInitial()) {
     on<FetchGetPrescriptionView>((event, emit) async {

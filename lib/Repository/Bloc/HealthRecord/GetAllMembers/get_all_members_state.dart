@@ -5,6 +5,8 @@ sealed class GetAllMembersState {}
 
 final class GetAllMembersInitial extends GetAllMembersState {}
 
-class GetAllMembersLoading extends GetAllMembersState{}
-class GetAllMembersLoaded extends GetAllMembersState{}
-class GetAllMembersError extends GetAllMembersState{}
+class GetAllMembersLoading extends GetAllMembersState {}
+
+class GetAllMembersLoaded extends GetAllMembersState {}
+
+class GetAllMembersError extends GetAllMembersState {}

@@ -131,7 +131,8 @@ class _DoctorsByHealthCatrgoryScreenState
                                               .toString(),
                                       mainHospitalName:
                                           getDoctorsByHealthCategoriesModel
-                                              .healthConcern![index].mainHospital
+                                              .healthConcern![index]
+                                              .mainHospital
                                               .toString(),
                                       specialisation:
                                           getDoctorsByHealthCategoriesModel

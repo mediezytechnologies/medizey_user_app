@@ -10,7 +10,6 @@ import 'package:mediezy_user/Repository/Api/ApiClient.dart';
 class HospitalApi {
   ApiClient apiClient = ApiClient();
 
-  
   //* get all hospitals
   Future<GetHospitalModel> getHospitals() async {
     String basePath = "patient/getAllClinics";
@@ -30,12 +29,15 @@ class HospitalApi {
   }
 
   //* get hospital doctor by specilaisation
-   Future<GetHospitalDoctorBySpecialisationModel> getHospitalDoctorBySpecialisation(String specialisationId,String clinicId) async {
-    String basePath = "patient/getSpecializationDoctors/$specialisationId/$clinicId";
+  Future<GetHospitalDoctorBySpecialisationModel>
+      getHospitalDoctorBySpecialisation(
+          String specialisationId, String clinicId) async {
+    String basePath =
+        "patient/getSpecializationDoctors/$specialisationId/$clinicId";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     print("<<<<< GET HOSPITAL DOCTOR  AS PER ID WORKED SUCCESSFULLY >>>>>");
-    return GetHospitalDoctorBySpecialisationModel.fromJson(json.decode(response.body));
+    return GetHospitalDoctorBySpecialisationModel.fromJson(
+        json.decode(response.body));
   }
-
 }

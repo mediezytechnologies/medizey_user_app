@@ -5,7 +5,8 @@ sealed class EditMemberState {}
 
 final class EditMemberInitial extends EditMemberState {}
 
-class EditMemberLoaded extends EditMemberState{}
-class EditMemberLoading extends EditMemberState{}
-class EditMemberError extends EditMemberState{}
+class EditMemberLoaded extends EditMemberState {}
 
+class EditMemberLoading extends EditMemberState {}
+
+class EditMemberError extends EditMemberState {}

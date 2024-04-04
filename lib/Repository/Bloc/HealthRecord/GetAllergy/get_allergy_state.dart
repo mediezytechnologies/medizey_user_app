@@ -5,9 +5,8 @@ sealed class GetAllergyState {}
 
 final class GetAllergyInitial extends GetAllergyState {}
 
+class GetAllergyLoading extends GetAllergyState {}
 
-class GetAllergyLoading extends GetAllergyState{}
+class GetAllergyLoaded extends GetAllergyState {}
 
-class GetAllergyLoaded extends GetAllergyState{}
-
-class GetAllergyError extends GetAllergyState{}
+class GetAllergyError extends GetAllergyState {}
