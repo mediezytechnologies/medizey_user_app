@@ -1037,6 +1037,15 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                     ),
                   ),
+                   const VerticalSpacingWidget(height: 5),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //        allergies.forEach((allergies) {
+                  //         print(
+                  //             'alergy: ${allergies.allergyDetails}, alid id: ${allergies.allergyId}, ');
+                  //       });
+                  //     },
+                  //     child: Text("datassfsdg")),
                   const VerticalSpacingWidget(height: 5),
                   if (treatmentIndex == "Other")
                     SizedBox(

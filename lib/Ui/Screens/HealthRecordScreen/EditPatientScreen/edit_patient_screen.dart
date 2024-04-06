@@ -77,6 +77,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   final TextEditingController otherSurgeryController = TextEditingController();
   final TextEditingController otherTreatmentController =
       TextEditingController();
+      String fullName ='';
   String selectedAllergyId = "";
   String dustAllery = "";
   String genderValue = "Male";
@@ -111,6 +112,9 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
+   
+   nameController.text=widget.patienName;
+   phoneNumberController.text=widget.patientNumber;
     genderValue = widget.patientGender == "1"
         ? "Male"
         : (widget.patientGender == "2")
@@ -129,17 +133,29 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     selectedTreatmentStart = <int>{};
     treatmentIndex = "";
     selectedAllergies = Set<int>.from(
-        widget.allergiesDetails.map((detail) => detail.allergiesId));
+        widget.allergiesDetails.map((detail) 
+        {
+          int id =detail.allergyId!-1;
+          return id;
+        } ));
     allergies = widget.allergiesDetails
         .map((detail) => Allergy(
             allergyDetails: detail.allergyDetails,
-            allergyId: detail.allergiesId))
+            allergyId: detail.allergyId))
         .toList();
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   log("message medisine :$selectedAllergies");
+      //     allergies.forEach((allergies) {
+      //                     print(
+      //                         'details: ${allergies.allergyDetails}, details id: ${allergies.allergyId}, ');
+      //                   });
+      // },),
       appBar: AppBar(
         title: const Text("Edit Patient"),
         centerTitle: true,
