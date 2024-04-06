@@ -190,8 +190,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              state.errorMessage ==
-                                      "Nearby Appointment already exists."
+                              state.errorMessage !=
+                                      "This token has already been booked by someone. Please book another token."
                                   ? const SizedBox()
                                   : Text(
                                       "Just missed",

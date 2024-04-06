@@ -1,29 +1,27 @@
 import 'dart:developer';
-
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../domain/add_member/add_member_service.dart';
-import '../../domain/core/failures/main_failure.dart';
-import '../../domain/add_member/model/add_member_model.dart';
-
-part 'add_members_event.dart';
-part 'add_members_state.dart';
-part 'add_members_bloc.freezed.dart';
+import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
+import 'package:mediezy_user/ddd/domain/core/failures/main_failure.dart';
+import 'package:mediezy_user/ddd/domain/edit_member/edit_member_service.dart';
+part 'edit_member_event.dart';
+part 'edit_member_state.dart';
+part 'edit_member_bloc.freezed.dart';
 
 @injectable
-class AddMembersBloc extends Bloc<AddMembersEvent, AddMembersState> {
-  final AddMemberRepo addMemberRepo;
-  AddMembersBloc(this.addMemberRepo) : super(AddMembersState.initial()) {
+class EditMemberBloc extends Bloc<EditMemberEvent, EditMemberState> {
+  final EditMemberRepo editMemberRepo;
+  EditMemberBloc(this.editMemberRepo) : super(EditMemberState.initial()) {
     on<_Started>((event, emit) async {
       emit(state.copyWith(
           isloding: true, registerFaileurOrSuccessOption: none()));
       log(emit.toString());
-      final Either<MainFailure, ClintClinicModelData?> addMemberOption =
-          await addMemberRepo.getdoctersData(
+      final Either<MainFailure, ClintClinicModelData?> editMemberOption =
+          await editMemberRepo.editMemberData(
+        event.patientId,
         event.fullName,
         event.age,
         event.mobileNumber,
@@ -37,9 +35,9 @@ class AddMembersBloc extends Bloc<AddMembersEvent, AddMembersState> {
         event.medicines,
         event.context,
       );
-      log("${addMemberOption.toString()} ======");
+      log("${editMemberOption.toString()} ======");
       emit(
-        addMemberOption.fold(
+        editMemberOption.fold(
           (failure) => state.copyWith(
             isloding: false,
             registerFaileurOrSuccessOption: some(

@@ -12,7 +12,6 @@ class BookAppointmentApi {
   ApiClient apiClient = ApiClient();
 
   //* book appointment
-<<<<<<< HEAD
   Future<BookAppointmentModel> bookAppointment({
     required String patientName,
     required String doctorId,
@@ -32,25 +31,6 @@ class BookAppointmentApi {
     required String sheduleType,
     required String tokenId,
   }) async {
-=======
-  Future<BookAppointmentModel> bookAppointment(
-      {required String patientName,
-      required String doctorId,
-      required String clinicId,
-      required String date,
-      required String whenitcomes,
-      required String whenitstart,
-      required String tokenTime,
-      required String tokenNumber,
-      required String gender,
-      required String age,
-      required String mobileNo,
-      required String bookingType,
-      required List<String> appoinmentfor1,
-      required List<int> appoinmentfor2,
-      required String patientId,
-      required String sheduleType}) async {
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
     String basePath = "patient/patientBookGeneratedTokens";
     final preferences = await SharedPreferences.getInstance();
     String? userId = preferences.getString('userId');
@@ -71,12 +51,8 @@ class BookAppointmentApi {
       "clinic_id": clinicId,
       "Bookingtype": bookingType,
       "patient_id": patientId,
-<<<<<<< HEAD
       "schedule_type": sheduleType,
       "token_id": tokenId
-=======
-      "schedule_type": sheduleType
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
     };
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);

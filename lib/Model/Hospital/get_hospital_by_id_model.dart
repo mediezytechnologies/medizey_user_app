@@ -21,7 +21,8 @@ class GetHospitalByIdModel {
     data['status'] = status;
     data['message'] = message;
     if (clinicDetails != null) {
-      data['clinic_details'] = clinicDetails!.map((v) => v.toJson()).toList();
+      data['clinic_details'] =
+          clinicDetails!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -77,20 +78,30 @@ class ClinicDetails {
 }
 
 class Specializations {
-  int? id;
-  String? name;
+  int? specializationId;
+  String? specializationName;
+  String? specializationIcon;
+  int? availableDoctorCount;
 
-  Specializations({this.id, this.name});
+  Specializations(
+      {this.specializationId,
+      this.specializationName,
+      this.specializationIcon,
+      this.availableDoctorCount});
 
   Specializations.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
+    specializationId = json['specialization_id'];
+    specializationName = json['specialization_name'];
+    specializationIcon = json['specialization_icon'];
+    availableDoctorCount = json['available_doctor_count'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
+    data['specialization_id'] = specializationId;
+    data['specialization_name'] = specializationName;
+    data['specialization_icon'] = specializationIcon;
+    data['available_doctor_count'] = availableDoctorCount;
     return data;
   }
 }

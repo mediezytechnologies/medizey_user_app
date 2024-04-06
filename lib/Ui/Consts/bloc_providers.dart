@@ -21,11 +21,9 @@ import 'package:mediezy_user/Repository/Bloc/GetToken/get_token_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetDoctorsByHealthCategory/get_doctors_by_health_category_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetHealthCategories/get_health_categories_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/AddMedicine/add_medicine_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/HealthRecord/AddMember/add_member_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteDocument/delete_document_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteMedicine/delete_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteMember/delete_member_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/HealthRecord/EditMember/edit_member_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllPrescriptions/get_all_prescriptions_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllUploadedDocuments/get_all_uploaded_documents_bloc.dart';
@@ -44,6 +42,7 @@ import 'package:mediezy_user/Repository/Bloc/HealthRecord/TimeLine/time_line_blo
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UpdateMedicine/update_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UploadDocument/UploadDocument/upload_document_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UploadDocument/UploadDocumentFinal/upload_document_lab_and_scan_final_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthRecord/bloc/get_updated_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospitalById/get_hospital_by_id_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospitalDoctorBySpecialisation/get_hospital_doctor_by_specialisation_bloc.dart';
@@ -57,6 +56,7 @@ import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/ContactUs/contact_us_bloc.dart';
 import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
+import 'package:mediezy_user/ddd/application/edit_member/edit_member_bloc.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
 import '../../ddd/application/add_members/add_members_bloc.dart';
@@ -85,7 +85,7 @@ class AppBlocProviders {
         BlocProvider(create: (context) => UploadDocumentBloc()),
         BlocProvider(create: (context) => UploadDocumentFinalBloc()),
         BlocProvider(create: (context) => GetMemberByIdBloc()),
-        BlocProvider(create: (context) => EditMemberBloc()),
+        // BlocProvider(create: (context) => EditMemberBloc()),
         BlocProvider(create: (context) => DeleteMemberBloc()),
         BlocProvider(create: (context) => GetAllUploadedDocumentsBloc()),
         BlocProvider(create: (context) => GetAllPrescriptionsBloc()),
@@ -121,15 +121,11 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetScanReportByIdBloc()),
         BlocProvider(create: (context) => GetDischargeSummaryByIdDartBloc()),
         BlocProvider(create: (context) => ContactUsBloc()),
-<<<<<<< HEAD
         BlocProvider(create: (context) => QrCodeScanBloc()),
-=======
-        BlocProvider(
-          create: (context) => getIt<AddMembersBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<AddMemberImageBloc>(),
-        ),
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
+        BlocProvider(create: (context) => getIt<AddMembersBloc>()),
+        BlocProvider(create: (context) => getIt<AddMemberImageBloc>()),
+        BlocProvider(create: (context) => getIt<AddMemberImageBloc>()),
+        BlocProvider(create: (context) => GetUpdatedMedicineBloc()),
+        BlocProvider(create: (context) => getIt<EditMemberBloc>()),
       ];
 }

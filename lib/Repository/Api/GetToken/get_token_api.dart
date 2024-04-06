@@ -18,11 +18,7 @@ class GetTokenApi {
     String basePath =
         "patient/getPatientTokenDetails/$date/$clinicId/$doctorId";
     Response response =
-<<<<<<< HEAD
     await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
-=======
-        await apiClient.invokeAPI(path: basePath, method: "Get", body: null);
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
     print("<<<<<<<< TOKEN FETCHED WORKED SUCCESSFULLY >>>>>>>>>>");
     return GetTokenModel.fromJson(json.decode(response.body));
   }

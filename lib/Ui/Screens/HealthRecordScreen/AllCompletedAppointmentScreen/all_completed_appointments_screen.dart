@@ -83,7 +83,6 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                             ? ""
                             : completedAppointment
                                 .completedAppointments![index].notes
-<<<<<<< HEAD
                                 .toString(),
                         patientName: completedAppointment
                             .completedAppointments![index].patientName
@@ -96,20 +95,6 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                             : completedAppointment
                                 .completedAppointments![index].prescriptionImage
                                 .toString(),
-=======
-                                .toString(),
-                        patientName: completedAppointment
-                            .completedAppointments![index].patientName
-                            .toString(),
-                        prescriptionImage: completedAppointment
-                                    .completedAppointments![index]
-                                    .prescriptionImage ==
-                                null
-                            ? ""
-                            : completedAppointment
-                                .completedAppointments![index].prescriptionImage
-                                .toString(),
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
                         reviewAfter: completedAppointment
                                     .completedAppointments![index]
                                     .reviewAfter ==
@@ -126,12 +111,7 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                             .toString(),
                         symptoms: completedAppointment
                                     .completedAppointments![index]
-<<<<<<< HEAD
                                     .mainSymptoms ==
-=======
-                                    .mainSymptoms!
-                                    .mainsymptoms ==
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
                                 null
                             ? completedAppointment.completedAppointments![index]
                                 .otherSymptom!.symtoms

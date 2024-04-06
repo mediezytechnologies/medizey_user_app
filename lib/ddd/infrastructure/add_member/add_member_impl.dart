@@ -1,50 +1,42 @@
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, deprecated_member_use, avoid_print, body_might_complete_normally_nullable, unused_local_variable
+
 import 'dart:developer';
-import 'dart:io';
-
-import "package:async/async.dart";
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get_storage/get_storage.dart';
-
 import 'package:http_parser/http_parser.dart';
-
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/domain/core/failures/main_failure.dart';
 import 'package:mediezy_user/ddd/domain/add_member_image/model/add_member_image.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../domain/add_member/add_member_service.dart';
 
 @LazySingleton(as: AddMemberRepo)
 class RegisterServiceImpl implements AddMemberRepo {
   @override
   Future<Either<MainFailure, ClintClinicModelData?>> getdoctersData(
-     String fullName,
-     String age,
-     String mobileNumber,
-     String gender,
-     String regularMedicine,
-     String surgeryName,
-     String treatmentTaken,
-     String surgeryDetails,
-     String treatmentTakenDetails,
-     List<Allergy>? allergies,
-    List<Medicine>? medicines,
-    BuildContext context
-  ) async {
+      String fullName,
+      String age,
+      String mobileNumber,
+      String gender,
+      String regularMedicine,
+      String surgeryName,
+      String treatmentTaken,
+      String surgeryDetails,
+      String treatmentTakenDetails,
+      List<Allergy>? allergies,
+      List<Medicine>? medicines,
+      BuildContext context) async {
     final preference = await SharedPreferences.getInstance();
     String userId = preference.getString('userId').toString();
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
     try {
       final response = await Dio(BaseOptions(
-      headers: {'Authorization': 'Bearer $token'},
+        headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
       )).post(
         ApiEndPoints.addMember,
@@ -63,7 +55,7 @@ class RegisterServiceImpl implements AddMemberRepo {
           "medicines": medicines,
         },
       );
-      print(response);
+     
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = ClintClinicModelData.fromJson(response.data);
@@ -78,21 +70,22 @@ class RegisterServiceImpl implements AddMemberRepo {
 
         log('Response: ${response.requestOptions}');
         log('Response data: ${response.data}');
-
+        log("Call addedd Message >>>> ${result.message.toString()}");
+        GeneralServices.instance.showToastMessage(result.message.toString());
         return Right(result);
       } else {
-        log("${MainFailure.clientFailure()}");
-        return Left(MainFailure.clientFailure());
+        log("${const MainFailure.clientFailure()}");
+        return const Left(MainFailure.clientFailure());
       }
-      // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message!);
       log(e.error.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.response!.data['response'].toString())));
+
+      GeneralServices.instance
+          .showErrorMessage(context, e.response!.data['response'].toString());
       log(e.error.toString());
-      log("${MainFailure.serverFailure()}");
-      return Left(MainFailure.serverFailure());
+      log("${const MainFailure.serverFailure()}");
+      return const Left(MainFailure.serverFailure());
     }
   }
 }
@@ -116,15 +109,12 @@ class ApiService {
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
 
-    print("token : $token");
-
+    log("token : $token");
     log(userId);
     log(fullName);
     log(age);
-
     log(mobileNumber);
     log(gender);
-
     log(userId);
     log(userId);
     log(userId);
@@ -148,28 +138,6 @@ class ApiService {
         "allergies": allergies,
         "medicines": medicines,
       }
-          //     {
-          //   "user_id": 765,
-          //   "full_name": "Atipjjpps15r2",
-          //   "mobile_number": "177567890",
-          //   "gender": 1,
-          //   "date_of_birth": "1990-05-15",
-          //   "regularMedicine": "No",
-          //   "Medicine_Taken": "Medicine name",
-          //   "illness": "Illness description",
-          //   "medicines": [
-          //     {"medicineName": "Medicine name", "illness": "Illness description"},
-          //     {"medicineName": "Medicine name", "illness": "Illness descri"}
-          //   ],
-          //   "allergies": [
-          //     {"allergy_id": 1, "allergy_details": "Allergy details"},
-          //     {"allergy_id": 2, "allergy_details": "Another allergy details"}
-          //   ],
-          //   "surgery_name": "Surgery name",
-          //   "surgery_details": "Surgery details",
-          //   "treatment_taken": "Treatment taken",
-          //   "treatment_taken_details": "Treatment details"
-          // }
           );
       if (response.statusCode == 400) {
         log("message");
@@ -196,7 +164,7 @@ class ApiService {
       }
     }
 
-    // ignore: deprecated_member_use
+
 
     on DioError catch (e) {
       log('fjklsfjkdfs');
@@ -243,8 +211,6 @@ class ApiService {
         log('Response: ${response.data}');
       }
     }
-
-    // ignore: deprecated_member_use
 
     on DioError catch (e) {
       log('fjklsfjkdfs');

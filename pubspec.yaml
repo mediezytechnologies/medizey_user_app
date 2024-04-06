@@ -56,10 +56,8 @@ dependencies:
   fancy_shimmer_image: ^2.0.3
   shimmer: ^3.0.0
   share_plus: ^7.2.2
-<<<<<<< HEAD
   flutter_barcode_scanner: ^2.0.0
 
-=======
   dio: ^5.4.2+1
   dartz: ^0.10.1
   get_it: ^7.2.0
@@ -69,7 +67,6 @@ dependencies:
   analyzer: ^5.13.0
   freezed_annotation: ^2.4.1
   get_storage: ^2.1.1
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
   
   
 

@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -12,19 +13,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllergy/get_allery_model.dart';
-import 'package:mediezy_user/Repository/Bloc/HealthRecord/AddMember/add_member_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllergy/get_allergy_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
+import 'package:mediezy_user/ddd/application/add_members/add_members_bloc.dart';
+import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../ddd/application/add_members/add_members_bloc.dart';
-import '../../../../ddd/infrastructure/add_member/add_member_impl.dart';
-import '../../../../ddd/domain/add_member/model/add_member_model.dart';
 
 class AddPatientScreen extends StatefulWidget {
   const AddPatientScreen({super.key});
@@ -64,14 +62,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   File? imageFromGallery;
   List<Map<String, dynamic>> medicineDataList = [];
   List<Medicine>? medicineDataLists = [];
-  List<Medicine>? medicineLists = [];
   List<Allergy> allergies = [];
   DateTime? dateOfBirth;
   final ImagePicker imagePicker = ImagePicker();
-//secnd edit//
-
-  final ApiService _apiService = ApiService();
-
   String? imagePath;
 
   @override
@@ -87,498 +80,23 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
         title: const Text("Add Family Member"),
         centerTitle: true,
       ),
-<<<<<<< HEAD
-      body: BlocListener<AddMemberBloc, AddMemberState>(
-        listener: (context, state) {
-          if (state is AddMemberLoadedState) {
-            GeneralServices.instance.showToastMessage(state.successMessage);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BottomNavigationControlWidget(),
-                ),
-                (route) => false);
-          }
-          if (state is AddMemberErrorState) {
-            log("message ${state.errorMessage}");
-            GeneralServices.instance
-                .showErrorMessage(context, state.errorMessage);
-          }
-        },
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const VerticalSpacingWidget(height: 20),
-                Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        height: 100.h,
-                        width: 100.w,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: FadedScaleAnimation(
-                          scaleDuration: const Duration(milliseconds: 400),
-                          fadeDuration: const Duration(milliseconds: 400),
-                          child: ClipOval(
-                            child: imageFromGallery != null
-                                ? Image.file(
-                                    imageFromGallery!,
-                                    height: 80.h,
-                                    width: 80.w,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.asset(
-                                    "assets/icons/profile pic.png",
-                                    height: 80.h,
-                                    width: 80.w,
-                                    color: kMainColor,
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: -10.h,
-                      right: 100.w,
-                      child: IconButton(
-                        onPressed: () {
-                          pickImageFromGallery();
-                        },
-                        icon: Icon(
-                          Icons.add_a_photo,
-                          size: 26.sp,
-                          weight: 5,
-                          color: kMainColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const VerticalSpacingWidget(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: TextFormField(
-                    style: TextStyle(fontSize: 13.sp, color: kTextColor),
-                    cursorColor: kMainColor,
-                    controller: fullNameController,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      hintStyle:
-                          TextStyle(fontSize: 13.sp, color: kSubTextColor),
-                      hintText: "Enter full name",
-                      filled: true,
-                      fillColor: kCardColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                    ),
-                  ),
-                ),
-                VerticalSpacingWidget(height: 5.h),
-                Row(
-                  children: [
-                    const VerticalSpacingWidget(height: 5),
-                    SizedBox(
-                      height: 50.h,
-                      width: 200.w,
-                      child: TextFormField(
-                        onTapOutside: (event) =>
-                            FocusScope.of(context).unfocus(),
-                        style: TextStyle(fontSize: 13.sp, color: kTextColor),
-                        cursorColor: kMainColor,
-                        controller: phoneNumberController,
-                        keyboardType: TextInputType.number,
-                        maxLength: 10,
-                        decoration: InputDecoration(
-                          counterText: "",
-                          hintStyle:
-                              TextStyle(fontSize: 13.sp, color: kSubTextColor),
-                          hintText: "Enter Phone Number",
-                          filled: true,
-                          fillColor: kCardColor,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16.0, horizontal: 10.0),
-                        ),
-                      ),
-                    ),
-                    VerticalSpacingWidget(height: 5.h),
-                    InkWell(
-                      onTap: () {
-                        selectDate(
-                          context: context,
-                          date: dateOfBirth ?? DateTime.now(),
-                          onDateSelected: (DateTime picked) async {
-                            setState(() {
-                              dateOfBirth = picked;
-                            });
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 48.h,
-                        width: 130.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              dateOfBirth != null
-                                  ? DateFormat('dd-MM-yyyy')
-                                      .format(dateOfBirth!)
-                                  : 'DOB',
-                              style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: kTextColor),
-                            ),
-                            Icon(
-                              IconlyLight.calendar,
-                              color: kMainColor,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const VerticalSpacingWidget(height: 5),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Gender",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.sp,
-                          color: kSubTextColor),
-                    ),
-                    VerticalSpacingWidget(height: 2.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  genderValue = "Male";
-                                  selectedGender = "1";
-                                });
-                              },
-                              child: Row(
-                                children: [
-                                  Radio<String>(
-                                    visualDensity:
-                                        const VisualDensity(horizontal: -4),
-                                    activeColor: kMainColor,
-                                    value: "Male",
-                                    groupValue: genderValue,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        genderValue = value!;
-                                        selectedGender = "1";
-                                      });
-                                    },
-                                  ),
-                                  Text("Male",
-                                      style: TextStyle(fontSize: 13.sp)),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  genderValue = "Female";
-                                  selectedGender = "2";
-                                });
-                              },
-                              child: Row(
-                                children: [
-                                  Radio<String>(
-                                    visualDensity:
-                                        const VisualDensity(horizontal: -4),
-                                    activeColor: kMainColor,
-                                    value: "Female",
-                                    groupValue: genderValue,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        genderValue = value!;
-                                        selectedGender = "2";
-                                      });
-                                    },
-                                  ),
-                                  Text("Female",
-                                      style: TextStyle(fontSize: 13.sp)),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  genderValue = "Other";
-                                  selectedGender = "3";
-                                });
-                              },
-                              child: Row(
-                                children: [
-                                  Radio<String>(
-                                    visualDensity:
-                                        const VisualDensity(horizontal: -4),
-                                    activeColor: kMainColor,
-                                    value: "Other",
-                                    groupValue: genderValue,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        genderValue = value!;
-                                        selectedGender = "3";
-                                      });
-                                    },
-                                  ),
-                                  Text("Other",
-                                      style: TextStyle(fontSize: 13.sp)),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Using any regular medicines?",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13.sp,
-                          color: kSubTextColor),
-                    ),
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    regularMedicine = "Yes";
-                                  });
-                                },
-                                child: Row(
-                                  children: [
-                                    Radio<String>(
-                                      visualDensity:
-                                          const VisualDensity(horizontal: -4),
-                                      activeColor: kMainColor,
-                                      value: "Yes",
-                                      groupValue: regularMedicine,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          regularMedicine = value!;
-                                        });
-                                      },
-                                    ),
-                                    Text(
-                                      "Yes",
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: kSubTextColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    regularMedicine = "No";
-                                  });
-                                },
-                                child: Row(
-                                  children: [
-                                    Radio<String>(
-                                      visualDensity:
-                                          const VisualDensity(horizontal: -4),
-                                      activeColor: kMainColor,
-                                      value: "No",
-                                      groupValue: regularMedicine,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          regularMedicine = value!;
-                                        });
-                                      },
-                                    ),
-                                    Text(
-                                      "No",
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: kSubTextColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const VerticalSpacingWidget(height: 2),
-                ListView.builder(
-                    itemCount: medicineDataList.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: ((context, index) {
-                      return Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(
-                            color: kCardColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  "Illness name : ",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kSubTextColor),
-                                ),
-                                Text(
-                                  medicineDataList[index]['illness'].toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kTextColor),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "Medicine name : ",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kSubTextColor),
-                                ),
-                                Text(
-                                  medicineDataList[index]['medicineName']
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kTextColor),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-=======
-      body:
-          // BlocListener<AddMemberBloc, AddMemberState>(
-          //   listener: (context, state) {
-          //     if (state is AddMemberLoadedState) {
-          //       GeneralServices.instance.showToastMessage(state.successMessage);
-          //       Navigator.pushAndRemoveUntil(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => const BottomNavigationControlWidget(),
-          //           ),
-          //           (route) => false);
-          //     }
-          //     if (state is AddMemberErrorState) {
-          //       log("message ${state.errorMessage}");
-          //       General Services.instance
-          //           .showErrorMessage(context, state.errorMessage);
-          //     }
-          //   },
-          //   child:
-          SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: BlocConsumer<AddMembersBloc, AddMembersState>(
-            listener: (context, state) {
-              // TODO: implement listener
-            },
+            listener: (context, state) {},
             builder: (context, state) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const VerticalSpacingWidget(height: 20),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final preference = await SharedPreferences.getInstance();
-                      await _apiService.postData(
-                        fullNameController.text,
-                        "1990-05-15",
-                        "177567890",
-                        "1",
-                        "Yes",
-                        "Surgery name",
-                        "Treatment taken",
-                        "Surgery details",
-                        "Treatment details",
-                        allergies,
-                        medicineDataLists,
-                        context,
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
-                      );
-
-                      if (imagePath != null) {
-                        log(imagePath!);
-                        await _apiService.imageUplodService(
-                            imagePath!, context);
-                        preference.remove('patientId');
-                      }
-                    },
-                    child: Text('Send Data'),
-                  ),
-                  const VerticalSpacingWidget(height: 20),
-
                   Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: Container(
                           height: 100.h,
-                          width: 100.w,
+                          width: 110.w,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
@@ -623,9 +141,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   ),
                   const VerticalSpacingWidget(height: 10),
                   BlocConsumer<AddMembersBloc, AddMembersState>(
-                    listener: (context, state) {
-                      // TODO: implement listener
-                    },
+                    listener: (context, state) {},
                     builder: (context, state) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -990,7 +506,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                   ),
                                   Text(
                                     medicineDataLists![index].illness!,
-                                    //          medicineDataList[index]['illness'].toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 13.sp,
@@ -1095,11 +610,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                             medicineName: medicineName,
                                             illness: illness));
                                         log("${medicineDataLists!.length}");
-                                        // Map<String, dynamic> newData = {
-                                        //   'medicineName': medicineController.text,
-                                        //   'illness': illnessController.text,
-                                        // };
-                                        // medicineDataList.add(newData);
                                         medicineController.clear();
                                         illnessController.clear();
                                       });
@@ -1172,15 +682,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                     } else {
                                       selectedAllergies = {index};
                                       allergies.clear();
-                                      allergies.add(Allergy(
-                                              allergyDetails: '',
-                                              allergyId: index + 1)
-
-                                          //   {
-                                          //   'allergy_id': index + 1,
-                                          //   'allergy_details': '',
-                                          // }
-                                          );
+                                      allergies.add(
+                                        Allergy(
+                                            allergyDetails: '',
+                                            allergyId: index + 1),
+                                      );
                                     }
                                   } else {
                                     if (selectedAllergies.contains(index)) {
@@ -1346,8 +852,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: TextFormField(
                               cursorColor: kMainColor,
-                              // controller: TextEditingController(
-                              //     text: allergies[index]['allergy_details']),
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                               onChanged: (value) {
@@ -1466,17 +970,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                     ),
                   const VerticalSpacingWidget(height: 5),
-
-                  //
-                  ElevatedButton(
-                      onPressed: () {
-                        medicineDataLists!.forEach((person) {
-                          print(
-                              'Name: ${person.medicineName}, Age: ${person.illness}, ');
-                        });
-                      },
-                      child: Text("data")),
-                  //
                   //! treatment taken
                   Text(
                     "Any Treatment taken for?",
@@ -1485,72 +978,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         fontSize: 13.sp,
                         color: kSubTextColor),
                   ),
-<<<<<<< HEAD
-                const VerticalSpacingWidget(height: 20),
-                CommonButtonWidget(
-                  title: "Add Member",
-                  onTapFunction: () {
-                    log(medicineDataList.toString());
-                    if (fullNameController.text.isEmpty) {
-                      GeneralServices.instance
-                          .showErrorMessage(context, "Fill family member name");
-                    } else if (dateOfBirth == null) {
-                      GeneralServices.instance
-                          .showErrorMessage(context, "Fill date of birth");
-                    } else if (phoneNumberController.text.isEmpty ||
-                        phoneNumberController.text.length < 10) {
-                      GeneralServices.instance.showErrorMessage(
-                          context, "Fill family member number");
-                    } else if (regularMedicine == "Yes" &&
-                        (medicineDataList.isEmpty)) {
-                      GeneralServices.instance.showErrorMessage(
-                          context, "Add illness and medicine details");
-                    } else if (allergies.isEmpty) {
-                      GeneralServices.instance
-                          .showErrorMessage(context, "Select allergy");
-                    } else if (selectedSurgery.isEmpty) {
-                      GeneralServices.instance
-                          .showErrorMessage(context, "Select surgery");
-                    } else if (selectedTreatment.isEmpty) {
-                      GeneralServices.instance
-                          .showErrorMessage(context, "Select treatment");
-                    } else {
-                      BlocProvider.of<AddMemberBloc>(context).add(
-                        FetchAddMember(
-                          fullName: fullNameController.text,
-                          age: DateFormat('yyy-MM-dd').format(dateOfBirth!),
-                          allergies: allergies,
-                          gender: selectedGender,
-                          mobileNumber: phoneNumberController.text,
-                          regularMedicine: regularMedicine,
-                          surgeyName: selectedSurgery.toString(),
-                          treatmentTaken: selectedTreatment.toString(),
-                          suregeryDetails: otherSurgeryController.text,
-                          treatmentTakenDetails: otherTreatmentController.text,
-                          medicines: medicineDataList,
-                        ),
-                      );
-                      // Future.delayed(const Duration(seconds: 2), () {
-                      //   if (imageFromGallery != null) {
-                      //     BlocProvider.of<AddMemberBloc>(context).add(
-                      //       AddFamilyMemberImageEvent(image: imageFromGallery!),
-                      //     );
-                      //   }
-                      // });
-                      // if (imageFromGallery != null) {
-                      //   BlocProvider.of<AddMemberBloc>(context).add(
-                      //     AddFamilyMemberImageEvent(
-                      //       image: imageFromGallery!,
-                      //     ),
-                      //   );
-                      // }
-                    }
-                  },
-                ),
-                VerticalSpacingWidget(height: 5.h),
-              ],
-            ),
-=======
                   VerticalSpacingWidget(height: 2.h),
                   Wrap(
                     children: List.generate(
@@ -1636,104 +1063,18 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                     ),
                   const VerticalSpacingWidget(height: 20),
-                  CommonButtonWidget(
-                    title: "Add Member",
-                    onTapFunction: state.isloding
-                        ? () {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        : () async {
-                            log(medicineDataList.toString());
-                            if (fullNameController.text.isEmpty) {
-                              GeneralServices.instance.showErrorMessage(
-                                  context, "Fill family member name");
-                            } else if (dateOfBirth == null) {
-                              GeneralServices.instance.showErrorMessage(
-                                  context, "Fill date of birth");
-                            } else if (phoneNumberController.text.isEmpty ||
-                                phoneNumberController.text.length < 10) {
-                              GeneralServices.instance.showErrorMessage(
-                                  context, "Fill family member number");
-                            } else if (regularMedicine == "Yes" &&
-                                (medicineDataLists!.isEmpty)) {
-                              GeneralServices.instance.showErrorMessage(
-                                  context, "Add illness and medicine details");
-                            } else if (allergies.isEmpty) {
-                              GeneralServices.instance
-                                  .showErrorMessage(context, "Select allergy");
-                            } else if (selectedSurgery.isEmpty) {
-                              GeneralServices.instance
-                                  .showErrorMessage(context, "Select surgery");
-                            } else if (selectedTreatment.isEmpty) {
-                              GeneralServices.instance.showErrorMessage(
-                                  context, "Select treatment");
-                            } else {
-                              log("message ${allergies}");
-                              log(" jkfhsdjkf : $regularMedicine");
-
-                              log(" medisi : $medicineDataLists");
-                              BlocProvider.of<AddMembersBloc>(context).add(
-                                AddMembersEvent.started(
-                                  fullNameController.text,
-                                  DateFormat('yyy-MM-dd').format(dateOfBirth!),
-                                  phoneNumberController.text,
-                                  selectedGender,
-                                  regularMedicine,
-                                  selectedSurgery.toString(),
-                                  selectedTreatment.toString(),
-                                  otherSurgeryController.text,
-                                  otherTreatmentController.text,
-                                  // ignore: use_build_context_synchronously
-                                  context,
-                                  allergies,
-                                  medicineDataLists!,
-                                ),
-                              );
-                              final preference =
-                                  await SharedPreferences.getInstance();
-                              int? pId = preference.getInt('patientId');
-                              log('pid is get $pId');
-                              // Future.delayed(Duration(seconds: 2));
-                              if (imagePath != null) {
-                                log(imagePath!);
-                              }
-                              log('button pressed');
-                              // if (imagePath != null && pId != null) {
-                              //   log(imagePath!);
-                              //   // ignore: use_build_context_synchronously
-                              // BlocProvider.of<AddMemberImageBloc>(context)
-                              //     .add(AddMemberImageEvent.started(imagePath!));
-                              //   // preference.remove('patientId');
-                              //   log("message ui patiant id :${preference.remove('patientId')} ");
-                              //   Navigator.pushAndRemoveUntil(
-                              //       // ignore: use_build_context_synchronously
-                              //       context,
-                              //       MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const BottomNavigationControlWidget(),
-                              //       ),
-                              //       (route) => false);
-                              // } else {
-                              //   log("image null get off");
-                              // Navigator.pushAndRemoveUntil(
-                              // ignore: use_build_context_synchronously
-                              // context,
-                              // MaterialPageRoute(
-                              //   builder: (context) =>
-                              //       const BottomNavigationControlWidget(),
-                              // ),
-                              // (route) => false);
-                              //    }
-                            }
-                          },
-                  ),
-                  VerticalSpacingWidget(height: 5.h),
-                  ElevatedButton(
+                  Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(330.w, 50.h),
+                        backgroundColor: kMainColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                       onPressed: state.isloding
                           ? () {
-                              Center(
+                              const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }
@@ -1764,10 +1105,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 GeneralServices.instance.showErrorMessage(
                                     context, "Select treatment");
                               } else {
-                                log("message ${allergies}");
-                                log(" jkfhsdjkf : $regularMedicine");
-
-                                log(" medisi : $medicineDataLists");
                                 BlocProvider.of<AddMembersBloc>(context).add(
                                   AddMembersEvent.started(
                                     fullNameController.text,
@@ -1780,7 +1117,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                     selectedTreatment.toString(),
                                     otherSurgeryController.text,
                                     otherTreatmentController.text,
-                                    // ignore: use_build_context_synchronously
                                     context,
                                     allergies,
                                     medicineDataLists!,
@@ -1789,47 +1125,59 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 final preference =
                                     await SharedPreferences.getInstance();
                                 int? pId = preference.getInt('patientId');
-                                ;
-                                Future.delayed(Duration(seconds: 2))
+                                Future.delayed(const Duration(seconds: 1))
                                     .then((value) => log('pid is get $pId'));
                                 if (imagePath != null) {
                                   log(imagePath!);
-                                  Future.delayed(Duration(seconds: 3)).then(
-                                      (value) =>
+                                  Future.delayed(const Duration(seconds: 2))
+                                      .then((value) =>
                                           BlocProvider.of<AddMemberImageBloc>(
                                                   context)
                                               .add(AddMemberImageEvent.started(
                                                   imagePath!)));
-                                  Future.delayed(Duration(seconds: 3)).then(
-                                      (value) => Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const BottomNavigationControlWidget(),
-                                          ),
-                                          (route) => false));
+                                  Future.delayed(const Duration(seconds: 2))
+                                      .then((value) =>
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const BottomNavigationControlWidget(),
+                                              ),
+                                              (route) => false));
                                 }
-                                Future.delayed(Duration(seconds: 3)).then(
-                                      (value) => Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const BottomNavigationControlWidget(),
-                                          ),
-                                          (route) => false));
+                                Future.delayed(const Duration(seconds: 2)).then(
+                                    (value) => Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const BottomNavigationControlWidget(),
+                                        ),
+                                        (route) => false));
                                 log('button pressed');
                               }
                             },
-                      child: Text("data")),
+                      child: state.isloding
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: kCardColor,
+                              ),
+                            )
+                          : Text(
+                              "Add Member",
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ),
+                    ),
+                  ),
                   VerticalSpacingWidget(height: 5.h),
                 ],
               );
             },
->>>>>>> fe0e675d98c5501f7e9ae26aef4a7c9763a660c3
           ),
         ),
       ),
-      //  ),
     );
   }
 
@@ -1866,26 +1214,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
       imagePath = imageTemporary;
       print("$imageTemporary======= image");
     });
-
-    // Get.back();
-  }
-
-//akber code ===================================
-  Future<void> pickImageFromGallery() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      File imageFile = File(pickedFile.path);
-      File compressedImage = await compressImage(imageFile);
-      setState(() {
-        imageFromGallery = compressedImage;
-      });
-    } else {
-      setState(() {
-        GeneralServices.instance.showToastMessage('Please select an image');
-      });
-    }
   }
 
 //* Image compression function

@@ -13,6 +13,7 @@ import 'package:mediezy_user/Model/HealthRecord/GetLabReportById/get_lab_report_
 import 'package:mediezy_user/Model/HealthRecord/GetMemberAsPerId/get_member_as_per_id_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetPrescriptionView/get_prescription_view_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetScanReportById/get_Scan_report_by_id_model.dart';
+import 'package:mediezy_user/Model/HealthRecord/GetUpdatedMedicine/get_updated_medicine_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetUploadedDischargeSummary/get_uploaded_discharge_summary_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetUploadedLabTest/get_uploaded_lab_test_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetUploadedPrescriptionById/get_uploaded_prescription_by_id_model.dart';
@@ -442,7 +443,7 @@ class HealthRecordApi {
     required String illnessName,
     required String medicineName,
   }) async {
-    String basePath = "patient/updatetMedicines";
+    String basePath = "patient/updateMedicines";
     final body = {
       "patient_id": patientId,
       "id": medicineId,
@@ -453,5 +454,16 @@ class HealthRecordApi {
         await apiClient.invokeAPI(path: basePath, method: "PUT", body: body);
     print("<<<<<<<<<<UPDATE MEDICINE WORKED SUCCESSFULLY>>>>>>>>>>");
     return response.body;
+  }
+
+  //* get updated medicine
+  Future<GetUpdatedMedicineModel> getUpdatedMedicine({
+    required String patientId,
+  }) async {
+    String basePath = "patient/getMedicine/$patientId";
+    var response =
+        await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
+    print("<<<<<<<<<<GET UPDATED MEDICINE WORKED SUCCESSFULLY>>>>>>>>>>");
+    return GetUpdatedMedicineModel.fromJson(json.decode(response.body));
   }
 }

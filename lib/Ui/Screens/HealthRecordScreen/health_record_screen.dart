@@ -412,6 +412,11 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                               builder:
                                                                   (context) {
                                                                 return EditPatientScreen(
+                                                                  dateOfBirth: getAllMembersModel
+                                                                      .patientData![
+                                                                          index]
+                                                                      .dob
+                                                                      .toString(),
                                                                   surgeryDetails: getAllMembersModel
                                                                       .patientData![
                                                                           index]
@@ -468,21 +473,11 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                                           index]
                                                                       .regularMedicine
                                                                       .toString(),
-                                                                  allergyId: getAllMembersModel
+                                                                  allergiesDetails: getAllMembersModel
                                                                       .patientData![
                                                                           index]
-                                                                      .allergyId
-                                                                      .toString(),
-                                                                  allergyDetails: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .allergyDetail
-                                                                      .toString(),
-                                                                  allergyName: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .allergyName
-                                                                      .toString(),
+                                                                      .allergiesDetails!
+                                                                      .toList(),
                                                                   surgeryName: getAllMembersModel
                                                                       .patientData![
                                                                           index]
