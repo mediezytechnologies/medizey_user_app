@@ -153,11 +153,19 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
         .map((detail) => Allergy(
             allergyDetails: detail.allergyDetails, allergyId: detail.allergyId))
         .toList();
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   log("message medisine :$selectedAllergies");
+      //     allergies.forEach((allergies) {
+      //                     print(
+      //                         'details: ${allergies.allergyDetails}, details id: ${allergies.allergyId}, ');
+      //                   });
+      // },),
       appBar: AppBar(
         title: const Text("Edit Patient"),
         centerTitle: true,
