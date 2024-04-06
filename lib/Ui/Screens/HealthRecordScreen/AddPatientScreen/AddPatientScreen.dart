@@ -881,7 +881,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   ),
 
                   const VerticalSpacingWidget(height: 5),
-                  //! surgery
+          
                   Text(
                     "Any Surgery?",
                     style: TextStyle(
@@ -970,7 +970,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                     ),
                   const VerticalSpacingWidget(height: 5),
-                  //! treatment taken
+              
                   Text(
                     "Any Treatment taken for?",
                     style: TextStyle(
@@ -1237,7 +1237,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     }
   }
 
-  //! select date
+
   Future<void> selectDate({
     required BuildContext context,
     required DateTime date,

@@ -127,5 +127,11 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<AddMemberImageBloc>()),
         BlocProvider(create: (context) => GetUpdatedMedicineBloc()),
         BlocProvider(create: (context) => getIt<EditMemberBloc>()),
+        BlocProvider(
+          create: (context) => getIt<AddMembersBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<AddMemberImageBloc>(),
+        ),
       ];
 }
