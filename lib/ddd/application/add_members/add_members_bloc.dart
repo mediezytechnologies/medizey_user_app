@@ -1,15 +1,12 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../domain/add_member/add_member_service.dart';
 import '../../domain/core/failures/main_failure.dart';
 import '../../domain/add_member/model/add_member_model.dart';
-
 part 'add_members_event.dart';
 part 'add_members_state.dart';
 part 'add_members_bloc.freezed.dart';

@@ -66,6 +66,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   DateTime? dateOfBirth;
   final ImagePicker imagePicker = ImagePicker();
   String? imagePath;
+  bool isTreatmentOtherSelected = false;
+  bool isOtherSurgerySelected = false;
 
   @override
   void initState() {
@@ -879,9 +881,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       }
                     },
                   ),
-
                   const VerticalSpacingWidget(height: 5),
-          
                   Text(
                     "Any Surgery?",
                     style: TextStyle(
@@ -896,12 +896,18 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       (index) => GestureDetector(
                         onTap: () {
                           setState(() {
-                            if (surgeryTypes[index] == "No") {
+                            if (surgeryTypes[index] == "No" ||
+                                surgeryTypes[index] == "Other") {
                               if (!selectedSurgeryStart.contains(index)) {
                                 selectedSurgery.clear();
                                 selectedSurgeryStart.clear();
                                 selectedSurgeryStart.add(index);
                                 selectedSurgery.add(surgeryTypes[index]);
+                                if (surgeryTypes[index] == "Other") {
+                                  isOtherSurgerySelected = true;
+                                } else {
+                                  isOtherSurgerySelected = false;
+                                }
                               }
                             } else {
                               if (selectedSurgeryStart.contains(index)) {
@@ -918,6 +924,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 selectedSurgeryStart.removeWhere((element) =>
                                     element == surgeryTypes.indexOf("No"));
                               }
+                              if (selectedSurgery.contains("Other")) {
+                                selectedSurgery.remove("Other");
+                                selectedSurgeryStart.removeWhere((element) =>
+                                    element == surgeryTypes.indexOf("Other"));
+                              }
+                              isOtherSurgerySelected = false;
                             }
                           });
                         },
@@ -949,7 +961,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     ),
                   ),
                   const VerticalSpacingWidget(height: 5),
-                  if (surgeryIndex == "Other")
+                  if (isOtherSurgerySelected)
                     TextFormField(
                       cursorColor: kMainColor,
                       controller: otherSurgeryController,
@@ -970,7 +982,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                     ),
                   const VerticalSpacingWidget(height: 5),
-              
                   Text(
                     "Any Treatment taken for?",
                     style: TextStyle(
@@ -985,12 +996,18 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       (index) => GestureDetector(
                         onTap: () {
                           setState(() {
-                            if (treatmentTypes[index] == "No") {
+                            if (treatmentTypes[index] == "No" ||
+                                treatmentTypes[index] == "Other") {
                               if (!selectedTreatmentStart.contains(index)) {
                                 selectedTreatment.clear();
                                 selectedTreatmentStart.clear();
                                 selectedTreatmentStart.add(index);
                                 selectedTreatment.add(treatmentTypes[index]);
+                                if (treatmentTypes[index] == "Other") {
+                                  isTreatmentOtherSelected = true;
+                                } else {
+                                  isTreatmentOtherSelected = false;
+                                }
                               }
                             } else {
                               if (selectedTreatmentStart.contains(index)) {
@@ -1007,6 +1024,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 selectedTreatmentStart.removeWhere((element) =>
                                     element == treatmentTypes.indexOf("No"));
                               }
+                              if (selectedTreatment.contains("Other")) {
+                                selectedTreatment.remove("Other");
+                                selectedTreatmentStart.removeWhere((element) =>
+                                    element == treatmentTypes.indexOf("Other"));
+                              }
+                              isTreatmentOtherSelected = false;
                             }
                           });
                         },
@@ -1038,7 +1061,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     ),
                   ),
                   const VerticalSpacingWidget(height: 5),
-                  if (treatmentIndex == "Other")
+                  if (isTreatmentOtherSelected)
                     SizedBox(
                       height: 50.h,
                       child: TextFormField(
@@ -1236,7 +1259,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
       throw Exception('Image compression failed');
     }
   }
-
 
   Future<void> selectDate({
     required BuildContext context,

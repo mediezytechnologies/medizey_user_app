@@ -388,7 +388,6 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                     Container(
                                       padding: const EdgeInsets.all(8),
                                       margin: const EdgeInsets.all(8),
-                                      height: 60.h,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                           borderRadius:
@@ -397,61 +396,74 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                               color: kTextColor, width: 1)),
                                       child: Column(
                                         children: [
-                                          Text(
-                                            "Token No : ${widget.nextAvailableTokenNumber}",
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
-                                              color: kTextColor,
-                                              fontWeight: FontWeight.bold,
+                                          widget.nextAvailableTokenNumber == "0"
+                                              ? const SizedBox()
+                                              : Text(
+                                                  "Token No : ${widget.nextAvailableTokenNumber}",
+                                                  style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: kTextColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                          const VerticalSpacingWidget(
+                                              height: 3),
+                                          widget.nextAvailableDateAndTime ==
+                                                  "null"
+                                              ? const SizedBox()
+                                              : Text(
+                                                  widget
+                                                      .nextAvailableDateAndTime,
+                                                  style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: kTextColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                          const VerticalSpacingWidget(
+                                              height: 3),
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                                  return BookAppointmentScreen(
+                                                      doctorId: widget.doctorId,
+                                                      clinicList:
+                                                          widget.clinicList,
+                                                      doctorFirstName:
+                                                          widget.docterName,
+                                                      doctorSecondName: "");
+                                                }),
+                                              );
+                                            },
+                                            child: Container(
+                                              height: 40.h,
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xFF55B79B),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Center(
+                                                child: Text(
+                                                  "Book now",
+                                                  style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: kCardColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            textAlign: TextAlign.center,
                                           ),
                                           const VerticalSpacingWidget(
-                                              height: 2),
-                                          Text(
-                                            widget.nextAvailableDateAndTime,
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
-                                              color: kTextColor,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                              height: 3),
                                         ],
-                                      ),
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) {
-                                            return BookAppointmentScreen(
-                                                doctorId: widget.doctorId,
-                                                clinicList: widget.clinicList,
-                                                doctorFirstName:
-                                                    widget.docterName,
-                                                doctorSecondName: "");
-                                          }),
-                                        );
-                                      },
-                                      child: Container(
-                                        height: 40.h,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xFF55B79B),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Center(
-                                          child: Text(
-                                            "Book now",
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
-                                              color: kCardColor,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
                                       ),
                                     ),
                                     const VerticalSpacingWidget(height: 3),
@@ -750,8 +762,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
             reachedStatus: "1"));
         GeneralServices.instance.showToastMessage("Scanned successfully");
       } else {
-        GeneralServices.instance.showToastMessage(
-            "Please try again");
+        GeneralServices.instance.showToastMessage("Please try again");
       }
     });
   }

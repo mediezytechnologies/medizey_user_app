@@ -339,10 +339,8 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                       context)
                                   .getCompletedAppointmentsModel;
                           return getCompletedAppointmentsModel
-                                      .completedAppointments!.isEmpty ||
-                                  getCompletedAppointmentsModel
-                                          .completedAppointments ==
-                                      null
+                                      .appointmentDetails ==
+                                  null
                               ? Center(
                                   child: Column(
                                     children: [
@@ -365,107 +363,84 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                                 )
                               : ListView.builder(
                                   itemCount: getCompletedAppointmentsModel
-                                      .completedAppointments!.length,
+                                      .appointmentDetails!.length,
                                   itemBuilder: (context, index) {
                                     return CompletedAppointmentCardWidget(
                                       prescriptions:
                                           getCompletedAppointmentsModel
-                                              .completedAppointments![index]
-                                              .medicalPrescriptions!
+                                              .appointmentDetails![index]
+                                              .doctorMedicines!
                                               .toList(),
                                       clinicName: getCompletedAppointmentsModel
-                                          .completedAppointments![index]
-                                          .clinicName
+                                          .appointmentDetails![index].clinicName
                                           .toString(),
                                       doctorImage: getCompletedAppointmentsModel
-                                          .completedAppointments![index]
+                                          .appointmentDetails![index]
                                           .doctorImage
                                           .toString(),
                                       doctorName: getCompletedAppointmentsModel
-                                          .completedAppointments![index]
-                                          .doctorName
+                                          .appointmentDetails![index].doctorName
                                           .toString(),
                                       labName: getCompletedAppointmentsModel
-                                                  .completedAppointments![index]
+                                                  .appointmentDetails![index]
                                                   .labName ==
                                               null
                                           ? ""
                                           : getCompletedAppointmentsModel
-                                              .completedAppointments![index]
+                                              .appointmentDetails![index]
                                               .labName
                                               .toString(),
                                       labTestName: getCompletedAppointmentsModel
-                                                  .completedAppointments![index]
+                                                  .appointmentDetails![index]
                                                   .labTest ==
                                               null
                                           ? ""
                                           : getCompletedAppointmentsModel
-                                              .completedAppointments![index]
+                                              .appointmentDetails![index]
                                               .labTest
                                               .toString(),
-                                      medicalStoreName:
-                                          getCompletedAppointmentsModel
-                                                      .completedAppointments![
-                                                          index]
-                                                      .medicalStoreName ==
-                                                  null
-                                              ? ""
-                                              : getCompletedAppointmentsModel
-                                                  .completedAppointments![index]
-                                                  .medicalStoreName
-                                                  .toString(),
                                       note: getCompletedAppointmentsModel
-                                                  .completedAppointments![index]
+                                                  .appointmentDetails![index]
                                                   .notes ==
                                               null
                                           ? ""
                                           : getCompletedAppointmentsModel
-                                              .completedAppointments![index]
-                                              .notes
+                                              .appointmentDetails![index].notes
                                               .toString(),
                                       patientName: getCompletedAppointmentsModel
-                                          .completedAppointments![index]
+                                          .appointmentDetails![index]
                                           .patientName
                                           .toString(),
                                       prescriptionImage:
                                           getCompletedAppointmentsModel
-                                                      .completedAppointments![
+                                                      .appointmentDetails![
                                                           index]
                                                       .prescriptionImage ==
                                                   null
                                               ? ""
                                               : getCompletedAppointmentsModel
-                                                  .completedAppointments![index]
+                                                  .appointmentDetails![index]
                                                   .prescriptionImage
                                                   .toString(),
-                                      reviewAfter: getCompletedAppointmentsModel
-                                                  .completedAppointments![index]
-                                                  .reviewAfter ==
-                                              null
-                                          ? ""
-                                          : getCompletedAppointmentsModel
-                                              .completedAppointments![index]
-                                              .reviewAfter
-                                              .toString(),
                                       tokenDate: getCompletedAppointmentsModel
-                                          .completedAppointments![index]
-                                          .tokenDate
+                                          .appointmentDetails![index].date
                                           .toString(),
                                       tokenTime: getCompletedAppointmentsModel
-                                          .completedAppointments![index]
-                                          .tokenTime
+                                          .appointmentDetails![index]
+                                          .tokenStartTime
                                           .toString(),
                                       symptoms: getCompletedAppointmentsModel
-                                                  .completedAppointments![index]
+                                                  .appointmentDetails![index]
                                                   .mainSymptoms ==
                                               null
                                           ? getCompletedAppointmentsModel
-                                              .completedAppointments![index]
-                                              .otherSymptom!
+                                              .appointmentDetails![index]
+                                              .otherSymptoms!
+                                              .first
                                               .symtoms
                                               .toString()
                                           : getCompletedAppointmentsModel
-                                              .completedAppointments![index]
+                                              .appointmentDetails![index]
                                               .mainSymptoms!
                                               .mainsymptoms
                                               .toString(),

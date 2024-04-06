@@ -66,7 +66,6 @@ class RegisterServiceImpl implements EditMemberRepo {
         int? patianrId;
         patianrId = preference.getInt('patientId');
         log('Response data id : $patianrId');
-
         log('Response: ${response.requestOptions}');
         log('Response data: ${response.data}');
         log("Call addedd Message >>>> ${result.message.toString()}");
@@ -81,7 +80,7 @@ class RegisterServiceImpl implements EditMemberRepo {
       log(e.error.toString());
 
       GeneralServices.instance
-          .showErrorMessage(context, e.response!.data['response'].toString());
+          .showErrorMessage(context, e.response!.data['message'].toString());
       log(e.error.toString());
       log("${const MainFailure.serverFailure()}");
       return const Left(MainFailure.serverFailure());

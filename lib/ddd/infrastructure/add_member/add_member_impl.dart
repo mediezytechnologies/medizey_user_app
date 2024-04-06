@@ -82,7 +82,7 @@ class RegisterServiceImpl implements AddMemberRepo {
       log(e.error.toString());
 
       GeneralServices.instance
-          .showErrorMessage(context, e.response!.data['response'].toString());
+          .showErrorMessage(context, e.response!.data['message'].toString());
       log(e.error.toString());
       log("${const MainFailure.serverFailure()}");
       return const Left(MainFailure.serverFailure());

@@ -77,6 +77,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   final TextEditingController otherSurgeryController = TextEditingController();
   final TextEditingController otherTreatmentController =
       TextEditingController();
+  String fullName = '';
   String selectedAllergyId = "";
   String dustAllery = "";
   String genderValue = "Male";
@@ -104,6 +105,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   final ImagePicker imagePicker = ImagePicker();
   String? imagePath;
   DateTime? dateOfBirth;
+  bool isTreatmentOtherSelected = false;
+  bool isOtherSurgerySelected = false;
 
   @override
   void initState() {
@@ -111,6 +114,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
+
+    nameController.text = widget.patienName;
+    phoneNumberController.text = widget.patientNumber;
+    otherSurgeryController.text =
+        widget.surgeryDetails == "null" ? "" : widget.surgeryDetails;
+    otherTreatmentController.text =
+        widget.treatmentDetails == "null" ? "" : widget.treatmentDetails;
+
     genderValue = widget.patientGender == "1"
         ? "Male"
         : (widget.patientGender == "2")
@@ -128,12 +139,19 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     selectedTreatment = widget.treatmentTaken;
     selectedTreatmentStart = <int>{};
     treatmentIndex = "";
-    selectedAllergies = Set<int>.from(
-        widget.allergiesDetails.map((detail) => detail.allergiesId));
+    widget.surgeryDetails == ""
+        ? isOtherSurgerySelected = false
+        : isOtherSurgerySelected = true;
+    widget.treatmentDetails == ""
+        ? isTreatmentOtherSelected = false
+        : isTreatmentOtherSelected = true;
+    selectedAllergies = Set<int>.from(widget.allergiesDetails.map((detail) {
+      int id = detail.allergyId! - 1;
+      return id;
+    }));
     allergies = widget.allergiesDetails
         .map((detail) => Allergy(
-            allergyDetails: detail.allergyDetails,
-            allergyId: detail.allergiesId))
+            allergyDetails: detail.allergyDetails, allergyId: detail.allergyId))
         .toList();
   }
 
@@ -1149,100 +1167,106 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       "Any Surgery?",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 12.sp,
+                          fontSize: 13.sp,
                           color: kSubTextColor),
                     ),
                     VerticalSpacingWidget(height: 2.h),
                     Wrap(
-                      children: List.generate(
-                        surgeryTypes.length,
-                        (index) {
-                          bool isSelected =
-                              selectedSurgery.contains(surgeryTypes[index]);
-                          bool isInitiallySelected =
-                              widget.surgeryName.contains(surgeryTypes[index]);
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (surgeryTypes[index] == "No") {
-                                  if (!selectedSurgeryStart.contains(index)) {
-                                    selectedSurgery.clear();
-                                    selectedSurgeryStart.clear();
-                                    selectedSurgeryStart.add(index);
-                                    selectedSurgery.add(surgeryTypes[index]);
-                                  }
-                                } else {
-                                  if (selectedSurgeryStart.contains(index)) {
-                                    surgeryIndex = "";
-                                    selectedSurgery.remove(surgeryTypes[index]);
-                                    selectedSurgeryStart.remove(index);
+                      children: List.generate(surgeryTypes.length, (index) {
+                        bool isSelected =
+                            selectedSurgery.contains(surgeryTypes[index]);
+                        bool isInitiallySelected =
+                            widget.surgeryName.contains(surgeryTypes[index]);
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (surgeryTypes[index] == "No" ||
+                                  surgeryTypes[index] == "Other") {
+                                if (!selectedSurgeryStart.contains(index)) {
+                                  selectedSurgery.clear();
+                                  selectedSurgeryStart.clear();
+                                  selectedSurgeryStart.add(index);
+                                  selectedSurgery.add(surgeryTypes[index]);
+                                  if (surgeryTypes[index] == "Other") {
+                                    isOtherSurgerySelected = true;
                                   } else {
-                                    surgeryIndex = surgeryTypes[index];
-                                    selectedSurgeryStart.add(index);
-                                    selectedSurgery.add(surgeryTypes[index]);
-                                  }
-                                  if (selectedSurgery.contains("No")) {
-                                    selectedSurgery.remove("No");
-                                    selectedSurgeryStart.removeWhere(
-                                        (element) =>
-                                            element ==
-                                            surgeryTypes.indexOf("No"));
+                                    isOtherSurgerySelected = false;
                                   }
                                 }
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: isInitiallySelected
-                                    ? Colors.grey
-                                    : isSelected
-                                        ? Colors.grey
-                                        : kCardColor,
-                                border: Border.all(
-                                  color: kMainColor,
-                                  width: 1,
-                                ),
-                              ),
-                              margin: const EdgeInsets.all(3.0),
-                              padding: const EdgeInsets.all(6.0),
-                              child: Text(
-                                surgeryTypes[index],
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 10.sp,
-                                  color: isInitiallySelected
-                                      ? Colors.white
-                                      : isSelected
-                                          ? Colors.white
-                                          : kTextColor,
-                                ),
+                              } else {
+                                if (selectedSurgeryStart.contains(index)) {
+                                  surgeryIndex = "";
+                                  selectedSurgery.remove(surgeryTypes[index]);
+                                  selectedSurgeryStart.remove(index);
+                                } else {
+                                  surgeryIndex = surgeryTypes[index];
+                                  selectedSurgeryStart.add(index);
+                                  selectedSurgery.add(surgeryTypes[index]);
+                                }
+                                if (selectedSurgery.contains("No")) {
+                                  selectedSurgery.remove("No");
+                                  selectedSurgeryStart.removeWhere((element) =>
+                                      element == surgeryTypes.indexOf("No"));
+                                }
+                                if (selectedSurgery.contains("Other")) {
+                                  selectedSurgery.remove("Other");
+                                  selectedSurgeryStart.removeWhere((element) =>
+                                      element == surgeryTypes.indexOf("Other"));
+                                }
+                                isOtherSurgerySelected = false;
+                              }
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: isInitiallySelected
+                                  ? Colors.grey
+                                  : isSelected
+                                      ? Colors.grey
+                                      : kCardColor,
+                              border: Border.all(
+                                color: kMainColor,
+                                width: 1,
                               ),
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                    const VerticalSpacingWidget(height: 2),
-                    if (widget.surgeryName.contains("Other"))
-                      SizedBox(
-                        height: 50.h,
-                        child: TextFormField(
-                          cursorColor: kMainColor,
-                          controller: otherSurgeryController,
-                          keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            hintStyle: TextStyle(
-                                fontSize: 13.sp, color: kSubTextColor),
-                            hintText: widget.surgeryDetails,
-                            filled: true,
-                            fillColor: kCardColor,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: BorderSide.none,
+                            margin: const EdgeInsets.all(3.0),
+                            padding: const EdgeInsets.all(6.0),
+                            child: Text(
+                              surgeryTypes[index],
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 10.sp,
+                                color: isInitiallySelected
+                                    ? Colors.white
+                                    : isSelected
+                                        ? Colors.white
+                                        : kTextColor,
+                              ),
                             ),
                           ),
+                        );
+                      }),
+                    ),
+                    const VerticalSpacingWidget(height: 5),
+                    if (isOtherSurgerySelected)
+                      TextFormField(
+                        cursorColor: kMainColor,
+                        controller: otherSurgeryController,
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          hintStyle:
+                              TextStyle(fontSize: 13.sp, color: kSubTextColor),
+                          hintText: "In which surgery",
+                          filled: true,
+                          fillColor: kCardColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 10.0),
                         ),
                       ),
                     const VerticalSpacingWidget(height: 5),
@@ -1250,7 +1274,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       "Any Treatment taken for?",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 12.sp,
+                          fontSize: 13.sp,
                           color: kSubTextColor),
                     ),
                     VerticalSpacingWidget(height: 2.h),
@@ -1265,13 +1289,19 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           return GestureDetector(
                             onTap: () {
                               setState(() {
-                                if (treatmentTypes[index] == "No") {
+                                if (treatmentTypes[index] == "No" ||
+                                    treatmentTypes[index] == "Other") {
                                   if (!selectedTreatmentStart.contains(index)) {
                                     selectedTreatment.clear();
                                     selectedTreatmentStart.clear();
                                     selectedTreatmentStart.add(index);
                                     selectedTreatment
                                         .add(treatmentTypes[index]);
+                                    if (treatmentTypes[index] == "Other") {
+                                      isTreatmentOtherSelected = true;
+                                    } else {
+                                      isTreatmentOtherSelected = false;
+                                    }
                                   }
                                 } else {
                                   if (selectedTreatmentStart.contains(index)) {
@@ -1292,6 +1322,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                             element ==
                                             treatmentTypes.indexOf("No"));
                                   }
+                                  if (selectedTreatment.contains("Other")) {
+                                    selectedTreatment.remove("Other");
+                                    selectedTreatmentStart.removeWhere(
+                                        (element) =>
+                                            element ==
+                                            treatmentTypes.indexOf("Other"));
+                                  }
+                                  isTreatmentOtherSelected = false;
                                 }
                               });
                             },
@@ -1327,11 +1365,12 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                         },
                       ),
                     ),
-                    const VerticalSpacingWidget(height: 2),
-                    if (widget.treatmentTaken.contains("Other"))
+                    const VerticalSpacingWidget(height: 5),
+                    if (isTreatmentOtherSelected)
                       SizedBox(
                         height: 50.h,
                         child: TextFormField(
+                          style: TextStyle(fontSize: 13.sp, color: kTextColor),
                           cursorColor: kMainColor,
                           controller: otherTreatmentController,
                           keyboardType: TextInputType.text,
@@ -1339,17 +1378,19 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
                                 fontSize: 13.sp, color: kSubTextColor),
-                            hintText: widget.treatmentDetails,
+                            hintText: "Which Treatment",
                             filled: true,
                             fillColor: kCardColor,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: BorderSide.none,
                             ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 10.0),
                           ),
                         ),
                       ),
-                    const VerticalSpacingWidget(height: 10),
+                    const VerticalSpacingWidget(height: 20),
                     Center(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -1359,64 +1400,63 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        // onPressed: state.isloding
-                        //     ? () {
-                        //         null;
-                        //       }
-                        //     : () async {
-
-                        //         if (imagePath != null) {
-                        //           log(imagePath!);
-                        //           Future.delayed(const Duration(seconds: 2))
-                        //               .then((value) =>
-                        //                   BlocProvider.of<AddMemberImageBloc>(
-                        //                           context)
-                        //                       .add(AddMemberImageEvent.started(
-                        //                           imagePath!)));
-                        //           Future.delayed(const Duration(seconds: 2))
-                        //               .then((value) =>
-                        //                   Navigator.pushAndRemoveUntil(
-                        //                       context,
-                        //                       MaterialPageRoute(
-                        //                         builder: (context) =>
-                        //                             const BottomNavigationControlWidget(),
-                        //                       ),
-                        //                       (route) => false));
-                        //         }
-                        //         Future.delayed(const Duration(seconds: 2)).then(
-                        //             (value) => Navigator.pushAndRemoveUntil(
-                        //                 context,
-                        //                 MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       const BottomNavigationControlWidget(),
-                        //                 ),
-                        //                 (route) => false));
-                        //         log('button pressed');
-                        //       },
-                        onPressed: () {
-                          log(dateOfBirth.toString());
-                          log(nameController.text.toString());
-                          BlocProvider.of<EditMemberBloc>(context).add(
-                            EditMemberEvent.started(
-                              widget.patientId,
-                              nameController.text,
-                              dateOfBirth == null
-                                  ? widget.dateOfBirth
-                                  : DateFormat('yyy-MM-dd')
-                                      .format(dateOfBirth!),
-                              phoneNumberController.text,
-                              selectedGender,
-                              regularMedicine,
-                              selectedSurgery.toString(),
-                              selectedTreatment.toString(),
-                              otherSurgeryController.text,
-                              otherTreatmentController.text,
-                              context,
-                              allergies,
-                              medicineDataLists!,
-                            ),
-                          );
-                        },
+                        onPressed: state.isloding
+                            ? () {
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            : () async {
+                                BlocProvider.of<EditMemberBloc>(context).add(
+                                  EditMemberEvent.started(
+                                    widget.patientId,
+                                    nameController.text,
+                                    dateOfBirth == null
+                                        ? widget.dateOfBirth
+                                        : DateFormat('yyy-MM-dd')
+                                            .format(dateOfBirth!),
+                                    phoneNumberController.text,
+                                    selectedGender,
+                                    regularMedicine,
+                                    selectedSurgery.toString(),
+                                    selectedTreatment.toString(),
+                                    otherSurgeryController.text,
+                                    otherTreatmentController.text,
+                                    context,
+                                    allergies,
+                                    medicineDataLists!,
+                                  ),
+                                );
+                                if (imagePath != null) {
+                                  log(imagePath!);
+                                  Future.delayed(const Duration(seconds: 2))
+                                      .then((value) =>
+                                          BlocProvider.of<AddMemberImageBloc>(
+                                                  context)
+                                              .add(AddMemberImageEvent.started(
+                                                  imagePath!)));
+                                  Future.delayed(const Duration(seconds: 2))
+                                      .then((value) =>
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const BottomNavigationControlWidget(),
+                                              ),
+                                              (route) => false));
+                                }
+                                Future.delayed(const Duration(seconds: 2)).then(
+                                    (value) => Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const BottomNavigationControlWidget(),
+                                        ),
+                                        (route) => false));
+                                log('button pressed');
+                                GeneralServices.instance
+                                    .showToastMessage("Updated successfully");
+                              },
                         child:
                             //  state.isloding
                             //     ? Center(

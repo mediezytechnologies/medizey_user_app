@@ -126,33 +126,33 @@ class MedicineDetails {
 
   MedicineDetails.fromJson(Map<String, dynamic> json) {
     medicineId = json['medicine_id'];
-    medicineName = json['medicine_name'];
+    medicineName = json['medicineName'];
     illness = json['illness'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['medicine_id'] = medicineId;
-    data['medicine_name'] = medicineName;
+    data['medicineName'] = medicineName;
     data['illness'] = illness;
     return data;
   }
 }
 
 class AllergiesDetails {
-  int? allergiesId;
+  int? allergyId;
   String? allergyDetails;
 
-  AllergiesDetails({this.allergiesId, this.allergyDetails});
+  AllergiesDetails({this.allergyId, this.allergyDetails});
 
   AllergiesDetails.fromJson(Map<String, dynamic> json) {
-    allergiesId = json['allergies_id'];
+    allergyId = json['allergy_id'];
     allergyDetails = json['allergy_details'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['allergies_id'] = allergiesId;
+    data['allergy_id'] = allergyId;
     data['allergy_details'] = allergyDetails;
     return data;
   }
