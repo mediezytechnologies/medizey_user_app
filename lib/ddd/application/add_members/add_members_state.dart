@@ -5,10 +5,12 @@ class AddMembersState with _$AddMembersState {
 const factory AddMembersState({
 required bool isloding,
     ClintClinicModelData? model,
-    required Option<Either<MainFailure, ClintClinicModelData>>
-        registerFaileurOrSuccessOption,
+    required bool isError,
+     required String message,
+    required bool status,
+    // required Option<Either<MainFailure, ClintClinicModelData>>
+    //     registerFaileurOrSuccessOption,
 })= _Initial;
 
-   factory AddMembersState.initial() =>AddMembersState(isloding: false,
-   registerFaileurOrSuccessOption: none());
+   factory AddMembersState.initial() =>AddMembersState(isloding: false, isError: false, message: '', status: false);
 }

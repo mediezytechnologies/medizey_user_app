@@ -20,31 +20,31 @@ import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/add_member/add_member_service.dart';
+import '../../domain/errors/errores_model/errores_model.dart';
 
 @LazySingleton(as: AddMemberRepo)
 class RegisterServiceImpl implements AddMemberRepo {
   @override
-  Future<Either<MainFailure, ClintClinicModelData?>> getdoctersData(
-     String fullName,
-     String age,
-     String mobileNumber,
-     String gender,
-     String regularMedicine,
-     String surgeryName,
-     String treatmentTaken,
-     String surgeryDetails,
-     String treatmentTakenDetails,
-     List<Allergy>? allergies,
-    List<Medicine>? medicines,
-    BuildContext context
-  ) async {
+  Future<Either<ErroresModel, ClintClinicModelData?>> getdoctersData(
+      String fullName,
+      String age,
+      String mobileNumber,
+      String gender,
+      String regularMedicine,
+      String surgeryName,
+      String treatmentTaken,
+      String surgeryDetails,
+      String treatmentTakenDetails,
+      List<Allergy>? allergies,
+      List<Medicine>? medicines,
+      BuildContext context) async {
     final preference = await SharedPreferences.getInstance();
     String userId = preference.getString('userId').toString();
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
     try {
       final response = await Dio(BaseOptions(
-      headers: {'Authorization': 'Bearer $token'},
+        headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
       )).post(
         ApiEndPoints.addMember,
@@ -63,36 +63,35 @@ class RegisterServiceImpl implements AddMemberRepo {
           "medicines": medicines,
         },
       );
-      print(response);
+      //  log(response.toString());
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = ClintClinicModelData.fromJson(response.data);
 
-        log("result : $result");
+        log("result service : $result");
         await preference.setInt('patientId', result.patientId!);
-        log("message id is : ${result.patientId}");
+//log("message id is : ${result.patientId}");
 
         int? patianrId;
         patianrId = preference.getInt('patientId');
         log('Response data id : $patianrId');
 
-        log('Response: ${response.requestOptions}');
-        log('Response data: ${response.data}');
-
         return Right(result);
       } else {
         log("${MainFailure.clientFailure()}");
-        return Left(MainFailure.clientFailure());
+        return Left(ErroresModel());
       }
       // ignore: deprecated_member_use
     } on DioError catch (e) {
       log(e.message!);
       log(e.error.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.response!.data['response'].toString())));
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(content: Text(e.response!.data['response'].toString())));
       log(e.error.toString());
-      log("${MainFailure.serverFailure()}");
-      return Left(MainFailure.serverFailure());
+   
+      final err= ErroresModel.fromJson(e.response!.data);
+         log("err: $err");
+      return Left(err);
     }
   }
 }

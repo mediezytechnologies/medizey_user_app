@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mediezy_user/ddd/domain/core/failures/main_failure.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 
+import '../errors/errores_model/errores_model.dart';
+
 abstract class AddMemberRepo {
-  Future<Either<MainFailure, ClintClinicModelData?>> getdoctersData(
+  Future<Either<ErroresModel, ClintClinicModelData?>> getdoctersData(
      String fullName,
      String age,
      String mobileNumber,
