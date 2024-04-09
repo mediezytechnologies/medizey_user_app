@@ -21,7 +21,7 @@ class GetDoctorsApi {
 
   //* get doctor by id
   Future<GetDoctorByIdModel> getDoctorById(String id) async {
-    String basePath = "docter/$id";
+    String basePath = "getDoctorProfileDetails/$id";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     print("<<<<< GET DOCTOR AS PER ID WORKED SUCCESSFULLY >>>>>");

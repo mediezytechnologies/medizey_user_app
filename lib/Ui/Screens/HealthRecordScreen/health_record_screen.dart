@@ -19,8 +19,8 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddDocumentScreen/add_document_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AllRecordsScreen/all_records_screen.dart';
-import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/EditPatientScreen/edit_patient_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/round_name_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/user_details_display_card_widget.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -183,7 +183,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                           );
                                         },
                                       ),
-                                      InkWell(
+                                      GestureDetector(
                                         onTap: () async {
                                           if (getAllMembersModel
                                                   .patientData!.length ==
@@ -249,311 +249,86 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                         getAllMembersModel.patientData!.length,
                                     itemBuilder: (context, index) {
                                       return selectedPatientIndex == index
-                                          ? Container(
-                                              padding: const EdgeInsets.all(8),
-                                              height: 50.h,
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: const Color(0xFFEAF3F8),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            getAllMembersModel
-                                                                .patientData![
-                                                                    index]
-                                                                .patientName
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontSize: 13.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color:
-                                                                    kTextColor),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            "Gender:",
-                                                            style: TextStyle(
-                                                                fontSize: 10.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    kSubTextColor),
-                                                          ),
-                                                          Text(
-                                                            getAllMembersModel
-                                                                        .patientData![
-                                                                            index]
-                                                                        .patientGender ==
-                                                                    "1"
-                                                                ? "Male"
-                                                                : (getAllMembersModel
-                                                                            .patientData![index]
-                                                                            .patientGender ==
-                                                                        "2")
-                                                                    ? "Female"
-                                                                    : "Other",
-                                                            style: TextStyle(
-                                                                fontSize: 10.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color:
-                                                                    kTextColor),
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                " | ",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    color:
-                                                                        kTextColor),
-                                                              ),
-                                                              Text(
-                                                                "Age:",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color:
-                                                                        kSubTextColor),
-                                                              ),
-                                                              Text(
-                                                                getAllMembersModel
-                                                                    .patientData![
-                                                                        index]
-                                                                    .displayAge
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    color:
-                                                                        kTextColor),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Text(
-                                                            " | ",
-                                                            style: TextStyle(
-                                                                fontSize: 10.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color:
-                                                                    kTextColor),
-                                                          ),
-                                                          Text(
-                                                            "ID:",
-                                                            style: TextStyle(
-                                                                fontSize: 10.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    kSubTextColor),
-                                                          ),
-                                                          Text(
-                                                            getAllMembersModel
-                                                                .patientData![
-                                                                    index]
-                                                                .mediezyPatientId
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontSize: 10.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color:
-                                                                    kTextColor),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      IconButton(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        onPressed: () async {
-                                                          bool addedData =
-                                                              await Navigator
-                                                                  .push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder:
-                                                                  (context) {
-                                                                return EditPatientScreen(
-                                                                  dateOfBirth: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .dob
-                                                                      .toString(),
-                                                                  surgeryDetails: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .surgeryDetails
-                                                                      .toString(),
-                                                                  treatmentDetails: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .treatmentTakenDetails
-                                                                      .toString(),
-                                                                  medicineList: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .medicineDetails!
-                                                                      .toList(),
-                                                                  patientId: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .id
-                                                                      .toString(),
-                                                                  patientGender: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .patientGender
-                                                                      .toString(),
-                                                                  patienName: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .patientName
-                                                                      .toString(),
-                                                                  patientAge: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .dob
-                                                                      .toString(),
-                                                                  patientImage: getAllMembersModel
-                                                                              .patientData![
-                                                                                  index]
-                                                                              .patientImage ==
-                                                                          null
-                                                                      ? ""
-                                                                      : getAllMembersModel
-                                                                          .patientData![
-                                                                              index]
-                                                                          .patientImage
-                                                                          .toString(),
-                                                                  patientNumber: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .patientMobileNumber
-                                                                      .toString(),
-                                                                  regularMedicine: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .regularMedicine
-                                                                      .toString(),
-                                                                  allergiesDetails: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .allergiesDetails!
-                                                                      .toList(),
-                                                                  surgeryName: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .surgeryName!
-                                                                      .toList(),
-                                                                  treatmentTaken: getAllMembersModel
-                                                                      .patientData![
-                                                                          index]
-                                                                      .treatmentTaken!
-                                                                      .toList(),
-                                                                );
-                                                              },
-                                                            ),
-                                                          );
-                                                          if (addedData ==
-                                                              true) {
-                                                            print(
-                                                                "<<<< value $addedData is true");
-                                                            await fetchAllMembers();
-                                                            setState(() {
-                                                              fetchAllMembers();
-                                                              addedData ==
-                                                                  false;
-                                                            });
-                                                          } else {
-                                                            print(
-                                                                "<<<< value $addedData is false");
-                                                          }
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.edit_outlined,
-                                                          color: kMainColor,
-                                                          size: 18.sp,
-                                                        ),
-                                                      ),
-                                                      index == 0
-                                                          ? Container()
-                                                          : IconButton(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              onPressed: () {
-                                                                GeneralServices
-                                                                    .instance
-                                                                    .appCloseDialogue(
-                                                                  context,
-                                                                  "Are you sure to delete?",
-                                                                  () {
-                                                                    BlocProvider.of<DeleteMemberBloc>(
-                                                                            context)
-                                                                        .add(
-                                                                      FetchDeleteMember(
-                                                                        patientId: getAllMembersModel
-                                                                            .patientData![index]
-                                                                            .id
-                                                                            .toString(),
-                                                                      ),
-                                                                    );
-                                                                    fetchAllMembers();
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                );
-                                                              },
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .delete_outlined,
-                                                                color:
-                                                                    kMainColor,
-                                                                size: 18.sp,
-                                                              ),
-                                                            ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
+                                          ? UserDetailsDisplayCardWidget(
+                                              patientId: getAllMembersModel
+                                                  .patientData![index].id
+                                                  .toString(),
+                                              patienName: getAllMembersModel
+                                                  .patientData![index]
+                                                  .patientName
+                                                  .toString(),
+                                              patientAge: getAllMembersModel
+                                                  .patientData![index].dob
+                                                  .toString(),
+                                              patientNumber: getAllMembersModel
+                                                  .patientData![index]
+                                                  .patientMobileNumber
+                                                  .toString(),
+                                              patientGender: getAllMembersModel
+                                                          .patientData![index]
+                                                          .patientGender ==
+                                                      "1"
+                                                  ? "Male"
+                                                  : (getAllMembersModel
+                                                              .patientData![
+                                                                  index]
+                                                              .patientGender ==
+                                                          "2")
+                                                      ? "Female"
+                                                      : "Other",
+                                              patientImage: getAllMembersModel
+                                                          .patientData![index]
+                                                          .patientImage ==
+                                                      null
+                                                  ? ""
+                                                  : getAllMembersModel
+                                                      .patientData![index]
+                                                      .patientImage
+                                                      .toString(),
+                                              regularMedicine:
+                                                  getAllMembersModel
+                                                      .patientData![index]
+                                                      .regularMedicine
+                                                      .toString(),
+                                              surgeryName: getAllMembersModel
+                                                  .patientData![index]
+                                                  .surgeryName!
+                                                  .toList(),
+                                              treatmentTaken: getAllMembersModel
+                                                  .patientData![index]
+                                                  .treatmentTaken!
+                                                  .toList(),
+                                              medicineList: getAllMembersModel
+                                                  .patientData![index]
+                                                  .medicineDetails!
+                                                  .toList(),
+                                              allergiesDetails:
+                                                  getAllMembersModel
+                                                      .patientData![index]
+                                                      .allergiesDetails!
+                                                      .toList(),
+                                              surgeryDetails: getAllMembersModel
+                                                  .patientData![index]
+                                                  .surgeryDetails
+                                                  .toString(),
+                                              treatmentDetails:
+                                                  getAllMembersModel
+                                                      .patientData![index]
+                                                      .treatmentTakenDetails
+                                                      .toString(),
+                                              dateOfBirth: getAllMembersModel
+                                                  .patientData![index].dob
+                                                  .toString(),
+                                              mediezyPatientId:
+                                                  getAllMembersModel
+                                                      .patientData![index]
+                                                      .mediezyPatientId
+                                                      .toString(),
+                                              patientIndex: index,
+                                              displayAge: getAllMembersModel
+                                                  .patientData![index]
+                                                  .displayAge
+                                                  .toString(),
                                             )
                                           : Container();
                                     })
@@ -824,16 +599,5 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> fetchAllMembers() async {
-    try {
-      setState(() {
-        BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
-      });
-    } catch (error, stackTrace) {
-      print('Error fetching all members: $error');
-      print('Stack Trace: $stackTrace');
-    }
   }
 }

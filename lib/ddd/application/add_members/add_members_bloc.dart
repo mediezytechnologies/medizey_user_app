@@ -1,11 +1,10 @@
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import '../../domain/add_member/add_member_service.dart';
-import '../../domain/core/failures/main_failure.dart';
 import '../../domain/add_member/model/add_member_model.dart';
 part 'add_members_event.dart';
 part 'add_members_state.dart';
@@ -16,11 +15,12 @@ class AddMembersBloc extends Bloc<AddMembersEvent, AddMembersState> {
   final AddMemberRepo addMemberRepo;
   AddMembersBloc(this.addMemberRepo) : super(AddMembersState.initial()) {
     on<_Started>((event, emit) async {
-      emit(state.copyWith(
-          isloding: true, registerFaileurOrSuccessOption: none()));
+      emit(
+        const AddMembersState(
+            isloding: true, isError: false, message: "", status: false),
+      );
       log(emit.toString());
-      final Either<MainFailure, ClintClinicModelData?> addMemberOption =
-          await addMemberRepo.getdoctersData(
+      final addMemberResult = await addMemberRepo.addFamilyMember(
         event.fullName,
         event.age,
         event.mobileNumber,
@@ -34,28 +34,21 @@ class AddMembersBloc extends Bloc<AddMembersEvent, AddMembersState> {
         event.medicines,
         event.context,
       );
-      log("${addMemberOption.toString()} ======");
-      emit(
-        addMemberOption.fold(
-          (failure) => state.copyWith(
+
+      final state = addMemberResult.fold((ErrorModel error) {
+        return AddMembersState(
             isloding: false,
-            registerFaileurOrSuccessOption: some(
-              left(
-                failure,
-              ),
-            ),
-          ),
-          (success) => state.copyWith(
+            isError: true,
+            message: error.message!,
+            status: false);
+      }, (ClintClinicModelData? success) {
+        return AddMembersState(
             isloding: false,
-            model: success,
-            registerFaileurOrSuccessOption: some(
-              right(
-                success!,
-              ),
-            ),
-          ),
-        ),
-      );
+            isError: false,
+            message: success!.message!,
+            status: success.status!);
+      });
+      emit(state);
     });
   }
 }

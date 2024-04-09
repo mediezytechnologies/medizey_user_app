@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Model/GetTokens/GetTokenModel.dart';
-import 'package:mediezy_user/Repository/Bloc/GetClinic/get_clinic_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetToken/get_token_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/cinic_widget.dart';
@@ -45,20 +44,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   bool isClicked = false;
   late StreamSubscription<ConnectivityResult> subscription;
-
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
     } else {}
-  }
-
-  Future<void> _refreshData() async {
-    BlocProvider.of<GetTokenBloc>(context).add(
-      FetchToken(
-        date: formatDate(),
-        doctorId: widget.doctorId,
-        hospitalId: selectedClinicId,
-      ),
-    );
   }
 
   @override
@@ -79,9 +67,17 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
         hospitalId: widget.clinicList.first.clinicId.toString(),
       ),
     );
-    BlocProvider.of<GetClinicBloc>(context)
-        .add(FetchClinicByDoctorIdEvent(doctorId: widget.doctorId));
     super.initState();
+  }
+
+  Future<void> _refreshData() async {
+    BlocProvider.of<GetTokenBloc>(context).add(
+      FetchToken(
+        date: formatDate(),
+        doctorId: widget.doctorId,
+        hospitalId: selectedClinicId,
+      ),
+    );
   }
 
   @override

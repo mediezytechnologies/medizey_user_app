@@ -97,7 +97,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   late String treatmentIndex;
   int editingMedicineIndex = -1;
   String medicineId = "";
-  DateTime? dOB;
   bool isEditOrAddMedicine = false;
   List<Allergy> allergies = [];
   Set<int> selectedAllergies = {};
@@ -121,7 +120,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
         widget.surgeryDetails == "null" ? "" : widget.surgeryDetails;
     otherTreatmentController.text =
         widget.treatmentDetails == "null" ? "" : widget.treatmentDetails;
-
     genderValue = widget.patientGender == "1"
         ? "Male"
         : (widget.patientGender == "2")
@@ -153,19 +151,11 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
         .map((detail) => Allergy(
             allergyDetails: detail.allergyDetails, allergyId: detail.allergyId))
         .toList();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(onPressed: () {
-      //   log("message medisine :$selectedAllergies");
-      //     allergies.forEach((allergies) {
-      //                     print(
-      //                         'details: ${allergies.allergyDetails}, details id: ${allergies.allergyId}, ');
-      //                   });
-      // },),
       appBar: AppBar(
         title: const Text("Edit Patient"),
         centerTitle: true,
@@ -343,7 +333,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   date: DateTime.now(),
                                   onDateSelected: (DateTime picked) async {
                                     setState(() {
-                                      dOB = picked;
+                                      dateOfBirth = picked;
                                     });
                                   },
                                 );
@@ -802,110 +792,121 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             ),
                           );
                         })),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 50.h,
-                          child: TextFormField(
-                            style:
-                                TextStyle(fontSize: 13.sp, color: kTextColor),
-                            cursorColor: kMainColor,
-                            controller: illnessController,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
-                              hintText: "In which illness",
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 10.0),
-                            ),
-                          ),
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: 250.w,
-                              height: 50.h,
-                              child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
-                                cursorColor: kMainColor,
-                                controller: medicineController,
-                                keyboardType: TextInputType.text,
-                                textInputAction: TextInputAction.next,
-                                decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
-                                  hintText: "Enter medicine name",
-                                  filled: true,
-                                  fillColor: kCardColor,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 10.0),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                if (isEditOrAddMedicine) {
-                                  BlocProvider.of<UpdateMedicineBloc>(context)
-                                      .add(
-                                    FetchUpdateMedicine(
-                                      parientId: widget.patientId,
-                                      medicineId: medicineId,
-                                      illnessName: illnessController.text,
-                                      medicineName: medicineController.text,
+                    regularMedicine == "Yes"
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 50.h,
+                                child: TextFormField(
+                                  style: TextStyle(
+                                      fontSize: 13.sp, color: kTextColor),
+                                  cursorColor: kMainColor,
+                                  controller: illnessController,
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    hintStyle: TextStyle(
+                                        fontSize: 13.sp, color: kSubTextColor),
+                                    hintText: "In which illness",
+                                    filled: true,
+                                    fillColor: kCardColor,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: BorderSide.none,
                                     ),
-                                  );
-                                } else {
-                                  medicineDataLists!.add(Medicine(
-                                    medicineName: medicineController.text,
-                                    illness: illnessController.text,
-                                  ));
-                                }
-                                illnessController.clear();
-                                medicineController.clear();
-                                setState(() {
-                                  isEditOrAddMedicine = !isEditOrAddMedicine;
-                                });
-                              },
-                              child: Container(
-                                height: 45.h,
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: kMainColor,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    isEditOrAddMedicine ? "Update" : "Add",
-                                    style: TextStyle(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: kCardColor,
-                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 10.0),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
+                              const VerticalSpacingWidget(height: 5),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: 250.w,
+                                    height: 50.h,
+                                    child: TextFormField(
+                                      style: TextStyle(
+                                          fontSize: 13.sp, color: kTextColor),
+                                      cursorColor: kMainColor,
+                                      controller: medicineController,
+                                      keyboardType: TextInputType.text,
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(
+                                        hintStyle: TextStyle(
+                                            fontSize: 13.sp,
+                                            color: kSubTextColor),
+                                        hintText: "Enter medicine name",
+                                        filled: true,
+                                        fillColor: kCardColor,
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 15, horizontal: 10.0),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      if (isEditOrAddMedicine) {
+                                        BlocProvider.of<UpdateMedicineBloc>(
+                                                context)
+                                            .add(
+                                          FetchUpdateMedicine(
+                                            parientId: widget.patientId,
+                                            medicineId: medicineId,
+                                            illnessName: illnessController.text,
+                                            medicineName:
+                                                medicineController.text,
+                                          ),
+                                        );
+                                      } else {
+                                        medicineDataLists!.add(Medicine(
+                                          medicineName: medicineController.text,
+                                          illness: illnessController.text,
+                                        ));
+                                      }
+                                      illnessController.clear();
+                                      medicineController.clear();
+                                      setState(() {
+                                        isEditOrAddMedicine =
+                                            !isEditOrAddMedicine;
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 45.h,
+                                      width: 80.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: kMainColor,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          isEditOrAddMedicine
+                                              ? "Update"
+                                              : "Add",
+                                          style: TextStyle(
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: kCardColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const VerticalSpacingWidget(height: 5),
+                            ],
+                          )
+                        : const SizedBox(),
                     Text(
                       "Any Allergy?",
                       style: TextStyle(
