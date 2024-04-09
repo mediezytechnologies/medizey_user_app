@@ -95,8 +95,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      height: 100.h,
-                      width: 110.w,
+                      height: 130.h,
+                      width: 120.w,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),

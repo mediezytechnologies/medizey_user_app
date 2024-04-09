@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'dart:io' show Platform;
 
 class GeneralServices {
   static GeneralServices instance = GeneralServices();
@@ -21,82 +23,154 @@ class GeneralServices {
   //* to close the app
   appCloseDialogue(
       BuildContext context, String title, void Function()? yesFunction) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: ((context) {
-        return AlertDialog(
-          backgroundColor: Theme.of(context).cardColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          content: Text(
-            title,
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w600, color: kTextColor),
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                "No",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: kTextColor),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            TextButton(
-              onPressed: yesFunction,
-              child: Text(
-                "Yes",
-                style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.red),
-              ),
-            )
-          ],
-        );
-      }),
-    );
+    Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: ((context) {
+              return CupertinoAlertDialog(
+                content: Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: kTextColor),
+                ),
+                actions: [
+                  TextButton(
+                    child: Text(
+                      "No",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: kTextColor),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  TextButton(
+                    onPressed: yesFunction,
+                    child: Text(
+                      "Yes",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.red),
+                    ),
+                  )
+                ],
+              );
+            }),
+          )
+        : showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: ((context) {
+              return AlertDialog(
+                backgroundColor: Theme.of(context).cardColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                content: Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: kTextColor),
+                ),
+                actions: [
+                  TextButton(
+                    child: Text(
+                      "No",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: kTextColor),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  TextButton(
+                    onPressed: yesFunction,
+                    child: Text(
+                      "Yes",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.red),
+                    ),
+                  )
+                ],
+              );
+            }),
+          );
   }
 
   //*show dialogw
   showDialogue(BuildContext context, String title) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: ((context) {
-        return AlertDialog(
-          backgroundColor: Theme.of(context).cardColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          content: Text(
-            title,
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w600, color: kTextColor),
-          ),
-          actions: [
-            TextButton(
-              child: const Text(
-                "Ok",
+    Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+              content: Text(
+                title,
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
-                    color: Colors.red),
+                    color: kTextColor),
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              actions: [
+                TextButton(
+                  child: const Text(
+                    "Ok",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.red),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
-          ],
-        );
-      }),
-    );
+          )
+        : showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: ((context) {
+              return AlertDialog(
+                backgroundColor: Theme.of(context).cardColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                content: Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: kTextColor),
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text(
+                      "Ok",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.red),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            }),
+          );
   }
 
   //* show success message for button click
