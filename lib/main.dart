@@ -8,6 +8,8 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'Ui/Screens/demo/locaton.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection();
@@ -37,7 +39,7 @@ class Mediezy extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(),
-          home: const SplashScreen(),
+          home: const GetLocation(),
         );
       },
     );
