@@ -32,7 +32,9 @@ class GetUpComingAppointmentsModel {
 }
 
 class UpcomingAppointments {
+  int? tokenId;
   int? doctorId;
+  int? patientId;
   int? tokenNumber;
   String? tokenStartTime;
   String? tokenScheduledDate;
@@ -47,6 +49,7 @@ class UpcomingAppointments {
   int? extraTimeTaken;
   int? lessTimeTaken;
   int? isReserved;
+  int? isReached;
   int? rescheduleType;
   String? scheduleStartTime;
   int? leaveStatus;
@@ -57,15 +60,18 @@ class UpcomingAppointments {
   String? doctorImage;
   String? clinicName;
   String? estimateArrivalTime;
+  String? mediezyDoctorId;
   MainSymptoms? mainSymptoms;
   int? nextAvailableTokenNumber;
-  String? nextAvailableTokenDate;
+  String?  nextAvailableTokenDate;
   List<Clinics>? clinics;
   OtherSymptom? otherSymptom;
   bool? patientAbsent;
 
   UpcomingAppointments(
-      {this.doctorId,
+      {this.tokenId,
+      this.doctorId,
+      this.patientId,
       this.tokenNumber,
       this.tokenStartTime,
       this.tokenScheduledDate,
@@ -80,6 +86,7 @@ class UpcomingAppointments {
       this.extraTimeTaken,
       this.lessTimeTaken,
       this.isReserved,
+      this.isReached,
       this.rescheduleType,
       this.scheduleStartTime,
       this.leaveStatus,
@@ -90,6 +97,7 @@ class UpcomingAppointments {
       this.doctorImage,
       this.clinicName,
       this.estimateArrivalTime,
+      this.mediezyDoctorId,
       this.mainSymptoms,
       this.nextAvailableTokenNumber,
       this.nextAvailableTokenDate,
@@ -98,7 +106,9 @@ class UpcomingAppointments {
       this.patientAbsent});
 
   UpcomingAppointments.fromJson(Map<String, dynamic> json) {
+    tokenId = json['token_id'];
     doctorId = json['doctor_id'];
+    patientId = json['patient_id'];
     tokenNumber = json['token_number'];
     tokenStartTime = json['token_start_time'];
     tokenScheduledDate = json['token_scheduled_date'];
@@ -113,6 +123,7 @@ class UpcomingAppointments {
     extraTimeTaken = json['extra_time_taken'];
     lessTimeTaken = json['less_time_taken'];
     isReserved = json['is_reserved'];
+    isReached = json['is_reached'];
     rescheduleType = json['reschedule_type'];
     scheduleStartTime = json['schedule_start_time'];
     leaveStatus = json['leave_status'];
@@ -123,6 +134,7 @@ class UpcomingAppointments {
     doctorImage = json['doctor_image'];
     clinicName = json['clinic_name'];
     estimateArrivalTime = json['estimate_arrival_time'];
+    mediezyDoctorId = json['mediezy_doctor_id'];
     mainSymptoms = json['main_symptoms'] != null
         ? MainSymptoms.fromJson(json['main_symptoms'])
         : null;
@@ -142,7 +154,9 @@ class UpcomingAppointments {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['token_id'] = tokenId;
     data['doctor_id'] = doctorId;
+    data['patient_id'] = patientId;
     data['token_number'] = tokenNumber;
     data['token_start_time'] = tokenStartTime;
     data['token_scheduled_date'] = tokenScheduledDate;
@@ -157,6 +171,7 @@ class UpcomingAppointments {
     data['extra_time_taken'] = extraTimeTaken;
     data['less_time_taken'] = lessTimeTaken;
     data['is_reserved'] = isReserved;
+    data['is_reached'] = isReached;
     data['reschedule_type'] = rescheduleType;
     data['schedule_start_time'] = scheduleStartTime;
     data['leave_status'] = leaveStatus;
@@ -167,6 +182,7 @@ class UpcomingAppointments {
     data['doctor_image'] = doctorImage;
     data['clinic_name'] = clinicName;
     data['estimate_arrival_time'] = estimateArrivalTime;
+    data['mediezy_doctor_id'] = mediezyDoctorId;
     if (mainSymptoms != null) {
       data['main_symptoms'] = mainSymptoms!.toJson();
     }
@@ -198,6 +214,8 @@ class MainSymptoms {
     return data;
   }
 }
+
+
 
 class OtherSymptom {
   String? symtoms;

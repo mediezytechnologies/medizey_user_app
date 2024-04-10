@@ -17,11 +17,9 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
       required this.tokenTime,
       required this.patientName,
       required this.note,
-      required this.reviewAfter,
       required this.labTestName,
       required this.labName,
       required this.prescriptionImage,
-      required this.medicalStoreName,
       required this.prescriptions});
 
   final String doctorName;
@@ -32,12 +30,10 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
   final String tokenTime;
   final String patientName;
   final String note;
-  final String reviewAfter;
   final String labTestName;
   final String labName;
   final String prescriptionImage;
-  final String medicalStoreName;
-  final List<MedicalPrescriptions> prescriptions;
+  final List<DoctorMedicines> prescriptions;
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +49,9 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
                       doctorName: doctorName,
                       labName: labName,
                       labTestName: labTestName,
-                      medicalStoreName: medicalStoreName,
                       note: note,
                       patientName: patientName,
                       prescriptionImage: prescriptionImage,
-                      reviewAfter: reviewAfter,
                       symptoms: symptoms,
                       tokenDate: tokenDate,
                       tokenTime: tokenTime,

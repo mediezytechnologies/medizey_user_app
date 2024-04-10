@@ -30,11 +30,9 @@ class PatientData {
   String? mediezyPatientId;
   int? patientAge;
   String? dob;
+  String? displayAge;
   String? patientGender;
   String? patientMobileNumber;
-  String? allergyId;
-  String? allergyName;
-  String? allergyDetail;
   String? regularMedicine;
   List<String>? surgeryName;
   List<String>? treatmentTaken;
@@ -42,7 +40,7 @@ class PatientData {
   String? treatmentTakenDetails;
   String? patientImage;
   List<MedicineDetails>? medicineDetails;
-  String? displayAge;
+  List<AllergiesDetails>? allergiesDetails;
 
   PatientData(
       {this.id,
@@ -50,11 +48,9 @@ class PatientData {
       this.mediezyPatientId,
       this.patientAge,
       this.dob,
+      this.displayAge,
       this.patientGender,
       this.patientMobileNumber,
-      this.allergyId,
-      this.allergyName,
-      this.allergyDetail,
       this.regularMedicine,
       this.surgeryName,
       this.treatmentTaken,
@@ -62,7 +58,7 @@ class PatientData {
       this.treatmentTakenDetails,
       this.patientImage,
       this.medicineDetails,
-      this.displayAge});
+      this.allergiesDetails});
 
   PatientData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -70,11 +66,9 @@ class PatientData {
     mediezyPatientId = json['mediezy_patient_id'];
     patientAge = json['patient_age'];
     dob = json['dob'];
+    displayAge = json['display_age'];
     patientGender = json['patient_gender'];
     patientMobileNumber = json['patient_mobile_number'];
-    allergyId = json['allergy_id'];
-    allergyName = json['allergy_name'];
-    allergyDetail = json['allergy_detail'];
     regularMedicine = json['regular_medicine'];
     surgeryName = json['surgery_name'].cast<String>();
     treatmentTaken = json['treatment_taken'].cast<String>();
@@ -87,7 +81,12 @@ class PatientData {
         medicineDetails!.add(MedicineDetails.fromJson(v));
       });
     }
-    displayAge = json['display_age'];
+    if (json['allergies_details'] != null) {
+      allergiesDetails = <AllergiesDetails>[];
+      json['allergies_details'].forEach((v) {
+        allergiesDetails!.add(AllergiesDetails.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -97,11 +96,9 @@ class PatientData {
     data['mediezy_patient_id'] = mediezyPatientId;
     data['patient_age'] = patientAge;
     data['dob'] = dob;
+    data['display_age'] = displayAge;
     data['patient_gender'] = patientGender;
     data['patient_mobile_number'] = patientMobileNumber;
-    data['allergy_id'] = allergyId;
-    data['allergy_name'] = allergyName;
-    data['allergy_detail'] = allergyDetail;
     data['regular_medicine'] = regularMedicine;
     data['surgery_name'] = surgeryName;
     data['treatment_taken'] = treatmentTaken;
@@ -112,7 +109,10 @@ class PatientData {
       data['medicine_details'] =
           medicineDetails!.map((v) => v.toJson()).toList();
     }
-    data['display_age'] = displayAge;
+    if (allergiesDetails != null) {
+      data['allergies_details'] =
+          allergiesDetails!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -126,15 +126,34 @@ class MedicineDetails {
 
   MedicineDetails.fromJson(Map<String, dynamic> json) {
     medicineId = json['medicine_id'];
-    medicineName = json['medicine_name'];
+    medicineName = json['medicineName'];
     illness = json['illness'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['medicine_id'] = medicineId;
-    data['medicine_name'] = medicineName;
+    data['medicineName'] = medicineName;
     data['illness'] = illness;
+    return data;
+  }
+}
+
+class AllergiesDetails {
+  int? allergyId;
+  String? allergyDetails;
+
+  AllergiesDetails({this.allergyId, this.allergyDetails});
+
+  AllergiesDetails.fromJson(Map<String, dynamic> json) {
+    allergyId = json['allergy_id'];
+    allergyDetails = json['allergy_details'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['allergy_id'] = allergyId;
+    data['allergy_details'] = allergyDetails;
     return data;
   }
 }

@@ -368,6 +368,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .upcomingAppointments!.length,
                                       itemBuilder: (context, index) {
                                         return AppointmentCardWidget(
+                                          isReached:
+                                              getUpComingAppointmentsModel
+                                                  .upcomingAppointments![index]
+                                                  .isReached!,
+                                          doctorUniqueId:
+                                              getUpComingAppointmentsModel
+                                                  .upcomingAppointments![index]
+                                                  .mediezyDoctorId
+                                                  .toString(),
+                                          patientId:
+                                              getUpComingAppointmentsModel
+                                                  .upcomingAppointments![index]
+                                                  .patientId!,
+                                          tokenId: getUpComingAppointmentsModel
+                                              .upcomingAppointments![index]
+                                              .tokenId!,
                                           isPatientAbsent:
                                               getUpComingAppointmentsModel
                                                           .upcomingAppointments![
@@ -441,13 +457,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .mainSymptoms!
                                                       .mainsymptoms
                                                       .toString(),
-
-                                          //  getUpComingAppointmentsModel
-                                          //     .upcomingAppointments![
-                                          //         index]
-                                          //     .mainSymptoms!
-                                          //     .mainsymptoms
-                                          //     .toString(),
                                           tokenNumber:
                                               getUpComingAppointmentsModel
                                                   .upcomingAppointments![index]
@@ -680,8 +689,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Container();
                   },
                 ),
-                const VerticalSpacingWidget(height: 10),
-                //! questionare
+                // const VerticalSpacingWidget(height: 10),
+                // //! questionare
                 // Padding(
                 //   padding: EdgeInsets.symmetric(horizontal: 8.w),
                 //   child: InkWell(
@@ -702,7 +711,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     ),
                 //   ),
                 // ),
-                // const VerticalSpacingWidget(height: 10),
+                const VerticalSpacingWidget(height: 10),
                 //! suggestion box
                 Stack(
                   children: [

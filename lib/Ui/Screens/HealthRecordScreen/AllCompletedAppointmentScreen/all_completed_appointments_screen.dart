@@ -33,91 +33,71 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
           }
           if (state is GetCompletedAppointmetsByPatientIdLoaded) {
             final completedAppointment = state.getCompletedAppointmentsModel;
-            return completedAppointment.completedAppointments!.isEmpty ||
-                    completedAppointment.completedAppointments == null
+            return completedAppointment.appointmentDetails == null
                 ? Center(
                     child: Image.asset("assets/icons/no data.png"),
                   )
                 : ListView.builder(
-                    itemCount:
-                        completedAppointment.completedAppointments!.length,
+                    itemCount: completedAppointment.appointmentDetails!.length,
                     itemBuilder: (context, index) {
                       return CompletedAppointmentCardWidget(
                         prescriptions: completedAppointment
-                            .completedAppointments![index].medicalPrescriptions!
+                            .appointmentDetails![index].doctorMedicines!
                             .toList(),
                         clinicName: completedAppointment
-                            .completedAppointments![index].clinicName
+                            .appointmentDetails![index].clinicName
                             .toString(),
                         doctorImage: completedAppointment
-                            .completedAppointments![index].doctorImage
+                            .appointmentDetails![index].doctorImage
                             .toString(),
                         doctorName: completedAppointment
-                            .completedAppointments![index].doctorName
+                            .appointmentDetails![index].doctorName
                             .toString(),
                         labName: completedAppointment
-                                    .completedAppointments![index].labName ==
+                                    .appointmentDetails![index].labName ==
                                 null
                             ? ""
                             : completedAppointment
-                                .completedAppointments![index].labName
+                                .appointmentDetails![index].labName
                                 .toString(),
                         labTestName: completedAppointment
-                                    .completedAppointments![index].labTest ==
+                                    .appointmentDetails![index].labTest ==
                                 null
                             ? ""
                             : completedAppointment
-                                .completedAppointments![index].labTest
-                                .toString(),
-                        medicalStoreName: completedAppointment
-                                    .completedAppointments![index]
-                                    .medicalStoreName ==
-                                null
-                            ? ""
-                            : completedAppointment
-                                .completedAppointments![index].medicalStoreName
+                                .appointmentDetails![index].labTest
                                 .toString(),
                         note: completedAppointment
-                                    .completedAppointments![index].notes ==
+                                    .appointmentDetails![index].notes ==
                                 null
                             ? ""
                             : completedAppointment
-                                .completedAppointments![index].notes
+                                .appointmentDetails![index].notes
                                 .toString(),
                         patientName: completedAppointment
-                            .completedAppointments![index].patientName
+                            .appointmentDetails![index].patientName
                             .toString(),
                         prescriptionImage: completedAppointment
-                                    .completedAppointments![index]
+                                    .appointmentDetails![index]
                                     .prescriptionImage ==
                                 null
                             ? ""
                             : completedAppointment
-                                .completedAppointments![index].prescriptionImage
-                                .toString(),
-                        reviewAfter: completedAppointment
-                                    .completedAppointments![index]
-                                    .reviewAfter ==
-                                null
-                            ? ""
-                            : completedAppointment
-                                .completedAppointments![index].reviewAfter
+                                .appointmentDetails![index].prescriptionImage
                                 .toString(),
                         tokenDate: completedAppointment
-                            .completedAppointments![index].tokenDate
+                            .appointmentDetails![index].date
                             .toString(),
                         tokenTime: completedAppointment
-                            .completedAppointments![index].tokenTime
+                            .appointmentDetails![index].tokenStartTime
                             .toString(),
                         symptoms: completedAppointment
-                                    .completedAppointments![index]
-                                    .mainSymptoms!
-                                    .mainsymptoms ==
+                                    .appointmentDetails![index].mainSymptoms ==
                                 null
-                            ? completedAppointment.completedAppointments![index]
-                                .otherSymptom!.symtoms
+                            ? completedAppointment.appointmentDetails![index]
+                                .otherSymptoms!.first.symtoms!
                                 .toString()
-                            : completedAppointment.completedAppointments![index]
+                            : completedAppointment.appointmentDetails![index]
                                 .mainSymptoms!.mainsymptoms
                                 .toString(),
                       );

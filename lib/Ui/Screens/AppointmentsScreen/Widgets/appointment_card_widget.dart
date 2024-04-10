@@ -1,14 +1,20 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
+import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
+import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
   const AppointmentCardWidget(
@@ -33,7 +39,11 @@ class AppointmentCardWidget extends StatefulWidget {
       required this.clinicList,
       required this.isPatientAbsent,
       required this.nextAvailableDateAndTime,
-      required this.nextAvailableTokenNumber});
+      required this.nextAvailableTokenNumber,
+      required this.patientId,
+      required this.tokenId,
+      required this.doctorUniqueId,
+      required this.isReached});
 
   final String doctorId;
   final String docterImage;
@@ -56,6 +66,10 @@ class AppointmentCardWidget extends StatefulWidget {
   final String nextAvailableDateAndTime;
   final String nextAvailableTokenNumber;
   final String isPatientAbsent;
+  final int patientId;
+  final int tokenId;
+  final String doctorUniqueId;
+  final int isReached;
 
   @override
   State<AppointmentCardWidget> createState() => _AppointmentCardWidgetState();
@@ -64,6 +78,7 @@ class AppointmentCardWidget extends StatefulWidget {
 class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
   bool isSecondContainerVisible = false;
   DateTime currentDate = DateTime.now();
+  String? mediezyDoctorId;
   String formatDate() {
     String formattedSelectedDate = DateFormat('yyyy-MM-dd').format(currentDate);
     return formattedSelectedDate;
@@ -71,6 +86,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 4.h),
       decoration: BoxDecoration(
@@ -93,7 +110,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         width: 80.w,
                         boxFit: BoxFit.contain,
                         errorWidget: const Image(
-                            image: AssetImage("assets/icons/no data.png")),
+                          image: AssetImage("assets/icons/no data.png"),
+                        ),
                         imageUrl: widget.docterImage),
                   ),
                 ),
@@ -196,8 +214,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   ),
                 ),
                 Container(
-                  height: 35.h,
-                  width: 30.w,
+                  height: height * .060,
+                  width: width * .1,
                   decoration: BoxDecoration(
                       color: const Color(0xFF55B79B),
                       borderRadius: BorderRadius.circular(7)),
@@ -207,14 +225,14 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       Text(
                         "Token",
                         style: TextStyle(
-                            fontSize: 8.sp,
+                            fontSize: 9.sp,
                             fontWeight: FontWeight.bold,
                             color: kCardColor),
                       ),
                       Text(
                         widget.tokenNumber,
                         style: TextStyle(
-                            fontSize: 13.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                             color: kCardColor),
                       ),
@@ -232,8 +250,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       widget.appointmentDate == formatDate()
                           ? Container(
-                              height: 35.h,
-                              width: 120.w,
+                              height: height * .058,
+                              width: width * .35,
                               decoration: BoxDecoration(
                                 color: const Color(0xFF55B79B),
                                 borderRadius: BorderRadius.circular(5),
@@ -251,8 +269,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                     ),
                                   ),
                                   Container(
-                                    height: 28.h,
-                                    width: 25.w,
+                                    height: height * .045,
+                                    width: width * .1.w,
                                     decoration: BoxDecoration(
                                       color: kCardColor,
                                       borderRadius: BorderRadius.circular(4),
@@ -261,7 +279,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                       child: Text(
                                         widget.liveToken,
                                         style: TextStyle(
-                                          fontSize: 20.sp,
+                                          fontSize: 18.sp,
                                           color: kTextColor,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -272,16 +290,20 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               ),
                             )
                           : Container(),
-                      const HorizontalSpacingWidget(width: 25),
                       widget.isPatientAbsent == "Absent"
-                          ? Text(
-                              "Token will be considered\n as the last token",
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: Colors.red,
-                                fontWeight: FontWeight.w700,
-                                fontStyle: FontStyle.normal,
-                                letterSpacing: -1,
+                          ? SizedBox(
+                              height: height * .075,
+                              width: width * .5,
+                              child: Text(
+                                "You failed to reach on time, So your token will be considered as the last token",
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w700,
+                                  fontStyle: FontStyle.normal,
+                                  letterSpacing: -.5,
+                                ),
+                                maxLines: 3,
                               ),
                             )
                           : Row(
@@ -332,177 +354,27 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         textAlign: TextAlign.center,
                       ),
                       const VerticalSpacingWidget(height: 5),
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
-                          showDialog(
-                            barrierDismissible: true,
-                            context: context,
-                            builder: ((context) {
-                              return AlertDialog(
-                                backgroundColor: Theme.of(context).cardColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "Book same doctor",
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    Text(
-                                      "Next Available Token details",
-                                      style: TextStyle(
-                                        fontSize: 13.sp,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      margin: const EdgeInsets.all(8),
-                                      height: 60.h,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all(
-                                              color: kTextColor, width: 1)),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Token No : ${widget.nextAvailableTokenNumber}",
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
-                                              color: kTextColor,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const VerticalSpacingWidget(
-                                              height: 2),
-                                          Text(
-                                            widget.nextAvailableDateAndTime,
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
-                                              color: kTextColor,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) {
-                                            return BookAppointmentScreen(
-                                                doctorId: widget.doctorId,
-                                                clinicList: widget.clinicList,
-                                                doctorFirstName:
-                                                    widget.docterName,
-                                                doctorSecondName: "");
-                                          }),
-                                        );
-                                      },
-                                      child: Container(
-                                        height: 40.h,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xFF55B79B),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Center(
-                                            child: Text(
-                                          "Book now",
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kCardColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )),
-                                      ),
-                                    ),
-                                    const VerticalSpacingWidget(height: 3),
-                                    Text(
-                                      "Or",
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const VerticalSpacingWidget(height: 3),
-                                    Text(
-                                      "Book another doctor",
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SearchScreen(),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        height: 40.h,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xFF55B79B),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Center(
-                                            child: Text(
-                                          "Choose another doctor",
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kCardColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
-                          );
+                          showAvailableToken(context);
                         },
                         child: Container(
                           height: 40.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: const Color(0xFF55B79B),
-                              borderRadius: BorderRadius.circular(10)),
+                            color: const Color(0xFF55B79B),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: Center(
-                              child: Text(
-                            "Reshedule",
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              color: kCardColor,
-                              fontWeight: FontWeight.bold,
+                            child: Text(
+                              "Reshedule",
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: kCardColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          )),
+                          ),
                         ),
                       )
                     ],
@@ -511,27 +383,52 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
           const VerticalSpacingWidget(height: 5),
           isSecondContainerVisible
               ? Container()
-              : Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-                    child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            isSecondContainerVisible =
-                                !isSecondContainerVisible;
-                          });
-                        },
-                        child: widget.leaveMessage == 0 &&
-                                widget.resheduleStatus == 0
-                            ? Text(
-                                isSecondContainerVisible
-                                    ? "See less"
-                                    : "See More",
-                                style: TextStyle(
-                                    fontSize: 15.sp, color: Colors.blue),
-                              )
-                            : Container()),
+              : Padding(
+                  padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      widget.appointmentDate == formatDate()
+                          ? widget.isReached == 1
+                              ? Text(
+                                  "Reached",
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xFF55B79B),
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () async {
+                                    await scanQR();
+                                  },
+                                  child: widget.leaveMessage == 0 &&
+                                          widget.resheduleStatus == 0
+                                      ? Icon(
+                                          Icons.qr_code_scanner_outlined,
+                                          color: Colors.blue,
+                                          size: 28.sp,
+                                        )
+                                      : Container())
+                          : const SizedBox(),
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              isSecondContainerVisible =
+                                  !isSecondContainerVisible;
+                            });
+                          },
+                          child: widget.leaveMessage == 0 &&
+                                  widget.resheduleStatus == 0
+                              ? Text(
+                                  isSecondContainerVisible
+                                      ? "See less"
+                                      : "See more",
+                                  style: TextStyle(
+                                      fontSize: 15.sp, color: Colors.blue),
+                                )
+                              : Container()),
+                    ],
                   ),
                 ),
           const VerticalSpacingWidget(height: 5),
@@ -686,5 +583,181 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
         ],
       ),
     );
+  }
+
+  Future<dynamic> showAvailableToken(BuildContext context) {
+    return showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: ((context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Book same doctor",
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  color: kTextColor,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Text(
+                "Next Available Token details",
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: kTextColor,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Container(
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: kTextColor, width: 1)),
+                child: Column(
+                  children: [
+                    widget.nextAvailableTokenNumber == "0"
+                        ? const SizedBox()
+                        : Text(
+                            "Token No : ${widget.nextAvailableTokenNumber}",
+                            style: TextStyle(
+                              fontSize: 15.sp,
+                              color: kTextColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    widget.nextAvailableDateAndTime == "null"
+                        ? const SizedBox()
+                        : Text(
+                            widget.nextAvailableDateAndTime,
+                            style: TextStyle(
+                              fontSize: 15.sp,
+                              color: kTextColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return BookAppointmentScreen(
+                                doctorId: widget.doctorId,
+                                clinicList: widget.clinicList,
+                                doctorFirstName: widget.docterName,
+                                doctorSecondName: "");
+                          }),
+                        );
+                      },
+                      child: Container(
+                        height: 40.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color(0xFF55B79B),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            "Book now",
+                            style: TextStyle(
+                              fontSize: 15.sp,
+                              color: kCardColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const VerticalSpacingWidget(height: 3),
+                  ],
+                ),
+              ),
+              const VerticalSpacingWidget(height: 3),
+              Text(
+                "Or",
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  color: kTextColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const VerticalSpacingWidget(height: 3),
+              Text(
+                "Book another doctor",
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  color: kTextColor,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 40.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: const Color(0xFF55B79B),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                      child: Text(
+                    "Choose another doctor",
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      color: kCardColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
+    );
+  }
+
+  Future<void> scanQR() async {
+    String qRcodeScanRes;
+    try {
+      qRcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#070606', 'Cancel', true, ScanMode.QR);
+    } on PlatformException {
+      qRcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+    setState(() {
+      if (widget.doctorUniqueId == qRcodeScanRes) {
+        BlocProvider.of<QrCodeScanBloc>(context).add(CheckQRCodeScan(
+            patientId: widget.patientId.toString(),
+            tokenId: widget.tokenId.toString(),
+            reachedStatus: "1"));
+        GeneralServices.instance.showToastMessage("Scanned successfully");
+      } else {
+        GeneralServices.instance.showToastMessage("Please try again");
+      }
+    });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Hospital/get_hospital_by_id_model.dart';
@@ -147,13 +148,13 @@ class _HospitalScreenState extends State<HospitalScreen> {
                                       .clinicDetails!
                                       .first
                                       .specializations![index]
-                                      .name
+                                      .specializationName
                                       .toString(),
                                   specilisationId: getHospitalByIdModel
                                       .clinicDetails!
                                       .first
                                       .specializations![index]
-                                      .id
+                                      .specializationId
                                       .toString(),
                                 ),
                               ),
@@ -168,13 +169,46 @@ class _HospitalScreenState extends State<HospitalScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  getHospitalByIdModel.clinicDetails!.first
-                                      .specializations![index].name
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18.sp),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image(
+                                    image: NetworkImage(
+                                      getHospitalByIdModel
+                                          .clinicDetails!
+                                          .first
+                                          .specializations![index]
+                                          .specializationIcon
+                                          .toString(),
+                                    ),
+                                    height: 40.h,
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      getHospitalByIdModel
+                                          .clinicDetails!
+                                          .first
+                                          .specializations![index]
+                                          .specializationName
+                                          .toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18.sp),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${getHospitalByIdModel.clinicDetails!.first.specializations![index].availableDoctorCount.toString()} Doctors available",
+                                          style: TextStyle(
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: kSubTextColor),
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
                                 Icon(
                                   Icons.keyboard_arrow_down,

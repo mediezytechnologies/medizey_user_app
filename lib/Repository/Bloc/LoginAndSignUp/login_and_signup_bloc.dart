@@ -64,7 +64,6 @@ class LoginAndSignupBloc
         );
         emit(SignUpLoaded());
       } catch (error) {
-        print("SIGN UP ERROR>>>>>>>>>>>>>>>>>>>>>>" + error.toString());
         GeneralServices.instance.showToastMessage(error.toString());
         emit(SignUpError());
       }

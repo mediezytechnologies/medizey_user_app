@@ -1,12 +1,12 @@
-part of 'edit_member_bloc.dart';
+// part of 'edit_member_bloc.dart';
 
-@immutable
-sealed class EditMemberState {}
+// @immutable
+// sealed class EditMemberState {}
 
-final class EditMemberInitial extends EditMemberState {}
+// final class EditMemberInitial extends EditMemberState {}
 
-class EditMemberLoaded extends EditMemberState {}
+// class EditMemberLoaded extends EditMemberState {}
 
-class EditMemberLoading extends EditMemberState {}
+// class EditMemberLoading extends EditMemberState {}
 
-class EditMemberError extends EditMemberState {}
+// class EditMemberError extends EditMemberState {}

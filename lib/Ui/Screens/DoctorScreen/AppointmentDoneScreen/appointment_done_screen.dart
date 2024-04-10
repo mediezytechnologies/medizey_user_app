@@ -6,12 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mediezy_user/Model/GetFamilyMembers/get_family_members_model.dart';
 import 'package:mediezy_user/Model/GetSymptoms/get_symptoms_model.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/AutoFetch/auto_fetch_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/BookAppointmets/book_appointment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/get_family_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSymptoms/get_symptoms_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/GetToken/get_token_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
@@ -36,7 +38,8 @@ class AppointmentDoneScreen extends StatefulWidget {
       required this.doctorFirstName,
       required this.doctorSecondName,
       required this.sheduleType,
-      required this.estimatedTime});
+      required this.estimatedTime,
+      required this.tokenId});
 
   final String bookingTime;
   final DateTime bookingDate;
@@ -50,6 +53,7 @@ class AppointmentDoneScreen extends StatefulWidget {
   final String clinicLocation;
   final String sheduleType;
   final String estimatedTime;
+  final String tokenId;
 
   @override
   State<AppointmentDoneScreen> createState() => _AppointmentDoneScreenState();
@@ -174,6 +178,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                       ),
                     );
                   }
+                  if (state is BookAppointmentError) {
+                    showErrorDialogue(context, state);
+                  }
                 },
                 child: FadedSlideAnimation(
                   beginOffset: const Offset(0, 0.3),
@@ -254,10 +261,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                         ? null
                                         : BlocProvider.of<AutoFetchBloc>(
                                                 context)
-                                            .add(FetchAutoFetch(
+                                            .add(
+                                            FetchAutoFetch(
                                                 section: "Family Member",
                                                 patientId:
-                                                    selectedFamilyMemberId));
+                                                    selectedFamilyMemberId),
+                                          );
                                   });
                                 },
                                 child: Row(
@@ -287,10 +296,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                               ? null
                                               : BlocProvider.of<AutoFetchBloc>(
                                                       context)
-                                                  .add(FetchAutoFetch(
+                                                  .add(
+                                                  FetchAutoFetch(
                                                       section: "Family Member",
                                                       patientId:
-                                                          selectedFamilyMemberId));
+                                                          selectedFamilyMemberId),
+                                                );
                                         });
                                       },
                                     ),
@@ -1109,7 +1120,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                       appoinmentfor2: selectedSymptoms,
                                       bookingType: selectedBookingFor,
                                       patientId: patientId,
-                                      sheduleType: widget.sheduleType),
+                                      sheduleType: widget.sheduleType,
+                                      tokenId: widget.tokenId),
                                 );
                               }
                             },
@@ -1123,6 +1135,74 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
               );
             }
           }),
+    );
+  }
+
+  Future<dynamic> showErrorDialogue(
+      BuildContext context, BookAppointmentError state) {
+    return showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: ((context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              state.errorMessage !=
+                      "This token has already been booked by someone. Please book another token."
+                  ? const SizedBox()
+                  : Text(
+                      "Just missed",
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+              const VerticalSpacingWidget(height: 2),
+              Lottie.asset("assets/animations/error.json", height: 100.h),
+              const VerticalSpacingWidget(height: 2),
+              Text(
+                state.errorMessage,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: kTextColor,
+                  fontWeight: FontWeight.w800,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 3),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(60.w, 30.h),
+                  backgroundColor: kMainColor,
+                  foregroundColor: kCardColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  BlocProvider.of<GetTokenBloc>(context).add(
+                    FetchToken(
+                      date: formatDate(),
+                      doctorId: widget.doctorId,
+                      hospitalId: widget.clinicId,
+                    ),
+                  );
+                },
+                child: const Text("Ok"),
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
 }

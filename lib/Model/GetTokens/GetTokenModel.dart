@@ -67,6 +67,7 @@ class Schedule {
 }
 
 class Schedule1 {
+  int? tokenId;
   int? scheduleId;
   int? tokenNumber;
   String? scheduleType;
@@ -77,7 +78,8 @@ class Schedule1 {
   int? isTimeout;
 
   Schedule1(
-      {this.scheduleId,
+      {this.tokenId,
+      this.scheduleId,
       this.tokenNumber,
       this.scheduleType,
       this.isReserved,
@@ -87,6 +89,7 @@ class Schedule1 {
       this.isTimeout});
 
   Schedule1.fromJson(Map<String, dynamic> json) {
+    tokenId = json['token_id'];
     scheduleId = json['schedule_id'];
     tokenNumber = json['token_number'];
     scheduleType = json['schedule_type'];
@@ -99,6 +102,7 @@ class Schedule1 {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['token_id'] = tokenId;
     data['schedule_id'] = scheduleId;
     data['token_number'] = tokenNumber;
     data['schedule_type'] = scheduleType;
@@ -112,6 +116,7 @@ class Schedule1 {
 }
 
 class Schedule2 {
+  int? tokenId;
   int? scheduleId;
   int? tokenNumber;
   String? scheduleType;
@@ -122,7 +127,8 @@ class Schedule2 {
   int? isTimeout;
 
   Schedule2(
-      {this.scheduleId,
+      {this.tokenId,
+      this.scheduleId,
       this.tokenNumber,
       this.scheduleType,
       this.isReserved,
@@ -132,6 +138,7 @@ class Schedule2 {
       this.isTimeout});
 
   Schedule2.fromJson(Map<String, dynamic> json) {
+    tokenId = json['token_id'];
     scheduleId = json['schedule_id'];
     tokenNumber = json['token_number'];
     scheduleType = json['schedule_type'];
@@ -144,6 +151,7 @@ class Schedule2 {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['token_id'] = tokenId;
     data['schedule_id'] = scheduleId;
     data['token_number'] = tokenNumber;
     data['schedule_type'] = scheduleType;
@@ -157,6 +165,7 @@ class Schedule2 {
 }
 
 class Schedule3 {
+  int? tokenId;
   int? scheduleId;
   int? tokenNumber;
   String? scheduleType;
@@ -167,7 +176,8 @@ class Schedule3 {
   int? isTimeout;
 
   Schedule3(
-      {this.scheduleId,
+      {this.tokenId,
+      this.scheduleId,
       this.tokenNumber,
       this.scheduleType,
       this.isReserved,
@@ -177,6 +187,7 @@ class Schedule3 {
       this.isTimeout});
 
   Schedule3.fromJson(Map<String, dynamic> json) {
+    tokenId = json['token_id'];
     scheduleId = json['schedule_id'];
     tokenNumber = json['token_number'];
     scheduleType = json['schedule_type'];
@@ -189,6 +200,7 @@ class Schedule3 {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['token_id'] = tokenId;
     data['schedule_id'] = scheduleId;
     data['token_number'] = tokenNumber;
     data['schedule_type'] = scheduleType;

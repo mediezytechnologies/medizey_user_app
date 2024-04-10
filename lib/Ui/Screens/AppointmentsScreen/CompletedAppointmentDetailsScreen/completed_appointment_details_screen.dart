@@ -18,11 +18,9 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
       required this.tokenTime,
       required this.patientName,
       required this.note,
-      required this.reviewAfter,
       required this.labTestName,
       required this.labName,
       required this.prescriptionImage,
-      required this.medicalStoreName,
       required this.prescriptions});
 
   final String doctorName;
@@ -33,12 +31,10 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
   final String tokenTime;
   final String patientName;
   final String note;
-  final String reviewAfter;
   final String labTestName;
   final String labName;
   final String prescriptionImage;
-  final String medicalStoreName;
-  final List<MedicalPrescriptions> prescriptions;
+  final List<DoctorMedicines> prescriptions;
 
   @override
   Widget build(BuildContext context) {
@@ -177,33 +173,33 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                 ],
               ),
               const VerticalSpacingWidget(height: 5),
-              reviewAfter == ""
-                  ? Container()
-                  : Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Review after: ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              "$reviewAfter days",
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
+              // reviewAfter == ""
+              //     ? Container()
+              //     : Column(
+              //         children: [
+              //           Row(
+              //             children: [
+              //               Text(
+              //                 "Review after: ",
+              //                 style: TextStyle(
+              //                   fontSize: 14.sp,
+              //                   color: kTextColor,
+              //                   fontWeight: FontWeight.w400,
+              //                 ),
+              //               ),
+              //               Text(
+              //                 "$reviewAfter days",
+              //                 style: TextStyle(
+              //                   fontSize: 15.sp,
+              //                   color: kTextColor,
+              //                   fontWeight: FontWeight.bold,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           const VerticalSpacingWidget(height: 5),
+              //         ],
+              //       ),
               labTestName == ""
                   ? Container()
                   : Column(
@@ -258,33 +254,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              medicalStoreName == ""
-                  ? Container()
-                  : Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Medical Store: ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              medicalStoreName,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
+
               prescriptions.isNotEmpty
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,6 +283,30 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Medical store name :",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            color: kTextColor,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        const HorizontalSpacingWidget(width: 5),
+                                        Text(
+                                          prescriptions[index]
+                                              .medicalStoreName
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontSize: 15.sp,
+                                            color: kTextColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const VerticalSpacingWidget(height: 5),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -352,7 +346,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                         ),
                                         Text(
                                           prescriptions[index]
-                                              .medicineDosage
+                                              .dosage
                                               .toString(),
                                           style: TextStyle(
                                             fontSize: 15.sp,
@@ -392,7 +386,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           prescriptions[index]
-                                              .medicineNumberOfdays
+                                              .noOfDays
                                               .toString(),
                                           style: TextStyle(
                                             fontSize: 15.sp,
@@ -401,7 +395,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          prescriptions[index].medicineType == 1
+                                          prescriptions[index].type == 1
                                               ? "Before Food"
                                               : "After Food",
                                           style: TextStyle(

@@ -9,10 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Model/GetTokens/GetTokenModel.dart';
-import 'package:mediezy_user/Repository/Bloc/GetClinic/get_clinic_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetToken/get_token_bloc.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/cinic_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/token_card_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -45,20 +44,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   bool isClicked = false;
   late StreamSubscription<ConnectivityResult> subscription;
-
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
     } else {}
-  }
-
-  Future<void> _refreshData() async {
-    BlocProvider.of<GetTokenBloc>(context).add(
-      FetchToken(
-        date: formatDate(),
-        doctorId: widget.doctorId,
-        hospitalId: selectedClinicId,
-      ),
-    );
   }
 
   @override
@@ -79,9 +67,17 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
         hospitalId: widget.clinicList.first.clinicId.toString(),
       ),
     );
-    BlocProvider.of<GetClinicBloc>(context)
-        .add(FetchClinicByDoctorIdEvent(doctorId: widget.doctorId));
     super.initState();
+  }
+
+  Future<void> _refreshData() async {
+    BlocProvider.of<GetTokenBloc>(context).add(
+      FetchToken(
+        date: formatDate(),
+        doctorId: widget.doctorId,
+        hospitalId: selectedClinicId,
+      ),
+    );
   }
 
   @override
@@ -121,154 +117,52 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                 widget.clinicList[index].clinicId.toString();
                             return InkWell(
                               onTap: () {
-                                setState(() {
-                                  selectedClinicId = widget
-                                      .clinicList[index].clinicId
-                                      .toString();
-                                  selectedClinicName = widget
-                                      .clinicList[index].clinicName
-                                      .toString();
-                                  selectedClinicAddress = widget
-                                      .clinicList[index].clinicAddress
-                                      .toString();
-                                  selectedClinicLocation = widget
-                                      .clinicList[index].clinicLocation
-                                      .toString();
-                                  BlocProvider.of<GetTokenBloc>(context).add(
-                                    FetchToken(
-                                      date: formatDate(),
-                                      doctorId: widget.doctorId,
-                                      hospitalId: selectedClinicId,
-                                    ),
-                                  );
-                                });
+                                setState(
+                                  () {
+                                    selectedClinicId = widget
+                                        .clinicList[index].clinicId
+                                        .toString();
+                                    selectedClinicName = widget
+                                        .clinicList[index].clinicName
+                                        .toString();
+                                    selectedClinicAddress = widget
+                                        .clinicList[index].clinicAddress
+                                        .toString();
+                                    selectedClinicLocation = widget
+                                        .clinicList[index].clinicLocation
+                                        .toString();
+                                    BlocProvider.of<GetTokenBloc>(context).add(
+                                      FetchToken(
+                                        date: formatDate(),
+                                        doctorId: widget.doctorId,
+                                        hospitalId: selectedClinicId,
+                                      ),
+                                    );
+                                  },
+                                );
                               },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 5.h),
-                                padding: const EdgeInsets.all(4),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: isSelected
-                                      ? kMainColor
-                                      : const Color(0xFFEAF3F8),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            widget.clinicList[index].clinicName
-                                                    ?.toString() ??
-                                                "N/A",
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: isSelected
-                                                  ? Colors.white
-                                                  : kTextColor,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                widget.clinicList[index]
-                                                        .clinicStartTime
-                                                        ?.toString() ??
-                                                    "N/A",
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: isSelected
-                                                      ? Colors.white
-                                                      : kTextColor,
-                                                ),
-                                              ),
-                                              Text(
-                                                " - ",
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: isSelected
-                                                      ? Colors.white
-                                                      : kTextColor,
-                                                ),
-                                              ),
-                                              Text(
-                                                widget.clinicList[index]
-                                                        .clinicEndTime
-                                                        ?.toString() ??
-                                                    "N/A",
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: isSelected
-                                                      ? Colors.white
-                                                      : kTextColor,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: 200.w,
-                                            child: Text(
-                                              "${widget.clinicList[index].clinicAddress.toString()} ${widget.clinicList[index].clinicLocation.toString()} ",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: isSelected
-                                                    ? Colors.white
-                                                    : kTextColor,
-                                              ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                widget.clinicList[index]
-                                                    .availableTokenCount
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: isSelected
-                                                      ? Colors.white
-                                                      : kTextColor,
-                                                ),
-                                              ),
-                                              const HorizontalSpacingWidget(
-                                                  width: 2),
-                                              Text(
-                                                "slots available",
-                                                style: TextStyle(
-                                                  fontSize: 11.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: isSelected
-                                                      ? Colors.white
-                                                      : kTextColor,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              child: ClinicWidget(
+                                isSelected: isSelected,
+                                clinicName: widget.clinicList[index].clinicName
+                                        ?.toString() ??
+                                    "N/A",
+                                clinicStartTime: widget
+                                        .clinicList[index].clinicStartTime
+                                        ?.toString() ??
+                                    "N/A",
+                                clinicEndTime: widget
+                                        .clinicList[index].clinicEndTime
+                                        ?.toString() ??
+                                    "N/A",
+                                clinicAddress: widget
+                                    .clinicList[index].clinicAddress
+                                    .toString(),
+                                clinicLocation: widget
+                                    .clinicList[index].clinicLocation
+                                    .toString(),
+                                availableTokenCounts: widget
+                                    .clinicList[index].availableTokenCount
+                                    .toString(),
                               ),
                             );
                           },
@@ -412,6 +306,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                               widget.doctorSecondName,
                                           clinicId: selectedClinicId,
                                           date: selectedDate,
+                                          tokenId: getTokenModel.schedule!
+                                              .schedule1![index].tokenId
+                                              .toString(),
                                           isReserved: getTokenModel.schedule!
                                               .schedule1![index].isReserved
                                               .toString(),
@@ -441,7 +338,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                         );
                                       },
                                     ),
-
                                   //! shedule 2
                                   if (getTokenModel
                                           .schedule?.schedule2?.isNotEmpty ==
@@ -493,6 +389,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                               widget.doctorSecondName,
                                           clinicId: selectedClinicId,
                                           date: selectedDate,
+                                          tokenId: getTokenModel.schedule!
+                                              .schedule2![index].tokenId
+                                              .toString(),
                                           isTimeOut: getTokenModel.schedule!
                                               .schedule2![index].isTimeout
                                               .toString(),
@@ -568,6 +467,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                               widget.doctorSecondName,
                                           clinicId: selectedClinicId,
                                           date: selectedDate,
+                                          tokenId: getTokenModel.schedule!
+                                              .schedule3![index].tokenId
+                                              .toString(),
                                           isReserved: getTokenModel.schedule!
                                               .schedule3![index].isReserved
                                               .toString(),

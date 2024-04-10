@@ -30,7 +30,6 @@ class Users {
   String? mobileNo;
   String? email;
   int? age;
-  String? dob;
   String? location;
   String? gender;
   int? userId;
@@ -38,27 +37,27 @@ class Users {
   String? updatedAt;
   String? createdAt;
   int? id;
+  String? dob;
 
   Users(
       {this.firstname,
       this.mobileNo,
       this.email,
       this.age,
-      this.dob,
       this.location,
       this.gender,
       this.userId,
       this.mediezyPatientId,
       this.updatedAt,
       this.createdAt,
-      this.id});
+      this.id,
+      this.dob});
 
   Users.fromJson(Map<String, dynamic> json) {
     firstname = json['firstname'];
     mobileNo = json['mobileNo'];
     email = json['email'];
     age = json['age'];
-    dob = json['dob'];
     location = json['location'];
     gender = json['gender'];
     userId = json['UserId'];
@@ -66,6 +65,7 @@ class Users {
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
     id = json['id'];
+    dob = json['dob'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,7 +74,6 @@ class Users {
     data['mobileNo'] = mobileNo;
     data['email'] = email;
     data['age'] = age;
-    data['dob'] = dob;
     data['location'] = location;
     data['gender'] = gender;
     data['UserId'] = userId;
@@ -82,6 +81,7 @@ class Users {
     data['updated_at'] = updatedAt;
     data['created_at'] = createdAt;
     data['id'] = id;
+    data['dob'] = dob;
     return data;
   }
 }
