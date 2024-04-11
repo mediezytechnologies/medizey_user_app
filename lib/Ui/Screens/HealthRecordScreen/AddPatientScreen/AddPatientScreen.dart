@@ -23,10 +23,11 @@ import 'package:mediezy_user/ddd/application/add_members/add_members_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 
 class AddPatientScreen extends StatefulWidget {
-  const AddPatientScreen({
+   AddPatientScreen({
+    this.isEditing=false,
     super.key,
   });
-
+bool isEditing;
   @override
   State<AddPatientScreen> createState() => _AddPatientScreenState();
 }
