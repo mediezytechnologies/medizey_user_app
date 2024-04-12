@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_model.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteMember/delete_member_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/EditPatientScreen/edit_patient_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
@@ -151,6 +152,8 @@ class _UserDetailsDisplayCardWidgetState
               IconButton(
                 padding: EdgeInsets.zero,
                 onPressed: () async {
+                  BlocProvider.of<GetAllMembersBloc>(context)
+                      .add(FetchAllMembers());
                   Navigator.push(
                     context,
                     MaterialPageRoute(

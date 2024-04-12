@@ -22,9 +22,10 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member/edit_member_bloc.dart';
+import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
+import 'package:shimmer/shimmer.dart';
 
 class EditPatientScreen extends StatefulWidget {
   const EditPatientScreen({
@@ -113,7 +114,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
-
     nameController.text = widget.patienName;
     phoneNumberController.text = widget.patientNumber;
     otherSurgeryController.text =
@@ -214,6 +214,36 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                           height: 80.h,
                                           width: 80.w,
                                           fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Padding(
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: Image.asset(
+                                                "assets/icons/profile pic.png"),
+                                          ),
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: Shimmer.fromColors(
+                                                baseColor: kShimmerBaseColor,
+                                                highlightColor:
+                                                    kShimmerHighlightColor,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            80.r),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         )),
                             ),
                           ),
@@ -292,8 +322,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             height: 50.h,
                             width: 200.w,
                             child: TextFormField(
-                              style: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
+                              style:
+                                  TextStyle(fontSize: 13.sp, color: kTextColor),
                               cursorColor: kMainColor,
                               controller: phoneNumberController,
                               keyboardType: TextInputType.number,
@@ -1215,8 +1245,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     children: List.generate(surgeryTypes.length, (index) {
                       bool isSelected =
                           selectedSurgery.contains(surgeryTypes[index]);
-                      bool isInitiallySelected =
-                          widget.surgeryName.contains(surgeryTypes[index]);
+
                       return GestureDetector(
                         onTap: () {
                           setState(
@@ -1261,11 +1290,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: isInitiallySelected
-                                ? Colors.grey
-                                : isSelected
-                                    ? Colors.grey
-                                    : kCardColor,
+                            color: isSelected ? Colors.grey : kCardColor,
                             border: Border.all(
                               color: kMainColor,
                               width: 1,
@@ -1278,11 +1303,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 10.sp,
-                              color: isInitiallySelected
-                                  ? Colors.white
-                                  : isSelected
-                                      ? Colors.white
-                                      : kTextColor,
+                              color: isSelected ? Colors.white : kTextColor,
                             ),
                           ),
                         ),
@@ -1330,8 +1351,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       (index) {
                         bool isSelected =
                             selectedTreatment.contains(treatmentTypes[index]);
-                        bool isInitiallySelected = widget.treatmentTaken
-                            .contains(treatmentTypes[index]);
+
                         return GestureDetector(
                           onTap: () {
                             setState(
@@ -1384,11 +1404,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: isInitiallySelected
-                                  ? Colors.grey
-                                  : isSelected
-                                      ? Colors.grey
-                                      : kCardColor,
+                              color: isSelected ? Colors.grey : kCardColor,
                               border: Border.all(
                                 color: kMainColor,
                                 width: 1,
@@ -1401,11 +1417,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 10.sp,
-                                color: isInitiallySelected
-                                    ? Colors.white
-                                    : isSelected
-                                        ? Colors.white
-                                        : kTextColor,
+                                color: isSelected ? Colors.white : kTextColor,
                               ),
                             ),
                           ),
@@ -1438,30 +1450,32 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                         ),
                       ),
                     ),
-                  const VerticalSpacingWidget(height: 20),
+                  const VerticalSpacingWidget(height: 10),
                   BlocConsumer<EditMemberBloc, EditMemberState>(
                     listener: (context, state) {
-                      if (state.isError) {
+                      if (state.isError && state.status == false) {
                         log("message error catched ui");
                         log("message error ${state.message}");
                         log("message state emit ui ${state.message}");
                         GeneralServices.instance
                             .showErrorMessage(context, state.message);
-                      } else if (state.isError != true) {
+                      } else if (state.status == true) {
                         log("Not eroorr >>${state.isError.toString()}");
                         if (imagePath != null) {
                           log("first call>>>>>>>>>");
                           log(imagePath!);
-                          Future.delayed(const Duration(seconds: 2)).then(
-                              (value) => BlocProvider.of<AddMemberImageBloc>(
-                                      context)
-                                  .add(
-                                      AddMemberImageEvent.started(imagePath!)));
+                          Future.delayed(const Duration(seconds: 1)).then(
+                              (value) =>
+                                  BlocProvider.of<EditMemberImageBloc>(context)
+                                      .add(EditMemberImageEvent.started(
+                                          imagePath!, widget.patientId)));
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
                             BlocProvider.of<GetAllMembersBloc>(context)
                                 .add(FetchAllMembers());
                             Navigator.pop(context);
+                            GeneralServices.instance
+                                .showToastMessage("Updated successfully");
                           });
                           log('button pressed in the image section');
                         } else {
@@ -1498,6 +1512,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               }
                             : () async {
                                 log("loaded Button pressed");
+
                                 BlocProvider.of<EditMemberBloc>(context).add(
                                   EditMemberEvent.started(
                                     widget.patientId,
