@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mediezy_user/ddd/domain/core/failures/main_failure.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
@@ -63,17 +62,13 @@ class RegisterServiceImpl implements AddMemberRepo {
         int? patianrId;
         patianrId = preference.getInt('patientId');
         log('Response data id : $patianrId');
-
         return Right(result);
       } else {
-        log("${const MainFailure.clientFailure()}");
         return Left(ErrorModel());
       }
     } on DioError catch (e) {
       log(e.message!);
       log(e.error.toString());
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //     SnackBar(content: Text(e.response!.data['response'].toString())));
       log(e.error.toString());
 
       final err = ErrorModel.fromJson(e.response!.data);

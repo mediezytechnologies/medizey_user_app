@@ -42,7 +42,7 @@ import 'package:mediezy_user/Repository/Bloc/HealthRecord/TimeLine/time_line_blo
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UpdateMedicine/update_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UploadDocument/UploadDocument/upload_document_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UploadDocument/UploadDocumentFinal/upload_document_lab_and_scan_final_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/HealthRecord/bloc/get_updated_medicine_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUpdatedMedicine/get_updated_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospitalById/get_hospital_by_id_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospitalDoctorBySpecialisation/get_hospital_doctor_by_specialisation_bloc.dart';
