@@ -631,8 +631,8 @@ abstract class _Started implements EditMemberEvent {
 mixin _$EditMemberState {
   bool get isloding => throw _privateConstructorUsedError;
   ClintClinicModelData? get model => throw _privateConstructorUsedError;
-  Option<Either<MainFailure, ClintClinicModelData>>
-      get registerFaileurOrSuccessOption => throw _privateConstructorUsedError;
+  bool get isError => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditMemberStateCopyWith<EditMemberState> get copyWith =>
@@ -648,8 +648,8 @@ abstract class $EditMemberStateCopyWith<$Res> {
   $Res call(
       {bool isloding,
       ClintClinicModelData? model,
-      Option<Either<MainFailure, ClintClinicModelData>>
-          registerFaileurOrSuccessOption});
+      bool isError,
+      String message});
 }
 
 /// @nodoc
@@ -667,7 +667,8 @@ class _$EditMemberStateCopyWithImpl<$Res, $Val extends EditMemberState>
   $Res call({
     Object? isloding = null,
     Object? model = freezed,
-    Object? registerFaileurOrSuccessOption = null,
+    Object? isError = null,
+    Object? message = null,
   }) {
     return _then(_value.copyWith(
       isloding: null == isloding
@@ -678,10 +679,14 @@ class _$EditMemberStateCopyWithImpl<$Res, $Val extends EditMemberState>
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as ClintClinicModelData?,
-      registerFaileurOrSuccessOption: null == registerFaileurOrSuccessOption
-          ? _value.registerFaileurOrSuccessOption
-          : registerFaileurOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailure, ClintClinicModelData>>,
+      isError: null == isError
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -697,8 +702,8 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {bool isloding,
       ClintClinicModelData? model,
-      Option<Either<MainFailure, ClintClinicModelData>>
-          registerFaileurOrSuccessOption});
+      bool isError,
+      String message});
 }
 
 /// @nodoc
@@ -714,7 +719,8 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? isloding = null,
     Object? model = freezed,
-    Object? registerFaileurOrSuccessOption = null,
+    Object? isError = null,
+    Object? message = null,
   }) {
     return _then(_$InitialImpl(
       isloding: null == isloding
@@ -725,10 +731,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as ClintClinicModelData?,
-      registerFaileurOrSuccessOption: null == registerFaileurOrSuccessOption
-          ? _value.registerFaileurOrSuccessOption
-          : registerFaileurOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailure, ClintClinicModelData>>,
+      isError: null == isError
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -739,19 +749,21 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isloding,
       this.model,
-      required this.registerFaileurOrSuccessOption});
+      required this.isError,
+      required this.message});
 
   @override
   final bool isloding;
   @override
   final ClintClinicModelData? model;
   @override
-  final Option<Either<MainFailure, ClintClinicModelData>>
-      registerFaileurOrSuccessOption;
+  final bool isError;
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'EditMemberState(isloding: $isloding, model: $model, registerFaileurOrSuccessOption: $registerFaileurOrSuccessOption)';
+    return 'EditMemberState(isloding: $isloding, model: $model, isError: $isError, message: $message)';
   }
 
   @override
@@ -762,15 +774,13 @@ class _$InitialImpl implements _Initial {
             (identical(other.isloding, isloding) ||
                 other.isloding == isloding) &&
             (identical(other.model, model) || other.model == model) &&
-            (identical(other.registerFaileurOrSuccessOption,
-                    registerFaileurOrSuccessOption) ||
-                other.registerFaileurOrSuccessOption ==
-                    registerFaileurOrSuccessOption));
+            (identical(other.isError, isError) || other.isError == isError) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isloding, model, registerFaileurOrSuccessOption);
+      Object.hash(runtimeType, isloding, model, isError, message);
 
   @JsonKey(ignore: true)
   @override
@@ -783,16 +793,17 @@ abstract class _Initial implements EditMemberState {
   const factory _Initial(
       {required final bool isloding,
       final ClintClinicModelData? model,
-      required final Option<Either<MainFailure, ClintClinicModelData>>
-          registerFaileurOrSuccessOption}) = _$InitialImpl;
+      required final bool isError,
+      required final String message}) = _$InitialImpl;
 
   @override
   bool get isloding;
   @override
   ClintClinicModelData? get model;
   @override
-  Option<Either<MainFailure, ClintClinicModelData>>
-      get registerFaileurOrSuccessOption;
+  bool get isError;
+  @override
+  String get message;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
