@@ -38,7 +38,7 @@ class Mediezy extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(),
-          home:  Mlo(),
+          home:  SplashScreen(),
         );
       },
     );
