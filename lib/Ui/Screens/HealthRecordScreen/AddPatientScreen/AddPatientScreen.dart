@@ -21,10 +21,11 @@ import 'package:mediezy_user/ddd/application/add_members/add_members_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 
 class AddPatientScreen extends StatefulWidget {
-  const AddPatientScreen({
+   AddPatientScreen({
+    this.isEditing=false,
     super.key,
   });
-
+bool isEditing;
   @override
   State<AddPatientScreen> createState() => _AddPatientScreenState();
 }
@@ -92,8 +93,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      height: 100.h,
-                      width: 110.w,
+                      height: 130.h,
+                      width: 120.w,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),

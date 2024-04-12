@@ -427,7 +427,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const AddPatientScreen(),
+                                                               AddPatientScreen(),
                                                         ),
                                                       );
                                                     },
@@ -541,7 +541,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const AddPatientScreen(),
+                                                             AddPatientScreen(),
                                                       ),
                                                     );
                                                   },
