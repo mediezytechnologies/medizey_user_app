@@ -277,11 +277,6 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                       ? "Female"
                                                       : "Other",
                                               patientImage: getAllMembersModel
-                                                          .patientData![index]
-                                                          .patientImage ==
-                                                      null
-                                                  ? ""
-                                                  : getAllMembersModel
                                                       .patientData![index]
                                                       .patientImage
                                                       .toString(),

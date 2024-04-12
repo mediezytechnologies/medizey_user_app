@@ -111,9 +111,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
+       BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
-
+log("img : ${widget.patientImage}");
     nameController.text = widget.patienName;
     phoneNumberController.text = widget.patientNumber;
     otherSurgeryController.text =
@@ -240,6 +241,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                     // Text(imagePath!),
+                      Text(widget.patientImage ),
                       Text(
                         "Full Name",
                         style: TextStyle(
@@ -1441,14 +1444,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   const VerticalSpacingWidget(height: 20),
                   BlocConsumer<EditMemberBloc, EditMemberState>(
                     listener: (context, state) {
-                      if (state.isError) {
+                      if (state.isError && state.status == false) {
                         log("message error catched ui");
                         log("message error ${state.message}");
                         log("message state emit ui ${state.message}");
                         GeneralServices.instance
                             .showErrorMessage(context, state.message);
-                      } else if (state.isError != true) {
+                      } else if (state.status == true) {
                         log("Not eroorr >>${state.isError.toString()}");
+                        log(" no error");
                         if (imagePath != null) {
                           log("first call>>>>>>>>>");
                           log(imagePath!);
@@ -1457,6 +1461,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                       context)
                                   .add(
                                       AddMemberImageEvent.started(imagePath!)));
+                          GeneralServices.instance.showToastMessage(
+                              "Family member added successfully");
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
                             BlocProvider.of<GetAllMembersBloc>(context)
@@ -1465,7 +1471,11 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                           log('button pressed in the image section');
                         } else {
+                          log("message state emit ui ${state.status}");
+                          log("image null");
                           log("second call>>>>>>>>>");
+                          GeneralServices.instance.showToastMessage(
+                              "Family member added successfully");
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
                             BlocProvider.of<GetAllMembersBloc>(context)
@@ -1476,9 +1486,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           GeneralServices.instance
                               .showToastMessage("Updated successfully");
                         }
-                      } else {
-                        log("message else calll");
-                      }
+                      } 
                     },
                     builder: (context, state) {
                       return ElevatedButton(
@@ -1518,6 +1526,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                     medicineDataLists!,
                                   ),
                                 );
+                                log('button pressed');
                               },
                         child: state.isloding
                             ? Center(

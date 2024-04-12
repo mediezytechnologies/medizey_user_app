@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_model.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteMember/delete_member_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -155,6 +156,7 @@ class _UserDetailsDisplayCardWidgetState
             children: [
               GestureDetector(
                 onTap: () async {
+                         BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
                   Navigator.push(
                     context,
                     MaterialPageRoute(

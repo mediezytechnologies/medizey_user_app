@@ -15,7 +15,7 @@ class EditMemberBloc extends Bloc<EditMemberEvent, EditMemberState> {
   EditMemberBloc(this.editMemberRepo) : super(EditMemberState.initial()) {
     on<_Started>((event, emit) async {
       emit(
-        const EditMemberState(isloding: true, isError: false, message: ""),
+        const EditMemberState( isloding: true, isError: false, message: "", status: false),
       );
 
       final editMemberOptionResult = await editMemberRepo.editMemberData(
@@ -36,16 +36,15 @@ class EditMemberBloc extends Bloc<EditMemberEvent, EditMemberState> {
       final state = editMemberOptionResult.fold((ErrorModel error) {
         return EditMemberState(
           isloding: false,
-          isError: true,
-          message: error.message!,
-
-        );
+            isError: true,
+            message: error.message!,
+            status: false);
       }, (ClintClinicModelData? success) {
         return EditMemberState(
-          isloding: false,
-          isError: false,
-          message: success!.message!,
-        );
+         isloding: false,
+            isError: false,
+            message: success!.message!,
+            status: success.status!);
       });
       emit(state);
     });
