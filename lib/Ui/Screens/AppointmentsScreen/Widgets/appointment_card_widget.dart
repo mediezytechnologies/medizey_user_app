@@ -1,5 +1,6 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -43,7 +44,8 @@ class AppointmentCardWidget extends StatefulWidget {
       required this.patientId,
       required this.tokenId,
       required this.doctorUniqueId,
-      required this.isReached});
+      required this.isReached,
+      required this.isCheckIn});
 
   final String doctorId;
   final String docterImage;
@@ -70,6 +72,7 @@ class AppointmentCardWidget extends StatefulWidget {
   final int tokenId;
   final String doctorUniqueId;
   final int isReached;
+  final int isCheckIn;
 
   @override
   State<AppointmentCardWidget> createState() => _AppointmentCardWidgetState();
@@ -290,56 +293,60 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               ),
                             )
                           : Container(),
-                      widget.isPatientAbsent == "Absent"
-                          ? SizedBox(
-                              height: height * .075,
-                              width: width * .5,
-                              child: Text(
-                                "You failed to reach on time, So your token will be considered as the last token",
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.w700,
-                                  fontStyle: FontStyle.normal,
-                                  letterSpacing: -.5,
-                                ),
-                                maxLines: 3,
-                              ),
-                            )
-                          : Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  "Estimated \nArrival Time",
-                                  style: TextStyle(
+                      widget.isCheckIn == 1 || widget.isReached == 1
+                          ? const SizedBox()
+                          : widget.isPatientAbsent == "Absent"
+                              ? SizedBox(
+                                  height: height * .075,
+                                  width: width * .5,
+                                  child: Text(
+                                    "You failed to reach on time, So your token will be considered as the last token",
+                                    style: TextStyle(
                                       fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: kSubTextColor),
-                                ),
-                                const HorizontalSpacingWidget(width: 10),
-                                Text(
-                                  widget.estimatedArrivalTime.substring(0, 5),
-                                  style: TextStyle(
-                                    fontSize: 22.sp,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w700,
-                                    fontStyle: FontStyle.normal,
-                                    letterSpacing: -1,
-                                  ),
-                                ),
-                                Text(
-                                  widget.estimatedArrivalTime.substring(5),
-                                  style: const TextStyle(
-                                      fontSize: 12,
                                       color: Colors.red,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w700,
                                       fontStyle: FontStyle.normal,
-                                      letterSpacing: 0,
-                                      height: 2),
+                                      letterSpacing: -.5,
+                                    ),
+                                    maxLines: 3,
+                                  ),
                                 )
-                              ],
-                            )
+                              : Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      "Estimated \nArrival Time",
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: kSubTextColor),
+                                    ),
+                                    const HorizontalSpacingWidget(width: 10),
+                                    Text(
+                                      widget.estimatedArrivalTime
+                                          .substring(0, 5),
+                                      style: TextStyle(
+                                        fontSize: 22.sp,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w700,
+                                        fontStyle: FontStyle.normal,
+                                        letterSpacing: -1,
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.estimatedArrivalTime.substring(5),
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontStyle: FontStyle.normal,
+                                          letterSpacing: 0,
+                                          height: 2),
+                                    )
+                                  ],
+                                )
                     ],
                   )
                 : Column(
@@ -411,23 +418,24 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                         )
                                       : Container())
                           : const SizedBox(),
-                      InkWell(
-                          onTap: () {
-                            setState(() {
-                              isSecondContainerVisible =
-                                  !isSecondContainerVisible;
-                            });
-                          },
-                          child: widget.leaveMessage == 0 &&
-                                  widget.resheduleStatus == 0
-                              ? Text(
-                                  isSecondContainerVisible
-                                      ? "See less"
-                                      : "See more",
-                                  style: TextStyle(
-                                      fontSize: 15.sp, color: Colors.blue),
-                                )
-                              : Container()),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isSecondContainerVisible =
+                                !isSecondContainerVisible;
+                          });
+                        },
+                        child: widget.leaveMessage == 0 &&
+                                widget.resheduleStatus == 0
+                            ? Text(
+                                isSecondContainerVisible
+                                    ? "See less"
+                                    : "See more",
+                                style: TextStyle(
+                                    fontSize: 15.sp, color: Colors.blue),
+                              )
+                            : Container(),
+                      ),
                     ],
                   ),
                 ),

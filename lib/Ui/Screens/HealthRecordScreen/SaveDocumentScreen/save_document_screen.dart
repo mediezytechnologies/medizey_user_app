@@ -425,7 +425,6 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                 ),
                 const VerticalSpacingWidget(height: 5),
                 SizedBox(
-                  height: 45.h,
                   width: double.infinity,
                   child: TextFormField(
                     cursorColor: kMainColor,
@@ -443,8 +442,6 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                         borderRadius: BorderRadius.circular(4),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 15.h),
                     ),
                   ),
                 ),

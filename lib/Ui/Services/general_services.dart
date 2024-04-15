@@ -147,7 +147,7 @@ class GeneralServices {
       builder: (BuildContext context) {
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pop(context);
-          Navigator.pop(context, true);
+          Navigator.pop(context);
         });
         return AlertDialog(
           title: Align(

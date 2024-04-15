@@ -264,26 +264,13 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                   .patientMobileNumber
                                                   .toString(),
                                               patientGender: getAllMembersModel
-                                                          .patientData![index]
-                                                          .patientGender ==
-                                                      "1"
-                                                  ? "Male"
-                                                  : (getAllMembersModel
-                                                              .patientData![
-                                                                  index]
-                                                              .patientGender ==
-                                                          "2")
-                                                      ? "Female"
-                                                      : "Other",
+                                                  .patientData![index]
+                                                  .patientGender
+                                                  .toString(),
                                               patientImage: getAllMembersModel
-                                                          .patientData![index]
-                                                          .patientImage ==
-                                                      null
-                                                  ? ""
-                                                  : getAllMembersModel
-                                                      .patientData![index]
-                                                      .patientImage
-                                                      .toString(),
+                                                  .patientData![index]
+                                                  .patientImage
+                                                  .toString(),
                                               regularMedicine:
                                                   getAllMembersModel
                                                       .patientData![index]

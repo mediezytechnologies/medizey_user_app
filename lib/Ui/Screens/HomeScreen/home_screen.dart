@@ -368,6 +368,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .upcomingAppointments!.length,
                                       itemBuilder: (context, index) {
                                         return AppointmentCardWidget(
+                                          isCheckIn:
+                                              getUpComingAppointmentsModel
+                                                  .upcomingAppointments![index]
+                                                  .isCheckedin!,
                                           isReached:
                                               getUpComingAppointmentsModel
                                                   .upcomingAppointments![index]

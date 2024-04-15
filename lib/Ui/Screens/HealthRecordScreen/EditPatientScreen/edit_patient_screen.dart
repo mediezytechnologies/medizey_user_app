@@ -111,6 +111,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   @override
   void initState() {
     super.initState();
+    log("Patient imageee ${widget.patientImage}>>>>>>>>");
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
@@ -219,7 +220,11 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                                   Padding(
                                             padding: const EdgeInsets.all(3.0),
                                             child: Image.asset(
-                                                "assets/icons/profile pic.png"),
+                                              "assets/icons/profile pic.png",
+                                              height: 80.h,
+                                              width: 80.w,
+                                              color: kMainColor,
+                                            ),
                                           ),
                                           loadingBuilder: (BuildContext context,
                                               Widget child,
