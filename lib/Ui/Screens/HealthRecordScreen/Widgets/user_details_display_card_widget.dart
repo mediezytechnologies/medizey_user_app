@@ -11,6 +11,8 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/EditPatientScreen/edit_patient_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../CommonWidgets/horizontal_spacing_widget.dart';
+
 class UserDetailsDisplayCardWidget extends StatefulWidget {
   const UserDetailsDisplayCardWidget(
       {super.key,
@@ -152,11 +154,8 @@ class _UserDetailsDisplayCardWidgetState
           ),
           Row(
             children: [
-              IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () async {
-                  BlocProvider.of<GetAllMembersBloc>(context)
-                      .add(FetchAllMembers());
+              GestureDetector(
+                onTap: () async {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
