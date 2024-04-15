@@ -633,6 +633,7 @@ mixin _$EditMemberState {
   ClintClinicModelData? get model => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  bool get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditMemberStateCopyWith<EditMemberState> get copyWith =>
@@ -649,7 +650,8 @@ abstract class $EditMemberStateCopyWith<$Res> {
       {bool isloding,
       ClintClinicModelData? model,
       bool isError,
-      String message});
+      String message,
+      bool status});
 }
 
 /// @nodoc
@@ -669,6 +671,7 @@ class _$EditMemberStateCopyWithImpl<$Res, $Val extends EditMemberState>
     Object? model = freezed,
     Object? isError = null,
     Object? message = null,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       isloding: null == isloding
@@ -687,6 +690,10 @@ class _$EditMemberStateCopyWithImpl<$Res, $Val extends EditMemberState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -703,7 +710,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       {bool isloding,
       ClintClinicModelData? model,
       bool isError,
-      String message});
+      String message,
+      bool status});
 }
 
 /// @nodoc
@@ -721,6 +729,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? model = freezed,
     Object? isError = null,
     Object? message = null,
+    Object? status = null,
   }) {
     return _then(_$InitialImpl(
       isloding: null == isloding
@@ -739,6 +748,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -750,7 +763,8 @@ class _$InitialImpl implements _Initial {
       {required this.isloding,
       this.model,
       required this.isError,
-      required this.message});
+      required this.message,
+      required this.status});
 
   @override
   final bool isloding;
@@ -760,10 +774,12 @@ class _$InitialImpl implements _Initial {
   final bool isError;
   @override
   final String message;
+  @override
+  final bool status;
 
   @override
   String toString() {
-    return 'EditMemberState(isloding: $isloding, model: $model, isError: $isError, message: $message)';
+    return 'EditMemberState(isloding: $isloding, model: $model, isError: $isError, message: $message, status: $status)';
   }
 
   @override
@@ -775,12 +791,13 @@ class _$InitialImpl implements _Initial {
                 other.isloding == isloding) &&
             (identical(other.model, model) || other.model == model) &&
             (identical(other.isError, isError) || other.isError == isError) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isloding, model, isError, message);
+      Object.hash(runtimeType, isloding, model, isError, message, status);
 
   @JsonKey(ignore: true)
   @override
@@ -794,7 +811,8 @@ abstract class _Initial implements EditMemberState {
       {required final bool isloding,
       final ClintClinicModelData? model,
       required final bool isError,
-      required final String message}) = _$InitialImpl;
+      required final String message,
+      required final bool status}) = _$InitialImpl;
 
   @override
   bool get isloding;
@@ -804,6 +822,8 @@ abstract class _Initial implements EditMemberState {
   bool get isError;
   @override
   String get message;
+  @override
+  bool get status;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

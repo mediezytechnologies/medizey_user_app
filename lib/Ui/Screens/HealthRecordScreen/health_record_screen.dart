@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_null_comparison, avoid_print, deprecated_member_use, use_build_context_synchronously
-
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -265,26 +264,13 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                   .patientMobileNumber
                                                   .toString(),
                                               patientGender: getAllMembersModel
-                                                          .patientData![index]
-                                                          .patientGender ==
-                                                      "1"
-                                                  ? "Male"
-                                                  : (getAllMembersModel
-                                                              .patientData![
-                                                                  index]
-                                                              .patientGender ==
-                                                          "2")
-                                                      ? "Female"
-                                                      : "Other",
+                                                  .patientData![index]
+                                                  .patientGender
+                                                  .toString(),
                                               patientImage: getAllMembersModel
-                                                          .patientData![index]
-                                                          .patientImage ==
-                                                      null
-                                                  ? ""
-                                                  : getAllMembersModel
-                                                      .patientData![index]
-                                                      .patientImage
-                                                      .toString(),
+                                                  .patientData![index]
+                                                  .patientImage
+                                                  .toString(),
                                               regularMedicine:
                                                   getAllMembersModel
                                                       .patientData![index]

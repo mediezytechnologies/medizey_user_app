@@ -7,8 +7,9 @@ class EditMemberState with _$EditMemberState {
     ClintClinicModelData? model,
     required bool isError,
     required String message,
+    required bool status,
   }) = _Initial;
 
   factory EditMemberState.initial() =>
-      EditMemberState(isloding: false, isError: false,message: '');
+      EditMemberState(isloding: false, isError: false,message: '',status: false);
 }
