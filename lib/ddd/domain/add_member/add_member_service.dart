@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 
+import '../errors/errores_model/errores_model.dart';
+
 abstract class AddMemberRepo {
   Future<Either<ErrorModel, ClintClinicModelData?>> addFamilyMember(
      String fullName,

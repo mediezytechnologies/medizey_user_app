@@ -197,7 +197,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const AddPatientScreen(),
+                                                     AddPatientScreen(),
                                               ),
                                             );
                                           }
