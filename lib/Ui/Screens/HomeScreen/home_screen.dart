@@ -5,7 +5,6 @@ import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Article/get_all_article_model.dart';
 import 'package:mediezy_user/Model/Banner/banner_model.dart';
@@ -43,8 +42,6 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_w
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/hospital_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/RecentBookedDoctorsScreen/recent_booked_doctors_screen.dart';
-import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
-import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 import 'Widgets/home_appbar_widget.dart';
@@ -625,97 +622,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const VerticalSpacingWidget(height: 10),
                   // //! health symptoms
-                  // Padding(
-                  //   padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  //   child: HeadingWidget(
-                  //     title: "Browse by Symptoms",
-                  //     viewAllFunction: () {
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) =>
-                  //               const HealthSymptomsListingScreen(),
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
-                  // const VerticalSpacingWidget(height: 10),
-                  // BlocBuilder<GetHealthSymptomsBloc, GetHealthSymptomsState>(
-                  //     builder: (context, state) {
-                  //   if (state is GetHealthSymptomsLoading) {
-                  //     return SizedBox(
-                  //       height: 60.h,
-                  //       child: Center(
-                  //         child: CircularProgressIndicator(
-                  //           color: kMainColor,
-                  //         ),
-                  //       ),
-                  //     );
-                  //   }
-                  //   if (state is GetHealthSymptomsError) {
-                  //     return const Center(
-                  //       child: Text("Something went wrong"),
-                  //     );
-                  //   }
-                  //   if (state is GetHealthSymptomsLoaded) {
-                  //     getHealthSymptomsModel =
-                  //         BlocProvider.of<GetHealthSymptomsBloc>(context)
-                  //             .getHealthSymptomsModel;
-                  //     return SingleChildScrollView(
-                  //       child: Padding(
-                  //         padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  //         child: GridView.builder(
-                  //           padding: EdgeInsets.zero,
-                  //           physics: const NeverScrollableScrollPhysics(),
-                  //           shrinkWrap: true,
-                  //           itemCount: 6,
-                  //           gridDelegate:
-                  //               const SliverGridDelegateWithFixedCrossAxisCount(
-                  //                   crossAxisCount: 3,
-                  //                   crossAxisSpacing: 10.0,
-                  //                   mainAxisSpacing: 10.0,
-                  //                   childAspectRatio: 0.70),
-                  //           itemBuilder: ((context, index) {
-                  //             return InkWell(
-                  //               onTap: () {
-                  //                 Navigator.push(
-                  //                   context,
-                  //                   MaterialPageRoute(
-                  //                     builder: (context) =>
-                  //                         DoctorByHealthSymptomsScreen(
-                  //                       healthSymptomsName:
-                  //                           getHealthSymptomsModel
-                  //                               .categories![index].categoryName
-                  //                               .toString(),
-                  //                       healthSymptomsId: getHealthSymptomsModel
-                  //                           .categories![index].id
-                  //                           .toString(),
-                  //                     ),
-                  //                   ),
-                  //                 );
-                  //               },
-                  //               child: ClipRRect(
-                  //                 borderRadius: BorderRadius.circular(10),
-                  //                 child: Image(
-                  //                   image: NetworkImage(
-                  //                     getHealthSymptomsModel
-                  //                         .categories![index].image
-                  //                         .toString(),
-                  //                   ),
-                  //                   width: 120.w,
-                  //                   fit: BoxFit.fill,
-                  //                 ),
-                  //               ),
-                  //             );
-                  //           }),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   }
-                  //   return Container();
-                  // }),
-                  // const VerticalSpacingWidget(height: 10),
+                
                 ],
               ),
             ),
