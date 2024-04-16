@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_screen.dart';
+import 'package:mediezy_user/Ui/Screens/demo/l.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,6 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               (route) => false);
         } else {
+          locationController.fetchCountry();
+          log("code${locationController.postCode.value}");
+          Future.delayed(Duration(seconds: 2)).then((value) => PostCodeService.witnessService(locationController.postCode.value));
+          
+
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (context) => const BottomNavigationControlWidget()),
@@ -32,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
   }
-
+  final locationController =Get.put(LocationController());
   @override
   void initState() {
     checkuserlogin();

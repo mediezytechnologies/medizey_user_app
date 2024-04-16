@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Model/Article/get_all_article_model.dart';
 import 'package:mediezy_user/Model/Banner/banner_model.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_upcoming_appointments_model.dart';
@@ -44,6 +45,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_w
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/hospital_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/RecentBookedDoctorsScreen/recent_booked_doctors_screen.dart';
+import 'package:mediezy_user/Ui/Screens/demo/l.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 import 'Widgets/home_appbar_widget.dart';
@@ -70,6 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
   String? lastName;
   late Timer pollingTimer;
   bool isLoading = true;
+
+//location //===========
+
 
   @override
   void initState() {
@@ -675,7 +680,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     scrollNotifier.value==true?
-                 const HomeAappBar():const SizedBox(),
+                  HomeAappBar():const SizedBox(),
 
                   ],
                 ));

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Model/auth/login_model.dart';
 import 'package:mediezy_user/Repository/Bloc/LoginAndSignUp/login_and_signup_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
@@ -16,6 +17,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/ForegetPasswordScreen/forget_password_screen.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SignUpScreen/sign_up_screen.dart';
+import 'package:mediezy_user/Ui/Screens/demo/l.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -30,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final locationController =Get.put(LocationController());
   late LoginModel loginModel;
   bool hidePassword = true;
   @override
@@ -198,6 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               title: "Login",
                               onTapFunction: () {
                                 if (_formKey.currentState!.validate()) {
+                                  locationController.fetchCountry();
                                   BlocProvider.of<LoginAndSignupBloc>(context)
                                       .add(
                                     LoginEvent(

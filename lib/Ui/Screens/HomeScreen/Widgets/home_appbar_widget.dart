@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
+import 'package:mediezy_user/Ui/Screens/demo/l.dart';
 
 class HomeAappBar extends StatelessWidget {
-  const HomeAappBar({
+   HomeAappBar({
     super.key,
   });
 
+  final locationController =Get.put(LocationController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -23,7 +26,7 @@ class HomeAappBar extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Row(
                 children: [
@@ -43,7 +46,7 @@ class HomeAappBar extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      "Kochi",
+                   locationController.subLocality.value,
                       style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w400,
@@ -56,7 +59,7 @@ class HomeAappBar extends StatelessWidget {
                 image: const AssetImage(
                   "assets/icons/mediezy logo small.png",
                 ),
-                height: 40.h,
+                height: 35.h,
                 width: 100.w,
               ),
               //const HorizontalSpacingWidget(width: 10)
