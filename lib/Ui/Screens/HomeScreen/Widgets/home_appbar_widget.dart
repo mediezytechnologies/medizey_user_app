@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
@@ -11,48 +11,59 @@ class HomeAappBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      centerTitle: false,
-      automaticallyImplyLeading: false,
-      elevation: 0,
-      title: Row(
-        children: [
-          Icon(
-            Icons.location_on,
-            size: 20.sp,
-            color: Colors.white,
-          ),
-          const HorizontalSpacingWidget(width: 5),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LocationScreen(),
+    final size = MediaQuery.of(context).size;
+    return AnimatedContainer(
+      duration: const Duration(microseconds: 5000),
+      width: double.infinity,
+      height: size.height * .10,
+    
+     color: const Color(0xFF4cb499),
+
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 20.sp,
+                    color: Colors.white,
+                  ),
+                  const HorizontalSpacingWidget(width: 5),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LocationScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Kochi",
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              Image(
+                image: const AssetImage(
+                  "assets/icons/mediezy logo small.png",
                 ),
-              );
-            },
-            child: Text(
-              "Kochi",
-              style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-          ),
-        ],
+                height: 40.h,
+                width: 100.w,
+              ),
+              //const HorizontalSpacingWidget(width: 10)
+            ]),
       ),
-      backgroundColor: const Color(0xFF4cb499),
-      actions: [
-        Image(
-          image: const AssetImage(
-            "assets/icons/mediezy logo small.png",
-          ),
-          height: 40.h,
-          width: 100.w,
-        ),
-        const HorizontalSpacingWidget(width: 10)
-      ],
     );
+
+ 
   }
 }
