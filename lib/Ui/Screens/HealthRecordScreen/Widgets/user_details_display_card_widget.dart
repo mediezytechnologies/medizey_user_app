@@ -10,7 +10,6 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/EditPatientScreen/edit_patient_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
-import '../../../CommonWidgets/horizontal_spacing_widget.dart';
 
 class UserDetailsDisplayCardWidget extends StatefulWidget {
   const UserDetailsDisplayCardWidget(
