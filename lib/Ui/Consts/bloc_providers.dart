@@ -38,6 +38,7 @@ import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedDischargeSu
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedLabReport/get_uploaded_lab_report_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedPrescriptionById/get_uploaded_prescription_by_id_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedScanReport/get_uploaded_scan_report_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetVitals/get_vitals_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/TimeLine/time_line_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UpdateMedicine/update_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UploadDocument/UploadDocument/upload_document_bloc.dart';
@@ -137,5 +138,6 @@ class AppBlocProviders {
         BlocProvider(
           create: (context) => getIt<EditMemberImageBloc>(),
         ),
+        BlocProvider(create: (context) => GetVitalsBloc()),
       ];
 }

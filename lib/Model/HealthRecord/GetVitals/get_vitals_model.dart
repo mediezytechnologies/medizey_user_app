@@ -1,14 +1,14 @@
 class GetVitalsModel {
-  bool? status;
+  String? status;
   List<Vitals>? vitals;
 
   GetVitalsModel({this.status, this.vitals});
 
   GetVitalsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    if (json['vitals'] != null) {
+    if (json['Vitals'] != null) {
       vitals = <Vitals>[];
-      json['vitals'].forEach((v) {
+      json['Vitals'].forEach((v) {
         vitals!.add(Vitals.fromJson(v));
       });
     }
@@ -18,16 +18,17 @@ class GetVitalsModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (vitals != null) {
-      data['vitals'] = vitals!.map((v) => v.toJson()).toList();
+      data['Vitals'] = vitals!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Vitals {
-  String? patientName;
-  String? height;
   String? date;
+  String? patientName;
+  String? doctorFirstname;
+  String? height;
   String? weight;
   String? temperature;
   String? spo2;
@@ -35,25 +36,25 @@ class Vitals {
   String? dia;
   String? heartRate;
   String? temperatureType;
-  String? doctorFirstname;
 
   Vitals(
-      {this.patientName,
+      {this.date,
+      this.patientName,
+      this.doctorFirstname,
       this.height,
-      this.date,
       this.weight,
       this.temperature,
       this.spo2,
       this.sys,
       this.dia,
       this.heartRate,
-      this.temperatureType,
-      this.doctorFirstname});
+      this.temperatureType});
 
   Vitals.fromJson(Map<String, dynamic> json) {
-    patientName = json['patient_name'];
-    height = json['height'];
     date = json['date'];
+    patientName = json['patient_name'];
+    doctorFirstname = json['doctor_firstname'];
+    height = json['height'];
     weight = json['weight'];
     temperature = json['temperature'];
     spo2 = json['spo2'];
@@ -61,14 +62,14 @@ class Vitals {
     dia = json['dia'];
     heartRate = json['heart_rate'];
     temperatureType = json['temperature_type'];
-    doctorFirstname = json['doctor_firstname'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['patient_name'] = patientName;
-    data['height'] = height;
     data['date'] = date;
+    data['patient_name'] = patientName;
+    data['doctor_firstname'] = doctorFirstname;
+    data['height'] = height;
     data['weight'] = weight;
     data['temperature'] = temperature;
     data['spo2'] = spo2;
@@ -76,7 +77,6 @@ class Vitals {
     data['dia'] = dia;
     data['heart_rate'] = heartRate;
     data['temperature_type'] = temperatureType;
-    data['doctor_firstname'] = doctorFirstname;
     return data;
   }
 }

@@ -19,6 +19,7 @@ import 'package:mediezy_user/Model/HealthRecord/GetUploadedLabTest/get_uploaded_
 import 'package:mediezy_user/Model/HealthRecord/GetUploadedPrescriptionById/get_uploaded_prescription_by_id_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetUploadedPrescriptions/get_uploaded_prescription_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetUploadedScanReport/get_uploaded_scan_report_model.dart';
+import 'package:mediezy_user/Model/HealthRecord/GetVitals/get_vitals_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/TimeLineModel/time_line_model.dart';
 import 'package:mediezy_user/Repository/Api/ApiClient.dart';
 import 'package:mediezy_user/Repository/Api/ApiException.dart';
@@ -465,5 +466,18 @@ class HealthRecordApi {
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     print("<<<<<<<<<<GET UPDATED MEDICINE WORKED SUCCESSFULLY>>>>>>>>>>");
     return GetUpdatedMedicineModel.fromJson(json.decode(response.body));
+  }
+
+  //* get vitals
+  Future<GetVitalsModel> getVitals({
+    required String patientId,
+  }) async {
+    String basePath = "patient/get_Vitals";
+    final body = {
+      "patient_id": patientId,
+    };
+    var response =
+        await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+    return GetVitalsModel.fromJson(json.decode(response.body));
   }
 }

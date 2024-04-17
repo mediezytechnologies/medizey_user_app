@@ -4,15 +4,38 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class VitalWidget extends StatelessWidget {
+  final String patientName;
+  final String doctorName;
+  final String appointmentDate;
+  final String height;
+  final String weight;
+  final String temperature;
+  final String temperatureType;
+  final String heartRate;
+  final String spo2;
+  final String sys;
+  final String dia;
+
   const VitalWidget({
     super.key,
+    required this.patientName,
+    required this.doctorName,
+    required this.appointmentDate,
+    required this.height,
+    required this.weight,
+    required this.temperature,
+    required this.temperatureType,
+    required this.heartRate,
+    required this.spo2,
+    required this.sys,
+    required this.dia,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
-      margin:EdgeInsets.symmetric(vertical: 4.h,horizontal: 8.w),
+      margin: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
       decoration: BoxDecoration(
         color: kCardColor,
         borderRadius: BorderRadius.circular(10),
@@ -31,7 +54,7 @@ class VitalWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                "Akber A A",
+                patientName,
                 style: TextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.bold,
@@ -53,7 +76,7 @@ class VitalWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                "12/10/2020",
+                appointmentDate,
                 style: TextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.bold,
@@ -75,7 +98,7 @@ class VitalWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                "Dr poornima",
+                doctorName,
                 style: TextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.bold,
@@ -99,7 +122,7 @@ class VitalWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "220 Cm",
+                    "$height Cm",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
@@ -122,7 +145,7 @@ class VitalWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "83 Kg",
+                    "$weight Kg",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
@@ -148,7 +171,7 @@ class VitalWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "98 C",
+                    "$temperature $temperatureType",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
@@ -171,7 +194,7 @@ class VitalWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "120 Bpm",
+                    "$heartRate Bpm",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
@@ -197,7 +220,7 @@ class VitalWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "22",
+                    "$spo2 %",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
@@ -211,7 +234,7 @@ class VitalWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Sys : ",
+                    "Bp : ",
                     style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
@@ -220,30 +243,7 @@ class VitalWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "31",
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-              const HorizontalSpacingWidget(width: 20),
-              Row(
-                children: [
-                  Text(
-                    "DIA : ",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: kSubTextColor),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    "108",
+                    "${sys == null ? "N/A" : sys} / ${dia == null ? "N/A" : dia}",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
