@@ -205,16 +205,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               title: "Login",
                               onTapFunction: () {
                                 if (_formKey.currentState!.validate()) {
-                                
+                                  
+                                  log("code${locationController.postCode.value}");
                                   BlocProvider.of<LoginAndSignupBloc>(context)
                                       .add(
                                     LoginEvent(
                                         email: emailController.text,
+                          
                                         password: passwordController.text),
                                   );
-
-
-                                    locationController.fetchCountry().then(
+                                 locationController.fetchCountry().then(
                                         (value) =>
                                             BlocProvider.of<UserLocationBloc>(
                                                     context)
@@ -231,7 +231,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                       );
-                                  log("code${locationController.postCode.value}");
                                 }
                               }),
                           const VerticalSpacingWidget(height: 10),

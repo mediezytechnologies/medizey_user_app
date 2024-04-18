@@ -25,12 +25,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(
       const Duration(seconds: 3),
-      () {
+      () async{
         if (token == null) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               (route) => false);
         } else {
+            
           Future.delayed(Duration(seconds: 1)).then((value) =>
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
@@ -40,7 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
           locationController.fetchCountry();
          
           log("code${locationController.postCode.value}");
-
           //   Future.delayed(Duration(seconds: 2)).then((value) => PostCodeService.witnessService(locationController.postCode.value));
         }
       },
