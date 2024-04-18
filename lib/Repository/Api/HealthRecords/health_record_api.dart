@@ -478,6 +478,7 @@ class HealthRecordApi {
     };
     var response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+        print("<<<<<<<<<<GET VITALS WORKED SUCCESSFULLY>>>>>>>>>>");
     return GetVitalsModel.fromJson(json.decode(response.body));
   }
 }

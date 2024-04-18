@@ -16,6 +16,7 @@ class GetVitalsBloc extends Bloc<GetVitalsEvent, GetVitalsState> {
         emit(GetVitalsLoaded(getVitalsModel: getVitalsModel));
       } catch (error) {
         emit(GetVitalsError(errorMessage: error.toString()));
+        print("<<<<<<<erooor ${error.toString()}");
       }
     });
   }
