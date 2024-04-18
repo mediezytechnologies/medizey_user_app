@@ -3,11 +3,9 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mediezy_user/ddd/application/location_controller/locationcontroller.dart';
-import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:mediezy_user/ddd/domain/user_location/user_location_impl.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
@@ -21,7 +19,7 @@ class UserLoacationImpl implements UserLocationRepo {
      
       String latitude,
       String longitude,
-      String district,
+ String district,
       String city,
       String locationAddress,
 
@@ -36,6 +34,16 @@ class UserLoacationImpl implements UserLocationRepo {
       log(" get the try bloc");
           log(" latitude:${controller.latitude.value}");
              log(" dis ========================== >>>>>>>>>>>:${controller.dist.value}");
+              log(" latitude:${controller.dist.value}");
+
+
+          Map<String, String> data ={ "user_id": userId,
+          "latitude":latitude,
+          "longitude":longitude,
+          "district": district,
+          "city":city,
+          "location_address": locationAddress,};
+          log("map data ==========================  ${data.toString()}");
       final response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
       //  contentType: 'application/json',

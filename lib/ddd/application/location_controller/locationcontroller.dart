@@ -9,7 +9,7 @@ import '../../domain/location_model/location_model.dart';
 
 class LocationController extends GetxController {
   Rx<LocationModel> allLocation = LocationModel().obs;
-  //RxBool loding = true.obs;
+RxBool loding = true.obs;
 
   String location = 'Null, Press Button';
   var address = "".obs;
@@ -63,8 +63,9 @@ class LocationController extends GetxController {
     log("pls lo====: ${placemarks.last.locality.toString()}");
     Placemark place = placemarks[0];
 
-    String? thoroughfare = place.thoroughfare==""?
-        placemarks.last.thoroughfare:place.thoroughfare;
+    String? thoroughfare = place.thoroughfare == ""
+        ? placemarks.last.thoroughfare
+        : place.thoroughfare;
     log("trot============================================.,///>>>>>>  : $thoroughfare");
 
     locationAdress.value = '$thoroughfare, ${place.subLocality}';
@@ -88,7 +89,7 @@ class LocationController extends GetxController {
   Future<LocationModel?> getLocation() async {
     try {
       var data = await LocationService.getLocatioinService();
-      //loding.value = false;
+   loding.value = false;
       allLocation.value = data!;
       update();
       dist.value = data.postOffice!.first.district!;
@@ -99,7 +100,7 @@ class LocationController extends GetxController {
     } catch (e) {
       log(e.toString());
       log('catch bloc called');
-      //loding.value = false;
+   loding.value = false;
     }
     return null;
   }
@@ -109,7 +110,7 @@ class LocationController extends GetxController {
   Future<void> fetchCountry() async {
     try {
       Position position = await _getGeoLocationPosition();
-
+      update();
       getAddressFromLatLong(position).then((value) => getLocation());
 
       update();

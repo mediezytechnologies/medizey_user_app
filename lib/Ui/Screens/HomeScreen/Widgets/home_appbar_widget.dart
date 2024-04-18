@@ -47,10 +47,26 @@ class HomeAappBar extends StatelessWidget {
                       );
                     },
                     child: Obx(() {
+                      if (locationController.isloding.value) {
+                        BlocProvider.of<UserLocationBloc>(
+                                                    context)
+                                                .add(
+                                          UserLocationEvent.started(
+                                            locationController.latitude.value
+                                                .toString(),
+                                            locationController.longitude.value
+                                                .toString(),
+                                            locationController.dist.value,
+                                            locationController.locality.value,
+                                            locationController
+                                                .locationAdress.value,
+                                          ),
+                                        ),
+                      }
                       return Text(
                         locationController.subLocality.value,
                         style: TextStyle(
-                            fontSize: 20.sp,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.white),
                       );
@@ -58,23 +74,23 @@ class HomeAappBar extends StatelessWidget {
                   ),
                 ],
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    locationController.fetchCountry().then((value) =>
-                        Future.delayed(Duration(seconds: 2)).then(
-                          (value) =>
-                              BlocProvider.of<UserLocationBloc>(context).add(
-                            UserLocationEvent.started(
-                              locationController.latitude.value.toString(),
-                              locationController.longitude.value.toString(),
-                              locationController.dist.value,
-                              locationController.locality.value,
-                              locationController.locationAdress.value,
-                            ),
-                          ),
-                        ));
-                  },
-                  child: Text("data")),
+              // ElevatedButton(
+              //     onPressed: () {
+              //       locationController.fetchCountry().then((value) =>
+              //           Future.delayed(Duration(seconds: 2)).then(
+              //             (value) =>
+              //                 BlocProvider.of<UserLocationBloc>(context).add(
+              //               UserLocationEvent.started(
+              //                 locationController.latitude.value.toString(),
+              //                 locationController.longitude.value.toString(),
+              //                 locationController.dist.value,
+              //                 locationController.locality.value,
+              //                 locationController.locationAdress.value,
+              //               ),
+              //             ),
+              //           ));
+              //     },
+              //     child: Text("data")),
               Image(
                 image: const AssetImage(
                   "assets/icons/mediezy logo small.png",
