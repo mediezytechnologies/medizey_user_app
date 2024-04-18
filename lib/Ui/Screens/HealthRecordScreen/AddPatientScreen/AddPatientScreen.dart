@@ -22,11 +22,11 @@ import 'package:mediezy_user/ddd/application/add_members/add_members_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 
 class AddPatientScreen extends StatefulWidget {
-   AddPatientScreen({
-    this.isEditing=false,
+  AddPatientScreen({
+    this.isEditing = false,
     super.key,
   });
-bool isEditing;
+  bool isEditing;
   @override
   State<AddPatientScreen> createState() => _AddPatientScreenState();
 }
@@ -233,8 +233,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         VerticalSpacingWidget(height: 5.h),
                         InkWell(
                           onTap: () {
-                           
-
                             selectDate(
                               context: context,
                               date: dateOfBirth ?? DateTime.now(),
@@ -1229,30 +1227,23 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     });
   }
 
-
-
-
   Future<void> selectDate({
     required BuildContext context,
     required DateTime date,
     required Function(DateTime) onDateSelected,
   }) async {
-     CupertinoDatePicker( 
-minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-      initialDateTime:date ,
-      maximumDate:  DateTime.now(),
+    CupertinoDatePicker(
+      minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+      initialDateTime: date,
+      maximumDate: DateTime.now(),
       mode: CupertinoDatePickerMode.date,
-      
-
       onDateTimeChanged: (value) {
         setState(() {
-          date=value;
+          date = value;
         });
       },
-
-
     );
-    
+
     // final DateTime? picked = await showDatePicker(
     //   context: context,
     //   initialDate: date,
