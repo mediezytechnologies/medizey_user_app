@@ -100,7 +100,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 listener: (context, state) {
                   if (state is EditUserDetailsLoaded) {
                     GeneralServices.instance
-                        .showToastMessage("Profile Edit Successfully");
+                        .showToastMessage("Profile edit successfully");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -399,7 +399,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               onTapFunction: () {
                                 BlocProvider.of<EditUserBloc>(context).add(
                                   FetchEditUser(
-                                      // dob: DateFormat('yyy-MM-dd').format(dOB!),
                                       dob: dOB != null
                                           ? DateFormat('yyy-MM-dd').format(dOB!)
                                           : '',

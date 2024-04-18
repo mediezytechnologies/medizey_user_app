@@ -9,6 +9,7 @@ import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AllUploadedDocumentSc
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AllUploadedLabReportScreen/all_uploaded_lab_report_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AllUploadedPrescriptionScreen/all_uploaded_prescription_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AllUploadedScanReportScreen/all_uploaded_scan_report_screen.dart';
+import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AllVitalsScreen/all_vitals_Screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/base_space_expanded_tab_bar.dart';
 
 class AllRecordsScreen extends StatefulWidget {
@@ -39,6 +40,7 @@ class _AllRecordsScreenState extends State<AllRecordsScreen>
         tabs: [
           Tab(height: 35, text: 'All'),
           Tab(height: 35, text: 'Completed'),
+          Tab(height: 35, text: 'Vitals'),
           Tab(height: 35, text: 'Prescription'),
           Tab(height: 35, text: 'Lab Report'),
           Tab(height: 35, text: 'Scan Report'),
@@ -47,6 +49,7 @@ class _AllRecordsScreenState extends State<AllRecordsScreen>
         tabViews: [
           AllUploadedDocumentScreen(),
           AllCompletedAppointmentsScreen(),
+          AllVitalsScreen(),
           AllUploadedPrecriptionScreen(),
           AllUploadedLabReportScreen(),
           AllUploadedScanReportScreen(),

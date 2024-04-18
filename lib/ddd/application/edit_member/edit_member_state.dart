@@ -11,5 +11,5 @@ class EditMemberState with _$EditMemberState {
   }) = _Initial;
 
   factory EditMemberState.initial() =>
-      const EditMemberState( isloding: false, isError: false, message: '', status: false);
+      EditMemberState(isloding: false, isError: false,message: '',status: false);
 }
