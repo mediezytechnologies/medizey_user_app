@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
 
 import '../../../../ddd/application/location_controller/locationcontroller.dart';

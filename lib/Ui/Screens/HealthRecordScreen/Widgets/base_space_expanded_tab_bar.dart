@@ -5,13 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_model.dart';
-import 'package:mediezy_user/Model/HealthRecord/GetAllUploadedDocuments/get_all_uploaded_documet_model.dart';
-import 'package:mediezy_user/Model/HealthRecord/GetUploadedDischargeSummary/get_uploaded_discharge_summary_model.dart';
-import 'package:mediezy_user/Model/HealthRecord/GetUploadedLabTest/get_uploaded_lab_test_model.dart';
-import 'package:mediezy_user/Model/HealthRecord/GetUploadedPrescriptions/get_uploaded_prescription_model.dart';
-import 'package:mediezy_user/Model/HealthRecord/GetUploadedScanReport/get_uploaded_scan_report_model.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteDocument/delete_document_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllPrescriptions/get_all_prescriptions_bloc.dart';
@@ -20,6 +14,7 @@ import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetCompletedAppointmen
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedDischargeSummary/get_uploaded_discharge_summary_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedLabReport/get_uploaded_lab_report_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedScanReport/get_uploaded_scan_report_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetVitals/get_vitals_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -43,12 +38,6 @@ class _BaseSpaceExpandedTabBarState extends State<BaseSpaceExpandedTabBar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late GetAllMembersModel getAllMembersModel;
-  late GetAllUploadedDocumentModel getAllUploadedDocumentModel;
-  late GetUploadedPrescriptionModel getUploadedPrescriptionModel;
-  late GetCompletedAppointmentsModel getCompletedAppointmentsModel;
-  late GetUploadedLabTestModel getUploadedLabTestModel;
-  late GetUploadedScanReportModel getUploadedScanReportModel;
-  late GetUploadedDischargeSummaryModel getUploadedDischargeSummaryModel;
   late ValueNotifier<int> dropValueMemberNotifier;
   int dropValueMember = 0;
   late String selectedMemberId = "";
@@ -93,6 +82,9 @@ class _BaseSpaceExpandedTabBarState extends State<BaseSpaceExpandedTabBar>
                   .add(
                 FetchCompletedAppointmentsByPatientId(
                     patientId: selectedMemberId),
+              );
+              BlocProvider.of<GetVitalsBloc>(context).add(
+                FetchVitals(patientId: selectedMemberId),
               );
               BlocProvider.of<GetUploadedLabReportBloc>(context).add(
                 FetchGetUploadedLabReport(patientId: selectedMemberId),
@@ -151,6 +143,9 @@ class _BaseSpaceExpandedTabBarState extends State<BaseSpaceExpandedTabBar>
                                   .add(
                                 FetchUploadedPrescriptions(
                                     patientId: selectedMemberId),
+                              );
+                              BlocProvider.of<GetVitalsBloc>(context).add(
+                                FetchVitals(patientId: selectedMemberId),
                               );
                               BlocProvider.of<GetUploadedLabReportBloc>(context)
                                   .add(
@@ -250,6 +245,12 @@ class _BaseSpaceExpandedTabBarState extends State<BaseSpaceExpandedTabBar>
                                                     context)
                                                 .add(
                                               FetchGetUploadedDischargeSummary(
+                                                  patientId: selectedMemberId),
+                                            );
+                                            BlocProvider.of<GetVitalsBloc>(
+                                                    context)
+                                                .add(
+                                              FetchVitals(
                                                   patientId: selectedMemberId),
                                             );
                                           },

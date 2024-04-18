@@ -50,48 +50,47 @@ class _AllUploadedDocumentScreenState extends State<AllUploadedDocumentScreen> {
                     itemBuilder: (context, index) {
                       var allDocument = allDocumet.documentData![index];
                       return Padding(
-                          padding: EdgeInsets.fromLTRB(8.w, 5.h, 8.w, 2.h),
-                          child: AllUploadedDocumentCardWidget(
-                            documentPath: allDocumet
-                                .documentData![index].documentPath
-                                .toString(),
-                            patientName: allDocumet.documentData![index].patient
-                                .toString(),
-                            recordDate:
-                                allDocumet.documentData![index].date.toString(),
-                            testOrScanOrDoctorNameText: allDocument.labReport !=
-                                        null &&
-                                    allDocument.labReport!.isNotEmpty
-                                ? "${allDocument.labReport!.first.testName}"
-                                : allDocument.patientPrescription != null &&
-                                        allDocument
-                                            .patientPrescription!.isNotEmpty
-                                    ? "Dr ${allDocument.patientPrescription!.first.doctorName}"
-                                    : allDocument.dischargeSummary != null &&
-                                            allDocument
-                                                .dischargeSummary!.isNotEmpty
-                                        ? "Dr ${allDocument.dischargeSummary!.first.doctorName}"
-                                        : allDocument.scanReport != null &&
-                                                allDocument
-                                                    .scanReport!.isNotEmpty
-                                            ? "${allDocument.scanReport!.first.admittedFor}"
-                                            : 'Doctor Name Not Available',
-                            testOrScanOrDoctorNameTitle: allDocument.type == 1
-                                ? "Test name : "
-                                : (allDocument.type == 4)
-                                    ? "Scan name : "
-                                    : "Doctor name : ",
-                            type: allDocument.type == 1
-                                ? "Lab report"
-                                : (allDocument.type == 2)
-                                    ? "Prescription"
-                                    : (allDocument.type == 3)
-                                        ? "Discharge summary"
-                                        : "Scan Report",
-                            updatedTime: allDocumet
-                                .documentData![index].hoursAgo
-                                .toString(),
-                          ));
+                        padding: EdgeInsets.fromLTRB(8.w, 5.h, 8.w, 2.h),
+                        child: AllUploadedDocumentCardWidget(
+                          documentPath: allDocumet
+                              .documentData![index].documentPath
+                              .toString(),
+                          patientName: allDocumet.documentData![index].patient
+                              .toString(),
+                          recordDate:
+                              allDocumet.documentData![index].date.toString(),
+                          testOrScanOrDoctorNameText: allDocument.labReport !=
+                                      null &&
+                                  allDocument.labReport!.isNotEmpty
+                              ? "${allDocument.labReport!.first.testName}"
+                              : allDocument.patientPrescription != null &&
+                                      allDocument
+                                          .patientPrescription!.isNotEmpty
+                                  ? "Dr ${allDocument.patientPrescription!.first.doctorName}"
+                                  : allDocument.dischargeSummary != null &&
+                                          allDocument
+                                              .dischargeSummary!.isNotEmpty
+                                      ? "Dr ${allDocument.dischargeSummary!.first.doctorName}"
+                                      : allDocument.scanReport != null &&
+                                              allDocument.scanReport!.isNotEmpty
+                                          ? "${allDocument.scanReport!.first.admittedFor}"
+                                          : 'Doctor Name Not Available',
+                          testOrScanOrDoctorNameTitle: allDocument.type == 1
+                              ? "Test name : "
+                              : (allDocument.type == 4)
+                                  ? "Scan name : "
+                                  : "Doctor name : ",
+                          type: allDocument.type == 1
+                              ? "Lab report"
+                              : (allDocument.type == 2)
+                                  ? "Prescription"
+                                  : (allDocument.type == 3)
+                                      ? "Discharge summary"
+                                      : "Scan Report",
+                          updatedTime: allDocumet.documentData![index].hoursAgo
+                              .toString(),
+                        ),
+                      );
                     },
                   );
           }

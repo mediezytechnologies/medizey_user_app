@@ -111,6 +111,8 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                             .upcomingAppointments!.length,
                         itemBuilder: (context, index) {
                           return AppointmentCardWidget(
+                            isCheckIn: getUpComingAppointmentsModel
+                                .upcomingAppointments![index].isCheckedin!,
                             isReached: getUpComingAppointmentsModel
                                 .upcomingAppointments![index].isReached!,
                             doctorUniqueId: getUpComingAppointmentsModel

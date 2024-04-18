@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Profile/get_user_model.dart';
 import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
@@ -20,6 +21,8 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
   late GetUserModel getUserModel;
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         const Image(
@@ -27,8 +30,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           fit: BoxFit.fill,
         ),
         Positioned(
-          left: 15.w,
-          right: 15.w,
+          left: width * .045.w,
           child: BlocBuilder<GetUserBloc, GetUserState>(
             builder: (context, state) {
               if (state is GetUserDetailsError) {
@@ -46,12 +48,17 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                       ),
                     );
                   },
-                  child: Text(
-                    "Hi, ${getUserModel.userdetails!.firstname}",
-                    style: TextStyle(
-                        fontSize: 19.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                  child: Column(
+                    children: [
+                      const VerticalSpacingWidget(height: 2),
+                      Text(
+                        "Hi, ${getUserModel.userdetails!.firstname}",
+                        style: TextStyle(
+                            fontSize: 19.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -60,8 +67,8 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           ),
         ),
         Positioned(
-          top: 30.h,
-          left: 15.w,
+          top: height * .039.h,
+          left: width * .045.w,
           child: Text(
             "Your one stop solution for\nQuick and easy consultation",
             style: TextStyle(
@@ -72,8 +79,8 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           ),
         ),
         Positioned(
-          top: 70.h,
-          left: 15.w,
+          top: height * .100.h,
+          left: width * .045.w,
           child: InkWell(
             onTap: () {
               Navigator.push(
@@ -110,9 +117,9 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           ),
         ),
         Positioned(
-          bottom: 10.h,
-          left: 15.w,
-          right: 15.w,
+          bottom: height * .010.h,
+          left: width * .045.w,
+          right: width * .045.w,
           child: InkWell(
             onTap: () {
               Navigator.of(context).push(

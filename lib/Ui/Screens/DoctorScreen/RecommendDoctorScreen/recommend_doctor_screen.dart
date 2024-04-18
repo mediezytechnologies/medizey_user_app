@@ -191,12 +191,14 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
                   width: double.infinity,
                   height: 50,
                   child: TextFormField(
+                    maxLength: 10,
                     style: TextStyle(fontSize: 13.sp, color: kTextColor),
                     cursorColor: kMainColor,
                     controller: phoneNumberController,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
+                      counterText: "",
                       hintStyle:
                           TextStyle(fontSize: 13.sp, color: kSubTextColor),
                       hintText: "Enter phone number",
