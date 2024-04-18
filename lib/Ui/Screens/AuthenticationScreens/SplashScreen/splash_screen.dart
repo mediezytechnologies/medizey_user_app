@@ -31,27 +31,15 @@ class _SplashScreenState extends State<SplashScreen> {
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               (route) => false);
         } else {
-            
-          locationController.fetchCountry().then((value) =>
-              Future.delayed(const Duration(seconds: 2)).then((value) {
-                BlocProvider.of<UserLocationBloc>(context).add(
-                  UserLocationEvent.started(
-                    locationController.latitude.value.toString(),
-                    locationController.longitude.value.toString(),
-                    locationController.dist.value,
-                    locationController.locality.value,
-                    locationController.locationAdress.value,
-                  ),
-                );
-
-                log("code${locationController.postCode.value}");
-                 Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const BottomNavigationControlWidget()),
-                        (route) => false);
-           
-              }));
+          Future.delayed(Duration(seconds: 1)).then((value) =>
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const BottomNavigationControlWidget()),
+                  (route) => false));
+          locationController.fetchCountry();
+         
+          log("code${locationController.postCode.value}");
 
           //   Future.delayed(Duration(seconds: 2)).then((value) => PostCodeService.witnessService(locationController.postCode.value));
         }

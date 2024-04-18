@@ -39,6 +39,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/ArticleScreen/article_screen.
 import 'package:mediezy_user/Ui/Screens/HomeScreen/HospitalListingScreen/hospital_listing_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/health_concern_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/hospital_card_widget.dart';

@@ -59,20 +59,10 @@ class UserLoacationImpl implements UserLocationRepo {
         },
       );
       log('inside try bloc');
-       log(response.data.toString());
+       log("res [[[]]]==========${response.data.toString()}");
        
         final result = UserLocationModel.fromJson(response.data);
         log("res ===${result.data!.latitude}");
-//       if (response.statusCode == 200 || response.statusCode == 201) {
-//         final result = UserLocationModel.fromJson(response.data);
-//          log(response.data.toString());
-//  log("result service test stus code");
-//         //log("result service : $result");
-
-//         return Right(response.data);
-//       } else {
-//         return Left(ErrorModel());
-//       }
       return Right(result);
     } on DioError catch (e) {
       log("dio error");
