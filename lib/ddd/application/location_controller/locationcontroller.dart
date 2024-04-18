@@ -9,7 +9,7 @@ import '../../domain/location_model/location_model.dart';
 
 class LocationController extends GetxController {
   Rx<LocationModel> allLocation = LocationModel().obs;
-RxBool loding = true.obs;
+   RxBool loding = true.obs;
 
   String location = 'Null, Press Button';
   var address = "".obs;

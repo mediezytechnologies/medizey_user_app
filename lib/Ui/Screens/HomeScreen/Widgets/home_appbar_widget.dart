@@ -47,21 +47,16 @@ class HomeAappBar extends StatelessWidget {
                       );
                     },
                     child: Obx(() {
-                      if (locationController.isloding.value) {
-                        BlocProvider.of<UserLocationBloc>(
-                                                    context)
-                                                .add(
-                                          UserLocationEvent.started(
-                                            locationController.latitude.value
-                                                .toString(),
-                                            locationController.longitude.value
-                                                .toString(),
-                                            locationController.dist.value,
-                                            locationController.locality.value,
-                                            locationController
-                                                .locationAdress.value,
-                                          ),
-                                        ),
+                      if (locationController.loding.value) {
+                        BlocProvider.of<UserLocationBloc>(context).add(
+                          UserLocationEvent.started(
+                            locationController.latitude.value.toString(),
+                            locationController.longitude.value.toString(),
+                            locationController.dist.value,
+                            locationController.locality.value,
+                            locationController.locationAdress.value,
+                          ),
+                        );
                       }
                       return Text(
                         locationController.subLocality.value,
