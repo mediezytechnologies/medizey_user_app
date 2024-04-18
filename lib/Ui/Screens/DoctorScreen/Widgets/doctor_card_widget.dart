@@ -126,6 +126,7 @@ class DoctorCardWidget extends StatelessWidget {
           ),
           const VerticalSpacingWidget(height: 2),
           ListView.builder(
+              padding: EdgeInsets.zero,
               shrinkWrap: true,
               itemCount: clinicList.length,
               itemBuilder: (context, index) {
