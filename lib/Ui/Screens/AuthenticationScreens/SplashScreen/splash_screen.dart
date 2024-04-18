@@ -1,8 +1,15 @@
+import 'dart:developer';
+
 import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../ddd/application/location_controller/locationcontroller.dart';
+import '../../../../ddd/application/user_location/user_location_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,21 +25,29 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(
       const Duration(seconds: 3),
-      () {
+      () async{
         if (token == null) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               (route) => false);
         } else {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => const BottomNavigationControlWidget()),
-              (route) => false);
+            
+          Future.delayed(Duration(seconds: 1)).then((value) =>
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const BottomNavigationControlWidget()),
+                  (route) => false));
+          locationController.fetchCountry();
+         
+          log("code${locationController.postCode.value}");
+          //   Future.delayed(Duration(seconds: 2)).then((value) => PostCodeService.witnessService(locationController.postCode.value));
         }
       },
     );
   }
 
+  final locationController = Get.put(LocationController());
   @override
   void initState() {
     checkuserlogin();

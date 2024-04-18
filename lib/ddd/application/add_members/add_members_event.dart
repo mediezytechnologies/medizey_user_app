@@ -15,8 +15,5 @@ class AddMembersEvent with _$AddMembersEvent {
      BuildContext context,
     List<Allergy>? allergies,
     List<Medicine>? medicines,
-   
-    
-    
   ) = _Started;
 }

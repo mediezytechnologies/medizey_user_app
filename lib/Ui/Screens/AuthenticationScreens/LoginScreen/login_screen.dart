@@ -1,11 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Model/auth/login_model.dart';
 import 'package:mediezy_user/Repository/Bloc/LoginAndSignUp/login_and_signup_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
@@ -17,6 +20,9 @@ import 'package:mediezy_user/Ui/Data/app_datas.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/ForegetPasswordScreen/forget_password_screen.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SignUpScreen/sign_up_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
+
+import '../../../../ddd/application/location_controller/locationcontroller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final locationController = Get.put(LocationController());
   late LoginModel loginModel;
   bool hidePassword = true;
   @override
@@ -198,12 +205,32 @@ class _LoginScreenState extends State<LoginScreen> {
                               title: "Login",
                               onTapFunction: () {
                                 if (_formKey.currentState!.validate()) {
+                                  
+                                  log("code${locationController.postCode.value}");
                                   BlocProvider.of<LoginAndSignupBloc>(context)
                                       .add(
                                     LoginEvent(
                                         email: emailController.text,
+                          
                                         password: passwordController.text),
                                   );
+                                 locationController.fetchCountry().then(
+                                        (value) =>
+                                            BlocProvider.of<UserLocationBloc>(
+                                                    context)
+                                                .add(
+                                          UserLocationEvent.started(
+                                            locationController.latitude.value
+                                                .toString(),
+                                            locationController.longitude.value
+                                                .toString(),
+                                            locationController.dist.value,
+                                            locationController.locality.value,
+                                            locationController
+                                                .locationAdress.value,
+                                          ),
+                                        ),
+                                      );
                                 }
                               }),
                           const VerticalSpacingWidget(height: 10),

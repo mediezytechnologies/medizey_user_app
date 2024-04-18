@@ -2,7 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-     <key>NSLocationWhenInUsageDescription</key>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Need to upload image</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Need to upload image</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Need to upload image</string>
+    <key>NSLocationWhenInUsageDescription</key>
     <string>This app needs to access to location when open.</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string> This app needs to access to location when in the background.</string>
