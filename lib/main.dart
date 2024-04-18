@@ -69,7 +69,7 @@ class _MediezyState extends State<Mediezy> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
-          theme: appThemeStyle(),
+          theme: appThemeStyle(context),
           home:
               hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );

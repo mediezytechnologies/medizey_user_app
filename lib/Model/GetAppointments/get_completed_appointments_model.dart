@@ -181,13 +181,13 @@ class AppointmentDetails {
 }
 
 class Vitals {
-  int? height;
-  int? weight;
-  int? temperature;
-  int? spo2;
-  int? sys;
-  int? dia;
-  int? heartRate;
+  String? height;
+  String? weight;
+  String? temperature;
+  String? spo2;
+  String? sys;
+  String? dia;
+  String? heartRate;
   String? temperatureType;
 
   Vitals(

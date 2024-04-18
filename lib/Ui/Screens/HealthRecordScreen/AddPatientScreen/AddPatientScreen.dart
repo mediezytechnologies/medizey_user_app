@@ -22,11 +22,11 @@ import 'package:mediezy_user/ddd/application/add_members/add_members_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 
 class AddPatientScreen extends StatefulWidget {
-   AddPatientScreen({
-   
+  AddPatientScreen({
+    this.isEditing = false,
     super.key,
   });
-
+  bool isEditing;
   @override
   State<AddPatientScreen> createState() => _AddPatientScreenState();
 }
@@ -233,8 +233,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         VerticalSpacingWidget(height: 5.h),
                         InkWell(
                           onTap: () {
-                           
-
                             selectDate(
                               context: context,
                               date: dateOfBirth ?? DateTime.now(),
@@ -1229,48 +1227,41 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     });
   }
 
-
-
-
   Future<void> selectDate({
     required BuildContext context,
     required DateTime date,
     required Function(DateTime) onDateSelected,
   }) async {
-//      CupertinoDatePicker( 
-// minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-//       initialDateTime:date ,
-//       maximumDate:  DateTime.now(),
-//       mode: CupertinoDatePickerMode.date,
-      
-
-//       onDateTimeChanged: (value) {
-//         setState(() {
-//           date=value;
-//         });
-//       },
-
-
-//     );
-    
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: date,
-      firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-      lastDate: DateTime.now(),
-      builder: ((context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
-              primary: kMainColor,
-            ),
-          ),
-          child: child!,
-        );
-      }),
+    CupertinoDatePicker(
+      minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+      initialDateTime: date,
+      maximumDate: DateTime.now(),
+      mode: CupertinoDatePickerMode.date,
+      onDateTimeChanged: (value) {
+        setState(() {
+          date = value;
+        });
+      },
     );
-    if (picked != null) {
-      onDateSelected(picked);
-    }
+
+    // final DateTime? picked = await showDatePicker(
+    //   context: context,
+    //   initialDate: date,
+    //   firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+    //   lastDate: DateTime.now(),
+    //   builder: ((context, child) {
+    //     return Theme(
+    //       data: Theme.of(context).copyWith(
+    //         colorScheme: ColorScheme.light(
+    //           primary: kMainColor,
+    //         ),
+    //       ),
+    //       child: child!,
+    //     );
+    //   }),
+    // );
+    // if (picked != null) {
+    //   onDateSelected(picked);
+    // }
   }
 }
