@@ -34,15 +34,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
         ),
         Positioned(
           left: width * .045.w,
-          child: BlocBuilder<GetUserBloc, GetUserState>(
-            builder: (context, state) {
-              if (state is GetUserDetailsError) {
-                return const Text("No Name");
-              }
-              if (state is GetUserDetailsLoaded) {
-                getUserModel =
-                    BlocProvider.of<GetUserBloc>(context).getUserModel;
-                return InkWell(
+          child:GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -61,7 +53,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                           ),
                           children: [
                             TextSpan(
-                                text: ' ${getUserModel.userdetails!.firstname}',
+                                text: ' $username',
                                 style: TextStyle(
                                     fontSize: 17.sp,
                                     color: kWhiteColor,
@@ -71,11 +63,9 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                           ],
                         ),
                       )
-                    ]));
-              }
-              return const SizedBox();
-            },
-          ),
+                    ],),),
+             
+         
         ),
         Positioned(
           top: height * .039,
