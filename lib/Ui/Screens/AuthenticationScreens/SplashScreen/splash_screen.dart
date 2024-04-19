@@ -1,15 +1,12 @@
 import 'dart:developer';
-
 import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
-import '../../../../ddd/application/user_location/user_location_bloc.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

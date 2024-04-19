@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/QuestionnaireScreen/symptoms_view_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CommonSymptomsScreen extends StatefulWidget {
   const CommonSymptomsScreen({super.key});
@@ -13,6 +13,21 @@ class CommonSymptomsScreen extends StatefulWidget {
 }
 
 class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
+  String? userName;
+
+  Future<void> getUserName() async {
+    final preference = await SharedPreferences.getInstance();
+    setState(() {
+      userName = preference.getString('firstName').toString();
+    });
+  }
+
+  @override
+  void initState() {
+    getUserName();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,51 +38,30 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Card(
-              child: Container(
-                width: double.infinity,
-                color: kCardColor,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Hi Rahul, let’s get started.",
-                        style: TextStyle(
-                            fontSize: 15.sp, fontWeight: FontWeight.bold),
-                      ),
-                      const VerticalSpacingWidget(height: 5),
-                      Text(
-                        "Please Pick a symptom that is troubling you the most",
-                        style: TextStyle(
-                            fontSize: 14.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const VerticalSpacingWidget(height: 5),
             Container(
-              height: 45.h,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 color: kCardColor,
-                borderRadius: BorderRadius.circular(15),
               ),
+              width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                child: const Row(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.search,
-                      color: Colors.grey,
-                    ),
-                    HorizontalSpacingWidget(width: 5),
                     Text(
-                      "Search your symptoms",
-                      style: TextStyle(color: Colors.grey),
-                    )
+                      "Hi $userName, let's get started.",
+                      style: TextStyle(
+                          fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    ),
+                    const VerticalSpacingWidget(height: 5),
+                    Text(
+                      "Please Pick a symptom that is troubling you the most",
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: kSubTextColor),
+                    ),
                   ],
                 ),
               ),
@@ -85,26 +79,28 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 10,
-                    childAspectRatio: .75),
+                    childAspectRatio: .95),
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SymptomsViewScreen()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SymptomsViewScreen(),
+                            ),
+                          );
                         },
                         child: Container(
                           height: 100.h,
                           width: 100.w,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: AssetImage(images[index]),
-                                  fit: BoxFit.fill)),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: AssetImage(images[index]),
+                                fit: BoxFit.fill),
+                          ),
                         ),
                       ),
                     ],

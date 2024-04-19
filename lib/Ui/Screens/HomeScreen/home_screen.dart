@@ -21,17 +21,16 @@ import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_doctor_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_article_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_helath_concern_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_hospital_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_questionare_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_recently_booked_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-import 'Widgets/home_appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -132,23 +131,26 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             width: double.infinity,
                             color: kSubScaffoldColor,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.01),
-                              child: const Column(
-                                children: [
-                                 
-                                  VerticalSpacingWidget(height: 5),
-                                  RecommendedDoctorCard(),
-                                  VerticalSpacingWidget(height: 5),
-                                  UpcommingAppoiment(),
-                                  VerticalSpacingWidget(height: 5),
-                                  HomeHealthConcernWidget(),
-                                  VerticalSpacingWidget(height: 5),
-                                  HomeRecentlyBookedDoctorWidget(),
-                                  VerticalSpacingWidget(height: 5),
-                                ],
-                              ),
+                            child: Column(
+                              children: [
+                                const VerticalSpacingWidget(height: 5),
+                                const UpcommingAppoiment(),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.01),
+                                  child: const GetDoctorWidget(),
+                                ),
+                                const VerticalSpacingWidget(height: 5),
+                                const VerticalSpacingWidget(height: 5),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.01),
+                                  child: const RecommendedDoctorCard(),
+                                ),
+                                const VerticalSpacingWidget(height: 5),
+                                const HomeRecentlyBookedDoctorWidget(),
+                                const VerticalSpacingWidget(height: 5),
+                              ],
                             ),
                           ),
                           HomeSuggestDoctorWidget(
@@ -161,6 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   horizontal: size.width * 0.01),
                               child: const Column(
                                 children: [
+                                  VerticalSpacingWidget(height: 5),
+                                  HomeQuestinareWidget(),
                                   VerticalSpacingWidget(height: 5),
                                   HomeHospitalWidget(),
                                   VerticalSpacingWidget(height: 5),

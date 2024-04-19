@@ -59,6 +59,9 @@ class _HomeHospitalWidgetState extends State<HomeHospitalWidget> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return HospitalCardWidget(
+                      distanceAway: getHospitalModel
+                          .clinics![index].distanceFromUser
+                          .toString(),
                       hospitalId:
                           getHospitalModel.clinics![index].clinicId.toString(),
                       address:
@@ -86,7 +89,7 @@ class _HomeHospitalWidgetState extends State<HomeHospitalWidget> {
                       ),
                     );
                   },
-                  buttonText: "All hospitals")
+                  buttonText: "View all hospitals")
             ],
           );
         }

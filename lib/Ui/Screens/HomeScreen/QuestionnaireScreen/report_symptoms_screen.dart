@@ -4,7 +4,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/AllDoctorsNearYouScreen/all_dcotors_near_you_screen.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_dcotors_near_you_screen.dart';
 
 class ReportSymptomsScreen extends StatefulWidget {
   const ReportSymptomsScreen({super.key});
