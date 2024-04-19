@@ -10,6 +10,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeIntroCard extends StatefulWidget {
   const HomeIntroCard({super.key});
@@ -20,6 +21,20 @@ class HomeIntroCard extends StatefulWidget {
 
 class _HomeIntroCardState extends State<HomeIntroCard> {
   late GetUserModel getUserModel;
+  String? userName;
+
+  Future<void> getUserName() async {
+    final preference = await SharedPreferences.getInstance();
+    setState(() {
+      userName = preference.getString('firstName').toString();
+    });
+  }
+
+  @override
+  void initState() {
+    getUserName();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -53,7 +68,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                           ),
                           children: [
                             TextSpan(
-                                text: ' $username',
+                                text: ' $userName',
                                 style: TextStyle(
                                     fontSize: 17.sp,
                                     color: kWhiteColor,
