@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Repository/Bloc/Questionare/GetCommonSymptom/get_common_symptom_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/QuestionnaireScreen/symptoms_view_screen.dart';
@@ -24,6 +26,7 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
 
   @override
   void initState() {
+    BlocProvider.of<GetCommonSymptomBloc>(context).add(FetchCommonSymptoms());
     getUserName();
     super.initState();
   }
@@ -72,54 +75,70 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp),
             ),
             const VerticalSpacingWidget(height: 10),
-            GridView.builder(
-                itemCount: 8,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: .95),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SymptomsViewScreen(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: 100.h,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: AssetImage(images[index]),
-                                fit: BoxFit.fill),
-                          ),
-                        ),
-                      ),
-                    ],
+            BlocBuilder<GetCommonSymptomBloc, GetCommonSymptomState>(
+              builder: (context, state) {
+                if (state is GetCommonSymptomLoading) {
+                  return SizedBox(
+                    height: 350.h,
+                    child: Center(
+                      child: CircularProgressIndicator(color: kMainColor),
+                    ),
                   );
-                }),
+                }
+                if (state is GetCommonSymptomError) {
+                  return Center(
+                    child: Text(
+                      state.errorMessage.toString(),
+                    ),
+                  );
+                }
+                if (state is GetCommonSymptomLoaded) {
+                  return GridView.builder(
+                      itemCount: state.commonSymptomModel.data!.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: .95),
+                      itemBuilder: (context, index) {
+                        final symptom = state.commonSymptomModel.data![index];
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SymptomsViewScreen(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 100.h,
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        symptom.symptomImage.toString(),
+                                      ),
+                                      fit: BoxFit.fill),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      });
+                }
+                return Container();
+              },
+            ),
           ],
         ),
       ),
     );
   }
-
-  List images = [
-    "assets/images/questionnaire/symptoms-01.jpg",
-    "assets/images/questionnaire/symptoms-02.jpg",
-    "assets/images/questionnaire/symptoms-03.jpg",
-    "assets/images/questionnaire/symptoms-04.jpg",
-    "assets/images/questionnaire/symptoms-05.jpg",
-    "assets/images/questionnaire/symptoms-06.jpg",
-    "assets/images/questionnaire/symptoms-07.jpg",
-    "assets/images/questionnaire/symptoms-08.jpg",
-  ];
 }

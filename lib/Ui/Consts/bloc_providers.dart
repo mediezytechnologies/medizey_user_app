@@ -52,6 +52,7 @@ import 'package:mediezy_user/Repository/Bloc/Profile/EditUser/edit_user_bloc.dar
 import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Profile/UploadUserImage/upload_user_image_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/Questionare/GetCommonSymptom/get_common_symptom_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/SearchDoctor/search_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
@@ -136,12 +137,13 @@ class AppBlocProviders {
         BlocProvider(
           create: (context) => getIt<AddMemberImageBloc>(),
         ),
-           BlocProvider(
+        BlocProvider(
           create: (context) => getIt<UserLocationBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<EditMemberImageBloc>(),
         ),
         BlocProvider(create: (context) => GetVitalsBloc()),
+        BlocProvider(create: (context) => GetCommonSymptomBloc()),
       ];
 }
