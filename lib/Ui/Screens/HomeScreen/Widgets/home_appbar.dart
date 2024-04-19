@@ -1,8 +1,13 @@
 
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
 
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
@@ -39,9 +44,10 @@ class _HomeAappBarState extends State<HomeAappBar> {
       duration: const Duration(microseconds: 5000),
       width: double.infinity,
       height: size.height * .10,
-      color: const Color(0xFF4cb499),
+     
+      color:kSecondaryColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -51,12 +57,12 @@ class _HomeAappBarState extends State<HomeAappBar> {
                 child: Row(
                   children: [
                     Icon(
-                      Icons.location_on,
+                 Platform.isIOS?CupertinoIcons.placemark_fill:     Icons.location_on,
                       size: 15.sp,
                       color: Colors.white,
                     ),
                     const HorizontalSpacingWidget(width: 5),
-                    InkWell(
+                    GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,

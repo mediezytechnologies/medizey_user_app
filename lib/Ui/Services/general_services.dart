@@ -9,6 +9,8 @@ import 'dart:io' show Platform;
 class GeneralServices {
   static GeneralServices instance = GeneralServices();
 
+
+ 
   //* to show toast
   showToastMessage(String message) {
     Fluttertoast.showToast(

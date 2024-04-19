@@ -1,10 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
+import 'dart:io';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Article/article_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
@@ -18,6 +21,7 @@ import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_article_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_helath_concern_widget.dart';
@@ -42,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = true;
 
 //location //===========
-
 
   @override
   void initState() {
@@ -104,8 +107,10 @@ class _HomeScreenState extends State<HomeScreen> {
               valueListenable: scrollNotifier,
               builder: (context, index, _) {
                 return NotificationListener<UserScrollNotification>(
+                
                   onNotification: (notification) {
                     final ScrollDirection direction = notification.direction;
+
                     if (direction == ScrollDirection.reverse) {
                       scrollNotifier.value = false;
                     } else if (direction == ScrollDirection.forward) {
@@ -118,9 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ListView(
                         children: [
                           SizedBox(
-                            height: size.height * 0.06,
-                          ),
+                              height: Platform.isIOS
+                                  ? size.height * 0.03
+                                  : size.height * 0.07),
                           const HomeIntroCard(),
+                        
+                     
                           Container(
                             width: double.infinity,
                             color: kSubScaffoldColor,
@@ -129,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   horizontal: size.width * 0.01),
                               child: const Column(
                                 children: [
+                                 
                                   VerticalSpacingWidget(height: 5),
                                   RecommendedDoctorCard(),
                                   VerticalSpacingWidget(height: 5),
@@ -167,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       scrollNotifier.value == true
-                          ?  HomeAappBar()
+                          ? const HomeAappBar()
                           : const SizedBox(),
                     ],
                   ),

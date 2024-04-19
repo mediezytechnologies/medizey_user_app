@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -26,7 +27,9 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
     return Stack(
       children: [
         const Image(
-          image: AssetImage("assets/images/home_screen.jpg"),
+          image: AssetImage(
+            "assets/images/home_screen.jpg",
+          ),
           fit: BoxFit.fill,
         ),
         Positioned(
@@ -40,35 +43,43 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                 getUserModel =
                     BlocProvider.of<GetUserBloc>(context).getUserModel;
                 return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
-                      ),
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      const VerticalSpacingWidget(height: 2),
-                      Text(
-                        "Hi, ${getUserModel.userdetails!.firstname}",
-                        style: TextStyle(
-                            fontSize: 19.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                );
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProfileScreen(),
+                        ),
+                      );
+                    },
+                    child: Column(children: [
+                      RichText(
+                        text: TextSpan(
+                          text: 'Hi,',
+                          style: TextStyle(
+                            fontSize: 17.sp,
+                            color: kWhiteColor,
+                          ),
+                          children: [
+                            TextSpan(
+                                text: ' ${getUserModel.userdetails!.firstname}',
+                                style: TextStyle(
+                                    fontSize: 17.sp,
+                                    color: kWhiteColor,
+                                    fontWeight: FontWeight.bold),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {})
+                          ],
+                        ),
+                      )
+                    ]));
               }
-              return Container();
+              return const SizedBox();
             },
           ),
         ),
         Positioned(
-          top: height * .039.h,
-          left: width * .045.w,
+          top: height * .039,
+          left: width * .045,
           child: Text(
             "Your one stop solution for\nQuick and easy consultation",
             style: TextStyle(
@@ -79,8 +90,8 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           ),
         ),
         Positioned(
-          top: height * .100.h,
-          left: width * .045.w,
+          top: height * .100,
+          left: width * .045,
           child: InkWell(
             onTap: () {
               Navigator.push(

@@ -66,6 +66,9 @@ class LocationController extends GetxController {
     String? thoroughfare = place.thoroughfare == ""
         ? placemarks.last.thoroughfare
         : place.thoroughfare;
+        String? subloc =place.subLocality==""?
+     placemarks.last.subLocality:place.subLocality;
+       
     log("trot============================================.,///>>>>>>  : $thoroughfare");
 
     locationAdress.value = '$thoroughfare, ${place.subLocality}';
@@ -74,8 +77,9 @@ class LocationController extends GetxController {
     address.value =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}, ${place.name}';
     street.value = "${place.street}";
+     subLocality .value =subloc!;
     locality.value = "${place.locality}";
-    subLocality.value = "${place.subLocality}";
+   // subLocality.value = "${place.subLocality}";
     country.value = "${place.country}";
     name.value = "${place.administrativeArea}";
     postCode.value = "${place.postalCode}";
