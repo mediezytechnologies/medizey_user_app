@@ -1,21 +1,25 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
 class DoctorNearYouWidget extends StatefulWidget {
-  const DoctorNearYouWidget(
-      {super.key,
-      required this.firstName,
-      required this.lastName,
-      required this.imageUrl,
-      required this.location,
-      required this.doctorId,
-      required this.specialisation,
-      required this.favouriteStatus});
+  const DoctorNearYouWidget({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    required this.imageUrl,
+    required this.location,
+    required this.doctorId,
+    required this.specialisation,
+    required this.favouriteStatus,
+    required this.docterDistance,
+  });
 
   final String doctorId;
   final String firstName;
@@ -24,6 +28,7 @@ class DoctorNearYouWidget extends StatefulWidget {
   final String location;
   final String specialisation;
   final int favouriteStatus;
+  final String docterDistance;
 
   @override
   State<DoctorNearYouWidget> createState() => _DoctorNearYouWidgetState();
@@ -55,7 +60,7 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 8.w, 0),
             child: Container(
-              height: 185.h,
+              // height: 195.h,
               width: 130.w,
               decoration: BoxDecoration(
                 color: kCardColor,
@@ -125,6 +130,37 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 5.h,),
+                   Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+                    child: Row(
+                      children: [
+                        Icon(
+                          IconlyLight.location,
+                          size: 14.sp,
+                        ),
+                        SizedBox(width: 3.w,),
+                        RichText(
+                          text: TextSpan(
+                            text: widget.docterDistance,
+                            style:  TextStyle(
+                              fontSize: 12.sp,
+                                color:kTextColor,
+                                fontWeight: FontWeight.bold),
+                            children: [
+                              TextSpan(
+                                  text: ' away',
+                                  style:  TextStyle(
+                                      color:kSubTextColor,
+                                      fontWeight: FontWeight.normal),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {})
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

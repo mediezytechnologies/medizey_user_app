@@ -1095,9 +1095,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   if (state.isError &&
                       state.status == false &&
                       state.message == 'Patient already exists.') {
-                    log("message error catched ui");
-                    log("message error ${state.message}");
-                    log("message state emit ui ${state.message}");
+                   
                     GeneralServices.instance
                         .showErrorMessage(context, state.message);
                   } else if (state.status == true) {
@@ -1115,8 +1113,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         Navigator.pop(context);
                       });
                     } else {
-                      log("message state emit ui ${state.status}");
-                      log("image null");
+                      
                       GeneralServices.instance
                           .showToastMessage("Family member added successfully");
                       Future.delayed(const Duration(seconds: 1)).then((value) {
@@ -1168,9 +1165,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Select treatment");
                             } else {
-                              log("message $allergies");
-                              log(" jkfhsdjkf : $regularMedicine");
-                              log(" medisi : $medicineDataLists");
+                           
                               BlocProvider.of<AddMembersBloc>(context).add(
                                 AddMembersEvent.started(
                                   fullNameController.text,
@@ -1187,7 +1182,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                   medicineDataLists!,
                                 ),
                               );
-                              log('button pressed');
+                             
                             }
                           },
                     child: state.isloding
@@ -1244,24 +1239,5 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
       },
     );
 
-    // final DateTime? picked = await showDatePicker(
-    //   context: context,
-    //   initialDate: date,
-    //   firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-    //   lastDate: DateTime.now(),
-    //   builder: ((context, child) {
-    //     return Theme(
-    //       data: Theme.of(context).copyWith(
-    //         colorScheme: ColorScheme.light(
-    //           primary: kMainColor,
-    //         ),
-    //       ),
-    //       child: child!,
-    //     );
-    //   }),
-    // );
-    // if (picked != null) {
-    //   onDateSelected(picked);
-    // }
   }
 }

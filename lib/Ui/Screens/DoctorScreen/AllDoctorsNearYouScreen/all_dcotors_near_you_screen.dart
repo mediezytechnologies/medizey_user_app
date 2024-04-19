@@ -89,7 +89,9 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return DoctorCardWidget(
-                                    clinicList: doctorModel
+                                    clinicList:
+                                    
+                                     doctorModel
                                         .allDoctors![index].clinics!
                                         .toList(),
                                     doctorId: doctorModel

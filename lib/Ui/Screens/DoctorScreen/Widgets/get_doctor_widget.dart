@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Doctor/doctor_model.dart';
@@ -39,8 +40,9 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                     },
                     title: "Doctors near you"),
                 const VerticalSpacingWidget(height: 5),
-                SizedBox(
-                  height: 187.h,
+                LimitedBox(
+                  maxHeight: 210.h,
+              //    height: 187.h,
                   child: ListView.builder(
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
@@ -48,6 +50,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                       itemCount: doctorModel.allDoctors!.length,
                       itemBuilder: (context, index) {
                         return DoctorNearYouWidget(
+                       docterDistance:doctorModel.allDoctors![index].distanceFromUser!,
                             doctorId: doctorModel.allDoctors![index].userId
                                 .toString(),
                             firstName: doctorModel.allDoctors![index].firstname
