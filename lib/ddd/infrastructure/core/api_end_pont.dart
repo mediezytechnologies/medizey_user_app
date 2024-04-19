@@ -4,4 +4,5 @@ class ApiEndPoints {
   static const addMember = "$baseUrl/patient/addFamilyMember";
   static const addMemberImage = "$baseUrl/patient/addFamilyMember/savePatientImage";
   static const editMember = "$baseUrl/patient/editFamilyMembers";
+  static const userLocation ='$baseUrl/patient/user_locations/addUserLocations';
 }

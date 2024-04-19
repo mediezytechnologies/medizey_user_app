@@ -113,6 +113,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     super.initState();
     log("Patient imageee ${widget.patientImage}>>>>>>>>");
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
+       BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
     nameController.text = widget.patienName;
@@ -275,6 +276,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                     // Text(imagePath!),
+                      Text(widget.patientImage ),
                       Text(
                         "Full Name",
                         style: TextStyle(
@@ -1466,6 +1469,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             .showErrorMessage(context, state.message);
                       } else if (state.status == true) {
                         log("Not eroorr >>${state.isError.toString()}");
+                        log(" no error");
                         if (imagePath != null) {
                           log("first call>>>>>>>>>");
                           log(imagePath!);
@@ -1484,7 +1488,11 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           });
                           log('button pressed in the image section');
                         } else {
+                          log("message state emit ui ${state.status}");
+                          log("image null");
                           log("second call>>>>>>>>>");
+                          GeneralServices.instance.showToastMessage(
+                              "Family member added successfully");
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
                             BlocProvider.of<GetAllMembersBloc>(context)
@@ -1495,9 +1503,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           GeneralServices.instance
                               .showToastMessage("Updated successfully");
                         }
-                      } else {
-                        log("message else calll");
-                      }
+                      } 
                     },
                     builder: (context, state) {
                       return ElevatedButton(
@@ -1538,6 +1544,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                     medicineDataLists!,
                                   ),
                                 );
+                                log('button pressed');
                               },
                         child: state.isloding
                             ? Center(

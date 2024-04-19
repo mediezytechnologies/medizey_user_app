@@ -18,6 +18,7 @@ import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_article_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_helath_concern_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_hospital_widget.dart';
@@ -26,7 +27,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_recently_booked_
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-import 'Widgets/home_appbar_widget.dart';
+import 'Widgets/home_appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,6 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController suggestionController = TextEditingController();
   late Timer pollingTimer;
   bool isLoading = true;
+
+//location //===========
+
 
   @override
   void initState() {
@@ -163,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       scrollNotifier.value == true
-                          ? const HomeAappBar()
+                          ?  HomeAappBar()
                           : const SizedBox(),
                     ],
                   ),

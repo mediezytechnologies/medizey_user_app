@@ -58,6 +58,7 @@ import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/ContactUs/contact_us_bloc.dart';
 import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member/edit_member_bloc.dart';
+import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
@@ -134,6 +135,9 @@ class AppBlocProviders {
         ),
         BlocProvider(
           create: (context) => getIt<AddMemberImageBloc>(),
+        ),
+           BlocProvider(
+          create: (context) => getIt<UserLocationBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<EditMemberImageBloc>(),

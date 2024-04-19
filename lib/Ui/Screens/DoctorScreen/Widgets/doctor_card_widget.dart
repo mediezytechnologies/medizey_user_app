@@ -20,6 +20,7 @@ class DoctorCardWidget extends StatelessWidget {
     required this.specialisation,
     required this.location,
     required this.clinicList,
+    // required this.userAwayFrom
   });
 
   final String doctorId;
@@ -30,6 +31,7 @@ class DoctorCardWidget extends StatelessWidget {
   final String specialisation;
   final String location;
   final List<Clinics> clinicList;
+  // final String userAwayFrom;
 
   @override
   Widget build(BuildContext context) {

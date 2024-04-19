@@ -57,6 +57,7 @@ class RegisterServiceImpl implements EditMemberRepo {
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = ClintClinicModelData.fromJson(response.data);
+        log("result service : $result");
         return Right(result);
       } else {
         return Left(ErrorModel());
