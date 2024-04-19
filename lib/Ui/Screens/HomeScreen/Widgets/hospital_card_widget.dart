@@ -1,6 +1,8 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
@@ -16,7 +18,8 @@ class HospitalCardWidget extends StatelessWidget {
       required this.department,
       required this.doctorCount,
       required this.hospitalId,
-      required this.hospitalLocation});
+      required this.hospitalLocation,
+      required this.distanceAway});
 
   final String image;
   final String name;
@@ -25,6 +28,7 @@ class HospitalCardWidget extends StatelessWidget {
   final String doctorCount;
   final String hospitalId;
   final String hospitalLocation;
+  final String distanceAway;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +119,35 @@ class HospitalCardWidget extends StatelessWidget {
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                       color: kSubTextColor),
+                ),
+                const VerticalSpacingWidget(height: 2),
+                Row(
+                  children: [
+                    Icon(
+                      IconlyLight.location,
+                      size: 14.sp,
+                    ),
+                    SizedBox(
+                      width: 3.w,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: distanceAway,
+                        style: TextStyle(
+                            fontSize: 12.sp,
+                            color: kTextColor,
+                            fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                              text: ' away',
+                              style: TextStyle(
+                                  color: kSubTextColor,
+                                  fontWeight: FontWeight.normal),
+                              recognizer: TapGestureRecognizer()..onTap = () {})
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             )

@@ -1,14 +1,12 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/Profile/get_user_model.dart';
-import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
-import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeIntroCard extends StatefulWidget {
   const HomeIntroCard({super.key});
@@ -18,7 +16,21 @@ class HomeIntroCard extends StatefulWidget {
 }
 
 class _HomeIntroCardState extends State<HomeIntroCard> {
-  late GetUserModel getUserModel;
+  String? userName;
+
+  Future<void> getUserName() async {
+    final preference = await SharedPreferences.getInstance();
+    setState(() {
+      userName = preference.getString('firstName').toString();
+    });
+  }
+
+  @override
+  void initState() {
+    getUserName();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -31,39 +43,17 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
         ),
         Positioned(
           left: width * .045.w,
-          child: BlocBuilder<GetUserBloc, GetUserState>(
-            builder: (context, state) {
-              if (state is GetUserDetailsError) {
-                return const Text("No Name");
-              }
-              if (state is GetUserDetailsLoaded) {
-                getUserModel =
-                    BlocProvider.of<GetUserBloc>(context).getUserModel;
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
-                      ),
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      const VerticalSpacingWidget(height: 2),
-                      Text(
-                        "Hi, ${getUserModel.userdetails!.firstname}",
-                        style: TextStyle(
-                            fontSize: 19.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              return Container();
-            },
+          child: Column(
+            children: [
+              const VerticalSpacingWidget(height: 2),
+              Text(
+                "Hi, $userName",
+                style: TextStyle(
+                    fontSize: 19.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
+              ),
+            ],
           ),
         ),
         Positioned(

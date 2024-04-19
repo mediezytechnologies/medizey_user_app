@@ -243,7 +243,7 @@ class VitalWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "${sys == null ? "N/A" : sys} / ${dia == null ? "N/A" : dia}",
+                    "${sys == "" ? "N/A" : sys} / ${dia == "" ? "N/A" : dia}",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,

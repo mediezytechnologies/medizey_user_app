@@ -57,6 +57,9 @@ class _HospitalListingScreenState extends State<HospitalListingScreen> {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return HospitalCardWidget(
+                    distanceAway: getHospitalModel
+                        .clinics![index].distanceFromUser
+                        .toString(),
                     hospitalId:
                         getHospitalModel.clinics![index].clinicId.toString(),
                     address:

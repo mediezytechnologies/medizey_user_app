@@ -97,7 +97,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                             ),
                           );
                         },
-                        buttonText: "All doctors")
+                        buttonText: "View all favourite doctors")
                   ],
                 );
         }

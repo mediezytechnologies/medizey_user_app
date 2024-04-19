@@ -104,7 +104,7 @@ class _HomeRecentlyBookedDoctorWidgetState
                             ),
                           );
                         },
-                        buttonText: "All doctors")
+                        buttonText: "view all recently booked doctors")
                   ],
                 );
         }

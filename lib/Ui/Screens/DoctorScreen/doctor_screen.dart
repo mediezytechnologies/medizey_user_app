@@ -11,10 +11,9 @@ import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.d
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/custome_app_bar.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_banner_widget.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_specialisation_widget.dart';
-
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_helath_concern_widget.dart';
 
 class DoctorScreen extends StatefulWidget {
   const DoctorScreen({super.key});
@@ -58,11 +57,11 @@ class _DoctorScreenState extends State<DoctorScreen> {
                 children: [
                   CustomeAppBar(),
                   VerticalSpacingWidget(height: 5),
-                  GetDoctorWidget(),
-                  VerticalSpacingWidget(height: 5),
                   GetSpecialisationWidget(),
                   VerticalSpacingWidget(height: 5),
+                  HomeHealthConcernWidget(),
                   GetFavouriteDoctorWidget(),
+                  VerticalSpacingWidget(height: 5),
                   GetBannerWidget(),
                   VerticalSpacingWidget(height: 5),
                 ],

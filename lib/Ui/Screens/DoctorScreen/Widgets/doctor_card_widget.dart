@@ -131,6 +131,7 @@ class DoctorCardWidget extends StatelessWidget {
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               itemCount: clinicList.length,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Row(
                   children: [
