@@ -7,9 +7,9 @@ import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_blo
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_dcotors_near_you_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_near_you_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 
 class GetDoctorWidget extends StatefulWidget {
   const GetDoctorWidget({super.key});
@@ -37,7 +37,6 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                 const VerticalSpacingWidget(height: 5),
                 LimitedBox(
                   maxHeight: 210.h,
-                  //    height: 187.h,
                   child: ListView.builder(
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
@@ -83,14 +82,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
           );
         }
         if (state is GetDoctorLoading) {
-          return SizedBox(
-            height: 60.h,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: kMainColor,
-              ),
-            ),
-          );
+          return doctorNearYouLoadingWidget(context);
         }
         if (state is GetDoctorError) {
           return Container();

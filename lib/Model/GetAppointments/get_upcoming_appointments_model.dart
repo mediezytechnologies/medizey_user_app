@@ -14,18 +14,18 @@ class GetUpComingAppointmentsModel {
     if (json['upcoming appointments'] != null) {
       upcomingAppointments = <UpcomingAppointments>[];
       json['upcoming appointments'].forEach((v) {
-        upcomingAppointments!.add(UpcomingAppointments.fromJson(v));
+        upcomingAppointments!.add(new UpcomingAppointments.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['message'] = message;
-    if (upcomingAppointments != null) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.upcomingAppointments != null) {
       data['upcoming appointments'] =
-          upcomingAppointments!.map((v) => v.toJson()).toList();
+          this.upcomingAppointments!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -51,6 +51,9 @@ class UpcomingAppointments {
   int? isReserved;
   int? isReached;
   int? rescheduleType;
+  String? checkinChange;
+  String? checkoutChange;
+  String? estimateOfNextToken;
   String? scheduleStartTime;
   int? leaveStatus;
   String? tokenBookedDate;
@@ -63,7 +66,7 @@ class UpcomingAppointments {
   String? mediezyDoctorId;
   MainSymptoms? mainSymptoms;
   int? nextAvailableTokenNumber;
-  String?  nextAvailableTokenDate;
+  int? nextAvailableTokenDate;
   List<Clinics>? clinics;
   OtherSymptom? otherSymptom;
   bool? patientAbsent;
@@ -88,6 +91,9 @@ class UpcomingAppointments {
       this.isReserved,
       this.isReached,
       this.rescheduleType,
+      this.checkinChange,
+      this.checkoutChange,
+      this.estimateOfNextToken,
       this.scheduleStartTime,
       this.leaveStatus,
       this.tokenBookedDate,
@@ -125,6 +131,9 @@ class UpcomingAppointments {
     isReserved = json['is_reserved'];
     isReached = json['is_reached'];
     rescheduleType = json['reschedule_type'];
+    checkinChange = json['checkin_change'];
+    checkoutChange = json['checkout_change'];
+    estimateOfNextToken = json['estimate_of_next_token'];
     scheduleStartTime = json['schedule_start_time'];
     leaveStatus = json['leave_status'];
     tokenBookedDate = json['token_booked_date'];
@@ -136,65 +145,68 @@ class UpcomingAppointments {
     estimateArrivalTime = json['estimate_arrival_time'];
     mediezyDoctorId = json['mediezy_doctor_id'];
     mainSymptoms = json['main_symptoms'] != null
-        ? MainSymptoms.fromJson(json['main_symptoms'])
+        ? new MainSymptoms.fromJson(json['main_symptoms'])
         : null;
     nextAvailableTokenNumber = json['next_available_token_number'];
     nextAvailableTokenDate = json['next_available_token_date'];
     if (json['clinics'] != null) {
       clinics = <Clinics>[];
       json['clinics'].forEach((v) {
-        clinics!.add(Clinics.fromJson(v));
+        clinics!.add(new Clinics.fromJson(v));
       });
     }
     otherSymptom = json['other_symptom'] != null
-        ? OtherSymptom.fromJson(json['other_symptom'])
+        ? new OtherSymptom.fromJson(json['other_symptom'])
         : null;
     patientAbsent = json['patient_absent'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['token_id'] = tokenId;
-    data['doctor_id'] = doctorId;
-    data['patient_id'] = patientId;
-    data['token_number'] = tokenNumber;
-    data['token_start_time'] = tokenStartTime;
-    data['token_scheduled_date'] = tokenScheduledDate;
-    data['doctor_late_time'] = doctorLateTime;
-    data['doctor_early_time'] = doctorEarlyTime;
-    data['doctor_break_time'] = doctorBreakTime;
-    data['token_booked_time'] = tokenBookedTime;
-    data['is_checkedin'] = isCheckedin;
-    data['is_checkedout'] = isCheckedout;
-    data['checkin_time'] = checkinTime;
-    data['checkout_time'] = checkoutTime;
-    data['extra_time_taken'] = extraTimeTaken;
-    data['less_time_taken'] = lessTimeTaken;
-    data['is_reserved'] = isReserved;
-    data['is_reached'] = isReached;
-    data['reschedule_type'] = rescheduleType;
-    data['schedule_start_time'] = scheduleStartTime;
-    data['leave_status'] = leaveStatus;
-    data['token_booked_date'] = tokenBookedDate;
-    data['live_token'] = liveToken;
-    data['patient_name'] = patientName;
-    data['doctor_name'] = doctorName;
-    data['doctor_image'] = doctorImage;
-    data['clinic_name'] = clinicName;
-    data['estimate_arrival_time'] = estimateArrivalTime;
-    data['mediezy_doctor_id'] = mediezyDoctorId;
-    if (mainSymptoms != null) {
-      data['main_symptoms'] = mainSymptoms!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['token_id'] = this.tokenId;
+    data['doctor_id'] = this.doctorId;
+    data['patient_id'] = this.patientId;
+    data['token_number'] = this.tokenNumber;
+    data['token_start_time'] = this.tokenStartTime;
+    data['token_scheduled_date'] = this.tokenScheduledDate;
+    data['doctor_late_time'] = this.doctorLateTime;
+    data['doctor_early_time'] = this.doctorEarlyTime;
+    data['doctor_break_time'] = this.doctorBreakTime;
+    data['token_booked_time'] = this.tokenBookedTime;
+    data['is_checkedin'] = this.isCheckedin;
+    data['is_checkedout'] = this.isCheckedout;
+    data['checkin_time'] = this.checkinTime;
+    data['checkout_time'] = this.checkoutTime;
+    data['extra_time_taken'] = this.extraTimeTaken;
+    data['less_time_taken'] = this.lessTimeTaken;
+    data['is_reserved'] = this.isReserved;
+    data['is_reached'] = this.isReached;
+    data['reschedule_type'] = this.rescheduleType;
+    data['checkin_change'] = this.checkinChange;
+    data['checkout_change'] = this.checkoutChange;
+    data['estimate_of_next_token'] = this.estimateOfNextToken;
+    data['schedule_start_time'] = this.scheduleStartTime;
+    data['leave_status'] = this.leaveStatus;
+    data['token_booked_date'] = this.tokenBookedDate;
+    data['live_token'] = this.liveToken;
+    data['patient_name'] = this.patientName;
+    data['doctor_name'] = this.doctorName;
+    data['doctor_image'] = this.doctorImage;
+    data['clinic_name'] = this.clinicName;
+    data['estimate_arrival_time'] = this.estimateArrivalTime;
+    data['mediezy_doctor_id'] = this.mediezyDoctorId;
+    if (this.mainSymptoms != null) {
+      data['main_symptoms'] = this.mainSymptoms!.toJson();
     }
-    data['next_available_token_number'] = nextAvailableTokenNumber;
-    data['next_available_token_date'] = nextAvailableTokenDate;
-    if (clinics != null) {
-      data['clinics'] = clinics!.map((v) => v.toJson()).toList();
+    data['next_available_token_number'] = this.nextAvailableTokenNumber;
+    data['next_available_token_date'] = this.nextAvailableTokenDate;
+    if (this.clinics != null) {
+      data['clinics'] = this.clinics!.map((v) => v.toJson()).toList();
     }
-    if (otherSymptom != null) {
-      data['other_symptom'] = otherSymptom!.toJson();
+    if (this.otherSymptom != null) {
+      data['other_symptom'] = this.otherSymptom!.toJson();
     }
-    data['patient_absent'] = patientAbsent;
+    data['patient_absent'] = this.patientAbsent;
     return data;
   }
 }
@@ -209,8 +221,8 @@ class MainSymptoms {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['Mainsymptoms'] = mainsymptoms;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Mainsymptoms'] = this.mainsymptoms;
     return data;
   }
 }
@@ -227,8 +239,8 @@ class OtherSymptom {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['symtoms'] = symtoms;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['symtoms'] = this.symtoms;
     return data;
   }
 }

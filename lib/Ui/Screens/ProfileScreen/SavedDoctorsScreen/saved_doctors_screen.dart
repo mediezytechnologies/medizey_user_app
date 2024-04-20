@@ -9,7 +9,7 @@ import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favour
 import 'package:mediezy_user/Ui/CommonWidgets/common_loadin_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 
 class SavedDoctorsScreen extends StatefulWidget {
   const SavedDoctorsScreen({super.key});
@@ -112,6 +112,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                             const NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) {
                                           return DoctorCardWidget(
+                                            userAwayFrom: "2.2",
                                             clinicList: getFavouritesModel
                                                 .favoriteDoctors![index]
                                                 .clinics!

@@ -10,7 +10,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -125,6 +125,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       searchDoctorModel.searchDoctors!.length,
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
+                                      userAwayFrom: "2.2",
                                       clinicList: searchDoctorModel
                                           .searchDoctors![index].clinics!
                                           .toList(),

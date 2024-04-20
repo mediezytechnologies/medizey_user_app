@@ -279,8 +279,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Text(imagePath!),
-                      Text(widget.patientImage),
                       Text(
                         "Full Name",
                         style: TextStyle(

@@ -7,7 +7,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 
 class GetFavouriteDoctorWidget extends StatefulWidget {
@@ -62,6 +62,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                 : getFavouritesModel.favoriteDoctors!.length,
                         itemBuilder: (context, index) {
                           return DoctorCardWidget(
+                            userAwayFrom: "2.2",
                               clinicList: getFavouritesModel
                                   .favoriteDoctors![index].clinics!
                                   .toList(),

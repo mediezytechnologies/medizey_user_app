@@ -2,7 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/DoctorsByHealthCategoryScreen/doctors_by_health_caregory_screen.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorsByHealthCategoryScreen/doctors_by_health_caregory_screen.dart';
 
 class HealthConcernWidget extends StatelessWidget {
   const HealthConcernWidget(

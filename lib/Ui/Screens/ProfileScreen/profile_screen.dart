@@ -122,72 +122,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       fadeDuration:
                                           const Duration(milliseconds: 400),
                                       child: ClipOval(
-                                        child:  (getUserModel.userdetails!
-                                                        .userProfile ==
-                                                    "https://mediezy.com/UserImages"
-                                                ? Image.asset(
+                                        child: (getUserModel
+                                                    .userdetails!.userProfile ==
+                                                null
+                                            ? Image.asset(
+                                                "assets/icons/profile pic.png",
+                                                height: 80.h,
+                                                width: 80.w,
+                                                color: kMainColor,
+                                              )
+                                            : Image.network(
+                                                getUserModel
+                                                    .userdetails!.userProfile
+                                                    .toString(),
+                                                height: 80.h,
+                                                width: 80.w,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Image.asset(
                                                     "assets/icons/profile pic.png",
                                                     height: 80.h,
                                                     width: 80.w,
                                                     color: kMainColor,
-                                                  )
-                                                : Image.network(
-                                                    getUserModel.userdetails!
-                                                        .userProfile
-                                                        .toString(),
-                                                    height: 80.h,
-                                                    width: 80.w,
-                                                    fit: BoxFit.cover,
-                                                  )),
-                                        //           Image.network(
-                                        //   getUserModel.userdetails!
-                                        //                 .userProfile,
-                                        //   height: 80.h,
-                                        //   width: 80.w,
-                                        //   fit: BoxFit.cover,
-                                        //   errorBuilder:
-                                        //       (context, error, stackTrace) =>
-                                        //           Padding(
-                                        //     padding: const EdgeInsets.all(3.0),
-                                        //     child: Image.asset(
-                                        //       "assets/icons/profile pic.png",
-                                        //       height: 80.h,
-                                        //       width: 80.w,
-                                        //       color: kMainColor,
-                                        //     ),
-                                        //   ),
-                                        //   loadingBuilder: (BuildContext context,
-                                        //       Widget child,
-                                        //       ImageChunkEvent?
-                                        //           loadingProgress) {
-                                        //     if (loadingProgress == null) {
-                                        //       return child;
-                                        //     }
-                                        //     return Center(
-                                        //       child: Shimmer.fromColors(
-                                        //         baseColor: kShimmerBaseColor,
-                                        //         highlightColor:
-                                        //             kShimmerHighlightColor,
-                                        //         child: Container(
-                                        //           decoration: BoxDecoration(
-                                        //             color: Colors.white,
-                                        //             borderRadius:
-                                        //                 BorderRadius.circular(
-                                        //                     80.r),
-                                        //           ),
-                                        //         ),
-                                        //       ),
-                                        //     );
-                                        //   },
-                                        // )),
-                                                  
-
-
-
-
-
-
-
+                                                  ),
+                                                ),
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child: Shimmer.fromColors(
+                                                      baseColor:
+                                                          kShimmerBaseColor,
+                                                      highlightColor:
+                                                          kShimmerHighlightColor,
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      80.r),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )),
                                       ),
                                     ),
                                   ),
