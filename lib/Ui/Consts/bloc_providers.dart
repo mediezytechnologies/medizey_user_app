@@ -11,8 +11,6 @@ import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointme
 import 'package:mediezy_user/Repository/Bloc/GetClinic/get_clinic_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctorById/get_doctor_by_id_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetHealthSymptomsAndDoctor/GetDoctorAsPerSymptoms/get_doctor_as_per_symptoms_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetHealthSymptomsAndDoctor/GetHealthSymptoms/get_health_symptoms_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetAllSpecialisations/get_all_specialisations_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetDoctorsAsPerSpecialisation/get_doctors_as_per_specialisation_bloc.dart';
@@ -53,6 +51,7 @@ import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart'
 import 'package:mediezy_user/Repository/Bloc/Profile/UploadUserImage/upload_user_image_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Questionare/GetCommonSymptom/get_common_symptom_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/Questionare/GetQuestions/get_questions_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/SearchDoctor/search_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
@@ -97,8 +96,6 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetPrescriptionViewBloc()),
         BlocProvider(create: (context) => TimeLineBloc()),
         BlocProvider(create: (context) => UploadUserImageBloc()),
-        BlocProvider(create: (context) => GetHealthSymptomsBloc()),
-        BlocProvider(create: (context) => GetDoctorAsPerSymptomsBloc()),
         BlocProvider(create: (context) => GetUploadedPrescriptionByIdBloc()),
         BlocProvider(create: (context) => GetAllergyBloc()),
         BlocProvider(create: (context) => DeleteDocumentBloc()),
@@ -145,5 +142,6 @@ class AppBlocProviders {
         ),
         BlocProvider(create: (context) => GetVitalsBloc()),
         BlocProvider(create: (context) => GetCommonSymptomBloc()),
+        BlocProvider(create: (context) => GetQuestionsBloc()),
       ];
 }

@@ -6,8 +6,8 @@ import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_b
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/HospitalListingScreen/hospital_listing_screen.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/hospital_card_widget.dart';
 
 class HomeHospitalWidget extends StatefulWidget {
@@ -24,11 +24,7 @@ class _HomeHospitalWidgetState extends State<HomeHospitalWidget> {
     return BlocBuilder<GetHospitalBloc, GetHospitalState>(
       builder: (context, state) {
         if (state is GetHospitalLoading) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: kMainColor,
-            ),
-          );
+          return hospitalsLoadingWidget(context);
         }
         if (state is GetHospitalError) {
           return Center(

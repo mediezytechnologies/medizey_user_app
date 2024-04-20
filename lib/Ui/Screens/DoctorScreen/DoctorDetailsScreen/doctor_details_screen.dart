@@ -3,8 +3,10 @@ import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Doctor/get_doctor_by_id_model.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
@@ -236,6 +238,48 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                   ),
+                                                ),
+                                                const VerticalSpacingWidget(
+                                                    height: 2),
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      IconlyLight.location,
+                                                      size: 14.sp,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 3.w,
+                                                    ),
+                                                    RichText(
+                                                      text: TextSpan(
+                                                        text: getDoctorByIdModel
+                                                            .doctorDetails!
+                                                            .first
+                                                            .distanceFromUser
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 12.sp,
+                                                            color: kTextColor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                        children: [
+                                                          TextSpan(
+                                                              text: ' away',
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      kSubTextColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                              recognizer:
+                                                                  TapGestureRecognizer()
+                                                                    ..onTap =
+                                                                        () {})
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                                 const VerticalSpacingWidget(
                                                     height: 10),

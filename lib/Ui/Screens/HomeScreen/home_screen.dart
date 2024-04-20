@@ -7,13 +7,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Article/article_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetHealthSymptomsAndDoctor/GetHealthSymptoms/get_health_symptoms_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetHealthCategories/get_health_categories_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
@@ -23,7 +20,6 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_article_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_hospital_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_questionare_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_recently_booked_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
@@ -41,24 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
   late Timer pollingTimer;
   bool isLoading = true;
 
-//location //===========
-
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<GetDoctorBloc>(context).add(FetchGetDoctor());
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());
-    BlocProvider.of<GetHealthCategoriesBloc>(context)
-        .add(FetchHealthCategories());
-    BlocProvider.of<GetUserBloc>(context).add(FetchUserDetails());
     BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
         .add(FetchRecentlyBookedDoctors());
-    BlocProvider.of<GetHealthSymptomsBloc>(context)
-        .add(FetchAllHealthSymptoms());
     BlocProvider.of<GetHospitalBloc>(context).add((FetchAllHospitals()));
     BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
-    BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-        .add(FetchCompletedAppointments());
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
     startPolling();
   }
@@ -127,12 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 const VerticalSpacingWidget(height: 5),
                                 const UpcommingAppoiment(),
+                                const VerticalSpacingWidget(height: 5),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: size.width * 0.01),
                                   child: const GetDoctorWidget(),
                                 ),
-                                const VerticalSpacingWidget(height: 5),
                                 const VerticalSpacingWidget(height: 5),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
@@ -156,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: const Column(
                                 children: [
                                   VerticalSpacingWidget(height: 5),
-                                  HomeQuestinareWidget(),
+                                  // HomeQuestinareWidget(),
                                   VerticalSpacingWidget(height: 5),
                                   HomeHospitalWidget(),
                                   VerticalSpacingWidget(height: 5),

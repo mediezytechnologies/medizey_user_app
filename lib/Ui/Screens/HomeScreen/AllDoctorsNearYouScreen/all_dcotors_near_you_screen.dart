@@ -10,7 +10,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 
 class AllDoctorNearYouScreen extends StatefulWidget {
   const AllDoctorNearYouScreen({super.key});
@@ -89,9 +89,8 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return DoctorCardWidget(
-                                    clinicList:
-                                    
-                                     doctorModel
+                                    userAwayFrom: "2.2",
+                                    clinicList: doctorModel
                                         .allDoctors![index].clinics!
                                         .toList(),
                                     doctorId: doctorModel

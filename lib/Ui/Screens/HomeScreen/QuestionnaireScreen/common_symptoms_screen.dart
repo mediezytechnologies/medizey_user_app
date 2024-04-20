@@ -6,6 +6,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/QuestionnaireScreen/symptoms_view_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CommonSymptomsScreen extends StatefulWidget {
   const CommonSymptomsScreen({super.key});
@@ -116,16 +117,56 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
                                   ),
                                 );
                               },
-                              child: Container(
-                                height: 100.h,
-                                width: 100.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                        symptom.symptomImage.toString(),
+                              // child: Container(
+                              //   height: 100.h,
+                              //   width: 100.w,
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     image: DecorationImage(
+                              //       image: ,
+                              //         // image: NetworkImage(
+                              //         //   symptom.symptomImage.toString(),
+                              //         // ),
+                              //         fit: BoxFit.fill),
+                              //   ),
+                              // ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.r),
+                                child: Image.network(
+                                  symptom.symptomImage.toString(),
+                                  height: 100.h,
+                                  width: 100.w,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Image.asset(
+                                      "assets/icons/no image.png",
+                                      height: 100.h,
+                                      width: 100.w,
+                                      color: kMainColor,
+                                    ),
+                                  ),
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    }
+                                    return Center(
+                                      child: Shimmer.fromColors(
+                                        baseColor: kShimmerBaseColor,
+                                        highlightColor: kShimmerHighlightColor,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(80.r),
+                                          ),
+                                        ),
                                       ),
-                                      fit: BoxFit.fill),
+                                    );
+                                  },
                                 ),
                               ),
                             ),

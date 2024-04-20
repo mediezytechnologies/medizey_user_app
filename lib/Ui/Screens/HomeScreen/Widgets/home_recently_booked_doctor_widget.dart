@@ -6,7 +6,7 @@ import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recentl
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/RecentBookedDoctorsScreen/recent_booked_doctors_screen.dart';
 
@@ -67,6 +67,9 @@ class _HomeRecentlyBookedDoctorWidgetState
                                 .recentlyBookedDoctor!.length,
                         itemBuilder: (context, index) {
                           return DoctorCardWidget(
+                            userAwayFrom: getRecentlyBookedDoctorModel
+                                .recentlyBookedDoctor![index].distanceFromUser
+                                .toString(),
                             clinicList: getRecentlyBookedDoctorModel
                                 .recentlyBookedDoctor![index].clinics!
                                 .toList(),

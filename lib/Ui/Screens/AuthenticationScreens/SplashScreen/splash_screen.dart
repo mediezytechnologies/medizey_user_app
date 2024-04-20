@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
               (route) => false);
         } else {
             
-          Future.delayed(Duration(seconds: 1)).then((value) =>
+          Future.delayed(const Duration(seconds: 1)).then((value) =>
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) =>

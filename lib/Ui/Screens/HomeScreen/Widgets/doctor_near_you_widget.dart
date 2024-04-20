@@ -60,7 +60,6 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 8.w, 0),
             child: Container(
-              // height: 195.h,
               width: 130.w,
               decoration: BoxDecoration(
                 color: kCardColor,
@@ -130,8 +129,10 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5.h,),
-                   Padding(
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Row(
                       children: [
@@ -139,19 +140,21 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                           IconlyLight.location,
                           size: 14.sp,
                         ),
-                        SizedBox(width: 3.w,),
+                        SizedBox(
+                          width: 3.w,
+                        ),
                         RichText(
                           text: TextSpan(
                             text: widget.docterDistance,
-                            style:  TextStyle(
-                              fontSize: 12.sp,
-                                color:kTextColor,
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: kTextColor,
                                 fontWeight: FontWeight.bold),
                             children: [
                               TextSpan(
                                   text: ' away',
-                                  style:  TextStyle(
-                                      color:kSubTextColor,
+                                  style: TextStyle(
+                                      color: kSubTextColor,
                                       fontWeight: FontWeight.normal),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {})

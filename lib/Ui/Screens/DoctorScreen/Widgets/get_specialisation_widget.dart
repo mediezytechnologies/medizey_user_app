@@ -7,9 +7,9 @@ import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetAllSpecialisa
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorsBySpecialisationScreen/doctors_by_specialisation_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/SpecialisationsScreen/specialisations_Screen.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_screen_loading.dart';
 
 class GetSpecialisationWidget extends StatefulWidget {
   const GetSpecialisationWidget({super.key});
@@ -36,11 +36,7 @@ class _GetSpecialisationWidgetState extends State<GetSpecialisationWidget> {
         );
       }
       if (state is GetAllSpecialisationsLoading) {
-        return Center(
-          child: CircularProgressIndicator(
-            color: kMainColor,
-          ),
-        );
+        return specialisationLoadingWidget(context);
       }
       if (state is GetAllSpecialisationsLoaded) {
         getSpecialisationModel =

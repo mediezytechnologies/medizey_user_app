@@ -4,8 +4,8 @@ import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetAllSpecialisations/get_all_specialisations_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetHealthCategories/get_health_categories_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
@@ -13,7 +13,7 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/custome_app_bar.dar
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_banner_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_specialisation_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_helath_concern_widget.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/home_helath_concern_widget.dart';
 
 class DoctorScreen extends StatefulWidget {
   const DoctorScreen({super.key});
@@ -25,7 +25,8 @@ class DoctorScreen extends StatefulWidget {
 class _DoctorScreenState extends State<DoctorScreen> {
   @override
   void initState() {
-    BlocProvider.of<GetDoctorBloc>(context).add(FetchGetDoctor());
+    BlocProvider.of<GetHealthCategoriesBloc>(context)
+        .add(FetchHealthCategories());
     BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
     BlocProvider.of<GetAllSpecialisationsBloc>(context)
         .add(FetchAllSpecialisations());

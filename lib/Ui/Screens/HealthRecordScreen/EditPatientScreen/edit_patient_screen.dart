@@ -113,7 +113,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     super.initState();
     log("Patient imageee ${widget.patientImage}>>>>>>>>");
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
-       BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
+    BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
     nameController.text = widget.patienName;
@@ -276,8 +276,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     // Text(imagePath!),
-                      Text(widget.patientImage ),
                       Text(
                         "Full Name",
                         style: TextStyle(
@@ -1503,7 +1501,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           GeneralServices.instance
                               .showToastMessage("Updated successfully");
                         }
-                      } 
+                      }
                     },
                     builder: (context, state) {
                       return ElevatedButton(
