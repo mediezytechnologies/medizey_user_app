@@ -218,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Expanded(
                         child: ProfileCardWidget(
-                          title: "My Profile",
+                          title: "My profile",
                           subTitle: "Edit profile",
                           icon: Icons.edit_outlined,
                           onTapFunction: () {
@@ -252,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
                         child: ProfileCardWidget(
-                            title: "Favourite Doctors",
+                            title: "Favourite doctors",
                             subTitle: "Doctors",
                             icon: Icons.bookmark_outline,
                             onTapFunction: () {
@@ -272,7 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Expanded(
                         child: ProfileCardWidget(
-                          title: "About Us",
+                          title: "About us",
                           subTitle: "Know more",
                           icon: Icons.assignment_turned_in_outlined,
                           onTapFunction: () {
@@ -288,7 +288,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
                         child: ProfileCardWidget(
-                            title: "Recent Booked",
+                            title: "Recent booked",
                             subTitle: "Doctors",
                             icon: Icons.book,
                             onTapFunction: () {

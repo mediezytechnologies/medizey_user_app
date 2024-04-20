@@ -112,7 +112,10 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                             const NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) {
                                           return DoctorCardWidget(
-                                            userAwayFrom: "2.2",
+                                            userAwayFrom: getFavouritesModel
+                                                .favoriteDoctors![index]
+                                                .distanceFromUser
+                                                .toString(),
                                             clinicList: getFavouritesModel
                                                 .favoriteDoctors![index]
                                                 .clinics!

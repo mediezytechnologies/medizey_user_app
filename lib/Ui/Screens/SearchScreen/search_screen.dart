@@ -156,6 +156,10 @@ class _SearchScreenState extends State<SearchScreen> {
                         return Container();
                       },
                     ),
+                    const Padding(
+                      padding:  EdgeInsets.all(8.0),
+                      child:  RecommendedDoctorCard(),
+                    )
                   ],
                 ),
               );
