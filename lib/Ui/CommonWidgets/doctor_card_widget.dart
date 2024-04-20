@@ -36,6 +36,7 @@ class DoctorCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size =MediaQuery.of(context).size;
     bool allZero =
         clinicList.every((clinic) => clinic.availableTokenCount == 0);
     return Container(
@@ -252,8 +253,8 @@ class DoctorCardWidget extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  height: 35.h,
-                  width: MediaQuery.of(context).size.width * .42,
+                  height: size.height*0.04,
+                  width: size.width * .42,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: kCardColor,
@@ -284,8 +285,8 @@ class DoctorCardWidget extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  height: 35.h,
-                  width: MediaQuery.of(context).size.width * .42,
+                   height: size.height*0.04,
+                  width: size.width * .42,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: kMainColor),
