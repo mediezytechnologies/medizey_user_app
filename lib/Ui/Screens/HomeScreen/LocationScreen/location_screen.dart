@@ -1,15 +1,17 @@
+
+
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Data/app_datas.dart';
-import 'package:mediezy_user/ddd/application/location_controller/locationcontroller%202.dart';
-import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
+import 'package:mediezy_user/ddd/application/location_controller/locationcontroller.dart';
+
+import '../../../CommonWidgets/horizontal_spacing_widget.dart';
+import '../../../CommonWidgets/vertical_spacing_widget.dart';
+import '../../../Consts/app_colors.dart';
+import '../../../Data/app_datas.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
@@ -19,8 +21,9 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  final TextEditingController locationController = TextEditingController();
-    final lController = Get.put(LocationController());
+  //final TextEditingController locationController = TextEditingController();
+   final lController = Get.put(LocationController());
+   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,54 +31,54 @@ class _LocationScreenState extends State<LocationScreen> {
         title: const Text("Select Location"),
         centerTitle: true,
       ),
-      body: Padding(
+      body: Padding(                                                         
         padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Column(
           children: [
             SizedBox(
               height: 50.h,
-              child: TextFormField(
-                cursorColor: kMainColor,
-                controller: locationController,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                onChanged: (newValue) {},
-                decoration: InputDecoration(
-                  suffixIcon: Icon(
-                    IconlyLight.search,
-                    color: kMainColor,
-                  ),
-                  hintStyle: TextStyle(fontSize: 15.sp, color: kSubTextColor),
-                  hintText: "Search Location",
-                  filled: true,
-                  fillColor: kCardColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
+              // child: TextFormField(
+              //   cursorColor: kMainColor,
+              // //  controller: locationController,
+              //   keyboardType: TextInputType.text,
+              //   textInputAction: TextInputAction.next,
+              //   onChanged: (newValue) {},
+              //   decoration: InputDecoration(
+              //     suffixIcon: Icon(
+              //       IconlyLight.search,
+              //       color: kMainColor,
+              //     ),
+              //     hintStyle: TextStyle(fontSize: 15.sp, color: kSubTextColor),
+              //     hintText: "Search Location",
+              //     filled: true,
+              //     fillColor: kCardColor,
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(20),
+              //       borderSide: BorderSide.none,
+              //     ),
+              //   ),
+              // ),
             ),
             const VerticalSpacingWidget(height: 10),
             GestureDetector(
               onTap: () {
-                lController.fetchCountry().then(
-                                        (value) =>
-                                            BlocProvider.of<UserLocationBloc>(
-                                                    context)
-                                                .add(
-                                          UserLocationEvent.started(
-                                            lController.latitude.value
-                                                .toString(),
-                                            lController.longitude.value
-                                                .toString(),
-                                            lController.dist.value,
-                                            lController.locality.value,
-                                            lController
-                                                .locationAdress.value,
-                                          ),
-                                        ),
-                                      );
+                // lController.fetchCountry().then(
+                //                         (value) =>
+                //                             BlocProvider.of<UserLocationBloc>(
+                //                                     context)
+                //                                 .add(
+                //                           UserLocationEvent.started(
+                //                             lController.latitude.value
+                //                                 .toString(),
+                //                             lController.longitude.value
+                //                                 .toString(),
+                //                             lController.dist.value,
+                //                             lController.locality.value,
+                //                             lController
+                //                                 .locationAdress.value,
+                //                           ),
+                //                         ),
+                //                       );
               },
               child: Row(
                 children: [

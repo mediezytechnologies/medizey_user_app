@@ -1,15 +1,12 @@
-
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
-
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../ddd/application/user_location/user_location_bloc.dart';
 import '../../../CommonWidgets/horizontal_spacing_widget.dart';
@@ -44,8 +41,7 @@ class _HomeAappBarState extends State<HomeAappBar> {
       duration: const Duration(microseconds: 5000),
       width: double.infinity,
       height: size.height * .10,
-     
-      color:kSecondaryColor,
+      color: kSecondaryColor,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(
@@ -53,13 +49,33 @@ class _HomeAappBarState extends State<HomeAappBar> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
-                padding:    EdgeInsets.only(bottom: 10.h),
+                padding: EdgeInsets.only(bottom: 10.h),
                 child: Row(
                   children: [
-                    Icon(
-                 Platform.isIOS?CupertinoIcons.placemark_fill:     Icons.location_on,
-                      size: 15.sp,
-                      color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        log("message sfjksdfjkhdfjks");
+                        locationController.fetchCountry().then(
+                              (value) =>
+                                  BlocProvider.of<UserLocationBloc>(context)
+                                      .add(
+                                UserLocationEvent.started(
+                                  locationController.latitude.value.toString(),
+                                  locationController.longitude.value.toString(),
+                                  locationController.dist.value,
+                                  locationController.locality.value,
+                                  locationController.locationAdress.value,
+                                ),
+                              ),
+                            );
+                      },
+                      child: Icon(
+                        Platform.isIOS
+                            ? CupertinoIcons.placemark_fill
+                            : Icons.location_on,
+                        size: 15.sp,
+                        color: Colors.white,
+                      ),
                     ),
                     const HorizontalSpacingWidget(width: 5),
                     GestureDetector(
@@ -72,6 +88,9 @@ class _HomeAappBarState extends State<HomeAappBar> {
                         );
                       },
                       child: Obx(() {
+                        if (locationController.loding.value) {
+                          Center(child: CupertinoActivityIndicator(color: kWhiteColor,),);
+                        }
                         return Text(
                           locationController.subLocality.value,
                           style: TextStyle(
