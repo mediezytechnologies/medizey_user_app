@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_upcoming_appointments_model.dart';
@@ -32,7 +33,7 @@ class GetAppointmentApi {
     final body = {"patient_user_id": userId};
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
-    print("<<<<<< GET All COMPLETED APPOINTMENTS  WORKED SUCCESSFULLY >>>>>>");
+    log("<<<<<< GET All COMPLETED APPOINTMENTS  WORKED SUCCESSFULLY >>>>>>");
     return GetCompletedAppointmentsModel.fromJson(json.decode(response.body));
   }
 }

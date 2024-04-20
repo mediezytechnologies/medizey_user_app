@@ -125,7 +125,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       searchDoctorModel.searchDoctors!.length,
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
-                                      userAwayFrom: "2.2",
+                                      userAwayFrom: "0.0",
                                       clinicList: searchDoctorModel
                                           .searchDoctors![index].clinics!
                                           .toList(),
@@ -156,6 +156,10 @@ class _SearchScreenState extends State<SearchScreen> {
                         return Container();
                       },
                     ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: RecommendedDoctorCard(),
+                    )
                   ],
                 ),
               );

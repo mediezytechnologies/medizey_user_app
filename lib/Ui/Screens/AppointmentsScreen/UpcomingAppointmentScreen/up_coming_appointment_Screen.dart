@@ -85,25 +85,28 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                             null ||
                         getUpComingAppointmentsModel
                             .upcomingAppointments!.isEmpty
-                    ? Center(
-                        child: Column(
-                          children: [
-                            const VerticalSpacingWidget(height: 80),
-                            Image(
-                              image: const AssetImage(
-                                  "assets/icons/no appointment.png"),
-                              height: 250.h,
-                              width: 250.w,
-                            ),
-                            Text(
-                              "No Appointments available",
-                              style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
+                    ? RefreshIndicator(
+                      onRefresh: _refreshData,
+                      child: Center(
+                          child: Column(
+                            children: [
+                              const VerticalSpacingWidget(height: 80),
+                              Image(
+                                image: const AssetImage(
+                                    "assets/icons/no appointment.png"),
+                                height: 250.h,
+                                width: 250.w,
+                              ),
+                              Text(
+                                "No Appointments available",
+                                style: TextStyle(
+                                    fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
                         ),
-                      )
+                    )
                     : ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -194,14 +197,14 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                             earlyTime: getUpComingAppointmentsModel
                                 .upcomingAppointments![index].doctorEarlyTime
                                 .toString(),
-                            // estimatedArrivalTime: getUpComingAppointmentsModel
-                            //     .upcomingAppointments![index]
-                            //     .estimateArrivalTime
-                            //     .toString(),
                             estimatedArrivalTime: getUpComingAppointmentsModel
                                 .upcomingAppointments![index]
-                                .estimateOfNextToken
+                                .estimateArrivalTime
                                 .toString(),
+                            // estimatedArrivalTime: getUpComingAppointmentsModel
+                            //     .upcomingAppointments![index]
+                            //     .estimateOfNextToken
+                            //     .toString(),
                             lateTime: getUpComingAppointmentsModel
                                 .upcomingAppointments![index].doctorLateTime
                                 .toString(),

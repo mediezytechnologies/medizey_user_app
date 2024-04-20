@@ -62,7 +62,8 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                 : getFavouritesModel.favoriteDoctors!.length,
                         itemBuilder: (context, index) {
                           return DoctorCardWidget(
-                            userAwayFrom: "2.2",
+                            userAwayFrom:getFavouritesModel.favoriteDoctors![index].distanceFromUser
+                                  .toString(),
                               clinicList: getFavouritesModel
                                   .favoriteDoctors![index].clinics!
                                   .toList(),

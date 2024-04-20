@@ -40,6 +40,7 @@ class HospitalCardWidget extends StatelessWidget {
             builder: (context) {
               return HospitalScreen(
                 hospitalId: hospitalId,
+                distance: distanceAway,
               );
             },
           ),

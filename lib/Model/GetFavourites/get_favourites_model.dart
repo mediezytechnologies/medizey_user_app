@@ -35,6 +35,7 @@ class FavoriteDoctors {
   int? userId;
   String? firstname;
   String? secondname;
+  String? distanceFromUser;
   String? specialization;
   String? docterImage;
   String? location;
@@ -46,6 +47,7 @@ class FavoriteDoctors {
       this.userId,
       this.firstname,
       this.secondname,
+      this.distanceFromUser,
       this.specialization,
       this.docterImage,
       this.location,
@@ -57,6 +59,7 @@ class FavoriteDoctors {
     userId = json['UserId'];
     firstname = json['firstname'];
     secondname = json['secondname'];
+    distanceFromUser = json['distance_from_user'];
     specialization = json['Specialization'];
     docterImage = json['DocterImage'];
     location = json['Location'];
@@ -75,6 +78,7 @@ class FavoriteDoctors {
     data['UserId'] = userId;
     data['firstname'] = firstname;
     data['secondname'] = secondname;
+    data['distance_from_user'] = distanceFromUser;
     data['Specialization'] = specialization;
     data['DocterImage'] = docterImage;
     data['Location'] = location;
@@ -85,3 +89,5 @@ class FavoriteDoctors {
     return data;
   }
 }
+
+
