@@ -125,5 +125,3 @@ class DoctorDetails {
     return data;
   }
 }
-
-
