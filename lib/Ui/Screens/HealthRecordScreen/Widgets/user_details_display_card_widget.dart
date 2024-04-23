@@ -213,7 +213,9 @@ class _UserDetailsDisplayCardWidgetState
                         color: kMainColor,
                         size: 18.sp,
                       ),
-                    ),
+                    ),////
+
+                    //////fkjsdfksfhjsdhfjksf//
 
              
             ],

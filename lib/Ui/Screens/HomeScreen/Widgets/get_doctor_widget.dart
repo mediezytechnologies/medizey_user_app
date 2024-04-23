@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,6 +43,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                       scrollDirection: Axis.horizontal,
                       itemCount: doctorModel.allDoctors!.length,
                       itemBuilder: (context, index) {
+                      //  log('message ${Axis.horizontal}');
                         return DoctorNearYouWidget(
                             docterDistance: doctorModel
                                 .allDoctors![index].distanceFromUser!,

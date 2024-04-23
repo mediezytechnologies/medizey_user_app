@@ -11,7 +11,7 @@ ThemeData appThemeStyle(BuildContext context) {
     ),
     //* appbar
     appBarTheme: AppBarTheme(
-      backgroundColor: kScaffoldColor,
+   backgroundColor: kScaffoldColor,
       iconTheme: IconThemeData(color: kMainColor),
       centerTitle: false,
       elevation: 0,

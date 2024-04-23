@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/infrastructure/location_service/location_service.dart';
 
 import '../../domain/location_model/location_model.dart';
@@ -42,6 +44,8 @@ class LocationController extends GetxController {
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+
+ 
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         return Future.error('Location permissions are denied');
@@ -66,6 +70,9 @@ class LocationController extends GetxController {
     String? thoroughfare = place.thoroughfare == ""
         ? placemarks.last.thoroughfare
         : place.thoroughfare;
+        String? subloc =place.subLocality==""?
+     placemarks.last.subLocality:place.subLocality;
+       
     log("trot============================================.,///>>>>>>  : $thoroughfare");
 
     locationAdress.value = '$thoroughfare, ${place.subLocality}';
@@ -74,8 +81,9 @@ class LocationController extends GetxController {
     address.value =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}, ${place.name}';
     street.value = "${place.street}";
+     subLocality .value =subloc!;
     locality.value = "${place.locality}";
-    subLocality.value = "${place.subLocality}";
+   // subLocality.value = "${place.subLocality}";
     country.value = "${place.country}";
     name.value = "${place.administrativeArea}";
     postCode.value = "${place.postalCode}";

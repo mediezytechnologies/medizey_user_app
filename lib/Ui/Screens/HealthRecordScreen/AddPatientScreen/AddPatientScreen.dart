@@ -77,6 +77,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Family Member"),
@@ -94,15 +95,18 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      height: 130.h,
-                      width: 120.w,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
+                      height: size.height * 0.16,
+                      width: size.width * 0.33,
+                     
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(70.r),
+                       
                       ),
                       child: FadedScaleAnimation(
                         scaleDuration: const Duration(milliseconds: 400),
                         fadeDuration: const Duration(milliseconds: 400),
-                        child: ClipOval(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(70.r),
                           child: imagePath != null
                               ? Image.file(
                                   File(imagePath!),
@@ -122,7 +126,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     ),
                   ),
                   Positioned(
-                    bottom: -10.h,
+                    bottom: 0.h,
                     right: 100.w,
                     child: IconButton(
                       onPressed: () {
@@ -233,17 +237,29 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         VerticalSpacingWidget(height: 5.h),
                         InkWell(
                           onTap: () {
-                            selectDate(
-                              context: context,
-                              date: dateOfBirth ?? DateTime.now(),
-                              onDateSelected: (DateTime picked) async {
-                                setState(() {
-                                  dateOfBirth = picked;
-                                });
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                              },
-                            );
+                            Platform.isIOS
+                                ? selectIosDate(
+                                    context: context,
+                                    date: dateOfBirth ?? DateTime.now(),
+                                    onDateSelected: (DateTime picked) async {
+                                      setState(() { 
+                                        dateOfBirth = picked;
+                                      });
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                    },
+                                  )
+                                : selectDate(
+                                    context: context,
+                                    date: dateOfBirth ?? DateTime.now(),
+                                    onDateSelected: (DateTime picked) async {
+                                      setState(() {
+                                        dateOfBirth = picked;
+                                      });
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                    },
+                                  );
                           },
                           child: Container(
                             height: 48.h,
@@ -265,7 +281,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                       color: kTextColor),
                                 ),
                                 Icon(
-                                  IconlyLight.calendar,
+                                 Platform.isIOS?CupertinoIcons.calendar:    IconlyLight.calendar,
                                   color: kMainColor,
                                 ),
                               ],
@@ -1095,7 +1111,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   if (state.isError &&
                       state.status == false &&
                       state.message == 'Patient already exists.') {
-                   
                     GeneralServices.instance
                         .showErrorMessage(context, state.message);
                   } else if (state.status == true) {
@@ -1113,7 +1128,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         Navigator.pop(context);
                       });
                     } else {
-                      
                       GeneralServices.instance
                           .showToastMessage("Family member added successfully");
                       Future.delayed(const Duration(seconds: 1)).then((value) {
@@ -1165,7 +1179,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Select treatment");
                             } else {
-                           
                               BlocProvider.of<AddMembersBloc>(context).add(
                                 AddMembersEvent.started(
                                   fullNameController.text,
@@ -1182,7 +1195,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                   medicineDataLists!,
                                 ),
                               );
-                             
                             }
                           },
                     child: state.isloding
@@ -1227,17 +1239,48 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     required DateTime date,
     required Function(DateTime) onDateSelected,
   }) async {
-    CupertinoDatePicker(
-      minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-      initialDateTime: date,
-      maximumDate: DateTime.now(),
-      mode: CupertinoDatePickerMode.date,
-      onDateTimeChanged: (value) {
-        setState(() {
-          date = value;
-        });
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: date,
+      firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+      lastDate: DateTime.now(),
+      builder: ((context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: kMainColor,
+            ),
+          ),
+          child: child!,
+        );
+      }),
+    );
+    if (picked != null) {
+      onDateSelected(picked);
+    }
+  }
+
+  Future<void> selectIosDate({
+    required BuildContext context,
+    required DateTime date,
+    required Function(DateTime) onDateSelected,
+  }) async {
+    final DateTime? picked = await showModalBottomSheet<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300.0,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: date,
+            minimumDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+            maximumDate: DateTime.now(),
+            onDateTimeChanged: (DateTime newDate) {
+              onDateSelected(newDate);
+            },
+          ),
+        );
       },
     );
-
   }
 }

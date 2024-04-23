@@ -1,10 +1,14 @@
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Model/Profile/get_user_model.dart';
+import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
+import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +20,7 @@ class HomeIntroCard extends StatefulWidget {
 }
 
 class _HomeIntroCardState extends State<HomeIntroCard> {
+  late GetUserModel getUserModel;
   String? userName;
 
   Future<void> getUserName() async {
@@ -30,7 +35,6 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
     getUserName();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -38,27 +42,49 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
     return Stack(
       children: [
         const Image(
-          image: AssetImage("assets/images/home_screen.jpg"),
+          image: AssetImage(
+            "assets/images/home_screen.jpg",
+          ),
           fit: BoxFit.fill,
         ),
         Positioned(
           left: width * .045.w,
-          child: Column(
-            children: [
-              const VerticalSpacingWidget(height: 2),
-              Text(
-                "Hi, $userName",
-                style: TextStyle(
-                    fontSize: 19.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-              ),
-            ],
-          ),
+          child:GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProfileScreen(),
+                        ),
+                      );
+                    },
+                    child: Column(children: [
+                      RichText(
+                        text: TextSpan(
+                          text: 'Hi,',
+                          style: TextStyle(
+                            fontSize: 17.sp,
+                            color: kWhiteColor,
+                          ),
+                          children: [
+                            TextSpan(
+                                text: ' $userName',
+                                style: TextStyle(
+                                    fontSize: 17.sp,
+                                    color: kWhiteColor,
+                                    fontWeight: FontWeight.bold),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {})
+                          ],
+                        ),
+                      )
+                    ],),),
+             
+         
         ),
         Positioned(
-          top: height * .039.h,
-          left: width * .045.w,
+          top: height * .039,
+          left: width * .045,
           child: Text(
             "Your one stop solution for\nQuick and easy consultation",
             style: TextStyle(
@@ -69,7 +95,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           ),
         ),
         Positioned(
-          top: height * .100.h,
+          top: height * .100,
           left: width * .045.w,
           child: InkWell(
             onTap: () {

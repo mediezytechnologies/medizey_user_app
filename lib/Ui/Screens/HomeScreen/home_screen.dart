@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
-
 import 'dart:async';
+import 'dart:io';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -88,8 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
               valueListenable: scrollNotifier,
               builder: (context, index, _) {
                 return NotificationListener<UserScrollNotification>(
+                
                   onNotification: (notification) {
                     final ScrollDirection direction = notification.direction;
+
                     if (direction == ScrollDirection.reverse) {
                       scrollNotifier.value = false;
                     } else if (direction == ScrollDirection.forward) {
@@ -102,9 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ListView(
                         children: [
                           SizedBox(
-                            height: size.height * 0.06,
-                          ),
+                              height: Platform.isIOS
+                                  ? size.height * 0.03
+                                  : size.height * 0.07),
                           const HomeIntroCard(),
+                        
+                     
                           Container(
                             width: double.infinity,
                             color: kSubScaffoldColor,

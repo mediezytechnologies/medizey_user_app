@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -157,6 +158,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Patient"),
@@ -188,15 +190,16 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       Align(
                         alignment: Alignment.center,
                         child: Container(
-                          height: 100.h,
-                          width: 110.w,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
+                          height: size.height * 0.16,
+                          width: size.width * 0.33,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(70.r),
                           ),
                           child: FadedScaleAnimation(
                             scaleDuration: const Duration(milliseconds: 400),
                             fadeDuration: const Duration(milliseconds: 400),
-                            child: ClipOval(
+                            child: ClipRRect(
+                          borderRadius: BorderRadius.circular(70.r),
                               child: imagePath != null
                                   ? Image.file(
                                       File(imagePath!),
@@ -256,7 +259,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                         ),
                       ),
                       Positioned(
-                        bottom: -10.h,
+                        bottom: 0.h,
                         right: 100.w,
                         child: IconButton(
                           onPressed: () {
@@ -367,15 +370,29 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           InkWell(
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                              selectDate(
-                                context: context,
-                                date: DateTime.now(),
-                                onDateSelected: (DateTime picked) async {
-                                  setState(() {
-                                    dateOfBirth = picked;
-                                  });
-                                },
-                              );
+                             Platform.isIOS
+                                ? selectIosDate(
+                                    context: context,
+                                    date: dateOfBirth ?? DateTime.now(),
+                                    onDateSelected: (DateTime picked) async {
+                                      setState(() {
+                                        dateOfBirth = picked;
+                                      });
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                    },
+                                  )
+                                : selectDate(
+                                    context: context,
+                                    date: dateOfBirth ?? DateTime.now(),
+                                    onDateSelected: (DateTime picked) async {
+                                      setState(() {
+                                        dateOfBirth = picked;
+                                      });
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                    },
+                                  );
                             },
                             child: Container(
                               height: 45.h,
@@ -399,7 +416,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                         color: kTextColor),
                                   ),
                                   Icon(
-                                    IconlyLight.calendar,
+                                Platform.isIOS?CupertinoIcons.calendar:       IconlyLight.calendar,
                                     color: kMainColor,
                                   ),
                                 ],
@@ -1607,5 +1624,27 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     if (picked != null) {
       onDateSelected(picked);
     }
+  }
+
+  Future<void> selectIosDate({
+    required BuildContext context,
+    required DateTime date,
+    required Function(DateTime) onDateSelected,
+  }) async {
+    await showModalBottomSheet<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoDatePicker(
+        
+          mode: CupertinoDatePickerMode.date,
+          initialDateTime: date,
+          minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+          maximumDate: DateTime.now(),
+          onDateTimeChanged: (DateTime newDate) {
+            onDateSelected(newDate);
+          },
+        );
+      },
+    );
   }
 }

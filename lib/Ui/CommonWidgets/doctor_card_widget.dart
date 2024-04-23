@@ -2,6 +2,7 @@ import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
@@ -36,6 +37,7 @@ class DoctorCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size =MediaQuery.of(context).size;
     bool allZero =
         clinicList.every((clinic) => clinic.availableTokenCount == 0);
     return Container(
@@ -240,7 +242,7 @@ class DoctorCardWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -252,8 +254,8 @@ class DoctorCardWidget extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  height: 35.h,
-                  width: MediaQuery.of(context).size.width * .42,
+                  height: size.height*0.04,
+                  width: size.width * .42,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: kCardColor,
@@ -284,8 +286,8 @@ class DoctorCardWidget extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  height: 35.h,
-                  width: MediaQuery.of(context).size.width * .42,
+                   height: size.height*0.04,
+                  width: size.width * .42,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: kMainColor),
