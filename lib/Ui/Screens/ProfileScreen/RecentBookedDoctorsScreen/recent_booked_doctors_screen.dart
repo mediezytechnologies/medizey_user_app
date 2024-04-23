@@ -44,7 +44,7 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Recent Booked"),
+        title: const Text("Recent booked"),
         centerTitle: true,
       ),
       body: StreamBuilder<ConnectivityResult>(

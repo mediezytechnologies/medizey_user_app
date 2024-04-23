@@ -1,4 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:async';
+import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +28,7 @@ import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddP
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class AppointmentDoneScreen extends StatefulWidget {
-  const AppointmentDoneScreen(
+  AppointmentDoneScreen(
       {super.key,
       required this.bookingTime,
       required this.bookingDate,
@@ -39,7 +42,8 @@ class AppointmentDoneScreen extends StatefulWidget {
       required this.doctorSecondName,
       required this.sheduleType,
       required this.estimatedTime,
-      required this.tokenId});
+      required this.tokenId,
+      this.patientId});
 
   final String bookingTime;
   final DateTime bookingDate;
@@ -54,6 +58,7 @@ class AppointmentDoneScreen extends StatefulWidget {
   final String sheduleType;
   final String estimatedTime;
   final String tokenId;
+  String? patientId;
 
   @override
   State<AppointmentDoneScreen> createState() => _AppointmentDoneScreenState();
@@ -129,6 +134,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log("<<<<patient Id : ${widget.patientId}>>");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Book Token"),
@@ -427,7 +433,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                               AddPatientScreen(),
+                                                              AddPatientScreen(),
                                                         ),
                                                       );
                                                     },
@@ -541,7 +547,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                             AddPatientScreen(),
+                                                            AddPatientScreen(),
                                                       ),
                                                     );
                                                   },
