@@ -9,8 +9,6 @@ import 'dart:io' show Platform;
 class GeneralServices {
   static GeneralServices instance = GeneralServices();
 
-
- 
   //* to show toast
   showToastMessage(String message) {
     Fluttertoast.showToast(
@@ -177,28 +175,64 @@ class GeneralServices {
 
   //* show success message for button click
   void showSuccessMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Align(
-            alignment: Alignment.center,
-            child:
-                Lottie.asset("assets/animations/success.json", height: 120.h),
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        );
-      },
-    );
+    Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+              title: Align(
+                alignment: Alignment.center,
+                child: Lottie.asset("assets/animations/success.json",
+                    height: 120.h),
+              ),
+              content: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+             
+            ),
+          )
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/success.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          );
   }
 
   //* show error button click
   void showErrorMessage(BuildContext context, String message) {
-    showDialog(
+   Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+              title: Align(
+                alignment: Alignment.center,
+                 child: Lottie.asset("assets/animations/error.json", 
+                    height: 120.h),
+              ),
+              content: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              
+            ),
+          )
+        :   showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -218,26 +252,50 @@ class GeneralServices {
 
   //* show delay success message
   void showDelaySuccessMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        Future.delayed(const Duration(seconds: 2), () {
-          Navigator.pop(context);
-          Navigator.pop(context);
-        });
-        return AlertDialog(
-          title: Align(
-            alignment: Alignment.center,
-            child:
-                Lottie.asset("assets/animations/success.json", height: 120.h),
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        );
-      },
-    );
+    Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
+              return CupertinoAlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/success.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+               
+              );
+            },
+          )
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
+              return AlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/success.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          );
   }
 }
