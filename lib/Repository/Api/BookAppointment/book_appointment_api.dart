@@ -30,6 +30,7 @@ class BookAppointmentApi {
     required String patientId,
     required String sheduleType,
     required String tokenId,
+    required int resheduleOrNot,
   }) async {
     String basePath = "patient/patientBookGeneratedTokens";
     final preferences = await SharedPreferences.getInstance();
@@ -52,7 +53,8 @@ class BookAppointmentApi {
       "Bookingtype": bookingType,
       "patient_id": patientId,
       "schedule_type": sheduleType,
-      "token_id": tokenId
+      "token_id": tokenId,
+      "reschedule_type":resheduleOrNot
     };
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);

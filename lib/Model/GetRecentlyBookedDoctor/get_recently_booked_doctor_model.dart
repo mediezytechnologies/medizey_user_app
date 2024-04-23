@@ -42,6 +42,7 @@ class RecentlyBookedDoctor {
   String? location;
   String? mainHospital;
   List<Clinics>? clinics;
+  int? favoriteStatus;
 
   RecentlyBookedDoctor(
       {this.id,
@@ -53,7 +54,8 @@ class RecentlyBookedDoctor {
       this.docterImage,
       this.location,
       this.mainHospital,
-      this.clinics});
+      this.clinics,
+      this.favoriteStatus});
 
   RecentlyBookedDoctor.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -71,6 +73,7 @@ class RecentlyBookedDoctor {
         clinics!.add(Clinics.fromJson(v));
       });
     }
+    favoriteStatus = json['favoriteStatus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,7 +90,9 @@ class RecentlyBookedDoctor {
     if (clinics != null) {
       data['clinics'] = clinics!.map((v) => v.toJson()).toList();
     }
+    data['favoriteStatus'] = favoriteStatus;
     return data;
   }
 }
+
 

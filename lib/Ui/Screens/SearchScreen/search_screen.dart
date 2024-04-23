@@ -125,7 +125,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                       searchDoctorModel.searchDoctors!.length,
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
-                                      userAwayFrom: "0.0",
+                                      userAwayFrom: searchDoctorModel
+                                          .searchDoctors![index]
+                                          .distanceFromUser
+                                          .toString(),
                                       clinicList: searchDoctorModel
                                           .searchDoctors![index].clinics!
                                           .toList(),
@@ -136,7 +139,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           .searchDoctors![index].firstname
                                           .toString(),
                                       lastName: searchDoctorModel
-                                          .searchDoctors![index].secondname
+                                          .searchDoctors![index].lastname
                                           .toString(),
                                       imageUrl: searchDoctorModel
                                           .searchDoctors![index].docterImage

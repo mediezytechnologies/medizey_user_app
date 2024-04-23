@@ -1,9 +1,7 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -665,10 +663,12 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           context,
                           MaterialPageRoute(builder: (context) {
                             return BookAppointmentScreen(
-                                doctorId: widget.doctorId,
-                                clinicList: widget.clinicList,
-                                doctorFirstName: widget.docterName,
-                                doctorSecondName: "");
+                              doctorId: widget.doctorId,
+                              clinicList: widget.clinicList,
+                              doctorFirstName: widget.docterName,
+                              doctorSecondName: "",
+                              patientId: widget.patientId.toString(),
+                            );
                           }),
                         );
                       },

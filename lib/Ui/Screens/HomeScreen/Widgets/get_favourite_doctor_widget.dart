@@ -6,8 +6,8 @@ import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favour
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 
 class GetFavouriteDoctorWidget extends StatefulWidget {
@@ -25,14 +25,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
     return BlocBuilder<GetFavouritesBloc, GetFavouritesState>(
       builder: (context, state) {
         if (state is GetAllFavouritesLoading) {
-          return SizedBox(
-            height: 60.h,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: kMainColor,
-              ),
-            ),
-          );
+          return doctorCardMainLoadingWidget();
         }
         if (state is GetAllFavouritesError) {
           return Container();
@@ -62,10 +55,10 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                 : getFavouritesModel.favoriteDoctors!.length,
                         itemBuilder: (context, index) {
                           return DoctorCardWidget(
-                            userAwayFrom:getFavouritesModel.favoriteDoctors![index].distanceFromUser
+                              userAwayFrom: getFavouritesModel
+                                  .favoriteDoctors![index].distanceFromUser
                                   .toString(),
-                              clinicList: getFavouritesModel
-                                  .favoriteDoctors![index].clinics!
+                              clinicList: getFavouritesModel.favoriteDoctors![index].clinics!
                                   .toList(),
                               doctorId: getFavouritesModel.favoriteDoctors![index].userId
                                   .toString(),
@@ -84,9 +77,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                               specialisation: getFavouritesModel
                                   .favoriteDoctors![index].specialization
                                   .toString(),
-                              location: getFavouritesModel
-                                  .favoriteDoctors![index].location
-                                  .toString());
+                              location: getFavouritesModel.favoriteDoctors![index].location.toString());
                         }),
                     const VerticalSpacingWidget(height: 2),
                     ViewAllButtonWidget(

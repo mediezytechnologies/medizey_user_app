@@ -1,10 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/AppointmentDoneScreen/appointment_done_screen.dart';
 
 class TokenCardWidget extends StatefulWidget {
-  const TokenCardWidget(
+  TokenCardWidget(
       {super.key,
       required this.tokenNumber,
       required this.formatedTime,
@@ -21,7 +23,8 @@ class TokenCardWidget extends StatefulWidget {
       required this.sheduleType,
       required this.estimatedTime,
       required this.isReserved,
-      required this.tokenId});
+      required this.tokenId,
+      this.patientId});
 
   final String tokenNumber;
   final String formatedTime;
@@ -39,6 +42,7 @@ class TokenCardWidget extends StatefulWidget {
   final String estimatedTime;
   final String isReserved;
   final String tokenId;
+  String? patientId;
 
   @override
   State<TokenCardWidget> createState() => _TokenCardWidgetState();
@@ -70,6 +74,7 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
                     doctorSecondName: widget.doctorSecondName,
                     sheduleType: widget.sheduleType,
                     estimatedTime: widget.estimatedTime,
+                    patientId: widget.patientId,
                   ),
                 ),
               );
