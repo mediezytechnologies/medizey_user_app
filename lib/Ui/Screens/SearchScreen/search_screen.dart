@@ -142,7 +142,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           .searchDoctors![index].lastname
                                           .toString(),
                                       imageUrl: searchDoctorModel
-                                          .searchDoctors![index].doctorImage
+                                          .searchDoctors![index].docterImage
                                           .toString(),
                                       mainHospitalName: searchDoctorModel
                                           .searchDoctors![index].mainHospital

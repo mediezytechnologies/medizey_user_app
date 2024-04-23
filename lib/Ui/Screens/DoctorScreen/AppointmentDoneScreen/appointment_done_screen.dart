@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -117,6 +116,14 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
     return formattedSelectedDate;
   }
 
+  checkPatientIdAvailableOrNot() {
+    widget.patientId == null
+        ? BlocProvider.of<AutoFetchBloc>(context)
+            .add(FetchAutoFetch(section: "Self", patientId: ""))
+        : BlocProvider.of<AutoFetchBloc>(context).add(FetchAutoFetch(
+            section: "Family Member", patientId: widget.patientId.toString()));
+  }
+
   @override
   void initState() {
     subscription = Connectivity()
@@ -127,14 +134,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
     BlocProvider.of<GetSymptomsBloc>(context)
         .add(FetchSymptoms(doctorId: widget.doctorId));
     BlocProvider.of<GetFamilyMembersBloc>(context).add(FetchFamilyMember());
-    BlocProvider.of<AutoFetchBloc>(context)
-        .add(FetchAutoFetch(section: "Self", patientId: ""));
+    checkPatientIdAvailableOrNot();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    log("<<<<patient Id : ${widget.patientId}>>");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Book Token"),
@@ -199,93 +204,64 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const VerticalSpacingWidget(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    bookingFor = "Self";
-                                    selectedBookingFor = 1.toString();
-                                    BlocProvider.of<AutoFetchBloc>(context).add(
-                                        FetchAutoFetch(
-                                            section: "Self", patientId: ""));
-                                  });
-                                },
-                                child: Row(
+                          widget.patientId == null
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    Radio<String>(
-                                      visualDensity:
-                                          const VisualDensity(horizontal: -4),
-                                      activeColor: kMainColor,
-                                      value: "Self",
-                                      groupValue: bookingFor,
-                                      onChanged: (value) {
+                                    GestureDetector(
+                                      onTap: () {
                                         setState(() {
-                                          bookingFor = value!;
+                                          bookingFor = "Self";
                                           selectedBookingFor = 1.toString();
                                           BlocProvider.of<AutoFetchBloc>(
                                                   context)
-                                              .add(
-                                            FetchAutoFetch(
-                                                section: "Self", patientId: ""),
-                                          );
+                                              .add(FetchAutoFetch(
+                                                  section: "Self",
+                                                  patientId: ""));
                                         });
                                       },
+                                      child: Row(
+                                        children: [
+                                          Radio<String>(
+                                            visualDensity: const VisualDensity(
+                                                horizontal: -4),
+                                            activeColor: kMainColor,
+                                            value: "Self",
+                                            groupValue: bookingFor,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                bookingFor = value!;
+                                                selectedBookingFor =
+                                                    1.toString();
+                                                BlocProvider.of<AutoFetchBloc>(
+                                                        context)
+                                                    .add(
+                                                  FetchAutoFetch(
+                                                      section: "Self",
+                                                      patientId: ""),
+                                                );
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            "Self",
+                                            style: TextStyle(
+                                                fontWeight: bookingFor == "Self"
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal,
+                                                fontSize: 14.sp,
+                                                color: bookingFor == "Self"
+                                                    ? kTextColor
+                                                    : kSubTextColor),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    Text(
-                                      "Self",
-                                      style: TextStyle(
-                                          fontWeight: bookingFor == "Self"
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                          fontSize: 14.sp,
-                                          color: bookingFor == "Self"
-                                              ? kTextColor
-                                              : kSubTextColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    bookingFor = "Family Member";
-                                    selectedBookingFor = 2.toString();
-                                    getFamilyMembersModel =
-                                        BlocProvider.of<GetFamilyMembersBloc>(
-                                                context)
-                                            .getFamilyMembersModel;
-                                    selectedFamilyMemberId =
-                                        getFamilyMembersModel
-                                                .familyMember!.isEmpty
-                                            ? ""
-                                            : getFamilyMembersModel
-                                                .familyMember!.first.id
-                                                .toString();
-                                    selectedFamilyMemberId == ""
-                                        ? null
-                                        : BlocProvider.of<AutoFetchBloc>(
-                                                context)
-                                            .add(
-                                            FetchAutoFetch(
-                                                section: "Family Member",
-                                                patientId:
-                                                    selectedFamilyMemberId),
-                                          );
-                                  });
-                                },
-                                child: Row(
-                                  children: [
-                                    Radio<String>(
-                                      activeColor: kMainColor,
-                                      visualDensity:
-                                          const VisualDensity(horizontal: -4),
-                                      value: "Family Member",
-                                      groupValue: bookingFor,
-                                      onChanged: (value) {
+                                    GestureDetector(
+                                      onTap: () {
                                         setState(() {
-                                          bookingFor = value!;
+                                          bookingFor = "Family Member";
                                           selectedBookingFor = 2.toString();
                                           getFamilyMembersModel = BlocProvider
                                                   .of<GetFamilyMembersBloc>(
@@ -310,44 +286,68 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                 );
                                         });
                                       },
+                                      child: Row(
+                                        children: [
+                                          Radio<String>(
+                                            activeColor: kMainColor,
+                                            visualDensity: const VisualDensity(
+                                                horizontal: -4),
+                                            value: "Family Member",
+                                            groupValue: bookingFor,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                bookingFor = value!;
+                                                selectedBookingFor =
+                                                    2.toString();
+                                                getFamilyMembersModel = BlocProvider
+                                                        .of<GetFamilyMembersBloc>(
+                                                            context)
+                                                    .getFamilyMembersModel;
+                                                selectedFamilyMemberId =
+                                                    getFamilyMembersModel
+                                                            .familyMember!
+                                                            .isEmpty
+                                                        ? ""
+                                                        : getFamilyMembersModel
+                                                            .familyMember!
+                                                            .first
+                                                            .id
+                                                            .toString();
+                                                selectedFamilyMemberId == ""
+                                                    ? null
+                                                    : BlocProvider.of<
+                                                                AutoFetchBloc>(
+                                                            context)
+                                                        .add(
+                                                        FetchAutoFetch(
+                                                            section:
+                                                                "Family Member",
+                                                            patientId:
+                                                                selectedFamilyMemberId),
+                                                      );
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            "Family Member",
+                                            style: TextStyle(
+                                                fontWeight: bookingFor ==
+                                                        "Family Member"
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal,
+                                                fontSize: 14.sp,
+                                                color: bookingFor ==
+                                                        "Family Member"
+                                                    ? kTextColor
+                                                    : kSubTextColor),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    Text(
-                                      "Family Member",
-                                      style: TextStyle(
-                                          fontWeight:
-                                              bookingFor == "Family Member"
-                                                  ? FontWeight.bold
-                                                  : FontWeight.normal,
-                                          fontSize: 14.sp,
-                                          color: bookingFor == "Family Member"
-                                              ? kTextColor
-                                              : kSubTextColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    bookingFor = "Other";
-                                    selectedBookingFor = 3.toString();
-                                    patientNameController.text = "";
-                                    patientAgeController.text = "";
-                                    patientContactNumberController.text = "";
-                                    dropdownValue = "Male";
-                                  });
-                                },
-                                child: Row(
-                                  children: [
-                                    Radio<String>(
-                                      activeColor: kMainColor,
-                                      visualDensity:
-                                          const VisualDensity(horizontal: -4),
-                                      value: "Other",
-                                      groupValue: bookingFor,
-                                      onChanged: (value) {
+                                    GestureDetector(
+                                      onTap: () {
                                         setState(() {
-                                          bookingFor = value!;
+                                          bookingFor = "Other";
                                           selectedBookingFor = 3.toString();
                                           patientNameController.text = "";
                                           patientAgeController.text = "";
@@ -356,23 +356,45 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                           dropdownValue = "Male";
                                         });
                                       },
-                                    ),
-                                    Text(
-                                      "Other",
-                                      style: TextStyle(
-                                          fontWeight: bookingFor == "Other"
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                          fontSize: 14.sp,
-                                          color: bookingFor == "Other"
-                                              ? kTextColor
-                                              : kSubTextColor),
+                                      child: Row(
+                                        children: [
+                                          Radio<String>(
+                                            activeColor: kMainColor,
+                                            visualDensity: const VisualDensity(
+                                                horizontal: -4),
+                                            value: "Other",
+                                            groupValue: bookingFor,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                bookingFor = value!;
+                                                selectedBookingFor =
+                                                    3.toString();
+                                                patientNameController.text = "";
+                                                patientAgeController.text = "";
+                                                patientContactNumberController
+                                                    .text = "";
+                                                dropdownValue = "Male";
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            "Other",
+                                            style: TextStyle(
+                                                fontWeight:
+                                                    bookingFor == "Other"
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                                fontSize: 14.sp,
+                                                color: bookingFor == "Other"
+                                                    ? kTextColor
+                                                    : kSubTextColor),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
-                                ),
-                              ),
-                            ],
-                          ),
+                                )
+                              : const SizedBox(),
                           bookingFor == "Family Member"
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -587,7 +609,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                               }
                               if (state is AutoFetchLoaded) {
                                 final member = state.autoFetchModel;
-
                                 patientId = bookingFor == "Self"
                                     ? member.details!.first.patientId.toString()
                                     : (bookingFor == "Family Member")

@@ -39,7 +39,7 @@ class SearchDoctors {
   String? firstname;
   String? lastname;
   String? specialization;
-  String? doctorImage;
+  String? docterImage;
   String? location;
   String? mainHospital;
   String? distanceFromUser;
@@ -52,7 +52,7 @@ class SearchDoctors {
       this.firstname,
       this.lastname,
       this.specialization,
-      this.doctorImage,
+      this.docterImage,
       this.location,
       this.mainHospital,
       this.distanceFromUser,
@@ -65,7 +65,7 @@ class SearchDoctors {
     firstname = json['firstname'];
     lastname = json['lastname'];
     specialization = json['Specialization'];
-    doctorImage = json['DoctorImage'];
+    docterImage = json['DocterImage'];
     location = json['Location'];
     mainHospital = json['MainHospital'];
     distanceFromUser = json['distance_from_user'];
@@ -85,7 +85,7 @@ class SearchDoctors {
     data['firstname'] = firstname;
     data['lastname'] = lastname;
     data['Specialization'] = specialization;
-    data['DoctorImage'] = doctorImage;
+    data['DocterImage'] = docterImage;
     data['Location'] = location;
     data['MainHospital'] = mainHospital;
     data['distance_from_user'] = distanceFromUser;
