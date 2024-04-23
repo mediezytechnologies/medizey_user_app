@@ -1124,6 +1124,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                 BlocProvider.of<BookAppointmentBloc>(context)
                                     .add(
                                   PassBookAppointMentEvent(
+                                      resheduleOrNot:
+                                          widget.patientId == null ? 0 : 1,
                                       patientName: patientNameController.text,
                                       doctorId: widget.doctorId,
                                       clinicId: widget.clinicId,

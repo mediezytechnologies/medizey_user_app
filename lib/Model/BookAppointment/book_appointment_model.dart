@@ -44,10 +44,10 @@ class TokenBooking {
   int? doctorLateTime;
   int? doctorEarlyTime;
   int? doctorBreakTime;
-  String? tokenUpTo;
   String? createdAt;
   String? updatedAt;
   int? tokenBookingStatus;
+  String? tokenBookedTime;
   int? isCheckedin;
   int? isCheckedout;
   String? checkinTime;
@@ -58,6 +58,11 @@ class TokenBooking {
   int? extraTimeTaken;
   int? lessTimeTaken;
   int? checkinDifference;
+  int? isReserved;
+  int? rescheduleType;
+  String? checkinChange;
+  String? checkoutChange;
+  String? estimateCheckinTime;
 
   TokenBooking(
       {this.tokenId,
@@ -75,10 +80,10 @@ class TokenBooking {
       this.doctorLateTime,
       this.doctorEarlyTime,
       this.doctorBreakTime,
-      this.tokenUpTo,
       this.createdAt,
       this.updatedAt,
       this.tokenBookingStatus,
+      this.tokenBookedTime,
       this.isCheckedin,
       this.isCheckedout,
       this.checkinTime,
@@ -88,7 +93,12 @@ class TokenBooking {
       this.doctorUserId,
       this.extraTimeTaken,
       this.lessTimeTaken,
-      this.checkinDifference});
+      this.checkinDifference,
+      this.isReserved,
+      this.rescheduleType,
+      this.checkinChange,
+      this.checkoutChange,
+      this.estimateCheckinTime});
 
   TokenBooking.fromJson(Map<String, dynamic> json) {
     tokenId = json['token_id'];
@@ -106,10 +116,10 @@ class TokenBooking {
     doctorLateTime = json['doctor_late_time'];
     doctorEarlyTime = json['doctor_early_time'];
     doctorBreakTime = json['doctor_break_time'];
-    tokenUpTo = json['token_up_to'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     tokenBookingStatus = json['token_booking_status'];
+    tokenBookedTime = json['token_booked_time'];
     isCheckedin = json['is_checkedin'];
     isCheckedout = json['is_checkedout'];
     checkinTime = json['checkin_time'];
@@ -120,6 +130,11 @@ class TokenBooking {
     extraTimeTaken = json['extra_time_taken'];
     lessTimeTaken = json['less_time_taken'];
     checkinDifference = json['checkin_difference'];
+    isReserved = json['is_reserved'];
+    rescheduleType = json['reschedule_type'];
+    checkinChange = json['checkin_change'];
+    checkoutChange = json['checkout_change'];
+    estimateCheckinTime = json['estimate_checkin_time'];
   }
 
   Map<String, dynamic> toJson() {
@@ -139,10 +154,11 @@ class TokenBooking {
     data['doctor_late_time'] = doctorLateTime;
     data['doctor_early_time'] = doctorEarlyTime;
     data['doctor_break_time'] = doctorBreakTime;
-    data['token_up_to'] = tokenUpTo;
+
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['token_booking_status'] = tokenBookingStatus;
+    data['token_booked_time'] = tokenBookedTime;
     data['is_checkedin'] = isCheckedin;
     data['is_checkedout'] = isCheckedout;
     data['checkin_time'] = checkinTime;
@@ -153,6 +169,15 @@ class TokenBooking {
     data['extra_time_taken'] = extraTimeTaken;
     data['less_time_taken'] = lessTimeTaken;
     data['checkin_difference'] = checkinDifference;
+
+    data['is_reserved'] = isReserved;
+
+    data['reschedule_type'] = rescheduleType;
+
+    data['checkin_change'] = checkinChange;
+    data['checkout_change'] = checkoutChange;
+
+    data['estimate_checkin_time'] = estimateCheckinTime;
     return data;
   }
 }
