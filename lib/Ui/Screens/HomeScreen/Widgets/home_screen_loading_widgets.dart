@@ -74,14 +74,6 @@ Widget doctorCardMainLoadingWidget() {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              Container(
-                width: 80.w,
-                height: 18.h,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
             ],
           ),
           const VerticalSpacingWidget(height: 5),
