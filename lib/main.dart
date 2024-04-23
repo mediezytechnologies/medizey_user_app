@@ -71,7 +71,8 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
           theme: appThemeStyle(context),
           home:
-              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          //CupertinoDatePickerDemo()
+           hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

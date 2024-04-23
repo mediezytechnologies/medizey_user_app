@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,8 @@ class LoginAndSignupBloc
         preference.setString(
             'phoneNumber', loginModel.user!.mobileNo.toString());
         String? token = await preference.getString('token');
+        String? userName = await preference.getString('firstName');
+        log("User name >>>>>> $userName");
         print("Tokken >>>>>>>>>>>>>>>>>>$token");
         emit(LoginLoaded());
       } catch (error) {

@@ -32,27 +32,36 @@ class Clinics {
   String? clinicName;
   String? address;
   String? location;
+  String? latitude;
+  String? longitude;
   String? clinicMainImage;
-  int? doctorCount;
   String? specializations;
+  int? doctorCount;
+  String? distanceFromUser;
 
   Clinics(
       {this.clinicId,
       this.clinicName,
       this.address,
       this.location,
+      this.latitude,
+      this.longitude,
       this.clinicMainImage,
+      this.specializations,
       this.doctorCount,
-      this.specializations});
+      this.distanceFromUser});
 
   Clinics.fromJson(Map<String, dynamic> json) {
     clinicId = json['clinic_id'];
     clinicName = json['clinic_name'];
     address = json['address'];
     location = json['location'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
     clinicMainImage = json['clinic_main_image'];
-    doctorCount = json['doctor_count'];
     specializations = json['specializations'];
+    doctorCount = json['doctor_count'];
+    distanceFromUser = json['distance_from_user'];
   }
 
   Map<String, dynamic> toJson() {
@@ -61,9 +70,12 @@ class Clinics {
     data['clinic_name'] = clinicName;
     data['address'] = address;
     data['location'] = location;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
     data['clinic_main_image'] = clinicMainImage;
-    data['doctor_count'] = doctorCount;
     data['specializations'] = specializations;
+    data['doctor_count'] = doctorCount;
+    data['distance_from_user'] = distanceFromUser;
     return data;
   }
 }

@@ -20,7 +20,7 @@ class GetUpComingAppointmentsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['status'] = status;
     data['message'] = message;
     if (upcomingAppointments != null) {
@@ -51,6 +51,9 @@ class UpcomingAppointments {
   int? isReserved;
   int? isReached;
   int? rescheduleType;
+  String? checkinChange;
+  String? checkoutChange;
+  String? estimateOfNextToken;
   String? scheduleStartTime;
   int? leaveStatus;
   String? tokenBookedDate;
@@ -63,7 +66,7 @@ class UpcomingAppointments {
   String? mediezyDoctorId;
   MainSymptoms? mainSymptoms;
   int? nextAvailableTokenNumber;
-  String?  nextAvailableTokenDate;
+  String? nextAvailableTokenDate;
   List<Clinics>? clinics;
   OtherSymptom? otherSymptom;
   bool? patientAbsent;
@@ -88,6 +91,9 @@ class UpcomingAppointments {
       this.isReserved,
       this.isReached,
       this.rescheduleType,
+      this.checkinChange,
+      this.checkoutChange,
+      this.estimateOfNextToken,
       this.scheduleStartTime,
       this.leaveStatus,
       this.tokenBookedDate,
@@ -125,6 +131,9 @@ class UpcomingAppointments {
     isReserved = json['is_reserved'];
     isReached = json['is_reached'];
     rescheduleType = json['reschedule_type'];
+    checkinChange = json['checkin_change'];
+    checkoutChange = json['checkout_change'];
+    estimateOfNextToken = json['estimate_of_next_token'];
     scheduleStartTime = json['schedule_start_time'];
     leaveStatus = json['leave_status'];
     tokenBookedDate = json['token_booked_date'];
@@ -135,9 +144,7 @@ class UpcomingAppointments {
     clinicName = json['clinic_name'];
     estimateArrivalTime = json['estimate_arrival_time'];
     mediezyDoctorId = json['mediezy_doctor_id'];
-    mainSymptoms = json['main_symptoms'] != null
-        ? MainSymptoms.fromJson(json['main_symptoms'])
-        : null;
+    mainSymptoms = json['main_symptoms'];
     nextAvailableTokenNumber = json['next_available_token_number'];
     nextAvailableTokenDate = json['next_available_token_date'];
     if (json['clinics'] != null) {
@@ -153,7 +160,7 @@ class UpcomingAppointments {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['token_id'] = tokenId;
     data['doctor_id'] = doctorId;
     data['patient_id'] = patientId;
@@ -173,6 +180,9 @@ class UpcomingAppointments {
     data['is_reserved'] = isReserved;
     data['is_reached'] = isReached;
     data['reschedule_type'] = rescheduleType;
+    data['checkin_change'] = checkinChange;
+    data['checkout_change'] = checkoutChange;
+    data['estimate_of_next_token'] = estimateOfNextToken;
     data['schedule_start_time'] = scheduleStartTime;
     data['leave_status'] = leaveStatus;
     data['token_booked_date'] = tokenBookedDate;
@@ -183,9 +193,7 @@ class UpcomingAppointments {
     data['clinic_name'] = clinicName;
     data['estimate_arrival_time'] = estimateArrivalTime;
     data['mediezy_doctor_id'] = mediezyDoctorId;
-    if (mainSymptoms != null) {
-      data['main_symptoms'] = mainSymptoms!.toJson();
-    }
+    data['main_symptoms'] = mainSymptoms;
     data['next_available_token_number'] = nextAvailableTokenNumber;
     data['next_available_token_date'] = nextAvailableTokenDate;
     if (clinics != null) {
@@ -195,6 +203,22 @@ class UpcomingAppointments {
       data['other_symptom'] = otherSymptom!.toJson();
     }
     data['patient_absent'] = patientAbsent;
+    return data;
+  }
+}
+
+class OtherSymptom {
+  String? symtoms;
+
+  OtherSymptom({this.symtoms});
+
+  OtherSymptom.fromJson(Map<String, dynamic> json) {
+    symtoms = json['symtoms'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['symtoms'] = symtoms;
     return data;
   }
 }
@@ -211,24 +235,6 @@ class MainSymptoms {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['Mainsymptoms'] = mainsymptoms;
-    return data;
-  }
-}
-
-
-
-class OtherSymptom {
-  String? symtoms;
-
-  OtherSymptom({this.symtoms});
-
-  OtherSymptom.fromJson(Map<String, dynamic> json) {
-    symtoms = json['symtoms'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['symtoms'] = symtoms;
     return data;
   }
 }

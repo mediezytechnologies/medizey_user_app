@@ -19,6 +19,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProfileEditScreen extends StatefulWidget {
   const ProfileEditScreen(
@@ -140,19 +141,64 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             width: 80.w,
                                             fit: BoxFit.cover,
                                           )
-                                        : (widget.imageUrl ==
-                                                "https://mediezy.com/UserImages"
+                                        : (widget.imageUrl == "null"
                                             ? Image.asset(
                                                 "assets/icons/profile pic.png",
                                                 height: 80.h,
                                                 width: 80.w,
                                                 color: kMainColor,
                                               )
-                                            : Image.network(
+                                            :
+                                            //  Image.network(
+                                            //     widget.imageUrl,
+                                            //     height: 80.h,
+                                            //     width: 80.w,
+                                            //     fit: BoxFit.cover,
+                                            //   )),
+                                            Image.network(
                                                 widget.imageUrl,
                                                 height: 80.h,
                                                 width: 80.w,
                                                 fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Image.asset(
+                                                    "assets/icons/profile pic.png",
+                                                    height: 80.h,
+                                                    width: 80.w,
+                                                    color: kMainColor,
+                                                  ),
+                                                ),
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child: Shimmer.fromColors(
+                                                      baseColor:
+                                                          kShimmerBaseColor,
+                                                      highlightColor:
+                                                          kShimmerHighlightColor,
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      80.r),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
                                               )),
                                   ),
                                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/DoctorRecommend/doctor_recommend_bloc.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -36,8 +37,12 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
                 .showErrorMessage(context, state.errorMessage);
           }
           if (state is DoctorRecommendLoaded) {
-            return GeneralServices.instance
-                .showDelaySuccessMessage(context, state.successMesseage);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const BottomNavigationControlWidget(),
+                ),
+                (route) => false);
+            GeneralServices.instance.showToastMessage(state.successMesseage);
           }
         },
         child: SingleChildScrollView(

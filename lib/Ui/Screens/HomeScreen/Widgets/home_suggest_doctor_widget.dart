@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
@@ -15,6 +18,7 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Stack(
       children: [
         const Image(
@@ -22,11 +26,11 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
           fit: BoxFit.fill,
         ),
         Positioned(
-          left: 10.w,
-          top: 75.h,
+          left: size.width * 0.03,
+          top: Platform.isIOS ? size.height * 0.10 : size.height * 0.10,
           child: SizedBox(
-            width: 220.w,
-            height: 300.h,
+            width: size.width * 0.6,
+            height: Platform.isIOS ?size.height * 0.13: size.height*0.17,
             child: TextFormField(
               maxLines: 3,
               cursorColor: kMainColor,
@@ -34,13 +38,12 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                hintStyle: TextStyle(
-                    fontSize: 13.sp, color: kSubTextColor),
+                hintStyle: TextStyle(fontSize: 13.sp, color: kSubTextColor),
                 hintText: "Describe your experience",
                 filled: true,
                 fillColor: kCardColor,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                   borderSide: BorderSide.none,
                 ),
               ),
@@ -48,8 +51,8 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 10.w,
-          top: 185.h,
+          left: size.width * 0.03,
+          bottom: size.height * 0.02,
           child: Row(
             children: [
               Text(
@@ -60,11 +63,10 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
                     color: Colors.white),
               ),
               const HorizontalSpacingWidget(width: 40),
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   BlocProvider.of<SuggestionBloc>(context).add(
-                    FetchSuggestions(
-                        message: suggestionController.text),
+                    FetchSuggestions(message: suggestionController.text),
                   );
                   suggestionController.clear();
                 },

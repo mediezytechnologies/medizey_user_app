@@ -9,7 +9,7 @@ import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recentl
 import 'package:mediezy_user/Ui/CommonWidgets/common_loadin_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 
 class RecentBookedDoctorsScreen extends StatefulWidget {
   const RecentBookedDoctorsScreen({super.key});
@@ -108,6 +108,10 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                 .recentlyBookedDoctor!.length,
                             itemBuilder: (context, index) {
                               return DoctorCardWidget(
+                                userAwayFrom: getRecentlyBookedDoctorModel
+                                    .recentlyBookedDoctor![index]
+                                    .distanceFromUser
+                                    .toString(),
                                 clinicList: getRecentlyBookedDoctorModel
                                     .recentlyBookedDoctor![index].clinics!
                                     .toList(),

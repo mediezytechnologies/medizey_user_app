@@ -148,6 +148,10 @@ class _UpcommingAppoimentState extends State<UpcommingAppoiment> {
                                   .upcomingAppointments![index]
                                   .estimateArrivalTime
                                   .toString(),
+                              // estimatedArrivalTime: getUpComingAppointmentsModel
+                              //     .upcomingAppointments![index]
+                              //     .estimateOfNextToken
+                              //     .toString(),
                               lateTime: getUpComingAppointmentsModel
                                   .upcomingAppointments![index].doctorLateTime
                                   .toString(),

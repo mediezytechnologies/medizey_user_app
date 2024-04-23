@@ -5,8 +5,8 @@ import 'package:mediezy_user/Model/HealthCategories/get_health_categories_model.
 import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetHealthCategories/get_health_categories_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/health_concern_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_screen_loading.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/health_concern_widget.dart';
 
 class HomeHealthConcernWidget extends StatefulWidget {
   const HomeHealthConcernWidget({super.key});
@@ -41,7 +41,6 @@ class _HomeHealthConcernWidgetState extends State<HomeHealthConcernWidget> {
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //! health concern
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),
                       child: Text(

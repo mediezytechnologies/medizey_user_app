@@ -1,7 +1,9 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Hospital/get_hospital_by_id_model.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospitalById/get_hospital_by_id_bloc.dart';
@@ -13,9 +15,11 @@ class HospitalScreen extends StatefulWidget {
   const HospitalScreen({
     super.key,
     required this.hospitalId,
+    required this.distance,
   });
 
   final String hospitalId;
+  final String distance;
 
   @override
   State<HospitalScreen> createState() => _HospitalScreenState();
@@ -109,7 +113,37 @@ class _HospitalScreenState extends State<HospitalScreen> {
                           fontWeight: FontWeight.w500,
                           color: kSubTextColor),
                     ),
-                    const VerticalSpacingWidget(height: 10),
+                    const VerticalSpacingWidget(height: 5),
+                    Row(
+                      children: [
+                        Icon(
+                          IconlyLight.location,
+                          size: 14.sp,
+                        ),
+                        SizedBox(
+                          width: 3.w,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: widget.distance,
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.bold),
+                            children: [
+                              TextSpan(
+                                  text: ' away',
+                                  style: TextStyle(
+                                      color: kSubTextColor,
+                                      fontWeight: FontWeight.normal),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {})
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const VerticalSpacingWidget(height: 5),
                     Text(
                       getHospitalByIdModel
                           .clinicDetails!.first.clinicDescription

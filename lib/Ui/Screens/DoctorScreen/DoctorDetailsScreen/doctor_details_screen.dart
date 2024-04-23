@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Doctor/get_doctor_by_id_model.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
@@ -48,6 +52,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: StreamBuilder<ConnectivityResult>(
@@ -238,6 +243,48 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                   ),
                                                 ),
                                                 const VerticalSpacingWidget(
+                                                    height: 2),
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      IconlyLight.location,
+                                                      size: 14.sp,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 3.w,
+                                                    ),
+                                                    RichText(
+                                                      text: TextSpan(
+                                                        text: getDoctorByIdModel
+                                                            .doctorDetails!
+                                                            .first
+                                                            .distanceFromUser
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 12.sp,
+                                                            color: kTextColor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                        children: [
+                                                          TextSpan(
+                                                              text: ' away',
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      kSubTextColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                              recognizer:
+                                                                  TapGestureRecognizer()
+                                                                    ..onTap =
+                                                                        () {})
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const VerticalSpacingWidget(
                                                     height: 10),
                                                 BlocBuilder<AddFavouritesBloc,
                                                     AddFavouritesState>(
@@ -261,17 +308,24 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                         );
                                                       },
                                                       child: Container(
+                                                        // padding: EdgeInsets
+                                                        //     .symmetric(
+                                                        //         horizontal:
+                                                        //             size.width *
+                                                        //                 0.03),
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        10),
+                                                                        5.r),
                                                             border: Border.all(
-                                                                width: 1.5,
+                                                                width: 1.5.w,
                                                                 color:
                                                                     kMainColor)),
-                                                        height: 40.h,
-                                                        width: 150.w,
+                                                        height:
+                                                            size.height * 0.04,
+                                                             width: size.width * .42,
+                                                        // width: 150.w,
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -280,7 +334,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                             Text(
                                                               "Add To Favourite",
                                                               style: TextStyle(
-                                                                fontSize: 13.sp,
+                                                                fontSize: 12.sp,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -293,14 +347,14 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                             Icon(
                                                               state.favouriteStatusMap[
                                                                           widget
-                                                                              .doctorId] ??
+                                                                              .doctorId] ==
                                                                       false
-                                                                  ? Icons
-                                                                      .favorite
-                                                                  : Icons
-                                                                      .favorite_outline,
+                                                                  ? CupertinoIcons
+                                                                      .heart_fill
+                                                                  : CupertinoIcons
+                                                                      .heart,
                                                               color: kMainColor,
-                                                              size: 24.sp,
+                                                              size: 16.sp,
                                                             )
                                                           ],
                                                         ),

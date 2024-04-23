@@ -122,30 +122,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       fadeDuration:
                                           const Duration(milliseconds: 400),
                                       child: ClipOval(
-                                        child: imageFromGallery != null
-                                            ? Image.file(
-                                                imageFromGallery!,
+                                        child: (getUserModel
+                                                    .userdetails!.userProfile ==
+                                                null
+                                            ? Image.asset(
+                                                "assets/icons/profile pic.png",
+                                                height: 80.h,
+                                                width: 80.w,
+                                                color: kMainColor,
+                                              )
+                                            : Image.network(
+                                                getUserModel
+                                                    .userdetails!.userProfile
+                                                    .toString(),
                                                 height: 80.h,
                                                 width: 80.w,
                                                 fit: BoxFit.cover,
-                                              )
-                                            : (getUserModel.userdetails!
-                                                        .userProfile ==
-                                                    "https://mediezy.com/UserImages"
-                                                ? Image.asset(
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Image.asset(
                                                     "assets/icons/profile pic.png",
                                                     height: 80.h,
                                                     width: 80.w,
                                                     color: kMainColor,
-                                                  )
-                                                : Image.network(
-                                                    getUserModel.userdetails!
-                                                        .userProfile
-                                                        .toString(),
-                                                    height: 80.h,
-                                                    width: 80.w,
-                                                    fit: BoxFit.cover,
-                                                  )),
+                                                  ),
+                                                ),
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child: Shimmer.fromColors(
+                                                      baseColor:
+                                                          kShimmerBaseColor,
+                                                      highlightColor:
+                                                          kShimmerHighlightColor,
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      80.r),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )),
                                       ),
                                     ),
                                   ),
@@ -186,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Expanded(
                         child: ProfileCardWidget(
-                          title: "My Profile",
+                          title: "My profile",
                           subTitle: "Edit profile",
                           icon: Icons.edit_outlined,
                           onTapFunction: () {
@@ -220,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
                         child: ProfileCardWidget(
-                            title: "Favourite Doctors",
+                            title: "Favourite doctors",
                             subTitle: "Doctors",
                             icon: Icons.bookmark_outline,
                             onTapFunction: () {
@@ -240,7 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Expanded(
                         child: ProfileCardWidget(
-                          title: "About Us",
+                          title: "About us",
                           subTitle: "Know more",
                           icon: Icons.assignment_turned_in_outlined,
                           onTapFunction: () {
@@ -256,7 +288,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
                         child: ProfileCardWidget(
-                            title: "Recent Booked",
+                            title: "Recent booked",
                             subTitle: "Doctors",
                             icon: Icons.book,
                             onTapFunction: () {

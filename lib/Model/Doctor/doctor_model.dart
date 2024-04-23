@@ -13,7 +13,7 @@ class DoctorModel {
     if (json['All Doctors'] != null) {
       allDoctors = <AllDoctors>[];
       json['All Doctors'].forEach((v) {
-        allDoctors!.add(AllDoctors.fromJson(v));
+        allDoctors!.add(new AllDoctors.fromJson(v));
       });
     }
     code = json['code'];
@@ -21,13 +21,13 @@ class DoctorModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['success'] = success;
-    if (allDoctors != null) {
-      data['All Doctors'] = allDoctors!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    if (this.allDoctors != null) {
+      data['All Doctors'] = this.allDoctors!.map((v) => v.toJson()).toList();
     }
-    data['code'] = code;
-    data['message'] = message;
+    data['code'] = this.code;
+    data['message'] = this.message;
     return data;
   }
 }
@@ -37,6 +37,7 @@ class AllDoctors {
   int? userId;
   String? firstname;
   String? secondname;
+  String? distanceFromUser;
   String? specialization;
   String? docterImage;
   String? location;
@@ -49,6 +50,7 @@ class AllDoctors {
       this.userId,
       this.firstname,
       this.secondname,
+      this.distanceFromUser,
       this.specialization,
       this.docterImage,
       this.location,
@@ -61,6 +63,7 @@ class AllDoctors {
     userId = json['UserId'];
     firstname = json['firstname'];
     secondname = json['secondname'];
+    distanceFromUser = json['distance_from_user'];
     specialization = json['Specialization'];
     docterImage = json['DocterImage'];
     location = json['Location'];
@@ -68,18 +71,19 @@ class AllDoctors {
     if (json['clinics'] != null) {
       clinics = <Clinics>[];
       json['clinics'].forEach((v) {
-        clinics!.add(Clinics.fromJson(v));
+        clinics!.add(new Clinics.fromJson(v));
       });
     }
     favoriteStatus = json['favoriteStatus'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['id'] = id;
     data['UserId'] = userId;
     data['firstname'] = firstname;
     data['secondname'] = secondname;
+    data['distance_from_user'] = distanceFromUser;
     data['Specialization'] = specialization;
     data['DocterImage'] = docterImage;
     data['Location'] = location;
@@ -91,3 +95,4 @@ class AllDoctors {
     return data;
   }
 }
+
