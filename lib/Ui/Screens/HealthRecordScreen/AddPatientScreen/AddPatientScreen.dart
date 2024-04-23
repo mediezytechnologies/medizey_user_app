@@ -242,7 +242,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                     context: context,
                                     date: dateOfBirth ?? DateTime.now(),
                                     onDateSelected: (DateTime picked) async {
-                                      setState(() {
+                                      setState(() { 
                                         dateOfBirth = picked;
                                       });
                                       FocusScope.of(context)
