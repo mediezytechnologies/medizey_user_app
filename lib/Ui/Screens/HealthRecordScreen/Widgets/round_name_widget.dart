@@ -27,9 +27,9 @@ class RoundNameWidget extends StatelessWidget {
           scaleDuration: const Duration(milliseconds: 400),
           fadeDuration: const Duration(milliseconds: 400),
           child: Container(
-            margin: EdgeInsets.only(right: 5.w),
-            height: 35.h,
-            width: 35.w,
+            margin: EdgeInsets.only(right: 4.w),
+            height: 39.h,
+            width: 39.w,
             decoration: BoxDecoration(
               color: containerColor,
               shape: BoxShape.circle,

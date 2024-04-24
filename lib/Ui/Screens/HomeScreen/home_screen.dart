@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-  _scrollViewController = ScrollController();
+    _scrollViewController = ScrollController();
     _scrollViewController.addListener(() {
       if (_scrollViewController.position.userScrollDirection ==
           ScrollDirection.reverse) {
@@ -84,13 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
     pollingTimer.cancel();
   }
 
-  appBarScrolling() {
-   
-  }
+  appBarScrolling() {}
 
   @override
   void dispose() {
-    stopPolling();_scrollViewController.dispose();
+    stopPolling();
+    stopPolling();
+    _scrollViewController.dispose();
     _scrollViewController.removeListener(() {});
     super.dispose();
   }
@@ -101,128 +101,104 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return FadedSlideAnimation(
-      beginOffset: const Offset(0, 0.3),
-      endOffset: const Offset(0, 0),
-      slideCurve: Curves.linearToEaseOut,
-      child: WillPopScope(
-        onWillPop: () async {
-          GeneralServices.instance
-              .appCloseDialogue(context, "Are you want to Exit", () async {
-            SystemNavigator.pop();
-          });
-          return Future.value(false);
-        },
-        child: Scaffold(
-          backgroundColor: kSecondaryColor,
-          body: 
-          
-          // ValueListenableBuilder(
-          //     valueListenable: scrollNotifier,
-          //     builder: (context, index, _) {
-          //       return NotificationListener<UserScrollNotification>(
-          //         onNotification: (notification) {
-          //           final ScrollDirection direction = notification.direction;
+        beginOffset: const Offset(0, 0.3),
+        endOffset: const Offset(0, 0),
+        slideCurve: Curves.linearToEaseOut,
+        child: WillPopScope(
+            onWillPop: () async {
+              GeneralServices.instance
+                  .appCloseDialogue(context, "Are you want to Exit", () async {
+                SystemNavigator.pop();
+              });
+              return Future.value(false);
+            },
+            child: Scaffold(
+              backgroundColor: kSecondaryColor,
+              body:
 
-          //           if (direction == ScrollDirection.reverse) {
-          //             scrollNotifier.value = false;
-          //           } else if (direction == ScrollDirection.forward) {
-          //             scrollNotifier.value = true;
-          //           }
-          //           return true;
-          //         },
-          //         child: 
-                  
+                  // ValueListenableBuilder(
+                  //     valueListenable: scrollNotifier,
+                  //     builder: (context, index, _) {
+                  //       return NotificationListener<UserScrollNotification>(
+                  //         onNotification: (notification) {
+                  //           final ScrollDirection direction = notification.direction;
+
+                  //           if (direction == ScrollDirection.reverse) {
+                  //             scrollNotifier.value = false;
+                  //           } else if (direction == ScrollDirection.forward) {
+                  //             scrollNotifier.value = true;
+                  //           }
+                  //           return true;
+                  //         },
+                  //         child:
+
                   Column(
-                    children: [
-                       AnimatedContainer(
-          height: _showAppbar ? 56.0 : 0.0,
-          duration: Duration(milliseconds: 200),
-            child: AppBar(
-        backgroundColor: Colors.amber,
-        title: const Text("Demo Scrolling "),
-        centerTitle: true,
-        leading: const Icon(Icons.star),
-      )
-          ),
-                    //  HomeAappBar(isAppBar:_showAppbar ?  size.height * .10:0.0,),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  height: Platform.isIOS
-                                      ? size.height * 0.03
-                                      : size.height * 0.07),
-                              const HomeIntroCard(),
-                              Container(
-                                width: double.infinity,
-                                color: kSubScaffoldColor,
-                                child: Column(
-                                  children: [
-                                    const VerticalSpacingWidget(height: 5),
-                                    const UpcommingAppoiment(),
-                                    const VerticalSpacingWidget(height: 5),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.width * 0.01),
-                                      child: const GetDoctorWidget(),
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    const GetFavouriteDoctorWidget(),
-                                    const VerticalSpacingWidget(height: 5),
-                                  ],
+                children: [
+                  // AnimatedContainer(
+                  //     height: _showAppbar ? 56.0 : 0.0,
+                  //     duration: Duration(milliseconds: 200),
+                  //     child: AppBar(
+                  //       backgroundColor: Colors.amber,
+                  //       title: const Text("Demo Scrolling "),
+                  //       centerTitle: true,
+                  //       leading: const Icon(Icons.star),
+                  //     )),
+                 HomeAappBar(isAppBar:_showAppbar ?  size.height * .10:0.0,),
+                  Expanded(
+                    child: SingleChildScrollView(
+                        controller: _scrollViewController,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              height: Platform.isIOS
+                                  ? size.height * 0.03
+                                  : size.height * 0.07),
+                          const HomeIntroCard(),
+                          Container(
+                            width: double.infinity,
+                            color: kSubScaffoldColor,
+                            child: Column(
+                              children: [
+                                const VerticalSpacingWidget(height: 5),
+                                const UpcommingAppoiment(),
+                                const VerticalSpacingWidget(height: 5),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.01),
+                                  child: const GetDoctorWidget(),
                                 ),
-                              ),
-                              HomeSuggestDoctorWidget(
-                                  suggestionController: suggestionController),
-                              Container(
-                                width: double.infinity,
-                                color: kSubScaffoldColor,
-                                child: Column(
-                                  children: [
-                                    const VerticalSpacingWidget(height: 5),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.width * 0.01),
-                                      child: const RecommendedDoctorCard(),
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                  ],
-                                ),
-                              ),
-                              const Image(
-                                image: AssetImage("assets/images/mediezy.jpg"),
-                              ),
-                            ],
+                                const VerticalSpacingWidget(height: 5),
+                                const GetFavouriteDoctorWidget(),
+                                const VerticalSpacingWidget(height: 5),
+                              ],
+                            ),
                           ),
-                        ),
+                          HomeSuggestDoctorWidget(
+                              suggestionController: suggestionController),
+                          Container(
+                            width: double.infinity,
+                            color: kSubScaffoldColor,
+                            child: Column(
+                              children: [
+                                const VerticalSpacingWidget(height: 5),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.01),
+                                  child: const RecommendedDoctorCard(),
+                                ),
+                                const VerticalSpacingWidget(height: 5),
+                              ],
+                            ),
+                          ),
+                          const Image(
+                            image: AssetImage("assets/images/mediezy.jpg"),
+                          ),
+                        ],
                       ),
-
-                      // Container(
-                      //   width: double.infinity,
-                      //   color: kSubScaffoldColor,
-                      //   child: Padding(
-                      //     padding: EdgeInsets.symmetric(
-                      //         horizontal: size.width * 0.01),
-                      //     child: const Column(
-                      //       children: [
-                      //         VerticalSpacingWidget(height: 5),
-                      // HomeQuestinareWidget(),
-                      //         VerticalSpacingWidget(height: 5),
-                      //         HomeHospitalWidget(),
-                      //         VerticalSpacingWidget(height: 5),
-                      //         HomeArticleWidget(),
-                      //         VerticalSpacingWidget(height: 5),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+                    ),
                   ),
-              //   );
-              // }),
-       ) )
-      
-    );
+                ],
+              ),
+            )));
   }
 }

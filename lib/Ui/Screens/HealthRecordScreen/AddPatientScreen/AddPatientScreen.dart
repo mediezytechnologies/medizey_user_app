@@ -237,8 +237,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         VerticalSpacingWidget(height: 5.h),
                         InkWell(
                           onTap: () {
-                            Platform.isIOS
-                                ? selectIosDate(
+                            // Platform.isIOS
+                            //     ? 
+                                selectIosDate(
                                     context: context,
                                     date: dateOfBirth ?? DateTime.now(),
                                     onDateSelected: (DateTime picked) async {
@@ -248,17 +249,17 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                       FocusScope.of(context)
                                           .requestFocus(FocusNode());
                                     },
-                                  )
-                                : selectDate(
-                                    context: context,
-                                    date: dateOfBirth ?? DateTime.now(),
-                                    onDateSelected: (DateTime picked) async {
-                                      setState(() {
-                                        dateOfBirth = picked;
-                                      });
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
+                                //   )
+                                // : selectDate(
+                                //     context: context,
+                                //     date: dateOfBirth ?? DateTime.now(),
+                                //     onDateSelected: (DateTime picked) async {
+                                //       setState(() {
+                                //         dateOfBirth = picked;
+                                //       });
+                                //       FocusScope.of(context)
+                                //           .requestFocus(FocusNode());
+                                //     },
                                   );
                           },
                           child: Container(

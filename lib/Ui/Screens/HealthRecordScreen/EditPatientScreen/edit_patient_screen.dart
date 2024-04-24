@@ -370,8 +370,11 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           InkWell(
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                             Platform.isIOS
-                                ? selectIosDate(
+                            //  Platform.isIOS
+                            //     ?
+                                
+                                
+                                 selectIosDate(
                                     context: context,
                                     date: dateOfBirth ?? DateTime.now(),
                                     onDateSelected: (DateTime picked) async {
@@ -381,17 +384,17 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                       FocusScope.of(context)
                                           .requestFocus(FocusNode());
                                     },
-                                  )
-                                : selectDate(
-                                    context: context,
-                                    date: dateOfBirth ?? DateTime.now(),
-                                    onDateSelected: (DateTime picked) async {
-                                      setState(() {
-                                        dateOfBirth = picked;
-                                      });
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
+                                //   )
+                                // : selectDate(
+                                //     context: context,
+                                //     date: dateOfBirth ?? DateTime.now(),
+                                //     onDateSelected: (DateTime picked) async {
+                                //       setState(() {
+                                //         dateOfBirth = picked;
+                                //       });
+                                //       FocusScope.of(context)
+                                //           .requestFocus(FocusNode());
+                                //     },
                                   );
                             },
                             child: Container(
