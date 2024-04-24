@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/ddd/application/location_controller/locationcontroller.dart';
-
 import '../../../CommonWidgets/horizontal_spacing_widget.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../Consts/app_colors.dart';

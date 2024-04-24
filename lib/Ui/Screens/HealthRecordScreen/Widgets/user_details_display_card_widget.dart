@@ -94,7 +94,11 @@ class _UserDetailsDisplayCardWidgetState
                         color: kSubTextColor),
                   ),
                   Text(
-                    widget.patientGender,
+                    widget.patientGender == "1"
+                        ? "Male"
+                        : (widget.patientGender == "2")
+                            ? "Female"
+                            : "Other",
                     style: TextStyle(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w400,

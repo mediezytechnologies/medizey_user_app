@@ -111,8 +111,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                     onTap: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SearchScreen(),
+                                          builder: (context) => SearchScreen(),
                                         ),
                                       );
                                     },

@@ -9,9 +9,11 @@ class RecommendedDoctorCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const RecommendedDoctorScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const RecommendedDoctorScreen(),
+          ),
+        );
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),

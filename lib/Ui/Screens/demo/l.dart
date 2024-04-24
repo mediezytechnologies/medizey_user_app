@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,12 +69,14 @@ class _CupertinoDatePickerDemoState extends State<CupertinoDatePickerDemo> {
     final DateTime? picked = await showModalBottomSheet<DateTime>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 300.0,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: date,
-            minimumDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+            minimumDate: DateTime.now().subtract(
+              const Duration(days: 365 * 100),
+            ),
             maximumDate: DateTime.now(),
             onDateTimeChanged: (DateTime newDate) {
               onDateSelected(newDate);

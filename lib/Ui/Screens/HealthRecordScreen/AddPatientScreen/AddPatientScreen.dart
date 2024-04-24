@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields
+// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields, unused_local_variable
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
@@ -1269,12 +1269,14 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     final DateTime? picked = await showModalBottomSheet<DateTime>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 300.0,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: date,
-            minimumDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+            minimumDate: DateTime.now().subtract(
+              const Duration(days: 365 * 100),
+            ),
             maximumDate: DateTime.now(),
             onDateTimeChanged: (DateTime newDate) {
               onDateSelected(newDate);

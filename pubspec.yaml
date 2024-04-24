@@ -108,7 +108,6 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/animations/
-    - assets/images/questionnaire/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

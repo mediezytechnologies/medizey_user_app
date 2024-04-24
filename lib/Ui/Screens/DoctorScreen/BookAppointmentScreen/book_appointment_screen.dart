@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use, no_leading_underscores_for_local_identifiers, must_be_immutable
 import 'dart:async';
-import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
@@ -85,7 +84,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log("<<<<patient Id : ${widget.patientId}>>");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Date & Time"),
@@ -145,29 +143,30 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                   },
                                 );
                               },
-                              child: ClinicWidget(
-                                isSelected: isSelected,
-                                clinicName: widget.clinicList[index].clinicName
-                                        ?.toString() ??
-                                    "N/A",
-                                clinicStartTime: widget
-                                        .clinicList[index].clinicStartTime
-                                        ?.toString() ??
-                                    "N/A",
-                                clinicEndTime: widget
-                                        .clinicList[index].clinicEndTime
-                                        ?.toString() ??
-                                    "N/A",
-                                clinicAddress: widget
-                                    .clinicList[index].clinicAddress
-                                    .toString(),
-                                clinicLocation: widget
-                                    .clinicList[index].clinicLocation
-                                    .toString(),
-                                availableTokenCounts: widget
-                                    .clinicList[index].availableTokenCount
-                                    .toString(),
-                              ),
+                              child: widget.clinicList[index].clinicStartTime ==
+                                      null
+                                  ? const SizedBox()
+                                  : ClinicWidget(
+                                      isSelected: isSelected,
+                                      clinicName: widget
+                                          .clinicList[index].clinicName
+                                          .toString(),
+                                      clinicStartTime: widget
+                                          .clinicList[index].clinicStartTime
+                                          .toString(),
+                                      clinicEndTime: widget
+                                          .clinicList[index].clinicEndTime!
+                                          .toString(),
+                                      clinicAddress: widget
+                                          .clinicList[index].clinicAddress
+                                          .toString(),
+                                      clinicLocation: widget
+                                          .clinicList[index].clinicLocation
+                                          .toString(),
+                                      availableTokenCounts: widget
+                                          .clinicList[index].availableTokenCount
+                                          .toString(),
+                                    ),
                             );
                           },
                         ),

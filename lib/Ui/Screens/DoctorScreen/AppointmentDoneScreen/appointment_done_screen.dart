@@ -212,6 +212,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
+                                        
                                           bookingFor = "Self";
                                           selectedBookingFor = 1.toString();
                                           BlocProvider.of<AutoFetchBloc>(
@@ -231,6 +232,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             groupValue: bookingFor,
                                             onChanged: (value) {
                                               setState(() {
+                                             
                                                 bookingFor = value!;
                                                 selectedBookingFor =
                                                     1.toString();
@@ -399,14 +401,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Select Family Member",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14.sp,
-                                          color: kSubTextColor),
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
                                     BlocBuilder<GetFamilyMembersBloc,
                                         GetFamilyMembersState>(
                                       builder: (context, state) {
@@ -434,154 +428,175 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                           }
                                           if (getFamilyMembersModel
                                               .familyMember!.isEmpty) {
-                                            return SizedBox(
-                                              height: 100.h,
-                                              width: double.infinity,
+                                            return Center(
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
+                                                  const VerticalSpacingWidget(
+                                                      height: 30),
                                                   Text(
-                                                    "Yo have not added any Family Members yet,\nadd them",
+                                                    "You have not added any family members yet",
                                                     style: TextStyle(
                                                         fontSize: 14.sp,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                     textAlign: TextAlign.center,
                                                   ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              AddPatientScreen(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      "Add Member",
-                                                      style: TextStyle(
-                                                          fontSize: 16.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  )
+                                                  const VerticalSpacingWidget(
+                                                      height: 10),
+                                                  CommonButtonWidget(
+                                                      title: "Add member",
+                                                      onTapFunction: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                AddPatientScreen(),
+                                                          ),
+                                                        );
+                                                      })
                                                 ],
                                               ),
                                             );
                                           } else {
-                                            return Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                            return Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Container(
-                                                  height: 45.h,
-                                                  width: 240.w,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 8.w),
-                                                  decoration: BoxDecoration(
-                                                      color: kCardColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                      border: Border.all(
+                                                Text(
+                                                  "Select Family Member",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 14.sp,
+                                                      color: kSubTextColor),
+                                                ),
+                                                const VerticalSpacingWidget(
+                                                    height: 5),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      height: 45.h,
+                                                      width: 240.w,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 8.w),
+                                                      decoration: BoxDecoration(
+                                                        color: kCardColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                        border: Border.all(
                                                           color: const Color(
-                                                              0xFF9C9C9C))),
-                                                  child: Center(
-                                                    child:
-                                                        ValueListenableBuilder(
-                                                      valueListenable:
-                                                          dropValueMemberNotifier,
-                                                      builder:
-                                                          (BuildContext context,
+                                                              0xFF9C9C9C),
+                                                        ),
+                                                      ),
+                                                      child: Center(
+                                                        child:
+                                                            ValueListenableBuilder(
+                                                          valueListenable:
+                                                              dropValueMemberNotifier,
+                                                          builder: (BuildContext
+                                                                  context,
                                                               int dropValue,
                                                               _) {
-                                                        return DropdownButtonFormField(
-                                                          iconEnabledColor:
-                                                              kMainColor,
-                                                          decoration:
-                                                              const InputDecoration
-                                                                  .collapsed(
-                                                                  hintText: ''),
-                                                          value: dropValue,
-                                                          style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  kTextColor),
-                                                          icon: const Icon(Icons
-                                                              .keyboard_arrow_down),
-                                                          onChanged:
-                                                              (int? value) {
-                                                            dropValue = value!;
-                                                            dropValueMemberNotifier
-                                                                .value = value;
-                                                            dropValueMember =
-                                                                value;
-                                                            selectedFamilyMemberId =
-                                                                value
-                                                                    .toString();
-                                                            BlocProvider.of<
-                                                                        AutoFetchBloc>(
-                                                                    context)
-                                                                .add(
-                                                              FetchAutoFetch(
-                                                                  section:
-                                                                      "Family Member",
-                                                                  patientId:
-                                                                      selectedFamilyMemberId),
+                                                            return DropdownButtonFormField(
+                                                              iconEnabledColor:
+                                                                  kMainColor,
+                                                              decoration:
+                                                                  const InputDecoration
+                                                                      .collapsed(
+                                                                      hintText:
+                                                                          ''),
+                                                              value: dropValue,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      14.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color:
+                                                                      kTextColor),
+                                                              icon: const Icon(Icons
+                                                                  .keyboard_arrow_down),
+                                                              onChanged:
+                                                                  (int? value) {
+                                                                dropValue =
+                                                                    value!;
+                                                                dropValueMemberNotifier
+                                                                        .value =
+                                                                    value;
+                                                                dropValueMember =
+                                                                    value;
+                                                                selectedFamilyMemberId =
+                                                                    value
+                                                                        .toString();
+                                                                BlocProvider.of<
+                                                                            AutoFetchBloc>(
+                                                                        context)
+                                                                    .add(
+                                                                  FetchAutoFetch(
+                                                                      section:
+                                                                          "Family Member",
+                                                                      patientId:
+                                                                          selectedFamilyMemberId),
+                                                                );
+                                                              },
+                                                              items: familyMemberNames.map<
+                                                                      DropdownMenuItem<
+                                                                          int>>(
+                                                                  (value) {
+                                                                return DropdownMenuItem<
+                                                                    int>(
+                                                                  value:
+                                                                      value.id!,
+                                                                  child: Text(value
+                                                                      .firstname!),
+                                                                );
+                                                              }).toList(),
                                                             );
                                                           },
-                                                          items: familyMemberNames.map<
-                                                              DropdownMenuItem<
-                                                                  int>>((value) {
-                                                            return DropdownMenuItem<
-                                                                int>(
-                                                              value: value.id!,
-                                                              child: Text(value
-                                                                  .firstname!),
-                                                            );
-                                                          }).toList(),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            kMainColor,
+                                                        fixedSize:
+                                                            const Size(85, 45),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                AddPatientScreen(),
+                                                          ),
                                                         );
                                                       },
-                                                    ),
-                                                  ),
-                                                ),
-                                                ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor: kMainColor,
-                                                    fixedSize:
-                                                        const Size(85, 45),
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            AddPatientScreen(),
+                                                      child: Text(
+                                                        "Add",
+                                                        style: TextStyle(
+                                                            fontSize: 15.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: kCardColor),
                                                       ),
-                                                    );
-                                                  },
-                                                  child: Text(
-                                                    "Add",
-                                                    style: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: kCardColor),
-                                                  ),
-                                                )
+                                                    )
+                                                  ],
+                                                ),
                                               ],
                                             );
                                           }
@@ -609,6 +624,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                               }
                               if (state is AutoFetchLoaded) {
                                 final member = state.autoFetchModel;
+                                getFamilyMembersModel =
+                                    BlocProvider.of<GetFamilyMembersBloc>(
+                                            context)
+                                        .getFamilyMembersModel;
                                 patientId = bookingFor == "Self"
                                     ? member.details!.first.patientId.toString()
                                     : (bookingFor == "Family Member")
@@ -630,220 +649,265 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                   originalAge =
                                       member.details!.first.age.toString();
                                 }
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            "Patient Name",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14.sp,
-                                                color: kSubTextColor),
-                                          ),
-                                        ),
-                                        const HorizontalSpacingWidget(
-                                            width: 10),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Text(
-                                            "Age",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14.sp,
-                                                color: kSubTextColor),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: SizedBox(
-                                            height: 45.h,
-                                            child: TextFormField(
-                                              cursorColor: kMainColor,
-                                              controller: patientNameController,
-                                              readOnly: bookingFor != "Other"
-                                                  ? true
-                                                  : false,
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              textInputAction:
-                                                  TextInputAction.next,
-                                              maxLength: 20,
-                                              decoration: InputDecoration(
-                                                hintText: "Enter patient Name",
-                                                counterText: "",
-                                                hintStyle: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: kSubTextColor),
-                                                filled: true,
-                                                fillColor: kCardColor,
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                  borderSide: BorderSide.none,
+                                return getFamilyMembersModel
+                                            .familyMember!.isEmpty &&
+                                        bookingFor == "Family Member"
+                                    ? const SizedBox()
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  "Patient Name",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 14.sp,
+                                                      color: kSubTextColor),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                        const HorizontalSpacingWidget(
-                                            width: 10),
-                                        Expanded(
-                                          flex: 1,
-                                          child: SizedBox(
-                                            height: 45.h,
-                                            child: TextFormField(
-                                              cursorColor: kMainColor,
-                                              controller: patientAgeController,
-                                              readOnly: bookingFor != "Other"
-                                                  ? true
-                                                  : false,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              textInputAction:
-                                                  TextInputAction.next,
-                                              maxLength: 3,
-                                              decoration: InputDecoration(
-                                                counterText: "",
-                                                hintStyle: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: kSubTextColor),
-                                                hintText: "25 age",
-                                                filled: true,
-                                                fillColor: kCardColor,
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                  borderSide: BorderSide.none,
+                                              const HorizontalSpacingWidget(
+                                                  width: 10),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  "Age",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 14.sp,
+                                                      color: kSubTextColor),
                                                 ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    const VerticalSpacingWidget(height: 10),
-                                    Text(
-                                      "Contact Number",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14.sp,
-                                          color: kSubTextColor),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: SizedBox(
-                                            height: 45.h,
-                                            child: TextFormField(
-                                              cursorColor: kMainColor,
-                                              controller:
-                                                  patientContactNumberController,
-                                              readOnly: bookingFor != "Other"
-                                                  ? true
-                                                  : false,
-                                              keyboardType: TextInputType.phone,
-                                              textInputAction:
-                                                  TextInputAction.next,
-                                              maxLength: 10,
-                                              decoration: InputDecoration(
-                                                counterText: "",
-                                                hintStyle: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: kSubTextColor),
-                                                hintText:
-                                                    "Enter patient Phone number",
-                                                filled: true,
-                                                fillColor: kCardColor,
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const HorizontalSpacingWidget(
-                                            width: 10),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            height: 45.h,
-                                            color: kCardColor,
-                                            child: DropdownButton<String>(
-                                              value: dropdownValue,
-                                              onChanged: (String? newValue) {
-                                                setState(() {
-                                                  dropdownValue = newValue!;
-                                                });
-                                              },
-                                              items: <String>[
-                                                'Male',
-                                                'Female',
-                                                'Other'
-                                              ].map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(value),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: SizedBox(
+                                                  height: 45.h,
+                                                  child: TextFormField(
+                                                    cursorColor: kMainColor,
+                                                    controller:
+                                                        patientNameController,
+                                                    readOnly:
+                                                        bookingFor != "Other"
+                                                            ? true
+                                                            : false,
+                                                    keyboardType: TextInputType
+                                                        .emailAddress,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    maxLength: 20,
+                                                    decoration: InputDecoration(
+                                                      hintText:
+                                                          "Enter patient Name",
+                                                      counterText: "",
+                                                      hintStyle: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          color: kSubTextColor),
+                                                      filled: true,
+                                                      fillColor: kCardColor,
+                                                      border:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4),
+                                                        borderSide:
+                                                            BorderSide.none,
+                                                      ),
+                                                    ),
                                                   ),
-                                                );
-                                              }).toList(),
-                                            ),
+                                                ),
+                                              ),
+                                              const HorizontalSpacingWidget(
+                                                  width: 10),
+                                              Expanded(
+                                                flex: 1,
+                                                child: SizedBox(
+                                                  height: 45.h,
+                                                  child: TextFormField(
+                                                    cursorColor: kMainColor,
+                                                    controller:
+                                                        patientAgeController,
+                                                    readOnly:
+                                                        bookingFor != "Other"
+                                                            ? true
+                                                            : false,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    maxLength: 3,
+                                                    decoration: InputDecoration(
+                                                      counterText: "",
+                                                      hintStyle: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          color: kSubTextColor),
+                                                      hintText: "25 age",
+                                                      filled: true,
+                                                      fillColor: kCardColor,
+                                                      border:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4),
+                                                        borderSide:
+                                                            BorderSide.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                );
+                                          const VerticalSpacingWidget(
+                                              height: 10),
+                                          Text(
+                                            "Contact Number",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14.sp,
+                                                color: kSubTextColor),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: SizedBox(
+                                                  height: 45.h,
+                                                  child: TextFormField(
+                                                    cursorColor: kMainColor,
+                                                    controller:
+                                                        patientContactNumberController,
+                                                    readOnly:
+                                                        bookingFor != "Other"
+                                                            ? true
+                                                            : false,
+                                                    keyboardType:
+                                                        TextInputType.phone,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    maxLength: 10,
+                                                    decoration: InputDecoration(
+                                                      counterText: "",
+                                                      hintStyle: TextStyle(
+                                                          fontSize: 14.sp,
+                                                          color: kSubTextColor),
+                                                      hintText:
+                                                          "Enter patient Phone number",
+                                                      filled: true,
+                                                      fillColor: kCardColor,
+                                                      border:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4),
+                                                        borderSide:
+                                                            BorderSide.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const HorizontalSpacingWidget(
+                                                  width: 10),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Container(
+                                                  height: 45.h,
+                                                  color: kCardColor,
+                                                  child: DropdownButton<String>(
+                                                    value: dropdownValue,
+                                                    onChanged:
+                                                        (String? newValue) {
+                                                      setState(() {
+                                                        dropdownValue =
+                                                            newValue!;
+                                                      });
+                                                    },
+                                                    items: <String>[
+                                                      'Male',
+                                                      'Female',
+                                                      'Other'
+                                                    ].map<
+                                                            DropdownMenuItem<
+                                                                String>>(
+                                                        (String value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: value,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Text(value),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
                               }
                               return Container();
                             },
                           ),
                           const VerticalSpacingWidget(height: 10),
-                          Text(
-                            "Appointment for",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
-                                color: kSubTextColor),
-                          ),
-                          SizedBox(
-                            height: 45.h,
-                            child: TextFormField(
-                              cursorColor: kMainColor,
-                              controller: appointmentForController,
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.done,
-                              maxLength: 35,
-                              decoration: InputDecoration(
-                                counterText: "",
-                                hintStyle: TextStyle(
-                                    fontSize: 14.sp, color: kSubTextColor),
-                                hintText: "eg. Chest pain, Body ache, etc.",
-                                filled: true,
-                                fillColor: kCardColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
+                          
+                          // getFamilyMembersModel.familyMember!.isEmpty &&
+                          //         bookingFor == "Family Member"
+                          //     ? const SizedBox()
+                          //     :
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Appointment for",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.sp,
+                                    color: kSubTextColor),
+                              ),
+                              SizedBox(
+                                height: 45.h,
+                                child: TextFormField(
+                                  cursorColor: kMainColor,
+                                  controller: appointmentForController,
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.done,
+                                  maxLength: 35,
+                                  decoration: InputDecoration(
+                                    counterText: "",
+                                    hintStyle: TextStyle(
+                                        fontSize: 14.sp, color: kSubTextColor),
+                                    hintText: "eg. Chest pain, Body ache, etc.",
+                                    filled: true,
+                                    fillColor: kCardColor,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                           const VerticalSpacingWidget(height: 10),
+                          // getFamilyMembersModel.familyMember!.isEmpty &&
+                          //         bookingFor == "Family Member"
+                          //     ? const SizedBox()
+                          //     :
+
                           BlocBuilder<GetSymptomsBloc, GetSymptomsState>(
                             builder: (context, state) {
                               if (state is GetSymptomsLoaded) {
@@ -912,250 +976,301 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             },
                           ),
                           const VerticalSpacingWidget(height: 5),
-                          Text(
-                            "When did it start",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
-                                color: kSubTextColor),
-                          ),
-                          const VerticalSpacingWidget(height: 2),
-                          Wrap(
-                            spacing: 8.0,
-                            runSpacing: 8.0,
-                            children: List.generate(
-                              deceaseStartingTime.length,
-                              (index) => GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedStart =
-                                        selectedStart == index ? -1 : index;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: selectedStart == index
-                                        ? Colors.grey
-                                        : kCardColor,
-                                    border:
-                                        Border.all(color: kMainColor, width: 1),
-                                  ),
-                                  margin: const EdgeInsets.all(3.0),
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Text(
-                                    deceaseStartingTime[index],
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 11.sp,
-                                      color: selectedStart == index
-                                          ? Colors.white
-                                          : kTextColor,
-                                    ),
-                                  ),
-                                ),
+                          // getFamilyMembersModel.familyMember!.isEmpty &&
+                          //         bookingFor == "Family Member"
+                          //     ? const SizedBox()
+                          //     :
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "When did it start",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.sp,
+                                    color: kSubTextColor),
                               ),
-                            ),
-                          ),
-                          VerticalSpacingWidget(height: 2.h),
-                          if (selectedStart == 3)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "How many days",
-                                  style: TextStyle(fontSize: 12.sp),
-                                ),
-                                const VerticalSpacingWidget(height: 5),
-                                SizedBox(
-                                  height: 40.h,
-                                  child: TextFormField(
-                                    cursorColor: kMainColor,
-                                    controller: daysController,
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      hintStyle: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: kSubTextColor),
-                                      hintText: "10 days",
-                                      filled: true,
-                                      fillColor: kCardColor,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide.none,
+                              const VerticalSpacingWidget(height: 2),
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 8.0,
+                                children: List.generate(
+                                  deceaseStartingTime.length,
+                                  (index) => GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedStart =
+                                            selectedStart == index ? -1 : index;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: selectedStart == index
+                                            ? Colors.grey
+                                            : kCardColor,
+                                        border: Border.all(
+                                            color: kMainColor, width: 1),
+                                      ),
+                                      margin: const EdgeInsets.all(3.0),
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text(
+                                        deceaseStartingTime[index],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11.sp,
+                                          color: selectedStart == index
+                                              ? Colors.white
+                                              : kTextColor,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          const VerticalSpacingWidget(height: 5),
-                          Text(
-                            "How Frequently",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
-                                color: kSubTextColor),
+                              ),
+                              VerticalSpacingWidget(height: 2.h),
+                              if (selectedStart == 3)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "How many days",
+                                      style: TextStyle(fontSize: 12.sp),
+                                    ),
+                                    const VerticalSpacingWidget(height: 5),
+                                    SizedBox(
+                                      height: 40.h,
+                                      child: TextFormField(
+                                        cursorColor: kMainColor,
+                                        controller: daysController,
+                                        keyboardType: TextInputType.number,
+                                        textInputAction: TextInputAction.next,
+                                        decoration: InputDecoration(
+                                          hintStyle: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: kSubTextColor),
+                                          hintText: "10 days",
+                                          filled: true,
+                                          fillColor: kCardColor,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                            ],
                           ),
-                          const VerticalSpacingWidget(height: 2),
-                          Wrap(
-                            spacing: 8.0,
-                            runSpacing: 8.0,
-                            children: List.generate(
-                              deceaseRepeats.length,
-                              (index) => GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedCome =
-                                        selectedCome == index ? -1 : index;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: selectedCome == index
-                                        ? Colors.grey
-                                        : kCardColor,
-                                    border:
-                                        Border.all(color: kMainColor, width: 1),
-                                  ),
-                                  margin: const EdgeInsets.all(3.0),
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Text(
-                                    deceaseRepeats[index],
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 11.sp,
-                                      color: selectedCome == index
-                                          ? Colors.white
-                                          : kTextColor,
+                          const VerticalSpacingWidget(height: 5),
+                          // getFamilyMembersModel.familyMember!.isEmpty &&
+                          //         bookingFor == "Family Member"
+                          //     ? const SizedBox()
+                          //     :
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "How Frequently",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.sp,
+                                    color: kSubTextColor),
+                              ),
+                              const VerticalSpacingWidget(height: 2),
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 8.0,
+                                children: List.generate(
+                                  deceaseRepeats.length,
+                                  (index) => GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedCome =
+                                            selectedCome == index ? -1 : index;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: selectedCome == index
+                                            ? Colors.grey
+                                            : kCardColor,
+                                        border: Border.all(
+                                            color: kMainColor, width: 1),
+                                      ),
+                                      margin: const EdgeInsets.all(3.0),
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text(
+                                        deceaseRepeats[index],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11.sp,
+                                          color: selectedCome == index
+                                              ? Colors.white
+                                              : kTextColor,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          const VerticalSpacingWidget(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Token Number",
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kSubTextColor),
-                              ),
-                              Text(
-                                widget.tokenNo,
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kTextColor),
-                              ),
                             ],
                           ),
                           const VerticalSpacingWidget(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // getFamilyMembersModel.familyMember!.isEmpty &&
+                          //         bookingFor == "Family Member"
+                          //     ? const SizedBox()
+                          //     :
+
+                          Column(
                             children: [
-                              Text(
-                                formatDate(),
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kSubTextColor),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Token Number",
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: kSubTextColor),
+                                  ),
+                                  Text(
+                                    widget.tokenNo,
+                                    style: TextStyle(
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: kTextColor),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                widget.bookingTime,
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kTextColor),
+                              const VerticalSpacingWidget(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    formatDate(),
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: kSubTextColor),
+                                  ),
+                                  Text(
+                                    widget.bookingTime,
+                                    style: TextStyle(
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: kTextColor),
+                                  ),
+                                ],
                               ),
+                              const VerticalSpacingWidget(height: 10),
+                              widget.patientId == null
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Platform Fee",
+                                          style: TextStyle(
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: kSubTextColor),
+                                        ),
+                                        Text(
+                                          "₹ 10",
+                                          style: TextStyle(
+                                              fontSize: 17.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: kTextColor),
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              const VerticalSpacingWidget(height: 10),
+                              CommonButtonWidget(
+                                title: "Book Now",
+                                onTapFunction: () {
+                                  if (patientNameController.text.isEmpty) {
+                                    GeneralServices.instance.showErrorMessage(
+                                        context, "Fill patient name");
+                                  } else if (patientAgeController
+                                      .text.isEmpty) {
+                                    GeneralServices.instance.showErrorMessage(
+                                        context, "Fill patient Age");
+                                  } else if (patientContactNumberController
+                                      .text.isEmpty) {
+                                    GeneralServices.instance.showErrorMessage(
+                                        context, "Fill contact number");
+                                  } else if (selectedSymptoms.isEmpty &&
+                                      appointmentForController.text.isEmpty) {
+                                    GeneralServices.instance.showErrorMessage(
+                                        context, "Please select symptoms");
+                                  } else if (selectedStart == -1) {
+                                    GeneralServices.instance.showErrorMessage(
+                                        context,
+                                        "Please select when did start");
+                                  } else if (selectedCome == -1) {
+                                    GeneralServices.instance.showErrorMessage(
+                                        context,
+                                        "Please select how frequently");
+                                  } else {
+                                    BlocProvider.of<BookAppointmentBloc>(
+                                            context)
+                                        .add(
+                                      PassBookAppointMentEvent(
+                                          resheduleOrNot: widget.patientId ==
+                                                  null
+                                              ? 0
+                                              : 1,
+                                          patientName: patientNameController
+                                              .text,
+                                          doctorId: widget.doctorId,
+                                          clinicId: widget.clinicId,
+                                          date: formatDate(),
+                                          whenitcomes: selectedStart == 3
+                                              ? "${daysController.text} days before"
+                                              : deceaseStartingTime[
+                                                  selectedStart],
+                                          whenitstart: deceaseRepeats[
+                                              selectedCome],
+                                          tokenTime: widget.bookingTime,
+                                          tokenNumber: widget.tokenNo,
+                                          gender: dropdownValue,
+                                          age:
+                                              bookingFor ==
+                                                      "Other"
+                                                  ? patientAgeController.text
+                                                  : originalAge.toString(),
+                                          mobileNo:
+                                              patientContactNumberController
+                                                  .text,
+                                          appoinmentfor1:
+                                              appointmentForController
+                                                      .text.isEmpty
+                                                  ? []
+                                                  : [
+                                                      appointmentForController
+                                                          .text
+                                                    ],
+                                          appoinmentfor2: selectedSymptoms,
+                                          bookingType: selectedBookingFor,
+                                          patientId: patientId,
+                                          sheduleType: widget.sheduleType,
+                                          tokenId: widget.tokenId),
+                                    );
+                                  }
+                                },
+                              ),
+                              const VerticalSpacingWidget(height: 10)
                             ],
                           ),
-                          const VerticalSpacingWidget(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Platform Fee",
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kSubTextColor),
-                              ),
-                              Text(
-                                "₹ 10",
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kTextColor),
-                              ),
-                            ],
-                          ),
-                          const VerticalSpacingWidget(height: 10),
-                          CommonButtonWidget(
-                            title: "Book Now",
-                            onTapFunction: () {
-                              if (patientNameController.text.isEmpty) {
-                                GeneralServices.instance.showErrorMessage(
-                                    context, "Fill patient name");
-                              } else if (patientAgeController.text.isEmpty) {
-                                GeneralServices.instance.showErrorMessage(
-                                    context, "Fill patient Age");
-                              } else if (patientContactNumberController
-                                  .text.isEmpty) {
-                                GeneralServices.instance.showErrorMessage(
-                                    context, "Fill contact number");
-                              } else if (selectedSymptoms.isEmpty &&
-                                  appointmentForController.text.isEmpty) {
-                                GeneralServices.instance.showErrorMessage(
-                                    context, "Please select symptoms");
-                              } else if (selectedStart == -1) {
-                                GeneralServices.instance.showErrorMessage(
-                                    context, "Please select when did start");
-                              } else if (selectedCome == -1) {
-                                GeneralServices.instance.showErrorMessage(
-                                    context, "Please select how frequently");
-                              } else {
-                                BlocProvider.of<BookAppointmentBloc>(context)
-                                    .add(
-                                  PassBookAppointMentEvent(
-                                      resheduleOrNot:
-                                          widget.patientId == null ? 0 : 1,
-                                      patientName: patientNameController.text,
-                                      doctorId: widget.doctorId,
-                                      clinicId: widget.clinicId,
-                                      date: formatDate(),
-                                      whenitcomes: selectedStart == 3
-                                          ? "${daysController.text} days before"
-                                          : deceaseStartingTime[selectedStart],
-                                      whenitstart: deceaseRepeats[selectedCome],
-                                      tokenTime: widget.bookingTime,
-                                      tokenNumber: widget.tokenNo,
-                                      gender: dropdownValue,
-                                      age: bookingFor == "Other"
-                                          ? patientAgeController.text
-                                          : originalAge.toString(),
-                                      mobileNo:
-                                          patientContactNumberController.text,
-                                      appoinmentfor1:
-                                          appointmentForController.text.isEmpty
-                                              ? []
-                                              : [appointmentForController.text],
-                                      appoinmentfor2: selectedSymptoms,
-                                      bookingType: selectedBookingFor,
-                                      patientId: patientId,
-                                      sheduleType: widget.sheduleType,
-                                      tokenId: widget.tokenId),
-                                );
-                              }
-                            },
-                          ),
-                          const VerticalSpacingWidget(height: 10)
                         ],
                       ),
                     ),

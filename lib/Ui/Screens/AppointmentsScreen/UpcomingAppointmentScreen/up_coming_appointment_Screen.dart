@@ -198,14 +198,13 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                             earlyTime: getUpComingAppointmentsModel
                                 .upcomingAppointments![index].doctorEarlyTime
                                 .toString(),
-                            estimatedArrivalTime: getUpComingAppointmentsModel
-                                .upcomingAppointments![index]
-                                .estimateArrivalTime
-                                .toString(),
                             // estimatedArrivalTime: getUpComingAppointmentsModel
                             //     .upcomingAppointments![index]
-                            //     .estimateOfNextToken
+                            //     .estimateArrivalTime
                             //     .toString(),
+                            estimatedArrivalTime: getUpComingAppointmentsModel
+                                .upcomingAppointments![index].newEstimateTime
+                                .toString(),
                             lateTime: getUpComingAppointmentsModel
                                 .upcomingAppointments![index].doctorLateTime
                                 .toString(),

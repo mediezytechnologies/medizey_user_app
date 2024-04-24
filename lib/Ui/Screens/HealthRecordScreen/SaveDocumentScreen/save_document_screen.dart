@@ -1,5 +1,6 @@
-import 'dart:io';
+// ignore_for_file: unused_local_variable
 
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -560,13 +561,15 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
     final DateTime? picked = await showModalBottomSheet<DateTime>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 300.0,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: date,
             minimumDate: firstDate,
-            maximumDate: now.add(const Duration(days: 30)),
+            maximumDate: now.add(
+              const Duration(days: 30),
+            ),
             onDateTimeChanged: (DateTime newDate) {
               onDateSelected(newDate);
             },

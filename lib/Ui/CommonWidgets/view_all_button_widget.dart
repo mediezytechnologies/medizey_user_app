@@ -34,7 +34,7 @@ class ViewAllButtonWidget extends StatelessWidget {
             style: TextStyle(
                 fontSize: 13.sp,
                 color: kSubTextColor,
-                fontWeight: FontWeight.w500),
+                fontWeight: FontWeight.w600),
           ),
         ),
       ),
