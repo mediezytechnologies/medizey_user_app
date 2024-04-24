@@ -1,5 +1,6 @@
-import 'dart:io';
+// ignore_for_file: unused_local_variable
 
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -199,22 +200,25 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                         const VerticalSpacingWidget(height: 5),
                         InkWell(
                           onTap: () {
-                            Platform.isIOS?selectIosDate( context: context,
-                              date: selectedDate,
-                              onDateSelected: (DateTime picked) {
-                                setState(() {
-                                  selectedDate = picked;
-                                });
-                              },):
-                            selectDate(
-                              context: context,
-                              date: selectedDate,
-                              onDateSelected: (DateTime picked) {
-                                setState(() {
-                                  selectedDate = picked;
-                                });
-                              },
-                            );
+                            Platform.isIOS
+                                ? selectIosDate(
+                                    context: context,
+                                    date: selectedDate,
+                                    onDateSelected: (DateTime picked) {
+                                      setState(() {
+                                        selectedDate = picked;
+                                      });
+                                    },
+                                  )
+                                : selectDate(
+                                    context: context,
+                                    date: selectedDate,
+                                    onDateSelected: (DateTime picked) {
+                                      setState(() {
+                                        selectedDate = picked;
+                                      });
+                                    },
+                                  );
                           },
                           child: Container(
                             height: 45.h,
@@ -232,7 +236,9 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Icon(
-                              Platform.isIOS?CupertinoIcons.calendar:      Icons.calendar_month_outlined,
+                                  Platform.isIOS
+                                      ? CupertinoIcons.calendar
+                                      : Icons.calendar_month_outlined,
                                   color: kMainColor,
                                 )
                               ],
@@ -550,18 +556,20 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
     required DateTime date,
     required Function(DateTime) onDateSelected,
   }) async {
-     final DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
     final DateTime firstDate = DateTime(now.year - 25, now.month, now.day);
     final DateTime? picked = await showModalBottomSheet<DateTime>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 300.0,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: date,
             minimumDate: firstDate,
-            maximumDate:now.add(const Duration(days: 30)),
+            maximumDate: now.add(
+              const Duration(days: 30),
+            ),
             onDateTimeChanged: (DateTime newDate) {
               onDateSelected(newDate);
             },

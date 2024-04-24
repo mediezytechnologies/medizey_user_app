@@ -53,7 +53,7 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
               children: [
                 const VerticalSpacingWidget(height: 10),
                 Text(
-                  "Dotor name",
+                  "Doctor name",
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13.sp,
@@ -105,7 +105,7 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
                     decoration: InputDecoration(
                       hintStyle:
                           TextStyle(fontSize: 13.sp, color: kSubTextColor),
-                      hintText: "Enter loaction",
+                      hintText: "Enter location",
                       filled: true,
                       fillColor: kCardColor,
                       border: OutlineInputBorder(

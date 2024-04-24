@@ -11,7 +11,6 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/EditPatientScreen/edit_patient_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
-
 class UserDetailsDisplayCardWidget extends StatefulWidget {
   const UserDetailsDisplayCardWidget(
       {super.key,
@@ -95,7 +94,11 @@ class _UserDetailsDisplayCardWidgetState
                         color: kSubTextColor),
                   ),
                   Text(
-                    widget.patientGender,
+                    widget.patientGender == "1"
+                        ? "Male"
+                        : (widget.patientGender == "2")
+                            ? "Female"
+                            : "Other",
                     style: TextStyle(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
@@ -154,9 +157,10 @@ class _UserDetailsDisplayCardWidgetState
           Row(
             children: [
               GestureDetector(
-              //  padding: EdgeInsets.zero,
+                //  padding: EdgeInsets.zero,
                 onTap: () async {
-                         BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
+                  BlocProvider.of<GetAllMembersBloc>(context)
+                      .add(FetchAllMembers());
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -182,8 +186,7 @@ class _UserDetailsDisplayCardWidgetState
                   );
                 },
                 child: Icon(
-                Platform.isIOS
-                            ? CupertinoIcons.pen :   Icons.edit_outlined,
+                  Platform.isIOS ? CupertinoIcons.pen : Icons.edit_outlined,
                   color: kMainColor,
                   size: 18.sp,
                 ),
@@ -213,11 +216,9 @@ class _UserDetailsDisplayCardWidgetState
                         color: kMainColor,
                         size: 18.sp,
                       ),
-                    ),////
+                    ), ////
 
-                    //////fkjsdfksfhjsdhfjksf//
-
-             
+              //////fkjsdfksfhjsdhfjksf//
             ],
           )
         ],

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:mediezy_user/Repository/Api/Suggestion/suggestion_api.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:meta/meta.dart';
@@ -18,7 +19,8 @@ class SuggestionBloc extends Bloc<SuggestionEvent, SuggestionState> {
         updatedSuccessfully =
             await suggestionApi.getSuggestions(message: event.message);
         Map<String, dynamic> data = jsonDecode(updatedSuccessfully);
-        GeneralServices.instance.showToastMessage(data['message']);
+        // GeneralServices.instance.showToastMessage(data['message']);
+        GeneralServices.instance.showSuccessMessage(event.context,data['message'],);
         emit(SuggestionLoaded());
       } catch (e) {
         print("<<<<< SUGGESTION ERROR : $e >>>>>");

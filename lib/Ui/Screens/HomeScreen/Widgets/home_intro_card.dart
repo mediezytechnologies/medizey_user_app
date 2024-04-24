@@ -1,11 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Profile/get_user_model.dart';
-import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
@@ -140,7 +137,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const SearchScreen(),
+                  builder: (context) =>  SearchScreen(),
                 ),
               );
             },

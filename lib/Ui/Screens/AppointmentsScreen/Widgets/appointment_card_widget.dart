@@ -719,7 +719,9 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SearchScreen(),
+                      builder: (context) => SearchScreen(
+                        patientId: widget.patientId.toString(),
+                      ),
                     ),
                   );
                 },

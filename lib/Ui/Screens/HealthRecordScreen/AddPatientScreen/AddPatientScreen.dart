@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields
+// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields, unused_local_variable
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
@@ -97,10 +97,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     child: Container(
                       height: size.height * 0.16,
                       width: size.width * 0.33,
-                     
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(70.r),
-                       
                       ),
                       child: FadedScaleAnimation(
                         scaleDuration: const Duration(milliseconds: 400),
@@ -242,7 +240,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                     context: context,
                                     date: dateOfBirth ?? DateTime.now(),
                                     onDateSelected: (DateTime picked) async {
-                                      setState(() { 
+                                      setState(() {
                                         dateOfBirth = picked;
                                       });
                                       FocusScope.of(context)
@@ -281,7 +279,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                       color: kTextColor),
                                 ),
                                 Icon(
-                                 Platform.isIOS?CupertinoIcons.calendar:    IconlyLight.calendar,
+                                  Platform.isIOS
+                                      ? CupertinoIcons.calendar
+                                      : IconlyLight.calendar,
                                   color: kMainColor,
                                 ),
                               ],
@@ -1268,12 +1268,14 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     final DateTime? picked = await showModalBottomSheet<DateTime>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 300.0,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: date,
-            minimumDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+            minimumDate: DateTime.now().subtract(
+              const Duration(days: 365 * 100),
+            ),
             maximumDate: DateTime.now(),
             onDateTimeChanged: (DateTime newDate) {
               onDateSelected(newDate);

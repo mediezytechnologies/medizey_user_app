@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
@@ -30,7 +28,7 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
           top: Platform.isIOS ? size.height * 0.10 : size.height * 0.10,
           child: SizedBox(
             width: size.width * 0.6,
-            height: Platform.isIOS ?size.height * 0.13: size.height*0.17,
+            height: Platform.isIOS ? size.height * 0.13 : size.height * 0.17,
             child: TextFormField(
               maxLines: 3,
               cursorColor: kMainColor,
@@ -66,7 +64,8 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   BlocProvider.of<SuggestionBloc>(context).add(
-                    FetchSuggestions(message: suggestionController.text),
+                    FetchSuggestions(
+                        message: suggestionController.text, context: context),
                   );
                   suggestionController.clear();
                 },

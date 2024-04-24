@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/gestures.dart';
@@ -13,7 +15,7 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
 class DoctorCardWidget extends StatelessWidget {
-  const DoctorCardWidget(
+  DoctorCardWidget(
       {super.key,
       required this.doctorId,
       required this.firstName,
@@ -23,7 +25,8 @@ class DoctorCardWidget extends StatelessWidget {
       required this.specialisation,
       required this.location,
       required this.clinicList,
-      required this.userAwayFrom});
+      required this.userAwayFrom,
+      this.patientId});
 
   final String doctorId;
   final String firstName;
@@ -34,10 +37,11 @@ class DoctorCardWidget extends StatelessWidget {
   final String location;
   final List<Clinics> clinicList;
   final String userAwayFrom;
+  String? patientId;
 
   @override
   Widget build(BuildContext context) {
-    final size =MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     bool allZero =
         clinicList.every((clinic) => clinic.availableTokenCount == 0);
     return Container(
@@ -249,12 +253,13 @@ class DoctorCardWidget extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => DoctorDetailsScreen(
                         doctorId: doctorId,
+                        patientId: patientId,
                       ),
                     ),
                   );
                 },
                 child: Container(
-                  height: size.height*0.04,
+                  height: size.height * 0.04,
                   width: size.width * .42,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
@@ -281,12 +286,13 @@ class DoctorCardWidget extends StatelessWidget {
                         doctorId: doctorId,
                         doctorFirstName: firstName,
                         doctorSecondName: lastName,
+                        patientId: patientId,
                       ),
                     ),
                   );
                 },
                 child: Container(
-                   height: size.height*0.04,
+                  height: size.height * 0.04,
                   width: size.width * .42,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
