@@ -1,104 +1,161 @@
-import 'dart:convert'; 
-import 'package:flutter/material.dart'; 
-import 'package:http/http.dart' as http; 
-  
+import 'dart:async';
 
-class Lo extends StatefulWidget { 
-  @override 
-  _LoState createState() => _LoState(); 
-} 
-  
-class _LoState extends State<Lo> { 
-  TextEditingController pinCodeController = TextEditingController(); 
-  String pinCodeDetails = ""; 
-  
-  @override 
-  Widget build(BuildContext context) { 
-    return Scaffold( 
-      appBar: AppBar( 
-        title: Text('Pin Code Details'), 
-      ), 
-      body: Padding( 
-        padding: const EdgeInsets.all(16.0), 
-        child: Column( 
-          mainAxisAlignment: MainAxisAlignment.center, 
-          children: [ 
-            // Text field for entering the PIN code 
-            TextField( 
-              controller: pinCodeController, 
-              keyboardType: TextInputType.number, 
-              decoration: InputDecoration(labelText: 'Enter Pin Code'), 
-            ), 
-            SizedBox(height: 16), 
-            // Button to trigger fetching data based on the entered PIN code 
-            ElevatedButton( 
-              onPressed: () { 
-                getDataFromPinCode(pinCodeController.text); 
-              }, 
-              child: Text('Get Data'), 
-            ), 
-            SizedBox(height: 16), 
-            // Display area for the fetched PIN code details 
-            Text(pinCodeDetails), 
-          ], 
-        ), 
-      ), 
-    ); 
-  } 
-  
-  // Function to fetch data from API based on the entered PIN code 
-  Future<void> getDataFromPinCode(String pinCode) async { 
-    final url = "http://www.postalpincode.in/api/pincode/$pinCode"; 
-  
-    try { 
-      final response = await http.get(Uri.parse(url)); 
-  
-      if (response.statusCode == 200) { 
-        final jsonResponse = json.decode(response.body); 
-  
-        if (jsonResponse['Status'] == 'Error') { 
-          // Show a snackbar if the PIN code is not valid 
-          showSnackbar(context, "Pin Code is not valid. "); 
-          setState(() { 
-            pinCodeDetails = 'Pin code is not valid.'; 
-          }); 
-        } else { 
-          // Parse and display details if the PIN code is valid 
-          final postOfficeArray = jsonResponse['PostOffice'] as List; 
-          final obj = postOfficeArray[0]; 
-  
-          final district = obj['District']; 
-          final state = obj['State']; 
-          final country = obj['Country']; 
-  
-          setState(() { 
-            pinCodeDetails = 
-                'Details of pin code are:\nDistrict: $district\nState: $state\nCountry: $country'; 
-          }); 
-        } 
-      } else { 
-        // Show a snackbar if there is an issue fetching data 
-        showSnackbar(context, "Failed to fetch data. Please try again"); 
-        setState(() { 
-          pinCodeDetails = 'Failed to fetch data. Please try again.'; 
-        }); 
-      } 
-    } catch (e) { 
-      // Show a snackbar if an error occurs during the API call 
-      showSnackbar(context, "Error Occurred. Please try again"); 
-      setState(() { 
-        pinCodeDetails = 'Error occurred. Please try again.'; 
-      }); 
-    } 
-  } 
-  
-  // Function to display a snackbar with a specified message 
-  void showSnackbar(BuildContext context, String message) { 
-    ScaffoldMessenger.of(context).showSnackBar( 
-      SnackBar( 
-        content: Text(message), 
-        duration: Duration(seconds: 2), // Adjust the duration as needed 
-      ), 
-    ); 
-  } 
-} 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_bloc.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
+
+import '../../../Repository/Bloc/Article/article_bloc.dart';
+import '../../../Repository/Bloc/banner/banner_bloc.dart';
+
+class ScrollScreenDemo extends StatefulWidget {
+  const ScrollScreenDemo({super.key});
+
+  @override
+  State<ScrollScreenDemo> createState() => _ScrollScreenDemoState();
+}
+
+class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
+  late ScrollController _scrollViewController;
+  bool _showAppbar = true;
+  bool isScrollingDown = false;
+
+//  final TextEditingController suggestionController = TextEditingController();
+  late Timer pollingTimer;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    _scrollViewController = ScrollController();
+    _scrollViewController.addListener(() {
+      if (_scrollViewController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (!isScrollingDown) {
+          isScrollingDown = true;
+          _showAppbar = false;
+          setState(() {});
+        }
+      }
+
+      if (_scrollViewController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (isScrollingDown) {
+          isScrollingDown = false;
+          _showAppbar = true;
+          setState(() {});
+        }
+      }
+    });
+    super.initState();
+    BlocProvider.of<GetDoctorBloc>(context).add(FetchGetDoctor());
+    BlocProvider.of<GetUpcomingAppointmentBloc>(context)
+        .add(FetchUpComingAppointments());
+    BlocProvider.of<GetHospitalBloc>(context).add((FetchAllHospitals()));
+    BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
+    BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
+    BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
+    startPolling();
+  }
+
+  void startPolling() async {
+    pollingTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
+      BlocProvider.of<GetUpcomingAppointmentBloc>(context)
+          .add(FetchUpComingAppointments());
+    });
+  }
+
+  void stopPolling() {
+    pollingTimer.cancel();
+  }
+
+  @override
+  void dispose() {
+    stopPolling();
+    _scrollViewController.dispose();
+    _scrollViewController.removeListener(() {});
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+     
+      body: Column(
+        children: [
+          AnimatedContainer(
+          height: _showAppbar ? 56.0 : 0.0,
+          duration: Duration(milliseconds: 200),
+            child: AppBar(
+        backgroundColor: Colors.amber,
+        title: const Text("Demo Scrolling "),
+        centerTitle: true,
+        leading: const Icon(Icons.star),
+      )
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              controller: _scrollViewController,
+              child: Column(
+                children: [
+                 
+              
+                  Container(
+                    width: double.infinity,
+                    color: kSubScaffoldColor,
+                    child: Column(
+                      children: [
+                        const VerticalSpacingWidget(height: 5),
+                        const UpcommingAppoiment(),
+                        const VerticalSpacingWidget(height: 5),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                          child: const GetDoctorWidget(),
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                        const GetFavouriteDoctorWidget(),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
+                  ),
+              
+                  
+                  Container(
+                    color: Color.fromARGB(255, 33, 96, 243),
+                    height: 300,
+                    width: double.infinity,
+                  ),
+                  Container(
+                    color: const Color.fromARGB(255, 33, 243, 212),
+                    height: 300,
+                    width: double.infinity,
+                  ),
+                  Container(
+                    color: const Color.fromARGB(255, 68, 243, 33),
+                    height: 300,
+                    width: double.infinity,
+                  ),
+                  Container(
+                    color: Color.fromARGB(255, 91, 79, 25),
+                    height: 300,
+                    width: double.infinity,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

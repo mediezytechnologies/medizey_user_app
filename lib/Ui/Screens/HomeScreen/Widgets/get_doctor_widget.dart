@@ -46,7 +46,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                       //  log('message ${Axis.horizontal}');
                         return DoctorNearYouWidget(
                             docterDistance: doctorModel
-                                .allDoctors![index].distanceFromUser!,
+                                .allDoctors![index].distanceFromUser??"10",
                             doctorId: doctorModel.allDoctors![index].userId
                                 .toString(),
                             firstName: doctorModel.allDoctors![index].firstname
