@@ -49,12 +49,11 @@ class _HomeAappBarState extends State<HomeAappBar> {
     return AnimatedContainer(
       duration: const Duration(microseconds: 5000),
       width: double.infinity,
-      height:widget. isAppBar,
+      height: widget.isAppBar,
 
-      
-      
       //size.height * .10,
       color: kSecondaryColor,
+      //color: Colors.amber,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(

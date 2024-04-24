@@ -135,7 +135,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                 ),
                                 const VerticalSpacingWidget(height: 5),
                                 Container(
-                                //  color: Colors.amber,
+                                  //  color: Colors.amber,
                                   height: 100.h,
                                   width: double.infinity,
                                   child: Row(
@@ -198,7 +198,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                     AddPatientScreen(),
+                                                    AddPatientScreen(),
                                               ),
                                             );
                                           }

@@ -97,10 +97,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     child: Container(
                       height: size.height * 0.16,
                       width: size.width * 0.33,
-                     
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(70.r),
-                       
                       ),
                       child: FadedScaleAnimation(
                         scaleDuration: const Duration(milliseconds: 400),
@@ -238,29 +236,29 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         InkWell(
                           onTap: () {
                             // Platform.isIOS
-                            //     ? 
-                                selectIosDate(
-                                    context: context,
-                                    date: dateOfBirth ?? DateTime.now(),
-                                    onDateSelected: (DateTime picked) async {
-                                      setState(() { 
-                                        dateOfBirth = picked;
-                                      });
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
-                                //   )
-                                // : selectDate(
-                                //     context: context,
-                                //     date: dateOfBirth ?? DateTime.now(),
-                                //     onDateSelected: (DateTime picked) async {
-                                //       setState(() {
-                                //         dateOfBirth = picked;
-                                //       });
-                                //       FocusScope.of(context)
-                                //           .requestFocus(FocusNode());
-                                //     },
-                                  );
+                            //     ?
+                            selectIosDate(
+                              context: context,
+                              date: dateOfBirth ?? DateTime.now(),
+                              onDateSelected: (DateTime picked) async {
+                                setState(() {
+                                  dateOfBirth = picked;
+                                });
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                              },
+                              //   )
+                              // : selectDate(
+                              //     context: context,
+                              //     date: dateOfBirth ?? DateTime.now(),
+                              //     onDateSelected: (DateTime picked) async {
+                              //       setState(() {
+                              //         dateOfBirth = picked;
+                              //       });
+                              //       FocusScope.of(context)
+                              //           .requestFocus(FocusNode());
+                              //     },
+                            );
                           },
                           child: Container(
                             height: 48.h,
@@ -282,7 +280,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                       color: kTextColor),
                                 ),
                                 Icon(
-                                 Platform.isIOS?CupertinoIcons.calendar:    IconlyLight.calendar,
+                                  Platform.isIOS
+                                      ? CupertinoIcons.calendar
+                                      : IconlyLight.calendar,
                                   color: kMainColor,
                                 ),
                               ],

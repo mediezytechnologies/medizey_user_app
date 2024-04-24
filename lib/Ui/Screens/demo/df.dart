@@ -90,26 +90,22 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-     
       body: Column(
         children: [
           AnimatedContainer(
-          height: _showAppbar ? 56.0 : 0.0,
-          duration: Duration(milliseconds: 200),
-            child: AppBar(
-        backgroundColor: Colors.amber,
-        title: const Text("Demo Scrolling "),
-        centerTitle: true,
-        leading: const Icon(Icons.star),
-      )
-          ),
+              height: _showAppbar ? 56.0 : 0.0,
+              duration: Duration(milliseconds: 200),
+              child: AppBar(
+                backgroundColor: Colors.amber,
+                title: const Text("Demo Scrolling "),
+                centerTitle: true,
+                leading: const Icon(Icons.star),
+              )),
           Expanded(
             child: SingleChildScrollView(
               controller: _scrollViewController,
               child: Column(
                 children: [
-                 
-              
                   Container(
                     width: double.infinity,
                     color: kSubScaffoldColor,
@@ -119,7 +115,8 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
                         const UpcommingAppoiment(),
                         const VerticalSpacingWidget(height: 5),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.01),
                           child: const GetDoctorWidget(),
                         ),
                         const VerticalSpacingWidget(height: 5),
@@ -128,8 +125,6 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
                       ],
                     ),
                   ),
-              
-                  
                   Container(
                     color: Color.fromARGB(255, 33, 96, 243),
                     height: 300,

@@ -16,14 +16,12 @@ import '../../domain/user_location/model/user_location_model.dart';
 class UserLoacationImpl implements UserLocationRepo {
   @override
   Future<Either<ErrorModel, UserLocationModel?>> userLocation(
-     
-      String latitude,
-      String longitude,
- String district,
-      String city,
-      String locationAddress,
-
-      ) async {
+    String latitude,
+    String longitude,
+    String district,
+    String city,
+    String locationAddress,
+  ) async {
     final preference = await SharedPreferences.getInstance();
     final controller = Get.put(LocationController());
     String userId = preference.getString('userId').toString();
@@ -32,37 +30,38 @@ class UserLoacationImpl implements UserLocationRepo {
     try {
       log("user id : $userId");
       log(" get the try bloc");
-          log(" latitude:${controller.latitude.value}");
-             log(" dis ========================== >>>>>>>>>>>:${controller.dist.value}");
-              log(" latitude:${controller.dist.value}");
+      log(" latitude:${controller.latitude.value}");
+      log(" dis ========================== >>>>>>>>>>>:${controller.dist.value}");
+      log(" latitude:${controller.dist.value}");
 
-
-          Map<String, String> data ={ "user_id": userId,
-          "latitude":latitude,
-          "longitude":longitude,
-          "district": district,
-          "city":city,
-          "location_address": locationAddress,};
-          log("map data ==========================  ${data.toString()}");
+      Map<String, String> data = {
+        "user_id": userId,
+        "latitude": latitude,
+        "longitude": longitude,
+        "district": district,
+        "city": city,
+        "location_address": locationAddress,
+      };
+      log("map data ==========================  ${data.toString()}");
       final response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
-      //  contentType: 'application/json',
+        //  contentType: 'application/json',
       )).post(
         ApiEndPoints.userLocation,
         data: {
           "user_id": userId,
-          "latitude":latitude,
-          "longitude":longitude,
+          "latitude": latitude,
+          "longitude": longitude,
           "district": district,
-          "city":city,
+          "city": city,
           "location_address": locationAddress,
         },
       );
       log('inside try bloc');
-       log("res [[[]]]==========${response.data.toString()}");
-       
-        final result = UserLocationModel.fromJson(response.data);
-        log("res ===${result.data!.latitude}");
+      log("res [[[]]]==========${response.data.toString()}");
+
+      final result = UserLocationModel.fromJson(response.data);
+      log("res ===${result.data!.latitude}");
       return Right(result);
     } on DioError catch (e) {
       log("dio error");

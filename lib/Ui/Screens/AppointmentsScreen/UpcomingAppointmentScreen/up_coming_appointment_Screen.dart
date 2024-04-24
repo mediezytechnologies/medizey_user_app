@@ -86,8 +86,8 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                         getUpComingAppointmentsModel
                             .upcomingAppointments!.isEmpty
                     ? RefreshIndicator(
-                      onRefresh: _refreshData,
-                      child: Center(
+                        onRefresh: _refreshData,
+                        child: Center(
                           child: Column(
                             children: [
                               const VerticalSpacingWidget(height: 80),
@@ -100,13 +100,14 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                               Text(
                                 "No Appointments available",
                                 style: TextStyle(
-                                    fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               )
                             ],
                           ),
                         ),
-                    )
+                      )
                     : ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,

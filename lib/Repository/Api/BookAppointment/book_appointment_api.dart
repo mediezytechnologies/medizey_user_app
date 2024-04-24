@@ -54,7 +54,7 @@ class BookAppointmentApi {
       "patient_id": patientId,
       "schedule_type": sheduleType,
       "token_id": tokenId,
-      "reschedule_type":resheduleOrNot
+      "reschedule_type": resheduleOrNot
     };
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);

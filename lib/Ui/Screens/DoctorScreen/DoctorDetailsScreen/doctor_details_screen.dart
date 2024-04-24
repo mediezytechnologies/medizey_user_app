@@ -324,7 +324,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                                     kMainColor)),
                                                         height:
                                                             size.height * 0.04,
-                                                             width: size.width * .42,
+                                                        width: size.width * .42,
                                                         // width: 150.w,
                                                         child: Row(
                                                           mainAxisAlignment:

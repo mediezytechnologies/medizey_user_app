@@ -7,7 +7,6 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -22,13 +21,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(
       const Duration(seconds: 3),
-      () async{
+      () async {
         if (token == null) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               (route) => false);
         } else {
-            
           Future.delayed(const Duration(seconds: 1)).then((value) =>
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
@@ -36,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           const BottomNavigationControlWidget()),
                   (route) => false));
           locationController.fetchCountry();
-         
+
           log("code${locationController.postCode.value}");
           //   Future.delayed(Duration(seconds: 2)).then((value) => PostCodeService.witnessService(locationController.postCode.value));
         }

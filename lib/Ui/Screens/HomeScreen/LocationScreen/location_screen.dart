@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,8 +18,8 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   //final TextEditingController locationController = TextEditingController();
-   final lController = Get.put(LocationController());
-   
+  final lController = Get.put(LocationController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +27,7 @@ class _LocationScreenState extends State<LocationScreen> {
         title: const Text("Select Location"),
         centerTitle: true,
       ),
-      body: Padding(                                                         
+      body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Column(
           children: [

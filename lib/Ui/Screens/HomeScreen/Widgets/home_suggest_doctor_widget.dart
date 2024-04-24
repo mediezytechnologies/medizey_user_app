@@ -30,7 +30,7 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
           top: Platform.isIOS ? size.height * 0.10 : size.height * 0.10,
           child: SizedBox(
             width: size.width * 0.6,
-            height: Platform.isIOS ?size.height * 0.13: size.height*0.17,
+            height: Platform.isIOS ? size.height * 0.13 : size.height * 0.17,
             child: TextFormField(
               maxLines: 3,
               cursorColor: kMainColor,

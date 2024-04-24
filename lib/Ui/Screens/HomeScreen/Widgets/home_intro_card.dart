@@ -35,6 +35,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
     getUserName();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -49,38 +50,38 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
         ),
         Positioned(
           left: width * .045.w,
-          child:GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ProfileScreen(),
-                        ),
-                      );
-                    },
-                    child: Column(children: [
-                      RichText(
-                        text: TextSpan(
-                          text: 'Hi,',
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
+            },
+            child: Column(
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: 'Hi,',
+                    style: TextStyle(
+                      fontSize: 17.sp,
+                      color: kWhiteColor,
+                    ),
+                    children: [
+                      TextSpan(
+                          text: ' $userName',
                           style: TextStyle(
-                            fontSize: 17.sp,
-                            color: kWhiteColor,
-                          ),
-                          children: [
-                            TextSpan(
-                                text: ' $userName',
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    color: kWhiteColor,
-                                    fontWeight: FontWeight.bold),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {})
-                          ],
-                        ),
-                      )
-                    ],),),
-             
-         
+                              fontSize: 17.sp,
+                              color: kWhiteColor,
+                              fontWeight: FontWeight.bold),
+                          recognizer: TapGestureRecognizer()..onTap = () {})
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
         Positioned(
           top: height * .039,

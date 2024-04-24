@@ -12,9 +12,7 @@ class HeadingWidget extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
-          color: kSubTextColor),
+          fontSize: 16.sp, fontWeight: FontWeight.w500, color: kSubTextColor),
     );
   }
 }

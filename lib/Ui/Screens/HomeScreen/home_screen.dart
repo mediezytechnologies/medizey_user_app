@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Repository/Bloc/Article/article_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
@@ -17,6 +18,7 @@ import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_docters_near_you_screen_2.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
@@ -24,6 +26,8 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart'
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+
+import '../../../ddd/application/get_docters/get_docters_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -70,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
     BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
+        BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
     startPolling();
   }
 
@@ -143,16 +148,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   //       centerTitle: true,
                   //       leading: const Icon(Icons.star),
                   //     )),
-                 HomeAappBar(isAppBar:_showAppbar ?  size.height * .10:0.0,),
+                  HomeAappBar(
+                    isAppBar: _showAppbar ? size.height * .10 : 0.0,
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
-                        controller: _scrollViewController,
+                      controller: _scrollViewController,
                       child: Column(
                         children: [
-                          SizedBox(
-                              height: Platform.isIOS
-                                  ? size.height * 0.03
-                                  : size.height * 0.07),
+                          // ElevatedButton(onPressed: () {
+                          //   Navigator.push(context, MaterialPageRoute(builder: (context) => AllDoctorNearYouScreen2(),));
+                          // }, child: Text("data"),),
+                          SizedBox(height: size.height * 0.02),
                           const HomeIntroCard(),
                           Container(
                             width: double.infinity,

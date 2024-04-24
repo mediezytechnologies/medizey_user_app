@@ -4,7 +4,5 @@ import 'package:mediezy_user/ddd/domain/core/failures/main_failure.dart';
 
 abstract class EditMemberImageRepo {
   Future<Either<MainFailure, AddMemberImags?>> getEditmemberImageData(
-      String imagePath,
-      String patientId
-      );
+      String imagePath, String patientId);
 }

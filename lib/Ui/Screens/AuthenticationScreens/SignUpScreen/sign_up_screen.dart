@@ -244,19 +244,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         InkWell(
                           onTap: () {
                             FocusScope.of(context).unfocus();
-                               selectIosDate(
-                                    context: context,
-                                    date: dateOfBirth ?? DateTime.now(),
-                                    onDateSelected: (DateTime picked) async {
-                                      setState(() {
-                                        dateOfBirth = picked;
-                                      });
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
-                               );},
-                                    
-                         
+                            selectIosDate(
+                              context: context,
+                              date: dateOfBirth ?? DateTime.now(),
+                              onDateSelected: (DateTime picked) async {
+                                setState(() {
+                                  dateOfBirth = picked;
+                                });
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                              },
+                            );
+                          },
                           child: Container(
                             height: 48.h,
                             width: 130.w,
@@ -591,7 +590,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onDateSelected(picked);
     }
   }
-   Future<void> selectIosDate({
+
+  Future<void> selectIosDate({
     required BuildContext context,
     required DateTime date,
     required Function(DateTime) onDateSelected,
