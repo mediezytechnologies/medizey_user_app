@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -89,7 +88,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                       InitializeFavouriteStatus({
                         widget.doctorId: getDoctorByIdModel
                                 .doctorDetails!.first.favoriteStatus! ==
-                            1
+                            0
                       }),
                     );
                     return FadedSlideAnimation(

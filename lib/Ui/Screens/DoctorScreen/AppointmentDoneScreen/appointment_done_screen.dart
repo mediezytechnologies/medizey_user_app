@@ -1077,25 +1077,28 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Platform Fee",
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kSubTextColor),
-                              ),
-                              Text(
-                                "₹ 10",
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: kTextColor),
-                              ),
-                            ],
-                          ),
+                          widget.patientId == null
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Platform Fee",
+                                      style: TextStyle(
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: kSubTextColor),
+                                    ),
+                                    Text(
+                                      "₹ 10",
+                                      style: TextStyle(
+                                          fontSize: 17.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: kTextColor),
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox(),
                           const VerticalSpacingWidget(height: 10),
                           CommonButtonWidget(
                             title: "Book Now",
