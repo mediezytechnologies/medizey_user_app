@@ -49,4 +49,3 @@ class GetDoctorsImpl implements GetDoctersRepo {
     }
   }
 }
-var mapUrl ='https://www.google.com/maps/dir/Maradu,+Ernakulam,+Kerala/9.968904,76.31772/@9.9528712,76.296456,14z/data=!3m2!4b1!5s0x3b0872d584a84845:0xe070adb103aa2bd4!4m9!4m8!1m5!1m1!1s0x3b08730f810fd53d:0xacae3aa002984036!2m2!1d76.3180429!2d9.9367552!1m1!4e1?entry=ttu';

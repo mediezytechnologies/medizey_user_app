@@ -44,20 +44,7 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
                 model: r,
               )));
 
-      //  final data = getDoctorResult.fold((ErrorModel error) {
-      //   return GetDoctersState(
-      //       isloding: false,
-      //       isError: true,
-      //       message: error.message!,
-      //       status: false);
-      // }, (DoctersModel? success) {
-      //   return GetDoctersState(
-      //       isloding: false,
-      //       isError: false,
-      //       message: success!.message!,
-      //       status: success.status!);
-      // });
-      // emit(state);
+      
     });
   }
 }
