@@ -1,10 +1,7 @@
 import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/infrastructure/location_service/location_service.dart';
 
 import '../../domain/location_model/location_model.dart';
