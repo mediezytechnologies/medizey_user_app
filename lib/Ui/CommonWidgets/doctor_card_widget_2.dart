@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
@@ -71,6 +72,8 @@ class DoctorCardWidget2 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const VerticalSpacingWidget(height: 2),
+                    IconButton(onPressed: () =>  MapsLauncher.launchQuery(
+                    '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA'), icon: Icon(Icons.pin_drop,color: kSecondaryColor,)),
                   SizedBox(
                     width: 200.w,
                     child: Text(
@@ -123,31 +126,37 @@ class DoctorCardWidget2 extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
-                        IconlyLight.location,
-                        size: 14.sp,
+                      Row(
+                        children: [
+                          Icon(
+                            IconlyLight.location,
+                            size: 14.sp,
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              text: userAwayFrom,
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: kTextColor,
+                                  fontWeight: FontWeight.w500),
+                              children: [
+                                TextSpan(
+                                    text: ' away',
+                                    style: TextStyle(
+                                        color: kSubTextColor,
+                                        fontWeight: FontWeight.normal),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {})
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 3.w,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: userAwayFrom,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              color: kTextColor,
-                              fontWeight: FontWeight.w500),
-                          children: [
-                            TextSpan(
-                                text: ' away',
-                                style: TextStyle(
-                                    color: kSubTextColor,
-                                    fontWeight: FontWeight.normal),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {})
-                          ],
-                        ),
-                      ),
+                      IconButton(onPressed: () =>  MapsLauncher.launchQuery(
+                    '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA'), icon: Icon(Icons.pin_drop,color: kSecondaryColor,))
                     ],
                   ),
                 ],

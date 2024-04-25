@@ -25,7 +25,7 @@ class CustomeAppBar extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) =>  SearchScreen(),
+                  builder: (context) => SearchScreen(),
                 ),
               );
             },

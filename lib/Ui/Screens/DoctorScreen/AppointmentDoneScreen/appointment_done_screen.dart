@@ -212,7 +212,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                        
                                           bookingFor = "Self";
                                           selectedBookingFor = 1.toString();
                                           BlocProvider.of<AutoFetchBloc>(
@@ -232,7 +231,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             groupValue: bookingFor,
                                             onChanged: (value) {
                                               setState(() {
-                                             
                                                 bookingFor = value!;
                                                 selectedBookingFor =
                                                     1.toString();
@@ -862,7 +860,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             },
                           ),
                           const VerticalSpacingWidget(height: 10),
-                          
+
                           // getFamilyMembersModel.familyMember!.isEmpty &&
                           //         bookingFor == "Family Member"
                           //     ? const SizedBox()

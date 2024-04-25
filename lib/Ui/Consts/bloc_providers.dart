@@ -144,7 +144,7 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetVitalsBloc()),
         BlocProvider(create: (context) => GetCommonSymptomBloc()),
         BlocProvider(create: (context) => GetQuestionsBloc()),
-         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<GetDoctersBloc>(),
         ),
       ];

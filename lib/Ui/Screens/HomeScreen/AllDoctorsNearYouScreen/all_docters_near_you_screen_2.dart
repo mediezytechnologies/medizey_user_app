@@ -20,11 +20,11 @@ class AllDoctorNearYouScreen2 extends StatefulWidget {
   const AllDoctorNearYouScreen2({super.key});
 
   @override
-  State<AllDoctorNearYouScreen2> createState() => _AllDoctorNearYouScreen2State();
+  State<AllDoctorNearYouScreen2> createState() =>
+      _AllDoctorNearYouScreen2State();
 }
 
 class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
- 
   late StreamSubscription<ConnectivityResult> subscription;
   bool isClicked = false;
 
@@ -58,89 +58,60 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
             if (connectivityResult == ConnectivityResult.none) {
               return const InternetHandleScreen();
             } else {
-
-           return   BlocConsumer<GetDoctersBloc, GetDoctersState>(
+              return BlocConsumer<GetDoctersBloc, GetDoctersState>(
                 listener: (context, state) {
-                 if (state.isError) {
-                   log("data error ${state.message!}");
-                 }
+                  if (state.isError) {
+                    log("data error ${state.message}");
+                  }
                 },
                 builder: (context, state) {
                   return FadedSlideAnimation(
-                      beginOffset: const Offset(0, 0.3),
-                      endOffset: const Offset(0, 0),
-                      slideCurve: Curves.linearToEaseOut,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                       String ?id =          state.model!.favoriteDoctors![index].userId.toString();
-                                  return DoctorCardWidget2(
-                                    userAwayFrom: "2.2",
-                                    clinicList:
-                                    state.model!.favoriteDoctors![index].clinics!.toList(),
-                                    
-                                    
-                                    
-                                    doctorId:
-                                   state.model!.favoriteDoctors![index].userId.toString()
-                                    ,
-                                    firstName: 
-                                    state.model!.favoriteDoctors![index].firstname??"jhfg"
-                                    ,
-                                    
-                                    lastName:
-                                     state.model!.favoriteDoctors![index].secondname??"jhfg"
-                                    ,
-                                    
-                                   
-                                    imageUrl: 
-                                     state.model!.favoriteDoctors![index].docterImage??"jhfg"
-                                    ,
-                                    
-                                   
-                                    mainHospitalName: 
-
-                                     state.model!.favoriteDoctors![index].mainHospital??"jhfg"
-                                    ,
-                                    
-                                    
-                                  
-                                    specialisation:
-                                     state.model!.favoriteDoctors![index].specialization??"jhfg"
-                                    ,
-                                    
-                                    location: 
-                                     state.model!.favoriteDoctors![index].location??"jhfg"
-                                    ,
-                                    
-                                  
-                                  );
-                                },
-                                itemCount:
-                                 state.model!.favoriteDoctors!.length),
-                            const VerticalSpacingWidget(height: 5),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w),
-                              child: const RecommendedDoctorCard(),
-                            ),
-                            const VerticalSpacingWidget(height: 5)
-                          ],
-                        ),
+                    beginOffset: const Offset(0, 0.3),
+                    endOffset: const Offset(0, 0),
+                    slideCurve: Curves.linearToEaseOut,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                //    String ?id =          state.model!.favoriteDoctors![index].userId.toString();
+                                return DoctorCardWidget2(
+                                  userAwayFrom: "2.2",
+                                  clinicList:
+                                      state.model[index].clinics!.toList(),
+                                  doctorId:
+                                      state.model[index].userId.toString(),
+                                  firstName:
+                                      state.model[index].firstname ?? "jhfg",
+                                  lastName:
+                                      state.model[index].secondname ?? "jhfg",
+                                  imageUrl:
+                                      state.model[index].docterImage ?? "jhfg",
+                                  mainHospitalName:
+                                      state.model[index].mainHospital ?? "jhfg",
+                                  specialisation:
+                                      state.model[index].specialization ??
+                                          "jhfg",
+                                  location:
+                                      state.model[index].location ?? "jhfg",
+                                );
+                              },
+                              itemCount: state.model.length),
+                          const VerticalSpacingWidget(height: 5),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: const RecommendedDoctorCard(),
+                          ),
+                          const VerticalSpacingWidget(height: 5)
+                        ],
                       ),
-                    );
+                    ),
+                  );
                 },
               );
-
-
-
-
-
-
 
               // return BlocBuilder<GetDoctorBloc, GetDoctorState>(
               //   builder: (context, state) {

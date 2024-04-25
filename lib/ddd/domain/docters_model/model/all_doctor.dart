@@ -1,11 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'clinic.dart';
-
-part 'favorite_doctor.g.dart';
+part 'all_doctor.g.dart';
 
 @JsonSerializable()
-class FavoriteDoctor {
+class AllDoctor {
   int? id;
   @JsonKey(name: 'UserId')
   int? userId;
@@ -24,7 +23,7 @@ class FavoriteDoctor {
   List<Clinic>? clinics;
   int? favoriteStatus;
 
-  FavoriteDoctor({
+  AllDoctor({
     this.id,
     this.userId,
     this.firstname,
@@ -38,9 +37,9 @@ class FavoriteDoctor {
     this.favoriteStatus,
   });
 
-  factory FavoriteDoctor.fromJson(Map<String, dynamic> json) {
-    return _$FavoriteDoctorFromJson(json);
+  factory AllDoctor.fromJson(Map<String, dynamic> json) {
+    return _$AllDoctorFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$FavoriteDoctorToJson(this);
+  Map<String, dynamic> toJson() => _$AllDoctorToJson(this);
 }

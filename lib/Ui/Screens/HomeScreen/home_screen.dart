@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Repository/Bloc/Article/article_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
@@ -28,6 +29,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.da
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 import '../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../ddd/infrastructure/docters_service/docters_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -74,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
     BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
-        BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
+    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
     startPolling();
   }
 
@@ -156,9 +158,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       controller: _scrollViewController,
                       child: Column(
                         children: [
-                          // ElevatedButton(onPressed: () {
-                          //   Navigator.push(context, MaterialPageRoute(builder: (context) => AllDoctorNearYouScreen2(),));
-                          // }, child: Text("data"),),
+              //            ElevatedButton(
+              //   onPressed: () => MapsLauncher.launchQuery(
+              //       '1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA'),
+              //   child: Text('LAUNCH QUERY'),
+              // ),
+              // SizedBox(height: 32),
+              // ElevatedButton(
+              //   onPressed: () => MapsLauncher.launchCoordinates(
+              //       37.4220041, -122.0862462, 'Google Headquarters are here'),
+              //   child: Text('LAUNCH COORDINATES'),
+              // ),
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //           builder: (context) =>
+                          //               AllDoctorNearYouScreen2(),
+                          //         ));
+                          //   },
+                          //   child: Text("data"),
+                          // ),
                           SizedBox(height: size.height * 0.02),
                           const HomeIntroCard(),
                           Container(

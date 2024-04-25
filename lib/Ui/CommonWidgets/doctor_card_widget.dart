@@ -2,11 +2,13 @@
 
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
@@ -124,29 +126,54 @@ class DoctorCardWidget extends StatelessWidget {
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(
-                        IconlyLight.location,
-                        size: 14.sp,
-                      ),
-                      SizedBox(
-                        width: 3.w,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: userAwayFrom,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              color: kTextColor,
-                              fontWeight: FontWeight.w500),
-                          children: [
-                            TextSpan(
-                                text: ' away',
+                      Row(
+                        children: [
+                          Icon(
+                            IconlyLight.location,
+                            size: 14.sp,
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.38,
+                            child: RichText(
+                              text: TextSpan(
+                                text: userAwayFrom,
                                 style: TextStyle(
-                                    color: kSubTextColor,
-                                    fontWeight: FontWeight.normal),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {})
+                                    fontSize: 12.sp,
+                                    color: kTextColor,
+                                    fontWeight: FontWeight.w500),
+                                children: [
+                                  TextSpan(
+                                      text: ' away',
+                                      style: TextStyle(
+                                          color: kSubTextColor,
+                                          fontWeight: FontWeight.normal),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {})
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () => MapsLauncher.launchQuery(
+                            'Welcare Hospital, Sahodaran Ayyappan Road, Vyttila'),
+                        child: Wrap(
+                          children: [
+                            Text(
+                              'Get Location',
+                              style: TextStyle(fontSize: 12.sp,color: kSubTextColor),
+                            ),
+                            Icon(
+                              CupertinoIcons.map_pin,
+                              color: kSecondaryColor,
+                              size: 14.sp,
+                            )
                           ],
                         ),
                       ),

@@ -138,7 +138,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) =>  SearchScreen(),
+                  builder: (context) => SearchScreen(),
                 ),
               );
             },

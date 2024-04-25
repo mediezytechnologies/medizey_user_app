@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'favorite_doctor.dart';
+part of 'all_doctor.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FavoriteDoctor _$FavoriteDoctorFromJson(Map<String, dynamic> json) =>
-    FavoriteDoctor(
+AllDoctor _$AllDoctorFromJson(Map<String, dynamic> json) => AllDoctor(
       id: json['id'] as int?,
       userId: json['UserId'] as int?,
       firstname: json['firstname'] as String?,
@@ -23,8 +22,7 @@ FavoriteDoctor _$FavoriteDoctorFromJson(Map<String, dynamic> json) =>
       favoriteStatus: json['favoriteStatus'] as int?,
     );
 
-Map<String, dynamic> _$FavoriteDoctorToJson(FavoriteDoctor instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AllDoctorToJson(AllDoctor instance) => <String, dynamic>{
       'id': instance.id,
       'UserId': instance.userId,
       'firstname': instance.firstname,

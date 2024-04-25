@@ -9,9 +9,9 @@ class Clinic {
   @JsonKey(name: 'clinic_name')
   String? clinicName;
   @JsonKey(name: 'clinic_start_time')
-  String? clinicStartTime;
+  dynamic clinicStartTime;
   @JsonKey(name: 'clinic_end_time')
-  String? clinicEndTime;
+  dynamic clinicEndTime;
   @JsonKey(name: 'clinic_address')
   String? clinicAddress;
   @JsonKey(name: 'clinic_location')

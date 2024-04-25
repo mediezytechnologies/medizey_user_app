@@ -9,8 +9,8 @@ part of 'clinic.dart';
 Clinic _$ClinicFromJson(Map<String, dynamic> json) => Clinic(
       clinicId: json['clinic_id'] as int?,
       clinicName: json['clinic_name'] as String?,
-      clinicStartTime: json['clinic_start_time'] as String?,
-      clinicEndTime: json['clinic_end_time'] as String?,
+      clinicStartTime: json['clinic_start_time'],
+      clinicEndTime: json['clinic_end_time'],
       clinicAddress: json['clinic_address'] as String?,
       clinicLocation: json['clinic_location'] as String?,
       clinicMainImage: json['clinic_main_image'] as String?,

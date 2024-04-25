@@ -7,5 +7,5 @@ class ApiEndPoints {
   static const editMember = "$baseUrl/patient/editFamilyMembers";
   static const userLocation =
       '$baseUrl/patient/user_locations/addUserLocations';
-      static const getDoctors='$baseUrl/getallfavourites';
+  static const getDoctors = '$baseUrl/docter';
 }

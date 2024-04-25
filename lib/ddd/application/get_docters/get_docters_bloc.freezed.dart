@@ -167,7 +167,7 @@ abstract class _Started implements GetDoctersEvent {
 /// @nodoc
 mixin _$GetDoctersState {
   bool get isloding => throw _privateConstructorUsedError;
-  DoctersModel? get model => throw _privateConstructorUsedError;
+  List<AllDoctor> get model => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get status => throw _privateConstructorUsedError;
@@ -185,7 +185,7 @@ abstract class $GetDoctersStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isloding,
-      DoctersModel? model,
+      List<AllDoctor> model,
       bool isError,
       String message,
       bool status});
@@ -205,7 +205,7 @@ class _$GetDoctersStateCopyWithImpl<$Res, $Val extends GetDoctersState>
   @override
   $Res call({
     Object? isloding = null,
-    Object? model = freezed,
+    Object? model = null,
     Object? isError = null,
     Object? message = null,
     Object? status = null,
@@ -215,10 +215,10 @@ class _$GetDoctersStateCopyWithImpl<$Res, $Val extends GetDoctersState>
           ? _value.isloding
           : isloding // ignore: cast_nullable_to_non_nullable
               as bool,
-      model: freezed == model
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as DoctersModel?,
+              as List<AllDoctor>,
       isError: null == isError
           ? _value.isError
           : isError // ignore: cast_nullable_to_non_nullable
@@ -245,7 +245,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isloding,
-      DoctersModel? model,
+      List<AllDoctor> model,
       bool isError,
       String message,
       bool status});
@@ -263,7 +263,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isloding = null,
-    Object? model = freezed,
+    Object? model = null,
     Object? isError = null,
     Object? message = null,
     Object? status = null,
@@ -273,10 +273,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isloding
           : isloding // ignore: cast_nullable_to_non_nullable
               as bool,
-      model: freezed == model
-          ? _value.model
+      model: null == model
+          ? _value._model
           : model // ignore: cast_nullable_to_non_nullable
-              as DoctersModel?,
+              as List<AllDoctor>,
       isError: null == isError
           ? _value.isError
           : isError // ignore: cast_nullable_to_non_nullable
@@ -298,15 +298,22 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {required this.isloding,
-      this.model,
+      required final List<AllDoctor> model,
       required this.isError,
       required this.message,
-      required this.status});
+      required this.status})
+      : _model = model;
 
   @override
   final bool isloding;
+  final List<AllDoctor> _model;
   @override
-  final DoctersModel? model;
+  List<AllDoctor> get model {
+    if (_model is EqualUnmodifiableListView) return _model;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_model);
+  }
+
   @override
   final bool isError;
   @override
@@ -326,15 +333,15 @@ class _$InitialImpl implements _Initial {
             other is _$InitialImpl &&
             (identical(other.isloding, isloding) ||
                 other.isloding == isloding) &&
-            (identical(other.model, model) || other.model == model) &&
+            const DeepCollectionEquality().equals(other._model, _model) &&
             (identical(other.isError, isError) || other.isError == isError) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isloding, model, isError, message, status);
+  int get hashCode => Object.hash(runtimeType, isloding,
+      const DeepCollectionEquality().hash(_model), isError, message, status);
 
   @JsonKey(ignore: true)
   @override
@@ -346,7 +353,7 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements GetDoctersState {
   const factory _Initial(
       {required final bool isloding,
-      final DoctersModel? model,
+      required final List<AllDoctor> model,
       required final bool isError,
       required final String message,
       required final bool status}) = _$InitialImpl;
@@ -354,7 +361,7 @@ abstract class _Initial implements GetDoctersState {
   @override
   bool get isloding;
   @override
-  DoctersModel? get model;
+  List<AllDoctor> get model;
   @override
   bool get isError;
   @override
