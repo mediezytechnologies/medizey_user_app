@@ -8,7 +8,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
-import 'package:mediezy_user/Ui/Screens/demo/df.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -72,8 +71,6 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
           theme: appThemeStyle(context),
           home:
-
-//ScrollScreenDemo()
               hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },

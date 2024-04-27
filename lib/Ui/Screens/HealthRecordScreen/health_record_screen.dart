@@ -96,7 +96,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                         }
                         if (state is GetAllMembersError) {
                           return const Center(
-                            child: Text("Something Went Wrong"),
+                            child: Text("Something went wrong"),
                           );
                         }
                         if (state is GetAllMembersLoaded) {
@@ -134,9 +134,8 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                   ],
                                 ),
                                 const VerticalSpacingWidget(height: 5),
-                                Container(
-                                  //  color: Colors.amber,
-                                  height: 100.h,
+                                SizedBox(
+                                  height: 65.h,
                                   width: double.infinity,
                                   child: Row(
                                     children: [

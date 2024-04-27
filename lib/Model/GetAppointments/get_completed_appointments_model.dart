@@ -34,11 +34,12 @@ class AppointmentDetails {
   String? prescriptionImage;
   String? scheduleType;
   String? notes;
+  int? reviewAfter;
   String? patientName;
   int? patientAge;
   int? patientId;
   int? patientUserId;
-  String? treatmentTaken;
+ 
   String? doctorImage;
   String? doctorName;
   String? clinicName;
@@ -46,11 +47,11 @@ class AppointmentDetails {
   String? labTest;
   String? scanName;
   String? scanTest;
-  String? surgeryName;
+ 
   String? mediezyPatientId;
-  String? patientUserImage;
-  Vitals? vitals;
-  List<Allergies>? allergies;
+ 
+  List<Vitals>? vitals;
+  
   List<DoctorMedicines>? doctorMedicines;
   MainSymptoms? mainSymptoms;
   List<OtherSymptoms>? otherSymptoms;
@@ -64,11 +65,12 @@ class AppointmentDetails {
       this.prescriptionImage,
       this.scheduleType,
       this.notes,
+      this.reviewAfter,
       this.patientName,
       this.patientAge,
       this.patientId,
       this.patientUserId,
-      this.treatmentTaken,
+    
       this.doctorImage,
       this.doctorName,
       this.clinicName,
@@ -76,11 +78,11 @@ class AppointmentDetails {
       this.labTest,
       this.scanName,
       this.scanTest,
-      this.surgeryName,
+   
       this.mediezyPatientId,
-      this.patientUserImage,
+  
       this.vitals,
-      this.allergies,
+   
       this.doctorMedicines,
       this.mainSymptoms,
       this.otherSymptoms});
@@ -94,11 +96,12 @@ class AppointmentDetails {
     prescriptionImage = json['prescription_image'];
     scheduleType = json['schedule_type'];
     notes = json['notes'];
+    reviewAfter = json['review_after'];
     patientName = json['patient_name'];
     patientAge = json['patient_age'];
     patientId = json['patient_id'];
     patientUserId = json['patient_user_id'];
-    treatmentTaken = json['treatment_taken'];
+ 
     doctorImage = json['doctor_image'];
     doctorName = json['doctor_name'];
     clinicName = json['clinic_name'];
@@ -106,16 +109,16 @@ class AppointmentDetails {
     labTest = json['lab_test'];
     scanName = json['scan_name'];
     scanTest = json['scan_test'];
-    surgeryName = json['surgery_name'];
+  
     mediezyPatientId = json['mediezy_patient_id'];
-    patientUserImage = json['patient_user_image'];
-    vitals = json['vitals'] != null ? Vitals.fromJson(json['vitals']) : null;
-    if (json['allergies'] != null) {
-      allergies = <Allergies>[];
-      json['allergies'].forEach((v) {
-        allergies!.add(Allergies.fromJson(v));
+   
+    if (json['vitals'] != null) {
+      vitals = <Vitals>[];
+      json['vitals'].forEach((v) {
+        vitals!.add(Vitals.fromJson(v));
       });
     }
+  
     if (json['doctor_medicines'] != null) {
       doctorMedicines = <DoctorMedicines>[];
       json['doctor_medicines'].forEach((v) {
@@ -143,11 +146,12 @@ class AppointmentDetails {
     data['prescription_image'] = prescriptionImage;
     data['schedule_type'] = scheduleType;
     data['notes'] = notes;
+    data['review_after'] = reviewAfter;
     data['patient_name'] = patientName;
     data['patient_age'] = patientAge;
     data['patient_id'] = patientId;
     data['patient_user_id'] = patientUserId;
-    data['treatment_taken'] = treatmentTaken;
+ 
     data['doctor_image'] = doctorImage;
     data['doctor_name'] = doctorName;
     data['clinic_name'] = clinicName;
@@ -155,15 +159,13 @@ class AppointmentDetails {
     data['lab_test'] = labTest;
     data['scan_name'] = scanName;
     data['scan_test'] = scanTest;
-    data['surgery_name'] = surgeryName;
+  
     data['mediezy_patient_id'] = mediezyPatientId;
-    data['patient_user_image'] = patientUserImage;
+    
     if (vitals != null) {
-      data['vitals'] = vitals!.toJson();
+      data['vitals'] = vitals!.map((v) => v.toJson()).toList();
     }
-    if (allergies != null) {
-      data['allergies'] = allergies!.map((v) => v.toJson()).toList();
-    }
+   
     if (doctorMedicines != null) {
       data['doctor_medicines'] =
           doctorMedicines!.map((v) => v.toJson()).toList();
@@ -172,7 +174,8 @@ class AppointmentDetails {
       data['main_symptoms'] = mainSymptoms!.toJson();
     }
     if (otherSymptoms != null) {
-      data['other_symptoms'] = otherSymptoms!.map((v) => v.toJson()).toList();
+      data['other_symptoms'] =
+          otherSymptoms!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -219,25 +222,6 @@ class Vitals {
     data['dia'] = dia;
     data['heart_rate'] = heartRate;
     data['temperature_type'] = temperatureType;
-    return data;
-  }
-}
-
-class Allergies {
-  String? allergyName;
-  String? allergyDetails;
-
-  Allergies({this.allergyName, this.allergyDetails});
-
-  Allergies.fromJson(Map<String, dynamic> json) {
-    allergyName = json['allergy_name'];
-    allergyDetails = json['allergy_details'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['allergy_name'] = allergyName;
-    data['allergy_details'] = allergyDetails;
     return data;
   }
 }

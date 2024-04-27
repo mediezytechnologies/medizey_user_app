@@ -20,7 +20,11 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
       required this.labTestName,
       required this.labName,
       required this.prescriptionImage,
-      required this.prescriptions});
+      required this.prescriptions,
+      required this.reviewAfter,
+      required this.vitals,
+      required this.scanningCenterName,
+      required this.scanningTestName});
 
   final String doctorName;
   final String doctorImage;
@@ -34,28 +38,38 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
   final String labName;
   final String prescriptionImage;
   final List<DoctorMedicines> prescriptions;
+  final String reviewAfter;
+  final List<Vitals> vitals;
+  final String scanningCenterName;
+  final String scanningTestName;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CompletedAppointmentDetailsScreen(
-                      prescriptions: prescriptions,
-                      clinicName: clinicName,
-                      doctorImage: doctorImage,
-                      doctorName: doctorName,
-                      labName: labName,
-                      labTestName: labTestName,
-                      note: note,
-                      patientName: patientName,
-                      prescriptionImage: prescriptionImage,
-                      symptoms: symptoms,
-                      tokenDate: tokenDate,
-                      tokenTime: tokenTime,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => CompletedAppointmentDetailsScreen(
+              prescriptions: prescriptions,
+              clinicName: clinicName,
+              doctorImage: doctorImage,
+              doctorName: doctorName,
+              labName: labName,
+              labTestName: labTestName,
+              note: note,
+              patientName: patientName,
+              prescriptionImage: prescriptionImage,
+              symptoms: symptoms,
+              tokenDate: tokenDate,
+              tokenTime: tokenTime,
+              reviewAfter: reviewAfter,
+              vitals: vitals,
+              scanningCenterName: scanningCenterName,
+              scanningTestName: scanningTestName,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 4.h),

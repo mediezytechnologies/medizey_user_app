@@ -41,6 +41,9 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                     itemCount: completedAppointment.appointmentDetails!.length,
                     itemBuilder: (context, index) {
                       return CompletedAppointmentCardWidget(
+                        vitals: completedAppointment
+                            .appointmentDetails![index].vitals!
+                            .toList(),
                         prescriptions: completedAppointment
                             .appointmentDetails![index].doctorMedicines!
                             .toList(),
@@ -54,37 +57,20 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                             .appointmentDetails![index].doctorName
                             .toString(),
                         labName: completedAppointment
-                                    .appointmentDetails![index].labName ==
-                                null
-                            ? ""
-                            : completedAppointment
-                                .appointmentDetails![index].labName
-                                .toString(),
+                            .appointmentDetails![index].labName
+                            .toString(),
                         labTestName: completedAppointment
-                                    .appointmentDetails![index].labTest ==
-                                null
-                            ? ""
-                            : completedAppointment
-                                .appointmentDetails![index].labTest
-                                .toString(),
+                            .appointmentDetails![index].labTest
+                            .toString(),
                         note: completedAppointment
-                                    .appointmentDetails![index].notes ==
-                                null
-                            ? ""
-                            : completedAppointment
-                                .appointmentDetails![index].notes
-                                .toString(),
+                            .appointmentDetails![index].notes
+                            .toString(),
                         patientName: completedAppointment
                             .appointmentDetails![index].patientName
                             .toString(),
                         prescriptionImage: completedAppointment
-                                    .appointmentDetails![index]
-                                    .prescriptionImage ==
-                                null
-                            ? ""
-                            : completedAppointment
-                                .appointmentDetails![index].prescriptionImage
-                                .toString(),
+                            .appointmentDetails![index].prescriptionImage
+                            .toString(),
                         tokenDate: completedAppointment
                             .appointmentDetails![index].date
                             .toString(),
@@ -95,11 +81,20 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                                     .appointmentDetails![index].mainSymptoms ==
                                 null
                             ? completedAppointment.appointmentDetails![index]
-                                .otherSymptoms!.first.symtoms!
+                                .otherSymptoms!.first.symtoms
                                 .toString()
                             : completedAppointment.appointmentDetails![index]
                                 .mainSymptoms!.mainsymptoms
                                 .toString(),
+                        reviewAfter: completedAppointment
+                            .appointmentDetails![index].reviewAfter
+                            .toString(),
+                        scanningCenterName: completedAppointment
+                            .appointmentDetails![index].scanTest
+                            .toString(),
+                        scanningTestName: completedAppointment
+                            .appointmentDetails![index].scanName
+                            .toString(),
                       );
                     });
           }

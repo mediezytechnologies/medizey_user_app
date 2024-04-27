@@ -88,6 +88,9 @@ class _CompletedAppointmentScreenState
                           prescriptions: getCompletedAppointmentsModel
                               .appointmentDetails![index].doctorMedicines!
                               .toList(),
+                          vitals: getCompletedAppointmentsModel
+                              .appointmentDetails![index].vitals!
+                              .toList(),
                           clinicName: getCompletedAppointmentsModel
                               .appointmentDetails![index].clinicName
                               .toString(),
@@ -98,37 +101,20 @@ class _CompletedAppointmentScreenState
                               .appointmentDetails![index].doctorName
                               .toString(),
                           labName: getCompletedAppointmentsModel
-                                      .appointmentDetails![index].labName ==
-                                  null
-                              ? ""
-                              : getCompletedAppointmentsModel
-                                  .appointmentDetails![index].labName
-                                  .toString(),
+                              .appointmentDetails![index].labName
+                              .toString(),
                           labTestName: getCompletedAppointmentsModel
-                                      .appointmentDetails![index].labTest ==
-                                  null
-                              ? ""
-                              : getCompletedAppointmentsModel
-                                  .appointmentDetails![index].labTest
-                                  .toString(),
+                              .appointmentDetails![index].labTest
+                              .toString(),
                           note: getCompletedAppointmentsModel
-                                      .appointmentDetails![index].notes ==
-                                  null
-                              ? ""
-                              : getCompletedAppointmentsModel
-                                  .appointmentDetails![index].notes
-                                  .toString(),
+                              .appointmentDetails![index].notes
+                              .toString(),
                           patientName: getCompletedAppointmentsModel
                               .appointmentDetails![index].patientName
                               .toString(),
                           prescriptionImage: getCompletedAppointmentsModel
-                                      .appointmentDetails![index]
-                                      .prescriptionImage ==
-                                  null
-                              ? ""
-                              : getCompletedAppointmentsModel
-                                  .appointmentDetails![index].prescriptionImage
-                                  .toString(),
+                              .appointmentDetails![index].prescriptionImage
+                              .toString(),
                           tokenDate: getCompletedAppointmentsModel
                               .appointmentDetails![index].date
                               .toString(),
@@ -146,10 +132,17 @@ class _CompletedAppointmentScreenState
                                   .symtoms
                                   .toString()
                               : getCompletedAppointmentsModel
-                                  .appointmentDetails![index]
-                                  .mainSymptoms!
-                                  .mainsymptoms
+                                  .appointmentDetails![index].mainSymptoms!.mainsymptoms
                                   .toString(),
+                          reviewAfter: getCompletedAppointmentsModel
+                              .appointmentDetails![index].reviewAfter
+                              .toString(),
+                          scanningCenterName: getCompletedAppointmentsModel
+                              .appointmentDetails![index].scanTest
+                              .toString(),
+                          scanningTestName: getCompletedAppointmentsModel
+                              .appointmentDetails![index].scanName
+                              .toString(),
                         );
                       });
             }
