@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -243,13 +244,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         InkWell(
                           onTap: () {
                             FocusScope.of(context).unfocus();
-                            selectDate(
+                            selectIosDate(
                               context: context,
                               date: dateOfBirth ?? DateTime.now(),
                               onDateSelected: (DateTime picked) async {
                                 setState(() {
                                   dateOfBirth = picked;
                                 });
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
                               },
                             );
                           },
@@ -586,6 +589,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (picked != null) {
       onDateSelected(picked);
     }
+  }
+
+  Future<void> selectIosDate({
+    required BuildContext context,
+    required DateTime date,
+    required Function(DateTime) onDateSelected,
+  }) async {
+    final DateTime? picked = await showModalBottomSheet<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300.0,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: date,
+            minimumDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+            maximumDate: DateTime.now(),
+            onDateTimeChanged: (DateTime newDate) {
+              onDateSelected(newDate);
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override

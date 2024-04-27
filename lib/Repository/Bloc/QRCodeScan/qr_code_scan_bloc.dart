@@ -9,10 +9,13 @@ class QrCodeScanBloc extends Bloc<QrCodeScanEvent, QrCodeScanState> {
   QRCodeApi qRCodeApi = QRCodeApi();
   late QRCodeModel qRCodeModel;
   QrCodeScanBloc() : super(QrCodeScanInitial()) {
-    on<CheckQRCodeScan>((event, emit)async {
+    on<CheckQRCodeScan>((event, emit) async {
       emit(QrCodeScanLoading());
       try {
-         qRCodeModel = await qRCodeApi.qrCodeScan(patientId: event.patientId, reachedStaus: event.reachedStatus, tokenId: event.tokenId);
+        qRCodeModel = await qRCodeApi.qrCodeScan(
+            patientId: event.patientId,
+            reachedStaus: event.reachedStatus,
+            tokenId: event.tokenId);
         emit(QrCodeScanLoaded());
       } catch (e) {
         emit(QrCodeScanError(errorMessage: e.toString()));

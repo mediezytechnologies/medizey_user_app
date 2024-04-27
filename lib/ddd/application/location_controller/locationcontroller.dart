@@ -8,7 +8,7 @@ import '../../domain/location_model/location_model.dart';
 
 class LocationController extends GetxController {
   Rx<LocationModel> allLocation = LocationModel().obs;
-   RxBool loding = true.obs;
+  RxBool loding = true.obs;
 
   String location = 'Null, Press Button';
   var address = "".obs;
@@ -41,8 +41,6 @@ class LocationController extends GetxController {
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-
- 
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         return Future.error('Location permissions are denied');
@@ -67,9 +65,10 @@ class LocationController extends GetxController {
     String? thoroughfare = place.thoroughfare == ""
         ? placemarks.last.thoroughfare
         : place.thoroughfare;
-        String? subloc =place.subLocality==""?
-     placemarks.last.subLocality:place.subLocality;
-       
+    String? subloc = place.subLocality == ""
+        ? placemarks.last.subLocality
+        : place.subLocality;
+
     log("trot============================================.,///>>>>>>  : $thoroughfare");
 
     locationAdress.value = '$thoroughfare, ${place.subLocality}';
@@ -78,9 +77,9 @@ class LocationController extends GetxController {
     address.value =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}, ${place.name}';
     street.value = "${place.street}";
-     subLocality .value =subloc!;
+    subLocality.value = subloc!;
     locality.value = "${place.locality}";
-   // subLocality.value = "${place.subLocality}";
+    // subLocality.value = "${place.subLocality}";
     country.value = "${place.country}";
     name.value = "${place.administrativeArea}";
     postCode.value = "${place.postalCode}";
@@ -94,7 +93,7 @@ class LocationController extends GetxController {
   Future<LocationModel?> getLocation() async {
     try {
       var data = await LocationService.getLocatioinService();
-   loding.value = false;
+      loding.value = false;
       allLocation.value = data!;
       update();
       dist.value = data.postOffice!.first.district!;
@@ -105,7 +104,7 @@ class LocationController extends GetxController {
     } catch (e) {
       log(e.toString());
       log('catch bloc called');
-   loding.value = false;
+      loding.value = false;
     }
     return null;
   }

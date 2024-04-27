@@ -3,7 +3,7 @@ part of 'get_vitals_bloc.dart';
 @immutable
 sealed class GetVitalsState {}
 
-class GetVitals extends GetVitalsState{}
+class GetVitals extends GetVitalsState {}
 
 class GetVitalsLoading extends GetVitalsState {}
 

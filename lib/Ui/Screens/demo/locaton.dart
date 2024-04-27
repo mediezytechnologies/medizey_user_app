@@ -43,10 +43,9 @@ class _GetLocationState extends State<GetLocation> {
   }
 
   Future<void> GetAddressFromLatLong(Position position) async {
-     List<Placemark> placemarks =
-        await placemarkFromCoordinates(9.5355,76.9091
-          //position.latitude, position.longitude
-          );
+    List<Placemark> placemarks = await placemarkFromCoordinates(9.5355, 76.9091
+        //position.latitude, position.longitude
+        );
     // List<Placemark> placemarks =
     //     await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks);

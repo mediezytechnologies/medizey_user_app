@@ -1,18 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
+
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../ddd/application/user_location/user_location_bloc.dart';
 import '../../../CommonWidgets/horizontal_spacing_widget.dart';
 
 class HomeAappBar extends StatefulWidget {
-  const HomeAappBar({super.key});
+  const HomeAappBar({
+    Key? key,
+    required this.isAppBar,
+  }) : super(key: key);
+
+  final double isAppBar;
 
   @override
   State<HomeAappBar> createState() => _HomeAappBarState();
@@ -40,8 +49,11 @@ class _HomeAappBarState extends State<HomeAappBar> {
     return AnimatedContainer(
       duration: const Duration(microseconds: 5000),
       width: double.infinity,
-      height: size.height * .10,
+      height: widget.isAppBar,
+
+      //size.height * .10,
       color: kSecondaryColor,
+      //color: Colors.amber,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(
@@ -89,7 +101,11 @@ class _HomeAappBarState extends State<HomeAappBar> {
                       },
                       child: Obx(() {
                         if (locationController.loding.value) {
-                          Center(child: CupertinoActivityIndicator(color: kWhiteColor,),);
+                          const Center(
+                            child: CupertinoActivityIndicator(
+                              color: kWhiteColor,
+                            ),
+                          );
                         }
                         return Text(
                           locationController.subLocality.value,

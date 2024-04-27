@@ -20,7 +20,10 @@ class SuggestionBloc extends Bloc<SuggestionEvent, SuggestionState> {
             await suggestionApi.getSuggestions(message: event.message);
         Map<String, dynamic> data = jsonDecode(updatedSuccessfully);
         // GeneralServices.instance.showToastMessage(data['message']);
-        GeneralServices.instance.showSuccessMessage(event.context,data['message'],);
+        GeneralServices.instance.showSuccessMessage(
+          event.context,
+          data['message'],
+        );
         emit(SuggestionLoaded());
       } catch (e) {
         print("<<<<< SUGGESTION ERROR : $e >>>>>");

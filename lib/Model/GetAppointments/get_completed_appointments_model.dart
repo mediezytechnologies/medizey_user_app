@@ -109,8 +109,7 @@ class AppointmentDetails {
     surgeryName = json['surgery_name'];
     mediezyPatientId = json['mediezy_patient_id'];
     patientUserImage = json['patient_user_image'];
-    vitals =
-        json['vitals'] != null ? Vitals.fromJson(json['vitals']) : null;
+    vitals = json['vitals'] != null ? Vitals.fromJson(json['vitals']) : null;
     if (json['allergies'] != null) {
       allergies = <Allergies>[];
       json['allergies'].forEach((v) {
@@ -173,8 +172,7 @@ class AppointmentDetails {
       data['main_symptoms'] = mainSymptoms!.toJson();
     }
     if (otherSymptoms != null) {
-      data['other_symptoms'] =
-          otherSymptoms!.map((v) => v.toJson()).toList();
+      data['other_symptoms'] = otherSymptoms!.map((v) => v.toJson()).toList();
     }
     return data;
   }

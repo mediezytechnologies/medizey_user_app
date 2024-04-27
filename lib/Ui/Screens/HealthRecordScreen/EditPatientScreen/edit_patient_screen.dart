@@ -199,7 +199,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             scaleDuration: const Duration(milliseconds: 400),
                             fadeDuration: const Duration(milliseconds: 400),
                             child: ClipRRect(
-                          borderRadius: BorderRadius.circular(70.r),
+                              borderRadius: BorderRadius.circular(70.r),
                               child: imagePath != null
                                   ? Image.file(
                                       File(imagePath!),
@@ -370,29 +370,31 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           InkWell(
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                             Platform.isIOS
-                                ? selectIosDate(
-                                    context: context,
-                                    date: dateOfBirth ?? DateTime.now(),
-                                    onDateSelected: (DateTime picked) async {
-                                      setState(() {
-                                        dateOfBirth = picked;
-                                      });
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
-                                  )
-                                : selectDate(
-                                    context: context,
-                                    date: dateOfBirth ?? DateTime.now(),
-                                    onDateSelected: (DateTime picked) async {
-                                      setState(() {
-                                        dateOfBirth = picked;
-                                      });
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
-                                  );
+                              //  Platform.isIOS
+                              //     ?
+
+                              selectIosDate(
+                                context: context,
+                                date: dateOfBirth ?? DateTime.now(),
+                                onDateSelected: (DateTime picked) async {
+                                  setState(() {
+                                    dateOfBirth = picked;
+                                  });
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                },
+                                //   )
+                                // : selectDate(
+                                //     context: context,
+                                //     date: dateOfBirth ?? DateTime.now(),
+                                //     onDateSelected: (DateTime picked) async {
+                                //       setState(() {
+                                //         dateOfBirth = picked;
+                                //       });
+                                //       FocusScope.of(context)
+                                //           .requestFocus(FocusNode());
+                                //     },
+                              );
                             },
                             child: Container(
                               height: 45.h,
@@ -416,7 +418,9 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                         color: kTextColor),
                                   ),
                                   Icon(
-                                Platform.isIOS?CupertinoIcons.calendar:       IconlyLight.calendar,
+                                    Platform.isIOS
+                                        ? CupertinoIcons.calendar
+                                        : IconlyLight.calendar,
                                     color: kMainColor,
                                   ),
                                 ],
@@ -1635,7 +1639,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoDatePicker(
-        
           mode: CupertinoDatePickerMode.date,
           initialDateTime: date,
           minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),

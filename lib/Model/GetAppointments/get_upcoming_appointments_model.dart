@@ -239,8 +239,6 @@
 //   }
 // }
 
-
-
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 
 class GetUpComingAppointmentsModel {
@@ -478,8 +476,6 @@ class MainSymptoms {
   }
 }
 
-
-
 class OtherSymptom {
   String? symtoms;
 
@@ -495,4 +491,3 @@ class OtherSymptom {
     return data;
   }
 }
-

@@ -16,20 +16,18 @@ part 'user_location_bloc.freezed.dart';
 class UserLocationBloc extends Bloc<UserLocationEvent, UserLocationState> {
   final UserLocationRepo userLocationRepo;
   UserLocationBloc(this.userLocationRepo) : super(UserLocationState.initial()) {
-      on<_Started>((event, emit) async {
+    on<_Started>((event, emit) async {
       emit(
         const UserLocationState(
             isloding: true, isError: false, message: "", status: false),
       );
       log(emit.toString());
       final addMemberResult = await userLocationRepo.userLocation(
-    event.latitude,
-    event.longitude,
-    event.district,
-    event.city,
-    event.locationAddress
-  
-      );
+          event.latitude,
+          event.longitude,
+          event.district,
+          event.city,
+          event.locationAddress);
 
       final state = addMemberResult.fold((ErrorModel error) {
         return UserLocationState(

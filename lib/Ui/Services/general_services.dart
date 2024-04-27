@@ -190,7 +190,6 @@ class GeneralServices {
                 style: const TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-             
             ),
           )
         : showDialog(
@@ -214,40 +213,40 @@ class GeneralServices {
 
   //* show error button click
   void showErrorMessage(BuildContext context, String message) {
-   Platform.isIOS
+    Platform.isIOS
         ? showCupertinoDialog(
             barrierDismissible: false,
             context: context,
             builder: (context) => CupertinoAlertDialog(
               title: Align(
                 alignment: Alignment.center,
-                 child: Lottie.asset("assets/animations/error.json", 
-                    height: 120.h),
+                child:
+                    Lottie.asset("assets/animations/error.json", height: 120.h),
               ),
               content: Text(
                 message,
                 style: const TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              
             ),
           )
-        :   showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Align(
-            alignment: Alignment.center,
-            child: Lottie.asset("assets/animations/error.json", height: 120.h),
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        );
-      },
-    );
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/error.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          );
   }
 
   //* show delay success message
@@ -272,7 +271,6 @@ class GeneralServices {
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
-               
               );
             },
           )

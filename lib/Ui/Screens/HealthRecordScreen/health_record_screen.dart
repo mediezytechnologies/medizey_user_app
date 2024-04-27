@@ -134,8 +134,9 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                   ],
                                 ),
                                 const VerticalSpacingWidget(height: 5),
-                                SizedBox(
-                                  height: 60.h,
+                                Container(
+                                  //  color: Colors.amber,
+                                  height: 100.h,
                                   width: double.infinity,
                                   child: Row(
                                     children: [
@@ -197,7 +198,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                     AddPatientScreen(),
+                                                    AddPatientScreen(),
                                               ),
                                             );
                                           }
@@ -210,8 +211,8 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                               fadeDuration: const Duration(
                                                   milliseconds: 400),
                                               child: Container(
-                                                height: 35.h,
-                                                width: 35.w,
+                                                height: 39.h,
+                                                width: 39.w,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   border: Border.all(

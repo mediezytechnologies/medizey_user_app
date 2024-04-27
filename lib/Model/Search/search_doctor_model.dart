@@ -24,8 +24,7 @@ class SearchDoctorModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (searchDoctors != null) {
-      data['Search Doctors'] =
-          searchDoctors!.map((v) => v.toJson()).toList();
+      data['Search Doctors'] = searchDoctors!.map((v) => v.toJson()).toList();
     }
     data['code'] = code;
     data['message'] = message;
@@ -96,5 +95,3 @@ class SearchDoctors {
     return data;
   }
 }
-
-
