@@ -71,7 +71,10 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                         context,
                         MaterialPageRoute(
                           builder: ((context) =>
-                              const AllDoctorNearYouScreen()),
+                              const AllDoctorNearYouScreen()
+                              
+                              
+                              ),
                         ),
                       );
                     },
