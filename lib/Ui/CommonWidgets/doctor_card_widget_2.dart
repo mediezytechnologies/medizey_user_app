@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +16,8 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
+import '../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../ddd/domain/core/di/injectable.dart';
 import '../../ddd/domain/docters_model/model/clinic.dart';
 
 class DoctorCardWidget2 extends StatelessWidget {
@@ -30,8 +33,7 @@ class DoctorCardWidget2 extends StatelessWidget {
       required this.clinicList,
       required this.userAwayFrom,
       required this.favurates,
-      required this.onTap
-      });
+   });
 
   final String doctorId;
   final String firstName;
@@ -42,8 +44,7 @@ class DoctorCardWidget2 extends StatelessWidget {
   final String location;
   final List<Clinic> clinicList;
   final String userAwayFrom;
-  final String favurates;
-  final VoidCallback onTap;
+  final Widget favurates;
 
   @override
   Widget build(BuildContext context) {
@@ -123,15 +124,18 @@ class DoctorCardWidget2 extends StatelessWidget {
                         children: [
                           Text(
                             "Location: ",
-                            style: TextStyle(fontSize: 12.sp, color: kSubTextColor),
+                            style: TextStyle(
+                                fontSize: 12.sp, color: kSubTextColor),
                           ),
                           Text(
                             location,
-                            style: TextStyle(fontSize: 12.sp, color: Colors.black),
+                            style:
+                                TextStyle(fontSize: 12.sp, color: Colors.black),
                           ),
                         ],
                       ),
-                      Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Row(
                             children: [
@@ -142,7 +146,7 @@ class DoctorCardWidget2 extends StatelessWidget {
                               SizedBox(
                                 width: 3.w,
                               ),
-                               SizedBox(
+                              SizedBox(
                                 width: size.width * 0.38,
                                 child: RichText(
                                   text: TextSpan(
@@ -165,14 +169,15 @@ class DoctorCardWidget2 extends StatelessWidget {
                               ),
                             ],
                           ),
-                           GestureDetector(
+                          GestureDetector(
                             onTap: () => MapsLauncher.launchQuery(
                                 'Welcare Hospital, Sahodaran Ayyappan Road, Vyttila'),
                             child: Wrap(
                               children: [
                                 Text(
                                   'Get Location',
-                                  style: TextStyle(fontSize: 12.sp,color: kSubTextColor),
+                                  style: TextStyle(
+                                      fontSize: 12.sp, color: kSubTextColor),
                                 ),
                                 Icon(
                                   CupertinoIcons.map_pin,
@@ -256,7 +261,8 @@ class DoctorCardWidget2 extends StatelessWidget {
                                             fontSize: 13.sp),
                                       ),
                                       Text(
-                                        clinicList[index].nextAvailableTokenTime ==
+                                        clinicList[index]
+                                                    .nextAvailableTokenTime ==
                                                 null
                                             ? "N/A"
                                             : clinicList[index]
@@ -344,25 +350,11 @@ class DoctorCardWidget2 extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: size.height*0.02,
-          right: size.width*0.04,
-          
-          child: GestureDetector(
-            
-            onTap:onTap ,
-            child: Container(
-              color: Colors.amber,
-            height: size.height*0.05,
-            width: size.width*0.08,
-              child: Image.asset(
-             
-
-           
-               "assets/icons/favorite1.png", color: Colors.black,),
-            )
-            
-            
-           ,))
+            top: size.height * 0.02,
+            right: size.width * 0.04,
+            child:
+            favurates,
+             )
       ],
     );
   }

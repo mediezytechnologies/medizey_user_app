@@ -16,37 +16,48 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GetDoctersEvent {
+  int get favId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(int favId) started,
+    required TResult Function(int favId) changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(int favId)? started,
+    TResult? Function(int favId)? changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(int favId)? started,
+    TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_ChangeFav value) changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_ChangeFav value)? changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_ChangeFav value)? changeFav,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $GetDoctersEventCopyWith<GetDoctersEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -55,6 +66,8 @@ abstract class $GetDoctersEventCopyWith<$Res> {
   factory $GetDoctersEventCopyWith(
           GetDoctersEvent value, $Res Function(GetDoctersEvent) then) =
       _$GetDoctersEventCopyWithImpl<$Res, GetDoctersEvent>;
+  @useResult
+  $Res call({int favId});
 }
 
 /// @nodoc
@@ -66,13 +79,30 @@ class _$GetDoctersEventCopyWithImpl<$Res, $Val extends GetDoctersEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? favId = null,
+  }) {
+    return _then(_value.copyWith(
+      favId: null == favId
+          ? _value.favId
+          : favId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$StartedImplCopyWith<$Res> {
+abstract class _$$StartedImplCopyWith<$Res>
+    implements $GetDoctersEventCopyWith<$Res> {
   factory _$$StartedImplCopyWith(
           _$StartedImpl value, $Res Function(_$StartedImpl) then) =
       __$$StartedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int favId});
 }
 
 /// @nodoc
@@ -82,51 +112,78 @@ class __$$StartedImplCopyWithImpl<$Res>
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? favId = null,
+  }) {
+    return _then(_$StartedImpl(
+      favId: null == favId
+          ? _value.favId
+          : favId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$StartedImpl implements _Started {
-  const _$StartedImpl();
+  const _$StartedImpl({required this.favId});
+
+  @override
+  final int favId;
 
   @override
   String toString() {
-    return 'GetDoctersEvent.started()';
+    return 'GetDoctersEvent.started(favId: $favId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$StartedImpl &&
+            (identical(other.favId, favId) || other.favId == favId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, favId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
+      __$$StartedImplCopyWithImpl<_$StartedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(int favId) started,
+    required TResult Function(int favId) changeFav,
   }) {
-    return started();
+    return started(favId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(int favId)? started,
+    TResult? Function(int favId)? changeFav,
   }) {
-    return started?.call();
+    return started?.call(favId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(int favId)? started,
+    TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) {
     if (started != null) {
-      return started();
+      return started(favId);
     }
     return orElse();
   }
@@ -135,6 +192,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_ChangeFav value) changeFav,
   }) {
     return started(this);
   }
@@ -143,6 +201,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_ChangeFav value)? changeFav,
   }) {
     return started?.call(this);
   }
@@ -151,6 +210,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_ChangeFav value)? changeFav,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -161,7 +221,151 @@ class _$StartedImpl implements _Started {
 }
 
 abstract class _Started implements GetDoctersEvent {
-  const factory _Started() = _$StartedImpl;
+  const factory _Started({required final int favId}) = _$StartedImpl;
+
+  @override
+  int get favId;
+  @override
+  @JsonKey(ignore: true)
+  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ChangeFavImplCopyWith<$Res>
+    implements $GetDoctersEventCopyWith<$Res> {
+  factory _$$ChangeFavImplCopyWith(
+          _$ChangeFavImpl value, $Res Function(_$ChangeFavImpl) then) =
+      __$$ChangeFavImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int favId});
+}
+
+/// @nodoc
+class __$$ChangeFavImplCopyWithImpl<$Res>
+    extends _$GetDoctersEventCopyWithImpl<$Res, _$ChangeFavImpl>
+    implements _$$ChangeFavImplCopyWith<$Res> {
+  __$$ChangeFavImplCopyWithImpl(
+      _$ChangeFavImpl _value, $Res Function(_$ChangeFavImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? favId = null,
+  }) {
+    return _then(_$ChangeFavImpl(
+      null == favId
+          ? _value.favId
+          : favId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ChangeFavImpl implements _ChangeFav {
+  const _$ChangeFavImpl(this.favId);
+
+  @override
+  final int favId;
+
+  @override
+  String toString() {
+    return 'GetDoctersEvent.changeFav(favId: $favId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChangeFavImpl &&
+            (identical(other.favId, favId) || other.favId == favId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, favId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangeFavImplCopyWith<_$ChangeFavImpl> get copyWith =>
+      __$$ChangeFavImplCopyWithImpl<_$ChangeFavImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int favId) started,
+    required TResult Function(int favId) changeFav,
+  }) {
+    return changeFav(favId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int favId)? started,
+    TResult? Function(int favId)? changeFav,
+  }) {
+    return changeFav?.call(favId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int favId)? started,
+    TResult Function(int favId)? changeFav,
+    required TResult orElse(),
+  }) {
+    if (changeFav != null) {
+      return changeFav(favId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_ChangeFav value) changeFav,
+  }) {
+    return changeFav(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_ChangeFav value)? changeFav,
+  }) {
+    return changeFav?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_ChangeFav value)? changeFav,
+    required TResult orElse(),
+  }) {
+    if (changeFav != null) {
+      return changeFav(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeFav implements GetDoctersEvent {
+  const factory _ChangeFav(final int favId) = _$ChangeFavImpl;
+
+  @override
+  int get favId;
+  @override
+  @JsonKey(ignore: true)
+  _$$ChangeFavImplCopyWith<_$ChangeFavImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -171,6 +375,7 @@ mixin _$GetDoctersState {
   bool get isError => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get status => throw _privateConstructorUsedError;
+  int get favId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GetDoctersStateCopyWith<GetDoctersState> get copyWith =>
@@ -188,7 +393,8 @@ abstract class $GetDoctersStateCopyWith<$Res> {
       List<AllDoctor> model,
       bool isError,
       String message,
-      bool status});
+      bool status,
+      int favId});
 }
 
 /// @nodoc
@@ -209,6 +415,7 @@ class _$GetDoctersStateCopyWithImpl<$Res, $Val extends GetDoctersState>
     Object? isError = null,
     Object? message = null,
     Object? status = null,
+    Object? favId = null,
   }) {
     return _then(_value.copyWith(
       isloding: null == isloding
@@ -231,6 +438,10 @@ class _$GetDoctersStateCopyWithImpl<$Res, $Val extends GetDoctersState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as bool,
+      favId: null == favId
+          ? _value.favId
+          : favId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -248,7 +459,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       List<AllDoctor> model,
       bool isError,
       String message,
-      bool status});
+      bool status,
+      int favId});
 }
 
 /// @nodoc
@@ -267,6 +479,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isError = null,
     Object? message = null,
     Object? status = null,
+    Object? favId = null,
   }) {
     return _then(_$InitialImpl(
       isloding: null == isloding
@@ -289,6 +502,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as bool,
+      favId: null == favId
+          ? _value.favId
+          : favId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -301,7 +518,8 @@ class _$InitialImpl implements _Initial {
       required final List<AllDoctor> model,
       required this.isError,
       required this.message,
-      required this.status})
+      required this.status,
+      required this.favId})
       : _model = model;
 
   @override
@@ -320,10 +538,12 @@ class _$InitialImpl implements _Initial {
   final String message;
   @override
   final bool status;
+  @override
+  final int favId;
 
   @override
   String toString() {
-    return 'GetDoctersState(isloding: $isloding, model: $model, isError: $isError, message: $message, status: $status)';
+    return 'GetDoctersState(isloding: $isloding, model: $model, isError: $isError, message: $message, status: $status, favId: $favId)';
   }
 
   @override
@@ -336,12 +556,19 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality().equals(other._model, _model) &&
             (identical(other.isError, isError) || other.isError == isError) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.favId, favId) || other.favId == favId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isloding,
-      const DeepCollectionEquality().hash(_model), isError, message, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isloding,
+      const DeepCollectionEquality().hash(_model),
+      isError,
+      message,
+      status,
+      favId);
 
   @JsonKey(ignore: true)
   @override
@@ -356,7 +583,8 @@ abstract class _Initial implements GetDoctersState {
       required final List<AllDoctor> model,
       required final bool isError,
       required final String message,
-      required final bool status}) = _$InitialImpl;
+      required final bool status,
+      required final int favId}) = _$InitialImpl;
 
   @override
   bool get isloding;
@@ -368,6 +596,8 @@ abstract class _Initial implements GetDoctersState {
   String get message;
   @override
   bool get status;
+  @override
+  int get favId;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

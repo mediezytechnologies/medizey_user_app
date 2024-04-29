@@ -8,7 +8,8 @@ class GetDoctersState with _$GetDoctersState {
     required bool isError,
     required String message,
     required bool status,
+    required int favId
   }) = _Initial;
   factory GetDoctersState.initial() => GetDoctersState(
-      isloding: false, isError: false, message: '', status: false, model: []);
+      isloding: false, isError: false, message: '', status: false, model: [], favId: 0,);
 }

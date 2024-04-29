@@ -15,6 +15,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/domain/core/di/injectable.dart';
 import '../../../CommonWidgets/doctor_card_widget_2.dart';
 
 class AllDoctorNearYouScreen2 extends StatefulWidget {
@@ -36,18 +37,21 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
 
   @override
   void initState() {
-    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
+    BlocProvider.of<GetDoctersBloc>(context)
+        .add(GetDoctersEvent.started(favId: 0));
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       handleConnectivityChange(result);
     });
-    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
+    BlocProvider.of<GetDoctersBloc>(context)
+        .add(GetDoctersEvent.started(favId: 0));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Doctors Near You"),
@@ -129,21 +133,50 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                       .toString(),
                                   location:
                                       state.model[index].location.toString(),
-                                  favurates:
-                                      state.model[index].favoriteStatus == 1
-                                          ? "assets/icons/favorite2.png"
-                                          : "assets/icons/favorite2.png",
-                                  onTap: () {
-                                    BlocProvider.of<AddFavouritesBloc>(context)
-                                        .add(
-                                      AddFavourites(
-                                        doctorId: state.model[index].userId
-                                            .toString(),
-                                        favouriteStatus:
-                                            state.model[index].favoriteStatus!,
-                                      ),
-                                    );
-                                  },
+                                  favurates: BlocProvider(
+                                    create: (context) =>
+                                        getIt<GetDoctersBloc>(),
+                                    child: 
+                                    
+                                       GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                             log("kfjdsklfj :  ${state.favId}");
+                                            context.read<GetDoctersBloc>().add(
+                                                GetDoctersEvent.changeFav(state
+                                                    .model[index]
+                                                    .favoriteStatus!));
+                                            });
+                                          
+                                            BlocProvider.of<AddFavouritesBloc>(
+                                                    context)
+                                                .add(
+                                              AddFavourites(
+                                                doctorId: state
+                                                    .model[index].userId
+                                                    .toString(),
+                                                favouriteStatus: state.favId
+                                                   ,
+                                              ),
+                                            );
+                                          
+                                          },
+                                          child: Container(
+                                            // color: Colors.amber,
+                                            height: size.height * 0.045,
+                                            width: size.width * 0.07,
+                                            child: Image.asset(
+                                              state.model[index].favoriteStatus==
+                                                      1
+                                                  ? "assets/icons/favorite2.png"
+                                                  : "assets/icons/favorite1.png",
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                      //  );
+                                    //  },
+                                    ),
+                                  ),
                                 );
                               },
                               itemCount: state.model.length),

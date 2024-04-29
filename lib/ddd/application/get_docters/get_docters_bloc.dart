@@ -20,22 +20,23 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
           isError: false,
           message: "",
           status: false,
-          model: []));
-      print(emit);
+          model: [],   favId: 0));
+      log(emit.toString());
 
-      // emit(const GetDoctersState( isloding: true, isError: false, message: "", status: false),);
       log(emit.toString());
       final getDoctorResult = await getDoctersRepo.getDoctersRepo();
 
       print("${getDoctorResult.toString()} ======");
-      //  final  data=getDoctorResult.fold();
+
       emit(getDoctorResult.fold(
           (l) => state.copyWith(
               isloding: false,
               isError: true,
               message: l.message!,
               model: [],
-              status: false),
+              status: false,
+              
+              ),
           (r) => state.copyWith(
                 isloding: false,
                 isError: false,
@@ -43,8 +44,9 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
                 status: state.status,
                 model: r,
               )));
-
-      
+    });
+    on<_ChangeFav>((event, emit) {
+      emit(state.copyWith(favId: event.favId));
     });
   }
 }
