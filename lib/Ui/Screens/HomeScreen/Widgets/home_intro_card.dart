@@ -56,44 +56,43 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                 ),
               );
             },
-            child: Column(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'Hi,',
-                    style: TextStyle(
-                      fontSize: 17.sp,
-                      color: kWhiteColor,
-                    ),
-                    children: [
-                      TextSpan(
-                          text: ' $userName',
-                          style: TextStyle(
-                              fontSize: 17.sp,
-                              color: kWhiteColor,
-                              fontWeight: FontWeight.bold),
-                          recognizer: TapGestureRecognizer()..onTap = () {})
-                    ],
+            child: Container(
+              //color: Colors.amber,
+              child: RichText(
+                text: TextSpan(
+                  text: 'Hi,',
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    color: kWhiteColor,
                   ),
-                )
-              ],
+                  children: [
+                    TextSpan(
+                        text: ' $userName',
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            color: kWhiteColor,
+                            fontWeight: FontWeight.bold),
+                        recognizer: TapGestureRecognizer()..onTap = () {})
+                  ],
+                ),
+              ),
             ),
           ),
         ),
         Positioned(
           top: height * .039,
-          left: width * .045,
+          left: width * .125,
           child: Text(
             "Your one stop solution for\nQuick and easy consultation",
             style: TextStyle(
                 height: 1.2,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
                 color: Colors.white),
           ),
         ),
         Positioned(
-          top: height * .100,
+          top: height * .13,
           left: width * .045.w,
           child: InkWell(
             onTap: () {
@@ -143,11 +142,11 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
               );
             },
             child: Container(
-              height: 40,
-              width: 300,
+              height: 40.h,
+              width: 300.w,
               decoration: BoxDecoration(
                 color: kCardColor,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.r),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,7 +162,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                     padding: EdgeInsets.only(right: 10.w),
                     child: CircleAvatar(
                       backgroundColor: const Color(0xFF56B89C),
-                      radius: 16,
+                      radius: 16.r,
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Icon(

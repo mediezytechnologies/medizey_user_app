@@ -8,7 +8,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
-import 'package:mediezy_user/Ui/Screens/demo/df.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -21,7 +20,7 @@ void main() async {
   ]);
   runApp(
     MultiBlocProvider(
-      providers: AppBlocProviders.allBlocProviders,
+      providers: AppBlocProviders.allBlocProviders, 
       child: const Mediezy(),
     ),
   );
