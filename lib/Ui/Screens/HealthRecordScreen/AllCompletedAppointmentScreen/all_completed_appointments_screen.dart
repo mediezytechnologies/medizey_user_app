@@ -41,6 +41,12 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                     itemCount: completedAppointment.appointmentDetails!.length,
                     itemBuilder: (context, index) {
                       return CompletedAppointmentCardWidget(
+                        whenItStart: completedAppointment
+                            .appointmentDetails![index].symptomStartTime
+                            .toString(),
+                        whenItsCome: completedAppointment
+                            .appointmentDetails![index].symptomFrequency
+                            .toString(),
                         vitals: completedAppointment
                             .appointmentDetails![index].vitals!
                             .toList(),

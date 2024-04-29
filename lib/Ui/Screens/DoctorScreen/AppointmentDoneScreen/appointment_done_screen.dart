@@ -118,8 +118,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
 
   checkPatientIdAvailableOrNot() {
     widget.patientId == null
-        ? BlocProvider.of<AutoFetchBloc>(context)
-            .add(FetchAutoFetch(section: "Self", patientId: ""))
+        ? Future.delayed(const Duration(milliseconds: 500), () {
+            BlocProvider.of<AutoFetchBloc>(context)
+                .add(FetchAutoFetch(section: "Self", patientId: ""));
+          })
         : BlocProvider.of<AutoFetchBloc>(context).add(FetchAutoFetch(
             section: "Family Member", patientId: widget.patientId.toString()));
   }
@@ -575,14 +577,26 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                   .circular(5),
                                                         ),
                                                       ),
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                AddPatientScreen(),
-                                                          ),
-                                                        );
+                                                      onPressed: () async {
+                                                        if (getFamilyMembersModel
+                                                                .familyMember!
+                                                                .length ==
+                                                            5) {
+                                                          GeneralServices
+                                                              .instance
+                                                              .showDialogue(
+                                                            context,
+                                                            "Unable to add patient. The maximum limit for patients has been reached",
+                                                          );
+                                                        } else {
+                                                          await Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  AddPatientScreen(),
+                                                            ),
+                                                          );
+                                                        }
                                                       },
                                                       child: Text(
                                                         "Add",
@@ -860,12 +874,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             },
                           ),
                           const VerticalSpacingWidget(height: 10),
-
-                          // getFamilyMembersModel.familyMember!.isEmpty &&
-                          //         bookingFor == "Family Member"
-                          //     ? const SizedBox()
-                          //     :
-
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -901,11 +909,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 10),
-                          // getFamilyMembersModel.familyMember!.isEmpty &&
-                          //         bookingFor == "Family Member"
-                          //     ? const SizedBox()
-                          //     :
-
                           BlocBuilder<GetSymptomsBloc, GetSymptomsState>(
                             builder: (context, state) {
                               if (state is GetSymptomsLoaded) {
@@ -974,11 +977,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             },
                           ),
                           const VerticalSpacingWidget(height: 5),
-                          // getFamilyMembersModel.familyMember!.isEmpty &&
-                          //         bookingFor == "Family Member"
-                          //     ? const SizedBox()
-                          //     :
-
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -1064,11 +1062,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 5),
-                          // getFamilyMembersModel.familyMember!.isEmpty &&
-                          //         bookingFor == "Family Member"
-                          //     ? const SizedBox()
-                          //     :
-
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -1120,11 +1113,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 10),
-                          // getFamilyMembersModel.familyMember!.isEmpty &&
-                          //         bookingFor == "Family Member"
-                          //     ? const SizedBox()
-                          //     :
-
                           Column(
                             children: [
                               Row(

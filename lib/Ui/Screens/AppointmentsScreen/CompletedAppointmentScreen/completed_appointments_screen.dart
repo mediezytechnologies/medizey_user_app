@@ -85,6 +85,12 @@ class _CompletedAppointmentScreenState
                           .appointmentDetails!.length,
                       itemBuilder: (context, index) {
                         return CompletedAppointmentCardWidget(
+                          whenItStart: getCompletedAppointmentsModel
+                              .appointmentDetails![index].symptomStartTime
+                              .toString(),
+                          whenItsCome: getCompletedAppointmentsModel
+                              .appointmentDetails![index].symptomFrequency
+                              .toString(),
                           prescriptions: getCompletedAppointmentsModel
                               .appointmentDetails![index].doctorMedicines!
                               .toList(),
@@ -132,7 +138,9 @@ class _CompletedAppointmentScreenState
                                   .symtoms
                                   .toString()
                               : getCompletedAppointmentsModel
-                                  .appointmentDetails![index].mainSymptoms!.mainsymptoms
+                                  .appointmentDetails![index]
+                                  .mainSymptoms!
+                                  .mainsymptoms
                                   .toString(),
                           reviewAfter: getCompletedAppointmentsModel
                               .appointmentDetails![index].reviewAfter

@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, avoid_print
+// ignore_for_file: depend_on_referenced_packages, avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
@@ -19,8 +19,7 @@ class SuggestionBloc extends Bloc<SuggestionEvent, SuggestionState> {
         updatedSuccessfully =
             await suggestionApi.getSuggestions(message: event.message);
         Map<String, dynamic> data = jsonDecode(updatedSuccessfully);
-        // GeneralServices.instance.showToastMessage(data['message']);
-        GeneralServices.instance.showSuccessMessage(
+        GeneralServices.instance.showDelaySuccessMessage(
           event.context,
           data['message'],
         );

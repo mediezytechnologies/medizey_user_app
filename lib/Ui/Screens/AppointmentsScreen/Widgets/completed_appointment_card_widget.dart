@@ -24,7 +24,9 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
       required this.reviewAfter,
       required this.vitals,
       required this.scanningCenterName,
-      required this.scanningTestName});
+      required this.scanningTestName,
+      required this.whenItStart,
+      required this.whenItsCome});
 
   final String doctorName;
   final String doctorImage;
@@ -42,6 +44,8 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
   final List<Vitals> vitals;
   final String scanningCenterName;
   final String scanningTestName;
+  final String whenItStart;
+  final String whenItsCome;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +71,8 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
               vitals: vitals,
               scanningCenterName: scanningCenterName,
               scanningTestName: scanningTestName,
+              whenItStart: whenItStart,
+              whenItsCome: whenItsCome,
             ),
           ),
         );

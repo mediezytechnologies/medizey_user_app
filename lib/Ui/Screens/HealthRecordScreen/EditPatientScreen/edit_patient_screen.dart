@@ -1510,8 +1510,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           log("message state emit ui ${state.status}");
                           log("image null");
                           log("second call>>>>>>>>>");
-                          GeneralServices.instance.showToastMessage(
-                              "Family member added successfully");
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
                             BlocProvider.of<GetAllMembersBloc>(context)

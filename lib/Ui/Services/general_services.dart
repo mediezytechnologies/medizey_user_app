@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -255,11 +257,13 @@ class GeneralServices {
         ? showCupertinoDialog(
             barrierDismissible: false,
             context: context,
-            builder: (context) {
-              Future.delayed(const Duration(seconds: 2), () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              });
+            builder: (ctx) {
+              if (message != "") {
+                Future.delayed(const Duration(seconds: 2), () {
+                  Navigator.pop(ctx);
+                  log("delay worked");
+                });
+              }
               return CupertinoAlertDialog(
                 title: Align(
                   alignment: Alignment.center,
@@ -276,11 +280,13 @@ class GeneralServices {
           )
         : showDialog(
             context: context,
-            builder: (BuildContext context) {
-              Future.delayed(const Duration(seconds: 2), () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              });
+            builder: (BuildContext ctx) {
+              if (message != "") {
+                Future.delayed(const Duration(seconds: 2), () {
+                  Navigator.pop(ctx);
+                  log("delay worked");
+                });
+              }
               return AlertDialog(
                 title: Align(
                   alignment: Alignment.center,

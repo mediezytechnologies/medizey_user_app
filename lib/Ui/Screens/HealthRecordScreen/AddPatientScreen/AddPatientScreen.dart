@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllergy/get_allery_model.dart';
+import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/get_family_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllergy/get_allergy_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
@@ -235,8 +236,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         VerticalSpacingWidget(height: 5.h),
                         InkWell(
                           onTap: () {
-                            // Platform.isIOS
-                            //     ?
                             selectIosDate(
                               context: context,
                               date: dateOfBirth ?? DateTime.now(),
@@ -247,17 +246,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 FocusScope.of(context)
                                     .requestFocus(FocusNode());
                               },
-                              //   )
-                              // : selectDate(
-                              //     context: context,
-                              //     date: dateOfBirth ?? DateTime.now(),
-                              //     onDateSelected: (DateTime picked) async {
-                              //       setState(() {
-                              //         dateOfBirth = picked;
-                              //       });
-                              //       FocusScope.of(context)
-                              //           .requestFocus(FocusNode());
-                              //     },
                             );
                           },
                           child: Container(
@@ -1126,6 +1114,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           .then((value) async {
                         BlocProvider.of<GetAllMembersBloc>(context)
                             .add(FetchAllMembers());
+                        BlocProvider.of<GetFamilyMembersBloc>(context)
+                            .add(FetchFamilyMember());
                         Navigator.pop(context);
                       });
                     } else {
@@ -1134,6 +1124,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       Future.delayed(const Duration(seconds: 1)).then((value) {
                         BlocProvider.of<GetAllMembersBloc>(context)
                             .add(FetchAllMembers());
+                        BlocProvider.of<GetFamilyMembersBloc>(context)
+                            .add(FetchFamilyMember());
                         Navigator.pop(context);
                       });
                     }
