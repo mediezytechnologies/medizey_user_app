@@ -2,13 +2,16 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Model/Doctor/doctor_model.dart';
+import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../CommonWidgets/doctor_card_widget_2.dart';
@@ -37,7 +40,7 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
         .listen((ConnectivityResult result) {
       handleConnectivityChange(result);
     });
-    BlocProvider.of<GetDoctersBloc>(context).add(const GetDoctersEvent.started());
+    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
     super.initState();
   }
 
@@ -57,16 +60,6 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
             } else {
               return BlocConsumer<GetDoctersBloc, GetDoctersState>(
                 listener: (context, state) {
-                  if (state.isloding) {
-                     Center(
-                      child: Image(
-                        image: const AssetImage(
-                            "assets/images/something went wrong-01.png"),
-                        height: 200.h,
-                        width: 200.w,
-                      ),
-                    );
-                  }
                   if (state.isError) {
                     log("data error ${state.message}");
                   }
@@ -119,6 +112,84 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                   );
                 },
               );
+
+              // return BlocBuilder<GetDoctorBloc, GetDoctorState>(
+              //   builder: (context, state) {
+              //     if (state is GetDoctorLoading) {
+              //       return Center(
+              //         child: CircularProgressIndicator(
+              //           color: kMainColor,
+              //         ),
+              //       );
+              //     }
+              //     if (state is GetDoctorError) {
+              //       return Center(
+              //         child: Image(
+              //           image: const AssetImage(
+              //               "assets/images/something went wrong-01.png"),
+              //           height: 200.h,
+              //           width: 200.w,
+              //         ),
+              //       );
+              //     }
+              //     if (state is GetDoctorLoaded) {
+              //       doctorModel =
+              //           BlocProvider.of<GetDoctorBloc>(context).doctorModel;
+              //       return FadedSlideAnimation(
+              //         beginOffset: const Offset(0, 0.3),
+              //         endOffset: const Offset(0, 0),
+              //         slideCurve: Curves.linearToEaseOut,
+              //         child: SingleChildScrollView(
+              //           child: Column(
+              //             children: [
+              //               ListView.builder(
+              //                   padding: EdgeInsets.zero,
+              //                   shrinkWrap: true,
+              //                   physics: const NeverScrollableScrollPhysics(),
+              //                   itemBuilder: (context, index) {
+              //                     return DoctorCardWidget(
+              //                       userAwayFrom: "2.2",
+              //                       clinicList: doctorModel
+              //                           .allDoctors![index].clinics!
+              //                           .toList(),
+              //                       doctorId: doctorModel
+              //                           .allDoctors![index].userId
+              //                           .toString(),
+              //                       firstName: doctorModel
+              //                           .allDoctors![index].firstname
+              //                           .toString(),
+              //                       lastName: doctorModel
+              //                           .allDoctors![index].secondname
+              //                           .toString(),
+              //                       imageUrl: doctorModel
+              //                           .allDoctors![index].docterImage
+              //                           .toString(),
+              //                       mainHospitalName: doctorModel
+              //                           .allDoctors![index].mainHospital
+              //                           .toString(),
+              //                       specialisation: doctorModel
+              //                           .allDoctors![index].specialization
+              //                           .toString(),
+              //                       location: doctorModel
+              //                           .allDoctors![index].location
+              //                           .toString(),
+              //                     );
+              //                   },
+              //                   itemCount: doctorModel.allDoctors!.length),
+              //               const VerticalSpacingWidget(height: 5),
+              //               Padding(
+              //                 padding: EdgeInsets.symmetric(horizontal: 8.w),
+              //                 child: const RecommendedDoctorCard(),
+              //               ),
+              //               const VerticalSpacingWidget(height: 5)
+              //             ],
+              //           ),
+              //         ),
+              //       );
+              //     }
+              //     return Container();
+              //   },
+              // );
             }
           }),
     );
