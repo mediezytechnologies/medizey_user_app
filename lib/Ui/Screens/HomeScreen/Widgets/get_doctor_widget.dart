@@ -7,6 +7,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_dcotors_near_you_screen.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_docters_near_you_screen_2.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_near_you_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 
@@ -71,7 +72,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                         context,
                         MaterialPageRoute(
                           builder: ((context) =>
-                              const AllDoctorNearYouScreen()
+                              const AllDoctorNearYouScreen2()
                               
                               
                               ),
