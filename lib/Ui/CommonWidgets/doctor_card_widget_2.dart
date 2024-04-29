@@ -32,7 +32,7 @@ class DoctorCardWidget2 extends StatelessWidget {
       required this.location,
       required this.clinicList,
       required this.userAwayFrom,
-    //  required this.favurates,
+     required this.favurates,
    });
 
   final String doctorId;
@@ -44,7 +44,7 @@ class DoctorCardWidget2 extends StatelessWidget {
   final String location;
   final List<Clinic> clinicList;
   final String userAwayFrom;
-//  final Widget favurates;
+ final Widget favurates;
 
   @override
   Widget build(BuildContext context) {
@@ -352,27 +352,31 @@ class DoctorCardWidget2 extends StatelessWidget {
        Positioned(
           top: size.height * 0.02,
           right: size.width * 0.04,
-          child: BlocBuilder<GetDoctersBloc, GetDoctersState>(
-            builder: (context, state) {
-              return GestureDetector(
-                onTap: () {
-                  bool isFavorited = state.model.any((doctor) => doctor.id == doctorId && doctor.favoriteStatus == 1);
-                  context.read<GetDoctersBloc>().add(GetDoctersEvent.changeFav(isFavorited ? 0 : 1));
-                  context.read<AddFavouritesBloc>().add(AddFavourites(doctorId: doctorId, favouriteStatus: isFavorited ? 0 : 1));
-                },
-                child: Container(
-                  height: size.height * 0.045,
-                  width: size.width * 0.07,
-                  child: Image.asset(
-                    state.model.any((doctor) => doctor.id == doctorId && doctor.favoriteStatus == 1)
-                        ? "assets/icons/favorite2.png"
-                        : "assets/icons/favorite1.png",
-                    color: Colors.black,
-                  ),
-                ),
-              );
-            },
-          ),
+          child: favurates,
+    //       child: BlocBuilder<GetDoctersBloc, GetDoctersState>(
+    //         builder: (context, state) {
+    //           return GestureDetector(
+    //             onTap: () {
+    //                BlocProvider.of<GetDoctersBloc>(context).add(
+    //   GetDoctersEvent.changeFav(state.model[index].id!),
+    // );
+    //               bool isFavorited = state.model.any((doctor) => doctor.id.toString() == doctorId && doctor.favoriteStatus == 1);
+    //               context.read<GetDoctersBloc>().add(GetDoctersEvent.changeFav(isFavorited ? 0 : 1));
+    //               context.read<AddFavouritesBloc>().add(AddFavourites(doctorId: doctorId, favouriteStatus: isFavorited ? 0 : 1));
+    //             },
+    //             child: Container(
+    //               height: size.height * 0.045,
+    //               width: size.width * 0.07,
+    //               child: Image.asset(
+    //                 state.model.any((doctor) => doctor.id.toString() == doctorId && doctor.favoriteStatus == 1)
+    //                     ? "assets/icons/favorite2.png"
+    //                     : "assets/icons/favorite1.png",
+    //                 color: Colors.black,
+    //               ),
+    //             ),
+    //           );
+    //         },
+    //       ),
         ),
       ],
     );

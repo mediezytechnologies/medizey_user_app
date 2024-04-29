@@ -38,14 +38,14 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
   @override
   void initState() {
     BlocProvider.of<GetDoctersBloc>(context)
-        .add(GetDoctersEvent.started(favId: 0));
+        .add(GetDoctersEvent.started());
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetDoctersBloc>(context)
-        .add(GetDoctersEvent.started(favId: 0));
+        .add(GetDoctersEvent.started());
     super.initState();
   }
 
@@ -133,6 +133,25 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                       .toString(),
                                   location:
                                       state.model[index].location.toString(),
+                                      favurates: GestureDetector(
+
+
+ onTap: () {
+    BlocProvider.of<GetDoctersBloc>(context).add(
+      GetDoctersEvent.changeFav(state.model[index].id!),
+    );
+  },
+child: Container(
+    height: size.height * 0.045,
+    width: size.width * 0.07,
+    child: Image.asset(
+      state.model[index].favoriteStatus == 1
+          ? "assets/icons/favorite2.png"
+          : "assets/icons/favorite1.png",
+      color: Colors.black,
+    ),
+  ),
+                                      ),
                                   // favurates: BlocProvider(
                                   //   create: (context) =>
                                   //       getIt<GetDoctersBloc>(),
