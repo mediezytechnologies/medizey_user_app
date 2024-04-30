@@ -132,38 +132,40 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Row(
-                      children: [
-                        Icon(
-                          IconlyLight.location,
-                          size: 14.sp,
-                        ),
-                        SizedBox(
-                          width: 3.w,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: widget.docterDistance,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold),
+                  widget.docterDistance == "0.0"
+                      ? const SizedBox()
+                      : Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
+                          child: Row(
                             children: [
-                              TextSpan(
-                                  text: ' away',
+                              Icon(
+                                IconlyLight.location,
+                                size: 14.sp,
+                              ),
+                              SizedBox(
+                                width: 3.w,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: widget.docterDistance,
                                   style: TextStyle(
-                                      color: kSubTextColor,
-                                      fontWeight: FontWeight.normal),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {})
+                                      fontSize: 12.sp,
+                                      color: kTextColor,
+                                      fontWeight: FontWeight.bold),
+                                  children: [
+                                    TextSpan(
+                                        text: ' away',
+                                        style: TextStyle(
+                                            color: kSubTextColor,
+                                            fontWeight: FontWeight.normal),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {})
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                        )
                 ],
               ),
             ),

@@ -11,9 +11,11 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mediezy_user/Model/GetFamilyMembers/get_family_members_model.dart';
 import 'package:mediezy_user/Model/GetSymptoms/get_symptoms_model.dart';
+import 'package:mediezy_user/Model/OtherTypePatientDetails/other_type_patient_details_model.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/AutoFetch/auto_fetch_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/BookAppointmets/book_appointment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/get_family_members_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/BookAppointment/OtherTypePatientDetails/other_type_patient_details_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSymptoms/get_symptoms_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetToken/get_token_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
@@ -87,6 +89,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
   final TextEditingController otherTreatmentController =
       TextEditingController();
   final TextEditingController daysController = TextEditingController();
+  final TextEditingController patientIdSearchController =
+      TextEditingController();
+  final TextEditingController searchPhoneNumber = TextEditingController();
   String? originalAge;
   String dropdownValue = 'Male';
   String bookingFor = "Self";
@@ -99,11 +104,19 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
   String patientId = "0";
   late StreamSubscription<ConnectivityResult> subscription;
   late GetFamilyMembersModel getFamilyMembersModel;
+  late OtherTypePatientDetailsModel otherTypePatientDetailsModel;
   late ValueNotifier<int> dropValueMemberNotifier;
   int dropValueMember = 0;
   late String selectedFamilyMemberId = "";
   late List<FamilyMember> familyMemberId;
   late List<FamilyMember> familyMemberNames = [];
+  bool isSelectPatient = false;
+  String? patientName;
+  String? patientDisplayAge;
+  String? patientGender;
+  String? patientAge;
+  String? patientPhoneNumber;
+  String? patientMediezyId;
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -174,12 +187,24 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => BookingConfirmationScreen(
-                          age: patientAgeController.text,
-                          gender: dropdownValue,
+                          age: patientAge == null
+                              ? patientAgeController.text
+                              : patientDisplayAge.toString(),
+                          gender: patientGender == null
+                              ? dropdownValue
+                              : patientGender == "1"
+                                  ? "Male"
+                                  : (patientGender == "2")
+                                      ? "Female"
+                                      : "Other",
                           appointmentDate: formatDate(),
                           appointmentTime: widget.bookingTime,
-                          name: patientNameController.text,
-                          mobileNo: patientContactNumberController.text,
+                          name: patientNameController.text.isEmpty
+                              ? patientName.toString()
+                              : patientNameController.text,
+                          mobileNo: patientContactNumberController.text.isEmpty
+                              ? patientPhoneNumber.toString()
+                              : patientContactNumberController.text,
                           tokenNo: widget.tokenNo,
                           address: widget.clinicAddress,
                           clinicName: widget.clinicName,
@@ -214,6 +239,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
+                                          patientIdSearchController.clear();
+                                          isSelectPatient = false;
+                                          searchPhoneNumber.clear();
+                                          patientName = null;
                                           bookingFor = "Self";
                                           selectedBookingFor = 1.toString();
                                           BlocProvider.of<AutoFetchBloc>(
@@ -233,6 +262,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             groupValue: bookingFor,
                                             onChanged: (value) {
                                               setState(() {
+                                                patientIdSearchController
+                                                    .clear();
+                                                isSelectPatient = false;
+                                                searchPhoneNumber.clear();
+                                                patientName = null;
                                                 bookingFor = value!;
                                                 selectedBookingFor =
                                                     1.toString();
@@ -263,6 +297,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
+                                          patientIdSearchController.clear();
+                                          isSelectPatient = false;
+                                          searchPhoneNumber.clear();
+                                          patientName = null;
                                           bookingFor = "Family Member";
                                           selectedBookingFor = 2.toString();
                                           getFamilyMembersModel = BlocProvider
@@ -298,6 +336,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             groupValue: bookingFor,
                                             onChanged: (value) {
                                               setState(() {
+                                                patientIdSearchController
+                                                    .clear();
+                                                isSelectPatient = false;
+                                                searchPhoneNumber.clear();
+                                                patientName = null;
                                                 bookingFor = value!;
                                                 selectedBookingFor =
                                                     2.toString();
@@ -665,210 +708,611 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             .familyMember!.isEmpty &&
                                         bookingFor == "Family Member"
                                     ? const SizedBox()
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: Text(
-                                                  "Patient Name",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 14.sp,
-                                                      color: kSubTextColor),
-                                                ),
-                                              ),
-                                              const HorizontalSpacingWidget(
-                                                  width: 10),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  "Age",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 14.sp,
-                                                      color: kSubTextColor),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: SizedBox(
-                                                  height: 45.h,
-                                                  child: TextFormField(
-                                                    cursorColor: kMainColor,
-                                                    controller:
-                                                        patientNameController,
-                                                    readOnly:
-                                                        bookingFor != "Other"
-                                                            ? true
-                                                            : false,
-                                                    keyboardType: TextInputType
-                                                        .emailAddress,
-                                                    textInputAction:
-                                                        TextInputAction.next,
-                                                    maxLength: 20,
-                                                    decoration: InputDecoration(
-                                                      hintText:
-                                                          "Enter patient Name",
-                                                      counterText: "",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          color: kSubTextColor),
-                                                      filled: true,
-                                                      fillColor: kCardColor,
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4),
-                                                        borderSide:
-                                                            BorderSide.none,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const HorizontalSpacingWidget(
-                                                  width: 10),
-                                              Expanded(
-                                                flex: 1,
-                                                child: SizedBox(
-                                                  height: 45.h,
-                                                  child: TextFormField(
-                                                    cursorColor: kMainColor,
-                                                    controller:
-                                                        patientAgeController,
-                                                    readOnly:
-                                                        bookingFor != "Other"
-                                                            ? true
-                                                            : false,
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    textInputAction:
-                                                        TextInputAction.next,
-                                                    maxLength: 3,
-                                                    decoration: InputDecoration(
-                                                      counterText: "",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          color: kSubTextColor),
-                                                      hintText: "25 age",
-                                                      filled: true,
-                                                      fillColor: kCardColor,
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4),
-                                                        borderSide:
-                                                            BorderSide.none,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const VerticalSpacingWidget(
-                                              height: 10),
-                                          Text(
-                                            "Contact Number",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14.sp,
-                                                color: kSubTextColor),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: SizedBox(
-                                                  height: 45.h,
-                                                  child: TextFormField(
-                                                    cursorColor: kMainColor,
-                                                    controller:
-                                                        patientContactNumberController,
-                                                    readOnly:
-                                                        bookingFor != "Other"
-                                                            ? true
-                                                            : false,
-                                                    keyboardType:
-                                                        TextInputType.phone,
-                                                    textInputAction:
-                                                        TextInputAction.next,
-                                                    maxLength: 10,
-                                                    decoration: InputDecoration(
-                                                      counterText: "",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          color: kSubTextColor),
-                                                      hintText:
-                                                          "Enter patient Phone number",
-                                                      filled: true,
-                                                      fillColor: kCardColor,
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4),
-                                                        borderSide:
-                                                            BorderSide.none,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const HorizontalSpacingWidget(
-                                                  width: 10),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  height: 45.h,
-                                                  color: kCardColor,
-                                                  child: DropdownButton<String>(
-                                                    value: dropdownValue,
-                                                    onChanged:
-                                                        (String? newValue) {
-                                                      setState(() {
-                                                        dropdownValue =
-                                                            newValue!;
-                                                      });
-                                                    },
-                                                    items: <String>[
-                                                      'Male',
-                                                      'Female',
-                                                      'Other'
-                                                    ].map<
-                                                            DropdownMenuItem<
-                                                                String>>(
-                                                        (String value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: value,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Text(value),
+                                    : bookingFor == "Other"
+                                        ? BlocListener<
+                                            OtherTypePatientDetailsBloc,
+                                            OtherTypePatientDetailsState>(
+                                            listener: (context, state) {
+                                              if (state
+                                                  is OtherTypePatientDetailsLoading) {
+                                                Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                          color: kMainColor),
+                                                );
+                                              }
+                                              if (state
+                                                  is OtherTypePatientDetailsError) {
+                                                GeneralServices.instance
+                                                    .showErrorMessage(context,
+                                                        state.errorMessage);
+                                              }
+                                              if (state
+                                                  is OtherTypePatientDetailsLoaded) {
+                                                otherTypePatientDetailsModel = state
+                                                    .otherTypePatientDetailsModel;
+                                                setState(() {
+                                                  isSelectPatient = true;
+                                                });
+                                                GeneralServices.instance
+                                                    .showToastMessage(state
+                                                        .otherTypePatientDetailsModel
+                                                        .message
+                                                        .toString());
+                                              }
+                                            },
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 45.h,
+                                                      width: 230.w,
+                                                      child: TextFormField(
+                                                        cursorColor: kMainColor,
+                                                        controller:
+                                                            patientIdSearchController,
+                                                        keyboardType:
+                                                            TextInputType.text,
+                                                        textInputAction:
+                                                            TextInputAction
+                                                                .done,
+                                                        maxLength: 10,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          counterText: "",
+                                                          hintStyle: TextStyle(
+                                                              fontSize: 14.sp,
+                                                              color:
+                                                                  kSubTextColor),
+                                                          hintText:
+                                                              "Enter patient id",
+                                                          filled: true,
+                                                          fillColor: kCardColor,
+                                                          border:
+                                                              OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                            borderSide:
+                                                                BorderSide.none,
+                                                          ),
                                                         ),
-                                                      );
-                                                    }).toList(),
-                                                  ),
+                                                      ),
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        BlocProvider.of<
+                                                                    OtherTypePatientDetailsBloc>(
+                                                                context)
+                                                            .add(
+                                                          FetchOtherTypePatientDetails(
+                                                              patientId:
+                                                                  patientIdSearchController
+                                                                      .text),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        height: 45.h,
+                                                        width: 80.w,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: kMainColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Search",
+                                                            style: TextStyle(
+                                                                fontSize: 15.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    kCardColor),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
+                                                isSelectPatient
+                                                    ? Column(
+                                                        children: [
+                                                          const VerticalSpacingWidget(
+                                                              height: 10),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              SizedBox(
+                                                                height: 45.h,
+                                                                width: 230.w,
+                                                                child:
+                                                                    TextFormField(
+                                                                  cursorColor:
+                                                                      kMainColor,
+                                                                  controller:
+                                                                      searchPhoneNumber,
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .phone,
+                                                                  textInputAction:
+                                                                      TextInputAction
+                                                                          .done,
+                                                                  maxLength: 10,
+                                                                  decoration:
+                                                                      InputDecoration(
+                                                                    counterText:
+                                                                        "",
+                                                                    hintStyle: TextStyle(
+                                                                        fontSize: 14
+                                                                            .sp,
+                                                                        color:
+                                                                            kSubTextColor),
+                                                                    hintText:
+                                                                        "Enter mobile number",
+                                                                    filled:
+                                                                        true,
+                                                                    fillColor:
+                                                                        kCardColor,
+                                                                    border:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              4),
+                                                                      borderSide:
+                                                                          BorderSide
+                                                                              .none,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  if (otherTypePatientDetailsModel
+                                                                          .details!
+                                                                          .mobileNo
+                                                                          .toString() ==
+                                                                      searchPhoneNumber
+                                                                          .text) {
+                                                                    GeneralServices
+                                                                        .instance
+                                                                        .showToastMessage(
+                                                                            "Phonenumber matched, please fill other details");
+                                                                    setState(
+                                                                        () {
+                                                                      patientName = otherTypePatientDetailsModel
+                                                                          .details!
+                                                                          .firstname
+                                                                          .toString();
+                                                                      patientDisplayAge = otherTypePatientDetailsModel
+                                                                          .details!
+                                                                          .displayAge
+                                                                          .toString();
+                                                                      patientAge = otherTypePatientDetailsModel
+                                                                          .details!
+                                                                          .age
+                                                                          .toString();
+                                                                      patientGender = otherTypePatientDetailsModel
+                                                                          .details!
+                                                                          .gender
+                                                                          .toString();
+                                                                      patientPhoneNumber = otherTypePatientDetailsModel
+                                                                          .details!
+                                                                          .mobileNo
+                                                                          .toString();
+                                                                      patientMediezyId = otherTypePatientDetailsModel
+                                                                          .details!
+                                                                          .patientId
+                                                                          .toString();
+                                                                    });
+                                                                  } else {
+                                                                    GeneralServices
+                                                                        .instance
+                                                                        .showToastMessage(
+                                                                            "Phonenumber is not matched,\nenter correct phone number");
+                                                                  }
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  height: 45.h,
+                                                                  width: 80.w,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color:
+                                                                        kMainColor,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                  ),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      "Submit",
+                                                                      style: TextStyle(
+                                                                          fontSize: 15
+                                                                              .sp,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              kCardColor),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      )
+                                                    : const SizedBox(),
+                                                const VerticalSpacingWidget(
+                                                    height: 10),
+                                                patientName == null
+                                                    ? const SizedBox()
+                                                    : Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          color: kCardColor,
+                                                        ),
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                patientName ==
+                                                                        null
+                                                                    ? const SizedBox()
+                                                                    : Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            "Name : ",
+                                                                            style: TextStyle(
+                                                                                fontSize: 13.sp,
+                                                                                fontWeight: FontWeight.w400,
+                                                                                color: kSubTextColor),
+                                                                          ),
+                                                                          Text(
+                                                                            patientName.toString(),
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 15.sp,
+                                                                              color: kTextColor,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                patientName ==
+                                                                        null
+                                                                    ? const SizedBox()
+                                                                    : Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            "Age : ",
+                                                                            style: TextStyle(
+                                                                                fontSize: 13.sp,
+                                                                                fontWeight: FontWeight.w400,
+                                                                                color: kSubTextColor),
+                                                                          ),
+                                                                          Text(
+                                                                            patientDisplayAge.toString(),
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 15.sp,
+                                                                              color: kTextColor,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                              ],
+                                                            ),
+                                                            const VerticalSpacingWidget(
+                                                                height: 5),
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                patientPhoneNumber ==
+                                                                        null
+                                                                    ? const SizedBox()
+                                                                    : Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            "Number : ",
+                                                                            style: TextStyle(
+                                                                                fontSize: 13.sp,
+                                                                                fontWeight: FontWeight.w400,
+                                                                                color: kSubTextColor),
+                                                                          ),
+                                                                          Text(
+                                                                            patientPhoneNumber.toString(),
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 15.sp,
+                                                                              color: kTextColor,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                const VerticalSpacingWidget(
+                                                                    height: 2),
+                                                                patientGender ==
+                                                                        null
+                                                                    ? const SizedBox()
+                                                                    : Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            "Gender : ",
+                                                                            style: TextStyle(
+                                                                                fontSize: 13.sp,
+                                                                                fontWeight: FontWeight.w400,
+                                                                                color: kSubTextColor),
+                                                                          ),
+                                                                          Text(
+                                                                            patientGender == "1"
+                                                                                ? "Male"
+                                                                                : (patientGender == "2")
+                                                                                    ? "Female"
+                                                                                    : "Other",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 15.sp,
+                                                                              color: kTextColor,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                              ],
+                                            ),
+                                          )
+                                        : Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      "Patient Name",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 14.sp,
+                                                          color: kSubTextColor),
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 10),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Text(
+                                                      "Age",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 14.sp,
+                                                          color: kSubTextColor),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: SizedBox(
+                                                      height: 45.h,
+                                                      child: TextFormField(
+                                                        cursorColor: kMainColor,
+                                                        controller:
+                                                            patientNameController,
+                                                        readOnly: bookingFor !=
+                                                                "Other"
+                                                            ? true
+                                                            : false,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .emailAddress,
+                                                        textInputAction:
+                                                            TextInputAction
+                                                                .next,
+                                                        maxLength: 20,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          hintText:
+                                                              "Enter patient Name",
+                                                          counterText: "",
+                                                          hintStyle: TextStyle(
+                                                              fontSize: 14.sp,
+                                                              color:
+                                                                  kSubTextColor),
+                                                          filled: true,
+                                                          fillColor: kCardColor,
+                                                          border:
+                                                              OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                            borderSide:
+                                                                BorderSide.none,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 10),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: SizedBox(
+                                                      height: 45.h,
+                                                      child: TextFormField(
+                                                        cursorColor: kMainColor,
+                                                        controller:
+                                                            patientAgeController,
+                                                        readOnly: bookingFor !=
+                                                                "Other"
+                                                            ? true
+                                                            : false,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        textInputAction:
+                                                            TextInputAction
+                                                                .next,
+                                                        maxLength: 3,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          counterText: "",
+                                                          hintStyle: TextStyle(
+                                                              fontSize: 14.sp,
+                                                              color:
+                                                                  kSubTextColor),
+                                                          hintText: "25 age",
+                                                          filled: true,
+                                                          fillColor: kCardColor,
+                                                          border:
+                                                              OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                            borderSide:
+                                                                BorderSide.none,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const VerticalSpacingWidget(
+                                                  height: 10),
+                                              Text(
+                                                "Contact Number",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 14.sp,
+                                                    color: kSubTextColor),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: SizedBox(
+                                                      height: 45.h,
+                                                      child: TextFormField(
+                                                        cursorColor: kMainColor,
+                                                        controller:
+                                                            patientContactNumberController,
+                                                        readOnly: bookingFor !=
+                                                                "Other"
+                                                            ? true
+                                                            : false,
+                                                        keyboardType:
+                                                            TextInputType.phone,
+                                                        textInputAction:
+                                                            TextInputAction
+                                                                .next,
+                                                        maxLength: 10,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          counterText: "",
+                                                          hintStyle: TextStyle(
+                                                              fontSize: 14.sp,
+                                                              color:
+                                                                  kSubTextColor),
+                                                          hintText:
+                                                              "Enter patient Phone number",
+                                                          filled: true,
+                                                          fillColor: kCardColor,
+                                                          border:
+                                                              OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                            borderSide:
+                                                                BorderSide.none,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 10),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: 45.h,
+                                                      color: kCardColor,
+                                                      child: DropdownButton<
+                                                          String>(
+                                                        value: dropdownValue,
+                                                        onChanged:
+                                                            (String? newValue) {
+                                                          setState(() {
+                                                            dropdownValue =
+                                                                newValue!;
+                                                          });
+                                                        },
+                                                        items: <String>[
+                                                          'Male',
+                                                          'Female',
+                                                          'Other'
+                                                        ].map<
+                                                            DropdownMenuItem<
+                                                                String>>((String
+                                                            value) {
+                                                          return DropdownMenuItem<
+                                                              String>(
+                                                            value: value,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child:
+                                                                  Text(value),
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
-                                          ),
-                                        ],
-                                      );
+                                          );
                               }
                               return Container();
                             },
@@ -1183,15 +1627,18 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                               CommonButtonWidget(
                                 title: "Book Now",
                                 onTapFunction: () {
-                                  if (patientNameController.text.isEmpty) {
+                                  if (patientNameController.text.isEmpty &&
+                                      patientName == null) {
                                     GeneralServices.instance.showErrorMessage(
                                         context, "Fill patient name");
                                   } else if (patientAgeController
-                                      .text.isEmpty) {
+                                          .text.isEmpty &&
+                                      patientDisplayAge == null) {
                                     GeneralServices.instance.showErrorMessage(
                                         context, "Fill patient Age");
                                   } else if (patientContactNumberController
-                                      .text.isEmpty) {
+                                          .text.isEmpty &&
+                                      patientPhoneNumber == null) {
                                     GeneralServices.instance.showErrorMessage(
                                         context, "Fill contact number");
                                   } else if (selectedSymptoms.isEmpty &&
@@ -1211,12 +1658,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             context)
                                         .add(
                                       PassBookAppointMentEvent(
-                                          resheduleOrNot: widget.patientId ==
-                                                  null
-                                              ? 0
-                                              : 1,
-                                          patientName: patientNameController
-                                              .text,
+                                          resheduleOrNot:
+                                              widget.patientId == null ? 0 : 1,
+                                          patientName: bookingFor == "Other"
+                                              ? patientName.toString()
+                                              : patientNameController.text,
                                           doctorId: widget.doctorId,
                                           clinicId: widget.clinicId,
                                           date: formatDate(),
@@ -1224,30 +1670,29 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                               ? "${daysController.text} days before"
                                               : deceaseStartingTime[
                                                   selectedStart],
-                                          whenitstart: deceaseRepeats[
-                                              selectedCome],
+                                          whenitstart:
+                                              deceaseRepeats[selectedCome],
                                           tokenTime: widget.bookingTime,
                                           tokenNumber: widget.tokenNo,
-                                          gender: dropdownValue,
-                                          age:
-                                              bookingFor ==
-                                                      "Other"
-                                                  ? patientAgeController.text
-                                                  : originalAge.toString(),
-                                          mobileNo:
-                                              patientContactNumberController
+                                          gender: bookingFor == "Other"
+                                              ? patientGender.toString()
+                                              : dropdownValue,
+                                          age: bookingFor == "Other"
+                                              ? patientAge.toString()
+                                              : originalAge.toString(),
+                                          mobileNo: bookingFor == "Other"
+                                              ? patientPhoneNumber.toString()
+                                              : patientContactNumberController
                                                   .text,
-                                          appoinmentfor1:
-                                              appointmentForController
-                                                      .text.isEmpty
-                                                  ? []
-                                                  : [
-                                                      appointmentForController
-                                                          .text
-                                                    ],
+                                          appoinmentfor1: appointmentForController
+                                                  .text.isEmpty
+                                              ? []
+                                              : [appointmentForController.text],
                                           appoinmentfor2: selectedSymptoms,
                                           bookingType: selectedBookingFor,
-                                          patientId: patientId,
+                                          patientId: bookingFor == "Other"
+                                              ? patientMediezyId.toString()
+                                              : patientId,
                                           sheduleType: widget.sheduleType,
                                           tokenId: widget.tokenId),
                                     );

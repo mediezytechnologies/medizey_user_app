@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:mediezy_user/Model/AutoFetch/auto_fetch_model.dart';
 import 'package:mediezy_user/Model/BookAppointment/book_appointment_model.dart';
 import 'package:mediezy_user/Model/GetFamilyMembers/get_family_members_model.dart';
+import 'package:mediezy_user/Model/OtherTypePatientDetails/other_type_patient_details_model.dart';
 import 'package:mediezy_user/Repository/Api/ApiClient.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -94,5 +95,20 @@ class BookAppointmentApi {
     print("Auto Fetch body :$body");
     print("<<<<<<<<<< AUTO FETCH DETAILS WORKED SUCCESSFULLY >>>>>>>>>>");
     return AutoFetchModel.fromJson(json.decode(response.body));
+  }
+
+  //* get other type patientDetails
+
+  Future<OtherTypePatientDetailsModel> otherTypePatientDetails(
+      {required String patientId}) async {
+    String basePath = "patient/otherUserTokenBooking";
+    final body = {
+      "mediezy_patient_id": patientId,
+    };
+    Response response =
+        await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+    print("Auto Fetch body :$body");
+    print("<<<<<<<<<< OTHER DETAILS WORKED SUCCESSFULLY >>>>>>>>>>");
+    return OtherTypePatientDetailsModel.fromJson(json.decode(response.body));
   }
 }

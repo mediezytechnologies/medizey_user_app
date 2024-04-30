@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
@@ -80,6 +81,11 @@ class _HomeAappBarState extends State<HomeAappBar> {
                                 ),
                               ),
                             );
+                        Future.delayed(const Duration(seconds: 1), () {
+                          BlocProvider.of<GetDoctorBloc>(context).add(
+                            FetchGetDoctor(),
+                          );
+                        });
                       },
                       child: Icon(
                         Platform.isIOS

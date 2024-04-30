@@ -531,7 +531,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
     List<DateTime> disabledDates = [];
     for (int month = 1; month <= currentDate.month; month++) {
       int lastDay = month < currentDate.month ? 31 : currentDate.day;
-
       for (int day = 1; day < lastDay; day++) {
         disabledDates.add(DateTime(currentDate.year, month, day));
       }
