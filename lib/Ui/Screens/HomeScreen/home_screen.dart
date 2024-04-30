@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
     BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
-    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started(favId: 0));
+    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
     startPolling();
   }
 

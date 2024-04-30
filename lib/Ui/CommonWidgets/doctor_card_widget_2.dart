@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
@@ -16,6 +15,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
+import '../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../ddd/domain/core/di/injectable.dart';
 import '../../ddd/domain/docters_model/model/clinic.dart';
@@ -32,7 +32,7 @@ class DoctorCardWidget2 extends StatelessWidget {
       required this.location,
       required this.clinicList,
       required this.userAwayFrom,
-      required this.favurates,
+     required this.favurates,
    });
 
   final String doctorId;
@@ -44,7 +44,7 @@ class DoctorCardWidget2 extends StatelessWidget {
   final String location;
   final List<Clinic> clinicList;
   final String userAwayFrom;
-  final Widget favurates;
+ final Widget favurates;
 
   @override
   Widget build(BuildContext context) {
@@ -349,12 +349,35 @@ class DoctorCardWidget2 extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
-            top: size.height * 0.02,
-            right: size.width * 0.04,
-            child:
-            favurates,
-             )
+       Positioned(
+          top: size.height * 0.02,
+          right: size.width * 0.04,
+          child: favurates,
+    //       child: BlocBuilder<GetDoctersBloc, GetDoctersState>(
+    //         builder: (context, state) {
+    //           return GestureDetector(
+    //             onTap: () {
+    //                BlocProvider.of<GetDoctersBloc>(context).add(
+    //   GetDoctersEvent.changeFav(state.model[index].id!),
+    // );
+    //               bool isFavorited = state.model.any((doctor) => doctor.id.toString() == doctorId && doctor.favoriteStatus == 1);
+    //               context.read<GetDoctersBloc>().add(GetDoctersEvent.changeFav(isFavorited ? 0 : 1));
+    //               context.read<AddFavouritesBloc>().add(AddFavourites(doctorId: doctorId, favouriteStatus: isFavorited ? 0 : 1));
+    //             },
+    //             child: Container(
+    //               height: size.height * 0.045,
+    //               width: size.width * 0.07,
+    //               child: Image.asset(
+    //                 state.model.any((doctor) => doctor.id.toString() == doctorId && doctor.favoriteStatus == 1)
+    //                     ? "assets/icons/favorite2.png"
+    //                     : "assets/icons/favorite1.png",
+    //                 color: Colors.black,
+    //               ),
+    //             ),
+    //           );
+    //         },
+    //       ),
+        ),
       ],
     );
   }
