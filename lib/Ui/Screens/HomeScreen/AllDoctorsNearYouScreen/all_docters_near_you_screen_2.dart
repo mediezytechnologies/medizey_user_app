@@ -34,6 +34,7 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
     if (result == ConnectivityResult.none) {
     } else {}
   }
+//cnanges
 
   @override
   void initState() {
