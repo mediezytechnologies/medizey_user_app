@@ -128,7 +128,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                             width: 200.w,
                             child: Text(
                               "Dr.${widget.docterName}",
-                              style:  TextStyle(
+                              style: TextStyle(
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.bold,
                               ),

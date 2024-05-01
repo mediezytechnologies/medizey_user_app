@@ -8,7 +8,10 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_docters_near_you_screen_2.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_near_you_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/home_screen.dart';
+import 'package:mediezy_user/Ui/Services/general_services.dart';
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
+import '../../../../Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../Consts/app_colors.dart';
 
@@ -91,6 +94,8 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                                   favouriteStatus: state.favId,
                                 ),
                               );
+                              BlocProvider.of<GetFavouritesBloc>(context)
+                                  .add(FetchAllFavourites());
                             });
                           },
                           docterDistance:
@@ -121,6 +126,5 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
         );
       },
     );
-
   }
 }

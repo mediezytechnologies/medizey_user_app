@@ -16,11 +16,12 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
   GetDoctersBloc(this.getDoctersRepo) : super(GetDoctersState.initial()) {
     on<_Started>((event, emit) async {
       emit(state.copyWith(
-          isloding: true,
-          isError: false,
-          message: "",
-          status: false,
-          model: [],  ));
+        isloding: true,
+        isError: false,
+        message: "",
+        status: false,
+        model: [],
+      ));
       log(emit.toString());
 
       log(emit.toString());
@@ -30,12 +31,11 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
 
       emit(getDoctorResult.fold(
           (l) => state.copyWith(
-              isloding: false,
-              isError: true,
-              message: l.message!,
-              model: [],
-              status: false,
-              
+                isloding: false,
+                isError: true,
+                message: l.message!,
+                model: [],
+                status: false,
               ),
           (r) => state.copyWith(
                 isloding: false,
@@ -46,15 +46,15 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
               )));
     });
     on<_ChangeFav>((event, emit) {
-  final updatedDoctors = state.model.map((doctor) {
-    if (doctor.id == event.favId) {
-      // Toggle the favorite status
-      doctor.favoriteStatus = doctor.favoriteStatus == 1 ? 0 : 1;
-    }
-    return doctor;
-  }).toList();
-  emit(state.copyWith(model: updatedDoctors));
-});
+      final updatedDoctors = state.model.map((doctor) {
+        if (doctor.id == event.favId) {
+          // Toggle the favorite status
+          doctor.favoriteStatus = doctor.favoriteStatus == 1 ? 0 : 1;
+        }
+        return doctor;
+      }).toList();
+      emit(state.copyWith(model: updatedDoctors));
+    });
     // on<_ChangeFav>((event, emit) {
     //   emit(state.copyWith(favId: event.favId));
     // });
@@ -69,5 +69,4 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
 //   emit(state.copyWith(model: updatedDoctors));
 // });
   }
-  
 }

@@ -52,7 +52,11 @@ class LocationController extends GetxController {
     }
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+ 
+ 
   }
+
+
 
   //geocoding //==========
   Future<void> getAddressFromLatLong(Position position) async {

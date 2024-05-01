@@ -19,11 +19,3 @@ class GetDoctersModel {
 
   Map<String, dynamic> toJson() => _$GetDoctersModelToJson(this);
 }
-
-
-
-
-
-
-
-

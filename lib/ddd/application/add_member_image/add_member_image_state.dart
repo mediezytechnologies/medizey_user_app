@@ -7,10 +7,10 @@ class AddMemberImageState with _$AddMemberImageState {
     AddMemberImags? model,
     required Option<Either<MainFailure, AddMemberImags>>
         registerFaileurOrSuccessOption,
-        
   }) = _Initial;
 
   factory AddMemberImageState.initial() => AddMemberImageState(
-      isloding: false, registerFaileurOrSuccessOption: none(),
-     );
+        isloding: false,
+        registerFaileurOrSuccessOption: none(),
+      );
 }

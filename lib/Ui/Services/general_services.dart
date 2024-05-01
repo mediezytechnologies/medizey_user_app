@@ -1,13 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'dart:io' show Platform;
 
+import '../../Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
+import '../../ddd/application/get_docters/get_docters_bloc.dart';
+
 class GeneralServices {
   static GeneralServices instance = GeneralServices();
+
+  static callbackAllBloc(BuildContext context) {
+    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
+    BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
+  }
 
   //* to show toast
   showToastMessage(String message) {

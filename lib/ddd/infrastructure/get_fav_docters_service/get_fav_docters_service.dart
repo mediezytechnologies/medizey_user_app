@@ -9,32 +9,35 @@ import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/docters_model/docters_impl.dart';
 import '../../domain/docters_model/model/all_doctor.dart';
+import '../../domain/get_fav_model/get_fav_impl.dart';
+import '../../domain/get_fav_model/model/get_fav_model.dart';
 import '../core/api_end_pont.dart';
 
-@LazySingleton(as: GetDoctersRepo)
-class GetDoctorsImpl implements GetDoctersRepo {
+@LazySingleton(as: GetFavDoctersRepo)
+class GetDoctorsImpl implements GetFavDoctersRepo {
   @override
-  Future<Either<ErrorModel, List<AllDoctor>>> getDoctersRepo() async {
+  Future<Either<ErrorModel, GetFavModel>> getFavDocRepo() async {
     final preference = await SharedPreferences.getInstance();
     String userId = preference.getString('userId').toString();
     log("id ==========$userId");
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
     try {
+      log("${ApiEndPoints.getFavDoctors}$userId");
       final response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
       )).get(
-        ApiEndPoints.getDoctors,
+        "${ApiEndPoints.getFavDoctors}$userId",
       );
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final result = GetDoctersModel.fromJson(response.data);
+        final result = GetFavModel.fromJson(response.data);
 
         log("result service : $result");
         log("result service  response : ${response.data}");
 
-        return Right(result.allDoctors!);
+        return Right(result );
       } else {
         return Left(ErrorModel());
       }

@@ -50,12 +50,14 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-           BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back_rounded)),
+        leading: IconButton(
+            onPressed: () {
+              BlocProvider.of<GetDoctersBloc>(context)
+                  .add(GetDoctersEvent.started());
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_rounded)),
         title: const Text("Doctors Near You"),
         centerTitle: true,
       ),
@@ -155,7 +157,6 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                       .toString(),
                                   location:
                                       state.model[index].location.toString(),
-
                                   favurates: GestureDetector(
                                     onTap: () {
                                       setState(() {
@@ -186,8 +187,6 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                       ),
                                     ),
                                   ),
-
-                                  
                                 );
                               },
                               itemCount: state.model.length),
@@ -203,8 +202,6 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                   );
                 },
               );
-
-             
             }
           }),
     );

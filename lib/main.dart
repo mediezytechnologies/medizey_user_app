@@ -20,7 +20,7 @@ void main() async {
   ]);
   runApp(
     MultiBlocProvider(
-      providers: AppBlocProviders.allBlocProviders, 
+      providers: AppBlocProviders.allBlocProviders,
       child: const Mediezy(),
     ),
   );

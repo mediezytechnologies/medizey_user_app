@@ -46,14 +46,11 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
 
   @override
   void initState() {
-
-    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
@@ -180,24 +177,24 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
             ),
           ),
           Positioned(
-            right: size.width*0.04,
-            top: size.height*0.019,
+              right: size.width * 0.04,
+              top: size.height * 0.019,
               child: GestureDetector(
-            onTap: widget.onTap,
-            child: SizedBox(
-                                      height: size.height * 0.04,
-                                      width: size.width * 0.07,
-              child: Image.asset(
-                widget.img,
-                //  state.model[index].favoriteStatus == 1
-                //                   ? "assets/icons/favorite2.png"
-                //                   : "assets/icons/favorite1.png",
-                color: kMainColor,
-                // color: const Color.fromARGB(
-                //     255, 197, 120, 120),
-              ),
-            ),
-          ))
+                onTap: widget.onTap,
+                child: SizedBox(
+                  height: size.height * 0.04,
+                  width: size.width * 0.07,
+                  child: Image.asset(
+                    widget.img,
+                    //  state.model[index].favoriteStatus == 1
+                    //                   ? "assets/icons/favorite2.png"
+                    //                   : "assets/icons/favorite1.png",
+                    color: kMainColor,
+                    // color: const Color.fromARGB(
+                    //     255, 197, 120, 120),
+                  ),
+                ),
+              ))
         ],
       ),
     );

@@ -167,7 +167,8 @@ class DoctorCardWidget extends StatelessWidget {
                           children: [
                             Text(
                               'Get Location',
-                              style: TextStyle(fontSize: 12.sp,color: kSubTextColor),
+                              style: TextStyle(
+                                  fontSize: 12.sp, color: kSubTextColor),
                             ),
                             Icon(
                               CupertinoIcons.map_pin,
