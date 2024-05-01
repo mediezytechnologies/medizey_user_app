@@ -257,13 +257,11 @@ class GeneralServices {
         ? showCupertinoDialog(
             barrierDismissible: false,
             context: context,
-            builder: (ctx) {
-              if (message != "") {
-                Future.delayed(const Duration(seconds: 2), () {
-                  Navigator.pop(ctx);
-                  log("delay worked");
-                });
-              }
+            builder: (context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.pop(context);
+                log("delay worked");
+              });
               return CupertinoAlertDialog(
                 title: Align(
                   alignment: Alignment.center,
@@ -280,13 +278,11 @@ class GeneralServices {
           )
         : showDialog(
             context: context,
-            builder: (BuildContext ctx) {
-              if (message != "") {
-                Future.delayed(const Duration(seconds: 2), () {
-                  Navigator.pop(ctx);
-                  log("delay worked");
-                });
-              }
+            builder: (BuildContext context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.pop(context);
+                log("delay worked");
+              });
               return AlertDialog(
                 title: Align(
                   alignment: Alignment.center,

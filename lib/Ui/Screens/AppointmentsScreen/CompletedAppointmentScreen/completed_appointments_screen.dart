@@ -36,127 +36,144 @@ class _CompletedAppointmentScreenState
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _refreshData,
-        child: BlocBuilder<GetCompletedAppointmentsBloc,
-            GetCompletedAppointmentsState>(
-          builder: (context, state) {
-            if (state is GetCompletedAppointmentLoading) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: kMainColor,
-                ),
-              );
-            }
-            if (state is GetCompletedAppointmentError) {
-              return Center(
-                child: Image(
-                  image: const AssetImage(
-                      "assets/images/something went wrong-01.png"),
-                  height: 200.h,
-                  width: 200.w,
-                ),
-              );
-            }
-            if (state is GetCompletedAppointmentLoaded) {
-              getCompletedAppointmentsModel =
-                  BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-                      .getCompletedAppointmentsModel;
-              return getCompletedAppointmentsModel.appointmentDetails == null
-                  ? Center(
-                      child: Column(
-                        children: [
-                          const VerticalSpacingWidget(height: 80),
-                          Image(
-                            image: const AssetImage(
-                                "assets/icons/no appointment.png"),
-                            height: 250.h,
-                            width: 250.w,
-                          ),
-                          Text(
-                            "No Appointments available",
-                            style: TextStyle(
-                                fontSize: 20.sp, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          )
-                        ],
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: BlocBuilder<GetCompletedAppointmentsBloc,
+                  GetCompletedAppointmentsState>(
+                builder: (context, state) {
+                  if (state is GetCompletedAppointmentLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: kMainColor,
                       ),
-                    )
-                  : ListView.builder(
-                      itemCount: getCompletedAppointmentsModel
-                          .appointmentDetails!.length,
-                      itemBuilder: (context, index) {
-                        return CompletedAppointmentCardWidget(
-                          whenItStart: getCompletedAppointmentsModel
-                              .appointmentDetails![index].symptomStartTime
-                              .toString(),
-                          whenItsCome: getCompletedAppointmentsModel
-                              .appointmentDetails![index].symptomFrequency
-                              .toString(),
-                          prescriptions: getCompletedAppointmentsModel
-                              .appointmentDetails![index].doctorMedicines!
-                              .toList(),
-                          vitals: getCompletedAppointmentsModel
-                              .appointmentDetails![index].vitals!
-                              .toList(),
-                          clinicName: getCompletedAppointmentsModel
-                              .appointmentDetails![index].clinicName
-                              .toString(),
-                          doctorImage: getCompletedAppointmentsModel
-                              .appointmentDetails![index].doctorImage
-                              .toString(),
-                          doctorName: getCompletedAppointmentsModel
-                              .appointmentDetails![index].doctorName
-                              .toString(),
-                          labName: getCompletedAppointmentsModel
-                              .appointmentDetails![index].labName
-                              .toString(),
-                          labTestName: getCompletedAppointmentsModel
-                              .appointmentDetails![index].labTest
-                              .toString(),
-                          note: getCompletedAppointmentsModel
-                              .appointmentDetails![index].notes
-                              .toString(),
-                          patientName: getCompletedAppointmentsModel
-                              .appointmentDetails![index].patientName
-                              .toString(),
-                          prescriptionImage: getCompletedAppointmentsModel
-                              .appointmentDetails![index].prescriptionImage
-                              .toString(),
-                          tokenDate: getCompletedAppointmentsModel
-                              .appointmentDetails![index].date
-                              .toString(),
-                          tokenTime: getCompletedAppointmentsModel
-                              .appointmentDetails![index].tokenStartTime
-                              .toString(),
-                          symptoms: getCompletedAppointmentsModel
-                                      .appointmentDetails![index]
-                                      .mainSymptoms ==
-                                  null
-                              ? getCompletedAppointmentsModel
-                                  .appointmentDetails![index]
-                                  .otherSymptoms!
-                                  .first
-                                  .symtoms
-                                  .toString()
-                              : getCompletedAppointmentsModel
-                                  .appointmentDetails![index]
-                                  .mainSymptoms!
-                                  .mainsymptoms
-                                  .toString(),
-                          reviewAfter: getCompletedAppointmentsModel
-                              .appointmentDetails![index].reviewAfter
-                              .toString(),
-                          scanningCenterName: getCompletedAppointmentsModel
-                              .appointmentDetails![index].scanTest
-                              .toString(),
-                          scanningTestName: getCompletedAppointmentsModel
-                              .appointmentDetails![index].scanName
-                              .toString(),
-                        );
-                      });
-            }
-            return Container();
-          },
-        ),
+                    );
+                  }
+                  if (state is GetCompletedAppointmentError) {
+                    return Center(
+                      child: Image(
+                        image: const AssetImage(
+                            "assets/images/something went wrong-01.png"),
+                        height: 200.h,
+                        width: 200.w,
+                      ),
+                    );
+                  }
+                  if (state is GetCompletedAppointmentLoaded) {
+                    getCompletedAppointmentsModel =
+                        BlocProvider.of<GetCompletedAppointmentsBloc>(context)
+                            .getCompletedAppointmentsModel;
+                    return getCompletedAppointmentsModel.appointmentDetails ==
+                            null
+                        ? Center(
+                            child: Column(
+                              children: [
+                                const VerticalSpacingWidget(height: 80),
+                                Image(
+                                  image: const AssetImage(
+                                      "assets/icons/no appointment.png"),
+                                  height: 250.h,
+                                  width: 250.w,
+                                ),
+                                Text(
+                                  "No Appointments available",
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: getCompletedAppointmentsModel
+                                .appointmentDetails!.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return CompletedAppointmentCardWidget(
+                                whenItStart: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].symptomStartTime
+                                    .toString(),
+                                whenItsCome: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].symptomFrequency
+                                    .toString(),
+                                prescriptions: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].doctorMedicines!
+                                    .toList(),
+                                vitals: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].vitals!
+                                    .toList(),
+                                clinicName: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].clinicName
+                                    .toString(),
+                                doctorImage: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].doctorImage
+                                    .toString(),
+                                doctorName: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].doctorName
+                                    .toString(),
+                                labName: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].labName
+                                    .toString(),
+                                labTestName: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].labTest
+                                    .toString(),
+                                note: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].notes
+                                    .toString(),
+                                patientName: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].patientName
+                                    .toString(),
+                                prescriptionImage: getCompletedAppointmentsModel
+                                    .appointmentDetails![index]
+                                    .prescriptionImage
+                                    .toString(),
+                                tokenDate: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].date
+                                    .toString(),
+                                tokenTime: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].tokenStartTime
+                                    .toString(),
+                                symptoms: getCompletedAppointmentsModel
+                                            .appointmentDetails![index]
+                                            .mainSymptoms ==
+                                        null
+                                    ? getCompletedAppointmentsModel
+                                        .appointmentDetails![index]
+                                        .otherSymptoms!
+                                        .first
+                                        .symtoms
+                                        .toString()
+                                    : getCompletedAppointmentsModel
+                                        .appointmentDetails![index]
+                                        .mainSymptoms!
+                                        .mainsymptoms
+                                        .toString(),
+                                reviewAfter: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].reviewAfter
+                                    .toString(),
+                                scanningCenterName:
+                                    getCompletedAppointmentsModel
+                                        .appointmentDetails![index].scanTest
+                                        .toString(),
+                                scanningTestName: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].scanName
+                                    .toString(),
+                              );
+                            });
+                  }
+                  return Container();
+                },
+              ),
+            ),
+          );
+        }),
       ),
     );
   }

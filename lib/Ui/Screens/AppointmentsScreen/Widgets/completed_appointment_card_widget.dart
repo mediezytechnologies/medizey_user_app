@@ -85,7 +85,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  top: 8.0.h, bottom: 18.0.h, left: 8.w, right: 10.w),
+                  top: 8.0.h, bottom: 5.0.h, left: 8.w, right: 10.w),
               child: Row(
                 children: [
                   FadedScaleAnimation(

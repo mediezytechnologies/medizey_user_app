@@ -5,7 +5,8 @@ sealed class SuggestionEvent {}
 
 class FetchSuggestions extends SuggestionEvent {
   final String message;
-  final BuildContext context;
 
-  FetchSuggestions({required this.message, required this.context});
+  FetchSuggestions({
+    required this.message,
+  });
 }

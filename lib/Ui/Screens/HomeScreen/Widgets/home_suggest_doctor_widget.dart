@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class HomeSuggestDoctorWidget extends StatelessWidget {
   HomeSuggestDoctorWidget({
@@ -65,29 +66,40 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
               const HorizontalSpacingWidget(width: 40),
               Focus(
                 key: _suggestFocusRemoveKey,
-                child: GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<SuggestionBloc>(context).add(
-                      FetchSuggestions(
-                          message: suggestionController.text, context:context ),
-                    );
-                    suggestionController.clear();
-                    FocusScope.of(context).requestFocus(FocusNode());
+                child: BlocListener<SuggestionBloc, SuggestionState>(
+                  listener: (context, state) {
+                    if (state is SuggestionError) {
+                      GeneralServices.instance
+                          .showErrorMessage(context, state.errorMessage);
+                    }
+                    if (state is SuggestionLoaded) {
+                      GeneralServices.instance.showDelaySuccessMessage(
+                          context, state.successMessage);
+                    }
                   },
-                  child: Container(
-                    height: 30.h,
-                    width: 90.w,
-                    decoration: BoxDecoration(
-                      color: kCardColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kMainColor),
+                  child: GestureDetector(
+                    onTap: () {
+                      BlocProvider.of<SuggestionBloc>(context).add(
+                        FetchSuggestions(message: suggestionController.text),
+                      );
+                      suggestionController.clear();
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    child: Container(
+                      height: 30.h,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                        color: kCardColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Submit",
+                          style: TextStyle(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                              color: kMainColor),
+                        ),
                       ),
                     ),
                   ),

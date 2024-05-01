@@ -293,7 +293,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           : Container(),
                       widget.isCheckIn == 1 || widget.isReached == 1
                           ? const SizedBox()
-                          : widget.isPatientAbsent == "Absent"
+                          : widget.isPatientAbsent == "Absent" &&
+                                  widget.appointmentDate == formatDate()
                               ? SizedBox(
                                   height: height * .075,
                                   width: width * .5,
