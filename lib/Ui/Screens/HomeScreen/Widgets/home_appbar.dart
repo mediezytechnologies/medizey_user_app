@@ -8,10 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
-
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/LocationScreen/location_screen.dart';
-
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../ddd/application/user_location/user_location_bloc.dart';
 import '../../../CommonWidgets/horizontal_spacing_widget.dart';
@@ -48,13 +46,10 @@ class _HomeAappBarState extends State<HomeAappBar> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return AnimatedContainer(
-      duration: const Duration(microseconds: 5000),
+      duration: const Duration(milliseconds: 500),
       width: double.infinity,
       height: widget.isAppBar,
-
-      //size.height * .10,
       color: kSecondaryColor,
-      //color: Colors.amber,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(
@@ -133,7 +128,7 @@ class _HomeAappBarState extends State<HomeAappBar> {
                 height: 35.h,
                 width: 100.w,
               ),
-              //const HorizontalSpacingWidget(width: 10)
+             
             ]),
       ),
     );
