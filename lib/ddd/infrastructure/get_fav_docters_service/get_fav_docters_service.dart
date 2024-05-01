@@ -10,13 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/docters_model/docters_impl.dart';
 import '../../domain/docters_model/model/all_doctor.dart';
 import '../../domain/get_fav_model/get_fav_impl.dart';
+import '../../domain/get_fav_model/model/favorite_doctor.dart';
 import '../../domain/get_fav_model/model/get_fav_model.dart';
 import '../core/api_end_pont.dart';
 
 @LazySingleton(as: GetFavDoctersRepo)
 class GetDoctorsImpl implements GetFavDoctersRepo {
   @override
-  Future<Either<ErrorModel, GetFavModel>> getFavDocRepo() async {
+  Future<Either<ErrorModel, List<FavoriteDoctor>>> getFavDocRepo() async {
     final preference = await SharedPreferences.getInstance();
     String userId = preference.getString('userId').toString();
     log("id ==========$userId");
@@ -37,7 +38,7 @@ class GetDoctorsImpl implements GetFavDoctersRepo {
         log("result service : $result");
         log("result service  response : ${response.data}");
 
-        return Right(result );
+        return Right(result.favoriteDoctors!);
       } else {
         return Left(ErrorModel());
       }

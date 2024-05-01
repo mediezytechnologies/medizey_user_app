@@ -48,25 +48,13 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
     on<_ChangeFav>((event, emit) {
       final updatedDoctors = state.model.map((doctor) {
         if (doctor.id == event.favId) {
-          // Toggle the favorite status
           doctor.favoriteStatus = doctor.favoriteStatus == 1 ? 0 : 1;
         }
         return doctor;
       }).toList();
       emit(state.copyWith(model: updatedDoctors));
     });
-    // on<_ChangeFav>((event, emit) {
-    //   emit(state.copyWith(favId: event.favId));
-    // });
-//     on<_ChangeFav>((event, emit) {
-//   final updatedDoctors = state.model.map((doctor) {
-//     if (doctor.id == event.favId) {
-//       // Toggle the favorite status
-//       doctor.favoriteStatus = doctor.favoriteStatus == 1 ? 0 : 1;
-//     }
-//     return doctor;
-//   }).toList();
-//   emit(state.copyWith(model: updatedDoctors));
-// });
+    
+
   }
 }

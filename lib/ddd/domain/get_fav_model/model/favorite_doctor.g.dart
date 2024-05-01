@@ -18,7 +18,7 @@ FavoriteDoctor _$FavoriteDoctorFromJson(Map<String, dynamic> json) =>
       location: json['Location'] as String?,
       mainHospital: json['MainHospital'] as String?,
       clinics: (json['clinics'] as List<dynamic>?)
-          ?.map((e) => Clinic.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Clinics.fromJson(e as Map<String, dynamic>))
           .toList(),
       favoriteStatus: json['favoriteStatus'] as int?,
     );

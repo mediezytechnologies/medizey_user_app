@@ -12,12 +12,9 @@ import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
-import '../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../ddd/application/get_docters/get_docters_bloc.dart';
-import '../../ddd/domain/core/di/injectable.dart';
 import '../../ddd/domain/docters_model/model/clinic.dart';
 
 class DoctorCardWidget2 extends StatelessWidget {
