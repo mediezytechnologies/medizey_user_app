@@ -69,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
     super.initState();
+    BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
     BlocProvider.of<GetDoctorBloc>(context).add(FetchGetDoctor());
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());

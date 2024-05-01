@@ -4,8 +4,10 @@ import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Model/Doctor/doctor_model.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
@@ -48,11 +50,17 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
     super.initState();
   }
 
+  int? userId;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      
       appBar: AppBar(
+        leading: IconButton(onPressed: () {
+           BlocProvider.of<GetDoctersBloc>(context).add(GetDoctersEvent.started());
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back_rounded)),
         title: const Text("Doctors Near You"),
         centerTitle: true,
       ),
@@ -99,6 +107,9 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                       ),
                     );
                   }
+                  BlocProvider.of<AddFavouritesBloc>(context).add(
+                    InitializeFavouriteStatus({}),
+                  );
                   return FadedSlideAnimation(
                     beginOffset: const Offset(0, 0.3),
                     endOffset: const Offset(0, 0),
@@ -111,12 +122,24 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
+                                userId = state.model[index].userId;
+
                                 //    String ?id =          state.model!.favoriteDoctors![index].userId.toString();
                                 return DoctorCardWidget2(
                                   onTap: () {
                                     BlocProvider.of<GetDoctersBloc>(context)
                                         .add(GetDoctersEvent.changeFav(state
                                             .model[index].favoriteStatus!));
+                                    BlocProvider.of<AddFavouritesBloc>(context)
+                                        .add(
+                                      AddFavourites(
+                                        doctorId: state.model[index].userId
+                                            .toString(),
+                                        favouriteStatus: state.favId,
+                                      ),
+                                    );
+                                    BlocProvider.of<GetDoctersBloc>(context)
+                                        .add(GetDoctersEvent.started());
                                   },
                                   userAwayFrom: "2.2",
                                   clinicList:
@@ -137,19 +160,13 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                       .toString(),
                                   location:
                                       state.model[index].location.toString(),
-                                  favurates: BlocProvider(
-                                    create: (context) =>
-                                        getIt<GetDoctersBloc>(),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        // setState(() {
-                                        //  log("kfjdsklfj :  ${state.favId}");
-                                        // context.read<GetDoctersBloc>().add(
-                                        //     GetDoctersEvent.changeFav(state
-                                        //         .model[index]
-                                        //         .favoriteStatus!));
-                                        // });
 
+                                  favurates: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        BlocProvider.of<GetDoctersBloc>(context)
+                                            .add(GetDoctersEvent.changeFav(
+                                                state.model[index].id!));
                                         BlocProvider.of<AddFavouritesBloc>(
                                                 context)
                                             .add(
@@ -159,23 +176,23 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                             favouriteStatus: state.favId,
                                           ),
                                         );
-                                      },
-                                      child: Container(
-                                        // color: Colors.amber,
-                                        height: size.height * 0.045,
-                                        width: size.width * 0.07,
-                                        child: Image.asset(
-                                          state.model[index].favoriteStatus == 1
-                                              ? "assets/icons/favorite2.png"
-                                              : "assets/icons/favorite1.png",
-                                          color: Colors.black,
-                                        ),
+                                      });
+                                    },
+                                    child: SizedBox(
+                                      height: size.height * 0.028,
+                                      width: size.width * 0.07,
+                                      child: Image.asset(
+                                        state.model[index].favoriteStatus == 1
+                                            ? "assets/icons/favorite1.png"
+                                            : "assets/icons/favorite2.png",
+                                        color: kMainColor,
+                                        // color: const Color.fromARGB(
+                                        //     255, 197, 120, 120),
                                       ),
-
-                                      //  );
-                                      //  },
                                     ),
                                   ),
+
+                                  
                                 );
                               },
                               itemCount: state.model.length),
@@ -192,83 +209,7 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                 },
               );
 
-              // return BlocBuilder<GetDoctorBloc, GetDoctorState>(
-              //   builder: (context, state) {
-              //     if (state is GetDoctorLoading) {
-              //       return Center(
-              //         child: CircularProgressIndicator(
-              //           color: kMainColor,
-              //         ),
-              //       );
-              //     }
-              //     if (state is GetDoctorError) {
-              //       return Center(
-              //         child: Image(
-              //           image: const AssetImage(
-              //               "assets/images/something went wrong-01.png"),
-              //           height: 200.h,
-              //           width: 200.w,
-              //         ),
-              //       );
-              //     }
-              //     if (state is GetDoctorLoaded) {
-              //       doctorModel =
-              //           BlocProvider.of<GetDoctorBloc>(context).doctorModel;
-              //       return FadedSlideAnimation(
-              //         beginOffset: const Offset(0, 0.3),
-              //         endOffset: const Offset(0, 0),
-              //         slideCurve: Curves.linearToEaseOut,
-              //         child: SingleChildScrollView(
-              //           child: Column(
-              //             children: [
-              //               ListView.builder(
-              //                   padding: EdgeInsets.zero,
-              //                   shrinkWrap: true,
-              //                   physics: const NeverScrollableScrollPhysics(),
-              //                   itemBuilder: (context, index) {
-              //                     return DoctorCardWidget(
-              //                       userAwayFrom: "2.2",
-              //                       clinicList: doctorModel
-              //                           .allDoctors![index].clinics!
-              //                           .toList(),
-              //                       doctorId: doctorModel
-              //                           .allDoctors![index].userId
-              //                           .toString(),
-              //                       firstName: doctorModel
-              //                           .allDoctors![index].firstname
-              //                           .toString(),
-              //                       lastName: doctorModel
-              //                           .allDoctors![index].secondname
-              //                           .toString(),
-              //                       imageUrl: doctorModel
-              //                           .allDoctors![index].docterImage
-              //                           .toString(),
-              //                       mainHospitalName: doctorModel
-              //                           .allDoctors![index].mainHospital
-              //                           .toString(),
-              //                       specialisation: doctorModel
-              //                           .allDoctors![index].specialization
-              //                           .toString(),
-              //                       location: doctorModel
-              //                           .allDoctors![index].location
-              //                           .toString(),
-              //                     );
-              //                   },
-              //                   itemCount: doctorModel.allDoctors!.length),
-              //               const VerticalSpacingWidget(height: 5),
-              //               Padding(
-              //                 padding: EdgeInsets.symmetric(horizontal: 8.w),
-              //                 child: const RecommendedDoctorCard(),
-              //               ),
-              //               const VerticalSpacingWidget(height: 5)
-              //             ],
-              //           ),
-              //         ),
-              //       );
-              //     }
-              //     return Container();
-              //   },
-              // );
+             
             }
           }),
     );

@@ -138,8 +138,7 @@ class DoctorCardWidget2 extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              ElevatedButton(onPressed: onTap, child: Text("data")),
-                              Text(state.favId.toString()),
+                             
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [

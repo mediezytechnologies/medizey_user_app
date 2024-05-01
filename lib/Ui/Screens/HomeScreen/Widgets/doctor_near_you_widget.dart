@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/gestures.dart';
@@ -5,22 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
 class DoctorNearYouWidget extends StatefulWidget {
   const DoctorNearYouWidget({
-    super.key,
+    Key? key,
+    required this.doctorId,
     required this.firstName,
     required this.lastName,
     required this.imageUrl,
     required this.location,
-    required this.doctorId,
     required this.specialisation,
     required this.favouriteStatus,
     required this.docterDistance,
-  });
+    required this.img,
+    required this.onTap,
+  }) : super(key: key);
 
   final String doctorId;
   final String firstName;
@@ -30,6 +34,8 @@ class DoctorNearYouWidget extends StatefulWidget {
   final String specialisation;
   final int favouriteStatus;
   final String docterDistance;
+  final String img;
+  final VoidCallback onTap;
 
   @override
   State<DoctorNearYouWidget> createState() => _DoctorNearYouWidgetState();
@@ -40,11 +46,15 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
 
   @override
   void initState() {
+
+    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -169,6 +179,25 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
               ),
             ),
           ),
+          Positioned(
+            right: size.width*0.04,
+            top: size.height*0.019,
+              child: GestureDetector(
+            onTap: widget.onTap,
+            child: SizedBox(
+                                      height: size.height * 0.04,
+                                      width: size.width * 0.07,
+              child: Image.asset(
+                widget.img,
+                //  state.model[index].favoriteStatus == 1
+                //                   ? "assets/icons/favorite2.png"
+                //                   : "assets/icons/favorite1.png",
+                color: kMainColor,
+                // color: const Color.fromARGB(
+                //     255, 197, 120, 120),
+              ),
+            ),
+          ))
         ],
       ),
     );
