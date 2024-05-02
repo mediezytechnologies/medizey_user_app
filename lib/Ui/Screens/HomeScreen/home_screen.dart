@@ -22,7 +22,9 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_w
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import '../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/location_controller/locationcontroller.dart';
+import 'Widgets/get_fav_doctor_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -59,12 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
           _showAppbar = true;
           setState(() {});
         }
-      }
+      }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     });
 
 
     super.initState();
     BlocProvider.of<GetDoctersBloc>(context).add(const GetDoctersEvent.started());
+        BlocProvider.of<GetFavDoctorBloc>(context).add(GetFavDoctorEvent.started());
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());
     BlocProvider.of<GetHospitalBloc>(context).add((FetchAllHospitals()));
@@ -144,7 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: const GetDoctorWidget(),
                                 ),
                                 const VerticalSpacingWidget(height: 5),
+                                //akber
                                 const GetFavouriteDoctorWidget(),
+                                //mahesh
+                             const   GetFavDoctorWidget(),
                                 const VerticalSpacingWidget(height: 5),
                               ],
                             ),

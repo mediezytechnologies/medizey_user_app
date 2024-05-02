@@ -13,6 +13,7 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../Consts/app_colors.dart';
 
 class GetDoctorWidget extends StatefulWidget {
@@ -67,7 +68,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const HeadingWidget(
-                title: "Doctors near you",
+                title: "Doctors near you dfbg",
               ),
               const VerticalSpacingWidget(height: 5),
               LimitedBox(
@@ -84,6 +85,8 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                               : "assets/icons/favorite2.png",
                           onTap: () {
                             setState(() {
+                              BlocProvider.of<GetFavDoctorBloc>(context)
+                                  .add(GetFavDoctorEvent.started());
                               BlocProvider.of<GetDoctersBloc>(context).add(
                                   GetDoctersEvent.changeFav(
                                       state.model[index].id!));

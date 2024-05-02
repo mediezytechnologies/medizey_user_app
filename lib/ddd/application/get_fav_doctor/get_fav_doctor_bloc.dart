@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/get_fav_model/get_fav_impl.dart';
 import '../../domain/get_fav_model/model/favorite_doctor.dart';
@@ -11,6 +12,8 @@ part 'get_fav_doctor_event.dart';
 part 'get_fav_doctor_state.dart';
 part 'get_fav_doctor_bloc.freezed.dart';
 
+
+@injectable
 class GetFavDoctorBloc extends Bloc<GetFavDoctorEvent, GetFavDoctorState> {
   GetFavDoctersRepo getFavDoctersRepo;
   GetFavDoctorBloc(this.getFavDoctersRepo)

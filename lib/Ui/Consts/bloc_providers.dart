@@ -64,6 +64,7 @@ import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
 import '../../ddd/application/add_members/add_members_bloc.dart';
+import '../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 
 class AppBlocProviders {
   static get allBlocProviders => [
@@ -147,5 +148,9 @@ class AppBlocProviders {
         BlocProvider(
           create: (context) => getIt<GetDoctersBloc>(),
         ),
+         BlocProvider(
+          create: (context) => getIt<GetFavDoctorBloc>(),
+        ),
+        //GetFavDoctorBloc
       ];
 }

@@ -16,22 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GetFavDoctorEvent {
-  int get favId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int favId) started,
+    required TResult Function() started,
     required TResult Function(int favId) changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int favId)? started,
+    TResult? Function()? started,
     TResult? Function(int favId)? changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int favId)? started,
+    TResult Function()? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) =>
@@ -55,10 +54,6 @@ mixin _$GetFavDoctorEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $GetFavDoctorEventCopyWith<GetFavDoctorEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -66,8 +61,6 @@ abstract class $GetFavDoctorEventCopyWith<$Res> {
   factory $GetFavDoctorEventCopyWith(
           GetFavDoctorEvent value, $Res Function(GetFavDoctorEvent) then) =
       _$GetFavDoctorEventCopyWithImpl<$Res, GetFavDoctorEvent>;
-  @useResult
-  $Res call({int favId});
 }
 
 /// @nodoc
@@ -79,30 +72,13 @@ class _$GetFavDoctorEventCopyWithImpl<$Res, $Val extends GetFavDoctorEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? favId = null,
-  }) {
-    return _then(_value.copyWith(
-      favId: null == favId
-          ? _value.favId
-          : favId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$StartedImplCopyWith<$Res>
-    implements $GetFavDoctorEventCopyWith<$Res> {
+abstract class _$$StartedImplCopyWith<$Res> {
   factory _$$StartedImplCopyWith(
           _$StartedImpl value, $Res Function(_$StartedImpl) then) =
       __$$StartedImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int favId});
 }
 
 /// @nodoc
@@ -112,78 +88,54 @@ class __$$StartedImplCopyWithImpl<$Res>
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? favId = null,
-  }) {
-    return _then(_$StartedImpl(
-      favId: null == favId
-          ? _value.favId
-          : favId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$StartedImpl implements _Started {
-  const _$StartedImpl({required this.favId});
-
-  @override
-  final int favId;
+  const _$StartedImpl();
 
   @override
   String toString() {
-    return 'GetFavDoctorEvent.started(favId: $favId)';
+    return 'GetFavDoctorEvent.started()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StartedImpl &&
-            (identical(other.favId, favId) || other.favId == favId));
+        (other.runtimeType == runtimeType && other is _$StartedImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, favId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
-      __$$StartedImplCopyWithImpl<_$StartedImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int favId) started,
+    required TResult Function() started,
     required TResult Function(int favId) changeFav,
   }) {
-    return started(favId);
+    return started();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int favId)? started,
+    TResult? Function()? started,
     TResult? Function(int favId)? changeFav,
   }) {
-    return started?.call(favId);
+    return started?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int favId)? started,
+    TResult Function()? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) {
     if (started != null) {
-      return started(favId);
+      return started();
     }
     return orElse();
   }
@@ -221,23 +173,14 @@ class _$StartedImpl implements _Started {
 }
 
 abstract class _Started implements GetFavDoctorEvent {
-  const factory _Started({required final int favId}) = _$StartedImpl;
-
-  @override
-  int get favId;
-  @override
-  @JsonKey(ignore: true)
-  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$ChangeFavImplCopyWith<$Res>
-    implements $GetFavDoctorEventCopyWith<$Res> {
+abstract class _$$ChangeFavImplCopyWith<$Res> {
   factory _$$ChangeFavImplCopyWith(
           _$ChangeFavImpl value, $Res Function(_$ChangeFavImpl) then) =
       __$$ChangeFavImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({int favId});
 }
@@ -297,7 +240,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int favId) started,
+    required TResult Function() started,
     required TResult Function(int favId) changeFav,
   }) {
     return changeFav(favId);
@@ -306,7 +249,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int favId)? started,
+    TResult? Function()? started,
     TResult? Function(int favId)? changeFav,
   }) {
     return changeFav?.call(favId);
@@ -315,7 +258,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int favId)? started,
+    TResult Function()? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) {
@@ -360,9 +303,7 @@ class _$ChangeFavImpl implements _ChangeFav {
 abstract class _ChangeFav implements GetFavDoctorEvent {
   const factory _ChangeFav(final int favId) = _$ChangeFavImpl;
 
-  @override
   int get favId;
-  @override
   @JsonKey(ignore: true)
   _$$ChangeFavImplCopyWith<_$ChangeFavImpl> get copyWith =>
       throw _privateConstructorUsedError;

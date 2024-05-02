@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 
 import 'clinic.dart';
 part 'all_doctor.g.dart';
@@ -20,7 +21,7 @@ class AllDoctor {
   String? location;
   @JsonKey(name: 'MainHospital')
   String? mainHospital;
-  List<Clinic>? clinics;
+  List<Clinics>? clinics;
   int? favoriteStatus;
 
   AllDoctor({

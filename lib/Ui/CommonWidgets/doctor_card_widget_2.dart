@@ -40,10 +40,11 @@ class DoctorCardWidget2 extends StatelessWidget {
   final String mainHospitalName;
   final String specialisation;
   final String location;
-  final List<Clinic> clinicList;
+  final List<Clinics> clinicList;
   final String userAwayFrom;
   final Widget favurates;
   final VoidCallback onTap;
+  
 
   @override
   Widget build(BuildContext context) {
