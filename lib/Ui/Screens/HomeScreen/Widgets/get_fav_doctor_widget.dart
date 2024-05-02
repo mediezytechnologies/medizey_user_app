@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/GetFavourites/get_favourites_model.dart';
-import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
@@ -24,13 +20,7 @@ class GetFavDoctorWidget extends StatefulWidget {
 }
 
 class _GetFavDoctorWidgetState extends State<GetFavDoctorWidget> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
-  //late GetFavouritesModel getFavouritesModel;
   @override
   Widget build(BuildContext context) {    final size = MediaQuery.of(context).size;
     return BlocConsumer<GetFavDoctorBloc, GetFavDoctorState>(
