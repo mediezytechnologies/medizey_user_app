@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class ViewAllButtonWidget extends StatelessWidget {
@@ -29,13 +30,7 @@ class ViewAllButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(6.r),
         ),
         child: Center(
-          child: Text(
-            buttonText,
-            style: TextStyle(
-                fontSize: 13.sp,
-                color: kSubTextColor,
-                fontWeight: FontWeight.w600),
-          ),
+          child: Text(buttonText, style: grey13B600),
         ),
       ),
     );

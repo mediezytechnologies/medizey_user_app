@@ -101,7 +101,7 @@ Widget homeBannerLoadingWidget() {
       padding: EdgeInsets.symmetric(horizontal: 8.w),
       child: Container(
         width: double.infinity,
-        height: 100.h,
+        height: 90.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),

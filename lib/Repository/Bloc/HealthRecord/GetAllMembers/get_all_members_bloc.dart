@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_model.dart';
 import 'package:mediezy_user/Repository/Api/HealthRecords/health_record_api.dart';
 import 'package:meta/meta.dart';
-
 part 'get_all_members_event.dart';
 part 'get_all_members_state.dart';
 

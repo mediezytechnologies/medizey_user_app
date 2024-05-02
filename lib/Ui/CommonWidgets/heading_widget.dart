@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 
 class HeadingWidget extends StatelessWidget {
   const HeadingWidget({super.key, required this.title});
@@ -11,8 +10,7 @@ class HeadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: TextStyle(
-          fontSize: 16.sp, fontWeight: FontWeight.w500, color: kSubTextColor),
+      style: grey15B500
     );
   }
 }

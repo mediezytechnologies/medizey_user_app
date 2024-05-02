@@ -1,6 +1,7 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class RoundNameWidget extends StatelessWidget {
@@ -40,8 +41,8 @@ class RoundNameWidget extends StatelessWidget {
                 "$patientFirstLetter$patientSecondLetter",
                 style: TextStyle(
                   color: textColor,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.normal,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
             ),
@@ -52,11 +53,7 @@ class RoundNameWidget extends StatelessWidget {
           child: Text(
             patientName,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 10.sp,
-              fontWeight: FontWeight.w400,
-              color: kTextColor,
-            ),
+            style: black9B400,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

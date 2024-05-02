@@ -1,23 +1,22 @@
 // ignore_for_file: unnecessary_null_comparison, avoid_print, deprecated_member_use, use_build_context_synchronously
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
-import 'package:card_swiper/card_swiper.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/Banner/banner_model.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_model.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteMember/delete_member_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_banner_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddDocumentScreen/add_document_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
-import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AllRecordsScreen/all_records_screen.dart';
+import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/go_to_all_record_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/round_name_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/user_details_display_card_widget.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
@@ -32,7 +31,7 @@ class HealthRecordScreen extends StatefulWidget {
 
 class _HealthRecordScreenState extends State<HealthRecordScreen> {
   late GetAllMembersModel getAllMembersModel;
-  late BannerModel bannerModel;
+
   int selectedPatientIndex = 0;
   String patientId = "";
 
@@ -115,22 +114,16 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                 Row(
                                   children: [
                                     Text(
-                                      getAllMembersModel
-                                          .patientData!.first.patientName
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                        getAllMembersModel
+                                            .patientData!.first.patientName
+                                            .toString(),
+                                        style: black14B600),
                                     const HorizontalSpacingWidget(width: 10),
                                     Text(
-                                      getAllMembersModel
-                                          .patientData!.first.mediezyPatientId
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.normal),
-                                    ),
+                                        getAllMembersModel
+                                            .patientData!.first.mediezyPatientId
+                                            .toString(),
+                                        style: grey10B500),
                                   ],
                                 ),
                                 const VerticalSpacingWidget(height: 5),
@@ -225,14 +218,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              "Add",
-                                              style: TextStyle(
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: kTextColor,
-                                              ),
-                                            )
+                                            Text("Add", style: black9B400)
                                           ],
                                         ),
                                       ),
@@ -326,136 +312,13 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                       },
                     ),
                     const VerticalSpacingWidget(height: 10),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: SizedBox(
-                        height: 140.h,
-                        child: BlocBuilder<BannerBloc, BannerState>(
-                          builder: (context, state) {
-                            if (state is BannerLoading) {
-                              return Shimmer.fromColors(
-                                baseColor: kShimmerBaseColor,
-                                highlightColor: kShimmerHighlightColor,
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 140.h,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              );
-                            }
-                            if (state is BannerError) {
-                              return const Center(
-                                child: Image(
-                                  image: AssetImage(
-                                      "assets/images/something went wrong-01.png"),
-                                ),
-                              );
-                            }
-                            if (state is BannerLoaded) {
-                              bannerModel = BlocProvider.of<BannerBloc>(context)
-                                  .bannerModel;
-                              return Swiper(
-                                autoplay: true,
-                                itemCount: bannerModel.bannerImages!.length,
-                                itemBuilder: ((context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 6.w, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: FancyShimmerImage(
-                                        boxFit: BoxFit.fill,
-                                        errorWidget: const Image(
-                                            image: AssetImage(
-                                                "assets/icons/no image.png")),
-                                        imageUrl:
-                                            bannerModel.bannerImages![index],
-                                      ),
-                                    ),
-                                  );
-                                }),
-                                pagination: SwiperPagination(
-                                  alignment: Alignment.bottomCenter,
-                                  builder: DotSwiperPaginationBuilder(
-                                      color: Colors.grey[200],
-                                      activeColor: Colors.red[400],
-                                      size: 8.sp,
-                                      activeSize: 8.sp),
-                                ),
-                              );
-                            }
-                            return Container();
-                          },
-                        ),
-                      ),
-                    ),
+                    const GetBannerWidget(),
                     const VerticalSpacingWidget(height: 10),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AllRecordsScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 80.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: kCardColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          children: [
-                            FadedScaleAnimation(
-                              scaleDuration: const Duration(milliseconds: 400),
-                              fadeDuration: const Duration(milliseconds: 400),
-                              child: Image(
-                                image:
-                                    const AssetImage("assets/icons/folder.png"),
-                                height: 45.h,
-                                width: 55.w,
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "All health records",
-                                  style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: kTextColor),
-                                ),
-                                SizedBox(
-                                  width: 280.w,
-                                  child: Text(
-                                    "Prescriptions, Lab report, Scanning report, Discharge summary",
-                                    style: TextStyle(
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: kSubTextColor),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    const GoToAllRecordWidget(),
                     const VerticalSpacingWidget(height: 10),
                     Text(
                       "Upload your health documents",
-                      style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: kSubTextColor),
+                      style: grey15B500
                     ),
                     const VerticalSpacingWidget(height: 10),
                     SingleChildScrollView(

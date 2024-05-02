@@ -7,6 +7,7 @@ import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_mo
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteMember/delete_member_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/EditPatientScreen/edit_patient_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
@@ -61,10 +62,10 @@ class _UserDetailsDisplayCardWidgetState
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
-      height: 50.h,
+      height: 45.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.r),
         color: const Color(0xFFEAF3F8),
       ),
       child: Row(
@@ -75,81 +76,29 @@ class _UserDetailsDisplayCardWidgetState
             children: [
               Row(
                 children: [
-                  Text(
-                    widget.patienName,
-                    style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w400,
-                        color: kTextColor),
-                  ),
+                  Text(widget.patienName, style: black12B500),
                 ],
               ),
               Row(
                 children: [
+                  Text("Gender: ", style: grey10B400),
                   Text(
-                    "Gender:",
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                        color: kSubTextColor),
-                  ),
-                  Text(
-                    widget.patientGender == "1"
-                        ? "Male"
-                        : (widget.patientGender == "2")
-                            ? "Female"
-                            : "Other",
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: kTextColor),
-                  ),
+                      widget.patientGender == "1"
+                          ? "Male"
+                          : (widget.patientGender == "2")
+                              ? "Female"
+                              : "Other",
+                      style: black10B500),
                   Row(
                     children: [
-                      Text(
-                        " | ",
-                        style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            color: kTextColor),
-                      ),
-                      Text(
-                        "Age:",
-                        style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kSubTextColor),
-                      ),
-                      Text(
-                        widget.displayAge,
-                        style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            color: kTextColor),
-                      ),
+                      Text(" | ", style: black10B500),
+                      Text("Age: ", style: grey10B400),
+                      Text(widget.displayAge, style: black10B500),
                     ],
                   ),
-                  Text(
-                    " | ",
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w500,
-                        color: kTextColor),
-                  ),
-                  Text(
-                    "ID:",
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                        color: kSubTextColor),
-                  ),
-                  Text(
-                    widget.mediezyPatientId,
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w500,
-                        color: kTextColor),
-                  ),
+                  Text(" | ", style: black10B500),
+                  Text("ID: ", style: grey10B400),
+                  Text(widget.mediezyPatientId, style: black10B500),
                 ],
               ),
             ],
@@ -157,7 +106,6 @@ class _UserDetailsDisplayCardWidgetState
           Row(
             children: [
               GestureDetector(
-                //  padding: EdgeInsets.zero,
                 onTap: () async {
                   BlocProvider.of<GetAllMembersBloc>(context)
                       .add(FetchAllMembers());
@@ -216,9 +164,7 @@ class _UserDetailsDisplayCardWidgetState
                         color: kMainColor,
                         size: 18.sp,
                       ),
-                    ), ////
-
-              //////fkjsdfksfhjsdhfjksf//
+                    ),
             ],
           )
         ],

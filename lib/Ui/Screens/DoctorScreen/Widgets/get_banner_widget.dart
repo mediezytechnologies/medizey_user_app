@@ -3,7 +3,6 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/Banner/banner_model.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 
@@ -15,7 +14,6 @@ class GetBannerWidget extends StatefulWidget {
 }
 
 class _GetBannerWidgetState extends State<GetBannerWidget> {
-  late BannerModel bannerModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,21 +34,21 @@ class _GetBannerWidgetState extends State<GetBannerWidget> {
               );
             }
             if (state is BannerLoaded) {
-              bannerModel = BlocProvider.of<BannerBloc>(context).bannerModel;
+              final banner = state.bannerModel;
               return Swiper(
                 autoplay: true,
-                itemCount: bannerModel.bannerImages!.length,
+                itemCount: banner.bannerImages!.length,
                 itemBuilder: ((context, index) {
                   return Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 6.w, 0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FancyShimmerImage(
-                        boxFit: BoxFit.contain,
+                        boxFit: BoxFit.fill,
                         errorWidget: const Image(
                           image: AssetImage("assets/icons/no image.png"),
                         ),
-                        imageUrl: bannerModel.bannerImages![index],
+                        imageUrl: banner.bannerImages![index],
                       ),
                     ),
                   );

@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
@@ -76,8 +77,8 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: FancyShimmerImage(
-                            height: 110.h,
-                            width: 110.w,
+                            height: 100.h,
+                            width: 100.w,
                             boxFit: BoxFit.contain,
                             errorWidget: const Image(
                               image: AssetImage("assets/icons/no image.png"),
@@ -91,10 +92,7 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                     padding: EdgeInsets.symmetric(horizontal: 7.w),
                     child: Text(
                       "Dr ${widget.firstName} ${widget.lastName}",
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: kTextColor),
+                      style: black13B500,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -105,10 +103,7 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                       width: 120.w,
                       child: Text(
                         widget.specialisation,
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: kSubTextColor),
+                        style: grey11B400,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -120,10 +115,7 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                       width: 120.w,
                       child: Text(
                         widget.location,
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: kSubTextColor),
+                        style: grey11B400,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -148,10 +140,7 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                               RichText(
                                 text: TextSpan(
                                   text: widget.docterDistance,
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: kTextColor,
-                                      fontWeight: FontWeight.bold),
+                                  style: black12B500,
                                   children: [
                                     TextSpan(
                                         text: ' away',
