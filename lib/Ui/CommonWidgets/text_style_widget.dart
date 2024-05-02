@@ -41,6 +41,9 @@ final grey11B400 = TextStyle(
 final grey15B500 = TextStyle(
     fontSize: 15.sp, fontWeight: FontWeight.w500, color: kSubTextColor);
 
+final grey15B600 = TextStyle(
+    fontSize: 15.sp, fontWeight: FontWeight.w600, color: kSubTextColor);
+
 final grey13B600 = TextStyle(
     fontSize: 13.sp, color: kSubTextColor, fontWeight: FontWeight.w600);
 

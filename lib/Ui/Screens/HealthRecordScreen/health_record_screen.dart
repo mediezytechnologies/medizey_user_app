@@ -14,8 +14,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_banner_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddDocumentScreen/add_document_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
+import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/add_documents_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/go_to_all_record_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/round_name_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/user_details_display_card_widget.dart';
@@ -312,134 +312,49 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                       },
                     ),
                     const VerticalSpacingWidget(height: 10),
-                    const GetBannerWidget(),
+                    Text("Upload your health documents", style: grey15B500),
+                    const VerticalSpacingWidget(height: 5),
+                    const AddDocumentsWidget(),
                     const VerticalSpacingWidget(height: 10),
                     const GoToAllRecordWidget(),
                     const VerticalSpacingWidget(height: 10),
-                    Text(
-                      "Upload your health documents",
-                      style: grey15B500
-                    ),
+                    const GetBannerWidget(),
                     const VerticalSpacingWidget(height: 10),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
+                    Text("FAQs", style: grey15B600),
+                    Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        tilePadding: EdgeInsets.zero,
+                        childrenPadding: EdgeInsets.symmetric(horizontal: 8.w),
+                        title: Text('Are my health records safe and secure',
+                            style: black14B600),
                         children: [
-                          //! add prescription
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const AddDocumentScreen(
-                                    appBarTitle: "Upload Prescription",
-                                    type: 2,
-                                    stringType: "Prescription",
-                                  ),
-                                ),
-                              );
-                            },
-                            child: FadedScaleAnimation(
-                              scaleDuration: const Duration(milliseconds: 400),
-                              fadeDuration: const Duration(milliseconds: 400),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: const Image(
-                                  image: AssetImage(
-                                      "assets/icons/add prescription.jpg"),
-                                  height: 100,
-                                  width: 100,
-                                ),
-                              ),
-                            ),
+                          Text(
+                            'Absolutely! Your health records can only be viewed by you and will never be shared by any third party. You can read our privacy policy&nbsp; to know more',
+                            style: grey12B500,
                           ),
-                          const HorizontalSpacingWidget(width: 5),
-                          //!lab report
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const AddDocumentScreen(
-                                    appBarTitle: "Upload Lab Report",
-                                    type: 1,
-                                    stringType: "Lab report",
-                                  ),
-                                ),
-                              );
-                            },
-                            child: FadedScaleAnimation(
-                              scaleDuration: const Duration(milliseconds: 400),
-                              fadeDuration: const Duration(milliseconds: 400),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: const Image(
-                                  image:
-                                      AssetImage("assets/icons/lab report.jpg"),
-                                  height: 100,
-                                  width: 100,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const HorizontalSpacingWidget(width: 5),
-                          //!scan report
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const AddDocumentScreen(
-                                    appBarTitle: "Upload Scan Report",
-                                    type: 4,
-                                    stringType: "Scanning report",
-                                  ),
-                                ),
-                              );
-                            },
-                            child: FadedScaleAnimation(
-                              scaleDuration: const Duration(milliseconds: 400),
-                              fadeDuration: const Duration(milliseconds: 400),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: const Image(
-                                  image: AssetImage(
-                                      "assets/icons/scanning report.jpg"),
-                                  height: 100,
-                                  width: 100,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const HorizontalSpacingWidget(width: 5),
-                          //! discharge summery
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const AddDocumentScreen(
-                                    appBarTitle: "Upload Discharge Summary",
-                                    type: 3,
-                                    stringType: "Discharge summary",
-                                  ),
-                                ),
-                              );
-                            },
-                            child: FadedScaleAnimation(
-                              scaleDuration: const Duration(milliseconds: 400),
-                              fadeDuration: const Duration(milliseconds: 400),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: const Image(
-                                  image: AssetImage(
-                                      "assets/icons/discharge report.jpg"),
-                                  height: 100,
-                                  width: 100,
-                                ),
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     ),
-                    const VerticalSpacingWidget(height: 10),
+                    const VerticalSpacingWidget(height: 5),
+                    Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        tilePadding: EdgeInsets.zero,
+                        childrenPadding: EdgeInsets.symmetric(horizontal: 8.w),
+                        title: Text('Who can view my health records?',
+                            style: black14B600),
+                        children: [
+                          Text(
+                            'You health records can only be viewed by you. However, you do have an option to share your health records with the doctor in the course of online or physical consultation.',
+                            style: grey12B500,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const VerticalSpacingWidget(height: 10)
                   ],
                 ),
               ),
