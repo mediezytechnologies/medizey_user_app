@@ -55,49 +55,7 @@ class _GetFavDoctorWidgetState extends State<GetFavDoctorWidget> {
                 itemCount: state.model.length > 1 ? 1 : state.model.length,
                 itemBuilder: (context, index) {
                   return DoctorCardWidget2(
-                    userAwayFrom:
-                        state.model[index].distanceFromUser.toString(),
-                    clinicList: state.model[index].clinics!.toList(),
-                    doctorId: state.model[index].userId.toString(),
-                    firstName: state.model[index].firstname.toString(),
-                    lastName: state.model[index].secondname.toString(),
-                    imageUrl: state.model[index].docterImage.toString(),
-                    mainHospitalName:
-                        state.model[index].mainHospital.toString(),
-                    specialisation:
-                        state.model[index].specialization.toString(),
-                    location: state.model[index].location.toString(),
-                      favurates: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        BlocProvider.of<GetDoctersBloc>(context)
-                                            .add(GetDoctersEvent.changeFav(
-                                                state.model[index].id!));
-                                        BlocProvider.of<AddFavouritesBloc>(
-                                                context)
-                                            .add(
-                                          AddFavourites(
-                                            doctorId: state.model[index].userId
-                                                .toString(),
-                                            favouriteStatus: state.favId,
-                                          ),
-                                        );
-                                      });
-                                    },
-                                    child: SizedBox(
-                                      height: size.height * 0.028,
-                                      width: size.width * 0.07,
-                                      child: Image.asset(
-                                        state.model[index].favoriteStatus == 1
-                                            ? "assets/icons/favorite1.png"
-                                            : "assets/icons/favorite2.png",
-                                        color: kMainColor,
-                                        // color: const Color.fromARGB(
-                                        //     255, 197, 120, 120),
-                                      ),
-                                    ),
-                                  ),
-                     onTap: () {
+                                  onTap: () {
                                     BlocProvider.of<GetDoctersBloc>(context)
                                         .add(GetDoctersEvent.changeFav(state
                                             .model[index].favoriteStatus!));
@@ -112,26 +70,59 @@ class _GetFavDoctorWidgetState extends State<GetFavDoctorWidget> {
                                     BlocProvider.of<GetDoctersBloc>(context)
                                         .add(GetDoctersEvent.started());
                                   },
-                    // img: state.model[index].favoriteStatus == 1
-                    //     ? "assets/icons/favorite1.png"
-                    //     : "assets/icons/favorite2.png",
-                    // onTap: () {
-                    //   setState(() {
-                    //     BlocProvider.of<GetFavDoctorBloc>(context)
-                    //         .add(GetFavDoctorEvent.started());
-                    //     BlocProvider.of<GetDoctersBloc>(context).add(
-                    //         GetDoctersEvent.changeFav(state.model[index].id!));
-                    //     BlocProvider.of<AddFavouritesBloc>(context).add(
-                    //       AddFavourites(
-                    //         doctorId: state.model[index].userId.toString(),
-                    //         favouriteStatus: state.favId,
-                    //       ),
-                    //     );
-                    //     BlocProvider.of<GetFavouritesBloc>(context)
-                    //         .add(FetchAllFavourites());
-                    //   });
-                    // },
-                  );
+                                  userAwayFrom: "2.2",
+                                  clinicList:
+                                      state.model[index].clinics!.toList(),
+                                  doctorId:
+                                      state.model[index].userId.toString(),
+                                  firstName:
+                                      state.model[index].firstname.toString(),
+                                  lastName:
+                                      state.model[index].secondname.toString(),
+                                  imageUrl:
+                                      state.model[index].docterImage.toString(),
+                                  mainHospitalName: state
+                                      .model[index].mainHospital
+                                      .toString(),
+                                  specialisation: state
+                                      .model[index].specialization
+                                      .toString(),
+                                  location:
+                                      state.model[index].location.toString(),
+                                  favurates: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        BlocProvider.of<GetFavDoctorBloc>(context)
+                                  .add(GetFavDoctorEvent.started());
+                                        BlocProvider.of<GetDoctersBloc>(context)
+                                            .add(GetDoctersEvent.changeFav(
+                                                state.model[index].id!));
+                                        BlocProvider.of<AddFavouritesBloc>(
+                                                context)
+                                            .add(
+                                          AddFavourites(
+                                            doctorId: state.model[index].userId
+                                                .toString(),
+                                            favouriteStatus: state.favId,
+                                          ),
+                                        );
+                                      });
+                                    },
+                                    child: Container(
+                                      color: Colors.amber,
+                                      height: size.height * 0.028,
+                                      width: size.width * 0.07,
+                                      child: Image.asset(
+                                        state.model[index].favoriteStatus == 1
+                                            ? "assets/icons/favorite1.png"
+                                            : "assets/icons/favorite2.png",
+                                        color: kMainColor,
+                                        // color: const Color.fromARGB(
+                                        //     255, 197, 120, 120),
+                                      ),
+                                    ),
+                                  ),
+                                );
                 }),
             const VerticalSpacingWidget(height: 2),
             ViewAllButtonWidget(

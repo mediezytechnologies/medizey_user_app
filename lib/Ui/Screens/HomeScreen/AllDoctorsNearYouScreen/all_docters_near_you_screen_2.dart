@@ -13,6 +13,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../CommonWidgets/doctor_card_widget_2.dart';
 
 class AllDoctorNearYouScreen2 extends StatefulWidget {
@@ -160,6 +161,8 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                   favurates: GestureDetector(
                                     onTap: () {
                                       setState(() {
+                                        BlocProvider.of<GetFavDoctorBloc>(context)
+                                  .add(GetFavDoctorEvent.started());
                                         BlocProvider.of<GetDoctersBloc>(context)
                                             .add(GetDoctersEvent.changeFav(
                                                 state.model[index].id!));
@@ -174,7 +177,8 @@ class _AllDoctorNearYouScreen2State extends State<AllDoctorNearYouScreen2> {
                                         );
                                       });
                                     },
-                                    child: SizedBox(
+                                    child: Container(
+                                      color: Colors.amber,
                                       height: size.height * 0.028,
                                       width: size.width * 0.07,
                                       child: Image.asset(
