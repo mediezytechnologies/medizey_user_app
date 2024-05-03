@@ -670,41 +670,82 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                               .doctorDetails!
                                                               .first
                                                               .clinics![index]
-                                                              .nextAvailableTokenTime ==
-                                                          null
-                                                      ? const SizedBox()
-                                                      : Row(
-                                                          children: [
-                                                            Text(
-                                                              "Next available token : ",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kSubTextColor),
-                                                            ),
-                                                            Text(
-                                                              getDoctorByIdModel
+                                                              .availableTokenCount ==
+                                                          0
+                                                      ? getDoctorByIdModel
                                                                   .doctorDetails!
                                                                   .first
                                                                   .clinics![
                                                                       index]
-                                                                  .nextAvailableTokenTime
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kTextColor),
+                                                                  .nextDateAvailableTokenTime ==
+                                                              null
+                                                          ? const SizedBox()
+                                                          : Row(
+                                                              children: [
+                                                                Text(
+                                                                  "Next available token : ",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color:
+                                                                          kSubTextColor),
+                                                                ),
+                                                                Text(
+                                                                  getDoctorByIdModel
+                                                                      .doctorDetails!
+                                                                      .first
+                                                                      .clinics![
+                                                                          index]
+                                                                      .nextDateAvailableTokenTime
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color:
+                                                                          kTextColor),
+                                                                ),
+                                                              ],
+                                                            )
+                                                      : getDoctorByIdModel
+                                                                  .doctorDetails!
+                                                                  .first
+                                                                  .clinics![
+                                                                      index]
+                                                                  .nextAvailableTokenTime ==
+                                                              null
+                                                          ? const SizedBox()
+                                                          : Row(
+                                                              children: [
+                                                                Text(
+                                                                  "Next available token : ",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color:
+                                                                          kSubTextColor),
+                                                                ),
+                                                                Text(
+                                                                  "${getDoctorByIdModel.doctorDetails!.first.clinics![index].nextAvailableTokenTime} Today",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color:
+                                                                          kTextColor),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
                                                   const VerticalSpacingWidget(
                                                       height: 5),
                                                 ],

@@ -19,6 +19,7 @@ import 'package:mediezy_user/Repository/Bloc/HealthRecord/UpdateMedicine/update_
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUpdatedMedicine/get_updated_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUpdatedMedicine/get_updated_medicine_event.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUpdatedMedicine/get_updated_medicine_state.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
@@ -370,9 +371,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           InkWell(
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                              //  Platform.isIOS
-                              //     ?
-
                               selectIosDate(
                                 context: context,
                                 date: dateOfBirth ?? DateTime.now(),
@@ -383,55 +381,44 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());
                                 },
-                                //   )
-                                // : selectDate(
-                                //     context: context,
-                                //     date: dateOfBirth ?? DateTime.now(),
-                                //     onDateSelected: (DateTime picked) async {
-                                //       setState(() {
-                                //         dateOfBirth = picked;
-                                //       });
-                                //       FocusScope.of(context)
-                                //           .requestFocus(FocusNode());
-                                //     },
                               );
                             },
-                            child: Container(
-                              height: 45.h,
-                              width: 130.w,
-                              decoration: BoxDecoration(
-                                color: kCardColor,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    dateOfBirth == null
-                                        ? widget.dateOfBirth
-                                        : DateFormat('yyy-MM-dd')
-                                            .format(dateOfBirth!),
-                                    style: TextStyle(
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: kTextColor),
-                                  ),
-                                  Icon(
-                                    Platform.isIOS
-                                        ? CupertinoIcons.calendar
-                                        : IconlyLight.calendar,
-                                    color: kMainColor,
-                                  ),
-                                ],
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  dateOfBirth == null
+                                      ? widget.dateOfBirth
+                                      : DateFormat('yyy-MM-dd')
+                                          .format(dateOfBirth!),
+                                  style: TextStyle(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: kTextColor),
+                                ),
+                                const HorizontalSpacingWidget(width: 10),
+                                Icon(
+                                  Platform.isIOS
+                                      ? CupertinoIcons.calendar
+                                      : IconlyLight.calendar,
+                                  color: kMainColor,
+                                ),
+                              ],
                             ),
                           )
                         ],
                       ),
                     ],
                   ),
-                  const VerticalSpacingWidget(height: 10),
+                  const VerticalSpacingWidget(height: 5),
+                  Text(
+                    "Gender",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13.sp,
+                        color: kSubTextColor),
+                  ),
+                  VerticalSpacingWidget(height: 5.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

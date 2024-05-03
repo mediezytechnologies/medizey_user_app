@@ -45,6 +45,8 @@ class DoctorCardWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     bool allZero =
         clinicList.every((clinic) => clinic.availableTokenCount == 0);
+    bool checkNextAvailableDate =
+        clinicList.every((clinic) => clinic.nextDateAvailableTokenTime == null);
     return Container(
       margin: EdgeInsets.fromLTRB(8.w, 0, 8.w, 4.h),
       padding: const EdgeInsets.all(8),
@@ -166,7 +168,8 @@ class DoctorCardWidget extends StatelessWidget {
                           children: [
                             Text(
                               'Get Location',
-                              style: TextStyle(fontSize: 12.sp,color: kSubTextColor),
+                              style: TextStyle(
+                                  fontSize: 12.sp, color: kSubTextColor),
                             ),
                             Icon(
                               CupertinoIcons.map_pin,
@@ -182,7 +185,7 @@ class DoctorCardWidget extends StatelessWidget {
               ),
             ],
           ),
-          allZero
+          allZero && checkNextAvailableDate
               ? const SizedBox()
               : Column(
                   children: [
@@ -204,7 +207,55 @@ class DoctorCardWidget extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return clinicList[index].availableTokenCount == 0
-                    ? const SizedBox()
+                    ? clinicList[index].nextDateAvailableTokenTime == null
+                        ? const SizedBox()
+                        : Padding(
+                            padding: EdgeInsets.only(bottom: 2.h),
+                            child: Row(
+                              children: [
+                                Image(
+                                  image: const AssetImage(
+                                      "assets/icons/clinic_icon.png"),
+                                  height: 20.h,
+                                  width: 20.w,
+                                  color: kTextColor,
+                                ),
+                                const HorizontalSpacingWidget(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${clinicList[index].clinicName}",
+                                      style: TextStyle(
+                                          color: kTextColor,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13.sp),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Next available : ",
+                                          style: TextStyle(
+                                              color: kTextColor,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13.sp),
+                                        ),
+                                        Text(
+                                          clinicList[index]
+                                              .nextDateAvailableTokenTime
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
                     : Row(
                         children: [
                           Image(
@@ -234,7 +285,7 @@ class DoctorCardWidget extends StatelessWidget {
                                                     .availableTokenCount ==
                                                 0
                                             ? kTextColor
-                                            : const Color(0xFF55B79B),
+                                            : kSecondaryColor,
                                         fontWeight: FontWeight.w400,
                                         fontSize: 13.sp),
                                   )
@@ -250,12 +301,7 @@ class DoctorCardWidget extends StatelessWidget {
                                         fontSize: 13.sp),
                                   ),
                                   Text(
-                                    clinicList[index].nextAvailableTokenTime ==
-                                            null
-                                        ? "N/A"
-                                        : clinicList[index]
-                                            .nextAvailableTokenTime
-                                            .toString(),
+                                    "${clinicList[index].nextAvailableTokenTime.toString()} Today",
                                     style: TextStyle(
                                         color: kTextColor,
                                         fontWeight: FontWeight.w400,

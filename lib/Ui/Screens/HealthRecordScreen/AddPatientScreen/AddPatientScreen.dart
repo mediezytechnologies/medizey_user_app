@@ -46,7 +46,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   final TextEditingController otherTreatmentController =
       TextEditingController();
   GlobalKey _dobColumnKey = GlobalKey();
-
   late GetAllergyModel getAllergyModel;
   String dustAllery = "";
   String genderValue = "Male";
@@ -90,7 +89,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const VerticalSpacingWidget(height: 20),
+              const VerticalSpacingWidget(height: 10),
               Stack(
                 children: [
                   Align(

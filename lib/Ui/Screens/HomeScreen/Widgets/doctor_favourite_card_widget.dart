@@ -200,65 +200,122 @@ class DoctorFavouriteCardWidget extends StatelessWidget {
               itemCount: 1,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    Image(
-                      image: const AssetImage("assets/icons/clinic_icon.png"),
-                      height: 20.h,
-                      width: 20.w,
-                      color: kTextColor,
-                    ),
-                    const HorizontalSpacingWidget(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "${clinicList[index].clinicName} : ",
-                              style: TextStyle(
+                return clinicList[index].availableTokenCount == 0
+                    ? clinicList[index].nextDateAvailableTokenTime == null
+                        ? const SizedBox()
+                        : Padding(
+                            padding: EdgeInsets.only(bottom: 2.h),
+                            child: Row(
+                              children: [
+                                Image(
+                                  image: const AssetImage(
+                                      "assets/icons/clinic_icon.png"),
+                                  height: 20.h,
+                                  width: 20.w,
                                   color: kTextColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 13.sp),
+                                ),
+                                const HorizontalSpacingWidget(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${clinicList[index].clinicName}",
+                                      style: TextStyle(
+                                          color: kTextColor,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13.sp),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Next available : ",
+                                          style: TextStyle(
+                                              color: kTextColor,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13.sp),
+                                        ),
+                                        Text(
+                                          clinicList[index]
+                                                      .nextDateAvailableTokenTime ==
+                                                  null
+                                              ? "N/A"
+                                              : clinicList[index]
+                                                  .nextDateAvailableTokenTime
+                                                  .toString(),
+                                          style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            Text(
-                              "${clinicList[index].availableTokenCount} Slots available",
-                              style: TextStyle(
-                                  color:
-                                      clinicList[index].availableTokenCount == 0
-                                          ? kTextColor
-                                          : const Color(0xFF55B79B),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 13.sp),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Next available token : ",
-                              style: TextStyle(
-                                  color: kTextColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 13.sp),
-                            ),
-                            Text(
-                              clinicList[index].nextAvailableTokenTime == null
-                                  ? "N/A"
-                                  : clinicList[index]
-                                      .nextAvailableTokenTime
-                                      .toString(),
-                              style: TextStyle(
-                                  color: kTextColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 13.sp),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                );
+                          )
+                    : Row(
+                        children: [
+                          Image(
+                            image: const AssetImage(
+                                "assets/icons/clinic_icon.png"),
+                            height: 20.h,
+                            width: 20.w,
+                            color: kTextColor,
+                          ),
+                          const HorizontalSpacingWidget(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "${clinicList[index].clinicName} : ",
+                                    style: TextStyle(
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 13.sp),
+                                  ),
+                                  Text(
+                                    "${clinicList[index].availableTokenCount} Slots available",
+                                    style: TextStyle(
+                                        color: clinicList[index]
+                                                    .availableTokenCount ==
+                                                0
+                                            ? kTextColor
+                                            : kSecondaryColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 13.sp),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Next available token : ",
+                                    style: TextStyle(
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 13.sp),
+                                  ),
+                                  Text(
+                                    clinicList[index].nextAvailableTokenTime ==
+                                            null
+                                        ? "N/A"
+                                        : clinicList[index]
+                                            .nextAvailableTokenTime
+                                            .toString(),
+                                    style: TextStyle(
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 13.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
               }),
           const VerticalSpacingWidget(height: 5),
           Row(
