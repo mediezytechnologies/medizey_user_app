@@ -1,103 +1,151 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+// // ignore_for_file: avoid_print
 
-class Lo extends StatefulWidget {
-  @override
-  _LoState createState() => _LoState();
-}
+// import 'dart:async';
+// import 'dart:io';
 
-class _LoState extends State<Lo> {
-  TextEditingController pinCodeController = TextEditingController();
-  String pinCodeDetails = "";
+// import 'package:app_links/app_links.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pin Code Details'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Text field for entering the PIN code
-            TextField(
-              controller: pinCodeController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter Pin Code'),
-            ),
-            SizedBox(height: 16),
-            // Button to trigger fetching data based on the entered PIN code
-            ElevatedButton(
-              onPressed: () {
-                getDataFromPinCode(pinCodeController.text);
-              },
-              child: Text('Get Data'),
-            ),
-            SizedBox(height: 16),
-            // Display area for the fetched PIN code details
-            Text(pinCodeDetails),
-          ],
-        ),
-      ),
-    );
-  }
 
-  // Function to fetch data from API based on the entered PIN code
-  Future<void> getDataFromPinCode(String pinCode) async {
-    final url = "http://www.postalpincode.in/api/pincode/$pinCode";
+// const kWindowsScheme = 'sample';
 
-    try {
-      final response = await http.get(Uri.parse(url));
+// void main() {
+//   // Register our protocol only on Windows platform
+//   _registerWindowsProtocol();
 
-      if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
+//   runApp(const MyApp());
+// }
 
-        if (jsonResponse['Status'] == 'Error') {
-          // Show a snackbar if the PIN code is not valid
-          showSnackbar(context, "Pin Code is not valid. ");
-          setState(() {
-            pinCodeDetails = 'Pin code is not valid.';
-          });
-        } else {
-          // Parse and display details if the PIN code is valid
-          final postOfficeArray = jsonResponse['PostOffice'] as List;
-          final obj = postOfficeArray[0];
+// class MyApp extends StatefulWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-          final district = obj['District'];
-          final state = obj['State'];
-          final country = obj['Country'];
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
 
-          setState(() {
-            pinCodeDetails =
-                'Details of pin code are:\nDistrict: $district\nState: $state\nCountry: $country';
-          });
-        }
-      } else {
-        // Show a snackbar if there is an issue fetching data
-        showSnackbar(context, "Failed to fetch data. Please try again");
-        setState(() {
-          pinCodeDetails = 'Failed to fetch data. Please try again.';
-        });
-      }
-    } catch (e) {
-      // Show a snackbar if an error occurs during the API call
-      showSnackbar(context, "Error Occurred. Please try again");
-      setState(() {
-        pinCodeDetails = 'Error occurred. Please try again.';
-      });
-    }
-  }
+// class _MyAppState extends State<MyApp> {
+//   final _navigatorKey = GlobalKey<NavigatorState>();
+//   late AppLinks _appLinks;
+//   StreamSubscription<Uri>? _linkSubscription;
 
-  // Function to display a snackbar with a specified message
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: Duration(seconds: 2), // Adjust the duration as needed
-      ),
-    );
-  }
-}
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     initDeepLinks();
+//   }
+
+//   @override
+//   void dispose() {
+//     _linkSubscription?.cancel();
+
+//     super.dispose();
+//   }
+
+//   Future<void> initDeepLinks() async {
+//     _appLinks = AppLinks();
+
+//     // Check initial link if app was in cold state (terminated)
+//     final appLink = await _appLinks.getInitialAppLink();
+//     if (appLink != null) {
+//       print('getInitialAppLink: $appLink');
+//       openAppLink(appLink);
+//     }
+
+//     // Handle link when app is in warm state (front or background)
+//     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
+//       print('onAppLink: $uri');
+//       openAppLink(uri);
+//     });
+//   }
+
+//   void openAppLink(Uri uri) {
+//     _navigatorKey.currentState?.pushNamed(uri.fragment);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       navigatorKey: _navigatorKey,
+//       initialRoute: "/",
+//       onGenerateRoute: (RouteSettings settings) {
+//         Widget routeWidget = defaultScreen();
+
+//         // Mimic web routing
+//         final routeName = settings.name;
+//         if (routeName != null) {
+//           if (routeName.startsWith('/book/')) {
+//             // Navigated to /book/:id
+//             routeWidget = customScreen(
+//               routeName.substring(routeName.indexOf('/book/')),
+//             );
+//           } else if (routeName == '/book') {
+//             // Navigated to /book without other parameters
+//             routeWidget = customScreen("None");
+//           }
+//         }
+
+//         return MaterialPageRoute(
+//           builder: (context) => routeWidget,
+//           settings: settings,
+//           fullscreenDialog: true,
+//         );
+//       },
+//     );
+//   }
+
+//   Widget defaultScreen() {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text('Default Screen')),
+//       body: Center(
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//             const SelectableText('''
+//             Launch an intent to get to the second screen.
+
+//             On web:
+//             http://localhost:<port>/#/book/1 for example.
+
+//             On windows & macOS, open your browser:
+//             sample://foo/#/book/hello-deep-linking
+
+//             This example code triggers new page from URL fragment.
+//             '''),
+//             const SizedBox(height: 20),
+//             buildWindowsUnregisterBtn(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget customScreen(String bookId) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text('Second Screen')),
+//       body: Center(child: Text('Opened with parameter: $bookId')),
+//     );
+//   }
+
+//   Widget buildWindowsUnregisterBtn() {
+//     if (!kIsWeb) {
+//       if (Platform.isWindows) {
+//         return TextButton(
+//             onPressed: () => unregisterProtocolHandler(kWindowsScheme),
+//             child: const Text('Remove Windows protocol registration'));
+//       }
+//     }
+
+//     return const SizedBox.shrink();
+//   }
+// }
+
+// void _registerWindowsProtocol() {
+//   // Register our protocol only on Windows platform
+//   if (!kIsWeb) {
+//     if (Platform.isWindows) {
+//       registerProtocolHandler(kWindowsScheme);
+//     }
+//   }
+// }
