@@ -108,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           backgroundColor: kSecondaryColor,
           body: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               HomeAappBar(
                 isAppBar: _showAppbar ? size.height * .10 : 0.0,
@@ -115,6 +116,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: SingleChildScrollView(
                   controller: _scrollViewController,
+                  primary: false,
+                  scrollDirection: Axis.vertical,
+                  
                   child: Column(
                     children: [
                       SizedBox(height: size.height * 0.02),
