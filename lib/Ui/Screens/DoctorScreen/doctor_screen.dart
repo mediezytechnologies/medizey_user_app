@@ -29,7 +29,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
         .add(FetchHealthCategories());
     BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
         .add(FetchRecentlyBookedDoctors());
-
     BlocProvider.of<GetAllSpecialisationsBloc>(context)
         .add(FetchAllSpecialisations());
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "2"));

@@ -10,6 +10,6 @@ class EditMemberState with _$EditMemberState {
     required bool status,
   }) = _Initial;
 
-  factory EditMemberState.initial() => EditMemberState(
+  factory EditMemberState.initial() => const EditMemberState(
       isloding: false, isError: false, message: '', status: false);
 }

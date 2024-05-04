@@ -1,5 +1,6 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -9,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
@@ -127,11 +129,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           SizedBox(
                             width: 200.w,
                             child: Text(
-                              "Dr.${widget.docterName}",
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              "Dr ${widget.docterName}",
+                              style: black14B600,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -140,10 +139,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       ),
                       Text(
                         widget.bookedClinicName,
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: kSubTextColor),
+                        style: grey12B500,
                       ),
                       widget.appointmentFor == "null"
                           ? const SizedBox()
@@ -160,55 +156,27 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           Row(
                             children: [
                               Text(
-                                DateFormat('dd-MM-yyyy').format(
-                                    DateTime.parse(widget.appointmentDate)),
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: kTextColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                                  DateFormat('dd-MM-yyyy').format(
+                                    DateTime.parse(widget.appointmentDate),
+                                  ),
+                                  style: black12B500),
                               Text(
                                 " | ",
                                 style: TextStyle(
                                   fontSize: 15.sp,
                                   color: kTextColor,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    widget.appointmentTime,
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: kTextColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              Text(widget.appointmentTime, style: black12B500),
                             ],
                           ),
                         ],
                       ),
                       Row(
                         children: [
-                          Text(
-                            "For: ",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: kSubTextColor),
-                          ),
-                          Text(
-                            widget.patientName,
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: kTextColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          Text("For: ", style: grey12B500),
+                          Text(widget.patientName, style: black12B500),
                         ],
                       ),
                     ],
@@ -218,25 +186,17 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   height: height * .060,
                   width: width * .1,
                   decoration: BoxDecoration(
-                      color: const Color(0xFF55B79B),
-                      borderRadius: BorderRadius.circular(7)),
+                    color: kSecondaryColor,
+                    borderRadius: BorderRadius.circular(7.r),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "Token",
-                        style: TextStyle(
-                            fontSize: 9.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kCardColor),
+                        style: white9Bold,
                       ),
-                      Text(
-                        widget.tokenNumber,
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kCardColor),
-                      ),
+                      Text(widget.tokenNumber, style: white12Bold),
                     ],
                   ),
                 )
@@ -251,40 +211,27 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       widget.appointmentDate == formatDate()
                           ? Container(
-                              height: height * .058,
-                              width: width * .35,
+                              height: height * .050,
+                              width: width * .30,
                               decoration: BoxDecoration(
-                                color: const Color(0xFF55B79B),
-                                borderRadius: BorderRadius.circular(5),
+                                color: kSecondaryColor,
+                                borderRadius: BorderRadius.circular(7.r),
                               ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                                    "Live Token",
-                                    style: TextStyle(
-                                      fontSize: 15.sp,
-                                      color: kCardColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  Text("Live Token", style: white12Bold),
                                   Container(
-                                    height: height * .045,
-                                    width: width * .1.w,
+                                    height: height * .038,
+                                    width: width * .08.w,
                                     decoration: BoxDecoration(
                                       color: kCardColor,
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius: BorderRadius.circular(4.r),
                                     ),
                                     child: Center(
-                                      child: Text(
-                                        widget.liveToken,
-                                        style: TextStyle(
-                                          fontSize: 18.sp,
-                                          color: kTextColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      child: Text(widget.liveToken,
+                                          style: black14B600),
                                     ),
                                   )
                                 ],
@@ -293,19 +240,14 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           : Container(),
                       widget.isCheckIn == 1 || widget.isReached == 1
                           ? const SizedBox()
-                          : widget.isPatientAbsent == "Absent"
+                          : widget.isPatientAbsent == "Absent" &&
+                                  widget.appointmentDate == formatDate()
                               ? SizedBox(
                                   height: height * .075,
                                   width: width * .5,
                                   child: Text(
                                     "You failed to reach on time, So your token will be considered as the last token",
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w700,
-                                      fontStyle: FontStyle.normal,
-                                      letterSpacing: -.5,
-                                    ),
+                                    style: red11B600,
                                     maxLines: 3,
                                   ),
                                 )
@@ -314,35 +256,17 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text(
-                                      "Estimated \nArrival Time",
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: kSubTextColor),
-                                    ),
+                                    Text("Estimated \nArrival Time",
+                                        style: grey10B600),
                                     const HorizontalSpacingWidget(width: 10),
                                     Text(
-                                      widget.estimatedArrivalTime
-                                          .substring(0, 5),
-                                      style: TextStyle(
-                                        fontSize: 22.sp,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w700,
-                                        fontStyle: FontStyle.normal,
-                                        letterSpacing: -1,
-                                      ),
-                                    ),
+                                        widget.estimatedArrivalTime
+                                            .substring(0, 5),
+                                        style: red20B600),
                                     Text(
-                                      widget.estimatedArrivalTime.substring(5),
-                                      style: const TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: 0,
-                                          height: 2),
-                                    )
+                                        widget.estimatedArrivalTime
+                                            .substring(5),
+                                        style: red10B600)
                                   ],
                                 )
                     ],
@@ -351,11 +275,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       Text(
                         "Sorry, your booking has been cancelled due to the doctor's inconvenience. Kindly reschedule",
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: red11B600,
                         textAlign: TextAlign.center,
                       ),
                       const VerticalSpacingWidget(height: 5),
@@ -364,28 +284,21 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           showAvailableToken(context);
                         },
                         child: Container(
-                          height: 40.h,
+                          height: height * .047,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF55B79B),
-                            borderRadius: BorderRadius.circular(10),
+                            color: kSecondaryColor,
+                            borderRadius: BorderRadius.circular(7.r),
                           ),
                           child: Center(
-                            child: Text(
-                              "Reshedule",
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kCardColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: Text("Reshedule", style: white13B700),
                           ),
                         ),
                       )
                     ],
                   ),
           ),
-          const VerticalSpacingWidget(height: 5),
+          const VerticalSpacingWidget(height: 3),
           isSecondContainerVisible
               ? Container()
               : Padding(
@@ -395,14 +308,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       widget.appointmentDate == formatDate()
                           ? widget.isReached == 1
-                              ? Text(
-                                  "Reached",
-                                  style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xFF55B79B),
-                                  ),
-                                )
+                              ? Text("Reached", style: greenText12B700)
                               : GestureDetector(
                                   onTap: () async {
                                     await scanQR();
@@ -410,11 +316,12 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                   child: widget.leaveMessage == 0 &&
                                           widget.resheduleStatus == 0
                                       ? Icon(
-                                          Icons.qr_code_scanner_outlined,
-                                          color: Colors.blue,
-                                          size: 28.sp,
+                                          CupertinoIcons.qrcode,
+                                          color: kMainColor,
+                                          size: 22.sp,
                                         )
-                                      : Container())
+                                      : Container(),
+                                )
                           : const SizedBox(),
                       GestureDetector(
                         onTap: () {
@@ -429,9 +336,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 isSecondContainerVisible
                                     ? "See less"
                                     : "See more",
-                                style: TextStyle(
-                                    fontSize: 15.sp, color: Colors.blue),
-                              )
+                                style: mainText15)
                             : Container(),
                       ),
                     ],
@@ -445,67 +350,33 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 3,
-                        backgroundColor: Color(0xFF55B79B),
-                      ),
+                      CircleAvatar(
+                          radius: 2.5.r, backgroundColor: kSecondaryColor),
                       const HorizontalSpacingWidget(width: 5),
-                      Text(
-                        "Token Booked : ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 13.sp),
-                      ),
-                      Text(
-                        widget.bookingTimeAndDate,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: kSubTextColor,
-                            fontSize: 12.sp),
-                      ),
+                      Text("Token Booked : ", style: black12B500),
+                      Text(widget.bookingTimeAndDate, style: grey10B500),
                     ],
                   ),
                   const VerticalSpacingWidget(height: 2),
                   Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 3,
-                        backgroundColor: Color(0xFF55B79B),
-                      ),
+                      CircleAvatar(
+                          radius: 2.5.r, backgroundColor: kSecondaryColor),
                       const HorizontalSpacingWidget(width: 5),
-                      Text(
-                        "Consultation Starting from : ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 13.sp),
-                      ),
-                      Text(
-                        widget.consultationStartingTime,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: kSubTextColor,
-                            fontSize: 12.sp),
-                      ),
+                      Text("Consultation Starting from : ", style: black12B500),
+                      Text(widget.consultationStartingTime, style: grey10B500),
                     ],
                   ),
                   const VerticalSpacingWidget(height: 2),
                   Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 3,
-                        backgroundColor: Color(0xFF55B79B),
-                      ),
+                      CircleAvatar(
+                          radius: 2.5.r, backgroundColor: kSecondaryColor),
                       const HorizontalSpacingWidget(width: 5),
+                      Text("Appointment Time : ", style: black12B500),
                       Text(
-                        "Appointment Time : ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 13.sp),
-                      ),
-                      Text(
-                        "${DateFormat('dd-MM-yyyy').format(DateTime.parse(widget.appointmentDate))} | ${widget.appointmentTime}",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: kSubTextColor,
-                            fontSize: 12.sp),
-                      ),
+                          "${DateFormat('dd-MM-yyyy').format(DateTime.parse(widget.appointmentDate))} | ${widget.appointmentTime}",
+                          style: grey10B500),
                     ],
                   ),
                   const VerticalSpacingWidget(height: 2),
@@ -514,23 +385,12 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       children: [
                         Row(
                           children: [
-                            const CircleAvatar(
-                              radius: 3,
-                              backgroundColor: Color(0xFF55B79B),
-                            ),
+                            CircleAvatar(
+                                radius: 2.5.r,
+                                backgroundColor: kSecondaryColor),
                             const HorizontalSpacingWidget(width: 5),
-                            Text(
-                              "Doctor Late for : ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 13.sp),
-                            ),
-                            Text(
-                              "${widget.lateTime} Min",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: kSubTextColor,
-                                  fontSize: 12.sp),
-                            ),
+                            Text("Doctor Late for : ", style: black12B500),
+                            Text("${widget.lateTime} Min", style: grey10B500),
                           ],
                         ),
                         const VerticalSpacingWidget(height: 2),
@@ -541,31 +401,54 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       children: [
                         Row(
                           children: [
-                            const CircleAvatar(
-                              radius: 3,
-                              backgroundColor: Color(0xFF55B79B),
-                            ),
+                            CircleAvatar(
+                                radius: 2.5.r,
+                                backgroundColor: kSecondaryColor),
                             const HorizontalSpacingWidget(width: 5),
-                            Text(
-                              "Doctor Early for : ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 13.sp),
-                            ),
-                            Text(
-                              "${widget.earlyTime} Min",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: kSubTextColor,
-                                  fontSize: 12.sp),
-                            ),
+                            Text("Doctor Early for : ", style: black12B500),
+                            Text("${widget.earlyTime} Min", style: grey10B500),
                           ],
                         ),
                         const VerticalSpacingWidget(height: 2),
                       ],
-                    )
+                    ),
+                  // Divider(
+                  //   color: kSubTextColor,
+                  // ),
+                  // Text(
+                  //   "Incase you can make it for the appointment, please reschedule the appointment, preferably 2 hours before the shedule time.",
+                  //   style: grey10B500,
+                  // ),
+                  // const VerticalSpacingWidget(height: 5),
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Row(
+                  //         children: [
+                  //           Icon(
+                  //             CupertinoIcons.calendar_today,
+                  //             color: kMainColor,
+                  //             size: 22.sp,
+                  //           ),
+                  //           const HorizontalSpacingWidget(width: 5),
+                  //           Text("Reshedule", style: black12B500),
+                  //         ],
+                  //       ),
+                  //       Icon(
+                  //         Icons.arrow_forward_ios,
+                  //         color: kMainColor,
+                  //         size: 18.sp,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const VerticalSpacingWidget(height: 2),
                 ],
               ),
             ),
+          const VerticalSpacingWidget(height: 5),
           isSecondContainerVisible
               ? Align(
                   alignment: Alignment.bottomRight,
@@ -578,20 +461,20 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         });
                       },
                       child: Text(
-                        isSecondContainerVisible ? "See less" : "See More",
-                        style: TextStyle(fontSize: 15.sp, color: Colors.blue),
-                      ),
+                          isSecondContainerVisible ? "See less" : "See More",
+                          style: mainText15),
                     ),
                   ),
                 )
               : Container(),
-          const VerticalSpacingWidget(height: 5),
+          const VerticalSpacingWidget(height: 3),
         ],
       ),
     );
   }
 
   Future<dynamic> showAvailableToken(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return showDialog(
       barrierDismissible: true,
       context: context,
@@ -606,21 +489,13 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
             children: [
               Text(
                 "Book same doctor",
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  color: kTextColor,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: black14B600,
                 textAlign: TextAlign.center,
               ),
               const VerticalSpacingWidget(height: 5),
               Text(
                 "Next Available Token details",
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  color: kTextColor,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: black12B500,
                 textAlign: TextAlign.center,
               ),
               const VerticalSpacingWidget(height: 5),
@@ -629,19 +504,16 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                 margin: const EdgeInsets.all(8),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: kTextColor, width: 1)),
+                  borderRadius: BorderRadius.circular(7.r),
+                  border: Border.all(color: kSubTextColor, width: .5.w),
+                ),
                 child: Column(
                   children: [
                     widget.nextAvailableTokenNumber == "0"
                         ? const SizedBox()
                         : Text(
                             "Token No : ${widget.nextAvailableTokenNumber}",
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              color: kTextColor,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: black14B600,
                             textAlign: TextAlign.center,
                           ),
                     const VerticalSpacingWidget(height: 3),
@@ -649,11 +521,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         ? const SizedBox()
                         : Text(
                             widget.nextAvailableDateAndTime,
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              color: kTextColor,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: black14B600,
                             textAlign: TextAlign.center,
                           ),
                     const VerticalSpacingWidget(height: 3),
@@ -673,20 +541,14 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         );
                       },
                       child: Container(
-                        height: 40.h,
+                        height: height * .047,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            color: const Color(0xFF55B79B),
-                            borderRadius: BorderRadius.circular(10)),
+                          color: kSecondaryColor,
+                          borderRadius: BorderRadius.circular(7.r),
+                        ),
                         child: Center(
-                          child: Text(
-                            "Book now",
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              color: kCardColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          child: Text("Book now", style: white13B700),
                         ),
                       ),
                     ),
@@ -695,22 +557,11 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                 ),
               ),
               const VerticalSpacingWidget(height: 3),
-              Text(
-                "Or",
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  color: kTextColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text("Or", style: black12B500),
               const VerticalSpacingWidget(height: 3),
               Text(
                 "Book another doctor",
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  color: kTextColor,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: black14B600,
                 textAlign: TextAlign.center,
               ),
               const VerticalSpacingWidget(height: 5),
@@ -726,20 +577,15 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   );
                 },
                 child: Container(
-                  height: 40.h,
+                  height: height * .047,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: const Color(0xFF55B79B),
-                      borderRadius: BorderRadius.circular(10)),
+                    color: kSecondaryColor,
+                    borderRadius: BorderRadius.circular(7.r),
+                  ),
                   child: Center(
-                      child: Text(
-                    "Choose another doctor",
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      color: kCardColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
+                    child: Text("Choose another doctor", style: white13B700),
+                  ),
                 ),
               ),
             ],

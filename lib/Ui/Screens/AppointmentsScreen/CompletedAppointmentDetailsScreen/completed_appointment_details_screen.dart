@@ -8,20 +8,27 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class CompletedAppointmentDetailsScreen extends StatelessWidget {
-  const CompletedAppointmentDetailsScreen(
-      {super.key,
-      required this.doctorName,
-      required this.doctorImage,
-      required this.clinicName,
-      required this.symptoms,
-      required this.tokenDate,
-      required this.tokenTime,
-      required this.patientName,
-      required this.note,
-      required this.labTestName,
-      required this.labName,
-      required this.prescriptionImage,
-      required this.prescriptions});
+  const CompletedAppointmentDetailsScreen({
+    super.key,
+    required this.doctorName,
+    required this.doctorImage,
+    required this.clinicName,
+    required this.symptoms,
+    required this.tokenDate,
+    required this.tokenTime,
+    required this.patientName,
+    required this.note,
+    required this.labTestName,
+    required this.labName,
+    required this.prescriptionImage,
+    required this.prescriptions,
+    required this.reviewAfter,
+    required this.vitals,
+    required this.scanningCenterName,
+    required this.scanningTestName,
+    required this.whenItStart,
+    required this.whenItsCome,
+  });
 
   final String doctorName;
   final String doctorImage;
@@ -35,6 +42,12 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
   final String labName;
   final String prescriptionImage;
   final List<DoctorMedicines> prescriptions;
+  final String reviewAfter;
+  final List<Vitals> vitals;
+  final String scanningCenterName;
+  final String scanningTestName;
+  final String whenItStart;
+  final String whenItsCome;
 
   @override
   Widget build(BuildContext context) {
@@ -173,41 +186,14 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                 ],
               ),
               const VerticalSpacingWidget(height: 5),
-              // reviewAfter == ""
-              //     ? Container()
-              //     : Column(
-              //         children: [
-              //           Row(
-              //             children: [
-              //               Text(
-              //                 "Review after: ",
-              //                 style: TextStyle(
-              //                   fontSize: 14.sp,
-              //                   color: kTextColor,
-              //                   fontWeight: FontWeight.w400,
-              //                 ),
-              //               ),
-              //               Text(
-              //                 "$reviewAfter days",
-              //                 style: TextStyle(
-              //                   fontSize: 15.sp,
-              //                   color: kTextColor,
-              //                   fontWeight: FontWeight.bold,
-              //                 ),
-              //               ),
-              //             ],
-              //           ),
-              //           const VerticalSpacingWidget(height: 5),
-              //         ],
-              //       ),
-              labTestName == ""
+              reviewAfter == "null"
                   ? Container()
                   : Column(
                       children: [
                         Row(
                           children: [
                             Text(
-                              "Lab test: ",
+                              "Review after: ",
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: kTextColor,
@@ -215,7 +201,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              labTestName,
+                              "$reviewAfter days",
                               style: TextStyle(
                                 fontSize: 15.sp,
                                 color: kTextColor,
@@ -227,14 +213,14 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              labName == ""
+              whenItStart == "null"
                   ? Container()
                   : Column(
                       children: [
                         Row(
                           children: [
                             Text(
-                              "Lab Name: ",
+                              "When did start : ",
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: kTextColor,
@@ -242,7 +228,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              labName,
+                              whenItsCome,
                               style: TextStyle(
                                 fontSize: 15.sp,
                                 color: kTextColor,
@@ -254,7 +240,250 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-
+              whenItsCome == "null"
+                  ? Container()
+                  : Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Intensity : ",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              whenItStart,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
+              vitals.isNotEmpty
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Vitals : ",
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: kTextColor,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                        ListView.builder(
+                            itemCount: vitals.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 5.h),
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: kCardColor,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        vitals[index].height == null
+                                            ? const SizedBox()
+                                            : Row(
+                                                children: [
+                                                  Text(
+                                                    "Height :",
+                                                    style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 4),
+                                                  Text(
+                                                    "${vitals[index].height.toString()} Cm",
+                                                    style: TextStyle(
+                                                      fontSize: 13.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                        const HorizontalSpacingWidget(
+                                            width: 10),
+                                        vitals[index].weight == null
+                                            ? const SizedBox()
+                                            : Row(
+                                                children: [
+                                                  Text(
+                                                    "Weight :",
+                                                    style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 4),
+                                                  Text(
+                                                    "${vitals[index].weight.toString()} Kg",
+                                                    style: TextStyle(
+                                                      fontSize: 13.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                        const HorizontalSpacingWidget(
+                                            width: 10),
+                                        vitals[index].heartRate == null
+                                            ? const SizedBox()
+                                            : Row(
+                                                children: [
+                                                  Text(
+                                                    "Heartrate :",
+                                                    style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 4),
+                                                  Text(
+                                                    "${vitals[index].heartRate.toString()} Bpm",
+                                                    style: TextStyle(
+                                                      fontSize: 13.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                      ],
+                                    ),
+                                    const VerticalSpacingWidget(height: 5),
+                                    Row(
+                                      children: [
+                                        vitals[index].temperature == null
+                                            ? const SizedBox()
+                                            : Row(
+                                                children: [
+                                                  Text(
+                                                    "Temperature :",
+                                                    style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 4),
+                                                  Text(
+                                                    vitals[index]
+                                                        .temperature
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 13.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 2),
+                                                  Text(
+                                                    vitals[index]
+                                                        .temperatureType
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 13.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                        const HorizontalSpacingWidget(width: 5),
+                                        vitals[index].spo2 == null
+                                            ? const SizedBox()
+                                            : Row(
+                                                children: [
+                                                  Text(
+                                                    "Spo2 :",
+                                                    style: TextStyle(
+                                                      fontSize: 13.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 4),
+                                                  Text(
+                                                    "${vitals[index].spo2.toString()} %",
+                                                    style: TextStyle(
+                                                      fontSize: 14.sp,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                        const HorizontalSpacingWidget(width: 5),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Bp :",
+                                              style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: kTextColor,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            const HorizontalSpacingWidget(
+                                                width: 4),
+                                            Text(
+                                              "${vitals[index].sys ?? "N/A"} / ${vitals[index].dia ?? "N/A"}",
+                                              style: TextStyle(
+                                                fontSize: 13.sp,
+                                                color: kTextColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                      ],
+                    )
+                  : Container(),
               prescriptions.isNotEmpty
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,29 +512,33 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Medical store name :",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
+                                    prescriptions[index].medicalStoreName ==
+                                            null
+                                        ? const SizedBox()
+                                        : Row(
+                                            children: [
+                                              Text(
+                                                "Medical store name :",
+                                                style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  color: kTextColor,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              const HorizontalSpacingWidget(
+                                                  width: 5),
+                                              Text(
+                                                prescriptions[index]
+                                                    .medicalStoreName
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: kTextColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                        ),
-                                        const HorizontalSpacingWidget(width: 5),
-                                        Text(
-                                          prescriptions[index]
-                                              .medicalStoreName
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      ],
-                                    ),
                                     const VerticalSpacingWidget(height: 5),
                                     Row(
                                       mainAxisAlignment:
@@ -470,7 +703,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                       ],
                     )
                   : Container(),
-              prescriptionImage == ""
+              prescriptionImage == "null"
                   ? Container()
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -501,7 +734,115 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              note == ""
+              labTestName == "null"
+                  ? Container()
+                  : Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Lab test: ",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              labTestName,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
+              labName == "null"
+                  ? Container()
+                  : Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Lab Name: ",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              labName,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
+              scanningTestName == "null"
+                  ? Container()
+                  : Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Scanning test: ",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              scanningCenterName,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
+              scanningCenterName == "null"
+                  ? Container()
+                  : Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Scanning center name: ",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              scanningTestName,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: kTextColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
+              note == "null"
                   ? Container()
                   : Row(
                       children: [

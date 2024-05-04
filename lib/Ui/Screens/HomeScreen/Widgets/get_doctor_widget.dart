@@ -33,13 +33,62 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GetDoctersBloc, GetDoctersState>(
-      listener: (context, state) {
-        if (state.isloding) {
-          log("login ${state.isloding}");
-          Center(
-            child: CupertinoActivityIndicator(
-              color: kMainColor,
+    return BlocBuilder<GetDoctorBloc, GetDoctorState>(
+      builder: (context, state) {
+        if (state is GetDoctorLoaded) {
+          doctorModel = BlocProvider.of<GetDoctorBloc>(context).doctorModel;
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const HeadingWidget(
+                  title: "Doctors near you",
+                ),
+                const VerticalSpacingWidget(height: 5),
+                LimitedBox(
+                  maxHeight: 195.h,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: doctorModel.allDoctors!.length,
+                      itemBuilder: (context, index) {
+                        return DoctorNearYouWidget(
+                            docterDistance: doctorModel
+                                    .allDoctors![index].distanceFromUser ??
+                                "0.0",
+                            doctorId: doctorModel.allDoctors![index].userId
+                                .toString(),
+                            firstName: doctorModel.allDoctors![index].firstname
+                                .toString(),
+                            lastName: doctorModel.allDoctors![index].secondname
+                                .toString(),
+                            imageUrl: doctorModel.allDoctors![index].docterImage
+                                .toString(),
+                            location: doctorModel.allDoctors![index].location
+                                .toString(),
+                            specialisation: doctorModel
+                                .allDoctors![index].specialization
+                                .toString(),
+                            favouriteStatus: doctorModel
+                                .allDoctors![index].favoriteStatus!
+                                .toInt());
+                      }),
+                ),
+                const VerticalSpacingWidget(height: 5),
+                ViewAllButtonWidget(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) =>
+                              const AllDoctorNearYouScreen()),
+                        ),
+                      );
+                    },
+                    buttonText: "View near you doctors")
+              ],
             ),
           );
         }

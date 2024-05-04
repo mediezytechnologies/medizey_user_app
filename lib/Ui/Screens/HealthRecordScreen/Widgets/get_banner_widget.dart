@@ -4,24 +4,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:shimmer/shimmer.dart';
 
-class GetBannerWidget extends StatefulWidget {
-  const GetBannerWidget({super.key});
+class GetBannerWidget extends StatelessWidget {
+  const GetBannerWidget({
+    super.key,
+  });
 
-  @override
-  State<GetBannerWidget> createState() => _GetBannerWidgetState();
-}
-
-class _GetBannerWidgetState extends State<GetBannerWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120.h,
+      height: 140.h,
       child: BlocBuilder<BannerBloc, BannerState>(
         builder: (context, state) {
           if (state is BannerLoading) {
-            return homeBannerLoadingWidget();
+            return Shimmer.fromColors(
+              baseColor: kShimmerBaseColor,
+              highlightColor: kShimmerHighlightColor,
+              child: Container(
+                width: double.infinity,
+                height: 140.h,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            );
+          }
+          if (state is BannerError) {
+            return const Center(
+              child: Image(
+                image: AssetImage(
+                    "assets/images/something went wrong-01.png"),
+              ),
+            );
           }
           if (state is BannerLoaded) {
             final banner = state.bannerModel;
@@ -36,9 +53,11 @@ class _GetBannerWidgetState extends State<GetBannerWidget> {
                     child: FancyShimmerImage(
                       boxFit: BoxFit.fill,
                       errorWidget: const Image(
-                        image: AssetImage("assets/icons/no image.png"),
+                        image: AssetImage(
+                            "assets/icons/no image.png"),
                       ),
-                      imageUrl: banner.bannerImages![index],
+                      imageUrl:
+                          banner.bannerImages![index],
                     ),
                   ),
                 );

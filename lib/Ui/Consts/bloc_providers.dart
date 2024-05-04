@@ -3,6 +3,7 @@ import 'package:mediezy_user/Repository/Bloc/Article/article_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/AutoFetch/auto_fetch_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/BookAppointmets/book_appointment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/get_family_members_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/BookAppointment/OtherTypePatientDetails/other_type_patient_details_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/DoctorRecommend/doctor_recommend_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
@@ -152,5 +153,6 @@ class AppBlocProviders {
           create: (context) => getIt<GetFavDoctorBloc>(),
         ),
         //GetFavDoctorBloc
+        BlocProvider(create: (context) => OtherTypePatientDetailsBloc()),
       ];
 }

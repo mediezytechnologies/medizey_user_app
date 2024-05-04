@@ -47,7 +47,7 @@ class _UpcommingAppoimentState extends State<UpcommingAppoiment> {
                           title: "Your appointments",
                         ),
                       ),
-                      const VerticalSpacingWidget(height: 5),
+                      const VerticalSpacingWidget(height: 3),
                       ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,

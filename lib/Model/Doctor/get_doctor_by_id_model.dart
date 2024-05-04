@@ -25,7 +25,8 @@ class GetDoctorByIdModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     if (doctorDetails != null) {
-      data['Doctor Details'] = doctorDetails!.map((v) => v.toJson()).toList();
+      data['Doctor Details'] =
+          doctorDetails!.map((v) => v.toJson()).toList();
     }
     data['code'] = code;
     data['message'] = message;
@@ -48,6 +49,7 @@ class DoctorDetails {
   String? emailID;
   String? mobileNumber;
   String? mainHospital;
+  String? consulationFees;
   List<String>? specifications;
   List<String>? subspecifications;
   List<Clinics>? clinics;
@@ -68,6 +70,7 @@ class DoctorDetails {
       this.emailID,
       this.mobileNumber,
       this.mainHospital,
+      this.consulationFees,
       this.specifications,
       this.subspecifications,
       this.clinics,
@@ -88,6 +91,7 @@ class DoctorDetails {
     emailID = json['emailID'];
     mobileNumber = json['Mobile Number'];
     mainHospital = json['MainHospital'];
+    consulationFees = json['consulation_fees'];
     specifications = json['specifications'].cast<String>();
     subspecifications = json['subspecifications'].cast<String>();
     if (json['clinics'] != null) {
@@ -115,6 +119,7 @@ class DoctorDetails {
     data['emailID'] = emailID;
     data['Mobile Number'] = mobileNumber;
     data['MainHospital'] = mainHospital;
+    data['consulation_fees'] = consulationFees;
     data['specifications'] = specifications;
     data['subspecifications'] = subspecifications;
     if (clinics != null) {
@@ -124,3 +129,5 @@ class DoctorDetails {
     return data;
   }
 }
+
+

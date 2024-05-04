@@ -34,10 +34,11 @@ class _ViewFileScreenState extends State<ViewFileScreen> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: FancyShimmerImage(
-              height: 600.h,
+              height: 300.h,
               boxFit: BoxFit.fill,
-              errorWidget:
-                  const Image(image: AssetImage("assets/icons/no image.png")),
+              errorWidget: const Image(
+                image: AssetImage("assets/icons/no image.png"),
+              ),
               imageUrl: widget.viewFile),
         ),
       ),

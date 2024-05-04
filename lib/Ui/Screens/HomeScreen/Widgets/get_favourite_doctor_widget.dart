@@ -6,7 +6,7 @@ import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favour
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_favourite_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 
@@ -45,22 +45,24 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                       ),
                     ),
                     const VerticalSpacingWidget(height: 5),
-                    ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount:
-                            getFavouritesModel.favoriteDoctors!.length > 1
-                                ? 1
-                                : getFavouritesModel.favoriteDoctors!.length,
-                        itemBuilder: (context, index) {
-                          return DoctorCardWidget(
+                    LimitedBox(
+                      maxHeight: 210.h,
+                      child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: getFavouritesModel.favoriteDoctors!.length,
+                          itemBuilder: (context, index) {
+                            return DoctorFavouriteCardWidget(
                               userAwayFrom: getFavouritesModel
                                   .favoriteDoctors![index].distanceFromUser
                                   .toString(),
-                              clinicList: getFavouritesModel.favoriteDoctors![index].clinics!
+                              clinicList: getFavouritesModel
+                                  .favoriteDoctors![index].clinics!
                                   .toList(),
-                              doctorId: getFavouritesModel.favoriteDoctors![index].userId
+                              doctorId: getFavouritesModel
+                                  .favoriteDoctors![index].userId
                                   .toString(),
                               firstName: getFavouritesModel
                                   .favoriteDoctors![index].firstname
@@ -77,8 +79,12 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                               specialisation: getFavouritesModel
                                   .favoriteDoctors![index].specialization
                                   .toString(),
-                              location: getFavouritesModel.favoriteDoctors![index].location.toString());
-                        }),
+                              location: getFavouritesModel
+                                  .favoriteDoctors![index].location
+                                  .toString(),
+                            );
+                          }),
+                    ),
                     const VerticalSpacingWidget(height: 2),
                     ViewAllButtonWidget(
                         onTap: () {

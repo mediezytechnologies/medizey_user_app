@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -267,7 +269,7 @@ class GeneralServices {
             builder: (context) {
               Future.delayed(const Duration(seconds: 2), () {
                 Navigator.pop(context);
-                Navigator.pop(context);
+                log("delay worked");
               });
               return CupertinoAlertDialog(
                 title: Align(
@@ -288,7 +290,7 @@ class GeneralServices {
             builder: (BuildContext context) {
               Future.delayed(const Duration(seconds: 2), () {
                 Navigator.pop(context);
-                Navigator.pop(context);
+                log("delay worked");
               });
               return AlertDialog(
                 title: Align(

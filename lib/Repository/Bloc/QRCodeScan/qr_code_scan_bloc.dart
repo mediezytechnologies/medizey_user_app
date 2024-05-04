@@ -18,7 +18,7 @@ class QrCodeScanBloc extends Bloc<QrCodeScanEvent, QrCodeScanState> {
             tokenId: event.tokenId);
         emit(QrCodeScanLoaded());
       } catch (e) {
-        emit(QrCodeScanError(errorMessage: e.toString()));
+        emit(QrCodeScanError(errorMessage: e.toString(),),);
       }
     });
   }

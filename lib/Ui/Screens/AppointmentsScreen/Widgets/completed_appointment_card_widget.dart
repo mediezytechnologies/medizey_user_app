@@ -20,7 +20,13 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
       required this.labTestName,
       required this.labName,
       required this.prescriptionImage,
-      required this.prescriptions});
+      required this.prescriptions,
+      required this.reviewAfter,
+      required this.vitals,
+      required this.scanningCenterName,
+      required this.scanningTestName,
+      required this.whenItStart,
+      required this.whenItsCome});
 
   final String doctorName;
   final String doctorImage;
@@ -34,28 +40,42 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
   final String labName;
   final String prescriptionImage;
   final List<DoctorMedicines> prescriptions;
+  final String reviewAfter;
+  final List<Vitals> vitals;
+  final String scanningCenterName;
+  final String scanningTestName;
+  final String whenItStart;
+  final String whenItsCome;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CompletedAppointmentDetailsScreen(
-                      prescriptions: prescriptions,
-                      clinicName: clinicName,
-                      doctorImage: doctorImage,
-                      doctorName: doctorName,
-                      labName: labName,
-                      labTestName: labTestName,
-                      note: note,
-                      patientName: patientName,
-                      prescriptionImage: prescriptionImage,
-                      symptoms: symptoms,
-                      tokenDate: tokenDate,
-                      tokenTime: tokenTime,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => CompletedAppointmentDetailsScreen(
+              prescriptions: prescriptions,
+              clinicName: clinicName,
+              doctorImage: doctorImage,
+              doctorName: doctorName,
+              labName: labName,
+              labTestName: labTestName,
+              note: note,
+              patientName: patientName,
+              prescriptionImage: prescriptionImage,
+              symptoms: symptoms,
+              tokenDate: tokenDate,
+              tokenTime: tokenTime,
+              reviewAfter: reviewAfter,
+              vitals: vitals,
+              scanningCenterName: scanningCenterName,
+              scanningTestName: scanningTestName,
+              whenItStart: whenItStart,
+              whenItsCome: whenItsCome,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 4.h),
@@ -65,7 +85,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  top: 8.0.h, bottom: 18.0.h, left: 8.w, right: 10.w),
+                  top: 8.0.h, bottom: 5.0.h, left: 8.w, right: 10.w),
               child: Row(
                 children: [
                   FadedScaleAnimation(

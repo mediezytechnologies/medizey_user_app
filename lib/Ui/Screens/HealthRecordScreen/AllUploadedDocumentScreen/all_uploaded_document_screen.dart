@@ -41,7 +41,7 @@ class _AllUploadedDocumentScreenState extends State<AllUploadedDocumentScreen> {
           if (state is GetAllUploadedDocumentsLoaded) {
             final allDocumet = state.getAllUploadedDocumentModel;
             return allDocumet.documentData == null
-                ? Image.asset("assets/icons/no data.png")
+                ? Center(child: Image.asset("assets/icons/no data.png"))
                 : ListView.separated(
                     padding: EdgeInsets.zero,
                     itemCount: allDocumet.documentData!.length,

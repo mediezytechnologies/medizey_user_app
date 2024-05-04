@@ -92,11 +92,9 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
           theme: appThemeStyle(context),
           home:
-
-//ScrollScreenDemo()
               hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );
   }
-}
+} 

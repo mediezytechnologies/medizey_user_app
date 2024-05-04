@@ -246,46 +246,56 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                 ),
                                                 const VerticalSpacingWidget(
                                                     height: 2),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      IconlyLight.location,
-                                                      size: 14.sp,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 3.w,
-                                                    ),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        text: getDoctorByIdModel
+                                                getDoctorByIdModel
                                                             .doctorDetails!
                                                             .first
-                                                            .distanceFromUser
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color: kTextColor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
+                                                            .distanceFromUser ==
+                                                        null
+                                                    ? const SizedBox()
+                                                    : Row(
                                                         children: [
-                                                          TextSpan(
-                                                              text: ' away',
+                                                          Icon(
+                                                            IconlyLight
+                                                                .location,
+                                                            size: 14.sp,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 3.w,
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              text: getDoctorByIdModel
+                                                                  .doctorDetails!
+                                                                  .first
+                                                                  .distanceFromUser
+                                                                  .toString(),
                                                               style: TextStyle(
+                                                                  fontSize:
+                                                                      12.sp,
                                                                   color:
-                                                                      kSubTextColor,
+                                                                      kTextColor,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .normal),
-                                                              recognizer:
-                                                                  TapGestureRecognizer()
-                                                                    ..onTap =
-                                                                        () {})
+                                                                          .w500),
+                                                              children: [
+                                                                TextSpan(
+                                                                    text:
+                                                                        ' away',
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kSubTextColor,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal),
+                                                                    recognizer:
+                                                                        TapGestureRecognizer()
+                                                                          ..onTap =
+                                                                              () {})
+                                                              ],
+                                                            ),
+                                                          ),
                                                         ],
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
                                                 const VerticalSpacingWidget(
                                                     height: 10),
                                                 BlocBuilder<AddFavouritesBloc,
@@ -310,11 +320,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                         );
                                                       },
                                                       child: Container(
-                                                        // padding: EdgeInsets
-                                                        //     .symmetric(
-                                                        //         horizontal:
-                                                        //             size.width *
-                                                        //                 0.03),
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
@@ -327,7 +332,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                         height:
                                                             size.height * 0.04,
                                                         width: size.width * .42,
-                                                        // width: 150.w,
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -400,6 +404,28 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                               fontWeight: FontWeight.w400,
                                               color: kTextColor,
                                               height: 1.3.h),
+                                        ),
+                                        const VerticalSpacingWidget(height: 5),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Consultation Fee : ",
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: kSubTextColor),
+                                            ),
+                                            const HorizontalSpacingWidget(
+                                                width: 5),
+                                            Text(
+                                              "₹ ${getDoctorByIdModel.doctorDetails!.first.consulationFees.toString()}/-",
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: kTextColor,
+                                                  height: 1.3.h),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -644,41 +670,82 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                               .doctorDetails!
                                                               .first
                                                               .clinics![index]
-                                                              .nextAvailableTokenTime ==
-                                                          null
-                                                      ? const SizedBox()
-                                                      : Row(
-                                                          children: [
-                                                            Text(
-                                                              "Next available token : ",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kSubTextColor),
-                                                            ),
-                                                            Text(
-                                                              getDoctorByIdModel
+                                                              .availableTokenCount ==
+                                                          0
+                                                      ? getDoctorByIdModel
                                                                   .doctorDetails!
                                                                   .first
                                                                   .clinics![
                                                                       index]
-                                                                  .nextAvailableTokenTime
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kTextColor),
+                                                                  .nextDateAvailableTokenTime ==
+                                                              null
+                                                          ? const SizedBox()
+                                                          : Row(
+                                                              children: [
+                                                                Text(
+                                                                  "Next available token : ",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color:
+                                                                          kSubTextColor),
+                                                                ),
+                                                                Text(
+                                                                  getDoctorByIdModel
+                                                                      .doctorDetails!
+                                                                      .first
+                                                                      .clinics![
+                                                                          index]
+                                                                      .nextDateAvailableTokenTime
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color:
+                                                                          kTextColor),
+                                                                ),
+                                                              ],
+                                                            )
+                                                      : getDoctorByIdModel
+                                                                  .doctorDetails!
+                                                                  .first
+                                                                  .clinics![
+                                                                      index]
+                                                                  .nextAvailableTokenTime ==
+                                                              null
+                                                          ? const SizedBox()
+                                                          : Row(
+                                                              children: [
+                                                                Text(
+                                                                  "Next available token : ",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color:
+                                                                          kSubTextColor),
+                                                                ),
+                                                                Text(
+                                                                  "${getDoctorByIdModel.doctorDetails!.first.clinics![index].nextAvailableTokenTime} Today",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13.sp,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color:
+                                                                          kTextColor),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
                                                   const VerticalSpacingWidget(
                                                       height: 5),
                                                 ],

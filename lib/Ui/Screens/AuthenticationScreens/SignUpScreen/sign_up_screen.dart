@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
@@ -599,12 +601,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final DateTime? picked = await showModalBottomSheet<DateTime>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 300.0,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: date,
-            minimumDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+            minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
             maximumDate: DateTime.now(),
             onDateTimeChanged: (DateTime newDate) {
               onDateSelected(newDate);

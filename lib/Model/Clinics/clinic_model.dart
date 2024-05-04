@@ -10,6 +10,7 @@ class Clinics {
   int? totalTokenCount;
   int? availableTokenCount;
   String? nextAvailableTokenTime;
+  String? nextDateAvailableTokenTime;
 
   Clinics(
       {this.clinicId,
@@ -22,7 +23,8 @@ class Clinics {
       this.clinicDescription,
       this.totalTokenCount,
       this.availableTokenCount,
-      this.nextAvailableTokenTime});
+      this.nextAvailableTokenTime,
+      this.nextDateAvailableTokenTime});
 
   Clinics.fromJson(Map<String, dynamic> json) {
     clinicId = json['clinic_id'];
@@ -36,6 +38,7 @@ class Clinics {
     totalTokenCount = json['total_token_Count'];
     availableTokenCount = json['available_token_count'];
     nextAvailableTokenTime = json['next_available_token_time'];
+    nextDateAvailableTokenTime = json['next_date_available_token_time'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +54,7 @@ class Clinics {
     data['total_token_Count'] = totalTokenCount;
     data['available_token_count'] = availableTokenCount;
     data['next_available_token_time'] = nextAvailableTokenTime;
+    data['next_date_available_token_time'] = nextDateAvailableTokenTime;
     return data;
   }
 }
