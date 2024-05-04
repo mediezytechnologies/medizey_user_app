@@ -215,14 +215,13 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               width: width * .30,
                               decoration: BoxDecoration(
                                 color: kSecondaryColor,
-                               borderRadius: BorderRadius.circular(7.r),
+                                borderRadius: BorderRadius.circular(7.r),
                               ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text("Live Token",
-                                      style: white12Bold),
+                                  Text("Live Token", style: white12Bold),
                                   Container(
                                     height: height * .038,
                                     width: width * .08.w,
@@ -292,8 +291,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                             borderRadius: BorderRadius.circular(7.r),
                           ),
                           child: Center(
-                            child: Text("Reshedule",
-                                style: white13B700),
+                            child: Text("Reshedule", style: white13B700),
                           ),
                         ),
                       )
@@ -366,8 +364,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           radius: 2.5.r, backgroundColor: kSecondaryColor),
                       const HorizontalSpacingWidget(width: 5),
                       Text("Consultation Starting from : ", style: black12B500),
-                      Text(widget.consultationStartingTime,
-                          style: grey10B500),
+                      Text(widget.consultationStartingTime, style: grey10B500),
                     ],
                   ),
                   const VerticalSpacingWidget(height: 2),
@@ -393,8 +390,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 backgroundColor: kSecondaryColor),
                             const HorizontalSpacingWidget(width: 5),
                             Text("Doctor Late for : ", style: black12B500),
-                            Text("${widget.lateTime} Min",
-                                style: grey10B500),
+                            Text("${widget.lateTime} Min", style: grey10B500),
                           ],
                         ),
                         const VerticalSpacingWidget(height: 2),
@@ -410,16 +406,49 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 backgroundColor: kSecondaryColor),
                             const HorizontalSpacingWidget(width: 5),
                             Text("Doctor Early for : ", style: black12B500),
-                            Text("${widget.earlyTime} Min",
-                                style: grey10B500),
+                            Text("${widget.earlyTime} Min", style: grey10B500),
                           ],
                         ),
                         const VerticalSpacingWidget(height: 2),
                       ],
-                    )
+                    ),
+                  Divider(
+                    color: kSubTextColor,
+                  ),
+                  Text(
+                    "Incase you can make it for the appointment, please reschedule the appointment, preferably 2 hours before the shedule time.",
+                    style: grey10B500,
+                  ),
+                  const VerticalSpacingWidget(height: 5),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              CupertinoIcons.calendar_today,
+                              color: kMainColor,
+                              size: 22.sp,
+                            ),
+                            const HorizontalSpacingWidget(width: 5),
+                            Text("Reshedule", style: black12B500),
+                          ],
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: kMainColor,
+                          size: 18.sp,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const VerticalSpacingWidget(height: 2),
                 ],
               ),
             ),
+          const VerticalSpacingWidget(height: 5),
           isSecondContainerVisible
               ? Align(
                   alignment: Alignment.bottomRight,
@@ -519,8 +548,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           borderRadius: BorderRadius.circular(7.r),
                         ),
                         child: Center(
-                          child: Text("Book now",
-                              style: white13B700),
+                          child: Text("Book now", style: white13B700),
                         ),
                       ),
                     ),
@@ -553,11 +581,10 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: kSecondaryColor,
-                   borderRadius: BorderRadius.circular(7.r),
+                    borderRadius: BorderRadius.circular(7.r),
                   ),
                   child: Center(
-                    child: Text("Choose another doctor",
-                        style: white13B700),
+                    child: Text("Choose another doctor", style: white13B700),
                   ),
                 ),
               ),
