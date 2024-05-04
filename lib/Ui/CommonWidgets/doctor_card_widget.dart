@@ -27,7 +27,7 @@ class DoctorCardWidget extends StatelessWidget {
       required this.location,
       required this.clinicList,
       required this.userAwayFrom,
-      this.patientId,});
+      this.patientId});
 
   final String doctorId;
   final String firstName;
@@ -39,8 +39,6 @@ class DoctorCardWidget extends StatelessWidget {
   final List<Clinics> clinicList;
   final String userAwayFrom;
   String? patientId;
-  //   final String img;
-  // final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -59,74 +57,107 @@ class DoctorCardWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Row(
+              FadedScaleAnimation(
+                scaleDuration: const Duration(milliseconds: 400),
+                fadeDuration: const Duration(milliseconds: 400),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: FancyShimmerImage(
+                      height: 80.h,
+                      width: 80.w,
+                      boxFit: BoxFit.contain,
+                      errorWidget: const Image(
+                          image: AssetImage("assets/icons/no image.png")),
+                      imageUrl: imageUrl),
+                ),
+              ),
+              const HorizontalSpacingWidget(width: 5),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadedScaleAnimation(
-                    scaleDuration: const Duration(milliseconds: 400),
-                    fadeDuration: const Duration(milliseconds: 400),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FancyShimmerImage(
-                          height: 80.h,
-                          width: 80.w,
-                          boxFit: BoxFit.contain,
-                          errorWidget: const Image(
-                              image: AssetImage("assets/icons/no image.png")),
-                          imageUrl: imageUrl),
+                  const VerticalSpacingWidget(height: 2),
+                  SizedBox(
+                    width: 200.w,
+                    child: Text(
+                      "Dr.$firstName $lastName",
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const HorizontalSpacingWidget(width: 5),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  SizedBox(
+                    width: 200.w,
+                    child: Text(
+                      specialisation,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: kSubTextColor),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const HorizontalSpacingWidget(width: 2),
+                  SizedBox(
+                    width: 200.w,
+                    child: Text(
+                      mainHospitalName,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: kSubTextColor),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const HorizontalSpacingWidget(width: 2),
+                  Row(
                     children: [
-                      const VerticalSpacingWidget(height: 2),
-                      SizedBox(
-                        width: 200.w,
-                        child: Text(
-                          "Dr.$firstName $lastName",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      Text(
+                        "Location: ",
+                        style: TextStyle(fontSize: 12.sp, color: kSubTextColor),
                       ),
-                      SizedBox(
-                        width: 200.w,
-                        child: Text(
-                          specialisation,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kSubTextColor),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      Text(
+                        location,
+                        style: TextStyle(fontSize: 12.sp, color: Colors.black),
                       ),
-                      const HorizontalSpacingWidget(width: 2),
-                      SizedBox(
-                        width: 200.w,
-                        child: Text(
-                          mainHospitalName,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kSubTextColor),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const HorizontalSpacingWidget(width: 2),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
                       Row(
                         children: [
-                          Text(
-                            "Location: ",
-                            style: TextStyle(fontSize: 12.sp, color: kSubTextColor),
+                          Icon(
+                            IconlyLight.location,
+                            size: 14.sp,
                           ),
-                          Text(
-                            location,
-                            style: TextStyle(fontSize: 12.sp, color: Colors.black),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.38,
+                            child: RichText(
+                              text: TextSpan(
+                                text: userAwayFrom,
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: kTextColor,
+                                    fontWeight: FontWeight.w500),
+                                children: [
+                                  TextSpan(
+                                      text: ' away',
+                                      style: TextStyle(
+                                          color: kSubTextColor,
+                                          fontWeight: FontWeight.normal),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {})
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -140,8 +171,13 @@ class DoctorCardWidget extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 12.sp, color: kSubTextColor),
                             ),
-                          ),
-                        ],
+                            Icon(
+                              CupertinoIcons.map_pin,
+                              color: kSecondaryColor,
+                              size: 14.sp,
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -255,31 +291,14 @@ class DoctorCardWidget extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              const HorizontalSpacingWidget(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "${clinicList[index].clinicName} : ",
-                                        style: TextStyle(
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.sp),
-                                      ),
-                                      Text(
-                                        "${clinicList[index].availableTokenCount} Slots available",
-                                        style: TextStyle(
-                                            color: clinicList[index]
-                                                        .availableTokenCount ==
-                                                    0
-                                                ? kTextColor
-                                                : const Color(0xFF55B79B),
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.sp),
-                                      )
-                                    ],
+                                  Text(
+                                    "Next available token : ",
+                                    style: TextStyle(
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 13.sp),
                                   ),
                                   Text(
                                     "${clinicList[index].nextAvailableTokenTime.toString()} Today",
@@ -291,99 +310,80 @@ class DoctorCardWidget extends StatelessWidget {
                                 ],
                               ),
                             ],
-                          );
-                  }),
-              const VerticalSpacingWidget(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DoctorDetailsScreen(
-                            doctorId: doctorId,
-                            patientId: patientId,
                           ),
-                        ),
+                        ],
                       );
-                    },
-                    child: Container(
-                      height: size.height * 0.04,
-                      width: size.width * .42,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: kCardColor,
-                          border: Border.all(color: kMainColor, width: 1.5.w)),
-                      child: Center(
-                        child: Text(
-                          "View Profile",
-                          style: TextStyle(
-                              color: kMainColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.sp),
-                        ),
+              }),
+          const VerticalSpacingWidget(height: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DoctorDetailsScreen(
+                        doctorId: doctorId,
+                        patientId: patientId,
                       ),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: size.height * 0.04,
+                  width: size.width * .42,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: kCardColor,
+                      border: Border.all(color: kMainColor, width: 1.5.w)),
+                  child: Center(
+                    child: Text(
+                      "View Profile",
+                      style: TextStyle(
+                          color: kMainColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.sp),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BookAppointmentScreen(
-                            clinicList: clinicList,
-                            doctorId: doctorId,
-                            doctorFirstName: firstName,
-                            doctorSecondName: lastName,
-                            patientId: patientId,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      height: size.height * 0.04,
-                      width: size.width * .42,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: kMainColor),
-                      child: Center(
-                        child: Text(
-                          "Book Clinic Visit",
-                          style: TextStyle(
-                              color: kCardColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.sp),
-                        ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookAppointmentScreen(
+                        clinicList: clinicList,
+                        doctorId: doctorId,
+                        doctorFirstName: firstName,
+                        doctorSecondName: lastName,
+                        patientId: patientId,
                       ),
                     ),
-                  )
-                ],
+                  );
+                },
+                child: Container(
+                  height: size.height * 0.04,
+                  width: size.width * .42,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: kMainColor),
+                  child: Center(
+                    child: Text(
+                      "Book Clinic Visit",
+                      style: TextStyle(
+                          color: kCardColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.sp),
+                    ),
+                  ),
+                ),
               )
             ],
-          ),
-        ),
-          //  Positioned(
-          //     right: size.width * 0.04,
-          //     top: size.height * 0.019,
-          //     child: GestureDetector(
-          //       onTap: widget.onTap,
-          //       child: SizedBox(
-          //         height: size.height * 0.04,
-          //         width: size.width * 0.07,
-          //         child: Image.asset(
-          //           widget.img,
-          //           //  state.model[index].favoriteStatus == 1
-          //           //                   ? "assets/icons/favorite2.png"
-          //           //                   : "assets/icons/favorite1.png",
-          //           color: kMainColor,
-          //           // color: const Color.fromARGB(
-          //           //     255, 197, 120, 120),
-          //         ),
-          //       ),
-          //     ))
-      ],
+          )
+        ],
+      ),
     );
   }
 }
