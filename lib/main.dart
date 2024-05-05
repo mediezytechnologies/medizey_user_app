@@ -31,6 +31,7 @@ class Mediezy extends StatefulWidget {
 
   @override
   State<Mediezy> createState() => _MediezyState();
+  
 }
 
 class _MediezyState extends State<Mediezy> {
