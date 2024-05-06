@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +11,16 @@ import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mediezy_user/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection();
   await GetStorage.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -26,13 +32,11 @@ void main() async {
   );
 }
 
-
 class Mediezy extends StatefulWidget {
   const Mediezy({super.key});
 
   @override
   State<Mediezy> createState() => _MediezyState();
-  
 }
 
 class _MediezyState extends State<Mediezy> {
@@ -78,4 +82,4 @@ class _MediezyState extends State<Mediezy> {
       },
     );
   }
-} 
+}
