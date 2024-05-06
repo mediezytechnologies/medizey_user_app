@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_fav_doctor_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/home_screen.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -28,23 +25,7 @@ void main() async {
     ),
   );
 }
-GoRouter appRoute = GoRouter(routes: <RouteBase>[
-  GoRoute(
-    path: "/",
-    builder: (BuildContext context, GoRouterState state) {
-      return const HomeScreen();
-    },
-  ),
-  // Define a route for the profile screen
-  GoRoute(
-    path: "/getFavDoctor",
-    builder: (BuildContext context, GoRouterState state) {
-      return const GetFavDoctorWidget();
-    },
-  ),
-  // Define a route for the help screen
-  
-]);
+
 
 class Mediezy extends StatefulWidget {
   const Mediezy({super.key});
