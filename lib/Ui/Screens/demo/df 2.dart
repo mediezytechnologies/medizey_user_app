@@ -1,151 +1,87 @@
-// // ignore_for_file: avoid_print
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
-// import 'dart:async';
-// import 'dart:io';
+class GoogleSiginWidge extends StatefulWidget {
+  const GoogleSiginWidge({super.key});
 
-// import 'package:app_links/app_links.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:flutter/material.dart';
+  @override
+  State<GoogleSiginWidge> createState() => _GoogleSiginWidgeState();
+}
 
+class _GoogleSiginWidgeState extends State<GoogleSiginWidge> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-// const kWindowsScheme = 'sample';
+  User? _user;
 
-// void main() {
-//   // Register our protocol only on Windows platform
-//   _registerWindowsProtocol();
+  @override
+  void initState() {
+    super.initState();
+    _auth.authStateChanges().listen((event) {
+      setState(() {
+        _user = event;
+      });
+    });
+  }
 
-//   runApp(const MyApp());
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Google SignIn"),
+      ),
+      body: _user != null ? _userInfo() : _googleSignInButton(),
+    );
+  }
 
-// class MyApp extends StatefulWidget {
-//   const MyApp({Key? key}) : super(key: key);
+  Widget _googleSignInButton() {
+    return Center(
+      child: SizedBox(
+        height: 50,
+        child: SignInButton(
+          Buttons.google,
+          text: "Sign up with Google",
+          onPressed: _handleGoogleSignIn,
+        ),
+      ),
+    );
+  }
 
-//   @override
-//   State<MyApp> createState() => _MyAppState();
-// }
+  Widget _userInfo() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(_user!.photoURL!),
+              ),
+            ),
+          ),
+          Text(_user!.email!),
+          Text(_user!.displayName ?? ""),
+          MaterialButton(
+            color: Colors.red,
+            child: const Text("Sign Out"),
+            onPressed: _auth.signOut,
+          )
+        ],
+      ),
+    );
+  }
 
-// class _MyAppState extends State<MyApp> {
-//   final _navigatorKey = GlobalKey<NavigatorState>();
-//   late AppLinks _appLinks;
-//   StreamSubscription<Uri>? _linkSubscription;
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     initDeepLinks();
-//   }
-
-//   @override
-//   void dispose() {
-//     _linkSubscription?.cancel();
-
-//     super.dispose();
-//   }
-
-//   Future<void> initDeepLinks() async {
-//     _appLinks = AppLinks();
-
-//     // Check initial link if app was in cold state (terminated)
-//     final appLink = await _appLinks.getInitialAppLink();
-//     if (appLink != null) {
-//       print('getInitialAppLink: $appLink');
-//       openAppLink(appLink);
-//     }
-
-//     // Handle link when app is in warm state (front or background)
-//     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
-//       print('onAppLink: $uri');
-//       openAppLink(uri);
-//     });
-//   }
-
-//   void openAppLink(Uri uri) {
-//     _navigatorKey.currentState?.pushNamed(uri.fragment);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       navigatorKey: _navigatorKey,
-//       initialRoute: "/",
-//       onGenerateRoute: (RouteSettings settings) {
-//         Widget routeWidget = defaultScreen();
-
-//         // Mimic web routing
-//         final routeName = settings.name;
-//         if (routeName != null) {
-//           if (routeName.startsWith('/book/')) {
-//             // Navigated to /book/:id
-//             routeWidget = customScreen(
-//               routeName.substring(routeName.indexOf('/book/')),
-//             );
-//           } else if (routeName == '/book') {
-//             // Navigated to /book without other parameters
-//             routeWidget = customScreen("None");
-//           }
-//         }
-
-//         return MaterialPageRoute(
-//           builder: (context) => routeWidget,
-//           settings: settings,
-//           fullscreenDialog: true,
-//         );
-//       },
-//     );
-//   }
-
-//   Widget defaultScreen() {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Default Screen')),
-//       body: Center(
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             const SelectableText('''
-//             Launch an intent to get to the second screen.
-
-//             On web:
-//             http://localhost:<port>/#/book/1 for example.
-
-//             On windows & macOS, open your browser:
-//             sample://foo/#/book/hello-deep-linking
-
-//             This example code triggers new page from URL fragment.
-//             '''),
-//             const SizedBox(height: 20),
-//             buildWindowsUnregisterBtn(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget customScreen(String bookId) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Second Screen')),
-//       body: Center(child: Text('Opened with parameter: $bookId')),
-//     );
-//   }
-
-//   Widget buildWindowsUnregisterBtn() {
-//     if (!kIsWeb) {
-//       if (Platform.isWindows) {
-//         return TextButton(
-//             onPressed: () => unregisterProtocolHandler(kWindowsScheme),
-//             child: const Text('Remove Windows protocol registration'));
-//       }
-//     }
-
-//     return const SizedBox.shrink();
-//   }
-// }
-
-// void _registerWindowsProtocol() {
-//   // Register our protocol only on Windows platform
-//   if (!kIsWeb) {
-//     if (Platform.isWindows) {
-//       registerProtocolHandler(kWindowsScheme);
-//     }
-//   }
-// }
+  void _handleGoogleSignIn() {
+    try {
+      GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
+      _auth.signInWithProvider(_googleAuthProvider);
+    } catch (error) {
+      print(error);
+    }
+  }
+}

@@ -9,6 +9,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
+import 'package:mediezy_user/Ui/Screens/demo/df%202.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
@@ -76,8 +77,8 @@ class _MediezyState extends State<Mediezy> {
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(context),
-          home:
-              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          home:GoogleSiginWidge()
+            //  hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );
