@@ -28,8 +28,7 @@ void main() async {
     ),
   );
 }
-GoRouter _appRoute = GoRouter(routes: <RouteBase>[
-  // Define a route for the home screen
+GoRouter appRoute = GoRouter(routes: <RouteBase>[
   GoRoute(
     path: "/",
     builder: (BuildContext context, GoRouterState state) {
