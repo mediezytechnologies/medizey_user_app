@@ -16,7 +16,7 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
   });
 
   final TextEditingController suggestionController;
-  GlobalKey _suggestFocusRemoveKey = GlobalKey();
+  final GlobalKey _suggestFocusRemoveKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart';
 import 'package:mediezy_user/Model/GetClinic/get_clinic_model.dart';
@@ -10,7 +11,7 @@ class GetClinicApi {
     String basePath = "user/doctorbyclinics/$doctorId";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
-    print("<<<<< GET CLINIC AS PER DOCTOR ID WORKED SUCCESSFULLY >>>>>");
+    log("<<<<< GET CLINIC AS PER DOCTOR ID WORKED SUCCESSFULLY >>>>>");
     return GetClinicModel.fromJson(json.decode(response.body));
   }
 }

@@ -25,8 +25,6 @@ class GetFavDoctorBloc extends Bloc<GetFavDoctorEvent, GetFavDoctorState> {
       log(emit.toString());
       log(emit.toString());
       final getDoctorResult = await getFavDoctersRepo.getFavDocRepo();
-      print("${getDoctorResult.toString()} ======");
-
       emit(getDoctorResult.fold(
           (l) => state.copyWith(
                 isloding: false,

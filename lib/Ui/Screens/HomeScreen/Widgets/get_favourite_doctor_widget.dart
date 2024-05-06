@@ -82,8 +82,8 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                       .add(const GetFavDoctorEvent.started());
                                   BlocProvider.of<GetDoctersBloc>(context)
                                       .add(const GetDoctersEvent.started());
-                                  BlocProvider.of<GetDoctersBloc>(context).add(
-                                      GetDoctersEvent.changeFav(
+                                  BlocProvider.of<GetFavDoctorBloc>(context)
+                                      .add(GetFavDoctorEvent.changeFav(
                                           state.model[index].id!));
                                   BlocProvider.of<AddFavouritesBloc>(context)
                                       .add(

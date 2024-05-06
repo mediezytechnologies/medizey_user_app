@@ -1,11 +1,9 @@
 import 'dart:developer';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/docters_model/docters_impl.dart';
 import '../../domain/docters_model/model/all_doctor.dart';
-
 part 'get_docters_event.dart';
 part 'get_docters_state.dart';
 part 'get_docters_bloc.freezed.dart';
@@ -24,12 +22,8 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
       ));
       log(emit.toString());
       log("loading>>>>> ${state.isloding}");
-
       log(emit.toString());
       final getDoctorResult = await getDoctersRepo.getDoctersRepo();
-
-      print("${getDoctorResult.toString()} ======");
-
       emit(getDoctorResult.fold(
           (l) => state.copyWith(
                 isloding: false,

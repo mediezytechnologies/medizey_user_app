@@ -412,39 +412,39 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         const VerticalSpacingWidget(height: 2),
                       ],
                     ),
-                  // Divider(
-                  //   color: kSubTextColor,
-                  // ),
-                  // Text(
-                  //   "Incase you can make it for the appointment, please reschedule the appointment, preferably 2 hours before the shedule time.",
-                  //   style: grey10B500,
-                  // ),
-                  // const VerticalSpacingWidget(height: 5),
-                  // GestureDetector(
-                  //   onTap: () {},
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Row(
-                  //         children: [
-                  //           Icon(
-                  //             CupertinoIcons.calendar_today,
-                  //             color: kMainColor,
-                  //             size: 22.sp,
-                  //           ),
-                  //           const HorizontalSpacingWidget(width: 5),
-                  //           Text("Reshedule", style: black12B500),
-                  //         ],
-                  //       ),
-                  //       Icon(
-                  //         Icons.arrow_forward_ios,
-                  //         color: kMainColor,
-                  //         size: 18.sp,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // const VerticalSpacingWidget(height: 2),
+                  Divider(
+                    color: kSubTextColor,
+                  ),
+                  Text(
+                    "Incase you can make it for the appointment, please reschedule the appointment, preferably 2 hours before the shedule time.",
+                    style: grey10B500,
+                  ),
+                  const VerticalSpacingWidget(height: 5),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              CupertinoIcons.calendar_today,
+                              color: kMainColor,
+                              size: 22.sp,
+                            ),
+                            const HorizontalSpacingWidget(width: 5),
+                            Text("Reshedule", style: black12B500),
+                          ],
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: kMainColor,
+                          size: 18.sp,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const VerticalSpacingWidget(height: 2),
                 ],
               ),
             ),

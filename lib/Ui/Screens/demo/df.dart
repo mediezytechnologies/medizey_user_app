@@ -1,9 +1,6 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
@@ -13,7 +10,6 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
-
 import '../../../Repository/Bloc/Article/article_bloc.dart';
 import '../../../Repository/Bloc/banner/banner_bloc.dart';
 
@@ -92,7 +88,7 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
         children: [
           AnimatedContainer(
               height: _showAppbar ? 56.0 : 0.0,
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               child: AppBar(
                 backgroundColor: Colors.amber,
                 title: const Text("Demo Scrolling "),
@@ -124,7 +120,7 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
                     ),
                   ),
                   Container(
-                    color: Color.fromARGB(255, 33, 96, 243),
+                    color: const Color.fromARGB(255, 33, 96, 243),
                     height: 300,
                     width: double.infinity,
                   ),
@@ -139,7 +135,7 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
                     width: double.infinity,
                   ),
                   Container(
-                    color: Color.fromARGB(255, 91, 79, 25),
+                    color: const Color.fromARGB(255, 91, 79, 25),
                     height: 300,
                     width: double.infinity,
                   ),

@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Model/Search/search_doctor_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
+
 import '../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
@@ -28,6 +30,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  late SearchDoctorModel searchDoctorModel;
   late StreamSubscription<ConnectivityResult> subscription;
 
   void handleConnectivityChange(ConnectivityResult result) {
@@ -42,9 +45,8 @@ class _SearchScreenState extends State<SearchScreen> {
         .listen((ConnectivityResult result) {
       handleConnectivityChange(result);
     });
-    BlocProvider.of<SearchDoctorBloc>(context).add(
-      const SearchDoctorEvent.started(''),
-    );
+    BlocProvider.of<SearchDoctorBloc>(context)
+        .add(const SearchDoctorEvent.started(''));
     super.initState();
   }
 
@@ -123,7 +125,32 @@ class _SearchScreenState extends State<SearchScreen> {
                         );
                       }
                       return state.model.isEmpty
-                          ? const RecommendedDoctorCard()
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  const VerticalSpacingWidget(height: 20),
+                                  Image(
+                                    image: const AssetImage(
+                                        "assets/icons/no doctor.png"),
+                                    height: 250.h,
+                                    width: 300.w,
+                                  ),
+                                  Text(
+                                    "No doctor found",
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const VerticalSpacingWidget(height: 20),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: RecommendedDoctorCard(),
+                                  ),
+                                  const VerticalSpacingWidget(height: 20),
+                                ],
+                              ),
+                            )
                           : Column(
                               children: [
                                 ListView.builder(

@@ -34,7 +34,6 @@ class RegisterServiceImpl implements AddMemberImageRepo {
         ApiEndPoints.addMemberImage,
         data: formData,
       );
-      print(response);
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = AddMemberImags.fromJson(response.data);
@@ -43,8 +42,8 @@ class RegisterServiceImpl implements AddMemberImageRepo {
 
         return Right(result);
       } else {
-        log("${MainFailure.clientFailure()}");
-        return Left(MainFailure.clientFailure());
+        log("${const MainFailure.clientFailure()}");
+        return const Left(MainFailure.clientFailure());
       }
       // ignore: deprecated_member_use
     } on DioError catch (e) {
@@ -52,8 +51,8 @@ class RegisterServiceImpl implements AddMemberImageRepo {
       log(e.error.toString());
 
       log(e.error.toString());
-      log("${MainFailure.serverFailure()}");
-      return Left(MainFailure.serverFailure());
+      log("${const MainFailure.serverFailure()}");
+      return const Left(MainFailure.serverFailure());
     }
   }
 }

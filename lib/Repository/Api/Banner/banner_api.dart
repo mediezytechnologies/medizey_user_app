@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart';
 import 'package:mediezy_user/Model/Banner/banner_model.dart';
 import 'package:mediezy_user/Repository/Api/ApiClient.dart';
@@ -9,7 +10,7 @@ class BannerApi {
     String basePath = "userbanner/$type";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
-    print("<<<<< GET BANNER AS PER ID WORKED SUCCESSFULLY >>>>>");
+    log("<<<<< GET BANNER AS PER ID WORKED SUCCESSFULLY >>>>>");
     return BannerModel.fromJson(json.decode(response.body));
   }
 }

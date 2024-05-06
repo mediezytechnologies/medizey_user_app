@@ -13,7 +13,7 @@ class DoctorModel {
     if (json['All Doctors'] != null) {
       allDoctors = <AllDoctors>[];
       json['All Doctors'].forEach((v) {
-        allDoctors!.add(new AllDoctors.fromJson(v));
+        allDoctors!.add(AllDoctors.fromJson(v));
       });
     }
     code = json['code'];
@@ -21,13 +21,13 @@ class DoctorModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    if (this.allDoctors != null) {
-      data['All Doctors'] = this.allDoctors!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    if (allDoctors != null) {
+      data['All Doctors'] = allDoctors!.map((v) => v.toJson()).toList();
     }
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -71,14 +71,14 @@ class AllDoctors {
     if (json['clinics'] != null) {
       clinics = <Clinics>[];
       json['clinics'].forEach((v) {
-        clinics!.add(new Clinics.fromJson(v));
+        clinics!.add(Clinics.fromJson(v));
       });
     }
     favoriteStatus = json['favoriteStatus'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['UserId'] = userId;
     data['firstname'] = firstname;

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +17,7 @@ class _LoState extends State<Lo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pin Code Details'),
+        title: const Text('Pin Code Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,17 +28,17 @@ class _LoState extends State<Lo> {
             TextField(
               controller: pinCodeController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter Pin Code'),
+              decoration: const InputDecoration(labelText: 'Enter Pin Code'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Button to trigger fetching data based on the entered PIN code
             ElevatedButton(
               onPressed: () {
                 getDataFromPinCode(pinCodeController.text);
               },
-              child: Text('Get Data'),
+              child: const Text('Get Data'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Display area for the fetched PIN code details
             Text(pinCodeDetails),
           ],
@@ -96,7 +98,7 @@ class _LoState extends State<Lo> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: Duration(seconds: 2), // Adjust the duration as needed
+        duration: const Duration(seconds: 2), // Adjust the duration as needed
       ),
     );
   }

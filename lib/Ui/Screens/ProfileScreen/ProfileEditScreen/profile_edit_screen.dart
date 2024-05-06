@@ -148,14 +148,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 width: 80.w,
                                                 color: kMainColor,
                                               )
-                                            :
-                                            //  Image.network(
-                                            //     widget.imageUrl,
-                                            //     height: 80.h,
-                                            //     width: 80.w,
-                                            //     fit: BoxFit.cover,
-                                            //   )),
-                                            Image.network(
+                                            : Image.network(
                                                 widget.imageUrl,
                                                 height: 80.h,
                                                 width: 80.w,
