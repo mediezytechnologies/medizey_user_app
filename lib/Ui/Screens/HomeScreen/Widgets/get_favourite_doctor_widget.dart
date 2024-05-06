@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/GetFavourites/get_favourites_model.dart';
-import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_favourite_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
+import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 
 class GetFavouriteDoctorWidget extends StatefulWidget {
   const GetFavouriteDoctorWidget({super.key});
@@ -19,88 +21,107 @@ class GetFavouriteDoctorWidget extends StatefulWidget {
 }
 
 class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
-  late GetFavouritesModel getFavouritesModel;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetFavouritesBloc, GetFavouritesState>(
+    final size = MediaQuery.of(context).size;
+    return BlocConsumer<GetFavDoctorBloc, GetFavDoctorState>(
+      listener: (context, state) {
+        if (state.isError) {
+          Center(
+            child: Image(
+              image:
+                  const AssetImage("assets/images/something went wrong-01.png"),
+              height: 200.h,
+              width: 200.w,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
-        if (state is GetAllFavouritesLoading) {
+        if (state.isloding) {
           return doctorCardMainLoadingWidget();
         }
-        if (state is GetAllFavouritesError) {
-          return Container();
-        }
-        if (state is GetAllFavouritesLoaded) {
-          getFavouritesModel =
-              BlocProvider.of<GetFavouritesBloc>(context).getFavouritesModel;
-          return getFavouritesModel.favoriteDoctors!.isEmpty
-              ? Container()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: const HeadingWidget(
-                        title: "Your favourite doctors",
-                      ),
+        return state.model.isEmpty
+            ? const SizedBox()
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: const HeadingWidget(
+                      title: "Your favourite doctors",
                     ),
-                    const VerticalSpacingWidget(height: 5),
-                    LimitedBox(
-                      maxHeight: 210.h,
-                      child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: getFavouritesModel.favoriteDoctors!.length,
-                          itemBuilder: (context, index) {
-                            return DoctorFavouriteCardWidget(
-                              userAwayFrom: getFavouritesModel
-                                  .favoriteDoctors![index].distanceFromUser
-                                  .toString(),
-                              clinicList: getFavouritesModel
-                                  .favoriteDoctors![index].clinics!
-                                  .toList(),
-                              doctorId: getFavouritesModel
-                                  .favoriteDoctors![index].userId
-                                  .toString(),
-                              firstName: getFavouritesModel
-                                  .favoriteDoctors![index].firstname
-                                  .toString(),
-                              lastName: getFavouritesModel
-                                  .favoriteDoctors![index].secondname
-                                  .toString(),
-                              imageUrl: getFavouritesModel
-                                  .favoriteDoctors![index].docterImage
-                                  .toString(),
-                              mainHospitalName: getFavouritesModel
-                                  .favoriteDoctors![index].mainHospital
-                                  .toString(),
-                              specialisation: getFavouritesModel
-                                  .favoriteDoctors![index].specialization
-                                  .toString(),
-                              location: getFavouritesModel
-                                  .favoriteDoctors![index].location
-                                  .toString(),
-                            );
-                          }),
-                    ),
-                    const VerticalSpacingWidget(height: 2),
-                    ViewAllButtonWidget(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) =>
-                                  const SavedDoctorsScreen()),
+                  ),
+                  const VerticalSpacingWidget(height: 5),
+                  LimitedBox(
+                    maxHeight: 210.h,
+                    child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.model.length,
+                        itemBuilder: (context, index) {
+                          return DoctorFavouriteCardWidget(
+                            userAwayFrom:
+                                state.model[index].distanceFromUser.toString(),
+                            clinicList: state.model[index].clinics!.toList(),
+                            doctorId: state.model[index].userId.toString(),
+                            firstName: state.model[index].firstname.toString(),
+                            lastName: state.model[index].secondname.toString(),
+                            imageUrl: state.model[index].docterImage.toString(),
+                            mainHospitalName:
+                                state.model[index].mainHospital.toString(),
+                            specialisation:
+                                state.model[index].specialization.toString(),
+                            location: state.model[index].location.toString(),
+                            favourites: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  BlocProvider.of<GetFavDoctorBloc>(context)
+                                      .add(const GetFavDoctorEvent.started());
+                                  BlocProvider.of<GetDoctersBloc>(context)
+                                      .add(const GetDoctersEvent.started());
+                                  BlocProvider.of<GetDoctersBloc>(context).add(
+                                      GetDoctersEvent.changeFav(
+                                          state.model[index].id!));
+                                  BlocProvider.of<AddFavouritesBloc>(context)
+                                      .add(
+                                    AddFavourites(
+                                      doctorId:
+                                          state.model[index].userId.toString(),
+                                      favouriteStatus: state.favId,
+                                    ),
+                                  );
+                                });
+                              },
+                              child: SizedBox(
+                                height: size.height * 0.028,
+                                width: size.width * 0.07,
+                                child: Image.asset(
+                                  state.model[index].favoriteStatus == 1
+                                      ? "assets/icons/favorite1.png"
+                                      : "assets/icons/favorite2.png",
+                                  color: kMainColor,
+                                ),
+                              ),
                             ),
                           );
-                        },
-                        buttonText: "View all favourite doctors")
-                  ],
-                );
-        }
-        return Container();
+                        }),
+                  ),
+                  const VerticalSpacingWidget(height: 2),
+                  ViewAllButtonWidget(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) => const SavedDoctorsScreen()),
+                          ),
+                        );
+                      },
+                      buttonText: "View all favourite doctors")
+                ],
+              );
       },
     );
   }

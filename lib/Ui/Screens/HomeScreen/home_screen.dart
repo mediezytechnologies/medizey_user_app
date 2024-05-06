@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -20,6 +17,9 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart'
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -59,12 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
     super.initState();
-    BlocProvider.of<GetDoctorBloc>(context).add(FetchGetDoctor());
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());
-    BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
-    BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
-        .add(FetchRecentlyBookedDoctors());
+    BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
+        .add(const GetRecentlyBookedDoctorEvent.started());
+    BlocProvider.of<GetDoctersBloc>(context)
+        .add(const GetDoctersEvent.started());
+    BlocProvider.of<GetFavDoctorBloc>(context)
+        .add(const GetFavDoctorEvent.started());
+    BlocProvider.of<GetUpcomingAppointmentBloc>(context)
+        .add(FetchUpComingAppointments());
     startPolling();
   }
 
@@ -135,6 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             const VerticalSpacingWidget(height: 5),
                             const GetFavouriteDoctorWidget(),
                             const VerticalSpacingWidget(height: 5),
+                            const HomeRecentlyBookedDoctorWidget(),
+                            const VerticalSpacingWidget(height: 5),
                           ],
                         ),
                       ),
@@ -145,8 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: kSubScaffoldColor,
                         child: Column(
                           children: [
-                            const VerticalSpacingWidget(height: 5),
-                            const HomeRecentlyBookedDoctorWidget(),
                             const VerticalSpacingWidget(height: 5),
                             Padding(
                               padding: EdgeInsets.symmetric(

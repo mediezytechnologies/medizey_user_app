@@ -16,26 +16,28 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
   GetDoctersBloc(this.getDoctersRepo) : super(GetDoctersState.initial()) {
     on<_Started>((event, emit) async {
       emit(state.copyWith(
-          isloding: true,
-          isError: false,
-          message: "",
-          status: false,
-          model: []));
-      print(emit);
+        isloding: true,
+        isError: false,
+        message: "",
+        status: false,
+        model: [],
+      ));
+      log(emit.toString());
+      log("loading>>>>> ${state.isloding}");
 
-      // emit(const GetDoctersState( isloding: true, isError: false, message: "", status: false),);
       log(emit.toString());
       final getDoctorResult = await getDoctersRepo.getDoctersRepo();
 
       print("${getDoctorResult.toString()} ======");
-      //  final  data=getDoctorResult.fold();
+
       emit(getDoctorResult.fold(
           (l) => state.copyWith(
-              isloding: false,
-              isError: true,
-              message: l.message!,
-              model: [],
-              status: false),
+                isloding: false,
+                isError: true,
+                message: l.message!,
+                model: [],
+                status: false,
+              ),
           (r) => state.copyWith(
                 isloding: false,
                 isError: false,
@@ -43,8 +45,15 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
                 status: state.status,
                 model: r,
               )));
-
-      
+    });
+    on<_ChangeFav>((event, emit) {
+      final updatedDoctors = state.model.map((doctor) {
+        if (doctor.id == event.favId) {
+          doctor.favoriteStatus = doctor.favoriteStatus == 1 ? 0 : 1;
+        }
+        return doctor;
+      }).toList();
+      emit(state.copyWith(model: updatedDoctors));
     });
   }
 }

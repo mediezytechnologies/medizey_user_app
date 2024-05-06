@@ -120,6 +120,7 @@ class _DoctorsBySpecialisationScreenState
                                       .doctorBySpecialization!.length,
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
+                                      favourites: SizedBox(),
                                       userAwayFrom:
                                           getDoctersAsPerSpecialisationModel
                                               .doctorBySpecialization![index]

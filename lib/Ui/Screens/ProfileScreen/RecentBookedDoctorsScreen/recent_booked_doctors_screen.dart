@@ -4,12 +4,15 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/GetRecentlyBookedDoctor/get_recently_booked_doctor_model.dart';
-import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_loadin_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
+import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
+import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../../Consts/app_colors.dart';
 
 class RecentBookedDoctorsScreen extends StatefulWidget {
   const RecentBookedDoctorsScreen({super.key});
@@ -20,7 +23,6 @@ class RecentBookedDoctorsScreen extends StatefulWidget {
 }
 
 class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
-  late GetRecentlyBookedDoctorModel getRecentlyBookedDoctorModel;
   late StreamSubscription<ConnectivityResult> subscription;
 
   void handleConnectivityChange(ConnectivityResult result) {
@@ -35,13 +37,14 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
         .listen((ConnectivityResult result) {
       handleConnectivityChange(result);
     });
-    BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
-        .add(FetchRecentlyBookedDoctors());
+    BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
+        .add(const GetRecentlyBookedDoctorEvent.started());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Recent booked"),
@@ -55,17 +58,13 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
             return const InternetHandleScreen();
           } else {
             return FadedSlideAnimation(
-              beginOffset: const Offset(0, 0.3),
-              endOffset: const Offset(0, 0),
-              slideCurve: Curves.linearToEaseOut,
-              child: BlocBuilder<GetRecentlyBookedDoctorsBloc,
-                  GetRecentlyBookedDoctorsState>(
-                builder: (context, state) {
-                  if (state is GetRecentlyBookedDoctorLoading) {
-                    return doctorCardLoadingWidget();
-                  }
-                  if (state is GetRecentlyBookedDoctorError) {
-                    return Center(
+                beginOffset: const Offset(0, 0.3),
+                endOffset: const Offset(0, 0),
+                slideCurve: Curves.linearToEaseOut,
+                child: BlocConsumer<GetRecentlyBookedDoctorBloc,
+                    GetRecentlyBookedDoctorState>(listener: (context, state) {
+                  if (state.isError) {
+                    Center(
                       child: Image(
                         image: const AssetImage(
                             "assets/images/something went wrong-01.png"),
@@ -74,75 +73,84 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                       ),
                     );
                   }
-                  if (state is GetRecentlyBookedDoctorLoaded) {
-                    getRecentlyBookedDoctorModel =
-                        BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
-                            .getRecentlyBookedDoctorModel;
-                    return getRecentlyBookedDoctorModel.recentlyBookedDoctor ==
-                            null
-                        ? Center(
-                            child: Column(
-                              children: [
-                                const VerticalSpacingWidget(height: 80),
-                                Image(
-                                  image: const AssetImage(
-                                      "assets/icons/no recent booked.png"),
-                                  height: 250.h,
-                                  width: 250.w,
-                                ),
-                                Text(
-                                  "No Recent booked doctors\nare available",
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
-                            ),
-                          )
-                        : ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: getRecentlyBookedDoctorModel
-                                .recentlyBookedDoctor!.length,
-                            itemBuilder: (context, index) {
-                              return DoctorCardWidget(
-                                userAwayFrom: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index]
-                                    .distanceFromUser
-                                    .toString(),
-                                clinicList: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].clinics!
-                                    .toList(),
-                                doctorId: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].userId
-                                    .toString(),
-                                firstName: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].firstname
-                                    .toString(),
-                                lastName: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].secondname
-                                    .toString(),
-                                imageUrl: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].docterImage
-                                    .toString(),
-                                mainHospitalName: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].mainHospital
-                                    .toString(),
-                                specialisation: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].specialization
-                                    .toString(),
-                                location: getRecentlyBookedDoctorModel
-                                    .recentlyBookedDoctor![index].location
-                                    .toString(),
-                              );
-                            });
+                }, builder: (context, state) {
+                  if (state.isloding) {
+                    return doctorCardLoadingWidget();
                   }
-                  return Container();
-                },
-              ),
-            );
+                  return state.model.isEmpty
+                      ? Center(
+                          child: Column(
+                            children: [
+                              const VerticalSpacingWidget(height: 80),
+                              Image(
+                                image: const AssetImage(
+                                    "assets/icons/no recent booked.png"),
+                                height: 250.h,
+                                width: 250.w,
+                              ),
+                              Text(
+                                "No Recent booked doctors\nare available",
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.model.length,
+                          itemBuilder: (context, index) {
+                            final doctor = state.model[index];
+                            return DoctorCardWidget(
+                              favourites: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    BlocProvider.of<GetFavDoctorBloc>(context)
+                                        .add(const GetFavDoctorEvent.started());
+                                    BlocProvider.of<GetDoctersBloc>(context)
+                                        .add(const GetDoctersEvent.started());
+                                    BlocProvider.of<
+                                                GetRecentlyBookedDoctorBloc>(
+                                            context)
+                                        .add(GetRecentlyBookedDoctorEvent
+                                            .changeFav(state.model[index].id!));
+                                    BlocProvider.of<AddFavouritesBloc>(context)
+                                        .add(
+                                      AddFavourites(
+                                        doctorId: state.model[index].userId
+                                            .toString(),
+                                        favouriteStatus: state.favId,
+                                      ),
+                                    );
+                                  });
+                                },
+                                child: SizedBox(
+                                  height: size.height * 0.028,
+                                  width: size.width * 0.07,
+                                  child: Image.asset(
+                                    state.model[index].favoriteStatus == 1
+                                        ? "assets/icons/favorite1.png"
+                                        : "assets/icons/favorite2.png",
+                                    color: kMainColor,
+                                  ),
+                                ),
+                              ),
+                              userAwayFrom: doctor.distanceFromUser.toString(),
+                              clinicList: doctor.clinics!.toList(),
+                              doctorId: doctor.userId.toString(),
+                              firstName: doctor.firstname.toString(),
+                              lastName: doctor.secondname.toString(),
+                              imageUrl: doctor.docterImage.toString(),
+                              mainHospitalName: doctor.mainHospital.toString(),
+                              specialisation: doctor.specialization.toString(),
+                              location: doctor.location.toString(),
+                            );
+                          });
+                }));
           }
         },
       ),

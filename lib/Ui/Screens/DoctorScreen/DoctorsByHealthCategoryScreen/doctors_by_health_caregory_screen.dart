@@ -105,6 +105,7 @@ class _DoctorsByHealthCatrgoryScreenState
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
+                                      favourites: const SizedBox(),
                                       userAwayFrom: "0.0",
                                       clinicList:
                                           getDoctorsByHealthCategoriesModel

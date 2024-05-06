@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_bloc.dart';
@@ -63,8 +62,7 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
     BlocProvider.of<GetHospitalBloc>(context).add((FetchAllHospitals()));
     BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
-    BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
-    startPolling();
+        startPolling();
   }
 
   void startPolling() async {
