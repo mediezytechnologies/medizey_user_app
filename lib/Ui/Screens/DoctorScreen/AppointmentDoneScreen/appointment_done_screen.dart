@@ -44,7 +44,9 @@ class AppointmentDoneScreen extends StatefulWidget {
       required this.sheduleType,
       required this.estimatedTime,
       required this.tokenId,
-      this.patientId});
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   final String bookingTime;
   final DateTime bookingDate;
@@ -60,6 +62,8 @@ class AppointmentDoneScreen extends StatefulWidget {
   final String estimatedTime;
   final String tokenId;
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<AppointmentDoneScreen> createState() => _AppointmentDoneScreenState();
@@ -135,8 +139,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
             BlocProvider.of<AutoFetchBloc>(context)
                 .add(FetchAutoFetch(section: "Self", patientId: ""));
           })
-        : BlocProvider.of<AutoFetchBloc>(context).add(FetchAutoFetch(
-            section: "Family Member", patientId: widget.patientId.toString()));
+        : Future.delayed(const Duration(milliseconds: 500), () {
+            BlocProvider.of<AutoFetchBloc>(context).add(FetchAutoFetch(
+                section: "Family Member",
+                patientId: widget.patientId.toString()));
+          });
   }
 
   @override
@@ -1658,8 +1665,16 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             context)
                                         .add(
                                       PassBookAppointMentEvent(
-                                          resheduleOrNot:
-                                              widget.patientId == null ? 0 : 1,
+                                          normalResheduleTokenId: widget
+                                              .normalResheduleTokenId
+                                              .toString(),
+                                          resheduleOrNot: widget.patientId ==
+                                                      null &&
+                                                  widget.resheduleType == null
+                                              ? 0
+                                              : (widget.resheduleType == '1')
+                                                  ? 1
+                                                  : 2,
                                           patientName: bookingFor == "Other"
                                               ? patientName.toString()
                                               : patientNameController.text,
@@ -1684,10 +1699,14 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                               ? patientPhoneNumber.toString()
                                               : patientContactNumberController
                                                   .text,
-                                          appoinmentfor1: appointmentForController
-                                                  .text.isEmpty
-                                              ? []
-                                              : [appointmentForController.text],
+                                          appoinmentfor1:
+                                              appointmentForController
+                                                      .text.isEmpty
+                                                  ? []
+                                                  : [
+                                                      appointmentForController
+                                                          .text
+                                                    ],
                                           appoinmentfor2: selectedSymptoms,
                                           bookingType: selectedBookingFor,
                                           patientId: bookingFor == "Other"

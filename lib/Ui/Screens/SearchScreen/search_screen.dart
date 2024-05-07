@@ -14,16 +14,21 @@ import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
-
 import '../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/search_doctor/search_doctor_bloc.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({super.key, this.patientId});
+  SearchScreen(
+      {super.key,
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, no_leading_underscores_for_local_identifiers, must_be_immutable
 import 'dart:async';
+import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
@@ -17,20 +18,24 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
-  BookAppointmentScreen({
-    Key? key,
-    required this.doctorId,
-    required this.clinicList,
-    required this.doctorFirstName,
-    required this.doctorSecondName,
-    this.patientId,
-  }) : super(key: key);
+  BookAppointmentScreen(
+      {Key? key,
+      required this.doctorId,
+      required this.clinicList,
+      required this.doctorFirstName,
+      required this.doctorSecondName,
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId})
+      : super(key: key);
 
   final String doctorId;
   final String doctorFirstName;
   final String doctorSecondName;
   final List<Clinics> clinicList;
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<BookAppointmentScreen> createState() => _BookAppointmentScreenState();
@@ -84,6 +89,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log("Reshule typee ${widget.resheduleType}");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Date & Time"),
@@ -312,7 +318,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              normalResheduleTokenId:
+                                                  widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
+                                              resheduleType:
+                                                  widget.resheduleType,
                                               clinicAddress:
                                                   selectedClinicAddress,
                                               clinicLocation:
@@ -400,7 +410,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              normalResheduleTokenId:
+                                                  widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
+                                              resheduleType:
+                                                  widget.resheduleType,
                                               clinicAddress:
                                                   selectedClinicAddress,
                                               clinicLocation:
@@ -488,7 +502,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              normalResheduleTokenId:
+                                                  widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
+                                              resheduleType:
+                                                  widget.resheduleType,
                                               clinicAddress:
                                                   selectedClinicAddress,
                                               clinicLocation:

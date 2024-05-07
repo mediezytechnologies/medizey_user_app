@@ -22,10 +22,17 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 
 class DoctorDetailsScreen extends StatefulWidget {
-  DoctorDetailsScreen({super.key, required this.doctorId, this.patientId});
+  DoctorDetailsScreen(
+      {super.key,
+      required this.doctorId,
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   final String doctorId;
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<DoctorDetailsScreen> createState() => _DoctorDetailsScreenState();

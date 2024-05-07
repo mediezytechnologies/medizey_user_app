@@ -18,34 +18,35 @@ import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
-  const AppointmentCardWidget(
-      {super.key,
-      required this.doctorId,
-      required this.docterImage,
-      required this.docterName,
-      required this.appointmentFor,
-      required this.tokenNumber,
-      required this.appointmentDate,
-      required this.appointmentTime,
-      required this.patientName,
-      required this.liveToken,
-      required this.estimatedArrivalTime,
-      required this.consultationStartingTime,
-      required this.lateTime,
-      required this.earlyTime,
-      required this.leaveMessage,
-      required this.bookedClinicName,
-      required this.bookingTimeAndDate,
-      required this.resheduleStatus,
-      required this.clinicList,
-      required this.isPatientAbsent,
-      required this.nextAvailableDateAndTime,
-      required this.nextAvailableTokenNumber,
-      required this.patientId,
-      required this.tokenId,
-      required this.doctorUniqueId,
-      required this.isReached,
-      required this.isCheckIn});
+  const AppointmentCardWidget({
+    super.key,
+    required this.doctorId,
+    required this.docterImage,
+    required this.docterName,
+    required this.appointmentFor,
+    required this.tokenNumber,
+    required this.appointmentDate,
+    required this.appointmentTime,
+    required this.patientName,
+    required this.liveToken,
+    required this.estimatedArrivalTime,
+    required this.consultationStartingTime,
+    required this.lateTime,
+    required this.earlyTime,
+    required this.leaveMessage,
+    required this.bookedClinicName,
+    required this.bookingTimeAndDate,
+    required this.resheduleStatus,
+    required this.clinicList,
+    required this.isPatientAbsent,
+    required this.nextAvailableDateAndTime,
+    required this.nextAvailableTokenNumber,
+    required this.patientId,
+    required this.tokenId,
+    required this.doctorUniqueId,
+    required this.isReached,
+    required this.isCheckIn,
+  });
 
   final String doctorId;
   final String docterImage;
@@ -89,6 +90,11 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime currentTime = DateTime.now();
+    String combinedDateTimeString =
+        '${widget.appointmentDate} ${widget.appointmentTime}';
+    DateTime appointmentDateTime =
+        DateFormat("yyyy-MM-dd hh:mm a").parse(combinedDateTimeString);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Container(
@@ -281,7 +287,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       const VerticalSpacingWidget(height: 5),
                       GestureDetector(
                         onTap: () {
-                          showAvailableToken(context);
+                          showAvailableToken(context, '1');
                         },
                         child: Container(
                           height: height * .047,
@@ -416,12 +422,23 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     color: kSubTextColor,
                   ),
                   Text(
-                    "Incase you can make it for the appointment, please reschedule the appointment, preferably 2 hours before the shedule time.",
+                    "Incase you can make it for the appointment, please reschedule the appointment, preferably 5 hours before the shedule time.",
                     style: grey10B500,
                   ),
                   const VerticalSpacingWidget(height: 5),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      if (currentTime.isBefore(
+                        appointmentDateTime.subtract(
+                          const Duration(hours: 5),
+                        ),
+                      )) {
+                        showAvailableToken(context, '2');
+                      } else {
+                        GeneralServices.instance.showToastMessage(
+                            "Please reschedule the appointment at least 5 hours in advance if necessary");
+                      }
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -429,7 +446,13 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           children: [
                             Icon(
                               CupertinoIcons.calendar_today,
-                              color: kMainColor,
+                              color: currentTime.isBefore(
+                                appointmentDateTime.subtract(
+                                  const Duration(hours: 5),
+                                ),
+                              )
+                                  ? kMainColor
+                                  : kSubTextColor,
                               size: 22.sp,
                             ),
                             const HorizontalSpacingWidget(width: 5),
@@ -438,7 +461,13 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         ),
                         Icon(
                           Icons.arrow_forward_ios,
-                          color: kMainColor,
+                          color: currentTime.isBefore(
+                            appointmentDateTime.subtract(
+                              const Duration(hours: 5),
+                            ),
+                          )
+                              ? kMainColor
+                              : kSubTextColor,
                           size: 18.sp,
                         ),
                       ],
@@ -473,7 +502,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
     );
   }
 
-  Future<dynamic> showAvailableToken(BuildContext context) {
+  Future<dynamic> showAvailableToken(
+      BuildContext context, String resheduleType) {
     final height = MediaQuery.of(context).size.height;
     return showDialog(
       barrierDismissible: true,
@@ -536,6 +566,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               doctorFirstName: widget.docterName,
                               doctorSecondName: "",
                               patientId: widget.patientId.toString(),
+                              resheduleType: resheduleType,
+                              normalResheduleTokenId: widget.tokenId.toString(),
                             );
                           }),
                         );
@@ -572,6 +604,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     MaterialPageRoute(
                       builder: (context) => SearchScreen(
                         patientId: widget.patientId.toString(),
+                        resheduleType: resheduleType,
+                        normalResheduleTokenId: widget.tokenId.toString(),
                       ),
                     ),
                   );

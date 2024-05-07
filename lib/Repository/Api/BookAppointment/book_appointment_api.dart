@@ -13,26 +13,26 @@ class BookAppointmentApi {
   ApiClient apiClient = ApiClient();
 
   //* book appointment
-  Future<BookAppointmentModel> bookAppointment({
-    required String patientName,
-    required String doctorId,
-    required String clinicId,
-    required String date,
-    required String whenitcomes,
-    required String whenitstart,
-    required String tokenTime,
-    required String tokenNumber,
-    required String gender,
-    required String age,
-    required String mobileNo,
-    required String bookingType,
-    required List<String> appoinmentfor1,
-    required List<int> appoinmentfor2,
-    required String patientId,
-    required String sheduleType,
-    required String tokenId,
-    required int resheduleOrNot,
-  }) async {
+  Future<BookAppointmentModel> bookAppointment(
+      {required String patientName,
+      required String doctorId,
+      required String clinicId,
+      required String date,
+      required String whenitcomes,
+      required String whenitstart,
+      required String tokenTime,
+      required String tokenNumber,
+      required String gender,
+      required String age,
+      required String mobileNo,
+      required String bookingType,
+      required List<String> appoinmentfor1,
+      required List<int> appoinmentfor2,
+      required String patientId,
+      required String sheduleType,
+      required String tokenId,
+      required int resheduleOrNot,
+      required String normalResheduleTokenId}) async {
     String basePath = "patient/patientBookGeneratedTokens";
     final preferences = await SharedPreferences.getInstance();
     String? userId = preferences.getString('userId');
@@ -55,7 +55,8 @@ class BookAppointmentApi {
       "patient_id": patientId,
       "schedule_type": sheduleType,
       "token_id": tokenId,
-      "reschedule_type": resheduleOrNot
+      "reschedule_type": resheduleOrNot,
+      "normal_reschedule_token_id": normalResheduleTokenId
     };
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);

@@ -16,20 +16,21 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
 class DoctorCardWidget extends StatelessWidget {
-  DoctorCardWidget({
-    super.key,
-    required this.doctorId,
-    required this.firstName,
-    required this.lastName,
-    required this.imageUrl,
-    required this.mainHospitalName,
-    required this.specialisation,
-    required this.location,
-    required this.clinicList,
-    required this.userAwayFrom,
-    this.patientId,
-    required this.favourites,
-  });
+  DoctorCardWidget(
+      {super.key,
+      required this.doctorId,
+      required this.firstName,
+      required this.lastName,
+      required this.imageUrl,
+      required this.mainHospitalName,
+      required this.specialisation,
+      required this.location,
+      required this.clinicList,
+      required this.userAwayFrom,
+      this.patientId,
+      required this.favourites,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   final String doctorId;
   final String firstName;
@@ -42,6 +43,8 @@ class DoctorCardWidget extends StatelessWidget {
   final String userAwayFrom;
   String? patientId;
   final Widget favourites;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   Widget build(BuildContext context) {
@@ -334,6 +337,8 @@ class DoctorCardWidget extends StatelessWidget {
                           builder: (context) => DoctorDetailsScreen(
                             doctorId: doctorId,
                             patientId: patientId,
+                            resheduleType: resheduleType,
+                            normalResheduleTokenId: normalResheduleTokenId,
                           ),
                         ),
                       );
@@ -367,6 +372,8 @@ class DoctorCardWidget extends StatelessWidget {
                             doctorFirstName: firstName,
                             doctorSecondName: lastName,
                             patientId: patientId,
+                            resheduleType: resheduleType,
+                            normalResheduleTokenId: normalResheduleTokenId,
                           ),
                         ),
                       );

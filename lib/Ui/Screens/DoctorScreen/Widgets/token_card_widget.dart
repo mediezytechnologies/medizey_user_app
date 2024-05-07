@@ -24,7 +24,9 @@ class TokenCardWidget extends StatefulWidget {
       required this.estimatedTime,
       required this.isReserved,
       required this.tokenId,
-      this.patientId});
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   final String tokenNumber;
   final String formatedTime;
@@ -43,6 +45,8 @@ class TokenCardWidget extends StatefulWidget {
   final String isReserved;
   final String tokenId;
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<TokenCardWidget> createState() => _TokenCardWidgetState();
@@ -75,6 +79,8 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
                     sheduleType: widget.sheduleType,
                     estimatedTime: widget.estimatedTime,
                     patientId: widget.patientId,
+                    resheduleType: widget.resheduleType,
+                    normalResheduleTokenId: widget.normalResheduleTokenId,
                   ),
                 ),
               );
