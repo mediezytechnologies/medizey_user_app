@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "220538846317",
+    "project_id": "mediezy-28594",
+    "storage_bucket": "mediezy-28594.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220538846317:android:ca4dbc4b5795a0157f5364",
+        "android_client_info": {
+          "package_name": "com.mediezy.mediezy_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220538846317-7vq4a6rfnm489gurvrujniv8eraok9ps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXdwYQQ1C1sbm-rOrr2i6xA9R2j-D7sek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220538846317-7vq4a6rfnm489gurvrujniv8eraok9ps.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "220538846317-nfin5e6dlfrdsk5oeiar4pbei0gjklqu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mediezy.mediezytechnology.user"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
