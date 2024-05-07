@@ -76,8 +76,10 @@ class _MediezyState extends State<Mediezy> {
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(context),
-          home:FirebaseSiginFire()
-            //  hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          home:
+          
+          //LoginScreenGoogle()
+        hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );
