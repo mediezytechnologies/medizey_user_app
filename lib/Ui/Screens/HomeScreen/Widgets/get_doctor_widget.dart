@@ -22,12 +22,13 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
   @override
   void initState() {
     BlocProvider.of<GetDoctersBloc>(context)
-        .add(const GetDoctersEvent.started());
+        .add(const GetDoctersEvent.started(true));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocConsumer<GetDoctersBloc, GetDoctersState>(
       listener: (context, state) {
         if (state.isError) {
@@ -55,7 +56,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
               ),
               const VerticalSpacingWidget(height: 5),
               LimitedBox(
-                maxHeight: 205.h,
+                maxHeight: size.height * .255,
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
@@ -69,7 +70,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                           onTap: () {
                             setState(() {
                               BlocProvider.of<GetFavDoctorBloc>(context)
-                                  .add(const GetFavDoctorEvent.started());
+                                  .add(const GetFavDoctorEvent.started(false));
                               BlocProvider.of<GetDoctersBloc>(context).add(
                                   GetDoctersEvent.changeFav(
                                       state.model[index].id!));

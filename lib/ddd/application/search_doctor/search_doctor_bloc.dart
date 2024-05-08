@@ -15,13 +15,15 @@ class SearchDoctorBloc extends Bloc<SearchDoctorEvent, SearchDoctorState> {
   SearchDoctorBloc(this.searchDoctorRepository)
       : super(SearchDoctorState.initial()) {
     on<_Started>((event, emit) async {
-      emit(state.copyWith(
-        isloding: true,
-        isError: false,
-        message: "",
-        status: false,
-        model: [],
-      ));
+       if (event.isLoadingNeed) {
+        emit(state.copyWith(
+          isloding: true,
+          isError: false,
+          message: "",
+          status: false,
+          model: [],
+        ));
+      }
       log(emit.toString());
       log(emit.toString());
       final searchDoctor = await searchDoctorRepository.searchDoctor(

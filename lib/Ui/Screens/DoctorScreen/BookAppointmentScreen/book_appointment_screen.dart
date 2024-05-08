@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use, no_leading_underscores_for_local_identifiers, must_be_immutable
 import 'dart:async';
-import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
@@ -16,6 +15,8 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/cinic_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/token_card_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
   BookAppointmentScreen(
@@ -89,7 +90,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log("Reshule typee ${widget.resheduleType}");
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Date & Time"),
@@ -206,23 +207,14 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                               },
                               activeColor: kMainColor,
                               dayProps: EasyDayProps(
-                                height: 80.h,
-                                width: 65.w,
-                                activeDayNumStyle: TextStyle(
-                                  color: kCardColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.sp,
-                                ),
-                                activeDayStrStyle: TextStyle(
-                                  color: kCardColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                ),
-                                activeMothStrStyle: TextStyle(
-                                  color: kCardColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                ),
+                                height: size.height * .1,
+                                width: size.width * .15,
+                                activeDayNumStyle: white14B700,
+                                activeDayStrStyle: white10B400,
+                                activeMothStrStyle: white10B400,
+                                inactiveDayNumStyle: grey14B700,
+                                inactiveDayStrStyle: grey10B400,
+                                inactiveMothStrStyle: grey10B400,
                                 todayHighlightStyle:
                                     TodayHighlightStyle.withBackground,
                                 todayHighlightColor: const Color(0xffE1ECC8),
@@ -286,17 +278,14 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       if (getTokenModel.schedule?.schedule1
                                               ?.isNotEmpty ==
                                           true)
-                                        const Column(
+                                        Column(
                                           children: [
-                                            VerticalSpacingWidget(height: 10),
-                                            Text(
-                                              "Schedule 1",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            VerticalSpacingWidget(height: 5),
+                                            const VerticalSpacingWidget(
+                                                height: 10),
+                                            Text("Schedule 1",
+                                                style: black14B500),
+                                            const VerticalSpacingWidget(
+                                                height: 5),
                                           ],
                                         ),
                                       if (getTokenModel.schedule?.schedule1
@@ -376,17 +365,16 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       if (getTokenModel.schedule?.schedule2
                                               ?.isNotEmpty ==
                                           true)
-                                        const Column(
+                                        Column(
                                           children: [
-                                            VerticalSpacingWidget(height: 10),
+                                            const VerticalSpacingWidget(
+                                                height: 10),
                                             Text(
                                               "Schedule 2",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: black14B500,
                                             ),
-                                            VerticalSpacingWidget(height: 5),
+                                            const VerticalSpacingWidget(
+                                                height: 5),
                                           ],
                                         ),
 
@@ -396,8 +384,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                         GridView.builder(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10),
                                           shrinkWrap: true,
                                           itemCount: getTokenModel
                                               .schedule!.schedule2!.length,
@@ -468,28 +454,22 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       if (getTokenModel.schedule?.schedule3
                                               ?.isNotEmpty ==
                                           true)
-                                        const Column(
+                                        Column(
                                           children: [
-                                            VerticalSpacingWidget(height: 10),
-                                            Text(
-                                              "Schedule 3",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            VerticalSpacingWidget(height: 5),
+                                            const VerticalSpacingWidget(
+                                                height: 10),
+                                            Text("Schedule 3",
+                                                style: black14B500),
+                                            const VerticalSpacingWidget(
+                                                height: 5),
                                           ],
                                         ),
-
                                       if (getTokenModel.schedule?.schedule3
                                               ?.isNotEmpty ==
                                           true)
                                         GridView.builder(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10),
                                           shrinkWrap: true,
                                           itemCount: getTokenModel
                                               .schedule!.schedule3!.length,

@@ -23,7 +23,6 @@ class SavedDoctorsScreen extends StatefulWidget {
 }
 
 class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
- 
   late StreamSubscription<ConnectivityResult> subscription;
 
   void handleConnectivityChange(ConnectivityResult result) {
@@ -39,7 +38,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetFavDoctorBloc>(context)
-        .add(const GetFavDoctorEvent.started());
+        .add(const GetFavDoctorEvent.started(true));
     super.initState();
   }
 
@@ -136,8 +135,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                       Padding(
                                         padding: EdgeInsets.only(right: 10.w),
                                         child: CircleAvatar(
-                                          backgroundColor:
-                                              const Color(0xFF56B89C),
+                                          backgroundColor: kSecondaryColor,
                                           radius: 16,
                                           child: Padding(
                                             padding: const EdgeInsets.all(4.0),
@@ -186,11 +184,11 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           BlocProvider.of<GetFavDoctorBloc>(
                                                   context)
                                               .add(const GetFavDoctorEvent
-                                                  .started());
+                                                  .started(false));
                                           BlocProvider.of<GetDoctersBloc>(
                                                   context)
                                               .add(const GetDoctersEvent
-                                                  .started());
+                                                  .started(false));
                                           BlocProvider.of<AddFavouritesBloc>(
                                                   context)
                                               .add(
@@ -210,7 +208,6 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           state.model[index].favoriteStatus == 1
                                               ? "assets/icons/favorite1.png"
                                               : "assets/icons/favorite2.png",
-                                          color: kMainColor,
                                         ),
                                       ),
                                     ),

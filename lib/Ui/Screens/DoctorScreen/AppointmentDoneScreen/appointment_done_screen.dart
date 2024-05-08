@@ -27,6 +27,7 @@ import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.d
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookingConfirmationScreen/booking_confirmation_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class AppointmentDoneScreen extends StatefulWidget {
   AppointmentDoneScreen(
@@ -162,6 +163,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Book Token"),
@@ -176,7 +178,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                 ),
               );
             },
-            icon: const Icon(IconlyLight.calendar),
+            icon: Icon(
+              IconlyLight.calendar,
+              size: 18.sp,
+            ),
           )
         ],
       ),
@@ -291,9 +296,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             "Self",
                                             style: TextStyle(
                                                 fontWeight: bookingFor == "Self"
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal,
-                                                fontSize: 14.sp,
+                                                    ? FontWeight.w700
+                                                    : FontWeight.w400,
+                                                fontSize: 13.sp,
                                                 color: bookingFor == "Self"
                                                     ? kTextColor
                                                     : kSubTextColor),
@@ -385,9 +390,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             style: TextStyle(
                                                 fontWeight: bookingFor ==
                                                         "Family Member"
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal,
-                                                fontSize: 14.sp,
+                                                    ? FontWeight.w700
+                                                    : FontWeight.w400,
+                                                fontSize: 13.sp,
                                                 color: bookingFor ==
                                                         "Family Member"
                                                     ? kTextColor
@@ -434,9 +439,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             style: TextStyle(
                                                 fontWeight:
                                                     bookingFor == "Other"
-                                                        ? FontWeight.bold
-                                                        : FontWeight.normal,
-                                                fontSize: 14.sp,
+                                                        ? FontWeight.w700
+                                                        : FontWeight.w400,
+                                                fontSize: 13.sp,
                                                 color: bookingFor == "Other"
                                                     ? kTextColor
                                                     : kSubTextColor),
@@ -487,10 +492,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                       height: 30),
                                                   Text(
                                                     "You have not added any family members yet",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                    style: black13B500,
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   const VerticalSpacingWidget(
@@ -514,14 +516,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  "Select Family Member",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 14.sp,
-                                                      color: kSubTextColor),
-                                                ),
+                                                Text("Select Family Member",
+                                                    style: grey12B500),
                                                 const VerticalSpacingWidget(
                                                     height: 5),
                                                 Row(
@@ -758,8 +754,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                           .spaceBetween,
                                                   children: [
                                                     SizedBox(
-                                                      height: 45.h,
-                                                      width: 230.w,
+                                                      height:
+                                                          size.height * .065,
+                                                      width: size.width * .6,
                                                       child: TextFormField(
                                                         cursorColor: kMainColor,
                                                         controller:
@@ -773,10 +770,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                         decoration:
                                                             InputDecoration(
                                                           counterText: "",
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              color:
-                                                                  kSubTextColor),
+                                                          hintStyle: grey13B600,
                                                           hintText:
                                                               "Enter patient id",
                                                           filled: true,
@@ -806,26 +800,21 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                         );
                                                       },
                                                       child: Container(
-                                                        height: 45.h,
-                                                        width: 80.w,
+                                                        height:
+                                                            size.height * .065,
+                                                        width: size.width * .19,
                                                         decoration:
                                                             BoxDecoration(
                                                           color: kMainColor,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(10),
+                                                                  .circular(
+                                                                      8.r),
                                                         ),
                                                         child: Center(
-                                                          child: Text(
-                                                            "Search",
-                                                            style: TextStyle(
-                                                                fontSize: 15.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    kCardColor),
-                                                          ),
+                                                          child: Text("Search",
+                                                              style:
+                                                                  white13B700),
                                                         ),
                                                       ),
                                                     ),
@@ -842,8 +831,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                     .spaceBetween,
                                                             children: [
                                                               SizedBox(
-                                                                height: 45.h,
-                                                                width: 230.w,
+                                                                height:
+                                                                    size.height *
+                                                                        .065,
+                                                                width:
+                                                                    size.width *
+                                                                        .6,
                                                                 child:
                                                                     TextFormField(
                                                                   cursorColor:
@@ -861,11 +854,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                       InputDecoration(
                                                                     counterText:
                                                                         "",
-                                                                    hintStyle: TextStyle(
-                                                                        fontSize: 14
-                                                                            .sp,
-                                                                        color:
-                                                                            kSubTextColor),
+                                                                    hintStyle:
+                                                                        grey13B600,
                                                                     hintText:
                                                                         "Enter mobile number",
                                                                     filled:
@@ -932,8 +922,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                 },
                                                                 child:
                                                                     Container(
-                                                                  height: 45.h,
-                                                                  width: 80.w,
+                                                                  height:
+                                                                      size.height *
+                                                                          .065,
+                                                                  width:
+                                                                      size.width *
+                                                                          .19,
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color:
@@ -944,15 +938,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                   ),
                                                                   child: Center(
                                                                     child: Text(
-                                                                      "Submit",
-                                                                      style: TextStyle(
-                                                                          fontSize: 15
-                                                                              .sp,
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          color:
-                                                                              kCardColor),
-                                                                    ),
+                                                                        "Submit",
+                                                                        style:
+                                                                            white13B700),
                                                                   ),
                                                                 ),
                                                               ),
@@ -962,7 +950,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                       )
                                                     : const SizedBox(),
                                                 const VerticalSpacingWidget(
-                                                    height: 10),
+                                                    height: 5),
                                                 patientName == null
                                                     ? const SizedBox()
                                                     : Container(
@@ -973,7 +961,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                             BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(10),
+                                                                  .circular(
+                                                                      10.r),
                                                           color: kCardColor,
                                                         ),
                                                         child: Column(
@@ -991,21 +980,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Text(
-                                                                            "Name : ",
-                                                                            style: TextStyle(
-                                                                                fontSize: 13.sp,
-                                                                                fontWeight: FontWeight.w400,
-                                                                                color: kSubTextColor),
-                                                                          ),
+                                                                              "Name : ",
+                                                                              style: grey12B500),
                                                                           Text(
-                                                                            patientName.toString(),
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 15.sp,
-                                                                              color: kTextColor,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                          ),
+                                                                              patientName.toString(),
+                                                                              style: black13B500),
                                                                         ],
                                                                       ),
                                                                 patientName ==
@@ -1014,21 +993,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                     : Row(
                                                                         children: [
                                                                           Text(
-                                                                            "Age : ",
-                                                                            style: TextStyle(
-                                                                                fontSize: 13.sp,
-                                                                                fontWeight: FontWeight.w400,
-                                                                                color: kSubTextColor),
-                                                                          ),
+                                                                              "Age : ",
+                                                                              style: grey12B500),
                                                                           Text(
-                                                                            patientDisplayAge.toString(),
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 15.sp,
-                                                                              color: kTextColor,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                          ),
+                                                                              patientDisplayAge.toString(),
+                                                                              style: black13B500),
                                                                         ],
                                                                       ),
                                                               ],
@@ -1046,21 +1015,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                     : Row(
                                                                         children: [
                                                                           Text(
-                                                                            "Number : ",
-                                                                            style: TextStyle(
-                                                                                fontSize: 13.sp,
-                                                                                fontWeight: FontWeight.w400,
-                                                                                color: kSubTextColor),
-                                                                          ),
+                                                                              "Number : ",
+                                                                              style: grey12B500),
                                                                           Text(
-                                                                            patientPhoneNumber.toString(),
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 15.sp,
-                                                                              color: kTextColor,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                          ),
+                                                                              patientPhoneNumber.toString(),
+                                                                              style: black13B500),
                                                                         ],
                                                                       ),
                                                                 const VerticalSpacingWidget(
@@ -1071,25 +1030,15 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                     : Row(
                                                                         children: [
                                                                           Text(
-                                                                            "Gender : ",
-                                                                            style: TextStyle(
-                                                                                fontSize: 13.sp,
-                                                                                fontWeight: FontWeight.w400,
-                                                                                color: kSubTextColor),
-                                                                          ),
+                                                                              "Gender : ",
+                                                                              style: grey12B500),
                                                                           Text(
-                                                                            patientGender == "1"
-                                                                                ? "Male"
-                                                                                : (patientGender == "2")
-                                                                                    ? "Female"
-                                                                                    : "Other",
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 15.sp,
-                                                                              color: kTextColor,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                          ),
+                                                                              patientGender == "1"
+                                                                                  ? "Male"
+                                                                                  : (patientGender == "2")
+                                                                                      ? "Female"
+                                                                                      : "Other",
+                                                                              style: black13B500),
                                                                         ],
                                                                       ),
                                                               ],
@@ -1108,36 +1057,27 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                 children: [
                                                   Expanded(
                                                     flex: 2,
-                                                    child: Text(
-                                                      "Patient Name",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 14.sp,
-                                                          color: kSubTextColor),
-                                                    ),
+                                                    child: Text("Patient Name",
+                                                        style: grey12B500),
                                                   ),
                                                   const HorizontalSpacingWidget(
                                                       width: 10),
                                                   Expanded(
                                                     flex: 1,
-                                                    child: Text(
-                                                      "Age",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 14.sp,
-                                                          color: kSubTextColor),
-                                                    ),
+                                                    child: Text("Age",
+                                                        style: grey12B500),
                                                   ),
                                                 ],
                                               ),
+                                              const VerticalSpacingWidget(
+                                                  height: 2),
                                               Row(
                                                 children: [
                                                   Expanded(
                                                     flex: 2,
                                                     child: SizedBox(
-                                                      height: 45.h,
+                                                      height:
+                                                          size.height * .065,
                                                       child: TextFormField(
                                                         cursorColor: kMainColor,
                                                         controller:
@@ -1158,10 +1098,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                           hintText:
                                                               "Enter patient Name",
                                                           counterText: "",
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              color:
-                                                                  kSubTextColor),
+                                                          hintStyle: grey13B600,
                                                           filled: true,
                                                           fillColor: kCardColor,
                                                           border:
@@ -1169,7 +1106,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                             borderSide:
                                                                 BorderSide.none,
                                                           ),
@@ -1182,7 +1119,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                   Expanded(
                                                     flex: 1,
                                                     child: SizedBox(
-                                                      height: 45.h,
+                                                      height:
+                                                          size.height * .065,
                                                       child: TextFormField(
                                                         cursorColor: kMainColor,
                                                         controller:
@@ -1201,10 +1139,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                         decoration:
                                                             InputDecoration(
                                                           counterText: "",
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              color:
-                                                                  kSubTextColor),
+                                                          hintStyle: grey13B600,
                                                           hintText: "25 age",
                                                           filled: true,
                                                           fillColor: kCardColor,
@@ -1213,7 +1148,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                             borderSide:
                                                                 BorderSide.none,
                                                           ),
@@ -1225,19 +1160,32 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                               ),
                                               const VerticalSpacingWidget(
                                                   height: 10),
-                                              Text(
-                                                "Contact Number",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 14.sp,
-                                                    color: kSubTextColor),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                        "Contact Number",
+                                                        style: grey12B500),
+                                                  ),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 10),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Text("Gender",
+                                                        style: grey12B500),
+                                                  ),
+                                                ],
                                               ),
+                                              const VerticalSpacingWidget(
+                                                  height: 2),
                                               Row(
                                                 children: [
                                                   Expanded(
                                                     flex: 2,
                                                     child: SizedBox(
-                                                      height: 45.h,
+                                                      height:
+                                                          size.height * .065,
                                                       child: TextFormField(
                                                         cursorColor: kMainColor,
                                                         controller:
@@ -1255,10 +1203,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                         decoration:
                                                             InputDecoration(
                                                           counterText: "",
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              color:
-                                                                  kSubTextColor),
+                                                          hintStyle: grey13B600,
                                                           hintText:
                                                               "Enter patient Phone number",
                                                           filled: true,
@@ -1281,7 +1226,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                   Expanded(
                                                     flex: 1,
                                                     child: Container(
-                                                      height: 45.h,
+                                                      height:
+                                                          size.height * .065,
                                                       color: kCardColor,
                                                       child: DropdownButton<
                                                           String>(
@@ -1328,15 +1274,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Appointment for",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                    color: kSubTextColor),
-                              ),
+                              Text("Appointment for", style: grey12B500),
+                              const VerticalSpacingWidget(height: 2),
                               SizedBox(
-                                height: 45.h,
+                                height: size.height * .065,
                                 child: TextFormField(
                                   cursorColor: kMainColor,
                                   controller: appointmentForController,
@@ -1345,13 +1286,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                   maxLength: 35,
                                   decoration: InputDecoration(
                                     counterText: "",
-                                    hintStyle: TextStyle(
-                                        fontSize: 14.sp, color: kSubTextColor),
+                                    hintStyle: grey13B600,
                                     hintText: "eg. Chest pain, Body ache, etc.",
                                     filled: true,
                                     fillColor: kCardColor,
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius: BorderRadius.circular(4.r),
                                       borderSide: BorderSide.none,
                                     ),
                                   ),
@@ -1371,7 +1311,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     getSymptomsModel.symptoms!.length,
                                     (index) => Builder(
                                       builder: (BuildContext context) {
-                                        return InkWell(
+                                        return GestureDetector(
                                           onTap: () {
                                             setState(() {
                                               if (selectedSymptoms.contains(
@@ -1407,7 +1347,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                   .toString(),
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
-                                                  fontSize: 11.sp,
+                                                  fontSize: 10.sp,
                                                   color:
                                                       selectedSymptoms.contains(
                                                               getSymptomsModel
@@ -1431,13 +1371,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "When did it start",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                    color: kSubTextColor),
-                              ),
+                              Text("When did it start", style: grey12B500),
                               const VerticalSpacingWidget(height: 2),
                               Wrap(
                                 spacing: 8.0,
@@ -1461,12 +1395,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             color: kMainColor, width: 1),
                                       ),
                                       margin: const EdgeInsets.all(3.0),
-                                      padding: const EdgeInsets.all(6.0),
+                                      padding: const EdgeInsets.all(5.0),
                                       child: Text(
                                         deceaseStartingTime[index],
                                         style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 10.sp,
                                           color: selectedStart == index
                                               ? Colors.white
                                               : kTextColor,
@@ -1483,20 +1417,18 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                   children: [
                                     Text(
                                       "How many days",
-                                      style: TextStyle(fontSize: 12.sp),
+                                      style: grey12B500,
                                     ),
                                     const VerticalSpacingWidget(height: 5),
                                     SizedBox(
-                                      height: 40.h,
+                                      height: size.height * .065,
                                       child: TextFormField(
                                         cursorColor: kMainColor,
                                         controller: daysController,
                                         keyboardType: TextInputType.number,
                                         textInputAction: TextInputAction.next,
                                         decoration: InputDecoration(
-                                          hintStyle: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: kSubTextColor),
+                                          hintStyle: grey13B600,
                                           hintText: "10 days",
                                           filled: true,
                                           fillColor: kCardColor,
@@ -1516,13 +1448,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "How Frequently",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                    color: kSubTextColor),
-                              ),
+                              Text("How Frequently", style: grey12B500),
                               const VerticalSpacingWidget(height: 2),
                               Wrap(
                                 spacing: 8.0,
@@ -1546,12 +1472,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             color: kMainColor, width: 1),
                                       ),
                                       margin: const EdgeInsets.all(3.0),
-                                      padding: const EdgeInsets.all(6.0),
+                                      padding: const EdgeInsets.all(5.0),
                                       child: Text(
                                         deceaseRepeats[index],
                                         style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 10.sp,
                                           color: selectedCome == index
                                               ? Colors.white
                                               : kTextColor,
@@ -1570,67 +1496,31 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "Token Number",
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: kSubTextColor),
-                                  ),
-                                  Text(
-                                    widget.tokenNo,
-                                    style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: kTextColor),
-                                  ),
+                                  Text("Token Number", style: grey13B400),
+                                  Text(widget.tokenNo, style: black14B500),
                                 ],
                               ),
-                              const VerticalSpacingWidget(height: 10),
+                              const VerticalSpacingWidget(height: 5),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    formatDate(),
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: kSubTextColor),
-                                  ),
-                                  Text(
-                                    widget.bookingTime,
-                                    style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: kTextColor),
-                                  ),
+                                  Text(formatDate(), style: grey13B400),
+                                  Text(widget.bookingTime, style: black14B500),
                                 ],
                               ),
-                              const VerticalSpacingWidget(height: 10),
+                              const VerticalSpacingWidget(height: 5),
                               widget.patientId == null
                                   ? Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "Platform Fee",
-                                          style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: kSubTextColor),
-                                        ),
-                                        Text(
-                                          "₹ 10",
-                                          style: TextStyle(
-                                              fontSize: 17.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: kTextColor),
-                                        ),
+                                        Text("Platform Fee", style: grey13B400),
+                                        Text("₹ 10", style: black14B500),
                                       ],
                                     )
                                   : const SizedBox(),
-                              const VerticalSpacingWidget(height: 10),
+                              const VerticalSpacingWidget(height: 20),
                               CommonButtonWidget(
                                 title: "Book Now",
                                 onTapFunction: () {

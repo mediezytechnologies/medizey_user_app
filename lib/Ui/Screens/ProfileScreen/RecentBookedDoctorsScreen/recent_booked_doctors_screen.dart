@@ -12,7 +12,6 @@ import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
-import '../../../Consts/app_colors.dart';
 
 class RecentBookedDoctorsScreen extends StatefulWidget {
   const RecentBookedDoctorsScreen({super.key});
@@ -38,7 +37,7 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
-        .add(const GetRecentlyBookedDoctorEvent.started());
+        .add(const GetRecentlyBookedDoctorEvent.started(true));
     super.initState();
   }
 
@@ -110,9 +109,9 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                 onTap: () {
                                   setState(() {
                                     BlocProvider.of<GetFavDoctorBloc>(context)
-                                        .add(const GetFavDoctorEvent.started());
+                                        .add(const GetFavDoctorEvent.started(false));
                                     BlocProvider.of<GetDoctersBloc>(context)
-                                        .add(const GetDoctersEvent.started());
+                                        .add(const GetDoctersEvent.started(false));
                                     BlocProvider.of<
                                                 GetRecentlyBookedDoctorBloc>(
                                             context)
@@ -135,7 +134,6 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                     state.model[index].favoriteStatus == 1
                                         ? "assets/icons/favorite1.png"
                                         : "assets/icons/favorite2.png",
-                                    color: kMainColor,
                                   ),
                                 ),
                               ),

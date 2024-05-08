@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SearchDoctorEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String searchQuery) started,
+    required TResult Function(String searchQuery, bool isLoadingNeed) started,
     required TResult Function(int favId) changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String searchQuery)? started,
+    TResult? Function(String searchQuery, bool isLoadingNeed)? started,
     TResult? Function(int favId)? changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String searchQuery)? started,
+    TResult Function(String searchQuery, bool isLoadingNeed)? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,7 @@ abstract class _$$StartedImplCopyWith<$Res> {
           _$StartedImpl value, $Res Function(_$StartedImpl) then) =
       __$$StartedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String searchQuery});
+  $Res call({String searchQuery, bool isLoadingNeed});
 }
 
 /// @nodoc
@@ -95,12 +95,17 @@ class __$$StartedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? searchQuery = null,
+    Object? isLoadingNeed = null,
   }) {
     return _then(_$StartedImpl(
       null == searchQuery
           ? _value.searchQuery
           : searchQuery // ignore: cast_nullable_to_non_nullable
               as String,
+      null == isLoadingNeed
+          ? _value.isLoadingNeed
+          : isLoadingNeed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -108,14 +113,16 @@ class __$$StartedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$StartedImpl implements _Started {
-  const _$StartedImpl(this.searchQuery);
+  const _$StartedImpl(this.searchQuery, this.isLoadingNeed);
 
   @override
   final String searchQuery;
+  @override
+  final bool isLoadingNeed;
 
   @override
   String toString() {
-    return 'SearchDoctorEvent.started(searchQuery: $searchQuery)';
+    return 'SearchDoctorEvent.started(searchQuery: $searchQuery, isLoadingNeed: $isLoadingNeed)';
   }
 
   @override
@@ -124,11 +131,13 @@ class _$StartedImpl implements _Started {
         (other.runtimeType == runtimeType &&
             other is _$StartedImpl &&
             (identical(other.searchQuery, searchQuery) ||
-                other.searchQuery == searchQuery));
+                other.searchQuery == searchQuery) &&
+            (identical(other.isLoadingNeed, isLoadingNeed) ||
+                other.isLoadingNeed == isLoadingNeed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, searchQuery);
+  int get hashCode => Object.hash(runtimeType, searchQuery, isLoadingNeed);
 
   @JsonKey(ignore: true)
   @override
@@ -139,30 +148,30 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String searchQuery) started,
+    required TResult Function(String searchQuery, bool isLoadingNeed) started,
     required TResult Function(int favId) changeFav,
   }) {
-    return started(searchQuery);
+    return started(searchQuery, isLoadingNeed);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String searchQuery)? started,
+    TResult? Function(String searchQuery, bool isLoadingNeed)? started,
     TResult? Function(int favId)? changeFav,
   }) {
-    return started?.call(searchQuery);
+    return started?.call(searchQuery, isLoadingNeed);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String searchQuery)? started,
+    TResult Function(String searchQuery, bool isLoadingNeed)? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) {
     if (started != null) {
-      return started(searchQuery);
+      return started(searchQuery, isLoadingNeed);
     }
     return orElse();
   }
@@ -200,9 +209,11 @@ class _$StartedImpl implements _Started {
 }
 
 abstract class _Started implements SearchDoctorEvent {
-  const factory _Started(final String searchQuery) = _$StartedImpl;
+  const factory _Started(final String searchQuery, final bool isLoadingNeed) =
+      _$StartedImpl;
 
   String get searchQuery;
+  bool get isLoadingNeed;
   @JsonKey(ignore: true)
   _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -272,7 +283,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String searchQuery) started,
+    required TResult Function(String searchQuery, bool isLoadingNeed) started,
     required TResult Function(int favId) changeFav,
   }) {
     return changeFav(favId);
@@ -281,7 +292,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String searchQuery)? started,
+    TResult? Function(String searchQuery, bool isLoadingNeed)? started,
     TResult? Function(int favId)? changeFav,
   }) {
     return changeFav?.call(favId);
@@ -290,7 +301,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String searchQuery)? started,
+    TResult Function(String searchQuery, bool isLoadingNeed)? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) {

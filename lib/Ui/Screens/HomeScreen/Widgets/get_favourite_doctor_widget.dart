@@ -5,7 +5,6 @@ import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favour
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_favourite_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
@@ -79,9 +78,10 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                               onTap: () {
                                 setState(() {
                                   BlocProvider.of<GetFavDoctorBloc>(context)
-                                      .add(const GetFavDoctorEvent.started());
-                                  BlocProvider.of<GetDoctersBloc>(context)
-                                      .add(const GetDoctersEvent.started());
+                                      .add(const GetFavDoctorEvent.started(
+                                          false));
+                                  BlocProvider.of<GetDoctersBloc>(context).add(
+                                      const GetDoctersEvent.started(false));
                                   BlocProvider.of<GetFavDoctorBloc>(context)
                                       .add(GetFavDoctorEvent.changeFav(
                                           state.model[index].id!));
@@ -102,7 +102,6 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                   state.model[index].favoriteStatus == 1
                                       ? "assets/icons/favorite1.png"
                                       : "assets/icons/favorite2.png",
-                                  color: kMainColor,
                                 ),
                               ),
                             ),

@@ -26,6 +26,8 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../CommonWidgets/text_style_widget.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -45,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         Navigator.push(
@@ -80,10 +83,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           highlightColor: kShimmerHighlightColor,
                           child: Container(
                             width: double.infinity,
-                            height: 110.h,
+                            height: size.height * .14,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         );
@@ -98,8 +101,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             BlocProvider.of<GetUserBloc>(context).getUserModel;
                         return Container(
                           decoration: BoxDecoration(
-                              color: kCardColor,
-                              borderRadius: BorderRadius.circular(10)),
+                            color: kCardColor,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -111,8 +115,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fadeDuration:
                                       const Duration(milliseconds: 400),
                                   child: Container(
-                                    height: 100.h,
-                                    width: 105.w,
+                                    height: size.height * .09,
+                                    width: size.width * .18,
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
@@ -127,16 +131,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 null
                                             ? Image.asset(
                                                 "assets/icons/profile pic.png",
-                                                height: 80.h,
-                                                width: 80.w,
+                                                height: size.height * .09,
+                                                width: size.width * .18,
                                                 color: kMainColor,
                                               )
                                             : Image.network(
                                                 getUserModel
                                                     .userdetails!.userProfile
                                                     .toString(),
-                                                height: 80.h,
-                                                width: 80.w,
+                                                height: size.height * .09,
+                                                width: size.width * .18,
                                                 fit: BoxFit.cover,
                                                 errorBuilder: (context, error,
                                                         stackTrace) =>
@@ -145,8 +149,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       const EdgeInsets.all(3.0),
                                                   child: Image.asset(
                                                     "assets/icons/profile pic.png",
-                                                    height: 80.h,
-                                                    width: 80.w,
+                                                    height: size.height * .09,
+                                                    width: size.width * .18,
                                                     color: kMainColor,
                                                   ),
                                                 ),
@@ -182,26 +186,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                   ),
                                 ),
-                                const HorizontalSpacingWidget(width: 25),
+                                const HorizontalSpacingWidget(width: 15),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      getUserModel.userdetails!.firstname
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: kTextColor),
-                                    ),
-                                    const VerticalSpacingWidget(height: 25),
+                                        getUserModel.userdetails!.firstname
+                                            .toString(),
+                                        style: black15B600),
+                                    const VerticalSpacingWidget(height: 2),
                                     Text(
-                                      "+91 ${getUserModel.userdetails!.mobileNo.toString()}",
-                                      style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: kSubTextColor),
-                                    ),
+                                        getUserModel.userdetails!.email
+                                            .toString(),
+                                        style: grey13B400),
+                                    const VerticalSpacingWidget(height: 2),
+                                    Text(
+                                        "+91 ${getUserModel.userdetails!.mobileNo.toString()}",
+                                        style: grey13B400),
                                   ],
                                 )
                               ],
@@ -212,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       return Container();
                     },
                   ),
-                  const VerticalSpacingWidget(height: 10),
+                  const VerticalSpacingWidget(height: 5),
                   //! profile card items
                   Row(
                     children: [

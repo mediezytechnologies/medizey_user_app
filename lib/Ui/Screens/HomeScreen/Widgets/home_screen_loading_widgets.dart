@@ -112,6 +112,7 @@ Widget homeBannerLoadingWidget() {
 }
 
 Widget doctorNearYouLoadingWidget(BuildContext context) {
+  final size = MediaQuery.of(context).size;
   final height = MediaQuery.of(context).size.height;
   return Shimmer.fromColors(
     baseColor: kShimmerBaseColor,
@@ -133,7 +134,7 @@ Widget doctorNearYouLoadingWidget(BuildContext context) {
             const HorizontalSpacingWidget(width: 5),
             Container(
               width: 140.w,
-              height: 205.h,
+              height: size.height * .255,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -142,7 +143,7 @@ Widget doctorNearYouLoadingWidget(BuildContext context) {
             const HorizontalSpacingWidget(width: 5),
             Container(
               width: 140.w,
-              height: 205.h,
+              height: size.height * .255,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -151,7 +152,7 @@ Widget doctorNearYouLoadingWidget(BuildContext context) {
             const HorizontalSpacingWidget(width: 5),
             Container(
               width: 140.w,
-              height: 205.h,
+              height: size.height * .255,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),

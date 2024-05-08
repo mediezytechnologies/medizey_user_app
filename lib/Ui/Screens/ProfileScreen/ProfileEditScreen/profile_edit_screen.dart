@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
@@ -19,6 +21,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProfileEditScreen extends StatefulWidget {
@@ -60,6 +63,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
     } else {}
+  }
+
+  Future<void> setNewUserName(String newName) async {
+    final preference = await SharedPreferences.getInstance();
+    await preference.remove('firstName');
+    preference.setString('firstName', newName);
   }
 
   @override
@@ -436,6 +445,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           CommonButtonWidget(
                               title: "Update",
                               onTapFunction: () {
+                                setNewUserName(firstNameController.text);
                                 BlocProvider.of<EditUserBloc>(context).add(
                                   FetchEditUser(
                                       dob: dOB != null

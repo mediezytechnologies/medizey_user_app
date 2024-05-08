@@ -8,6 +8,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.d
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class BookingConfirmationScreen extends StatefulWidget {
   const BookingConfirmationScreen(
@@ -48,6 +49,7 @@ class BookingConfirmationScreen extends StatefulWidget {
 class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         Navigator.push(
@@ -71,15 +73,17 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: const Color(0xFFe3e4e5),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Align(
                 alignment: Alignment.center,
-                child: Lottie.asset("assets/animations/success.json",
-                    height: 140.h),
+                child: Lottie.asset(
+                  "assets/animations/success.json",
+                  height: size.height * .18,
+                ),
               ),
               const VerticalSpacingWidget(height: 5),
               Align(
@@ -87,74 +91,29 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                 child: Column(
                   children: [
                     const VerticalSpacingWidget(height: 2),
-                    Text(
-                      "Estimated arrival time",
-                      style: TextStyle(
-                          fontSize: 16.sp, fontWeight: FontWeight.bold),
-                    ),
+                    Text("Estimated arrival time", style: black14B600),
                     const VerticalSpacingWidget(height: 2),
-                    Text(
-                      widget.estimatedTime,
-                      style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                          color: kMainColor),
-                    ),
+                    Text(widget.estimatedTime, style: main16B600),
                   ],
                 ),
               ),
-              const VerticalSpacingWidget(height: 10),
+              const VerticalSpacingWidget(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Patient Name",
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.normal,
-                            color: kSubTextColor),
-                      ),
-                      Text(
-                        widget.name,
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kTextColor),
-                      ),
-                      const VerticalSpacingWidget(height: 2),
-                      Text(
-                        "Mobile No",
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.normal,
-                            color: kSubTextColor),
-                      ),
-                      Text(
-                        widget.mobileNo,
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kTextColor),
-                      ),
-                      const VerticalSpacingWidget(height: 2),
-                      Text(
-                        "Age&Gender",
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.normal,
-                            color: kSubTextColor),
-                      ),
-                      const VerticalSpacingWidget(height: 2),
-                      Text(
-                        "${widget.age} ${widget.gender}",
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kTextColor),
-                      ),
+                      Text("Patient Name", style: grey12B500),
+                      Text(widget.name, style: black12B600),
+                      const VerticalSpacingWidget(height: 4),
+                      Text("Mobile No", style: grey12B500),
+                      Text(widget.mobileNo, style: black12B600),
+                      const VerticalSpacingWidget(height: 4),
+                      Text("Age&Gender", style: grey12B500),
+                      const VerticalSpacingWidget(height: 4),
+                      Text("${widget.age} ${widget.gender}",
+                          style: black12B600),
                     ],
                   ),
                   Container(
@@ -182,96 +141,35 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                           ),
                         ),
                       ),
-                      const VerticalSpacingWidget(height: 2),
+                      const VerticalSpacingWidget(height: 4),
+                      Text("Appointment Time", style: grey12B500),
+                      Text(widget.appointmentTime, style: black12B600),
+                      const VerticalSpacingWidget(height: 4),
+                      Text("Appointment Date", style: grey12B500),
                       Text(
-                        "Appointment Time",
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.normal,
-                            color: kSubTextColor),
-                      ),
-                      Text(
-                        widget.appointmentTime,
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kTextColor),
-                      ),
-                      const VerticalSpacingWidget(height: 2),
-                      Text(
-                        "Appointment Date",
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.normal,
-                            color: kSubTextColor),
-                      ),
-                      Text(
-                        DateFormat('dd-MM-yyyy')
-                            .format(DateTime.parse(widget.appointmentDate)),
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: kTextColor),
-                      ),
+                          DateFormat('dd-MM-yyyy')
+                              .format(DateTime.parse(widget.appointmentDate)),
+                          style: black12B600),
                     ],
                   ),
                 ],
               ),
-              const VerticalSpacingWidget(height: 5),
+              const VerticalSpacingWidget(height: 10),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  "Appointment For",
-                  style:
-                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                ),
+                child: Text("Appointment For", style: black14B600),
               ),
               const VerticalSpacingWidget(height: 5),
-              Text(
-                "Doctor Name",
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.normal,
-                    color: kSubTextColor),
-              ),
-              Text(
-                "Dr ${widget.doctorFirstName} ${widget.doctorSecondName}",
-                style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: kTextColor),
-              ),
+              Text("Doctor Name", style: grey12B500),
+              Text("Dr ${widget.doctorFirstName} ${widget.doctorSecondName}",
+                  style: black14B600),
               const VerticalSpacingWidget(height: 2),
-              Text(
-                "Clinic Name",
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.normal,
-                    color: kSubTextColor),
-              ),
-              Text(
-                widget.clinicName,
-                style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: kTextColor),
-              ),
+              Text("Clinic Name", style: grey12B500),
+              Text(widget.clinicName, style: black14B600),
               const VerticalSpacingWidget(height: 2),
-              Text(
-                "Location",
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.normal,
-                    color: kSubTextColor),
-              ),
-              Text(
-                "${widget.address}, ${widget.location}",
-                style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: kTextColor),
-              ),
-              const VerticalSpacingWidget(height: 10),
+              Text("Location", style: grey12B500),
+              Text("${widget.address}, ${widget.location}", style: black14B600),
+              const VerticalSpacingWidget(height: 20),
               CommonButtonWidget(
                   title: "Done",
                   onTapFunction: () {

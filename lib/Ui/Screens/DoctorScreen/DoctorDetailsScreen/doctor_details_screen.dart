@@ -1,25 +1,28 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'dart:io';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Doctor/get_doctor_by_id_model.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctorById/get_doctor_by_id_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets/doctor_details_first_widget.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets/doctor_details_second_widget.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets/doctor_details_third_widget.dart';
+
+import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class DoctorDetailsScreen extends StatefulWidget {
   DoctorDetailsScreen(
@@ -61,9 +64,19 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            BlocProvider.of<GetDoctersBloc>(context)
+                .add(const GetDoctersEvent.started(false));
+            BlocProvider.of<GetFavDoctorBloc>(context)
+                .add(const GetFavDoctorEvent.started(false));
+            Navigator.pop(context);
+          },
+          icon: Icon(Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back),
+        ),
+      ),
       body: StreamBuilder<ConnectivityResult>(
           stream: Connectivity().onConnectivityChanged,
           builder: (context, snapshot) {
@@ -112,650 +125,115 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 10.w),
                               child: Column(
                                 children: [
-                                  //! first section
-                                  Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: kCardColor,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                FadedScaleAnimation(
-                                                  scaleDuration: const Duration(
-                                                      milliseconds: 400),
-                                                  fadeDuration: const Duration(
-                                                      milliseconds: 400),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: FancyShimmerImage(
-                                                        height: 100.h,
-                                                        width: 100.w,
-                                                        boxFit: BoxFit.cover,
-                                                        errorWidget:
-                                                            const Image(
-                                                          image: AssetImage(
-                                                              "assets/icons/no image.png"),
-                                                        ),
-                                                        imageUrl:
-                                                            getDoctorByIdModel
-                                                                .doctorDetails!
-                                                                .first
-                                                                .docterImage
-                                                                .toString()),
-                                                  ),
-                                                ),
-                                                const VerticalSpacingWidget(
-                                                    height: 5),
-                                                Text(
-                                                  'Dr.\n${getDoctorByIdModel.doctorDetails!.first.firstname.toString()}\n${getDoctorByIdModel.doctorDetails!.first.secondname.toString()}',
-                                                  style: TextStyle(
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: kTextColor),
-                                                ),
-                                              ],
-                                            ),
-                                            const HorizontalSpacingWidget(
-                                                width: 20),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Specialisation In",
-                                                  style: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: kSubTextColor),
-                                                ),
-                                                SizedBox(
-                                                  width: 180.w,
-                                                  child: Text(
-                                                    getDoctorByIdModel
-                                                        .doctorDetails!
-                                                        .first
-                                                        .specialization
-                                                        .toString(),
-                                                    style: const TextStyle(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black,
-                                                    ),
-                                                    maxLines: 2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                const VerticalSpacingWidget(
-                                                    height: 2),
-                                                Text(
-                                                  "Location",
-                                                  style: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: kSubTextColor),
-                                                ),
-                                                Text(
-                                                  getDoctorByIdModel
-                                                      .doctorDetails!
-                                                      .first
-                                                      .location
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black),
-                                                ),
-                                                const VerticalSpacingWidget(
-                                                    height: 2),
-                                                Text(
-                                                  "Works at",
-                                                  style: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: kSubTextColor),
-                                                ),
-                                                SizedBox(
-                                                  height: 35.h,
-                                                  width: 180.w,
-                                                  child: Text(
-                                                    getDoctorByIdModel
-                                                        .doctorDetails!
-                                                        .first
-                                                        .mainHospital
-                                                        .toString(),
-                                                    style: const TextStyle(
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black),
-                                                    maxLines: 2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                const VerticalSpacingWidget(
-                                                    height: 2),
-                                                getDoctorByIdModel
-                                                            .doctorDetails!
-                                                            .first
-                                                            .distanceFromUser ==
-                                                        null
-                                                    ? const SizedBox()
-                                                    : Row(
-                                                        children: [
-                                                          Icon(
-                                                            IconlyLight
-                                                                .location,
-                                                            size: 14.sp,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 3.w,
-                                                          ),
-                                                          RichText(
-                                                            text: TextSpan(
-                                                              text: getDoctorByIdModel
-                                                                  .doctorDetails!
-                                                                  .first
-                                                                  .distanceFromUser
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  color:
-                                                                      kTextColor,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              children: [
-                                                                TextSpan(
-                                                                    text:
-                                                                        ' away',
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            kSubTextColor,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .normal),
-                                                                    recognizer:
-                                                                        TapGestureRecognizer()
-                                                                          ..onTap =
-                                                                              () {})
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                const VerticalSpacingWidget(
-                                                    height: 10),
-                                                BlocBuilder<AddFavouritesBloc,
-                                                    AddFavouritesState>(
-                                                  builder: (context, state) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        BlocProvider.of<
-                                                                    AddFavouritesBloc>(
-                                                                context)
-                                                            .add(
-                                                          AddFavourites(
-                                                            doctorId:
-                                                                widget.doctorId,
-                                                            favouriteStatus:
-                                                                getDoctorByIdModel
-                                                                    .doctorDetails!
-                                                                    .first
-                                                                    .favoriteStatus!
-                                                                    .toInt(),
-                                                          ),
-                                                        );
-                                                      },
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.r),
-                                                            border: Border.all(
-                                                                width: 1.5.w,
-                                                                color:
-                                                                    kMainColor)),
-                                                        height:
-                                                            size.height * 0.04,
-                                                        width: size.width * .42,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              "Add To Favourite",
-                                                              style: TextStyle(
-                                                                fontSize: 12.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    kMainColor,
-                                                              ),
-                                                            ),
-                                                            const HorizontalSpacingWidget(
-                                                                width: 5),
-                                                            Icon(
-                                                              state.favouriteStatusMap[
-                                                                          widget
-                                                                              .doctorId] ==
-                                                                      false
-                                                                  ? CupertinoIcons
-                                                                      .heart_fill
-                                                                  : CupertinoIcons
-                                                                      .heart,
-                                                              color: kMainColor,
-                                                              size: 16.sp,
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  DoctorDetailsFirstWidget(
+                                      image: getDoctorByIdModel
+                                          .doctorDetails!.first.docterImage
+                                          .toString(),
+                                      firstName: getDoctorByIdModel
+                                          .doctorDetails!.first.firstname
+                                          .toString(),
+                                      secondName: getDoctorByIdModel
+                                          .doctorDetails!.first.secondname
+                                          .toString(),
+                                      specialization: getDoctorByIdModel
+                                          .doctorDetails!.first.specialization
+                                          .toString(),
+                                      location: getDoctorByIdModel
+                                          .doctorDetails!.first.location
+                                          .toString(),
+                                      mainHospital: getDoctorByIdModel
+                                          .doctorDetails!.first.mainHospital
+                                          .toString(),
+                                      distanceFromUser: getDoctorByIdModel
+                                          .doctorDetails!.first.distanceFromUser
+                                          .toString(),
+                                      doctorId: widget.doctorId,
+                                      favouriteStatus: getDoctorByIdModel
+                                          .doctorDetails!
+                                          .first
+                                          .favoriteStatus!),
                                   const VerticalSpacingWidget(height: 10),
-                                  //! second section
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: kCardColor,
-                                    ),
-                                    padding: const EdgeInsets.all(8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "About",
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: kSubTextColor),
-                                        ),
-                                        const VerticalSpacingWidget(height: 5),
-                                        Text(
-                                          getDoctorByIdModel
-                                              .doctorDetails!.first.about
-                                              .toString(),
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: kTextColor,
-                                              height: 1.3.h),
-                                        ),
-                                        const VerticalSpacingWidget(height: 5),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Consultation Fee : ",
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: kSubTextColor),
-                                            ),
-                                            const HorizontalSpacingWidget(
-                                                width: 5),
-                                            Text(
-                                              "₹ ${getDoctorByIdModel.doctorDetails!.first.consulationFees.toString()}/-",
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: kTextColor,
-                                                  height: 1.3.h),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  DoctorDetailsSecondWidget(
+                                      about: getDoctorByIdModel
+                                          .doctorDetails!.first.about
+                                          .toString()),
                                   const VerticalSpacingWidget(height: 10),
                                   //! third section
                                   Container(
                                     decoration: BoxDecoration(
-                                        color: kCardColor,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                      color: kCardColor,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
                                     width: double.infinity,
                                     padding: const EdgeInsets.all(8),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        //! Clinic
-                                        Text(
-                                          "Clinics",
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: kSubTextColor),
-                                        ),
+                                        Text("Clinics", style: grey13B400),
                                         const VerticalSpacingWidget(height: 5),
                                         ListView.separated(
                                             shrinkWrap: true,
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
+                                              return DoctorDetailsThirdWidget(
+                                                clinicName: getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .clinics![index]
+                                                    .clinicName
+                                                    .toString(),
+                                                startTime: getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .clinics![index]
+                                                    .clinicStartTime
+                                                    .toString(),
+                                                endTime: getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .clinics![index]
+                                                    .clinicEndTime
+                                                    .toString(),
+                                                address: getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .clinics![index]
+                                                    .clinicAddress
+                                                    .toString(),
+                                                location: getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .clinics![index]
+                                                    .clinicLocation
+                                                    .toString(),
+                                                availableTokenCount:
                                                     getDoctorByIdModel
                                                         .doctorDetails!
                                                         .first
                                                         .clinics![index]
-                                                        .clinicName
+                                                        .availableTokenCount!,
+                                                totalTokenCount:
+                                                    getDoctorByIdModel
+                                                        .doctorDetails!
+                                                        .first
+                                                        .clinics![index]
+                                                        .totalTokenCount!,
+                                                nextDateAvailableTokenTime:
+                                                    getDoctorByIdModel
+                                                        .doctorDetails!
+                                                        .first
+                                                        .clinics![index]
+                                                        .nextDateAvailableTokenTime
                                                         .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: kTextColor),
-                                                  ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  getDoctorByIdModel
-                                                              .doctorDetails!
-                                                              .first
-                                                              .clinics![index]
-                                                              .clinicStartTime ==
-                                                          null
-                                                      ? const SizedBox()
-                                                      : Row(
-                                                          children: [
-                                                            Text(
-                                                              "Availibility: ",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kSubTextColor),
-                                                            ),
-                                                            Text(
-                                                              getDoctorByIdModel
-                                                                  .doctorDetails!
-                                                                  .first
-                                                                  .clinics![
-                                                                      index]
-                                                                  .clinicStartTime
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kTextColor),
-                                                            ),
-                                                            Text(
-                                                              " - ${getDoctorByIdModel.doctorDetails!.first.clinics![index].clinicEndTime.toString()}",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kTextColor),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "Address: ",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color:
-                                                                kSubTextColor),
-                                                      ),
-                                                      Text(
-                                                        getDoctorByIdModel
-                                                            .doctorDetails!
-                                                            .first
-                                                            .clinics![index]
-                                                            .clinicAddress
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 13.sp,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: kTextColor),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "Location: ",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color:
-                                                                kSubTextColor),
-                                                      ),
-                                                      Text(
-                                                        getDoctorByIdModel
-                                                            .doctorDetails!
-                                                            .first
-                                                            .clinics![index]
-                                                            .clinicLocation
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 13.sp,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: kTextColor),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  getDoctorByIdModel
-                                                              .doctorDetails!
-                                                              .first
-                                                              .clinics![index]
-                                                              .availableTokenCount ==
-                                                          0
-                                                      ? const SizedBox()
-                                                      : Row(
-                                                          children: [
-                                                            Text(
-                                                              "Available tokens : ",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kSubTextColor),
-                                                            ),
-                                                            Text(
-                                                              getDoctorByIdModel
-                                                                  .doctorDetails!
-                                                                  .first
-                                                                  .clinics![
-                                                                      index]
-                                                                  .availableTokenCount
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kTextColor),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  getDoctorByIdModel
-                                                              .doctorDetails!
-                                                              .first
-                                                              .clinics![index]
-                                                              .totalTokenCount ==
-                                                          0
-                                                      ? const SizedBox()
-                                                      : Row(
-                                                          children: [
-                                                            Text(
-                                                              "Total tokens : ",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kSubTextColor),
-                                                            ),
-                                                            Text(
-                                                              getDoctorByIdModel
-                                                                  .doctorDetails!
-                                                                  .first
-                                                                  .clinics![
-                                                                      index]
-                                                                  .totalTokenCount
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      kTextColor),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  getDoctorByIdModel
-                                                              .doctorDetails!
-                                                              .first
-                                                              .clinics![index]
-                                                              .availableTokenCount ==
-                                                          0
-                                                      ? getDoctorByIdModel
-                                                                  .doctorDetails!
-                                                                  .first
-                                                                  .clinics![
-                                                                      index]
-                                                                  .nextDateAvailableTokenTime ==
-                                                              null
-                                                          ? const SizedBox()
-                                                          : Row(
-                                                              children: [
-                                                                Text(
-                                                                  "Next available token : ",
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      color:
-                                                                          kSubTextColor),
-                                                                ),
-                                                                Text(
-                                                                  getDoctorByIdModel
-                                                                      .doctorDetails!
-                                                                      .first
-                                                                      .clinics![
-                                                                          index]
-                                                                      .nextDateAvailableTokenTime
-                                                                      .toString(),
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          13.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      color:
-                                                                          kTextColor),
-                                                                ),
-                                                              ],
-                                                            )
-                                                      : getDoctorByIdModel
-                                                                  .doctorDetails!
-                                                                  .first
-                                                                  .clinics![
-                                                                      index]
-                                                                  .nextAvailableTokenTime ==
-                                                              null
-                                                          ? const SizedBox()
-                                                          : Row(
-                                                              children: [
-                                                                Text(
-                                                                  "Next available token : ",
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      color:
-                                                                          kSubTextColor),
-                                                                ),
-                                                                Text(
-                                                                  "${getDoctorByIdModel.doctorDetails!.first.clinics![index].nextAvailableTokenTime} Today",
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          13.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      color:
-                                                                          kTextColor),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 5),
-                                                ],
+                                                nextAvailableTokenTime:
+                                                    getDoctorByIdModel
+                                                        .doctorDetails!
+                                                        .first
+                                                        .clinics![index]
+                                                        .nextAvailableTokenTime
+                                                        .toString(),
                                               );
                                             },
                                             separatorBuilder: (context, index) {
@@ -771,27 +249,20 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                     ),
                                   ),
                                   const VerticalSpacingWidget(height: 10),
-                                  //! fourth section
                                   Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10.r),
                                       color: kCardColor,
                                     ),
                                     width: double.infinity,
                                     padding: const EdgeInsets.all(8),
-                                    //! services
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          "Specifications",
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: kSubTextColor),
-                                        ),
-                                        const VerticalSpacingWidget(height: 10),
+                                        Text("Specifications",
+                                            style: grey13B400),
+                                        const VerticalSpacingWidget(height: 5),
                                         ListView.separated(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
@@ -803,13 +274,11 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                               .length,
                                           itemBuilder: (context, index) {
                                             return Text(
-                                              getDoctorByIdModel.doctorDetails!
-                                                  .first.specifications![index],
-                                              style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: kTextColor),
-                                            );
+                                                getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .specifications![index],
+                                                style: black13B500);
                                           },
                                           separatorBuilder: (context, index) =>
                                               const VerticalSpacingWidget(
@@ -819,7 +288,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                     ),
                                   ),
                                   const VerticalSpacingWidget(height: 10),
-                                  //! fifth section
                                   Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -831,14 +299,9 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         //! specifications
-                                        Text(
-                                          "Sub Specifications",
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: kSubTextColor),
-                                        ),
-                                        const VerticalSpacingWidget(height: 10),
+                                        Text("Sub Specifications",
+                                            style: grey13B400),
+                                        const VerticalSpacingWidget(height: 5),
                                         ListView.separated(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
@@ -850,15 +313,11 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                               .length,
                                           itemBuilder: (context, index) {
                                             return Text(
-                                              getDoctorByIdModel
-                                                  .doctorDetails!
-                                                  .first
-                                                  .subspecifications![index],
-                                              style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: kTextColor),
-                                            );
+                                                getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .subspecifications![index],
+                                                style: black13B500);
                                           },
                                           separatorBuilder: (context, index) =>
                                               const VerticalSpacingWidget(

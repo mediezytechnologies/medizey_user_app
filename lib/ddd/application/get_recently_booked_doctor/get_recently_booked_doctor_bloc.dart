@@ -16,13 +16,15 @@ class GetRecentlyBookedDoctorBloc
   GetRecentlyBookedDoctorBloc(this.getRecentlyBookedDoctorRepository)
       : super(GetRecentlyBookedDoctorState.initial()) {
     on<_Started>((event, emit) async {
-      emit(state.copyWith(
-        isloding: true,
-        isError: false,
-        message: "",
-        status: false,
-        model: [],
-      ));
+     if (event.isLoadingNeed) {
+        emit(state.copyWith(
+          isloding: true,
+          isError: false,
+          message: "",
+          status: false,
+          model: [],
+        ));
+      }
       log(emit.toString());
       log(emit.toString());
       final getRecentlyDoctorResult = await getRecentlyBookedDoctorRepository

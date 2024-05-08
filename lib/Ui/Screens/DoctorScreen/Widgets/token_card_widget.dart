@@ -86,14 +86,13 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
               );
       },
       child: Container(
-        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: widget.isBooked == '1' ||
                   widget.isTimeOut == '1' ||
                   widget.isReserved == '1'
               ? Colors.grey.shade400
               : kCardColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: kMainColor, width: 1.5.w),
         ),
         child: Column(
@@ -102,8 +101,8 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
             Text(
               widget.tokenNumber,
               style: TextStyle(
-                  fontSize: 21.sp,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
                   color: widget.isBooked == '1' ||
                           widget.isTimeOut == '1' ||
                           widget.isReserved == '1'
@@ -113,7 +112,7 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
             Text(
               widget.formatedTime,
               style: TextStyle(
-                  fontSize: 10.sp,
+                  fontSize: 9.sp,
                   fontWeight: FontWeight.bold,
                   color: widget.isBooked == '1' ||
                           widget.isTimeOut == '1' ||

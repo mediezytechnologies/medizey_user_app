@@ -131,7 +131,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           ),
         ),
         Positioned(
-          bottom: height * .010.h,
+          bottom: height * .020.h,
           left: width * .045.w,
           right: width * .045.w,
           child: InkWell(

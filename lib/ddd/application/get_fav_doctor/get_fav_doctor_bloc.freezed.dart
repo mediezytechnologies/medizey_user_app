@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GetFavDoctorEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(bool isLoadingNeed) started,
     required TResult Function(int favId) changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(bool isLoadingNeed)? started,
     TResult? Function(int favId)? changeFav,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(bool isLoadingNeed)? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) =>
@@ -79,6 +79,8 @@ abstract class _$$StartedImplCopyWith<$Res> {
   factory _$$StartedImplCopyWith(
           _$StartedImpl value, $Res Function(_$StartedImpl) then) =
       __$$StartedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isLoadingNeed});
 }
 
 /// @nodoc
@@ -88,54 +90,79 @@ class __$$StartedImplCopyWithImpl<$Res>
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoadingNeed = null,
+  }) {
+    return _then(_$StartedImpl(
+      null == isLoadingNeed
+          ? _value.isLoadingNeed
+          : isLoadingNeed // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$StartedImpl implements _Started {
-  const _$StartedImpl();
+  const _$StartedImpl(this.isLoadingNeed);
+
+  @override
+  final bool isLoadingNeed;
 
   @override
   String toString() {
-    return 'GetFavDoctorEvent.started()';
+    return 'GetFavDoctorEvent.started(isLoadingNeed: $isLoadingNeed)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$StartedImpl &&
+            (identical(other.isLoadingNeed, isLoadingNeed) ||
+                other.isLoadingNeed == isLoadingNeed));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isLoadingNeed);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
+      __$$StartedImplCopyWithImpl<_$StartedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(bool isLoadingNeed) started,
     required TResult Function(int favId) changeFav,
   }) {
-    return started();
+    return started(isLoadingNeed);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(bool isLoadingNeed)? started,
     TResult? Function(int favId)? changeFav,
   }) {
-    return started?.call();
+    return started?.call(isLoadingNeed);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(bool isLoadingNeed)? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) {
     if (started != null) {
-      return started();
+      return started(isLoadingNeed);
     }
     return orElse();
   }
@@ -173,7 +200,12 @@ class _$StartedImpl implements _Started {
 }
 
 abstract class _Started implements GetFavDoctorEvent {
-  const factory _Started() = _$StartedImpl;
+  const factory _Started(final bool isLoadingNeed) = _$StartedImpl;
+
+  bool get isLoadingNeed;
+  @JsonKey(ignore: true)
+  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -240,7 +272,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(bool isLoadingNeed) started,
     required TResult Function(int favId) changeFav,
   }) {
     return changeFav(favId);
@@ -249,7 +281,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(bool isLoadingNeed)? started,
     TResult? Function(int favId)? changeFav,
   }) {
     return changeFav?.call(favId);
@@ -258,7 +290,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(bool isLoadingNeed)? started,
     TResult Function(int favId)? changeFav,
     required TResult orElse(),
   }) {

@@ -314,17 +314,48 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       widget.appointmentDate == formatDate()
                           ? widget.isReached == 1
-                              ? Text("Reached", style: greenText12B700)
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: .7.w, color: kMainColor),
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  height: height * .042,
+                                  width: width * .18,
+                                  child: Center(
+                                    child: Text("Reached", style: main12B700),
+                                  ),
+                                )
                               : GestureDetector(
                                   onTap: () async {
                                     await scanQR();
                                   },
                                   child: widget.leaveMessage == 0 &&
                                           widget.resheduleStatus == 0
-                                      ? Icon(
-                                          CupertinoIcons.qrcode,
-                                          color: kMainColor,
-                                          size: 22.sp,
+                                      ? Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: .7.w, color: kMainColor),
+                                            borderRadius:
+                                                BorderRadius.circular(10.r),
+                                          ),
+                                          height: height * .042,
+                                          width: width * .57,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Icon(
+                                                CupertinoIcons.qrcode,
+                                                color: kMainColor,
+                                                size: 20.sp,
+                                              ),
+                                              Text(
+                                                "Scan QR code once you reach",
+                                                style: main12B700,
+                                              )
+                                            ],
+                                          ),
                                         )
                                       : Container(),
                                 )
@@ -342,7 +373,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 isSecondContainerVisible
                                     ? "See less"
                                     : "See more",
-                                style: mainText15)
+                                style: main15)
                             : Container(),
                       ),
                     ],
@@ -491,7 +522,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       },
                       child: Text(
                           isSecondContainerVisible ? "See less" : "See More",
-                          style: mainText15),
+                          style: main15),
                     ),
                   ),
                 )

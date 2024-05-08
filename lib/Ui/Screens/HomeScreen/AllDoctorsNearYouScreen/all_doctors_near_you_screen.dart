@@ -39,7 +39,7 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetDoctersBloc>(context)
-        .add(const GetDoctersEvent.started());
+        .add(const GetDoctersEvent.started(true));
     super.initState();
   }
 
@@ -98,8 +98,9 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                       setState(() {
                                         BlocProvider.of<GetFavDoctorBloc>(
                                                 context)
-                                            .add(const GetFavDoctorEvent
-                                                .started());
+                                            .add(
+                                                const GetFavDoctorEvent.started(
+                                                    false));
                                         BlocProvider.of<GetDoctersBloc>(context)
                                             .add(GetDoctersEvent.changeFav(
                                                 state.model[index].id!));
@@ -114,8 +115,9 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                         );
                                         BlocProvider.of<GetFavDoctorBloc>(
                                                 context)
-                                            .add(const GetFavDoctorEvent
-                                                .started());
+                                            .add(
+                                                const GetFavDoctorEvent.started(
+                                                    false));
                                       });
                                     },
                                     child: SizedBox(

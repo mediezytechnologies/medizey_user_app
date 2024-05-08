@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
@@ -59,7 +60,7 @@ class DoctorCardWidget extends StatelessWidget {
           margin: EdgeInsets.fromLTRB(8.w, 0, 8.w, 4.h),
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: kCardColor),
+              borderRadius: BorderRadius.circular(10.r), color: kCardColor),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -69,13 +70,14 @@ class DoctorCardWidget extends StatelessWidget {
                     scaleDuration: const Duration(milliseconds: 400),
                     fadeDuration: const Duration(milliseconds: 400),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                       child: FancyShimmerImage(
-                          height: 80.h,
-                          width: 80.w,
+                          height: size.height * .1,
+                          width: size.width * .18,
                           boxFit: BoxFit.contain,
                           errorWidget: const Image(
-                              image: AssetImage("assets/icons/no image.png")),
+                            image: AssetImage("assets/icons/no image.png"),
+                          ),
                           imageUrl: imageUrl),
                     ),
                   ),
@@ -85,38 +87,29 @@ class DoctorCardWidget extends StatelessWidget {
                     children: [
                       const VerticalSpacingWidget(height: 2),
                       SizedBox(
-                        width: 200.w,
+                        width: size.width * .5,
                         child: Text(
                           "Dr.$firstName $lastName",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: black13B500,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       SizedBox(
-                        width: 200.w,
+                        width: size.width * .5,
                         child: Text(
                           specialisation,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kSubTextColor),
+                          style: grey11B400,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       const HorizontalSpacingWidget(width: 2),
                       SizedBox(
-                        width: 200.w,
+                        width: size.width * .5,
                         child: Text(
                           mainHospitalName,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kSubTextColor),
+                          style: grey11B400,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -124,16 +117,8 @@ class DoctorCardWidget extends StatelessWidget {
                       const HorizontalSpacingWidget(width: 2),
                       Row(
                         children: [
-                          Text(
-                            "Location: ",
-                            style: TextStyle(
-                                fontSize: 12.sp, color: kSubTextColor),
-                          ),
-                          Text(
-                            location,
-                            style:
-                                TextStyle(fontSize: 12.sp, color: Colors.black),
-                          ),
+                          Text("Location: ", style: grey11B400),
+                          Text(location, style: black11B500),
                         ],
                       ),
                       Row(
@@ -153,10 +138,7 @@ class DoctorCardWidget extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(
                                     text: userAwayFrom,
-                                    style: TextStyle(
-                                        fontSize: 12.sp,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.w500),
+                                    style: black11B500,
                                     children: [
                                       TextSpan(
                                           text: ' away',
@@ -176,11 +158,7 @@ class DoctorCardWidget extends StatelessWidget {
                                 'Welcare Hospital, Sahodaran Ayyappan Road, Vyttila'),
                             child: Wrap(
                               children: [
-                                Text(
-                                  'Get Location',
-                                  style: TextStyle(
-                                      fontSize: 12.sp, color: kSubTextColor),
-                                ),
+                                Text('Get Location', style: grey11B400),
                                 Icon(
                                   CupertinoIcons.map_pin,
                                   color: kSecondaryColor,
@@ -200,13 +178,7 @@ class DoctorCardWidget extends StatelessWidget {
                   : Column(
                       children: [
                         const VerticalSpacingWidget(height: 10),
-                        Text(
-                          "Next available at",
-                          style: TextStyle(
-                              color: kTextColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp),
-                        ),
+                        Text("Next available at", style: black14B600),
                       ],
                     ),
               const VerticalSpacingWidget(height: 2),
@@ -226,8 +198,8 @@ class DoctorCardWidget extends StatelessWidget {
                                     Image(
                                       image: const AssetImage(
                                           "assets/icons/clinic_icon.png"),
-                                      height: 20.h,
-                                      width: 20.w,
+                                      height: size.height * .02,
+                                      width: size.width * .02,
                                       color: kTextColor,
                                     ),
                                     const HorizontalSpacingWidget(width: 10),
@@ -235,31 +207,17 @@ class DoctorCardWidget extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          "${clinicList[index].clinicName}",
-                                          style: TextStyle(
-                                              color: kTextColor,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 13.sp),
-                                        ),
+                                        Text("${clinicList[index].clinicName}",
+                                            style: black12B500),
                                         Row(
                                           children: [
+                                            Text("Next available : ",
+                                                style: black12B500),
                                             Text(
-                                              "Next available : ",
-                                              style: TextStyle(
-                                                  color: kTextColor,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 13.sp),
-                                            ),
-                                            Text(
-                                              clinicList[index]
-                                                  .nextDateAvailableTokenTime
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: kSecondaryColor,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 13.sp),
-                                            ),
+                                                clinicList[index]
+                                                    .nextDateAvailableTokenTime
+                                                    .toString(),
+                                                style: green12B500),
                                           ],
                                         ),
                                       ],
@@ -272,8 +230,8 @@ class DoctorCardWidget extends StatelessWidget {
                               Image(
                                 image: const AssetImage(
                                     "assets/icons/clinic_icon.png"),
-                                height: 20.h,
-                                width: 20.w,
+                                height: size.height * .02,
+                                width: size.width * .02,
                                 color: kTextColor,
                               ),
                               const HorizontalSpacingWidget(width: 10),
@@ -282,13 +240,8 @@ class DoctorCardWidget extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(
-                                        "${clinicList[index].clinicName} : ",
-                                        style: TextStyle(
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.sp),
-                                      ),
+                                      Text("${clinicList[index].clinicName} : ",
+                                          style: black12B500),
                                       Text(
                                         "${clinicList[index].availableTokenCount} Slots available",
                                         style: TextStyle(
@@ -297,27 +250,18 @@ class DoctorCardWidget extends StatelessWidget {
                                                     0
                                                 ? kTextColor
                                                 : kSecondaryColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.sp),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12.sp),
                                       )
                                     ],
                                   ),
                                   Row(
                                     children: [
+                                      Text("Next available token : ",
+                                          style: black12B500),
                                       Text(
-                                        "Next available token : ",
-                                        style: TextStyle(
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.sp),
-                                      ),
-                                      Text(
-                                        "${clinicList[index].nextAvailableTokenTime.toString()} Today",
-                                        style: TextStyle(
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.sp),
-                                      ),
+                                          "${clinicList[index].nextAvailableTokenTime.toString()} Today",
+                                          style: black12B500),
                                     ],
                                   ),
                                 ],
@@ -347,17 +291,12 @@ class DoctorCardWidget extends StatelessWidget {
                       height: size.height * 0.04,
                       width: size.width * .42,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: kCardColor,
-                          border: Border.all(color: kMainColor, width: 1.5.w)),
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: kCardColor,
+                        border: Border.all(color: kMainColor, width: 1.5.w),
+                      ),
                       child: Center(
-                        child: Text(
-                          "View Profile",
-                          style: TextStyle(
-                              color: kMainColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.sp),
-                        ),
+                        child: Text("View Profile", style: main12B600),
                       ),
                     ),
                   ),
@@ -382,16 +321,10 @@ class DoctorCardWidget extends StatelessWidget {
                       height: size.height * 0.04,
                       width: size.width * .42,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(5.r),
                           color: kMainColor),
                       child: Center(
-                        child: Text(
-                          "Book Clinic Visit",
-                          style: TextStyle(
-                              color: kCardColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.sp),
-                        ),
+                        child: Text("Book Clinic Visit", style: white12B600),
                       ),
                     ),
                   )

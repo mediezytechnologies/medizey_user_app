@@ -313,7 +313,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                                   const HorizontalSpacingWidget(
                                                       width: 4),
                                                   Text(
-                                                    "${vitals[index].height.toString()} Cm",
+                                                    "${vitals[index].height.toString()} cm",
                                                     style: TextStyle(
                                                       fontSize: 13.sp,
                                                       color: kTextColor,
@@ -341,7 +341,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                                   const HorizontalSpacingWidget(
                                                       width: 4),
                                                   Text(
-                                                    "${vitals[index].weight.toString()} Kg",
+                                                    "${vitals[index].weight.toString()} kg",
                                                     style: TextStyle(
                                                       fontSize: 13.sp,
                                                       color: kTextColor,
@@ -369,7 +369,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                                   const HorizontalSpacingWidget(
                                                       width: 4),
                                                   Text(
-                                                    "${vitals[index].heartRate.toString()} Bpm",
+                                                    "${vitals[index].heartRate.toString()} BPM",
                                                     style: TextStyle(
                                                       fontSize: 13.sp,
                                                       color: kTextColor,
@@ -431,7 +431,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                             : Row(
                                                 children: [
                                                   Text(
-                                                    "Spo2 :",
+                                                    "SpO2 :",
                                                     style: TextStyle(
                                                       fontSize: 13.sp,
                                                       color: kTextColor,
@@ -456,7 +456,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              "Bp :",
+                                              "BP :",
                                               style: TextStyle(
                                                 fontSize: 14.sp,
                                                 color: kTextColor,

@@ -3,6 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 //* black
+
+final black16B600 = TextStyle(
+          fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
+
+final black15B600 = TextStyle(
+          fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
 final black14B600 =
     TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: kTextColor);
 
@@ -12,6 +18,9 @@ final black14B500 =
 final black12B500 =
     TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: kTextColor);
 
+    final black12B600 =
+    TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: kTextColor);
+
 final black13B500 =
     TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500, color: kTextColor);
 
@@ -20,6 +29,9 @@ final black9B400 =
 
 final black10B500 =
     TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500, color: kTextColor);
+
+final black11B500 =
+    TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: kTextColor);
 
 //* grey
 
@@ -36,7 +48,7 @@ final grey12B500 = TextStyle(
     fontSize: 12.sp, fontWeight: FontWeight.w500, color: kSubTextColor);
 
 final grey11B400 = TextStyle(
-    fontSize: 12.sp, fontWeight: FontWeight.w400, color: kSubTextColor);
+    fontSize: 11.sp, fontWeight: FontWeight.w400, color: kSubTextColor);
 
 final grey15B500 = TextStyle(
     fontSize: 15.sp, fontWeight: FontWeight.w500, color: kSubTextColor);
@@ -46,6 +58,12 @@ final grey15B600 = TextStyle(
 
 final grey13B600 = TextStyle(
     fontSize: 13.sp, color: kSubTextColor, fontWeight: FontWeight.w600);
+
+final grey13B400 = TextStyle(
+    fontSize: 13.sp, color: kSubTextColor, fontWeight: FontWeight.w400);
+
+final grey14B700 = TextStyle(
+    color: kSubTextColor, fontWeight: FontWeight.w700, fontSize: 14.sp);
 
 //* white
 
@@ -58,6 +76,14 @@ final white9Bold =
 final white13B700 =
     TextStyle(fontSize: 13.sp, color: kCardColor, fontWeight: FontWeight.w700);
 
+final white12B600 =
+    TextStyle(color: kCardColor, fontWeight: FontWeight.w600, fontSize: 12.sp);
+
+final white14B700 =
+    TextStyle(color: kCardColor, fontWeight: FontWeight.w700, fontSize: 14.sp);
+
+final white10B400 =
+    TextStyle(color: kCardColor, fontWeight: FontWeight.w400, fontSize: 10.sp);
 //* red
 
 final red11B600 =
@@ -78,9 +104,24 @@ final red10B600 = TextStyle(
 
 //* green
 
-final greenText12B700 = TextStyle(
+final green12B700 = TextStyle(
     fontSize: 12.sp, fontWeight: FontWeight.w700, color: kSecondaryColor);
+
+final green12B500 = TextStyle(
+    color: kSecondaryColor, fontWeight: FontWeight.w500, fontSize: 12.sp);
 
 //* main
 
-final mainText15 = TextStyle(fontSize: 13.sp, color: kMainColor);
+final main15 = TextStyle(fontSize: 13.sp, color: kMainColor);
+
+final main12B600 =
+    TextStyle(color: kMainColor, fontWeight: FontWeight.w600, fontSize: 12.sp);
+
+final main16B600 =
+    TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kMainColor);
+
+final main13B600 =
+    TextStyle(color: kMainColor, fontWeight: FontWeight.w600, fontSize: 13.sp);
+
+final main12B700 =
+    TextStyle(color: kMainColor, fontWeight: FontWeight.w700, fontSize: 12.sp);

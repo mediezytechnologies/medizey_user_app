@@ -13,13 +13,16 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
   GetDoctersRepo getDoctersRepo;
   GetDoctersBloc(this.getDoctersRepo) : super(GetDoctersState.initial()) {
     on<_Started>((event, emit) async {
-      emit(state.copyWith(
-        isloding: true,
-        isError: false,
-        message: "",
-        status: false,
-        model: [],
-      ));
+      if (event.isLoadingNeed) {
+        emit(state.copyWith(
+          isloding: true,
+          isError: false,
+          message: "",
+          status: false,
+          model: [],
+        ));
+      }
+
       log(emit.toString());
       log("loading>>>>> ${state.isloding}");
       log(emit.toString());
