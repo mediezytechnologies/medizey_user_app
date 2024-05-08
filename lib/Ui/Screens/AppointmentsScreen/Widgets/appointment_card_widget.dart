@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -281,6 +282,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       const VerticalSpacingWidget(height: 5),
                       GestureDetector(
                         onTap: () {
+                          Platform.isIOS?showAvailableTokenIos(context):
                           showAvailableToken(context);
                         },
                         child: Container(
@@ -472,10 +474,136 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
       ),
     );
   }
-
-  Future<dynamic> showAvailableToken(BuildContext context) {
+Future<dynamic> showAvailableToken(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return showDialog(
+    return 
+
+ showCupertinoDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: ((context) {
+        return CupertinoAlertDialog(
+          
+          
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Book same doctor",
+                style: black14B600,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Text(
+                "Next Available Token details",
+                style: black12B500,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Container(
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7.r),
+                  border: Border.all(color: kSubTextColor, width: .5.w),
+                ),
+                child: Column(
+                  children: [
+                    widget.nextAvailableTokenNumber == "0"
+                        ? const SizedBox()
+                        : Text(
+                            "Token No : ${widget.nextAvailableTokenNumber}",
+                            style: black14B600,
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    widget.nextAvailableDateAndTime == "null"
+                        ? const SizedBox()
+                        : Text(
+                            widget.nextAvailableDateAndTime,
+                            style: black14B600,
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(builder: (context) {
+                            return BookAppointmentScreen(
+                              doctorId: widget.doctorId,
+                              clinicList: widget.clinicList,
+                              doctorFirstName: widget.docterName,
+                              doctorSecondName: "",
+                              patientId: widget.patientId.toString(),
+                            );
+                          }),
+                        );
+                      },
+                      child: Container(
+                        height: height * .047,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: kSecondaryColor,
+                          borderRadius: BorderRadius.circular(7.r),
+                        ),
+                        child: Center(
+                          child: Text("Book now", style: white13B700),
+                        ),
+                      ),
+                    ),
+                    const VerticalSpacingWidget(height: 3),
+                  ],
+                ),
+              ),
+              const VerticalSpacingWidget(height: 3),
+              Text("Or", style: black12B500),
+              const VerticalSpacingWidget(height: 3),
+              Text(
+                "Book another doctor",
+                style: black14B600,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                   CupertinoPageRoute(
+                      builder: (context) => SearchScreen(
+                        patientId: widget.patientId.toString(),
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: height * .047,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: kSecondaryColor,
+                    borderRadius: BorderRadius.circular(7.r),
+                  ),
+                  child: Center(
+                    child: Text("Choose another doctor", style: white13B700),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
+    );
+}
+
+
+
+  Future<dynamic> showAvailableTokenIos(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    return 
+   
+    
+    showDialog(
       barrierDismissible: true,
       context: context,
       builder: ((context) {

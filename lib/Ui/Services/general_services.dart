@@ -27,7 +27,7 @@ class GeneralServices {
       BuildContext context, String title, void Function()? yesFunction) {
     Platform.isIOS
         ? showCupertinoDialog(
-            barrierDismissible: false,
+             barrierDismissible: true,
             context: context,
             builder: ((context) {
               return CupertinoAlertDialog(
@@ -66,7 +66,7 @@ class GeneralServices {
             }),
           )
         : showDialog(
-            barrierDismissible: false,
+             barrierDismissible: true,
             context: context,
             builder: ((context) {
               return AlertDialog(
@@ -114,7 +114,7 @@ class GeneralServices {
   showDialogue(BuildContext context, String title) {
     Platform.isIOS
         ? showCupertinoDialog(
-            barrierDismissible: false,
+             barrierDismissible: true,
             context: context,
             builder: (context) => CupertinoAlertDialog(
               content: Text(
@@ -141,7 +141,7 @@ class GeneralServices {
             ),
           )
         : showDialog(
-            barrierDismissible: false,
+             barrierDismissible: true,
             context: context,
             builder: ((context) {
               return AlertDialog(
@@ -179,7 +179,7 @@ class GeneralServices {
   void showSuccessMessage(BuildContext context, String message) {
     Platform.isIOS
         ? showCupertinoDialog(
-            barrierDismissible: false,
+             barrierDismissible: true,
             context: context,
             builder: (context) => CupertinoAlertDialog(
               title: Align(
@@ -217,7 +217,7 @@ class GeneralServices {
   void showErrorMessage(BuildContext context, String message) {
     Platform.isIOS
         ? showCupertinoDialog(
-            barrierDismissible: false,
+          barrierDismissible: true,
             context: context,
             builder: (context) => CupertinoAlertDialog(
               title: Align(
@@ -255,7 +255,7 @@ class GeneralServices {
   void showDelaySuccessMessage(BuildContext context, String message) {
     Platform.isIOS
         ? showCupertinoDialog(
-            barrierDismissible: false,
+             barrierDismissible: true,
             context: context,
             builder: (context) {
               Future.delayed(const Duration(seconds: 2), () {
