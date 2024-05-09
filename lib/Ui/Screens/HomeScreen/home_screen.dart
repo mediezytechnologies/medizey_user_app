@@ -16,6 +16,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/user_rating.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
@@ -130,6 +131,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             const VerticalSpacingWidget(height: 5),
                             const UpcommingAppoiment(),
+                            const VerticalSpacingWidget(height: 10),
+                            UserRating(),
+
                             const VerticalSpacingWidget(height: 5),
                             Padding(
                               padding: EdgeInsets.symmetric(

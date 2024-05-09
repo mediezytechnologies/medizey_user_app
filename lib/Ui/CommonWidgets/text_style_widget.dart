@@ -57,6 +57,9 @@ final white9Bold =
 
 final white13B700 =
     TextStyle(fontSize: 13.sp, color: kCardColor, fontWeight: FontWeight.w700);
+    
+    final white14B500 =
+    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: kWhiteColor);
 
 //* red
 
@@ -84,3 +87,8 @@ final greenText12B700 = TextStyle(
 //* main
 
 final mainText15 = TextStyle(fontSize: 13.sp, color: kMainColor);
+final wmain4B500 =
+    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: kMainColor);
+
+//* white
+
