@@ -18,21 +18,18 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RatingItemEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double ratingValue, String? ratingTest) started,
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double ratingValue, String? ratingTest)? started,
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double ratingValue, String? ratingTest)? started,
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
     required TResult orElse(),
@@ -40,21 +37,18 @@ mixin _$RatingItemEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
     required TResult orElse(),
@@ -78,158 +72,6 @@ class _$RatingItemEventCopyWithImpl<$Res, $Val extends RatingItemEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$StartedImplCopyWith<$Res> {
-  factory _$$StartedImplCopyWith(
-          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
-      __$$StartedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({double ratingValue, String? ratingTest});
-}
-
-/// @nodoc
-class __$$StartedImplCopyWithImpl<$Res>
-    extends _$RatingItemEventCopyWithImpl<$Res, _$StartedImpl>
-    implements _$$StartedImplCopyWith<$Res> {
-  __$$StartedImplCopyWithImpl(
-      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? ratingValue = null,
-    Object? ratingTest = freezed,
-  }) {
-    return _then(_$StartedImpl(
-      ratingValue: null == ratingValue
-          ? _value.ratingValue
-          : ratingValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      ratingTest: freezed == ratingTest
-          ? _value.ratingTest
-          : ratingTest // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$StartedImpl implements _Started {
-  const _$StartedImpl({required this.ratingValue, this.ratingTest});
-
-  @override
-  final double ratingValue;
-  @override
-  final String? ratingTest;
-
-  @override
-  String toString() {
-    return 'RatingItemEvent.started(ratingValue: $ratingValue, ratingTest: $ratingTest)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StartedImpl &&
-            (identical(other.ratingValue, ratingValue) ||
-                other.ratingValue == ratingValue) &&
-            (identical(other.ratingTest, ratingTest) ||
-                other.ratingTest == ratingTest));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, ratingValue, ratingTest);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
-      __$$StartedImplCopyWithImpl<_$StartedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(double ratingValue, String? ratingTest) started,
-    required TResult Function(double ratingValue) ratingChanged,
-    required TResult Function(String ratingTest) ratingTextChanged,
-  }) {
-    return started(ratingValue, ratingTest);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double ratingValue, String? ratingTest)? started,
-    TResult? Function(double ratingValue)? ratingChanged,
-    TResult? Function(String ratingTest)? ratingTextChanged,
-  }) {
-    return started?.call(ratingValue, ratingTest);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double ratingValue, String? ratingTest)? started,
-    TResult Function(double ratingValue)? ratingChanged,
-    TResult Function(String ratingTest)? ratingTextChanged,
-    required TResult orElse(),
-  }) {
-    if (started != null) {
-      return started(ratingValue, ratingTest);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_RatingChanged value) ratingChanged,
-    required TResult Function(_RatingTextChanged value) ratingTextChanged,
-  }) {
-    return started(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_RatingChanged value)? ratingChanged,
-    TResult? Function(_RatingTextChanged value)? ratingTextChanged,
-  }) {
-    return started?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_RatingChanged value)? ratingChanged,
-    TResult Function(_RatingTextChanged value)? ratingTextChanged,
-    required TResult orElse(),
-  }) {
-    if (started != null) {
-      return started(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Started implements RatingItemEvent {
-  const factory _Started(
-      {required final double ratingValue,
-      final String? ratingTest}) = _$StartedImpl;
-
-  double get ratingValue;
-  String? get ratingTest;
-  @JsonKey(ignore: true)
-  _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -297,7 +139,6 @@ class _$RatingChangedImpl implements _RatingChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double ratingValue, String? ratingTest) started,
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
   }) {
@@ -307,7 +148,6 @@ class _$RatingChangedImpl implements _RatingChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double ratingValue, String? ratingTest)? started,
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
   }) {
@@ -317,7 +157,6 @@ class _$RatingChangedImpl implements _RatingChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double ratingValue, String? ratingTest)? started,
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
     required TResult orElse(),
@@ -331,7 +170,6 @@ class _$RatingChangedImpl implements _RatingChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
   }) {
@@ -341,7 +179,6 @@ class _$RatingChangedImpl implements _RatingChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
   }) {
@@ -351,7 +188,6 @@ class _$RatingChangedImpl implements _RatingChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
     required TResult orElse(),
@@ -438,7 +274,6 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double ratingValue, String? ratingTest) started,
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
   }) {
@@ -448,7 +283,6 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double ratingValue, String? ratingTest)? started,
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
   }) {
@@ -458,7 +292,6 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double ratingValue, String? ratingTest)? started,
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
     required TResult orElse(),
@@ -472,7 +305,6 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
   }) {
@@ -482,7 +314,6 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
   }) {
@@ -492,7 +323,6 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
     required TResult orElse(),
@@ -517,7 +347,7 @@ abstract class _RatingTextChanged implements RatingItemEvent {
 /// @nodoc
 mixin _$RatingItemState {
   double get ratingValue => throw _privateConstructorUsedError;
-  String? get ratingTest => throw _privateConstructorUsedError;
+  String get ratingTest => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RatingItemStateCopyWith<RatingItemState> get copyWith =>
@@ -530,7 +360,7 @@ abstract class $RatingItemStateCopyWith<$Res> {
           RatingItemState value, $Res Function(RatingItemState) then) =
       _$RatingItemStateCopyWithImpl<$Res, RatingItemState>;
   @useResult
-  $Res call({double ratingValue, String? ratingTest});
+  $Res call({double ratingValue, String ratingTest});
 }
 
 /// @nodoc
@@ -547,17 +377,17 @@ class _$RatingItemStateCopyWithImpl<$Res, $Val extends RatingItemState>
   @override
   $Res call({
     Object? ratingValue = null,
-    Object? ratingTest = freezed,
+    Object? ratingTest = null,
   }) {
     return _then(_value.copyWith(
       ratingValue: null == ratingValue
           ? _value.ratingValue
           : ratingValue // ignore: cast_nullable_to_non_nullable
               as double,
-      ratingTest: freezed == ratingTest
+      ratingTest: null == ratingTest
           ? _value.ratingTest
           : ratingTest // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -570,7 +400,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double ratingValue, String? ratingTest});
+  $Res call({double ratingValue, String ratingTest});
 }
 
 /// @nodoc
@@ -585,17 +415,17 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ratingValue = null,
-    Object? ratingTest = freezed,
+    Object? ratingTest = null,
   }) {
     return _then(_$InitialImpl(
       ratingValue: null == ratingValue
           ? _value.ratingValue
           : ratingValue // ignore: cast_nullable_to_non_nullable
               as double,
-      ratingTest: freezed == ratingTest
+      ratingTest: null == ratingTest
           ? _value.ratingTest
           : ratingTest // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -603,12 +433,12 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  const _$InitialImpl({required this.ratingValue, this.ratingTest});
+  const _$InitialImpl({required this.ratingValue, required this.ratingTest});
 
   @override
   final double ratingValue;
   @override
-  final String? ratingTest;
+  final String ratingTest;
 
   @override
   String toString() {
@@ -639,12 +469,12 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements RatingItemState {
   const factory _Initial(
       {required final double ratingValue,
-      final String? ratingTest}) = _$InitialImpl;
+      required final String ratingTest}) = _$InitialImpl;
 
   @override
   double get ratingValue;
   @override
-  String? get ratingTest;
+  String get ratingTest;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

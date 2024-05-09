@@ -13,6 +13,8 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
+import 'Ui/Screens/HomeScreen/Widgets/user_rating.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection();
@@ -77,8 +79,8 @@ class _MediezyState extends State<Mediezy> {
           theme: appThemeStyle(context),
           home:
           
-          //LoginScreenGoogle()
-        hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          UserRating()
+       // hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

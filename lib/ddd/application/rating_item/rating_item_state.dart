@@ -4,7 +4,7 @@ part of 'rating_item_bloc.dart';
 class RatingItemState with _$RatingItemState {
   const factory RatingItemState({
     required double ratingValue,
-     String? ratingTest,
+    required String ratingTest,
   })= _Initial;
-   factory RatingItemState.initial()=> RatingItemState(ratingValue: 0,);
+   factory RatingItemState.initial()=> RatingItemState(ratingValue: 0,ratingTest: "");
 }

@@ -9,15 +9,15 @@ part 'rating_item_bloc.freezed.dart';
 
 class RatingItemBloc extends Bloc<RatingItemEvent, RatingItemState> {
   RatingItemBloc() : super(RatingItemState.initial()) {
-    on<_Started>((event, emit) {
-      emit(
-        RatingItemState(
-          ratingValue: event.ratingValue,
-          ratingTest: event.ratingTest
-        ),
-      );
+    // on<_Started>((event, emit) {
+    //   emit(
+    //     RatingItemState(
+    //       ratingValue: event.ratingValue,
+    //       ratingTest: event.ratingTest
+    //     ),
+    //   );
      
-    });
+    // });
      on<_RatingChanged>((event, emit) {
         emit(state.copyWith(ratingValue: event.ratingValue));
 
