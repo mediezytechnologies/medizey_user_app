@@ -125,33 +125,35 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Row(
-                      children: [
-                        Icon(
-                          IconlyLight.location,
-                          size: 14.sp,
-                        ),
-                        SizedBox(
-                          width: 3.w,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: widget.docterDistance,
-                            style: black11B500,
+                  widget.docterDistance == 'null'
+                      ? const SizedBox()
+                      : Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
+                          child: Row(
                             children: [
-                              TextSpan(
-                                  text: ' away',
-                                  style: grey10B400,
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {})
+                              Icon(
+                                IconlyLight.location,
+                                size: 14.sp,
+                              ),
+                              SizedBox(
+                                width: 3.w,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: widget.docterDistance,
+                                  style: black11B500,
+                                  children: [
+                                    TextSpan(
+                                        text: ' away',
+                                        style: grey10B400,
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {})
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                        )
                 ],
               ),
             ),

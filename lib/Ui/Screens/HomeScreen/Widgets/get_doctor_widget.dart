@@ -56,13 +56,25 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
               ),
               const VerticalSpacingWidget(height: 5),
               LimitedBox(
-                maxHeight: size.height * .255,
+                maxHeight:
+                    // state.model.first.clinics!.first.distanceFromClinic == null
+                    //     ? size.height * .225
+                    //     :
+                    size.height * .250,
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: state.model.length,
                     itemBuilder: (context, index) {
+                      // List clinics = state.model[index].clinics!;
+                      // double minDistance = double.infinity;
+                      // for (var clinic in clinics) {
+                      //   if (clinic.distanceFromClinic != null &&
+                      //       clinic.distanceFromClinic! < minDistance) {
+                      //     minDistance = clinic.distanceFromClinic!;
+                      //   }
+                      // }
                       return DoctorNearYouWidget(
                           img: state.model[index].favoriteStatus == 1
                               ? "assets/icons/favorite1.png"
@@ -83,7 +95,9 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                               );
                             });
                           },
-                          docterDistance: "0.0",
+                          docterDistance: state
+                              .model[index].clinics!.first.distanceFromClinic
+                              .toString(),
                           doctorId: state.model[index].userId.toString(),
                           firstName: state.model[index].firstname.toString(),
                           lastName: state.model[index].secondname.toString(),
