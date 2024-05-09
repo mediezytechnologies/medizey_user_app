@@ -1,10 +1,8 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../CommonWidgets/horizontal_spacing_widget.dart';
@@ -21,7 +19,6 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
       required this.specialization,
       required this.location,
       required this.mainHospital,
-      required this.distanceFromUser,
       required this.doctorId,
       required this.favouriteStatus});
 
@@ -31,7 +28,6 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
   final String specialization;
   final String location;
   final String mainHospital;
-  final String distanceFromUser;
   final String doctorId;
   final int favouriteStatus;
 
@@ -67,7 +63,6 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
                           imageUrl: image),
                     ),
                   ),
-                  const VerticalSpacingWidget(height: 2),
                   Text('Dr.\n$firstName\n$secondName', style: black14B600),
                 ],
               ),
@@ -100,34 +95,7 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const VerticalSpacingWidget(height: 2),
-                  distanceFromUser == 'null'
-                      ? const SizedBox()
-                      : Row(
-                          children: [
-                            Icon(
-                              IconlyLight.location,
-                              size: 14.sp,
-                            ),
-                            SizedBox(
-                              width: 3.w,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                text: distanceFromUser,
-                                style: black12B500,
-                                children: [
-                                  TextSpan(
-                                      text: ' away',
-                                      style: grey10B400,
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {})
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                  const VerticalSpacingWidget(height: 5),
+                  const VerticalSpacingWidget(height: 15),
                   BlocBuilder<AddFavouritesBloc, AddFavouritesState>(
                     builder: (context, state) {
                       return InkWell(

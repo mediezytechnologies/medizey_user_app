@@ -218,8 +218,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                           ),
                                         ),
                                         patientId: widget.patientId,
-                                        userAwayFrom:
-                                            doctor.distanceFromUser.toString(),
                                         clinicList: doctor.clinics!.toList(),
                                         doctorId: doctor.userId.toString(),
                                         firstName: doctor.firstname.toString(),

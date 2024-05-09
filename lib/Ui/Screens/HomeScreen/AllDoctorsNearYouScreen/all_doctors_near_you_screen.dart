@@ -131,7 +131,6 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                       ),
                                     ),
                                   ),
-                                  userAwayFrom: doctor.distanceFromUser,
                                   clinicList: doctor.clinics!.toList(),
                                   doctorId: doctor.userId.toString(),
                                   firstName: doctor.firstname.toString(),

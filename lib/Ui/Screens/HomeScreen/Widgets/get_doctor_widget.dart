@@ -83,8 +83,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                               );
                             });
                           },
-                          docterDistance:
-                              state.model[index].distanceFromUser ?? "0.0",
+                          docterDistance: "0.0",
                           doctorId: state.model[index].userId.toString(),
                           firstName: state.model[index].firstname.toString(),
                           lastName: state.model[index].secondname.toString(),

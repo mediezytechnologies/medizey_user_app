@@ -49,6 +49,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   String selectedClinicName = "";
   String selectedClinicAddress = "";
   String selectedClinicLocation = "";
+  String selectedClinicConsutationFee = "";
 
   bool isClicked = false;
   late StreamSubscription<ConnectivityResult> subscription;
@@ -63,6 +64,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
     selectedClinicName = widget.clinicList.first.clinicName.toString();
     selectedClinicAddress = widget.clinicList.first.clinicAddress.toString();
     selectedClinicLocation = widget.clinicList.first.clinicLocation.toString();
+    selectedClinicConsutationFee =
+        widget.clinicList.first.consultationFee.toString();
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
@@ -147,6 +150,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                             .toString();
                                         selectedClinicLocation = widget
                                             .clinicList[index].clinicLocation
+                                            .toString();
+                                        selectedClinicConsutationFee = widget
+                                            .clinicList[index].consultationFee
                                             .toString();
                                         BlocProvider.of<GetTokenBloc>(context)
                                             .add(
@@ -307,6 +313,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              consultationFee:
+                                                  selectedClinicConsutationFee,
                                               normalResheduleTokenId:
                                                   widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
@@ -396,6 +404,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              consultationFee:
+                                                  selectedClinicConsutationFee,
                                               normalResheduleTokenId:
                                                   widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
@@ -482,6 +492,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              consultationFee:
+                                                  selectedClinicConsutationFee,
                                               normalResheduleTokenId:
                                                   widget.normalResheduleTokenId,
                                               patientId: widget.patientId,

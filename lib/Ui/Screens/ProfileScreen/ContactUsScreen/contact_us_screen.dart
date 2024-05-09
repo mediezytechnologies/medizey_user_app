@@ -9,6 +9,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../CommonWidgets/text_style_widget.dart';
+
 class ContactUsScreen extends StatefulWidget {
   const ContactUsScreen({super.key});
 
@@ -22,6 +24,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   final FocusNode messageFocusController = FocusNode();
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Contact Us"),
@@ -49,63 +52,59 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const VerticalSpacingWidget(height: 10),
-                  Text(
-                    "How may we\nhelp you?",
-                    style:
-                        TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
-                  ),
+                  Text("How may we\nhelp you?", style: black16B600),
                   const VerticalSpacingWidget(height: 13),
-                  Text(
-                    "Let us know your queries & feedbacks",
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: kSubTextColor),
-                  ),
+                  Text("Let us know your queries & feedbacks",style: black13B500),
                   const VerticalSpacingWidget(height: 20),
                   //! email
-                  TextFormField(
-                    cursorColor: kMainColor,
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: kMainColor,
-                      ),
-                      hintStyle:
-                          TextStyle(fontSize: 15.sp, color: kSubTextColor),
-                      hintText: "philipe@gmail.com",
-                      filled: true,
-                      fillColor: kCardColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide.none,
+                  SizedBox(
+                    height: size.height * .065,
+                    child: TextFormField(
+                      style: black13B500,
+                      cursorColor: kMainColor,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          IconlyLight.message,
+                          color: kMainColor,
+                        ),
+                        hintStyle: grey13B600,
+                        hintText: "philipe@gmail.com",
+                        filled: true,
+                        fillColor: kCardColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 6.h),
                       ),
                     ),
                   ),
                   const VerticalSpacingWidget(height: 15),
                   //! message
-                  TextFormField(
-                    maxLines: 4,
-                    cursorColor: kMainColor,
-                    controller: messageController,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        IconlyLight.edit,
-                        color: kMainColor,
-                      ),
-                      hintStyle:
-                          TextStyle(fontSize: 15.sp, color: kSubTextColor),
-                      hintText: "Write your message",
-                      filled: true,
-                      fillColor: kCardColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide.none,
+                  SizedBox(
+                    child: TextFormField(
+                      style: black13B500,
+                      maxLines: 4,
+                      cursorColor: kMainColor,
+                      controller: messageController,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          IconlyLight.edit,
+                          color: kMainColor,
+                        ),
+                        hintStyle: grey13B600,
+                        hintText: "Write your message",
+                        filled: true,
+                        fillColor: kCardColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
                     ),
                   ),

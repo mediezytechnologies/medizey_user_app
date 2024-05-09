@@ -53,7 +53,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                   ),
                   const VerticalSpacingWidget(height: 5),
                   LimitedBox(
-                    maxHeight: 210.h,
+                    maxHeight: size.height * .289,
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -62,8 +62,6 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                         itemCount: state.model.length,
                         itemBuilder: (context, index) {
                           return DoctorFavouriteCardWidget(
-                            userAwayFrom:
-                                state.model[index].distanceFromUser.toString(),
                             clinicList: state.model[index].clinics!.toList(),
                             doctorId: state.model[index].userId.toString(),
                             firstName: state.model[index].firstname.toString(),

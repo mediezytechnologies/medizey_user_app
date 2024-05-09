@@ -1,14 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 import '../../../../Model/Clinics/clinic_model.dart';
-part 'search_doctor.g.dart';
+part 'all_doctor.g.dart';
 
 @JsonSerializable()
-class SearchDoctor {
+class AllDoctor {
 	int? id;
 	@JsonKey(name: 'UserId') 
 	int? userId;
 	String? firstname;
-	String? lastname;
+	String? secondname;
 	@JsonKey(name: 'Specialization') 
 	String? specialization;
 	@JsonKey(name: 'DocterImage') 
@@ -20,11 +20,11 @@ class SearchDoctor {
 	List<Clinics>? clinics;
 	int? favoriteStatus;
 
-	SearchDoctor({
+	AllDoctor({
 		this.id, 
 		this.userId, 
 		this.firstname, 
-		this.lastname, 
+		this.secondname, 
 		this.specialization, 
 		this.docterImage, 
 		this.location, 
@@ -33,9 +33,9 @@ class SearchDoctor {
 		this.favoriteStatus, 
 	});
 
-	factory SearchDoctor.fromJson(Map<String, dynamic> json) {
-		return _$SearchDoctorFromJson(json);
+	factory AllDoctor.fromJson(Map<String, dynamic> json) {
+		return _$AllDoctorFromJson(json);
 	}
 
-	Map<String, dynamic> toJson() => _$SearchDoctorToJson(this);
+	Map<String, dynamic> toJson() => _$AllDoctorToJson(this);
 }

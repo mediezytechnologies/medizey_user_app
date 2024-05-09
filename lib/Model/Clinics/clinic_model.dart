@@ -11,6 +11,8 @@ class Clinics {
   int? availableTokenCount;
   String? nextAvailableTokenTime;
   String? nextDateAvailableTokenTime;
+  String? distanceFromClinic;
+  int? consultationFee;
 
   Clinics(
       {this.clinicId,
@@ -24,7 +26,9 @@ class Clinics {
       this.totalTokenCount,
       this.availableTokenCount,
       this.nextAvailableTokenTime,
-      this.nextDateAvailableTokenTime});
+      this.nextDateAvailableTokenTime,
+      this.distanceFromClinic,
+      this.consultationFee});
 
   Clinics.fromJson(Map<String, dynamic> json) {
     clinicId = json['clinic_id'];
@@ -39,6 +43,8 @@ class Clinics {
     availableTokenCount = json['available_token_count'];
     nextAvailableTokenTime = json['next_available_token_time'];
     nextDateAvailableTokenTime = json['next_date_available_token_time'];
+    distanceFromClinic = json['distance_from_clinic'];
+    consultationFee = json['consultation_fee'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +61,8 @@ class Clinics {
     data['available_token_count'] = availableTokenCount;
     data['next_available_token_time'] = nextAvailableTokenTime;
     data['next_date_available_token_time'] = nextDateAvailableTokenTime;
+    data['distance_from_clinic'] = distanceFromClinic;
+    data['consultation_fee'] = consultationFee;
     return data;
   }
 }

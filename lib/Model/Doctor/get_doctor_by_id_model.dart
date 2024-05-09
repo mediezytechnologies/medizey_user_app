@@ -1,4 +1,4 @@
-import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
+import '../Clinics/clinic_model.dart';
 
 class GetDoctorByIdModel {
   bool? success;
@@ -37,7 +37,6 @@ class GetDoctorByIdModel {
 class DoctorDetails {
   int? id;
   String? mediezyDoctorId;
-  String? distanceFromUser;
   int? userId;
   String? firstname;
   String? secondname;
@@ -58,7 +57,6 @@ class DoctorDetails {
   DoctorDetails(
       {this.id,
       this.mediezyDoctorId,
-      this.distanceFromUser,
       this.userId,
       this.firstname,
       this.secondname,
@@ -79,7 +77,6 @@ class DoctorDetails {
   DoctorDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     mediezyDoctorId = json['mediezy_doctor_id'];
-    distanceFromUser = json['distance_from_user'];
     userId = json['UserId'];
     firstname = json['firstname'];
     secondname = json['secondname'];
@@ -107,7 +104,6 @@ class DoctorDetails {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['mediezy_doctor_id'] = mediezyDoctorId;
-    data['distance_from_user'] = distanceFromUser;
     data['UserId'] = userId;
     data['firstname'] = firstname;
     data['secondname'] = secondname;
@@ -129,5 +125,4 @@ class DoctorDetails {
     return data;
   }
 }
-
 

@@ -91,7 +91,6 @@ class _HomeRecentlyBookedDoctorWidgetState
                             ),
                           ),
                         ),
-                        userAwayFrom: doctor.distanceFromUser.toString(),
                         clinicList: doctor.clinics!.toList(),
                         doctorId: doctor.userId.toString(),
                         firstName: doctor.firstname.toString(),

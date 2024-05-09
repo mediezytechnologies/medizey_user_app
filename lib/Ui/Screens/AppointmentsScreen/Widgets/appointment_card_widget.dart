@@ -527,7 +527,6 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   ),
                 )
               : Container(),
-          const VerticalSpacingWidget(height: 3),
         ],
       ),
     );

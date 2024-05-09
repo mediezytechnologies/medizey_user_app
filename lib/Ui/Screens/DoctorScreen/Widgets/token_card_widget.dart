@@ -24,6 +24,7 @@ class TokenCardWidget extends StatefulWidget {
       required this.estimatedTime,
       required this.isReserved,
       required this.tokenId,
+      required this.consultationFee,
       this.patientId,
       this.resheduleType,
       this.normalResheduleTokenId});
@@ -44,6 +45,7 @@ class TokenCardWidget extends StatefulWidget {
   final String estimatedTime;
   final String isReserved;
   final String tokenId;
+  final String consultationFee;
   String? patientId;
   String? resheduleType;
   String? normalResheduleTokenId;
@@ -65,6 +67,7 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => AppointmentDoneScreen(
+                    consultationFee: widget.consultationFee,
                     tokenId: widget.tokenId,
                     bookingDate: widget.date,
                     bookingTime: widget.formatedTime,

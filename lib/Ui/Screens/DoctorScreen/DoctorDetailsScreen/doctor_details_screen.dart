@@ -19,7 +19,6 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets/doctor_details_first_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets/doctor_details_second_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets/doctor_details_third_widget.dart';
-
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
@@ -144,9 +143,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                       mainHospital: getDoctorByIdModel
                                           .doctorDetails!.first.mainHospital
                                           .toString(),
-                                      distanceFromUser: getDoctorByIdModel
-                                          .doctorDetails!.first.distanceFromUser
-                                          .toString(),
                                       doctorId: widget.doctorId,
                                       favouriteStatus: getDoctorByIdModel
                                           .doctorDetails!
@@ -178,6 +174,20 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                 const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               return DoctorDetailsThirdWidget(
+                                                consultationFee:
+                                                    getDoctorByIdModel
+                                                        .doctorDetails!
+                                                        .first
+                                                        .clinics![index]
+                                                        .consultationFee
+                                                        .toString(),
+                                                distanceFromUser:
+                                                    getDoctorByIdModel
+                                                        .doctorDetails!
+                                                        .first
+                                                        .clinics![index]
+                                                        .distanceFromClinic
+                                                        .toString(),
                                                 clinicName: getDoctorByIdModel
                                                     .doctorDetails!
                                                     .first

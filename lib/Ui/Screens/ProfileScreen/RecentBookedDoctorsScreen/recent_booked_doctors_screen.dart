@@ -109,9 +109,11 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                 onTap: () {
                                   setState(() {
                                     BlocProvider.of<GetFavDoctorBloc>(context)
-                                        .add(const GetFavDoctorEvent.started(false));
+                                        .add(const GetFavDoctorEvent.started(
+                                            false));
                                     BlocProvider.of<GetDoctersBloc>(context)
-                                        .add(const GetDoctersEvent.started(false));
+                                        .add(const GetDoctersEvent.started(
+                                            false));
                                     BlocProvider.of<
                                                 GetRecentlyBookedDoctorBloc>(
                                             context)
@@ -137,7 +139,6 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                   ),
                                 ),
                               ),
-                              userAwayFrom: doctor.distanceFromUser.toString(),
                               clinicList: doctor.clinics!.toList(),
                               doctorId: doctor.userId.toString(),
                               firstName: doctor.firstname.toString(),

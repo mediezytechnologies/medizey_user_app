@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +24,6 @@ class DoctorCardWidget extends StatelessWidget {
       required this.specialisation,
       required this.location,
       required this.clinicList,
-      required this.userAwayFrom,
       this.patientId,
       required this.favourites,
       this.resheduleType,
@@ -41,7 +37,6 @@ class DoctorCardWidget extends StatelessWidget {
   final String specialisation;
   final String location;
   final List<Clinics> clinicList;
-  final String userAwayFrom;
   String? patientId;
   final Widget favourites;
   String? resheduleType;
@@ -121,54 +116,6 @@ class DoctorCardWidget extends StatelessWidget {
                           Text(location, style: black11B500),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                IconlyLight.location,
-                                size: 14.sp,
-                              ),
-                              SizedBox(
-                                width: 3.w,
-                              ),
-                              SizedBox(
-                                width: size.width * 0.38,
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: userAwayFrom,
-                                    style: black11B500,
-                                    children: [
-                                      TextSpan(
-                                          text: ' away',
-                                          style: TextStyle(
-                                              color: kSubTextColor,
-                                              fontWeight: FontWeight.normal),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {})
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: () => MapsLauncher.launchQuery(
-                                'Welcare Hospital, Sahodaran Ayyappan Road, Vyttila'),
-                            child: Wrap(
-                              children: [
-                                Text('Get Location', style: grey11B400),
-                                Icon(
-                                  CupertinoIcons.map_pin,
-                                  color: kSecondaryColor,
-                                  size: 14.sp,
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ],
@@ -198,8 +145,8 @@ class DoctorCardWidget extends StatelessWidget {
                                     Image(
                                       image: const AssetImage(
                                           "assets/icons/clinic_icon.png"),
-                                      height: size.height * .02,
-                                      width: size.width * .02,
+                                      height: size.height * .06,
+                                      width: size.width * .06,
                                       color: kTextColor,
                                     ),
                                     const HorizontalSpacingWidget(width: 10),
@@ -220,6 +167,45 @@ class DoctorCardWidget extends StatelessWidget {
                                                 style: green12B500),
                                           ],
                                         ),
+                                        Row(
+                                          children: [
+                                            clinicList[index]
+                                                        .distanceFromClinic ==
+                                                    null
+                                                ? const SizedBox()
+                                                : Row(
+                                                    children: [
+                                                      Text(
+                                                          "${clinicList[index].distanceFromClinic.toString()} away",
+                                                          style: black12B500),
+                                                      const HorizontalSpacingWidget(
+                                                          width: 80),
+                                                    ],
+                                                  ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                MapsLauncher.launchQuery(
+                                                  clinicList[index]
+                                                      .clinicAddress
+                                                      .toString(),
+                                                );
+                                              },
+                                              child: Wrap(
+                                                children: [
+                                                  Text('Get Location',
+                                                      style: grey11B400),
+                                                  const HorizontalSpacingWidget(
+                                                      width: 5),
+                                                  Icon(
+                                                    IconlyLight.location,
+                                                    color: kSecondaryColor,
+                                                    size: 14.sp,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -230,8 +216,8 @@ class DoctorCardWidget extends StatelessWidget {
                               Image(
                                 image: const AssetImage(
                                     "assets/icons/clinic_icon.png"),
-                                height: size.height * .02,
-                                width: size.width * .02,
+                                height: size.height * .06,
+                                width: size.width * .06,
                                 color: kTextColor,
                               ),
                               const HorizontalSpacingWidget(width: 10),
@@ -262,6 +248,44 @@ class DoctorCardWidget extends StatelessWidget {
                                       Text(
                                           "${clinicList[index].nextAvailableTokenTime.toString()} Today",
                                           style: black12B500),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      clinicList[index].distanceFromClinic ==
+                                              null
+                                          ? const SizedBox()
+                                          : Row(
+                                              children: [
+                                                Text(
+                                                    "${clinicList[index].distanceFromClinic.toString()} away",
+                                                    style: black12B500),
+                                                const HorizontalSpacingWidget(
+                                                    width: 80),
+                                              ],
+                                            ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          MapsLauncher.launchQuery(
+                                            clinicList[index]
+                                                .clinicAddress
+                                                .toString(),
+                                          );
+                                        },
+                                        child: Wrap(
+                                          children: [
+                                            Text('Get Location',
+                                                style: grey11B400),
+                                            const HorizontalSpacingWidget(
+                                                width: 5),
+                                            Icon(
+                                              IconlyLight.location,
+                                              color: kSecondaryColor,
+                                              size: 14.sp,
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],

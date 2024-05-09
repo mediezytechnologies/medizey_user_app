@@ -45,6 +45,7 @@ class AppointmentDoneScreen extends StatefulWidget {
       required this.sheduleType,
       required this.estimatedTime,
       required this.tokenId,
+      required this.consultationFee,
       this.patientId,
       this.resheduleType,
       this.normalResheduleTokenId});
@@ -62,6 +63,7 @@ class AppointmentDoneScreen extends StatefulWidget {
   final String sheduleType;
   final String estimatedTime;
   final String tokenId;
+  final String consultationFee;
   String? patientId;
   String? resheduleType;
   String? normalResheduleTokenId;
@@ -1520,6 +1522,15 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                       ],
                                     )
                                   : const SizedBox(),
+                              const VerticalSpacingWidget(height: 5),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Consultation fee", style: grey13B400),
+                                  Text("₹ ${widget.consultationFee}", style: black14B500),
+                                ],
+                              ),
                               const VerticalSpacingWidget(height: 20),
                               CommonButtonWidget(
                                 title: "Book Now",

@@ -23,10 +23,10 @@ import '../../../application/user_location/user_location_bloc.dart' as _i29;
 import '../../../infrastructure/add_member/add_member_impl.dart' as _i6;
 import '../../../infrastructure/add_member_image/add_member_image_impl.dart'
     as _i4;
-import '../../../infrastructure/docters_service/docters_service.dart' as _i13;
 import '../../../infrastructure/edit_member/edit_member_impl.dart' as _i11;
 import '../../../infrastructure/edit_member_image/edit_member_image_impl.dart'
     as _i9;
+import '../../../infrastructure/get_doctor/docters_service.dart' as _i13;
 import '../../../infrastructure/get_fav_docters_service/get_fav_docters_service.dart'
     as _i15;
 import '../../../infrastructure/get_recently_booked_doctors/get_recently_doctor_repo_impl.dart'
@@ -36,9 +36,9 @@ import '../../../infrastructure/search_doctor/search_doctor_repo_impl.dart'
 import '../../../infrastructure/user_location/user_location_impl.dart' as _i22;
 import '../../add_member/add_member_service.dart' as _i5;
 import '../../add_member_image/add_image_impl.dart' as _i3;
-import '../../docters_model/docters_impl.dart' as _i12;
 import '../../edit_member/edit_member_service.dart' as _i10;
 import '../../edit_member_image/edit_member_image_service.dart' as _i8;
+import '../../get_doctors/docters_impl.dart' as _i12;
 import '../../get_fav_model/get_fav_impl.dart' as _i14;
 import '../../get_recently_booked_doctors/get_recently_booked_doctors_repository.dart'
     as _i17;

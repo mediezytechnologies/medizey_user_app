@@ -159,7 +159,6 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                 itemCount: state.model.length,
                                 itemBuilder: (context, index) {
                                   return DoctorFavouriteCardWidget(
-                                    userAwayFrom: "2.2",
                                     clinicList:
                                         state.model[index].clinics!.toList(),
                                     doctorId:
@@ -187,8 +186,9 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                                   .started(false));
                                           BlocProvider.of<GetDoctersBloc>(
                                                   context)
-                                              .add(const GetDoctersEvent
-                                                  .started(false));
+                                              .add(
+                                                  const GetDoctersEvent.started(
+                                                      false));
                                           BlocProvider.of<AddFavouritesBloc>(
                                                   context)
                                               .add(

@@ -4,11 +4,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mediezy_user/ddd/domain/docters_model/model/get_docters_model.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../domain/docters_model/docters_impl.dart';
-import '../../domain/docters_model/model/all_doctor.dart';
+import '../../domain/get_doctors/docters_impl.dart';
+import '../../domain/get_doctors/model/all_doctor.dart';
+import '../../domain/get_doctors/model/get_doctor_model.dart';
 import '../core/api_end_pont.dart';
 
 @LazySingleton(as: GetDoctersRepo)
@@ -29,7 +29,7 @@ class GetDoctorsImpl implements GetDoctersRepo {
       );
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final result = GetDoctersModel.fromJson(response.data);
+        final result = GetDoctorModel.fromJson(response.data);
 
         log("result service : $result");
         log("result service  response : ${response.data}");
