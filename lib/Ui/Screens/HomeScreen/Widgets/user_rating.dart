@@ -11,6 +11,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 import '../../../../ddd/application/rating_item/rating_item_bloc.dart';
+import '../../../../ddd/application/rating_ui/rating_ui_bloc.dart';
 import '../../../CommonWidgets/common_button_widget.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
@@ -28,7 +29,7 @@ class _UserRatingState extends State<UserRating> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("data"),
+        title: const Text("data"),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
@@ -51,7 +52,7 @@ class _UserRatingState extends State<UserRating> {
                 size: 50.sp,
                 color: kstarColor,
               ),
-              BlocBuilder<RatingItemBloc, RatingItemState>(
+              BlocBuilder<RatingUiBloc, RatingUiState>(
                 builder: (context, state) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -72,30 +73,30 @@ class _UserRatingState extends State<UserRating> {
                           onRatingUpdate: (rating) {
                             log("rating ui bulidre :  ${state.ratingValue}");
                             if (rating == 0.5 || rating == 1) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged(
+                              BlocProvider.of<RatingUiBloc>(context).add(
+                                  const RatingUiEvent.ratingTextChanged(
                                       "TERRIBLE"));
                               log("rating ui ${state.ratingTest}");
                             } else if (rating == 1.5 || rating == 2) {
-                              BlocProvider.of<RatingItemBloc>(context)
-                                  .add(RatingItemEvent.ratingTextChanged("OK"));
+                              BlocProvider.of<RatingUiBloc>(context)
+                                  .add(const RatingUiEvent.ratingTextChanged("OK"));
                               log("rating ui ${state.ratingTest}");
                             } else if (rating == 2.5 || rating == 3) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged("BETTER"));
+                              BlocProvider.of<RatingUiBloc>(context).add(
+                                  const RatingUiEvent.ratingTextChanged("BETTER"));
                               log("rating ui ${state.ratingTest}");
                             } else if (rating == 3.5 || rating == 4) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged("BEST"));
+                              BlocProvider.of<RatingUiBloc>(context).add(
+                                  const RatingUiEvent.ratingTextChanged("BEST"));
                               log("rating ui ${state.ratingTest}");
                             } else if (rating == 4.5 || rating == 5) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged(
+                              BlocProvider.of<RatingUiBloc>(context).add(
+                                  const RatingUiEvent.ratingTextChanged(
                                       "EXCELLENT"));
                               log("rating ui ${state.ratingTest}");
                             }
-                            BlocProvider.of<RatingItemBloc>(context)
-                                .add(RatingItemEvent.ratingChanged(rating));
+                            BlocProvider.of<RatingUiBloc>(context)
+                                .add(RatingUiEvent.ratingChanged(rating));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -140,12 +141,13 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
   String? rText = '';
   @override
   void initState() {
-    // BlocProvider.of<RatingItemBloc>(context)
-    //     .add(RatingItemEvent.ratingChanged(widget.initalValue));
+    // BlocProvider.of<RatingUiBloc>(context)
+    //     .add(RatingUiEvent.ratingChanged(widget.initalValue));
     rText = widget.ratingText;
     super.initState();
   }
-double? value ;
+
+  double? value;
 
   int? selactedIndex;
   int? likeIndex;
@@ -194,75 +196,25 @@ double? value ;
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
+        //leading: IconButton(onPressed: () {
 
-          BlocProvider.of<RatingItemBloc>(context)
-    .add(RatingItemEvent.ratingChanged(value!));
-    log("val : $value");
-    Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back)),
+        //       BlocProvider.of<RatingUiBloc>(context)
+        // .add(RatingUiEvent.ratingChanged(value!));
+        // log("val : $value");
+        // Navigator.pop(context);
+        //    }, icon: Icon(Icons.arrow_back)),
         title: const Text("Dr Arun kumar"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child:  BlocBuilder<RatingItemBloc, RatingItemState>(
+        child: BlocBuilder<RatingUiBloc, RatingUiState>(
           builder: (context, state) {
             return Column(
               children: [
-                RatingBar.builder(
-                  itemSize: 27.r,
-                  initialRating: state.ratingValue,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    value=rating;
-                    log(rating.toString());
-                    log("rating ui bulidre :  ${state.ratingValue}");
-                            if (rating == 0.5 || rating == 1) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged(
-                                      "TERRIBLE"));
-                              log("rating ui ${state.ratingTest}");
-                            } else if (rating == 1.5 || rating == 2) {
-                              BlocProvider.of<RatingItemBloc>(context)
-                                  .add(RatingItemEvent.ratingTextChanged("OK"));
-                              log("rating ui ${state.ratingTest}");
-                            } else if (rating == 2.5 || rating == 3) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged("BETTER"));
-                              log("rating ui ${state.ratingTest}");
-                            } else if (rating == 3.5 || rating == 4) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged("BEST"));
-                              log("rating ui ${state.ratingTest}");
-                            } else if (rating == 4.5 || rating == 5) {
-                              BlocProvider.of<RatingItemBloc>(context).add(
-                                  RatingItemEvent.ratingTextChanged(
-                                      "EXCELLENT"));
-                              log("rating ui ${state.ratingTest}");
-                            }
-                            BlocProvider.of<RatingItemBloc>(context)
-                                .add(RatingItemEvent.ratingChanged(rating));
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RatingFormScreen(
-                                    initalValue: state.ratingValue,
-                                    ratingText: state.ratingTest,
-                                  ),
-                                ));
-                          }
-                ),
+                starRating(state, context),
                 const VerticalSpacingWidget(height: 5),
                 Text(
-                  rText!,
+                  state.ratingTest,
                   style: black14B600,
                 ),
                 const VerticalSpacingWidget(height: 5),
@@ -270,7 +222,7 @@ double? value ;
                   thickness: 2,
                 ),
                 const VerticalSpacingWidget(height: 5),
-                reson(size),
+                reson(size,state, context),
                 const VerticalSpacingWidget(height: 10),
                 const Divider(
                   thickness: 2,
@@ -296,9 +248,61 @@ double? value ;
     );
   }
 
+  RatingBar starRating(RatingUiState state, BuildContext context) {
+    return RatingBar.builder(
+                  itemSize: 27.r,
+                  initialRating: state.ratingValue,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                  onRatingUpdate: (rating) {
+                    value = rating;
+                    log(rating.toString());
+                    log("rating ui bulidre :  ${state.ratingValue}");
+
+                    if (rating == 0.5 || rating == 1) {
+                      BlocProvider.of<RatingUiBloc>(context)
+                          .add(const RatingUiEvent.ratingTextChanged("TERRIBLE"));
+                      log("rating ui ${state.ratingTest}");
+                    } else if (rating == 1.5 || rating == 2) {
+                      BlocProvider.of<RatingUiBloc>(context)
+                          .add(const RatingUiEvent.ratingTextChanged("OK"));
+                      log("rating ui ${state.ratingTest}");
+                    } else if (rating == 2.5 || rating == 3) {
+                      BlocProvider.of<RatingUiBloc>(context)
+                          .add(const RatingUiEvent.ratingTextChanged("BETTER"));
+                      log("rating ui ${state.ratingTest}");
+                    } else if (rating == 3.5 || rating == 4) {
+                      BlocProvider.of<RatingUiBloc>(context)
+                          .add(const RatingUiEvent.ratingTextChanged("BEST"));
+                      log("rating ui ${state.ratingTest}");
+                    } else if (rating == 4.5 || rating == 5) {
+                      BlocProvider.of<RatingUiBloc>(context).add(
+                          const RatingUiEvent.ratingTextChanged("EXCELLENT"));
+                      log("rating ui ${state.ratingTest}");
+                    }
+                    BlocProvider.of<RatingUiBloc>(context)
+                        .add(RatingUiEvent.ratingChanged(rating));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => RatingFormScreen(
+                    //         initalValue: state.ratingValue,
+                    //         ratingText: state.ratingTest,
+                    //       ),
+                    //     ));
+                  });
+  }
+
 //radio=================================
 
-  Padding radioButtonWidget(Size size) {
+  Padding radioButtonWidget(Size size,) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
       child: Column(
@@ -403,7 +407,7 @@ double? value ;
   }
 
 //reson=================================
-  Column reson(Size size) {
+  Column reson(Size size,RatingUiState state, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,19 +426,21 @@ double? value ;
             8,
             (index) => GestureDetector(
               onTap: () {
-                changeIndex(index);
+                 BlocProvider.of<RatingUiBloc>(context)
+                          .add( RatingUiEvent.ratingResonChanged(index));
+               // changeIndex(index);
               },
               child: Container(
                 height: size.height * 0.06,
                 width: size.width * 0.47,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.r),
-                    color: selactedIndex == index ? kMainColor : kCardColor,
+                    color: state.resonIndex == index ? kMainColor : kCardColor,
                     border: Border.all(color: kBorderColor)),
                 child: Center(
                     child: Text(
                   textReson[index],
-                  style: selactedIndex == index ? white14B500 : black14B500,
+                  style: state.resonIndex == index ? white14B500 : black14B500,
                 )),
               ),
             ),

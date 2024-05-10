@@ -64,7 +64,7 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
 import '../../ddd/application/add_members/add_members_bloc.dart';
 import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
-import '../../ddd/application/rating_item/rating_item_bloc.dart';
+import '../../ddd/application/rating_ui/rating_ui_bloc.dart';
 import '../../ddd/application/search_doctor/search_doctor_bloc.dart';
 
 class AppBlocProviders {
@@ -154,6 +154,6 @@ class AppBlocProviders {
         BlocProvider(
           create: (context) => getIt<SearchDoctorBloc>(),
         ),
-             BlocProvider(create: (context) => RatingItemBloc()),
+             BlocProvider(create: (context) => RatingUiBloc()),
       ];
 }
