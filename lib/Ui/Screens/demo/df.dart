@@ -1,149 +1,153 @@
-import 'dart:async';
+import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_bloc.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
-import '../../../Repository/Bloc/Article/article_bloc.dart';
-import '../../../Repository/Bloc/banner/banner_bloc.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mediezy_user/Ui/Screens/demo/l.dart';
+import 'package:mediezy_user/Ui/Screens/demo/locaton.dart';
 
-class ScrollScreenDemo extends StatefulWidget {
-  const ScrollScreenDemo({super.key});
+
+
+
+
+class ScreenOne extends StatefulWidget {
+  const ScreenOne({Key? key}) : super(key: key);
 
   @override
-  State<ScrollScreenDemo> createState() => _ScrollScreenDemoState();
+  State<ScreenOne> createState() => _ScreenOneState();
 }
 
-class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
-  late ScrollController _scrollViewController;
-  bool _showAppbar = true;
-  bool isScrollingDown = false;
+class _ScreenOneState extends State<ScreenOne> {
+  final _dateC = TextEditingController();
+  final _timeC = TextEditingController();
 
-//  final TextEditingController suggestionController = TextEditingController();
-  late Timer pollingTimer;
-  bool isLoading = true;
+  ///Date
+  DateTime selected = DateTime.now();
+  DateTime initial = DateTime(2000);
+  DateTime last = DateTime(2025);
 
-  @override
-  void initState() {
-    _scrollViewController = ScrollController();
-    _scrollViewController.addListener(() {
-      if (_scrollViewController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        if (!isScrollingDown) {
-          isScrollingDown = true;
-          _showAppbar = false;
-          setState(() {});
-        }
-      }
-
-      if (_scrollViewController.position.userScrollDirection ==
-          ScrollDirection.forward) {
-        if (isScrollingDown) {
-          isScrollingDown = false;
-          _showAppbar = true;
-          setState(() {});
-        }
-      }
-    });
-    super.initState();
-    BlocProvider.of<GetDoctorBloc>(context).add(FetchGetDoctor());
-    BlocProvider.of<GetUpcomingAppointmentBloc>(context)
-        .add(FetchUpComingAppointments());
-    BlocProvider.of<GetHospitalBloc>(context).add((FetchAllHospitals()));
-    BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
-    BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
-        startPolling();
-  }
-
-  void startPolling() async {
-    pollingTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
-      BlocProvider.of<GetUpcomingAppointmentBloc>(context)
-          .add(FetchUpComingAppointments());
-    });
-  }
-
-  void stopPolling() {
-    pollingTimer.cancel();
-  }
-
-  @override
-  void dispose() {
-    stopPolling();
-    _scrollViewController.dispose();
-    _scrollViewController.removeListener(() {});
-    super.dispose();
-  }
+  ///Time
+  TimeOfDay timeOfDay = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          AnimatedContainer(
-              height: _showAppbar ? 56.0 : 0.0,
-              duration: const Duration(milliseconds: 200),
-              child: AppBar(
-                backgroundColor: Colors.amber,
-                title: const Text("Demo Scrolling "),
-                centerTitle: true,
-                leading: const Icon(Icons.star),
-              )),
-          Expanded(
-            child: SingleChildScrollView(
-              controller: _scrollViewController,
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    color: kSubScaffoldColor,
-                    child: Column(
-                      children: [
-                        const VerticalSpacingWidget(height: 5),
-                        const UpcommingAppoiment(),
-                        const VerticalSpacingWidget(height: 5),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.01),
-                          child: const GetDoctorWidget(),
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                        const GetFavouriteDoctorWidget(),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    color: const Color.fromARGB(255, 33, 96, 243),
-                    height: 300,
-                    width: double.infinity,
-                  ),
-                  Container(
-                    color: const Color.fromARGB(255, 33, 243, 212),
-                    height: 300,
-                    width: double.infinity,
-                  ),
-                  Container(
-                    color: const Color.fromARGB(255, 68, 243, 33),
-                    height: 300,
-                    width: double.infinity,
-                  ),
-                  Container(
-                    color: const Color.fromARGB(255, 91, 79, 25),
-                    height: 300,
-                    width: double.infinity,
-                  ),
-                ],
-              ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Pickers"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: buildUI(context),
+      ),
+    );
+  }
+
+  Widget buildUI(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      children: [
+         _customBackgroundExample(),
+            const SizedBox(
+              height: 32.0,
+            ),
+              const SizedBox(height: 20),
+            DatePickerDemoClass(
+              height: 150,
+              width: 80,
+        DateTime.now(),
+        initialSelectedDate: DateTime.now(),
+        selectionColor: Colors.black,
+        selectedTextColor: Colors.white,
+        
+
+        onDateChange: (date) {
+          // New date selected
+          setState(() {
+          selected = date;
+          });
+        },
+      ),
+        const SizedBox(height: 20),
+        Text(selected.toString()),
+         const SizedBox(height: 20),
+        TextFormField(
+          controller: _timeC,
+          decoration: const InputDecoration(
+              labelText: 'Time picker', border: OutlineInputBorder()),
+        ),
+         const SizedBox(
+              height: 32.0,
+            ),
+         TextFormField(
+          controller: _dateC,
+          decoration: const InputDecoration(
+              labelText: 'Time picker', border: OutlineInputBorder()),
+        ),
+         const SizedBox(
+              height: 32.0,
+            ),
+        ElevatedButton(
+            onPressed: () => displayDatePicker(context),
+            child: const Text("Pick Date")),
+             const SizedBox(
+              height: 32.0,
+            ),
+        ElevatedButton(onPressed: () => displayTimePicker(context), child: const Text("Pick Time")),
+      ],
+    );
+  }
+
+  Future displayDatePicker(BuildContext context) async {
+    var date = await showDatePickerDemo(
+      context: context,
+      initialDate: selected,
+      firstDate: initial,
+      lastDate: last,
+    );
+
+    if (date != null) {
+      setState(() {
+        _dateC.text = date.toLocal().toString().split(" ")[0];
+      });
+    }
+  }
+
+  Future displayTimePicker(BuildContext context) async {
+    var time = await showTimePicker(
+        context: context,
+        initialTime: timeOfDay);
+
+    if (time != null) {
+      setState(() {
+        _timeC.text = "${time.hour}:${time.minute}";
+      });
+    }
+  }
+   EasyDateTimeLine _customBackgroundExample() {
+    return EasyDateTimeLine(
+      initialDate: DateTime.now(),
+      onDateChange: (selectedDate) {
+        //`selectedDate` the new date selected.
+      },
+      headerProps: const EasyHeaderProps(
+        monthPickerType: MonthPickerType.switcher,
+        dateFormatter: DateFormatter.fullDateDMY(),
+      ),
+      dayProps: const EasyDayProps(
+        dayStructure: DayStructure.dayStrDayNum,
+        activeDayStyle: DayStyle(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff3371FF),
+                Color(0xff8426D6),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

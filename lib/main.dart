@@ -14,6 +14,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
 import 'Ui/Screens/HomeScreen/Widgets/user_rating.dart';
+import 'Ui/Screens/demo/df.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,8 +80,8 @@ class _MediezyState extends State<Mediezy> {
           theme: appThemeStyle(context),
           home:
           
-          //UserRating()
-       hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+        ScreenOne()
+    //   hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );
