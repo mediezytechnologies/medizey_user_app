@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Profile/get_user_model.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
-import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,41 +46,31 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
         ),
         Positioned(
           left: width * .045.w,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
-                ),
-              );
-            },
-            child: Column(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'Hi,',
-                    style: TextStyle(
-                      fontSize: 17.sp,
-                      color: kWhiteColor,
-                    ),
-                    children: [
-                      TextSpan(
-                          text: ' $userName',
-                          style: TextStyle(
-                              fontSize: 17.sp,
-                              color: kWhiteColor,
-                              fontWeight: FontWeight.bold),
-                          recognizer: TapGestureRecognizer()..onTap = () {})
-                    ],
+          child: Column(
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: 'Hi,',
+                  style: TextStyle(
+                    fontSize: 17.sp,
+                    color: kWhiteColor,
                   ),
-                )
-              ],
-            ),
+                  children: [
+                    TextSpan(
+                        text: ' $userName',
+                        style: TextStyle(
+                            fontSize: 17.sp,
+                            color: kWhiteColor,
+                            fontWeight: FontWeight.bold),
+                        recognizer: TapGestureRecognizer()..onTap = () {})
+                  ],
+                ),
+              )
+            ],
           ),
         ),
         Positioned(
-          top: height * .039,
+          top: height * .030,
           left: width * .045,
           child: Text(
             "Your one stop solution for\nQuick and easy consultation",
@@ -93,7 +82,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
           ),
         ),
         Positioned(
-          top: height * .100,
+          top: height * .090,
           left: width * .045.w,
           child: InkWell(
             onTap: () {

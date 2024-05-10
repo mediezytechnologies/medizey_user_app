@@ -15,7 +15,6 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/cinic_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/token_card_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-
 import '../../../CommonWidgets/text_style_widget.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
@@ -50,7 +49,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   String selectedClinicAddress = "";
   String selectedClinicLocation = "";
   String selectedClinicConsutationFee = "";
-
   bool isClicked = false;
   late StreamSubscription<ConnectivityResult> subscription;
   void handleConnectivityChange(ConnectivityResult result) {
@@ -93,6 +91,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+   
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(

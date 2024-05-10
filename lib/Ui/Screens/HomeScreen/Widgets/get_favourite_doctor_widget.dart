@@ -53,7 +53,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                   ),
                   const VerticalSpacingWidget(height: 5),
                   LimitedBox(
-                    maxHeight: size.height * .289,
+                    maxHeight: size.height * .292,
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,

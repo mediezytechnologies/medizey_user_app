@@ -201,6 +201,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => BookingConfirmationScreen(
+                          consultationFee: widget.consultationFee,
                           age: patientAge == null
                               ? patientAgeController.text
                               : patientDisplayAge.toString(),
@@ -1528,7 +1529,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text("Consultation fee", style: grey13B400),
-                                  Text("₹ ${widget.consultationFee}", style: black14B500),
+                                  Text("₹ ${widget.consultationFee}",
+                                      style: black14B500),
                                 ],
                               ),
                               const VerticalSpacingWidget(height: 20),

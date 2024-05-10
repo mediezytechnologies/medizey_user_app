@@ -25,6 +25,7 @@ class BookingConfirmationScreen extends StatefulWidget {
       required this.clinicName,
       required this.location,
       required this.address,
+      required this.consultationFee,
       required this.estimatedTime});
 
   final String name;
@@ -40,6 +41,7 @@ class BookingConfirmationScreen extends StatefulWidget {
   final String location;
   final String address;
   final String estimatedTime;
+  final String consultationFee;
 
   @override
   State<BookingConfirmationScreen> createState() =>
@@ -165,11 +167,14 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                   style: black14B600),
               const VerticalSpacingWidget(height: 2),
               Text("Clinic Name", style: grey12B500),
+              const VerticalSpacingWidget(height: 2),
               Text(widget.clinicName, style: black14B600),
+              Text("Consultation fee : ", style: grey12B500),
+              Text(widget.consultationFee, style: black14B600),
               const VerticalSpacingWidget(height: 2),
               Text("Location", style: grey12B500),
               Text("${widget.address}, ${widget.location}", style: black14B600),
-              const VerticalSpacingWidget(height: 20),
+              const VerticalSpacingWidget(height: 10),
               CommonButtonWidget(
                   title: "Done",
                   onTapFunction: () {

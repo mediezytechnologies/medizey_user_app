@@ -112,13 +112,13 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
                             border: Border.all(width: 1.5.w, color: kMainColor),
                           ),
                           height: size.height * 0.04,
-                          width: size.width * .44,
+                          width: size.width * .45,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                   state.favouriteStatusMap[doctorId] == false
-                                      ? "Remove favourite"
+                                      ? "Remove from favourite"
                                       : "Add to favourite",
                                   style: main12B600),
                               const HorizontalSpacingWidget(width: 5),

@@ -4,11 +4,11 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 //* black
 
-final black16B600 = TextStyle(
-          fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
+final black16B600 =
+    TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
 
-final black15B600 = TextStyle(
-          fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
+final black15B600 =
+    TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
 final black14B600 =
     TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: kTextColor);
 
@@ -18,7 +18,7 @@ final black14B500 =
 final black12B500 =
     TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: kTextColor);
 
-    final black12B600 =
+final black12B600 =
     TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: kTextColor);
 
 final black13B500 =
@@ -125,3 +125,6 @@ final main13B600 =
 
 final main12B700 =
     TextStyle(color: kMainColor, fontWeight: FontWeight.w700, fontSize: 12.sp);
+
+final main4B500 =
+    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: kMainColor);

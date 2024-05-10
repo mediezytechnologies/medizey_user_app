@@ -31,6 +31,9 @@ class AppointmentDetails {
   String? tokenStartTime;
   String? symptomStartTime;
   String? symptomFrequency;
+  String? checkInTime;
+  String? checkoutTime;
+  int? feedbackStatus;
   String? prescriptionImage;
   String? scheduleType;
   String? notes;
@@ -39,7 +42,7 @@ class AppointmentDetails {
   int? patientAge;
   int? patientId;
   int? patientUserId;
- 
+  
   String? doctorImage;
   String? doctorName;
   String? clinicName;
@@ -51,7 +54,7 @@ class AppointmentDetails {
   String? mediezyPatientId;
  
   List<Vitals>? vitals;
-  
+
   List<DoctorMedicines>? doctorMedicines;
   MainSymptoms? mainSymptoms;
   List<OtherSymptoms>? otherSymptoms;
@@ -62,6 +65,9 @@ class AppointmentDetails {
       this.tokenStartTime,
       this.symptomStartTime,
       this.symptomFrequency,
+      this.checkInTime,
+      this.checkoutTime,
+      this.feedbackStatus,
       this.prescriptionImage,
       this.scheduleType,
       this.notes,
@@ -70,7 +76,7 @@ class AppointmentDetails {
       this.patientAge,
       this.patientId,
       this.patientUserId,
-    
+     
       this.doctorImage,
       this.doctorName,
       this.clinicName,
@@ -78,11 +84,11 @@ class AppointmentDetails {
       this.labTest,
       this.scanName,
       this.scanTest,
-   
+     
       this.mediezyPatientId,
-  
+     
       this.vitals,
-   
+     
       this.doctorMedicines,
       this.mainSymptoms,
       this.otherSymptoms});
@@ -93,6 +99,9 @@ class AppointmentDetails {
     tokenStartTime = json['token_start_time'];
     symptomStartTime = json['symptom_start_time'];
     symptomFrequency = json['symptom_frequency'];
+    checkInTime = json['check_in_time'];
+    checkoutTime = json['checkout_time'];
+    feedbackStatus = json['feedback_status'];
     prescriptionImage = json['prescription_image'];
     scheduleType = json['schedule_type'];
     notes = json['notes'];
@@ -101,7 +110,7 @@ class AppointmentDetails {
     patientAge = json['patient_age'];
     patientId = json['patient_id'];
     patientUserId = json['patient_user_id'];
- 
+   
     doctorImage = json['doctor_image'];
     doctorName = json['doctor_name'];
     clinicName = json['clinic_name'];
@@ -111,14 +120,14 @@ class AppointmentDetails {
     scanTest = json['scan_test'];
   
     mediezyPatientId = json['mediezy_patient_id'];
-   
+    
     if (json['vitals'] != null) {
       vitals = <Vitals>[];
       json['vitals'].forEach((v) {
         vitals!.add(Vitals.fromJson(v));
       });
     }
-  
+   
     if (json['doctor_medicines'] != null) {
       doctorMedicines = <DoctorMedicines>[];
       json['doctor_medicines'].forEach((v) {
@@ -143,6 +152,9 @@ class AppointmentDetails {
     data['token_start_time'] = tokenStartTime;
     data['symptom_start_time'] = symptomStartTime;
     data['symptom_frequency'] = symptomFrequency;
+    data['check_in_time'] = checkInTime;
+    data['checkout_time'] = checkoutTime;
+    data['feedback_status'] = feedbackStatus;
     data['prescription_image'] = prescriptionImage;
     data['schedule_type'] = scheduleType;
     data['notes'] = notes;
@@ -151,7 +163,7 @@ class AppointmentDetails {
     data['patient_age'] = patientAge;
     data['patient_id'] = patientId;
     data['patient_user_id'] = patientUserId;
- 
+   
     data['doctor_image'] = doctorImage;
     data['doctor_name'] = doctorName;
     data['clinic_name'] = clinicName;
@@ -159,9 +171,9 @@ class AppointmentDetails {
     data['lab_test'] = labTest;
     data['scan_name'] = scanName;
     data['scan_test'] = scanTest;
-  
+   
     data['mediezy_patient_id'] = mediezyPatientId;
-    
+   
     if (vitals != null) {
       data['vitals'] = vitals!.map((v) => v.toJson()).toList();
     }

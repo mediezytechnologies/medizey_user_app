@@ -64,6 +64,7 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
 import '../../ddd/application/add_members/add_members_bloc.dart';
 import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../ddd/application/rating/rating_bloc.dart';
 import '../../ddd/application/search_doctor/search_doctor_bloc.dart';
 
 class AppBlocProviders {
@@ -125,33 +126,18 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<AddMemberImageBloc>()),
         BlocProvider(create: (context) => GetUpdatedMedicineBloc()),
         BlocProvider(create: (context) => getIt<EditMemberBloc>()),
-        BlocProvider(
-          create: (context) => getIt<AddMembersBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<AddMemberImageBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<UserLocationBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<EditMemberImageBloc>(),
-        ),
+        BlocProvider(create: (context) => getIt<AddMembersBloc>()),
+        BlocProvider(create: (context) => getIt<AddMemberImageBloc>()),
+        BlocProvider(create: (context) => getIt<UserLocationBloc>()),
+        BlocProvider(create: (context) => getIt<EditMemberImageBloc>()),
         BlocProvider(create: (context) => GetVitalsBloc()),
         BlocProvider(create: (context) => GetCommonSymptomBloc()),
         BlocProvider(create: (context) => GetQuestionsBloc()),
-        BlocProvider(
-          create: (context) => getIt<GetDoctersBloc>(),
-        ),
+        BlocProvider(create: (context) => getIt<GetDoctersBloc>()),
         BlocProvider(create: (context) => OtherTypePatientDetailsBloc()),
-        BlocProvider(
-          create: (context) => getIt<GetFavDoctorBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<GetRecentlyBookedDoctorBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<SearchDoctorBloc>(),
-        ),
+        BlocProvider(create: (context) => getIt<GetFavDoctorBloc>()),
+        BlocProvider(create: (context) => getIt<GetRecentlyBookedDoctorBloc>()),
+        BlocProvider(create: (context) => getIt<SearchDoctorBloc>()),
+        BlocProvider(create: (context) => RatingBloc()),
       ];
 }

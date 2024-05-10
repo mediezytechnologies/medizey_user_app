@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
@@ -149,13 +152,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       ),
                       widget.appointmentFor == "null"
                           ? const SizedBox()
-                          : Text(
-                              widget.appointmentFor,
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: kSubTextColor),
-                            ),
+                          : Text(widget.appointmentFor, style: grey12B500),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -181,8 +178,31 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       ),
                       Row(
                         children: [
-                          Text("For: ", style: grey12B500),
-                          Text(widget.patientName, style: black12B500),
+                          Row(
+                            children: [
+                              Text("For: ", style: grey12B500),
+                              Text(widget.patientName, style: black12B500),
+                            ],
+                          ),
+                          const HorizontalSpacingWidget(width: 55),
+                          GestureDetector(
+                            onTap: () {
+                              String clinicAddress = getAvailableClinicAddress(
+                                  widget.bookedClinicName, widget.clinicList);
+                              MapsLauncher.launchQuery(clinicAddress);
+                            },
+                            child: Wrap(
+                              children: [
+                                Text('Get Location', style: grey11B400),
+                                const HorizontalSpacingWidget(width: 5),
+                                Icon(
+                                  IconlyLight.location,
+                                  color: kSecondaryColor,
+                                  size: 14.sp,
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -287,7 +307,9 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       const VerticalSpacingWidget(height: 5),
                       GestureDetector(
                         onTap: () {
-                          showAvailableToken(context, '1');
+                          Platform.isIOS
+                              ? showAvailableTokenIos(context, '1')
+                              : showAvailableToken(context, '1');
                         },
                         child: Container(
                           height: height * .047,
@@ -453,7 +475,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     color: kSubTextColor,
                   ),
                   Text(
-                    "Incase you can make it for the appointment, please reschedule the appointment, preferably 5 hours before the shedule time.",
+                    "Incase you can't make it for the appointment, please reschedule the appointment, preferably 5 hours before the shedule time.",
                     style: grey10B500,
                   ),
                   const VerticalSpacingWidget(height: 5),
@@ -464,7 +486,9 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           const Duration(hours: 5),
                         ),
                       )) {
-                        showAvailableToken(context, '2');
+                        Platform.isIOS
+                            ? showAvailableTokenIos(context, '2')
+                            : showAvailableToken(context, '2');
                       } else {
                         GeneralServices.instance.showToastMessage(
                             "Please reschedule the appointment at least 5 hours in advance if necessary");
@@ -657,6 +681,140 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
         );
       }),
     );
+  }
+
+  Future<dynamic> showAvailableTokenIos(
+      BuildContext context, String resheduleType) {
+    final height = MediaQuery.of(context).size.height;
+    return showCupertinoDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: ((context) {
+        return CupertinoAlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Book same doctor",
+                style: black14B600,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Text(
+                "Next Available Token details",
+                style: black12B500,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Container(
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7.r),
+                  border: Border.all(color: kSubTextColor, width: .5.w),
+                ),
+                child: Column(
+                  children: [
+                    widget.nextAvailableTokenNumber == "0"
+                        ? const SizedBox()
+                        : Text(
+                            "Token No : ${widget.nextAvailableTokenNumber}",
+                            style: black14B600,
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    widget.nextAvailableDateAndTime == "null"
+                        ? const SizedBox()
+                        : Text(
+                            widget.nextAvailableDateAndTime,
+                            style: black14B600,
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return BookAppointmentScreen(
+                              doctorId: widget.doctorId,
+                              clinicList: widget.clinicList,
+                              doctorFirstName: widget.docterName,
+                              doctorSecondName: "",
+                              patientId: widget.patientId.toString(),
+                              resheduleType: resheduleType,
+                              normalResheduleTokenId: widget.tokenId.toString(),
+                            );
+                          }),
+                        );
+                      },
+                      child: Container(
+                        height: height * .047,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: kSecondaryColor,
+                          borderRadius: BorderRadius.circular(7.r),
+                        ),
+                        child: Center(
+                          child: Text("Book now", style: white13B700),
+                        ),
+                      ),
+                    ),
+                    const VerticalSpacingWidget(height: 3),
+                  ],
+                ),
+              ),
+              const VerticalSpacingWidget(height: 3),
+              Text("Or", style: black12B500),
+              const VerticalSpacingWidget(height: 3),
+              Text(
+                "Book another doctor",
+                style: black14B600,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchScreen(
+                        patientId: widget.patientId.toString(),
+                        resheduleType: resheduleType,
+                        normalResheduleTokenId: widget.tokenId.toString(),
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: height * .047,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: kSecondaryColor,
+                    borderRadius: BorderRadius.circular(7.r),
+                  ),
+                  child: Center(
+                    child: Text("Choose another doctor", style: white13B700),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
+    );
+  }
+
+  String getAvailableClinicAddress(
+      String clinicName, List<Clinics> clinicList) {
+    for (var clinic in clinicList) {
+      if (clinic.clinicName == clinicName) {
+        return clinic.clinicAddress.toString();
+      }
+    }
+
+    return "";
   }
 
   Future<void> scanQR() async {

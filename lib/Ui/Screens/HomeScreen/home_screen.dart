@@ -18,6 +18,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_w
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 
@@ -67,6 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .add(const GetDoctersEvent.started(true));
     BlocProvider.of<GetFavDoctorBloc>(context)
         .add(const GetFavDoctorEvent.started(true));
+    BlocProvider.of<GetCompletedAppointmentsBloc>(context)
+        .add(FetchCompletedAppointments());
     startPolling();
   }
 
@@ -129,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             const VerticalSpacingWidget(height: 5),
                             const UpcommingAppoiment(),
                             const VerticalSpacingWidget(height: 5),
+                            // const GetCompletedFeedbackWidget(),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: size.width * 0.01),
