@@ -9,8 +9,8 @@ part of 'recently_booked_doctor.dart';
 RecentlyBookedDoctor _$RecentlyBookedDoctorFromJson(
         Map<String, dynamic> json) =>
     RecentlyBookedDoctor(
-      id: json['id'] as int?,
-      userId: json['UserId'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      userId: (json['UserId'] as num?)?.toInt(),
       firstname: json['firstname'] as String?,
       secondname: json['secondname'] as String?,
       distanceFromUser: json['distance_from_user'] as String?,
@@ -21,7 +21,7 @@ RecentlyBookedDoctor _$RecentlyBookedDoctorFromJson(
       clinics: (json['clinics'] as List<dynamic>?)
           ?.map((e) => Clinics.fromJson(e as Map<String, dynamic>))
           .toList(),
-      favoriteStatus: json['favoriteStatus'] as int?,
+      favoriteStatus: (json['favoriteStatus'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$RecentlyBookedDoctorToJson(

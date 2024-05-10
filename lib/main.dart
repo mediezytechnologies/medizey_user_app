@@ -79,8 +79,8 @@ class _MediezyState extends State<Mediezy> {
           theme: appThemeStyle(context),
           home:
           
-          UserRating()
-       // hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          //UserRating()
+       hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

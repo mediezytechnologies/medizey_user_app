@@ -7,8 +7,8 @@ part of 'search_doctor.dart';
 // **************************************************************************
 
 SearchDoctor _$SearchDoctorFromJson(Map<String, dynamic> json) => SearchDoctor(
-      id: json['id'] as int?,
-      userId: json['UserId'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      userId: (json['UserId'] as num?)?.toInt(),
       firstname: json['firstname'] as String?,
       lastname: json['lastname'] as String?,
       specialization: json['Specialization'] as String?,
@@ -19,7 +19,7 @@ SearchDoctor _$SearchDoctorFromJson(Map<String, dynamic> json) => SearchDoctor(
       clinics: (json['clinics'] as List<dynamic>?)
           ?.map((e) => Clinics.fromJson(e as Map<String, dynamic>))
           .toList(),
-      favoriteStatus: json['favoriteStatus'] as int?,
+      favoriteStatus: (json['favoriteStatus'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$SearchDoctorToJson(SearchDoctor instance) =>
