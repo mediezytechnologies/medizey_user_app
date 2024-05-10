@@ -65,8 +65,6 @@ class _DatePickerDemoClassState extends State<DatePickerDemoClass> {
   late final TextStyle deactivatedMonthStyle;
   late final TextStyle deactivatedDayStyle;
 
-var now =  DateTime.now();
-var formatter =  DateFormat('MM');
 
     DateTime? currentDate;
   DateTime? date;
@@ -210,6 +208,7 @@ var formatter =  DateFormat('MM');
                     }
                     setState(() {
                       _currentDate = selectedDate;
+
                     });
                   },
                 );
