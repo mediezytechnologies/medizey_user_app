@@ -23,6 +23,7 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
 
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -232,8 +233,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                 }
                               }),
-                          const VerticalSpacingWidget(height: 10),
-                          //! sign up
+                          const VerticalSpacingWidget(height: 5),
+                          // SignInButton(
+                          //   Buttons.Google,
+                          //   onPressed: () {},
+                          // ),
+                          // const VerticalSpacingWidget(height: 5),
+                          Text("or", style: black13B500),
+                          const VerticalSpacingWidget(height: 5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
