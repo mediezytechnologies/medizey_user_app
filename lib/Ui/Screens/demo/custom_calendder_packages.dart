@@ -1,7 +1,4 @@
 import 'dart:developer';
-import 'package:date_picker_timeline/extra/color.dart';
-import 'package:date_picker_timeline/extra/style.dart';
-import 'package:date_picker_timeline/gestures/tap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -18,13 +15,12 @@ class DatePickerDemoClass extends StatefulWidget {
   final TextStyle monthTextStyle;
   final TextStyle dayTextStyle;
   final TextStyle dateTextStyle;
-  final DateTime? /*?*/ initialSelectedDate;
+  final DateTime? initialSelectedDate;
   final List<DateTime>? inactiveDates;
   final List<DateTime>? activeDates;
   final DateChangeListener? onDateChange;
   final int daysCount;
   final String locale;
-
   const DatePickerDemoClass(
     this.startDate, {
     Key? key,
@@ -345,4 +341,46 @@ class DateWidgets extends StatelessWidget {
       },
     );
   }
+}
+class AppColors {
+  AppColors._();
+
+  static const Color defaultDateColor = Colors.black;
+  static const Color defaultDayColor = Colors.black;
+  static const Color defaultMonthColor = Colors.black;
+  static const Color defaultSelectionColor = Color(0x30000000);
+  static const Color defaultDeactivatedColor = Color(0xFF666666);
+}
+
+const TextStyle defaultMonthTextStyle = TextStyle(
+  color: AppColors.defaultMonthColor,
+  fontSize: Dimen.monthTextSize,
+  fontWeight: FontWeight.w500,
+);
+
+const TextStyle defaultDateTextStyle = TextStyle(
+  color: AppColors.defaultDateColor,
+  fontSize: Dimen.dateTextSize,
+  fontWeight: FontWeight.w500,
+);
+
+const TextStyle defaultDayTextStyle = TextStyle(
+  color: AppColors.defaultDayColor,
+  fontSize: Dimen.dayTextSize,
+  fontWeight: FontWeight.w500,
+);
+
+/// Used by [DatePickerTimeline] for tap detection.
+typedef DateSelectionCallback = void Function(DateTime selectedDate);
+
+/// Signature for a function that is called when selected date is changed
+///
+/// Used by [DatePickerTimeline] for tap detection.
+typedef DateChangeListener = void Function(DateTime selectedDate);
+class Dimen {
+  Dimen._();
+
+  static const double dateTextSize = 24;
+  static const double dayTextSize = 11;
+  static const double monthTextSize = 11;
 }

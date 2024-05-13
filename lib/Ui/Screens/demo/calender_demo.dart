@@ -1,9 +1,8 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
+
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mediezy_user/Ui/Screens/demo/l.dart';
-import 'package:mediezy_user/Ui/Screens/demo/locaton.dart';
+import 'package:mediezy_user/Ui/Screens/demo/custom_calendder_packages.dart';
 
 
 
@@ -86,31 +85,13 @@ class _ScreenOneState extends State<ScreenOne> {
          const SizedBox(
               height: 32.0,
             ),
-        ElevatedButton(
-            onPressed: () => displayDatePicker(context),
-            child: const Text("Pick Date")),
-             const SizedBox(
-              height: 32.0,
-            ),
+       
         ElevatedButton(onPressed: () => displayTimePicker(context), child: const Text("Pick Time")),
       ],
     );
   }
 
-  Future displayDatePicker(BuildContext context) async {
-    var date = await showDatePickerDemo(
-      context: context,
-      initialDate: selected,
-      firstDate: initial,
-      lastDate: last,
-    );
 
-    if (date != null) {
-      setState(() {
-        _dateC.text = date.toLocal().toString().split(" ")[0];
-      });
-    }
-  }
 
   Future displayTimePicker(BuildContext context) async {
     var time = await showTimePicker(

@@ -41,7 +41,7 @@ class AuthService {
         UserCredential userCredential =
             await firebaseauth.signInWithCredential(credential);
         log(googleAuth.toString());
-        log("${googleAuth.accessToken}=======");
+        log("${googleAuth.accessToken}======= acces");
         log("${googleAuth.idToken}=======");
 
         return userCredential.user;

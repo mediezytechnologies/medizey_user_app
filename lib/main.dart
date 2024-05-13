@@ -1,23 +1,27 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
-import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
+import 'package:mediezy_user/Ui/Screens/demo/google_auth_demo.dart';
+import 'package:mediezy_user/Ui/Screens/demo/push_notification_demo.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
-import 'Ui/Screens/HomeScreen/Widgets/user_rating.dart';
-import 'Ui/Screens/demo/df.dart';
+@pragma('vm:entry-point')
+Future<void>firebaseMassigingBackgroundHandiler(RemoteMessage message)async{
+await Firebase.initializeApp();
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(firebaseMassigingBackgroundHandiler);
   await configureInjection();
   await GetStorage.init();
     await Firebase.initializeApp(
@@ -79,8 +83,9 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
           theme: appThemeStyle(context),
           home:
+//LoginScreenGoogle()
           
-        ScreenOne()
+    DemoPushNotification()
     //   hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
