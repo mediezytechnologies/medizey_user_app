@@ -138,6 +138,6 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<GetFavDoctorBloc>()),
         BlocProvider(create: (context) => getIt<GetRecentlyBookedDoctorBloc>()),
         BlocProvider(create: (context) => getIt<SearchDoctorBloc>()),
-        BlocProvider(create: (context) => RatingBloc()),
+        BlocProvider(create: (context) => getIt<RatingBloc>()),
       ];
 }

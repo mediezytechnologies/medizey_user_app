@@ -20,27 +20,30 @@ mixin _$RatingEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
-    required TResult Function(int resonIndex) ratingResonChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
-    TResult? Function(int resonIndex)? ratingResonChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
-    TResult Function(int resonIndex)? ratingResonChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,27 +51,30 @@ mixin _$RatingEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
-    required TResult Function(_RatingResonChanged value) ratingResonChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult? Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -159,9 +165,10 @@ class _$RatingChangedImpl implements _RatingChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
-    required TResult Function(int resonIndex) ratingResonChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
   }) {
     return ratingChanged(ratingValue);
   }
@@ -171,9 +178,10 @@ class _$RatingChangedImpl implements _RatingChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
-    TResult? Function(int resonIndex)? ratingResonChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
   }) {
     return ratingChanged?.call(ratingValue);
   }
@@ -183,9 +191,10 @@ class _$RatingChangedImpl implements _RatingChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
-    TResult Function(int resonIndex)? ratingResonChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingChanged != null) {
@@ -199,9 +208,10 @@ class _$RatingChangedImpl implements _RatingChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
-    required TResult Function(_RatingResonChanged value) ratingResonChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
   }) {
     return ratingChanged(this);
   }
@@ -211,9 +221,10 @@ class _$RatingChangedImpl implements _RatingChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult? Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
   }) {
     return ratingChanged?.call(this);
   }
@@ -223,9 +234,10 @@ class _$RatingChangedImpl implements _RatingChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingChanged != null) {
@@ -312,9 +324,10 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
-    required TResult Function(int resonIndex) ratingResonChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
   }) {
     return ratingTextChanged(ratingTest);
   }
@@ -324,9 +337,10 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
-    TResult? Function(int resonIndex)? ratingResonChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
   }) {
     return ratingTextChanged?.call(ratingTest);
   }
@@ -336,9 +350,10 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
-    TResult Function(int resonIndex)? ratingResonChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingTextChanged != null) {
@@ -352,9 +367,10 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
-    required TResult Function(_RatingResonChanged value) ratingResonChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
   }) {
     return ratingTextChanged(this);
   }
@@ -364,9 +380,10 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult? Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
   }) {
     return ratingTextChanged?.call(this);
   }
@@ -376,9 +393,10 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingTextChanged != null) {
@@ -399,31 +417,31 @@ abstract class _RatingTextChanged implements RatingEvent {
 }
 
 /// @nodoc
-abstract class _$$RatingResonChangedImplCopyWith<$Res> {
-  factory _$$RatingResonChangedImplCopyWith(_$RatingResonChangedImpl value,
-          $Res Function(_$RatingResonChangedImpl) then) =
-      __$$RatingResonChangedImplCopyWithImpl<$Res>;
+abstract class _$$RatingReasonChangedImplCopyWith<$Res> {
+  factory _$$RatingReasonChangedImplCopyWith(_$RatingReasonChangedImpl value,
+          $Res Function(_$RatingReasonChangedImpl) then) =
+      __$$RatingReasonChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int resonIndex});
+  $Res call({int reasonIndex});
 }
 
 /// @nodoc
-class __$$RatingResonChangedImplCopyWithImpl<$Res>
-    extends _$RatingEventCopyWithImpl<$Res, _$RatingResonChangedImpl>
-    implements _$$RatingResonChangedImplCopyWith<$Res> {
-  __$$RatingResonChangedImplCopyWithImpl(_$RatingResonChangedImpl _value,
-      $Res Function(_$RatingResonChangedImpl) _then)
+class __$$RatingReasonChangedImplCopyWithImpl<$Res>
+    extends _$RatingEventCopyWithImpl<$Res, _$RatingReasonChangedImpl>
+    implements _$$RatingReasonChangedImplCopyWith<$Res> {
+  __$$RatingReasonChangedImplCopyWithImpl(_$RatingReasonChangedImpl _value,
+      $Res Function(_$RatingReasonChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? resonIndex = null,
+    Object? reasonIndex = null,
   }) {
-    return _then(_$RatingResonChangedImpl(
-      null == resonIndex
-          ? _value.resonIndex
-          : resonIndex // ignore: cast_nullable_to_non_nullable
+    return _then(_$RatingReasonChangedImpl(
+      null == reasonIndex
+          ? _value.reasonIndex
+          : reasonIndex // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -431,34 +449,34 @@ class __$$RatingResonChangedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RatingResonChangedImpl implements _RatingResonChanged {
-  const _$RatingResonChangedImpl(this.resonIndex);
+class _$RatingReasonChangedImpl implements _RatingReasonChanged {
+  const _$RatingReasonChangedImpl(this.reasonIndex);
 
   @override
-  final int resonIndex;
+  final int reasonIndex;
 
   @override
   String toString() {
-    return 'RatingEvent.ratingResonChanged(resonIndex: $resonIndex)';
+    return 'RatingEvent.ratingReasonChanged(reasonIndex: $reasonIndex)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RatingResonChangedImpl &&
-            (identical(other.resonIndex, resonIndex) ||
-                other.resonIndex == resonIndex));
+            other is _$RatingReasonChangedImpl &&
+            (identical(other.reasonIndex, reasonIndex) ||
+                other.reasonIndex == reasonIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, resonIndex);
+  int get hashCode => Object.hash(runtimeType, reasonIndex);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RatingResonChangedImplCopyWith<_$RatingResonChangedImpl> get copyWith =>
-      __$$RatingResonChangedImplCopyWithImpl<_$RatingResonChangedImpl>(
+  _$$RatingReasonChangedImplCopyWith<_$RatingReasonChangedImpl> get copyWith =>
+      __$$RatingReasonChangedImplCopyWithImpl<_$RatingReasonChangedImpl>(
           this, _$identity);
 
   @override
@@ -466,11 +484,12 @@ class _$RatingResonChangedImpl implements _RatingResonChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
-    required TResult Function(int resonIndex) ratingResonChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
   }) {
-    return ratingResonChanged(resonIndex);
+    return ratingReasonChanged(reasonIndex);
   }
 
   @override
@@ -478,11 +497,12 @@ class _$RatingResonChangedImpl implements _RatingResonChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
-    TResult? Function(int resonIndex)? ratingResonChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
   }) {
-    return ratingResonChanged?.call(resonIndex);
+    return ratingReasonChanged?.call(reasonIndex);
   }
 
   @override
@@ -490,13 +510,14 @@ class _$RatingResonChangedImpl implements _RatingResonChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
-    TResult Function(int resonIndex)? ratingResonChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
-    if (ratingResonChanged != null) {
-      return ratingResonChanged(resonIndex);
+    if (ratingReasonChanged != null) {
+      return ratingReasonChanged(reasonIndex);
     }
     return orElse();
   }
@@ -506,11 +527,12 @@ class _$RatingResonChangedImpl implements _RatingResonChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
-    required TResult Function(_RatingResonChanged value) ratingResonChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
   }) {
-    return ratingResonChanged(this);
+    return ratingReasonChanged(this);
   }
 
   @override
@@ -518,11 +540,12 @@ class _$RatingResonChangedImpl implements _RatingResonChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult? Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
   }) {
-    return ratingResonChanged?.call(this);
+    return ratingReasonChanged?.call(this);
   }
 
   @override
@@ -530,25 +553,26 @@ class _$RatingResonChangedImpl implements _RatingResonChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
-    if (ratingResonChanged != null) {
-      return ratingResonChanged(this);
+    if (ratingReasonChanged != null) {
+      return ratingReasonChanged(this);
     }
     return orElse();
   }
 }
 
-abstract class _RatingResonChanged implements RatingEvent {
-  const factory _RatingResonChanged(final int resonIndex) =
-      _$RatingResonChangedImpl;
+abstract class _RatingReasonChanged implements RatingEvent {
+  const factory _RatingReasonChanged(final int reasonIndex) =
+      _$RatingReasonChangedImpl;
 
-  int get resonIndex;
+  int get reasonIndex;
   @JsonKey(ignore: true)
-  _$$RatingResonChangedImplCopyWith<_$RatingResonChangedImpl> get copyWith =>
+  _$$RatingReasonChangedImplCopyWith<_$RatingReasonChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -620,9 +644,10 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
-    required TResult Function(int resonIndex) ratingResonChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
   }) {
     return ratingLikeChanged(likedIndex);
   }
@@ -632,9 +657,10 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
-    TResult? Function(int resonIndex)? ratingResonChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
   }) {
     return ratingLikeChanged?.call(likedIndex);
   }
@@ -644,9 +670,10 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
-    TResult Function(int resonIndex)? ratingResonChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingLikeChanged != null) {
@@ -660,9 +687,10 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
-    required TResult Function(_RatingResonChanged value) ratingResonChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
   }) {
     return ratingLikeChanged(this);
   }
@@ -672,9 +700,10 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult? Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
   }) {
     return ratingLikeChanged?.call(this);
   }
@@ -684,9 +713,10 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingLikeChanged != null) {
@@ -774,9 +804,10 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(double ratingValue) ratingChanged,
     required TResult Function(String ratingTest) ratingTextChanged,
-    required TResult Function(int resonIndex) ratingResonChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
   }) {
     return ratingRadioChanged(radioIndex);
   }
@@ -786,9 +817,10 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double ratingValue)? ratingChanged,
     TResult? Function(String ratingTest)? ratingTextChanged,
-    TResult? Function(int resonIndex)? ratingResonChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
   }) {
     return ratingRadioChanged?.call(radioIndex);
   }
@@ -798,9 +830,10 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double ratingValue)? ratingChanged,
     TResult Function(String ratingTest)? ratingTextChanged,
-    TResult Function(int resonIndex)? ratingResonChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingRadioChanged != null) {
@@ -814,9 +847,10 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_RatingChanged value) ratingChanged,
     required TResult Function(_RatingTextChanged value) ratingTextChanged,
-    required TResult Function(_RatingResonChanged value) ratingResonChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
   }) {
     return ratingRadioChanged(this);
   }
@@ -826,9 +860,10 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RatingChanged value)? ratingChanged,
     TResult? Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult? Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
   }) {
     return ratingRadioChanged?.call(this);
   }
@@ -838,9 +873,10 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RatingChanged value)? ratingChanged,
     TResult Function(_RatingTextChanged value)? ratingTextChanged,
-    TResult Function(_RatingResonChanged value)? ratingResonChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingRadioChanged != null) {
@@ -861,10 +897,175 @@ abstract class _RatingRadioChanged implements RatingEvent {
 }
 
 /// @nodoc
+abstract class _$$RatingGetFeedBacksImplCopyWith<$Res> {
+  factory _$$RatingGetFeedBacksImplCopyWith(_$RatingGetFeedBacksImpl value,
+          $Res Function(_$RatingGetFeedBacksImpl) then) =
+      __$$RatingGetFeedBacksImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String feedback});
+}
+
+/// @nodoc
+class __$$RatingGetFeedBacksImplCopyWithImpl<$Res>
+    extends _$RatingEventCopyWithImpl<$Res, _$RatingGetFeedBacksImpl>
+    implements _$$RatingGetFeedBacksImplCopyWith<$Res> {
+  __$$RatingGetFeedBacksImplCopyWithImpl(_$RatingGetFeedBacksImpl _value,
+      $Res Function(_$RatingGetFeedBacksImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? feedback = null,
+  }) {
+    return _then(_$RatingGetFeedBacksImpl(
+      null == feedback
+          ? _value.feedback
+          : feedback // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RatingGetFeedBacksImpl implements _RatingGetFeedBacks {
+  const _$RatingGetFeedBacksImpl(this.feedback);
+
+  @override
+  final String feedback;
+
+  @override
+  String toString() {
+    return 'RatingEvent.ratingGetFeedBacks(feedback: $feedback)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RatingGetFeedBacksImpl &&
+            (identical(other.feedback, feedback) ||
+                other.feedback == feedback));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, feedback);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RatingGetFeedBacksImplCopyWith<_$RatingGetFeedBacksImpl> get copyWith =>
+      __$$RatingGetFeedBacksImplCopyWithImpl<_$RatingGetFeedBacksImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double ratingValue) ratingChanged,
+    required TResult Function(String ratingTest) ratingTextChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
+    required TResult Function(int likedIndex) ratingLikeChanged,
+    required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
+  }) {
+    return ratingGetFeedBacks(feedback);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double ratingValue)? ratingChanged,
+    TResult? Function(String ratingTest)? ratingTextChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
+    TResult? Function(int likedIndex)? ratingLikeChanged,
+    TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
+  }) {
+    return ratingGetFeedBacks?.call(feedback);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double ratingValue)? ratingChanged,
+    TResult Function(String ratingTest)? ratingTextChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
+    TResult Function(int likedIndex)? ratingLikeChanged,
+    TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
+    required TResult orElse(),
+  }) {
+    if (ratingGetFeedBacks != null) {
+      return ratingGetFeedBacks(feedback);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RatingChanged value) ratingChanged,
+    required TResult Function(_RatingTextChanged value) ratingTextChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
+    required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
+    required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+  }) {
+    return ratingGetFeedBacks(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RatingChanged value)? ratingChanged,
+    TResult? Function(_RatingTextChanged value)? ratingTextChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
+    TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
+    TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+  }) {
+    return ratingGetFeedBacks?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RatingChanged value)? ratingChanged,
+    TResult Function(_RatingTextChanged value)? ratingTextChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
+    TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
+    TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    required TResult orElse(),
+  }) {
+    if (ratingGetFeedBacks != null) {
+      return ratingGetFeedBacks(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RatingGetFeedBacks implements RatingEvent {
+  const factory _RatingGetFeedBacks(final String feedback) =
+      _$RatingGetFeedBacksImpl;
+
+  String get feedback;
+  @JsonKey(ignore: true)
+  _$$RatingGetFeedBacksImplCopyWith<_$RatingGetFeedBacksImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$RatingState {
+  bool get isloading => throw _privateConstructorUsedError;
+  bool get isError => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
+  bool get status => throw _privateConstructorUsedError;
   double get ratingValue => throw _privateConstructorUsedError;
   String get ratingTest => throw _privateConstructorUsedError;
-  int get resonIndex => throw _privateConstructorUsedError;
+  List<UserRating> get userRating => throw _privateConstructorUsedError;
+  int get reasonIndex => throw _privateConstructorUsedError;
   int get likedIndex => throw _privateConstructorUsedError;
   int get radioIndex => throw _privateConstructorUsedError;
 
@@ -880,9 +1081,14 @@ abstract class $RatingStateCopyWith<$Res> {
       _$RatingStateCopyWithImpl<$Res, RatingState>;
   @useResult
   $Res call(
-      {double ratingValue,
+      {bool isloading,
+      bool isError,
+      String message,
+      bool status,
+      double ratingValue,
       String ratingTest,
-      int resonIndex,
+      List<UserRating> userRating,
+      int reasonIndex,
       int likedIndex,
       int radioIndex});
 }
@@ -900,13 +1106,34 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isloading = null,
+    Object? isError = null,
+    Object? message = null,
+    Object? status = null,
     Object? ratingValue = null,
     Object? ratingTest = null,
-    Object? resonIndex = null,
+    Object? userRating = null,
+    Object? reasonIndex = null,
     Object? likedIndex = null,
     Object? radioIndex = null,
   }) {
     return _then(_value.copyWith(
+      isloading: null == isloading
+          ? _value.isloading
+          : isloading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: null == isError
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
       ratingValue: null == ratingValue
           ? _value.ratingValue
           : ratingValue // ignore: cast_nullable_to_non_nullable
@@ -915,9 +1142,13 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
           ? _value.ratingTest
           : ratingTest // ignore: cast_nullable_to_non_nullable
               as String,
-      resonIndex: null == resonIndex
-          ? _value.resonIndex
-          : resonIndex // ignore: cast_nullable_to_non_nullable
+      userRating: null == userRating
+          ? _value.userRating
+          : userRating // ignore: cast_nullable_to_non_nullable
+              as List<UserRating>,
+      reasonIndex: null == reasonIndex
+          ? _value.reasonIndex
+          : reasonIndex // ignore: cast_nullable_to_non_nullable
               as int,
       likedIndex: null == likedIndex
           ? _value.likedIndex
@@ -940,9 +1171,14 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {double ratingValue,
+      {bool isloading,
+      bool isError,
+      String message,
+      bool status,
+      double ratingValue,
       String ratingTest,
-      int resonIndex,
+      List<UserRating> userRating,
+      int reasonIndex,
       int likedIndex,
       int radioIndex});
 }
@@ -958,13 +1194,34 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isloading = null,
+    Object? isError = null,
+    Object? message = null,
+    Object? status = null,
     Object? ratingValue = null,
     Object? ratingTest = null,
-    Object? resonIndex = null,
+    Object? userRating = null,
+    Object? reasonIndex = null,
     Object? likedIndex = null,
     Object? radioIndex = null,
   }) {
     return _then(_$InitialImpl(
+      isloading: null == isloading
+          ? _value.isloading
+          : isloading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isError: null == isError
+          ? _value.isError
+          : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
       ratingValue: null == ratingValue
           ? _value.ratingValue
           : ratingValue // ignore: cast_nullable_to_non_nullable
@@ -973,9 +1230,13 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.ratingTest
           : ratingTest // ignore: cast_nullable_to_non_nullable
               as String,
-      resonIndex: null == resonIndex
-          ? _value.resonIndex
-          : resonIndex // ignore: cast_nullable_to_non_nullable
+      userRating: null == userRating
+          ? _value._userRating
+          : userRating // ignore: cast_nullable_to_non_nullable
+              as List<UserRating>,
+      reasonIndex: null == reasonIndex
+          ? _value.reasonIndex
+          : reasonIndex // ignore: cast_nullable_to_non_nullable
               as int,
       likedIndex: null == likedIndex
           ? _value.likedIndex
@@ -993,18 +1254,40 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {required this.ratingValue,
+      {required this.isloading,
+      required this.isError,
+      required this.message,
+      required this.status,
+      required this.ratingValue,
       required this.ratingTest,
-      required this.resonIndex,
+      required final List<UserRating> userRating,
+      required this.reasonIndex,
       required this.likedIndex,
-      required this.radioIndex});
+      required this.radioIndex})
+      : _userRating = userRating;
 
+  @override
+  final bool isloading;
+  @override
+  final bool isError;
+  @override
+  final String message;
+  @override
+  final bool status;
   @override
   final double ratingValue;
   @override
   final String ratingTest;
+  final List<UserRating> _userRating;
   @override
-  final int resonIndex;
+  List<UserRating> get userRating {
+    if (_userRating is EqualUnmodifiableListView) return _userRating;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_userRating);
+  }
+
+  @override
+  final int reasonIndex;
   @override
   final int likedIndex;
   @override
@@ -1012,7 +1295,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'RatingState(ratingValue: $ratingValue, ratingTest: $ratingTest, resonIndex: $resonIndex, likedIndex: $likedIndex, radioIndex: $radioIndex)';
+    return 'RatingState(isloading: $isloading, isError: $isError, message: $message, status: $status, ratingValue: $ratingValue, ratingTest: $ratingTest, userRating: $userRating, reasonIndex: $reasonIndex, likedIndex: $likedIndex, radioIndex: $radioIndex)';
   }
 
   @override
@@ -1020,12 +1303,19 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
+            (identical(other.isloading, isloading) ||
+                other.isloading == isloading) &&
+            (identical(other.isError, isError) || other.isError == isError) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.ratingValue, ratingValue) ||
                 other.ratingValue == ratingValue) &&
             (identical(other.ratingTest, ratingTest) ||
                 other.ratingTest == ratingTest) &&
-            (identical(other.resonIndex, resonIndex) ||
-                other.resonIndex == resonIndex) &&
+            const DeepCollectionEquality()
+                .equals(other._userRating, _userRating) &&
+            (identical(other.reasonIndex, reasonIndex) ||
+                other.reasonIndex == reasonIndex) &&
             (identical(other.likedIndex, likedIndex) ||
                 other.likedIndex == likedIndex) &&
             (identical(other.radioIndex, radioIndex) ||
@@ -1034,7 +1324,17 @@ class _$InitialImpl implements _Initial {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, ratingValue, ratingTest, resonIndex, likedIndex, radioIndex);
+      runtimeType,
+      isloading,
+      isError,
+      message,
+      status,
+      ratingValue,
+      ratingTest,
+      const DeepCollectionEquality().hash(_userRating),
+      reasonIndex,
+      likedIndex,
+      radioIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -1045,18 +1345,33 @@ class _$InitialImpl implements _Initial {
 
 abstract class _Initial implements RatingState {
   const factory _Initial(
-      {required final double ratingValue,
+      {required final bool isloading,
+      required final bool isError,
+      required final String message,
+      required final bool status,
+      required final double ratingValue,
       required final String ratingTest,
-      required final int resonIndex,
+      required final List<UserRating> userRating,
+      required final int reasonIndex,
       required final int likedIndex,
       required final int radioIndex}) = _$InitialImpl;
 
+  @override
+  bool get isloading;
+  @override
+  bool get isError;
+  @override
+  String get message;
+  @override
+  bool get status;
   @override
   double get ratingValue;
   @override
   String get ratingTest;
   @override
-  int get resonIndex;
+  List<UserRating> get userRating;
+  @override
+  int get reasonIndex;
   @override
   int get likedIndex;
   @override

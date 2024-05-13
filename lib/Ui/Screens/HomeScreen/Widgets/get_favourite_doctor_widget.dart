@@ -11,6 +11,8 @@ import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_d
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
 import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+
 class GetFavouriteDoctorWidget extends StatefulWidget {
   const GetFavouriteDoctorWidget({super.key});
 
@@ -76,10 +78,11 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                               onTap: () {
                                 setState(() {
                                   BlocProvider.of<GetFavDoctorBloc>(context)
-                                      .add(const GetFavDoctorEvent.started(
-                                          false));
+                                      .add(const GetFavDoctorEvent
+                                          .getFavDocterForcedEvent());
                                   BlocProvider.of<GetDoctersBloc>(context).add(
-                                      const GetDoctersEvent.started(false));
+                                      const GetDoctersEvent
+                                          .getDoctersForcedEvent());
                                   BlocProvider.of<GetFavDoctorBloc>(context)
                                       .add(GetFavDoctorEvent.changeFav(
                                           state.model[index].id!));
@@ -91,6 +94,10 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                       favouriteStatus: state.favId,
                                     ),
                                   );
+                                   BlocProvider.of<GetRecentlyBookedDoctorBloc>(
+                                      context)
+                                  .add(const GetRecentlyBookedDoctorEvent
+                                      .getRecentlyBookedDocterForcedEvent());
                                 });
                               },
                               child: SizedBox(

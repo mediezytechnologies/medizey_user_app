@@ -1228,10 +1228,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       ),
                     ),
                   const VerticalSpacingWidget(height: 5),
-                  Text(
-                    "Any Treatment taken for?",
-                    style: grey12B500
-                  ),
+                  Text("Any Treatment taken for?", style: grey12B500),
                   VerticalSpacingWidget(height: 2.h),
                   Wrap(
                     children: List.generate(
@@ -1316,9 +1313,9 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   const VerticalSpacingWidget(height: 5),
                   if (isTreatmentOtherSelected)
                     SizedBox(
-                     height: size.height * .065,
+                      height: size.height * .065,
                       child: TextFormField(
-                      style: black13B500,
+                        style: black13B500,
                         cursorColor: kMainColor,
                         controller: otherTreatmentController,
                         keyboardType: TextInputType.text,
@@ -1400,7 +1397,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               }
                             : () async {
                                 log("loaded Button pressed");
-
                                 BlocProvider.of<EditMemberBloc>(context).add(
                                   EditMemberEvent.started(
                                     widget.patientId,
@@ -1429,10 +1425,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   color: kCardColor,
                                 ),
                               )
-                            : Text(
-                                "Update Member",
-                                style: white13B700
-                              ),
+                            : Text("Update Member", style: white13B700),
                       );
                     },
                   ),

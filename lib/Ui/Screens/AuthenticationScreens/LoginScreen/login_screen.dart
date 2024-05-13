@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/Model/auth/login_model.dart';
 import 'package:mediezy_user/Repository/Bloc/LoginAndSignUp/login_and_signup_bloc.dart';
@@ -237,11 +236,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                 }
                               }),
-                          const VerticalSpacingWidget(height: 5),
-                          SignInButton(
-                            Buttons.Google,
-                            onPressed: () {},
-                          ),
+                          // const VerticalSpacingWidget(height: 5),
+                          // SignInButton(
+                          //   Buttons.Google,
+                          //   onPressed: () {},
+                          // ),
                           const VerticalSpacingWidget(height: 5),
                           Text("or", style: black13B500),
                           const VerticalSpacingWidget(height: 5),

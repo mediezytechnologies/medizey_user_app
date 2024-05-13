@@ -7,12 +7,12 @@ part 'banner_state.dart';
 
 class BannerBloc extends Bloc<BannerEvent, BannerState> {
   BannerApi bannerApi = BannerApi();
-
   BannerBloc() : super(BannerInitial()) {
     on<FetchBannerEvent>((event, emit) async {
       emit(BannerLoading());
       try {
         final bannerModel = await bannerApi.getBanner(type: event.type);
+
         emit(BannerLoaded(bannerModel: bannerModel));
       } catch (error) {
         print("banner error");

@@ -105,7 +105,13 @@ class DoctorFavouriteCardWidget extends StatelessWidget {
                       Row(
                         children: [
                           Text("Location: ", style: grey11B400),
-                          Text(location, style: black11B500),
+                          SizedBox(
+                            width: size.width * .4,
+                            child: Text(location,
+                                style: black11B500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ),
                         ],
                       ),
                     ],

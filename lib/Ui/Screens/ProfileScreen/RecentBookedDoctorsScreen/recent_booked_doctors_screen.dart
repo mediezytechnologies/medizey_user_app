@@ -37,7 +37,7 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
-        .add(const GetRecentlyBookedDoctorEvent.started(true));
+        .add(const GetRecentlyBookedDoctorEvent.started());
     super.initState();
   }
 
@@ -109,11 +109,11 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                 onTap: () {
                                   setState(() {
                                     BlocProvider.of<GetFavDoctorBloc>(context)
-                                        .add(const GetFavDoctorEvent.started(
-                                            false));
+                                        .add(const GetFavDoctorEvent
+                                            .getFavDocterForcedEvent());
                                     BlocProvider.of<GetDoctersBloc>(context)
-                                        .add(const GetDoctersEvent.started(
-                                            false));
+                                        .add(const GetDoctersEvent
+                                            .getDoctersForcedEvent());
                                     BlocProvider.of<
                                                 GetRecentlyBookedDoctorBloc>(
                                             context)
@@ -127,6 +127,11 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                         favouriteStatus: state.favId,
                                       ),
                                     );
+                                    BlocProvider.of<
+                                                GetRecentlyBookedDoctorBloc>(
+                                            context)
+                                        .add(const GetRecentlyBookedDoctorEvent
+                                            .getRecentlyBookedDocterForcedEvent());
                                   });
                                 },
                                 child: SizedBox(

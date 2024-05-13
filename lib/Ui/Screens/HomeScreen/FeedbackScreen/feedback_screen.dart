@@ -11,12 +11,12 @@ import '../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../Consts/app_colors.dart';
 
 class RatingFormScreen extends StatefulWidget {
-  const RatingFormScreen({
-    Key? key,
-    required this.doctorName,
-  }) : super(key: key);
+  const RatingFormScreen(
+      {Key? key, required this.doctorName, required this.appointmentId})
+      : super(key: key);
 
   final String doctorName;
+  final String appointmentId;
 
   @override
   State<RatingFormScreen> createState() => _RatingFormScreenState();
@@ -112,26 +112,35 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
           value = rating;
           log(rating.toString());
           log("rating ui bulidre :  ${state.ratingValue}");
-
           if (rating == 0.5 || rating == 1) {
             BlocProvider.of<RatingBloc>(context)
                 .add(const RatingEvent.ratingTextChanged("TERRIBLE"));
+            BlocProvider.of<RatingBloc>(context)
+                .add(const RatingEvent.ratingGetFeedBacks("TERRIBLE"));
             log("rating ui ${state.ratingTest}");
           } else if (rating == 1.5 || rating == 2) {
             BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingTextChanged("OK"));
+                .add(const RatingEvent.ratingTextChanged("BAD"));
+            BlocProvider.of<RatingBloc>(context)
+                .add(const RatingEvent.ratingGetFeedBacks("BAD"));
             log("rating ui ${state.ratingTest}");
           } else if (rating == 2.5 || rating == 3) {
             BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingTextChanged("BETTER"));
+                .add(const RatingEvent.ratingTextChanged("AVERAGE"));
+            BlocProvider.of<RatingBloc>(context)
+                .add(const RatingEvent.ratingGetFeedBacks("AVERAGE"));
             log("rating ui ${state.ratingTest}");
           } else if (rating == 3.5 || rating == 4) {
             BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingTextChanged("BEST"));
+                .add(const RatingEvent.ratingTextChanged("GREAT"));
+            BlocProvider.of<RatingBloc>(context)
+                .add(const RatingEvent.ratingGetFeedBacks("GREAT"));
             log("rating ui ${state.ratingTest}");
           } else if (rating == 4.5 || rating == 5) {
             BlocProvider.of<RatingBloc>(context)
                 .add(const RatingEvent.ratingTextChanged("EXCELLENT"));
+            BlocProvider.of<RatingBloc>(context)
+                .add(const RatingEvent.ratingGetFeedBacks("EXCELLENT"));
             log("rating ui ${state.ratingTest}");
           }
           BlocProvider.of<RatingBloc>(context)
@@ -139,7 +148,70 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
         });
   }
 
-//radio=================================
+  Column reason(Size size, RatingState state, BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Sorry to hear to Tell us what when wrong",
+          style: black14B600,
+        ),
+        const VerticalSpacingWidget(height: 5),
+        BlocBuilder<RatingBloc, RatingState>(
+          builder: (context, state) {
+            if (state.isloading) {
+              return SizedBox(
+                height: size.height * .3,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: kMainColor,
+                  ),
+                ),
+              );
+            }
+            if (state.isError) {
+              return const Center(
+                child: Text("Something went wrong"),
+              );
+            }
+            return Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              runSpacing: size.height * 0.02,
+              spacing: size.width * 0.02,
+              children: List.generate(
+                state.userRating.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<RatingBloc>(context)
+                        .add(RatingEvent.ratingReasonChanged(index));
+                  },
+                  child: Container(
+                    height: size.height * 0.06,
+                    width: size.width * 0.47,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: state.reasonIndex == index
+                            ? kMainColor
+                            : kCardColor,
+                        border: Border.all(color: kBorderColor)),
+                    child: Center(
+                        child: Text(
+                      state.userRating[index].userComments.toString(),
+                      style: state.reasonIndex == index
+                          ? white14B500
+                          : black14B500,
+                    )),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
 
   Padding radioButtonWidget(Size size, RatingState state, BuildContext contex) {
     return Padding(
@@ -254,46 +326,4 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
   }
 
 //reson=================================
-  Column reason(Size size, RatingState state, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Sorry to hear to Tell us what when wrong",
-          style: black14B600,
-        ),
-        const VerticalSpacingWidget(height: 5),
-        Wrap(
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          runSpacing: size.height * 0.02,
-          spacing: size.width * 0.02,
-          children: List.generate(
-            8,
-            (index) => GestureDetector(
-              onTap: () {
-                BlocProvider.of<RatingBloc>(context)
-                    .add(RatingEvent.ratingResonChanged(index));
-                // changeIndex(index);
-              },
-              child: Container(
-                height: size.height * 0.06,
-                width: size.width * 0.47,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                    color: state.resonIndex == index ? kMainColor : kCardColor,
-                    border: Border.all(color: kBorderColor)),
-                child: Center(
-                    child: Text(
-                  textReson[index],
-                  style: state.resonIndex == index ? main4B500 : black14B500,
-                )),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }

@@ -98,8 +98,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
         '${widget.appointmentDate} ${widget.appointmentTime}';
     DateTime appointmentDateTime =
         DateFormat("yyyy-MM-dd hh:mm a").parse(combinedDateTimeString);
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 4.h),
       decoration: BoxDecoration(
@@ -118,8 +117,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: FancyShimmerImage(
-                        height: 100.h,
-                        width: 80.w,
+                        height: size.height * .15,
+                        width: size.width * .2,
                         boxFit: BoxFit.contain,
                         errorWidget: const Image(
                           image: AssetImage("assets/icons/no data.png"),
@@ -133,26 +132,35 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const VerticalSpacingWidget(height: 10),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 200.w,
-                            child: Text(
-                              "Dr ${widget.docterName}",
-                              style: black14B600,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: size.width * .5,
+                        child: Text(
+                          "Dr ${widget.docterName}",
+                          style: black14B600,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      Text(
-                        widget.bookedClinicName,
-                        style: grey12B500,
+                      SizedBox(
+                        width: size.width * .5,
+                        child: Text(
+                          widget.bookedClinicName,
+                          style: grey12B500,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       widget.appointmentFor == "null"
                           ? const SizedBox()
-                          : Text(widget.appointmentFor, style: grey12B500),
+                          : SizedBox(
+                              width: size.width * .5,
+                              child: Text(
+                                widget.appointmentFor,
+                                style: grey12B500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -181,10 +189,18 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           Row(
                             children: [
                               Text("For: ", style: grey12B500),
-                              Text(widget.patientName, style: black12B500),
+                              SizedBox(
+                                width: size.width * .28,
+                                child: Text(
+                                  widget.patientName,
+                                  style: black12B500,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
                             ],
                           ),
-                          const HorizontalSpacingWidget(width: 55),
+                          const HorizontalSpacingWidget(width: 20),
                           GestureDetector(
                             onTap: () {
                               String clinicAddress = getAvailableClinicAddress(
@@ -193,7 +209,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                             },
                             child: Wrap(
                               children: [
-                                Text('Get Location', style: grey11B400),
+                                Text('Location', style: grey11B400),
                                 const HorizontalSpacingWidget(width: 5),
                                 Icon(
                                   IconlyLight.location,
@@ -209,8 +225,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   ),
                 ),
                 Container(
-                  height: height * .060,
-                  width: width * .1,
+                  height: size.height * .060,
+                  width: size.width * .1,
                   decoration: BoxDecoration(
                     color: kSecondaryColor,
                     borderRadius: BorderRadius.circular(7.r),
@@ -237,8 +253,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       widget.appointmentDate == formatDate()
                           ? Container(
-                              height: height * .050,
-                              width: width * .30,
+                              height: size.height * .050,
+                              width: size.width * .30,
                               decoration: BoxDecoration(
                                 color: kSecondaryColor,
                                 borderRadius: BorderRadius.circular(7.r),
@@ -249,8 +265,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 children: [
                                   Text("Live Token", style: white12Bold),
                                   Container(
-                                    height: height * .038,
-                                    width: width * .08.w,
+                                    height: size.height * .038,
+                                    width: size.width * .08.w,
                                     decoration: BoxDecoration(
                                       color: kCardColor,
                                       borderRadius: BorderRadius.circular(4.r),
@@ -269,8 +285,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           : widget.isPatientAbsent == "Absent" &&
                                   widget.appointmentDate == formatDate()
                               ? SizedBox(
-                                  height: height * .075,
-                                  width: width * .5,
+                                  height: size.height * .075,
+                                  width: size.width * .5,
                                   child: Text(
                                     "You failed to reach on time, So your token will be considered as the last token",
                                     style: red11B600,
@@ -312,7 +328,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               : showAvailableToken(context, '1');
                         },
                         child: Container(
-                          height: height * .047,
+                          height: size.height * .047,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: kSecondaryColor,
@@ -342,8 +358,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                         width: .7.w, color: kMainColor),
                                     borderRadius: BorderRadius.circular(10.r),
                                   ),
-                                  height: height * .042,
-                                  width: width * .18,
+                                  height: size.height * .042,
+                                  width: size.width * .18,
                                   child: Center(
                                     child: Text("Reached", style: main12B700),
                                   ),
@@ -361,8 +377,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(10.r),
                                           ),
-                                          height: height * .042,
-                                          width: width * .57,
+                                          height: size.height * .042,
+                                          width: size.width * .57,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,

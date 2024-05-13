@@ -12,19 +12,20 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_
 import '../../../CommonWidgets/text_style_widget.dart';
 
 class DoctorNearYouWidget extends StatefulWidget {
-  const DoctorNearYouWidget({
-    Key? key,
-    required this.doctorId,
-    required this.firstName,
-    required this.lastName,
-    required this.imageUrl,
-    required this.location,
-    required this.specialisation,
-    required this.favouriteStatus,
-    required this.docterDistance,
-    required this.img,
-    required this.onTap,
-  }) : super(key: key);
+  const DoctorNearYouWidget(
+      {Key? key,
+      required this.doctorId,
+      required this.firstName,
+      required this.lastName,
+      required this.imageUrl,
+      required this.location,
+      required this.specialisation,
+      required this.favouriteStatus,
+      required this.docterDistance,
+      // required this.img,
+      // required this.onTap,
+      required this.favourites})
+      : super(key: key);
 
   final String doctorId;
   final String firstName;
@@ -34,8 +35,9 @@ class DoctorNearYouWidget extends StatefulWidget {
   final String specialisation;
   final int favouriteStatus;
   final String docterDistance;
-  final String img;
-  final VoidCallback onTap;
+  // final String img;
+  // final VoidCallback onTap;
+  final Widget favourites;
 
   @override
   State<DoctorNearYouWidget> createState() => _DoctorNearYouWidgetState();
@@ -159,18 +161,20 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
             ),
           ),
           Positioned(
-              right: size.width * 0.04,
-              top: size.height * 0.019,
-              child: GestureDetector(
-                onTap: widget.onTap,
-                child: SizedBox(
-                  height: size.height * 0.03,
-                  width: size.width * 0.06,
-                  child: Image.asset(
-                    widget.img,
-                  ),
-                ),
-              ))
+            right: size.width * 0.04,
+            top: size.height * 0.019,
+            // child: GestureDetector(
+            //   onTap: widget.onTap,
+            //   child: SizedBox(
+            //     height: size.height * 0.03,
+            //     width: size.width * 0.06,
+            //     child: Image.asset(
+            //       widget.img,
+            //     ),
+            //   ),
+            // ),
+            child: widget.favourites,
+          )
         ],
       ),
     );

@@ -52,25 +52,7 @@ class _GetCompletedFeedbackWidgetState
                     BlocProvider.of<GetCompletedAppointmentsBloc>(context)
                         .getCompletedAppointmentsModel;
                 return getCompletedAppointmentsModel.appointmentDetails == null
-                    ? Center(
-                        child: Column(
-                          children: [
-                            const VerticalSpacingWidget(height: 80),
-                            Image(
-                              image: const AssetImage(
-                                  "assets/icons/no appointment.png"),
-                              height: 250.h,
-                              width: 250.w,
-                            ),
-                            Text(
-                              "No Appointments available",
-                              style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
-                        ),
-                      )
+                    ? const SizedBox()
                     : ListView.builder(
                         padding: EdgeInsets.zero,
                         itemCount: getCompletedAppointmentsModel
@@ -178,6 +160,11 @@ class _GetCompletedFeedbackWidgetState
                                               getCompletedAppointmentsModel
                                                   .appointmentDetails![index]
                                                   .doctorName
+                                                  .toString(),
+                                          appointmentId:
+                                              getCompletedAppointmentsModel
+                                                  .appointmentDetails![index]
+                                                  .appointmentId
                                                   .toString(),
                                         ),
                                       ],

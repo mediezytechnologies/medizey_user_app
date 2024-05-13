@@ -9,9 +9,11 @@ import '../../../CommonWidgets/text_style_widget.dart';
 import '../FeedbackScreen/feedback_screen.dart';
 
 class UserRatingWidget extends StatelessWidget {
-  const UserRatingWidget({super.key, required this.doctorName});
+  const UserRatingWidget(
+      {super.key, required this.doctorName, required this.appointmentId});
 
   final String doctorName;
+  final String appointmentId;
 
   @override
   Widget build(BuildContext context) {
@@ -59,18 +61,31 @@ class UserRatingWidget extends StatelessWidget {
                             BlocProvider.of<RatingBloc>(context).add(
                                 const RatingEvent.ratingTextChanged(
                                     "TERRIBLE"));
+                            BlocProvider.of<RatingBloc>(context).add(
+                                const RatingEvent.ratingGetFeedBacks(
+                                    "TERRIBLE"));
                           } else if (rating == 1.5 || rating == 2) {
-                            BlocProvider.of<RatingBloc>(context)
-                                .add(const RatingEvent.ratingTextChanged("OK"));
+                            BlocProvider.of<RatingBloc>(context).add(
+                                const RatingEvent.ratingTextChanged("BAD"));
+                            BlocProvider.of<RatingBloc>(context).add(
+                                const RatingEvent.ratingGetFeedBacks("BAD"));
                           } else if (rating == 2.5 || rating == 3) {
                             BlocProvider.of<RatingBloc>(context).add(
-                                const RatingEvent.ratingTextChanged("BETTER"));
+                                const RatingEvent.ratingTextChanged("AVERAGE"));
+                            BlocProvider.of<RatingBloc>(context).add(
+                                const RatingEvent.ratingGetFeedBacks(
+                                    "AVERAGE"));
                           } else if (rating == 3.5 || rating == 4) {
                             BlocProvider.of<RatingBloc>(context).add(
-                                const RatingEvent.ratingTextChanged("BEST"));
+                                const RatingEvent.ratingTextChanged("GREAT"));
+                            BlocProvider.of<RatingBloc>(context).add(
+                                const RatingEvent.ratingGetFeedBacks("GREAT"));
                           } else if (rating == 4.5 || rating == 5) {
                             BlocProvider.of<RatingBloc>(context).add(
                                 const RatingEvent.ratingTextChanged(
+                                    "EXCELLENT"));
+                            BlocProvider.of<RatingBloc>(context).add(
+                                const RatingEvent.ratingGetFeedBacks(
                                     "EXCELLENT"));
                           }
                           BlocProvider.of<RatingBloc>(context)
@@ -80,6 +95,7 @@ class UserRatingWidget extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => RatingFormScreen(
                                   doctorName: doctorName,
+                                  appointmentId: appointmentId,
                                 ),
                               ));
                         }),
@@ -93,6 +109,3 @@ class UserRatingWidget extends StatelessWidget {
     );
   }
 }
-
-//inside screen 
-

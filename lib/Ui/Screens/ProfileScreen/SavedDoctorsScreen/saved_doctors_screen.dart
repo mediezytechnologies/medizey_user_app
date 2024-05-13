@@ -13,6 +13,7 @@ import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import '../../HomeScreen/Widgets/doctor_favourite_card_widget.dart';
 
 class SavedDoctorsScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetFavDoctorBloc>(context)
-        .add(const GetFavDoctorEvent.started(true));
+        .add(const GetFavDoctorEvent.started());
     super.initState();
   }
 
@@ -183,12 +184,11 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           BlocProvider.of<GetFavDoctorBloc>(
                                                   context)
                                               .add(const GetFavDoctorEvent
-                                                  .started(false));
+                                                  .getFavDocterForcedEvent());
                                           BlocProvider.of<GetDoctersBloc>(
                                                   context)
-                                              .add(
-                                                  const GetDoctersEvent.started(
-                                                      false));
+                                              .add(const GetDoctersEvent
+                                                  .getDoctersForcedEvent());
                                           BlocProvider.of<AddFavouritesBloc>(
                                                   context)
                                               .add(
@@ -199,6 +199,11 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                               favouriteStatus: state.favId,
                                             ),
                                           );
+                                          BlocProvider.of<
+                                                      GetRecentlyBookedDoctorBloc>(
+                                                  context)
+                                              .add(const GetRecentlyBookedDoctorEvent
+                                                  .getRecentlyBookedDocterForcedEvent());
                                         });
                                       },
                                       child: SizedBox(

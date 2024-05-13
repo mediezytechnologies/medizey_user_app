@@ -21,6 +21,7 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets/doctor_details_third_widget.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 
 class DoctorDetailsScreen extends StatefulWidget {
@@ -68,9 +69,12 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
         leading: IconButton(
           onPressed: () {
             BlocProvider.of<GetDoctersBloc>(context)
-                .add(const GetDoctersEvent.started(false));
+                .add(const GetDoctersEvent.getDoctersForcedEvent());
             BlocProvider.of<GetFavDoctorBloc>(context)
-                .add(const GetFavDoctorEvent.started(false));
+                .add(const GetFavDoctorEvent.getFavDocterForcedEvent());
+            BlocProvider.of<GetRecentlyBookedDoctorBloc>(context).add(
+                const GetRecentlyBookedDoctorEvent
+                    .getRecentlyBookedDocterForcedEvent());
             Navigator.pop(context);
           },
           icon: Icon(Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back),

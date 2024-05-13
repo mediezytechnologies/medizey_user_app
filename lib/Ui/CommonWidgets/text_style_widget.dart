@@ -82,6 +82,10 @@ final white12B600 =
 final white14B700 =
     TextStyle(color: kCardColor, fontWeight: FontWeight.w700, fontSize: 14.sp);
 
+    
+final white14B500 =
+    TextStyle(color: kCardColor, fontWeight: FontWeight.w500, fontSize: 14.sp);
+
 final white10B400 =
     TextStyle(color: kCardColor, fontWeight: FontWeight.w400, fontSize: 10.sp);
 //* red

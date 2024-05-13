@@ -1,4 +1,5 @@
 import 'package:animation_wrappers/animation_wrappers.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Model/GetAppointments/get_completed_appointments_model.dart';
@@ -6,6 +7,7 @@ import '../../../CommonWidgets/text_style_widget.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../Consts/app_colors.dart';
 import '../../AppointmentsScreen/CompletedAppointmentDetailsScreen/completed_appointment_details_screen.dart';
+import '../../../CommonWidgets/row_text_widget.dart';
 
 class OnceCompletedWidget extends StatelessWidget {
   const OnceCompletedWidget(
@@ -52,6 +54,7 @@ class OnceCompletedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -95,10 +98,16 @@ class OnceCompletedWidget extends StatelessWidget {
                 FadedScaleAnimation(
                   scaleDuration: const Duration(milliseconds: 400),
                   fadeDuration: const Duration(milliseconds: 400),
-                  child: Image.network(
-                    doctorImage,
-                    height: 100.h,
-                    width: 80.w,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: FancyShimmerImage(
+                        height: size.height * .15,
+                        width: size.width * .2,
+                        boxFit: BoxFit.contain,
+                        errorWidget: const Image(
+                          image: AssetImage("assets/icons/no data.png"),
+                        ),
+                        imageUrl: doctorImage),
                   ),
                 ),
                 Padding(
@@ -107,25 +116,39 @@ class OnceCompletedWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Dr. $doctorName",
-                        style: black14B600,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      SizedBox(
+                        width: size.width * .65,
+                        child: Text(
+                          "Dr. $doctorName",
+                          style: black14B600,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      Text(clinicName, style: grey12B500),
-                      Text("$patientName for $symptoms", style: grey12B500),
-                      Row(
-                        children: [
-                          Text("$tokenDate | ", style: black12B500),
-                          Text(tokenTime, style: black12B500),
-                        ],
+                      SizedBox(
+                          width: size.width * .65,
+                          child: Text(clinicName, style: grey12B500)),
+                      SizedBox(
+                          width: size.width * .65,
+                          child: Text("$patientName for $symptoms",
+                              style: grey12B500)),
+                      SizedBox(
+                        width: size.width * .65,
+                        child: Row(
+                          children: [
+                            Text("$tokenDate | ", style: black12B500),
+                            Text(tokenTime, style: black12B500),
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text("check in time : ", style: grey12B500),
-                          Text(checkInTime, style: black12B500),
-                        ],
+                      SizedBox(
+                        width: size.width * .65,
+                        child: Row(
+                          children: [
+                            Text("check in time : ", style: grey12B500),
+                            Text(checkInTime, style: black12B500),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -134,21 +157,10 @@ class OnceCompletedWidget extends StatelessWidget {
             ),
             labTestName == "null"
                 ? const SizedBox()
-                : Row(
-                    children: [
-                      Text("Lab test : ", style: grey12B500),
-                      Text(labTestName, style: black12B500),
-                    ],
-                  ),
-            scanningTestName == "null"
-                ? const SizedBox()
-                : Row(
-                    children: [
-                      Text("Scanning : ", style: grey12B500),
-                      Text(scanningTestName, style: black12B500),
-                    ],
-                  ),
-            
+                : scanningTestName == "null"
+                    ? const SizedBox()
+                    : RowTextWidget(
+                        heading: "Scanning", data: scanningTestName),
             const VerticalSpacingWidget(height: 2),
           ],
         ),
