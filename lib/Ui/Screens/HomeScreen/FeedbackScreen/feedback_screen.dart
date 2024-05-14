@@ -35,16 +35,6 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
     {'name': 'No  ', 'Icon': Icons.thumb_down_off_alt_rounded},
   ];
 
-  List textReson = [
-    "Doctor Not Friendly",
-    "Explanation of Issue",
-    "High Wait Time",
-    "Unhelpfull Staff",
-    "Charged Higher Fee",
-    "Incorect Location",
-    "Doctor Unavailable",
-    "Other"
-  ];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -154,8 +144,8 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Sorry to hear to Tell us what when wrong",
-          style: black14B600,
+          "Sorry to hear to tell us what when wrong",
+          style: black13B500,
         ),
         const VerticalSpacingWidget(height: 5),
         BlocBuilder<RatingBloc, RatingState>(
