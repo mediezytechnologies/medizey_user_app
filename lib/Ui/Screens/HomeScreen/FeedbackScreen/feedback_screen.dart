@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import '../../../../ddd/application/rating/rating_bloc.dart';
+import '../../../../ddd/application/rating_post/rating_post_bloc.dart';
 import '../../../CommonWidgets/common_button_widget.dart';
 import '../../../CommonWidgets/horizontal_spacing_widget.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
@@ -56,9 +57,9 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
             BlocProvider.of<RatingBloc>(context)
                 .add(const RatingEvent.ratingReasonChanged(-1));
             BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingLikeChanged(-1));
+                .add(const RatingEvent.ratingLikeChanged(3));
             BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingRadioChanged(-1));
+                .add(const RatingEvent.ratingRadioChanged(5));
             BlocProvider.of<RatingBloc>(context)
                 .add(const RatingEvent.ratingChanged(0));
             Navigator.pushReplacement(
@@ -71,7 +72,41 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: BlocBuilder<RatingBloc, RatingState>(
+        child:
+            // BlocConsumer<RatingBloc, RatingState>(
+            //   listener: (context, state) {
+            //    log("status dfdf : ${state.addStatus}");
+            //  if (state.addStatus) {
+            //   log("status ${state.addStatus==true}");
+
+            // GeneralServices.instance
+            //     .showToastMessage("Review added successfully");
+            // BlocProvider.of<GetCompletedAppointmentsBloc>(context)
+            //     .add(FetchCompletedAppointments());
+            // BlocProvider.of<RatingBloc>(context)
+            //     .add(const RatingEvent.ratingTextChanged(""));
+            // BlocProvider.of<RatingBloc>(context)
+            //     .add(const RatingEvent.ratingReasonChanged(-1));
+            // BlocProvider.of<RatingBloc>(context)
+            //     .add(const RatingEvent.ratingLikeChanged(-1));
+            // BlocProvider.of<RatingBloc>(context)
+            //     .add(const RatingEvent.ratingRadioChanged(-1));
+            // BlocProvider.of<RatingBloc>(context)
+            //     .add(const RatingEvent.ratingChanged(0));
+            //   Navigator.pushReplacement(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) =>
+            //               const BottomNavigationControlWidget()));
+            // }
+            // if (state.addIsError) {
+            //   GeneralServices.instance
+            //       .showErrorMessage(context, state.addMessage);
+            // }
+
+            // },
+            // builder: (context, state) {
+            BlocBuilder<RatingBloc, RatingState>(
           builder: (context, state) {
             return Column(
               children: [
@@ -100,48 +135,34 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                 radioButtonWidget(size, state, context),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                  child: BlocConsumer<RatingBloc, RatingState>(
-                    listener: (context, state) {
-                      if (state.addIsError) {
+                  child: BlocConsumer<RatingPostBloc, RatingPostState>(
+                    listener: (context, postState) {
+                      if (postState.isError) {
                         GeneralServices.instance
                             .showErrorMessage(context, state.addMessage);
                       }
-                      if (state.addStatus) {
-                        GeneralServices.instance
-                            .showToastMessage("Review added successfully");
-                        BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-                            .add(FetchCompletedAppointments());
-                        BlocProvider.of<RatingBloc>(context)
-                            .add(const RatingEvent.ratingTextChanged(""));
-                        BlocProvider.of<RatingBloc>(context)
-                            .add(const RatingEvent.ratingReasonChanged(-1));
-                        BlocProvider.of<RatingBloc>(context)
-                            .add(const RatingEvent.ratingLikeChanged(-1));
-                        BlocProvider.of<RatingBloc>(context)
-                            .add(const RatingEvent.ratingRadioChanged(-1));
-                        BlocProvider.of<RatingBloc>(context)
-                            .add(const RatingEvent.ratingChanged(0));
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const BottomNavigationControlWidget()));
+                      else if(postState.status==true){
+log("hy its working fine");
                       }
                     },
-                    builder: (context, state) {
+                    builder: (context, postState) {
                       return CommonButtonWidget(
                           title: "Submit",
                           onTapFunction: () {
-                            BlocProvider.of<RatingBloc>(context).add(
-                              RatingEvent.ratingAddFeedBacks(
+                            BlocProvider.of<RatingPostBloc>(context).add(
+                              RatingPostEvent.ratingAddFeedBacks(
                                 widget.appointmentId,
                                 state.ratingValue.toString(),
                                 reviewId.toString(),
-                                state.likedIndex!=-1? state.likedIndex:3,
-                                state.radioIndex!=-1? state.radioIndex:5,
+                                state.likedIndex != 3 ? state.likedIndex : 3,
+                                state.radioIndex != 5 ? state.radioIndex : 5,
                                 ratingId.toString(),
                               ),
                             );
+                            log("stat 1${widget.appointmentId}");
+                            log("sata 2 : ${state.ratingValue}");
+                            log(" working");
+                            log(" working");
                           });
                     },
                   ),
@@ -149,6 +170,8 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                 const VerticalSpacingWidget(height: 15)
               ],
             );
+            //   },
+            // );
           },
         ),
       ),

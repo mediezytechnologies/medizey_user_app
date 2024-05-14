@@ -17,8 +17,8 @@ class RatingEvent with _$RatingEvent {
       String appointmentId,
       String rating,
       String reviewId,
-      int doctorRecommentation,
-      int userComments,
-      String ratingId,
+      int? doctorRecommentation,
+      int? userComments,
+      String? ratingId,
       ) = _RatingAddFeedBacks;
 }

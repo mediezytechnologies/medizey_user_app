@@ -87,8 +87,8 @@ class RatingRepoImpl implements RatingRepository {
         return Left(ErrorModel());
       }
     } on DioError catch (e) {
-      log(e.message!);
-      log(e.error.toString());
+      log(e.message!); 
+      log("errrr : ${e.error.toString()}");
       log(e.error.toString());
 
       final err = ErrorModel.fromJson(e.response!.data);

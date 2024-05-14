@@ -17,7 +17,8 @@ class RatingState with _$RatingState {
       required int reasonIndex,
       required int likedIndex,
       AddRatingModel? addRatingModel,
-      required int radioIndex}) = _Initial;
+      required int radioIndex,
+      }) = _Initial;
   factory RatingState.initial() => const RatingState(
       isloading: false,
       isError: false,
@@ -30,7 +31,7 @@ class RatingState with _$RatingState {
       ratingValue: 0,
       ratingTest: "",
       reasonIndex: -1,
-      likedIndex: -1,
-      radioIndex: -1,
+      likedIndex: 3,
+      radioIndex: 5,
       userRating: []);
 }
