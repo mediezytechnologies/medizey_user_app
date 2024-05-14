@@ -20,9 +20,9 @@ import '../../../../Services/general_services.dart';
 class GoogleContirmUserScreen extends StatefulWidget {
   const GoogleContirmUserScreen({
     super.key,
-    required this.result,
+    this.result,
   });
-  final User result;
+  final User? result;
   @override
   State<GoogleContirmUserScreen> createState() =>
       _GoogleContirmUserScreenState();
@@ -69,7 +69,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                   height: 10,
                 ),
                 Text(
-                  "Hy, ${widget.result.displayName}",
+                  "Hy, ${widget.result!.displayName??""}",
                   style: black16B600,
                 ),
                 const VerticalSpacingWidget(
@@ -80,7 +80,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                   style: black14B600,
                 ),
                 Text(
-                  widget.result.email.toString(),
+                  widget.result!.email.toString(),
                   style: black14B600,
                 ),
                 const VerticalSpacingWidget(
@@ -145,9 +145,10 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                         ));
                         await FirestoreService().insertNote(
                           phoneNumberController.text,
-                          widget.result.email.toString(),
+                          widget.result!.email.toString(),
                         );
-                        CollectionReference reference =firestore.collection("login");
+                        CollectionReference reference =
+                            firestore.collection("login");
                         log("numb ${phoneNumberController.text}");
 
                         //        Navigator.pushAndRemoveUntil(

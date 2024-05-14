@@ -256,7 +256,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         GoogleContirmUserScreen(
-                                      result: result!,
+                                      result: result,
                                     ),
                                   ));
                             },

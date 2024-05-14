@@ -57,8 +57,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '220538846317',
     projectId: 'mediezy-28594',
     storageBucket: 'mediezy-28594.appspot.com',
-    iosClientId:
-        '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
+    androidClientId: '220538846317-ce1q4mncb7n193ov8qut8994g2d7974k.apps.googleusercontent.com',
+    iosClientId: '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
     iosBundleId: 'com.example.mediezyUser',
   );
 
@@ -68,8 +68,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '220538846317',
     projectId: 'mediezy-28594',
     storageBucket: 'mediezy-28594.appspot.com',
-    iosClientId:
-        '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
+    androidClientId: '220538846317-ce1q4mncb7n193ov8qut8994g2d7974k.apps.googleusercontent.com',
+    iosClientId: '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
     iosBundleId: 'com.example.mediezyUser',
   );
 
@@ -81,4 +81,5 @@ class DefaultFirebaseOptions {
     authDomain: 'mediezy-28594.firebaseapp.com',
     storageBucket: 'mediezy-28594.appspot.com',
   );
+
 }
