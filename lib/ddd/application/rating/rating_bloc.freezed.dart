@@ -24,6 +24,14 @@ mixin _$RatingEvent {
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
     required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +42,9 @@ mixin _$RatingEvent {
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
     TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +55,9 @@ mixin _$RatingEvent {
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
     TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +69,7 @@ mixin _$RatingEvent {
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
     required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +80,7 @@ mixin _$RatingEvent {
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +91,7 @@ mixin _$RatingEvent {
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -169,6 +186,14 @@ class _$RatingChangedImpl implements _RatingChanged {
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
     required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
   }) {
     return ratingChanged(ratingValue);
   }
@@ -182,6 +207,9 @@ class _$RatingChangedImpl implements _RatingChanged {
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
     TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
   }) {
     return ratingChanged?.call(ratingValue);
   }
@@ -195,6 +223,9 @@ class _$RatingChangedImpl implements _RatingChanged {
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
     TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingChanged != null) {
@@ -212,6 +243,7 @@ class _$RatingChangedImpl implements _RatingChanged {
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
     required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
   }) {
     return ratingChanged(this);
   }
@@ -225,6 +257,7 @@ class _$RatingChangedImpl implements _RatingChanged {
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
   }) {
     return ratingChanged?.call(this);
   }
@@ -238,6 +271,7 @@ class _$RatingChangedImpl implements _RatingChanged {
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingChanged != null) {
@@ -328,6 +362,14 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
     required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
   }) {
     return ratingTextChanged(ratingTest);
   }
@@ -341,6 +383,9 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
     TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
   }) {
     return ratingTextChanged?.call(ratingTest);
   }
@@ -354,6 +399,9 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
     TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingTextChanged != null) {
@@ -371,6 +419,7 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
     required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
   }) {
     return ratingTextChanged(this);
   }
@@ -384,6 +433,7 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
   }) {
     return ratingTextChanged?.call(this);
   }
@@ -397,6 +447,7 @@ class _$RatingTextChangedImpl implements _RatingTextChanged {
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingTextChanged != null) {
@@ -488,6 +539,14 @@ class _$RatingReasonChangedImpl implements _RatingReasonChanged {
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
     required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
   }) {
     return ratingReasonChanged(reasonIndex);
   }
@@ -501,6 +560,9 @@ class _$RatingReasonChangedImpl implements _RatingReasonChanged {
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
     TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
   }) {
     return ratingReasonChanged?.call(reasonIndex);
   }
@@ -514,6 +576,9 @@ class _$RatingReasonChangedImpl implements _RatingReasonChanged {
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
     TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingReasonChanged != null) {
@@ -531,6 +596,7 @@ class _$RatingReasonChangedImpl implements _RatingReasonChanged {
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
     required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
   }) {
     return ratingReasonChanged(this);
   }
@@ -544,6 +610,7 @@ class _$RatingReasonChangedImpl implements _RatingReasonChanged {
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
   }) {
     return ratingReasonChanged?.call(this);
   }
@@ -557,6 +624,7 @@ class _$RatingReasonChangedImpl implements _RatingReasonChanged {
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingReasonChanged != null) {
@@ -648,6 +716,14 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
     required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
   }) {
     return ratingLikeChanged(likedIndex);
   }
@@ -661,6 +737,9 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
     TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
   }) {
     return ratingLikeChanged?.call(likedIndex);
   }
@@ -674,6 +753,9 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
     TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingLikeChanged != null) {
@@ -691,6 +773,7 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
     required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
   }) {
     return ratingLikeChanged(this);
   }
@@ -704,6 +787,7 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
   }) {
     return ratingLikeChanged?.call(this);
   }
@@ -717,6 +801,7 @@ class _$RatingLikeChangedImpl implements _RatingLikeChanged {
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingLikeChanged != null) {
@@ -808,6 +893,14 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
     required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
   }) {
     return ratingRadioChanged(radioIndex);
   }
@@ -821,6 +914,9 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
     TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
   }) {
     return ratingRadioChanged?.call(radioIndex);
   }
@@ -834,6 +930,9 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
     TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingRadioChanged != null) {
@@ -851,6 +950,7 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
     required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
   }) {
     return ratingRadioChanged(this);
   }
@@ -864,6 +964,7 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
   }) {
     return ratingRadioChanged?.call(this);
   }
@@ -877,6 +978,7 @@ class _$RatingRadioChangedImpl implements _RatingRadioChanged {
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingRadioChanged != null) {
@@ -968,6 +1070,14 @@ class _$RatingGetFeedBacksImpl implements _RatingGetFeedBacks {
     required TResult Function(int likedIndex) ratingLikeChanged,
     required TResult Function(int radioIndex) ratingRadioChanged,
     required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
   }) {
     return ratingGetFeedBacks(feedback);
   }
@@ -981,6 +1091,9 @@ class _$RatingGetFeedBacksImpl implements _RatingGetFeedBacks {
     TResult? Function(int likedIndex)? ratingLikeChanged,
     TResult? Function(int radioIndex)? ratingRadioChanged,
     TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
   }) {
     return ratingGetFeedBacks?.call(feedback);
   }
@@ -994,6 +1107,9 @@ class _$RatingGetFeedBacksImpl implements _RatingGetFeedBacks {
     TResult Function(int likedIndex)? ratingLikeChanged,
     TResult Function(int radioIndex)? ratingRadioChanged,
     TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingGetFeedBacks != null) {
@@ -1011,6 +1127,7 @@ class _$RatingGetFeedBacksImpl implements _RatingGetFeedBacks {
     required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
     required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
     required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
   }) {
     return ratingGetFeedBacks(this);
   }
@@ -1024,6 +1141,7 @@ class _$RatingGetFeedBacksImpl implements _RatingGetFeedBacks {
     TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
   }) {
     return ratingGetFeedBacks?.call(this);
   }
@@ -1037,6 +1155,7 @@ class _$RatingGetFeedBacksImpl implements _RatingGetFeedBacks {
     TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
     TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
     TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingGetFeedBacks != null) {
@@ -1057,16 +1176,263 @@ abstract class _RatingGetFeedBacks implements RatingEvent {
 }
 
 /// @nodoc
+abstract class _$$RatingAddFeedBacksImplCopyWith<$Res> {
+  factory _$$RatingAddFeedBacksImplCopyWith(_$RatingAddFeedBacksImpl value,
+          $Res Function(_$RatingAddFeedBacksImpl) then) =
+      __$$RatingAddFeedBacksImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String appointmentId,
+      String rating,
+      String reviewId,
+      int doctorRecommentation,
+      int userComments,
+      String ratingId});
+}
+
+/// @nodoc
+class __$$RatingAddFeedBacksImplCopyWithImpl<$Res>
+    extends _$RatingEventCopyWithImpl<$Res, _$RatingAddFeedBacksImpl>
+    implements _$$RatingAddFeedBacksImplCopyWith<$Res> {
+  __$$RatingAddFeedBacksImplCopyWithImpl(_$RatingAddFeedBacksImpl _value,
+      $Res Function(_$RatingAddFeedBacksImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? appointmentId = null,
+    Object? rating = null,
+    Object? reviewId = null,
+    Object? doctorRecommentation = null,
+    Object? userComments = null,
+    Object? ratingId = null,
+  }) {
+    return _then(_$RatingAddFeedBacksImpl(
+      null == appointmentId
+          ? _value.appointmentId
+          : appointmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == reviewId
+          ? _value.reviewId
+          : reviewId // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == doctorRecommentation
+          ? _value.doctorRecommentation
+          : doctorRecommentation // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == userComments
+          ? _value.userComments
+          : userComments // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == ratingId
+          ? _value.ratingId
+          : ratingId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
+  const _$RatingAddFeedBacksImpl(this.appointmentId, this.rating, this.reviewId,
+      this.doctorRecommentation, this.userComments, this.ratingId);
+
+  @override
+  final String appointmentId;
+  @override
+  final String rating;
+  @override
+  final String reviewId;
+  @override
+  final int doctorRecommentation;
+  @override
+  final int userComments;
+  @override
+  final String ratingId;
+
+  @override
+  String toString() {
+    return 'RatingEvent.ratingAddFeedBacks(appointmentId: $appointmentId, rating: $rating, reviewId: $reviewId, doctorRecommentation: $doctorRecommentation, userComments: $userComments, ratingId: $ratingId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RatingAddFeedBacksImpl &&
+            (identical(other.appointmentId, appointmentId) ||
+                other.appointmentId == appointmentId) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId) &&
+            (identical(other.doctorRecommentation, doctorRecommentation) ||
+                other.doctorRecommentation == doctorRecommentation) &&
+            (identical(other.userComments, userComments) ||
+                other.userComments == userComments) &&
+            (identical(other.ratingId, ratingId) ||
+                other.ratingId == ratingId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, appointmentId, rating, reviewId,
+      doctorRecommentation, userComments, ratingId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RatingAddFeedBacksImplCopyWith<_$RatingAddFeedBacksImpl> get copyWith =>
+      __$$RatingAddFeedBacksImplCopyWithImpl<_$RatingAddFeedBacksImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double ratingValue) ratingChanged,
+    required TResult Function(String ratingTest) ratingTextChanged,
+    required TResult Function(int reasonIndex) ratingReasonChanged,
+    required TResult Function(int likedIndex) ratingLikeChanged,
+    required TResult Function(int radioIndex) ratingRadioChanged,
+    required TResult Function(String feedback) ratingGetFeedBacks,
+    required TResult Function(
+            String appointmentId,
+            String rating,
+            String reviewId,
+            int doctorRecommentation,
+            int userComments,
+            String ratingId)
+        ratingAddFeedBacks,
+  }) {
+    return ratingAddFeedBacks(appointmentId, rating, reviewId,
+        doctorRecommentation, userComments, ratingId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double ratingValue)? ratingChanged,
+    TResult? Function(String ratingTest)? ratingTextChanged,
+    TResult? Function(int reasonIndex)? ratingReasonChanged,
+    TResult? Function(int likedIndex)? ratingLikeChanged,
+    TResult? Function(int radioIndex)? ratingRadioChanged,
+    TResult? Function(String feedback)? ratingGetFeedBacks,
+    TResult? Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
+  }) {
+    return ratingAddFeedBacks?.call(appointmentId, rating, reviewId,
+        doctorRecommentation, userComments, ratingId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double ratingValue)? ratingChanged,
+    TResult Function(String ratingTest)? ratingTextChanged,
+    TResult Function(int reasonIndex)? ratingReasonChanged,
+    TResult Function(int likedIndex)? ratingLikeChanged,
+    TResult Function(int radioIndex)? ratingRadioChanged,
+    TResult Function(String feedback)? ratingGetFeedBacks,
+    TResult Function(String appointmentId, String rating, String reviewId,
+            int doctorRecommentation, int userComments, String ratingId)?
+        ratingAddFeedBacks,
+    required TResult orElse(),
+  }) {
+    if (ratingAddFeedBacks != null) {
+      return ratingAddFeedBacks(appointmentId, rating, reviewId,
+          doctorRecommentation, userComments, ratingId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RatingChanged value) ratingChanged,
+    required TResult Function(_RatingTextChanged value) ratingTextChanged,
+    required TResult Function(_RatingReasonChanged value) ratingReasonChanged,
+    required TResult Function(_RatingLikeChanged value) ratingLikeChanged,
+    required TResult Function(_RatingRadioChanged value) ratingRadioChanged,
+    required TResult Function(_RatingGetFeedBacks value) ratingGetFeedBacks,
+    required TResult Function(_RatingAddFeedBacks value) ratingAddFeedBacks,
+  }) {
+    return ratingAddFeedBacks(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RatingChanged value)? ratingChanged,
+    TResult? Function(_RatingTextChanged value)? ratingTextChanged,
+    TResult? Function(_RatingReasonChanged value)? ratingReasonChanged,
+    TResult? Function(_RatingLikeChanged value)? ratingLikeChanged,
+    TResult? Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult? Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult? Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
+  }) {
+    return ratingAddFeedBacks?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RatingChanged value)? ratingChanged,
+    TResult Function(_RatingTextChanged value)? ratingTextChanged,
+    TResult Function(_RatingReasonChanged value)? ratingReasonChanged,
+    TResult Function(_RatingLikeChanged value)? ratingLikeChanged,
+    TResult Function(_RatingRadioChanged value)? ratingRadioChanged,
+    TResult Function(_RatingGetFeedBacks value)? ratingGetFeedBacks,
+    TResult Function(_RatingAddFeedBacks value)? ratingAddFeedBacks,
+    required TResult orElse(),
+  }) {
+    if (ratingAddFeedBacks != null) {
+      return ratingAddFeedBacks(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RatingAddFeedBacks implements RatingEvent {
+  const factory _RatingAddFeedBacks(
+      final String appointmentId,
+      final String rating,
+      final String reviewId,
+      final int doctorRecommentation,
+      final int userComments,
+      final String ratingId) = _$RatingAddFeedBacksImpl;
+
+  String get appointmentId;
+  String get rating;
+  String get reviewId;
+  int get doctorRecommentation;
+  int get userComments;
+  String get ratingId;
+  @JsonKey(ignore: true)
+  _$$RatingAddFeedBacksImplCopyWith<_$RatingAddFeedBacksImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$RatingState {
   bool get isloading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get status => throw _privateConstructorUsedError;
+  bool get addIsloading => throw _privateConstructorUsedError;
+  bool get addIsError => throw _privateConstructorUsedError;
+  String get addMessage => throw _privateConstructorUsedError;
+  bool get addStatus => throw _privateConstructorUsedError;
   double get ratingValue => throw _privateConstructorUsedError;
   String get ratingTest => throw _privateConstructorUsedError;
   List<UserRating> get userRating => throw _privateConstructorUsedError;
   int get reasonIndex => throw _privateConstructorUsedError;
   int get likedIndex => throw _privateConstructorUsedError;
+  AddRatingModel? get addRatingModel => throw _privateConstructorUsedError;
   int get radioIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1085,11 +1451,16 @@ abstract class $RatingStateCopyWith<$Res> {
       bool isError,
       String message,
       bool status,
+      bool addIsloading,
+      bool addIsError,
+      String addMessage,
+      bool addStatus,
       double ratingValue,
       String ratingTest,
       List<UserRating> userRating,
       int reasonIndex,
       int likedIndex,
+      AddRatingModel? addRatingModel,
       int radioIndex});
 }
 
@@ -1110,11 +1481,16 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
     Object? isError = null,
     Object? message = null,
     Object? status = null,
+    Object? addIsloading = null,
+    Object? addIsError = null,
+    Object? addMessage = null,
+    Object? addStatus = null,
     Object? ratingValue = null,
     Object? ratingTest = null,
     Object? userRating = null,
     Object? reasonIndex = null,
     Object? likedIndex = null,
+    Object? addRatingModel = freezed,
     Object? radioIndex = null,
   }) {
     return _then(_value.copyWith(
@@ -1133,6 +1509,22 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as bool,
+      addIsloading: null == addIsloading
+          ? _value.addIsloading
+          : addIsloading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      addIsError: null == addIsError
+          ? _value.addIsError
+          : addIsError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      addMessage: null == addMessage
+          ? _value.addMessage
+          : addMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      addStatus: null == addStatus
+          ? _value.addStatus
+          : addStatus // ignore: cast_nullable_to_non_nullable
               as bool,
       ratingValue: null == ratingValue
           ? _value.ratingValue
@@ -1154,6 +1546,10 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
           ? _value.likedIndex
           : likedIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      addRatingModel: freezed == addRatingModel
+          ? _value.addRatingModel
+          : addRatingModel // ignore: cast_nullable_to_non_nullable
+              as AddRatingModel?,
       radioIndex: null == radioIndex
           ? _value.radioIndex
           : radioIndex // ignore: cast_nullable_to_non_nullable
@@ -1175,11 +1571,16 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isError,
       String message,
       bool status,
+      bool addIsloading,
+      bool addIsError,
+      String addMessage,
+      bool addStatus,
       double ratingValue,
       String ratingTest,
       List<UserRating> userRating,
       int reasonIndex,
       int likedIndex,
+      AddRatingModel? addRatingModel,
       int radioIndex});
 }
 
@@ -1198,11 +1599,16 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isError = null,
     Object? message = null,
     Object? status = null,
+    Object? addIsloading = null,
+    Object? addIsError = null,
+    Object? addMessage = null,
+    Object? addStatus = null,
     Object? ratingValue = null,
     Object? ratingTest = null,
     Object? userRating = null,
     Object? reasonIndex = null,
     Object? likedIndex = null,
+    Object? addRatingModel = freezed,
     Object? radioIndex = null,
   }) {
     return _then(_$InitialImpl(
@@ -1221,6 +1627,22 @@ class __$$InitialImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as bool,
+      addIsloading: null == addIsloading
+          ? _value.addIsloading
+          : addIsloading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      addIsError: null == addIsError
+          ? _value.addIsError
+          : addIsError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      addMessage: null == addMessage
+          ? _value.addMessage
+          : addMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      addStatus: null == addStatus
+          ? _value.addStatus
+          : addStatus // ignore: cast_nullable_to_non_nullable
               as bool,
       ratingValue: null == ratingValue
           ? _value.ratingValue
@@ -1242,6 +1664,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.likedIndex
           : likedIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      addRatingModel: freezed == addRatingModel
+          ? _value.addRatingModel
+          : addRatingModel // ignore: cast_nullable_to_non_nullable
+              as AddRatingModel?,
       radioIndex: null == radioIndex
           ? _value.radioIndex
           : radioIndex // ignore: cast_nullable_to_non_nullable
@@ -1258,11 +1684,16 @@ class _$InitialImpl implements _Initial {
       required this.isError,
       required this.message,
       required this.status,
+      required this.addIsloading,
+      required this.addIsError,
+      required this.addMessage,
+      required this.addStatus,
       required this.ratingValue,
       required this.ratingTest,
       required final List<UserRating> userRating,
       required this.reasonIndex,
       required this.likedIndex,
+      this.addRatingModel,
       required this.radioIndex})
       : _userRating = userRating;
 
@@ -1274,6 +1705,14 @@ class _$InitialImpl implements _Initial {
   final String message;
   @override
   final bool status;
+  @override
+  final bool addIsloading;
+  @override
+  final bool addIsError;
+  @override
+  final String addMessage;
+  @override
+  final bool addStatus;
   @override
   final double ratingValue;
   @override
@@ -1291,11 +1730,13 @@ class _$InitialImpl implements _Initial {
   @override
   final int likedIndex;
   @override
+  final AddRatingModel? addRatingModel;
+  @override
   final int radioIndex;
 
   @override
   String toString() {
-    return 'RatingState(isloading: $isloading, isError: $isError, message: $message, status: $status, ratingValue: $ratingValue, ratingTest: $ratingTest, userRating: $userRating, reasonIndex: $reasonIndex, likedIndex: $likedIndex, radioIndex: $radioIndex)';
+    return 'RatingState(isloading: $isloading, isError: $isError, message: $message, status: $status, addIsloading: $addIsloading, addIsError: $addIsError, addMessage: $addMessage, addStatus: $addStatus, ratingValue: $ratingValue, ratingTest: $ratingTest, userRating: $userRating, reasonIndex: $reasonIndex, likedIndex: $likedIndex, addRatingModel: $addRatingModel, radioIndex: $radioIndex)';
   }
 
   @override
@@ -1308,6 +1749,14 @@ class _$InitialImpl implements _Initial {
             (identical(other.isError, isError) || other.isError == isError) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.addIsloading, addIsloading) ||
+                other.addIsloading == addIsloading) &&
+            (identical(other.addIsError, addIsError) ||
+                other.addIsError == addIsError) &&
+            (identical(other.addMessage, addMessage) ||
+                other.addMessage == addMessage) &&
+            (identical(other.addStatus, addStatus) ||
+                other.addStatus == addStatus) &&
             (identical(other.ratingValue, ratingValue) ||
                 other.ratingValue == ratingValue) &&
             (identical(other.ratingTest, ratingTest) ||
@@ -1318,6 +1767,8 @@ class _$InitialImpl implements _Initial {
                 other.reasonIndex == reasonIndex) &&
             (identical(other.likedIndex, likedIndex) ||
                 other.likedIndex == likedIndex) &&
+            const DeepCollectionEquality()
+                .equals(other.addRatingModel, addRatingModel) &&
             (identical(other.radioIndex, radioIndex) ||
                 other.radioIndex == radioIndex));
   }
@@ -1329,11 +1780,16 @@ class _$InitialImpl implements _Initial {
       isError,
       message,
       status,
+      addIsloading,
+      addIsError,
+      addMessage,
+      addStatus,
       ratingValue,
       ratingTest,
       const DeepCollectionEquality().hash(_userRating),
       reasonIndex,
       likedIndex,
+      const DeepCollectionEquality().hash(addRatingModel),
       radioIndex);
 
   @JsonKey(ignore: true)
@@ -1349,11 +1805,16 @@ abstract class _Initial implements RatingState {
       required final bool isError,
       required final String message,
       required final bool status,
+      required final bool addIsloading,
+      required final bool addIsError,
+      required final String addMessage,
+      required final bool addStatus,
       required final double ratingValue,
       required final String ratingTest,
       required final List<UserRating> userRating,
       required final int reasonIndex,
       required final int likedIndex,
+      final AddRatingModel? addRatingModel,
       required final int radioIndex}) = _$InitialImpl;
 
   @override
@@ -1365,6 +1826,14 @@ abstract class _Initial implements RatingState {
   @override
   bool get status;
   @override
+  bool get addIsloading;
+  @override
+  bool get addIsError;
+  @override
+  String get addMessage;
+  @override
+  bool get addStatus;
+  @override
   double get ratingValue;
   @override
   String get ratingTest;
@@ -1374,6 +1843,8 @@ abstract class _Initial implements RatingState {
   int get reasonIndex;
   @override
   int get likedIndex;
+  @override
+  AddRatingModel? get addRatingModel;
   @override
   int get radioIndex;
   @override

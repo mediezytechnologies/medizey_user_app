@@ -12,4 +12,5 @@ class ApiEndPoints {
   static const getRecentlyBookedDoctors = '$baseUrl/user/recentlyBookedDoctor';
   static const searchDoctor = '$baseUrl/searchdoctor?name=';
   static const getRating = '$baseUrl/getUserRating/';
+  static const addRating = '$baseUrl/addDoctorReview';
 }
