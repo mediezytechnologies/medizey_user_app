@@ -231,12 +231,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                 }
                               }),
-                          const VerticalSpacingWidget(height: 5),
+                          // const VerticalSpacingWidget(height: 5),
                           // SignInButton(
                           //   Buttons.Google,
                           //   onPressed: () {},
                           // ),
-                          // const VerticalSpacingWidget(height: 5),
+                          const VerticalSpacingWidget(height: 5),
                           Text("or", style: black13B500),
                           const VerticalSpacingWidget(height: 5),
                           Row(
