@@ -28,7 +28,7 @@ class ClinicWidget extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.r),
         color: isSelected ? kMainColor : const Color(0xFFEAF3F8),
       ),
       child: Padding(
@@ -42,8 +42,8 @@ class ClinicWidget extends StatelessWidget {
                 Text(
                   clinicName,
                   style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w700,
                     color: isSelected ? Colors.white : kTextColor,
                   ),
                 ),
@@ -52,7 +52,7 @@ class ClinicWidget extends StatelessWidget {
                     Text(
                       clinicStartTime,
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
                         color: isSelected ? Colors.white : kTextColor,
                       ),
@@ -68,7 +68,7 @@ class ClinicWidget extends StatelessWidget {
                     Text(
                       clinicEndTime,
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
                         color: isSelected ? Colors.white : kTextColor,
                       ),
@@ -85,7 +85,7 @@ class ClinicWidget extends StatelessWidget {
                   child: Text(
                     "$clinicAddress $clinicLocation ",
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w400,
                       color: isSelected ? Colors.white : kTextColor,
                     ),
@@ -98,8 +98,8 @@ class ClinicWidget extends StatelessWidget {
                     Text(
                       availableTokenCounts,
                       style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w600,
                         color: isSelected ? Colors.white : kTextColor,
                       ),
                     ),
@@ -107,7 +107,7 @@ class ClinicWidget extends StatelessWidget {
                     Text(
                       "slots available",
                       style: TextStyle(
-                        fontSize: 11.sp,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
                         color: isSelected ? Colors.white : kTextColor,
                       ),

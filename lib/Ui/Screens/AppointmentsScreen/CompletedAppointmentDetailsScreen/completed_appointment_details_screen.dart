@@ -7,6 +7,10 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
+import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../CommonWidgets/row_text_widget.dart';
+import 'widget/vitals_row_text_widget.dart';
+
 class CompletedAppointmentDetailsScreen extends StatelessWidget {
   const CompletedAppointmentDetailsScreen({
     super.key,
@@ -51,6 +55,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Appointment Details"),
@@ -67,64 +72,49 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   FadedScaleAnimation(
                     scaleDuration: const Duration(milliseconds: 400),
                     fadeDuration: const Duration(milliseconds: 400),
-                    child: Image.network(
-                      doctorImage,
-                      height: 120.h,
-                      width: 100.w,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FancyShimmerImage(
+                          height: size.height * .15,
+                          width: size.width * .2,
+                          boxFit: BoxFit.contain,
+                          errorWidget: const Image(
+                            image: AssetImage("assets/icons/no data.png"),
+                          ),
+                          imageUrl: doctorImage),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 15),
+                    padding: EdgeInsets.only(left: 15.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          "Dr.$doctorName",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        SizedBox(
+                          width: size.width * .5,
+                          child: Text(
+                            "Dr $doctorName",
+                            style: black14B600,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
                         ),
-                        const VerticalSpacingWidget(height: 5),
-                        Text(
-                          clinicName.toString(),
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: kSubTextColor),
+                        SizedBox(
+                          width: size.width * .5,
+                          child: Text(
+                            clinicName,
+                            style: grey12B500,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         const VerticalSpacingWidget(height: 5),
                         Row(
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  tokenDate,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: kTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  " | ",
-                                  style: TextStyle(
-                                    fontSize: 15.sp,
-                                    color: kTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  tokenTime,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: kTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                Text("$tokenDate | ", style: black12B500),
+                                Text(tokenTime, style: black12B500),
                               ],
                             ),
                           ],
@@ -132,19 +122,14 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                         Row(
                           children: [
-                            Text(
-                              "For : ",
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: kSubTextColor),
-                            ),
-                            Text(
-                              patientName,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
+                            Text("For: ", style: grey12B500),
+                            SizedBox(
+                              width: size.width * .55,
+                              child: Text(
+                                patientName,
+                                style: black12B500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
@@ -155,60 +140,17 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const VerticalSpacingWidget(height: 10),
-              Text(
-                "Additional Details",
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  color: kSubTextColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const VerticalSpacingWidget(height: 10),
-              Row(
-                children: [
-                  Text(
-                    "Appointment For: ",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: kTextColor,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Text(
-                    symptoms,
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      color: kTextColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+              Text("Additional Details", style: grey13B600),
+              const VerticalSpacingWidget(height: 5),
+              RowTextWidget(heading: "Appointment for", data: symptoms),
               const VerticalSpacingWidget(height: 5),
               reviewAfter == "null"
                   ? Container()
                   : Column(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Review after: ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              "$reviewAfter days",
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        RowTextWidget(
+                          heading: "Review after",
+                          data: "$reviewAfter days",
                         ),
                         const VerticalSpacingWidget(height: 5),
                       ],
@@ -217,25 +159,9 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Container()
                   : Column(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "When did start : ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              whenItsCome,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        RowTextWidget(
+                          heading: "When did start",
+                          data: whenItsCome,
                         ),
                         const VerticalSpacingWidget(height: 5),
                       ],
@@ -244,25 +170,9 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Container()
                   : Column(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Intensity : ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              whenItStart,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        RowTextWidget(
+                          heading: "Intensity",
+                          data: whenItStart,
                         ),
                         const VerticalSpacingWidget(height: 5),
                       ],
@@ -271,14 +181,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Vitals : ",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: kTextColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
+                        Text("Vitals : ", style: black13B500),
                         const VerticalSpacingWidget(height: 5),
                         ListView.builder(
                             itemCount: vitals.length,
@@ -299,85 +202,28 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                       children: [
                                         vitals[index].height == null
                                             ? const SizedBox()
-                                            : Row(
-                                                children: [
-                                                  Text(
-                                                    "Height :",
-                                                    style: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  const HorizontalSpacingWidget(
-                                                      width: 4),
-                                                  Text(
-                                                    "${vitals[index].height.toString()} Cm",
-                                                    style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
-                                                ],
+                                            : VitalsRowTextWidget(
+                                                heading: "Height",
+                                                data:
+                                                    "${vitals[index].height.toString()} cm",
                                               ),
                                         const HorizontalSpacingWidget(
                                             width: 10),
                                         vitals[index].weight == null
                                             ? const SizedBox()
-                                            : Row(
-                                                children: [
-                                                  Text(
-                                                    "Weight :",
-                                                    style: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  const HorizontalSpacingWidget(
-                                                      width: 4),
-                                                  Text(
-                                                    "${vitals[index].weight.toString()} Kg",
-                                                    style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
-                                                ],
+                                            : VitalsRowTextWidget(
+                                                heading: "Weight",
+                                                data:
+                                                    "${vitals[index].weight.toString()} kg",
                                               ),
                                         const HorizontalSpacingWidget(
                                             width: 10),
                                         vitals[index].heartRate == null
                                             ? const SizedBox()
-                                            : Row(
-                                                children: [
-                                                  Text(
-                                                    "Heartrate :",
-                                                    style: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  const HorizontalSpacingWidget(
-                                                      width: 4),
-                                                  Text(
-                                                    "${vitals[index].heartRate.toString()} Bpm",
-                                                    style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
-                                                ],
+                                            : VitalsRowTextWidget(
+                                                heading: "Heartrate",
+                                                data:
+                                                    "${vitals[index].heartRate.toString()} BPM",
                                               ),
                                       ],
                                     ),
@@ -386,95 +232,28 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                       children: [
                                         vitals[index].temperature == null
                                             ? const SizedBox()
-                                            : Row(
-                                                children: [
-                                                  Text(
-                                                    "Temperature :",
-                                                    style: TextStyle(
-                                                      fontSize: 12.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  const HorizontalSpacingWidget(
-                                                      width: 4),
-                                                  Text(
-                                                    vitals[index]
-                                                        .temperature
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  const HorizontalSpacingWidget(
-                                                      width: 2),
-                                                  Text(
-                                                    vitals[index]
-                                                        .temperatureType
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
+                                            : VitalsRowTextWidget(
+                                                heading: "Temperature",
+                                                data:
+                                                    "${vitals[index].temperature.toString()} ${vitals[index].temperatureType.toString()}",
                                               ),
                                         const HorizontalSpacingWidget(width: 5),
                                         vitals[index].spo2 == null
                                             ? const SizedBox()
-                                            : Row(
-                                                children: [
-                                                  Text(
-                                                    "Spo2 :",
-                                                    style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  const HorizontalSpacingWidget(
-                                                      width: 4),
-                                                  Text(
+                                            : VitalsRowTextWidget(
+                                                heading: "Temperature",
+                                                data:
                                                     "${vitals[index].spo2.toString()} %",
-                                                    style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
-                                                ],
                                               ),
                                         const HorizontalSpacingWidget(width: 5),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Bp :",
-                                              style: TextStyle(
-                                                fontSize: 14.sp,
-                                                color: kTextColor,
-                                                fontWeight: FontWeight.w400,
+                                        vitals[index].sys == null &&
+                                                vitals[index].dia == null
+                                            ? const SizedBox()
+                                            : VitalsRowTextWidget(
+                                                heading: "BP",
+                                                data:
+                                                    "${vitals[index].sys ?? "N/A"} / ${vitals[index].dia ?? "N/A"}",
                                               ),
-                                            ),
-                                            const HorizontalSpacingWidget(
-                                                width: 4),
-                                            Text(
-                                              "${vitals[index].sys ?? "N/A"} / ${vitals[index].dia ?? "N/A"}",
-                                              style: TextStyle(
-                                                fontSize: 13.sp,
-                                                color: kTextColor,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )
-                                          ],
-                                        ),
                                       ],
                                     ),
                                   ],
@@ -488,14 +267,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Medicines : ",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: kTextColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
+                        Text("Medicines : ", style: black13B500),
                         const VerticalSpacingWidget(height: 5),
                         ListView.builder(
                             itemCount: prescriptions.length,
@@ -517,26 +289,15 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                         ? const SizedBox()
                                         : Row(
                                             children: [
-                                              Text(
-                                                "Medical store name :",
-                                                style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  color: kTextColor,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
+                                              Text("Medical store name :",
+                                                  style: grey12B500),
                                               const HorizontalSpacingWidget(
                                                   width: 5),
                                               Text(
-                                                prescriptions[index]
-                                                    .medicalStoreName
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                  color: kTextColor,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              )
+                                                  prescriptions[index]
+                                                      .medicalStoreName
+                                                      .toString(),
+                                                  style: black13B500)
                                             ],
                                           ),
                                     const VerticalSpacingWidget(height: 5),
@@ -544,22 +305,9 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "Medicine Name :",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Dosage :",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        )
+                                        Text("Medicine Name :",
+                                            style: grey12B500),
+                                        Text("Dosage :", style: grey12B500)
                                       ],
                                     ),
                                     const VerticalSpacingWidget(height: 2),
@@ -568,25 +316,15 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          prescriptions[index]
-                                              .medicineName
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
+                                            prescriptions[index]
+                                                .medicineName
+                                                .toString(),
+                                            style: black13B500),
                                         Text(
-                                          prescriptions[index]
-                                              .dosage
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
+                                            prescriptions[index]
+                                                .dosage
+                                                .toString(),
+                                            style: black13B500)
                                       ],
                                     ),
                                     const VerticalSpacingWidget(height: 4),
@@ -594,22 +332,8 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "Days :",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        Text(
-                                          "",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        )
+                                        Text("Days :", style: grey12B500),
+                                        Text("", style: black13B500)
                                       ],
                                     ),
                                     const VerticalSpacingWidget(height: 2),
@@ -618,25 +342,15 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          prescriptions[index]
-                                              .noOfDays
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
+                                            prescriptions[index]
+                                                .noOfDays
+                                                .toString(),
+                                            style: black13B500),
                                         Text(
-                                          prescriptions[index].type == 1
-                                              ? "Before Food"
-                                              : "After Food",
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
+                                            prescriptions[index].type == 1
+                                                ? "Before Food"
+                                                : "After Food",
+                                            style: black13B500)
                                       ],
                                     ),
                                     const VerticalSpacingWidget(height: 4),
@@ -644,52 +358,25 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "Medicine taken :",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kTextColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
+                                        Text("Medicine taken :",
+                                            style: grey12B500),
                                         Row(
                                           children: [
                                             prescriptions[index].morning == 1
-                                                ? Text(
-                                                    "Morning",
-                                                    style: TextStyle(
-                                                      fontSize: 15.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
+                                                ? Text("Morning",
+                                                    style: black13B500)
                                                 : Container(),
                                             const HorizontalSpacingWidget(
                                                 width: 5),
                                             prescriptions[index].noon == 1
-                                                ? Text(
-                                                    "Noon",
-                                                    style: TextStyle(
-                                                      fontSize: 15.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
+                                                ? Text("Noon",
+                                                    style: black13B500)
                                                 : Container(),
                                             const HorizontalSpacingWidget(
                                                 width: 5),
                                             prescriptions[index].night == 1
-                                                ? Text(
-                                                    "Night",
-                                                    style: TextStyle(
-                                                      fontSize: 15.sp,
-                                                      color: kTextColor,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
+                                                ? Text("Night",
+                                                    style: black13B500)
                                                 : Container(),
                                           ],
                                         )
@@ -708,14 +395,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Prescription image : ",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: kTextColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
+                        Text("Prescription image : ", style: black13B500),
                         const VerticalSpacingWidget(height: 5),
                         Center(
                           child: ClipRRect(
@@ -738,26 +418,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Container()
                   : Column(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Lab test: ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              labTestName,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                        RowTextWidget(heading: "Lab test", data: labTestName),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
@@ -765,26 +426,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Container()
                   : Column(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Lab Name: ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              labName,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                        RowTextWidget(heading: "Lab Name", data: labName),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
@@ -792,26 +434,8 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Container()
                   : Column(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Scanning test: ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              scanningCenterName,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                        RowTextWidget(
+                            heading: "Scanning test", data: scanningCenterName),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
@@ -819,49 +443,20 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ? Container()
                   : Column(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Scanning center name: ",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              scanningTestName,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                        RowTextWidget(
+                            heading: "Scanning center name",
+                            data: scanningTestName),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
               note == "null"
                   ? Container()
-                  : Row(
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          "Additional notes: ",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: kTextColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          note,
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            color: kTextColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Text("Additional notes: ", style: grey12B500),
+                        const VerticalSpacingWidget(height: 2),
+                        Text(note, style: black13B500),
                       ],
                     ),
               const VerticalSpacingWidget(height: 5)

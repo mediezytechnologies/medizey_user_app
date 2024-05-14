@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
+import '../../../CommonWidgets/text_style_widget.dart';
+
 class ProfileCardWidget extends StatelessWidget {
   const ProfileCardWidget(
       {super.key,
@@ -34,17 +36,14 @@ class ProfileCardWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const VerticalSpacingWidget(height: 10),
+                const VerticalSpacingWidget(height: 5),
                 Text(
                   title,
-                  style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: kTextColor),
+                  style: black14B600,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const VerticalSpacingWidget(height: 10),
+                const VerticalSpacingWidget(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -52,15 +51,18 @@ class ProfileCardWidget extends StatelessWidget {
                       flex: 2,
                       child: Text(
                         subTitle,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: kSubTextColor,
-                        ),
+                        style: grey12B500,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Flexible(flex: 1, child: Icon(icon, color: kSubTextColor))
+                    Flexible(
+                      flex: 1,
+                      child: Icon(
+                        icon,
+                        color: kSubTextColor,
+                        size: 20.sp,
+                      ),
+                    )
                   ],
                 ),
               ],

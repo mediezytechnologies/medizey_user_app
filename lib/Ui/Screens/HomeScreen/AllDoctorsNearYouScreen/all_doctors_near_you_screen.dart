@@ -14,6 +14,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 
 class AllDoctorNearYouScreen extends StatefulWidget {
   const AllDoctorNearYouScreen({super.key});
@@ -99,7 +100,7 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                         BlocProvider.of<GetFavDoctorBloc>(
                                                 context)
                                             .add(const GetFavDoctorEvent
-                                                .started());
+                                                .getFavDocterForcedEvent());
                                         BlocProvider.of<GetDoctersBloc>(context)
                                             .add(GetDoctersEvent.changeFav(
                                                 state.model[index].id!));
@@ -112,11 +113,15 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                             favouriteStatus: state.favId,
                                           ),
                                         );
-                                        BlocProvider.of<GetFavDoctorBloc>(
-                                                context)
-                                            .add(const GetFavDoctorEvent
-                                                .started());
                                       });
+                                      BlocProvider.of<GetDoctersBloc>(context)
+                                          .add(const GetDoctersEvent
+                                              .getDoctersForcedEvent());
+                                      BlocProvider.of<
+                                                  GetRecentlyBookedDoctorBloc>(
+                                              context)
+                                          .add(const GetRecentlyBookedDoctorEvent
+                                              .getRecentlyBookedDocterForcedEvent());
                                     },
                                     child: SizedBox(
                                       height: size.height * 0.028,
@@ -125,11 +130,9 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                         state.model[index].favoriteStatus == 1
                                             ? "assets/icons/favorite1.png"
                                             : "assets/icons/favorite2.png",
-                                        color: kMainColor,
                                       ),
                                     ),
                                   ),
-                                  userAwayFrom: doctor.distanceFromUser,
                                   clinicList: doctor.clinics!.toList(),
                                   doctorId: doctor.userId.toString(),
                                   firstName: doctor.firstname.toString(),

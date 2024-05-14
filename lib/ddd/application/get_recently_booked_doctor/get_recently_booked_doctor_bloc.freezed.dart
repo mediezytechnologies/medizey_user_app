@@ -20,18 +20,21 @@ mixin _$GetRecentlyBookedDoctorEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(int favId) changeFav,
+    required TResult Function() getRecentlyBookedDocterForcedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(int favId)? changeFav,
+    TResult? Function()? getRecentlyBookedDocterForcedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(int favId)? changeFav,
+    TResult Function()? getRecentlyBookedDocterForcedEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,24 @@ mixin _$GetRecentlyBookedDoctorEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_ChangeFav value) changeFav,
+    required TResult Function(_GetRecentlyBookedDocterForcedEvent value)
+        getRecentlyBookedDocterForcedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_ChangeFav value)? changeFav,
+    TResult? Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_ChangeFav value)? changeFav,
+    TResult Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -117,6 +126,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(int favId) changeFav,
+    required TResult Function() getRecentlyBookedDocterForcedEvent,
   }) {
     return started();
   }
@@ -126,6 +136,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(int favId)? changeFav,
+    TResult? Function()? getRecentlyBookedDocterForcedEvent,
   }) {
     return started?.call();
   }
@@ -135,6 +146,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(int favId)? changeFav,
+    TResult Function()? getRecentlyBookedDocterForcedEvent,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -148,6 +160,8 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_ChangeFav value) changeFav,
+    required TResult Function(_GetRecentlyBookedDocterForcedEvent value)
+        getRecentlyBookedDocterForcedEvent,
   }) {
     return started(this);
   }
@@ -157,6 +171,8 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_ChangeFav value)? changeFav,
+    TResult? Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
   }) {
     return started?.call(this);
   }
@@ -166,6 +182,8 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_ChangeFav value)? changeFav,
+    TResult Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -245,6 +263,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(int favId) changeFav,
+    required TResult Function() getRecentlyBookedDocterForcedEvent,
   }) {
     return changeFav(favId);
   }
@@ -254,6 +273,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(int favId)? changeFav,
+    TResult? Function()? getRecentlyBookedDocterForcedEvent,
   }) {
     return changeFav?.call(favId);
   }
@@ -263,6 +283,7 @@ class _$ChangeFavImpl implements _ChangeFav {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(int favId)? changeFav,
+    TResult Function()? getRecentlyBookedDocterForcedEvent,
     required TResult orElse(),
   }) {
     if (changeFav != null) {
@@ -276,6 +297,8 @@ class _$ChangeFavImpl implements _ChangeFav {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_ChangeFav value) changeFav,
+    required TResult Function(_GetRecentlyBookedDocterForcedEvent value)
+        getRecentlyBookedDocterForcedEvent,
   }) {
     return changeFav(this);
   }
@@ -285,6 +308,8 @@ class _$ChangeFavImpl implements _ChangeFav {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_ChangeFav value)? changeFav,
+    TResult? Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
   }) {
     return changeFav?.call(this);
   }
@@ -294,6 +319,8 @@ class _$ChangeFavImpl implements _ChangeFav {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_ChangeFav value)? changeFav,
+    TResult Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
     required TResult orElse(),
   }) {
     if (changeFav != null) {
@@ -310,6 +337,124 @@ abstract class _ChangeFav implements GetRecentlyBookedDoctorEvent {
   @JsonKey(ignore: true)
   _$$ChangeFavImplCopyWith<_$ChangeFavImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetRecentlyBookedDocterForcedEventImplCopyWith<$Res> {
+  factory _$$GetRecentlyBookedDocterForcedEventImplCopyWith(
+          _$GetRecentlyBookedDocterForcedEventImpl value,
+          $Res Function(_$GetRecentlyBookedDocterForcedEventImpl) then) =
+      __$$GetRecentlyBookedDocterForcedEventImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetRecentlyBookedDocterForcedEventImplCopyWithImpl<$Res>
+    extends _$GetRecentlyBookedDoctorEventCopyWithImpl<$Res,
+        _$GetRecentlyBookedDocterForcedEventImpl>
+    implements _$$GetRecentlyBookedDocterForcedEventImplCopyWith<$Res> {
+  __$$GetRecentlyBookedDocterForcedEventImplCopyWithImpl(
+      _$GetRecentlyBookedDocterForcedEventImpl _value,
+      $Res Function(_$GetRecentlyBookedDocterForcedEventImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetRecentlyBookedDocterForcedEventImpl
+    implements _GetRecentlyBookedDocterForcedEvent {
+  const _$GetRecentlyBookedDocterForcedEventImpl();
+
+  @override
+  String toString() {
+    return 'GetRecentlyBookedDoctorEvent.getRecentlyBookedDocterForcedEvent()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetRecentlyBookedDocterForcedEventImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(int favId) changeFav,
+    required TResult Function() getRecentlyBookedDocterForcedEvent,
+  }) {
+    return getRecentlyBookedDocterForcedEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(int favId)? changeFav,
+    TResult? Function()? getRecentlyBookedDocterForcedEvent,
+  }) {
+    return getRecentlyBookedDocterForcedEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(int favId)? changeFav,
+    TResult Function()? getRecentlyBookedDocterForcedEvent,
+    required TResult orElse(),
+  }) {
+    if (getRecentlyBookedDocterForcedEvent != null) {
+      return getRecentlyBookedDocterForcedEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_ChangeFav value) changeFav,
+    required TResult Function(_GetRecentlyBookedDocterForcedEvent value)
+        getRecentlyBookedDocterForcedEvent,
+  }) {
+    return getRecentlyBookedDocterForcedEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_ChangeFav value)? changeFav,
+    TResult? Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
+  }) {
+    return getRecentlyBookedDocterForcedEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_ChangeFav value)? changeFav,
+    TResult Function(_GetRecentlyBookedDocterForcedEvent value)?
+        getRecentlyBookedDocterForcedEvent,
+    required TResult orElse(),
+  }) {
+    if (getRecentlyBookedDocterForcedEvent != null) {
+      return getRecentlyBookedDocterForcedEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetRecentlyBookedDocterForcedEvent
+    implements GetRecentlyBookedDoctorEvent {
+  const factory _GetRecentlyBookedDocterForcedEvent() =
+      _$GetRecentlyBookedDocterForcedEventImpl;
 }
 
 /// @nodoc

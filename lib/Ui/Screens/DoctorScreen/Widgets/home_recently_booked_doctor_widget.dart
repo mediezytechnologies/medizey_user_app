@@ -5,10 +5,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/RecentBookedDoctorsScreen/recent_booked_doctors_screen.dart';
-
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
@@ -66,10 +64,16 @@ class _HomeRecentlyBookedDoctorWidgetState
                         favourites: GestureDetector(
                           onTap: () {
                             setState(() {
-                              BlocProvider.of<GetFavDoctorBloc>(context)
-                                  .add(const GetFavDoctorEvent.started());
-                              BlocProvider.of<GetDoctersBloc>(context)
-                                  .add(const GetDoctersEvent.started());
+                              BlocProvider.of<GetRecentlyBookedDoctorBloc>(
+                                      context)
+                                  .add(const GetRecentlyBookedDoctorEvent
+                                      .getRecentlyBookedDocterForcedEvent());
+                              BlocProvider.of<GetFavDoctorBloc>(context).add(
+                                  const GetFavDoctorEvent
+                                      .getFavDocterForcedEvent());
+                              BlocProvider.of<GetDoctersBloc>(context).add(
+                                  const GetDoctersEvent
+                                      .getDoctersForcedEvent());
                               BlocProvider.of<GetRecentlyBookedDoctorBloc>(
                                       context)
                                   .add(GetRecentlyBookedDoctorEvent.changeFav(
@@ -90,11 +94,9 @@ class _HomeRecentlyBookedDoctorWidgetState
                               state.model[index].favoriteStatus == 1
                                   ? "assets/icons/favorite1.png"
                                   : "assets/icons/favorite2.png",
-                              color: kMainColor,
                             ),
                           ),
                         ),
-                        userAwayFrom: doctor.distanceFromUser.toString(),
                         clinicList: doctor.clinics!.toList(),
                         doctorId: doctor.userId.toString(),
                         firstName: doctor.firstname.toString(),

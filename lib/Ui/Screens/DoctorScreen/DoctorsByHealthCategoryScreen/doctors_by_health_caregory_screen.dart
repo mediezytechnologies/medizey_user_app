@@ -106,7 +106,6 @@ class _DoctorsByHealthCatrgoryScreenState
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
                                       favourites: const SizedBox(),
-                                      userAwayFrom: "0.0",
                                       clinicList:
                                           getDoctorsByHealthCategoriesModel
                                               .healthConcern![index].clinics!

@@ -13,6 +13,7 @@ import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import '../../HomeScreen/Widgets/doctor_favourite_card_widget.dart';
 
 class SavedDoctorsScreen extends StatefulWidget {
@@ -23,7 +24,6 @@ class SavedDoctorsScreen extends StatefulWidget {
 }
 
 class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
- 
   late StreamSubscription<ConnectivityResult> subscription;
 
   void handleConnectivityChange(ConnectivityResult result) {
@@ -136,8 +136,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                       Padding(
                                         padding: EdgeInsets.only(right: 10.w),
                                         child: CircleAvatar(
-                                          backgroundColor:
-                                              const Color(0xFF56B89C),
+                                          backgroundColor: kSecondaryColor,
                                           radius: 16,
                                           child: Padding(
                                             padding: const EdgeInsets.all(4.0),
@@ -161,7 +160,6 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                 itemCount: state.model.length,
                                 itemBuilder: (context, index) {
                                   return DoctorFavouriteCardWidget(
-                                    userAwayFrom: "2.2",
                                     clinicList:
                                         state.model[index].clinics!.toList(),
                                     doctorId:
@@ -186,11 +184,11 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           BlocProvider.of<GetFavDoctorBloc>(
                                                   context)
                                               .add(const GetFavDoctorEvent
-                                                  .started());
+                                                  .getFavDocterForcedEvent());
                                           BlocProvider.of<GetDoctersBloc>(
                                                   context)
                                               .add(const GetDoctersEvent
-                                                  .started());
+                                                  .getDoctersForcedEvent());
                                           BlocProvider.of<AddFavouritesBloc>(
                                                   context)
                                               .add(
@@ -201,6 +199,11 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                               favouriteStatus: state.favId,
                                             ),
                                           );
+                                          BlocProvider.of<
+                                                      GetRecentlyBookedDoctorBloc>(
+                                                  context)
+                                              .add(const GetRecentlyBookedDoctorEvent
+                                                  .getRecentlyBookedDocterForcedEvent());
                                         });
                                       },
                                       child: SizedBox(
@@ -210,7 +213,6 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           state.model[index].favoriteStatus == 1
                                               ? "assets/icons/favorite1.png"
                                               : "assets/icons/favorite2.png",
-                                          color: kMainColor,
                                         ),
                                       ),
                                     ),

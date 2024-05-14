@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_docters_model.dart';
+part of 'get_doctor_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetDoctersModel _$GetDoctersModelFromJson(Map<String, dynamic> json) =>
-    GetDoctersModel(
+GetDoctorModel _$GetDoctorModelFromJson(Map<String, dynamic> json) =>
+    GetDoctorModel(
       success: json['success'] as bool?,
       allDoctors: (json['All Doctors'] as List<dynamic>?)
           ?.map((e) => AllDoctor.fromJson(e as Map<String, dynamic>))
@@ -16,7 +16,7 @@ GetDoctersModel _$GetDoctersModelFromJson(Map<String, dynamic> json) =>
       message: json['message'] as String?,
     );
 
-Map<String, dynamic> _$GetDoctersModelToJson(GetDoctersModel instance) =>
+Map<String, dynamic> _$GetDoctorModelToJson(GetDoctorModel instance) =>
     <String, dynamic>{
       'success': instance.success,
       'All Doctors': instance.allDoctors,

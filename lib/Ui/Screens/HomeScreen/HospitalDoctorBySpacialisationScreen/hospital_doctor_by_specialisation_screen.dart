@@ -99,7 +99,6 @@ class _HospitalDoctorBySpecialisationState
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
                                       favourites: const SizedBox(),
-                                      userAwayFrom: "2.2",
                                       clinicList:
                                           getHospitalDoctorBySpecialisationModel
                                               .doctorDetails![index].clinics!

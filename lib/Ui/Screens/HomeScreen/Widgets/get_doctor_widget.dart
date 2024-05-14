@@ -10,6 +10,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_w
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 
 class GetDoctorWidget extends StatefulWidget {
   const GetDoctorWidget({super.key});
@@ -20,14 +21,8 @@ class GetDoctorWidget extends StatefulWidget {
 
 class _GetDoctorWidgetState extends State<GetDoctorWidget> {
   @override
-  void initState() {
-    BlocProvider.of<GetDoctersBloc>(context)
-        .add(const GetDoctersEvent.started());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocConsumer<GetDoctersBloc, GetDoctersState>(
       listener: (context, state) {
         if (state.isError) {
@@ -55,7 +50,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
               ),
               const VerticalSpacingWidget(height: 5),
               LimitedBox(
-                maxHeight: 205.h,
+                maxHeight: size.height * .250,
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
@@ -63,27 +58,41 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                     itemCount: state.model.length,
                     itemBuilder: (context, index) {
                       return DoctorNearYouWidget(
-                          img: state.model[index].favoriteStatus == 1
-                              ? "assets/icons/favorite1.png"
-                              : "assets/icons/favorite2.png",
-                          onTap: () {
-                            setState(() {
-                              BlocProvider.of<GetFavDoctorBloc>(context)
-                                  .add(const GetFavDoctorEvent.started());
-                              BlocProvider.of<GetDoctersBloc>(context).add(
-                                  GetDoctersEvent.changeFav(
-                                      state.model[index].id!));
-                              BlocProvider.of<AddFavouritesBloc>(context).add(
-                                AddFavourites(
-                                  doctorId:
-                                      state.model[index].userId.toString(),
-                                  favouriteStatus: state.favId,
-                                ),
-                              );
-                            });
-                          },
-                          docterDistance:
-                              state.model[index].distanceFromUser ?? "0.0",
+                          favourites: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                BlocProvider.of<GetDoctersBloc>(context).add(
+                                    GetDoctersEvent.changeFav(
+                                        state.model[index].id!));
+                                BlocProvider.of<AddFavouritesBloc>(context).add(
+                                  AddFavourites(
+                                    doctorId:
+                                        state.model[index].userId.toString(),
+                                    favouriteStatus: state.favId,
+                                  ),
+                                );
+                                BlocProvider.of<GetFavDoctorBloc>(context).add(
+                                    const GetFavDoctorEvent
+                                        .getFavDocterForcedEvent());
+                                BlocProvider.of<GetRecentlyBookedDoctorBloc>(
+                                        context)
+                                    .add(const GetRecentlyBookedDoctorEvent
+                                        .getRecentlyBookedDocterForcedEvent());
+                              });
+                            },
+                            child: SizedBox(
+                              height: size.height * 0.028,
+                              width: size.width * 0.07,
+                              child: Image.asset(
+                                state.model[index].favoriteStatus == 1
+                                    ? "assets/icons/favorite1.png"
+                                    : "assets/icons/favorite2.png",
+                              ),
+                            ),
+                          ),
+                          docterDistance: state
+                              .model[index].clinics!.first.distanceFromClinic
+                              .toString(),
                           doctorId: state.model[index].userId.toString(),
                           firstName: state.model[index].firstname.toString(),
                           lastName: state.model[index].secondname.toString(),

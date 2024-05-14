@@ -1,14 +1,18 @@
 import 'dart:developer';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import 'package:injectable/injectable.dart';
+import '../../domain/rating/model/user_rating.dart';
+import '../../domain/rating/rating_repository.dart';
 part 'rating_event.dart';
 part 'rating_state.dart';
 part 'rating_bloc.freezed.dart';
 
+@injectable
 class RatingBloc extends Bloc<RatingEvent, RatingState> {
-  RatingBloc() : super(RatingState.initial()) {
+  RatingRepository ratingRepository;
+  RatingBloc(this.ratingRepository) : super(RatingState.initial()) {
+    //! for ui
     on<_RatingChanged>((event, emit) {
       emit(state.copyWith(ratingValue: event.ratingValue));
     });
@@ -16,9 +20,9 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
       emit(state.copyWith(ratingTest: event.ratingTest));
       log("rating : ${event.ratingTest}");
     });
-    on<_RatingResonChanged>((event, emit) {
-      emit(state.copyWith(resonIndex: event.resonIndex));
-      log("rating : ${event.resonIndex}");
+    on<_RatingReasonChanged>((event, emit) {
+      emit(state.copyWith(reasonIndex: event.reasonIndex));
+      log("rating : ${event.reasonIndex}");
     });
     on<_RatingLikeChanged>((event, emit) {
       emit(state.copyWith(likedIndex: event.likedIndex));
@@ -27,6 +31,38 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     on<_RatingRadioChanged>((event, emit) {
       emit(state.copyWith(radioIndex: event.radioIndex));
       log("rating : ${event.radioIndex}");
+    });
+
+
+
+    //! for api
+    on<_RatingGetFeedBacks>((event, emit) async {
+      emit(state.copyWith(
+        isloading: true,
+        isError: false,
+        message: "",
+        status: false,
+        userRating: [],
+      ));
+      log("Loading >>>>>>");
+      final ratingResult =
+          await ratingRepository.getRatingRepo(ratingText: event.feedback);
+      emit(ratingResult.fold(
+          (l) => state.copyWith(
+                isloading: false,
+                isError: true,
+                message: l.message!,
+                userRating: [],
+                status: false,
+              ), (r) {
+        return state.copyWith(
+          isloading: false,
+          isError: false,
+          message: state.message,
+          status: state.status,
+          userRating: r,
+        );
+      }));
     });
   }
 }

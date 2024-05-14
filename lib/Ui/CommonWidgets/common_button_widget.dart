@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class CommonButtonWidget extends StatelessWidget {
@@ -11,25 +12,20 @@ class CommonButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    final size = MediaQuery.of(context).size;
+    return GestureDetector(
       onTap: () {
         onTapFunction();
       },
       child: Container(
-        height: 50.h,
+        height: size.height * .06,
         width: double.infinity,
         decoration: BoxDecoration(
           color: kMainColor,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
-                color: Colors.white),
-          ),
+          child: Text(title, style: white13B700),
         ),
       ),
     );

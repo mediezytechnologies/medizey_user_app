@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
@@ -19,34 +21,35 @@ import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
-  const AppointmentCardWidget(
-      {super.key,
-      required this.doctorId,
-      required this.docterImage,
-      required this.docterName,
-      required this.appointmentFor,
-      required this.tokenNumber,
-      required this.appointmentDate,
-      required this.appointmentTime,
-      required this.patientName,
-      required this.liveToken,
-      required this.estimatedArrivalTime,
-      required this.consultationStartingTime,
-      required this.lateTime,
-      required this.earlyTime,
-      required this.leaveMessage,
-      required this.bookedClinicName,
-      required this.bookingTimeAndDate,
-      required this.resheduleStatus,
-      required this.clinicList,
-      required this.isPatientAbsent,
-      required this.nextAvailableDateAndTime,
-      required this.nextAvailableTokenNumber,
-      required this.patientId,
-      required this.tokenId,
-      required this.doctorUniqueId,
-      required this.isReached,
-      required this.isCheckIn});
+  const AppointmentCardWidget({
+    super.key,
+    required this.doctorId,
+    required this.docterImage,
+    required this.docterName,
+    required this.appointmentFor,
+    required this.tokenNumber,
+    required this.appointmentDate,
+    required this.appointmentTime,
+    required this.patientName,
+    required this.liveToken,
+    required this.estimatedArrivalTime,
+    required this.consultationStartingTime,
+    required this.lateTime,
+    required this.earlyTime,
+    required this.leaveMessage,
+    required this.bookedClinicName,
+    required this.bookingTimeAndDate,
+    required this.resheduleStatus,
+    required this.clinicList,
+    required this.isPatientAbsent,
+    required this.nextAvailableDateAndTime,
+    required this.nextAvailableTokenNumber,
+    required this.patientId,
+    required this.tokenId,
+    required this.doctorUniqueId,
+    required this.isReached,
+    required this.isCheckIn,
+  });
 
   final String doctorId;
   final String docterImage;
@@ -90,8 +93,12 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    DateTime currentTime = DateTime.now();
+    String combinedDateTimeString =
+        '${widget.appointmentDate} ${widget.appointmentTime}';
+    DateTime appointmentDateTime =
+        DateFormat("yyyy-MM-dd hh:mm a").parse(combinedDateTimeString);
+    final size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 4.h),
       decoration: BoxDecoration(
@@ -110,8 +117,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: FancyShimmerImage(
-                        height: 100.h,
-                        width: 80.w,
+                        height: size.height * .15,
+                        width: size.width * .2,
                         boxFit: BoxFit.contain,
                         errorWidget: const Image(
                           image: AssetImage("assets/icons/no data.png"),
@@ -125,31 +132,34 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const VerticalSpacingWidget(height: 10),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 200.w,
-                            child: Text(
-                              "Dr ${widget.docterName}",
-                              style: black14B600,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: size.width * .5,
+                        child: Text(
+                          "Dr ${widget.docterName}",
+                          style: black14B600,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      Text(
-                        widget.bookedClinicName,
-                        style: grey12B500,
+                      SizedBox(
+                        width: size.width * .5,
+                        child: Text(
+                          widget.bookedClinicName,
+                          style: grey12B500,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       widget.appointmentFor == "null"
                           ? const SizedBox()
-                          : Text(
-                              widget.appointmentFor,
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: kSubTextColor),
+                          : SizedBox(
+                              width: size.width * .5,
+                              child: Text(
+                                widget.appointmentFor,
+                                style: grey12B500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -176,16 +186,47 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       ),
                       Row(
                         children: [
-                          Text("For: ", style: grey12B500),
-                          Text(widget.patientName, style: black12B500),
+                          Row(
+                            children: [
+                              Text("For: ", style: grey12B500),
+                              SizedBox(
+                                width: size.width * .28,
+                                child: Text(
+                                  widget.patientName,
+                                  style: black12B500,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const HorizontalSpacingWidget(width: 20),
+                          GestureDetector(
+                            onTap: () {
+                              String clinicAddress = getAvailableClinicAddress(
+                                  widget.bookedClinicName, widget.clinicList);
+                              MapsLauncher.launchQuery(clinicAddress);
+                            },
+                            child: Wrap(
+                              children: [
+                                Text('Location', style: grey11B400),
+                                const HorizontalSpacingWidget(width: 5),
+                                Icon(
+                                  IconlyLight.location,
+                                  color: kSecondaryColor,
+                                  size: 14.sp,
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  height: height * .060,
-                  width: width * .1,
+                  height: size.height * .060,
+                  width: size.width * .1,
                   decoration: BoxDecoration(
                     color: kSecondaryColor,
                     borderRadius: BorderRadius.circular(7.r),
@@ -212,8 +253,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       widget.appointmentDate == formatDate()
                           ? Container(
-                              height: height * .050,
-                              width: width * .30,
+                              height: size.height * .050,
+                              width: size.width * .30,
                               decoration: BoxDecoration(
                                 color: kSecondaryColor,
                                 borderRadius: BorderRadius.circular(7.r),
@@ -224,8 +265,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 children: [
                                   Text("Live Token", style: white12Bold),
                                   Container(
-                                    height: height * .038,
-                                    width: width * .08.w,
+                                    height: size.height * .038,
+                                    width: size.width * .08.w,
                                     decoration: BoxDecoration(
                                       color: kCardColor,
                                       borderRadius: BorderRadius.circular(4.r),
@@ -244,8 +285,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           : widget.isPatientAbsent == "Absent" &&
                                   widget.appointmentDate == formatDate()
                               ? SizedBox(
-                                  height: height * .075,
-                                  width: width * .5,
+                                  height: size.height * .075,
+                                  width: size.width * .5,
                                   child: Text(
                                     "You failed to reach on time, So your token will be considered as the last token",
                                     style: red11B600,
@@ -282,11 +323,12 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       const VerticalSpacingWidget(height: 5),
                       GestureDetector(
                         onTap: () {
-                          Platform.isIOS?showAvailableTokenIos(context):
-                          showAvailableToken(context);
+                          Platform.isIOS
+                              ? showAvailableTokenIos(context, '1')
+                              : showAvailableToken(context, '1');
                         },
                         child: Container(
-                          height: height * .047,
+                          height: size.height * .047,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: kSecondaryColor,
@@ -310,17 +352,48 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     children: [
                       widget.appointmentDate == formatDate()
                           ? widget.isReached == 1
-                              ? Text("Reached", style: greenText12B700)
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: .7.w, color: kMainColor),
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  height: size.height * .042,
+                                  width: size.width * .18,
+                                  child: Center(
+                                    child: Text("Reached", style: main12B700),
+                                  ),
+                                )
                               : GestureDetector(
                                   onTap: () async {
                                     await scanQR();
                                   },
                                   child: widget.leaveMessage == 0 &&
                                           widget.resheduleStatus == 0
-                                      ? Icon(
-                                          CupertinoIcons.qrcode,
-                                          color: kMainColor,
-                                          size: 22.sp,
+                                      ? Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: .7.w, color: kMainColor),
+                                            borderRadius:
+                                                BorderRadius.circular(10.r),
+                                          ),
+                                          height: size.height * .042,
+                                          width: size.width * .57,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Icon(
+                                                CupertinoIcons.qrcode,
+                                                color: kMainColor,
+                                                size: 20.sp,
+                                              ),
+                                              Text(
+                                                "Scan QR code once you reach",
+                                                style: main12B700,
+                                              )
+                                            ],
+                                          ),
                                         )
                                       : Container(),
                                 )
@@ -338,7 +411,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 isSecondContainerVisible
                                     ? "See less"
                                     : "See more",
-                                style: mainText15)
+                                style: main15)
                             : Container(),
                       ),
                     ],
@@ -418,12 +491,25 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     color: kSubTextColor,
                   ),
                   Text(
-                    "Incase you can make it for the appointment, please reschedule the appointment, preferably 2 hours before the shedule time.",
+                    "Incase you can't make it for the appointment, please reschedule the appointment, preferably 5 hours before the shedule time.",
                     style: grey10B500,
                   ),
                   const VerticalSpacingWidget(height: 5),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      if (currentTime.isBefore(
+                        appointmentDateTime.subtract(
+                          const Duration(hours: 5),
+                        ),
+                      )) {
+                        Platform.isIOS
+                            ? showAvailableTokenIos(context, '2')
+                            : showAvailableToken(context, '2');
+                      } else {
+                        GeneralServices.instance.showToastMessage(
+                            "Please reschedule the appointment at least 5 hours in advance if necessary");
+                      }
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -431,7 +517,13 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                           children: [
                             Icon(
                               CupertinoIcons.calendar_today,
-                              color: kMainColor,
+                              color: currentTime.isBefore(
+                                appointmentDateTime.subtract(
+                                  const Duration(hours: 5),
+                                ),
+                              )
+                                  ? kMainColor
+                                  : kSubTextColor,
                               size: 22.sp,
                             ),
                             const HorizontalSpacingWidget(width: 5),
@@ -440,7 +532,13 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         ),
                         Icon(
                           Icons.arrow_forward_ios,
-                          color: kMainColor,
+                          color: currentTime.isBefore(
+                            appointmentDateTime.subtract(
+                              const Duration(hours: 5),
+                            ),
+                          )
+                              ? kMainColor
+                              : kSubTextColor,
                           size: 18.sp,
                         ),
                       ],
@@ -464,17 +562,18 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       },
                       child: Text(
                           isSecondContainerVisible ? "See less" : "See More",
-                          style: mainText15),
+                          style: main15),
                     ),
                   ),
                 )
               : Container(),
-          const VerticalSpacingWidget(height: 3),
         ],
       ),
     );
   }
-Future<dynamic> showAvailableToken(BuildContext context) {
+
+  Future<dynamic> showAvailableToken(
+      BuildContext context, String resheduleType) {
     final height = MediaQuery.of(context).size.height;
     return 
 
@@ -664,6 +763,8 @@ Future<dynamic> showAvailableToken(BuildContext context) {
                               doctorFirstName: widget.docterName,
                               doctorSecondName: "",
                               patientId: widget.patientId.toString(),
+                              resheduleType: resheduleType,
+                              normalResheduleTokenId: widget.tokenId.toString(),
                             );
                           }),
                         );
@@ -700,6 +801,8 @@ Future<dynamic> showAvailableToken(BuildContext context) {
                     MaterialPageRoute(
                       builder: (context) => SearchScreen(
                         patientId: widget.patientId.toString(),
+                        resheduleType: resheduleType,
+                        normalResheduleTokenId: widget.tokenId.toString(),
                       ),
                     ),
                   );
@@ -721,6 +824,140 @@ Future<dynamic> showAvailableToken(BuildContext context) {
         );
       }),
     );
+  }
+
+  Future<dynamic> showAvailableTokenIos(
+      BuildContext context, String resheduleType) {
+    final height = MediaQuery.of(context).size.height;
+    return showCupertinoDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: ((context) {
+        return CupertinoAlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Book same doctor",
+                style: black14B600,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Text(
+                "Next Available Token details",
+                style: black12B500,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Container(
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7.r),
+                  border: Border.all(color: kSubTextColor, width: .5.w),
+                ),
+                child: Column(
+                  children: [
+                    widget.nextAvailableTokenNumber == "0"
+                        ? const SizedBox()
+                        : Text(
+                            "Token No : ${widget.nextAvailableTokenNumber}",
+                            style: black14B600,
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    widget.nextAvailableDateAndTime == "null"
+                        ? const SizedBox()
+                        : Text(
+                            widget.nextAvailableDateAndTime,
+                            style: black14B600,
+                            textAlign: TextAlign.center,
+                          ),
+                    const VerticalSpacingWidget(height: 3),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return BookAppointmentScreen(
+                              doctorId: widget.doctorId,
+                              clinicList: widget.clinicList,
+                              doctorFirstName: widget.docterName,
+                              doctorSecondName: "",
+                              patientId: widget.patientId.toString(),
+                              resheduleType: resheduleType,
+                              normalResheduleTokenId: widget.tokenId.toString(),
+                            );
+                          }),
+                        );
+                      },
+                      child: Container(
+                        height: height * .047,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: kSecondaryColor,
+                          borderRadius: BorderRadius.circular(7.r),
+                        ),
+                        child: Center(
+                          child: Text("Book now", style: white13B700),
+                        ),
+                      ),
+                    ),
+                    const VerticalSpacingWidget(height: 3),
+                  ],
+                ),
+              ),
+              const VerticalSpacingWidget(height: 3),
+              Text("Or", style: black12B500),
+              const VerticalSpacingWidget(height: 3),
+              Text(
+                "Book another doctor",
+                style: black14B600,
+                textAlign: TextAlign.center,
+              ),
+              const VerticalSpacingWidget(height: 5),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchScreen(
+                        patientId: widget.patientId.toString(),
+                        resheduleType: resheduleType,
+                        normalResheduleTokenId: widget.tokenId.toString(),
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: height * .047,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: kSecondaryColor,
+                    borderRadius: BorderRadius.circular(7.r),
+                  ),
+                  child: Center(
+                    child: Text("Choose another doctor", style: white13B700),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
+    );
+  }
+
+  String getAvailableClinicAddress(
+      String clinicName, List<Clinics> clinicList) {
+    for (var clinic in clinicList) {
+      if (clinic.clinicName == clinicName) {
+        return clinic.clinicAddress.toString();
+      }
+    }
+
+    return "";
   }
 
   Future<void> scanQR() async {

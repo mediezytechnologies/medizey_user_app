@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,16 +15,21 @@ import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
-
 import '../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/search_doctor/search_doctor_bloc.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({super.key, this.patientId});
+  SearchScreen(
+      {super.key,
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -46,12 +52,13 @@ class _SearchScreenState extends State<SearchScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<SearchDoctorBloc>(context)
-        .add(const SearchDoctorEvent.started(''));
+        .add(const SearchDoctorEvent.started('', true));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    log("token id ${widget.normalResheduleTokenId}");
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -77,8 +84,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           onChanged: (newValue) {
-                            BlocProvider.of<SearchDoctorBloc>(context)
-                                .add(SearchDoctorEvent.started(newValue));
+                            BlocProvider.of<SearchDoctorBloc>(context).add(
+                                SearchDoctorEvent.started(newValue, false));
                           },
                           decoration: InputDecoration(
                             suffixIcon: Icon(
@@ -162,6 +169,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                     itemBuilder: (context, index) {
                                       final doctor = state.model[index];
                                       return DoctorCardWidget(
+                                        resheduleType: widget.resheduleType,
+                                        normalResheduleTokenId:
+                                            widget.normalResheduleTokenId,
                                         favourites: GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -185,10 +195,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   favouriteStatus: state.favId,
                                                 ),
                                               );
-                                              BlocProvider.of<GetFavDoctorBloc>(
-                                                      context)
-                                                  .add(const GetFavDoctorEvent
-                                                      .started());
+
                                               BlocProvider.of<GetDoctersBloc>(
                                                       context)
                                                   .add(const GetDoctersEvent
@@ -204,13 +211,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                                       1
                                                   ? "assets/icons/favorite1.png"
                                                   : "assets/icons/favorite2.png",
-                                              color: kMainColor,
                                             ),
                                           ),
                                         ),
                                         patientId: widget.patientId,
-                                        userAwayFrom:
-                                            doctor.distanceFromUser.toString(),
                                         clinicList: doctor.clinics!.toList(),
                                         doctorId: doctor.userId.toString(),
                                         firstName: doctor.firstname.toString(),

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
@@ -19,7 +21,10 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class ProfileEditScreen extends StatefulWidget {
   const ProfileEditScreen(
@@ -62,6 +67,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     } else {}
   }
 
+  Future<void> setNewUserName(String newName) async {
+    final preference = await SharedPreferences.getInstance();
+    await preference.remove('firstName');
+    preference.setString('firstName', newName);
+  }
+
   @override
   void initState() {
     subscription = Connectivity()
@@ -69,6 +80,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         .listen((ConnectivityResult result) {
       handleConnectivityChange(result);
     });
+    firstNameController.text = widget.firstName;
+    mobileNoController.text = widget.phNo;
+    locationController.text = widget.location;
     genderValue = widget.gender == "1"
         ? "Male"
         : (widget.gender == "2")
@@ -85,6 +99,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile Edit"),
@@ -122,78 +137,68 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           const VerticalSpacingWidget(height: 10),
                           Stack(
                             children: [
-                              Container(
-                                height: 100.h,
-                                width: 105.w,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: FadedScaleAnimation(
-                                  scaleDuration:
-                                      const Duration(milliseconds: 400),
-                                  fadeDuration:
-                                      const Duration(milliseconds: 400),
-                                  child: ClipOval(
-                                    child: imageFromGallery != null
-                                        ? Image.file(
-                                            imageFromGallery!,
-                                            height: 80.h,
-                                            width: 80.w,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : (widget.imageUrl == "null"
-                                            ? Image.asset(
-                                                "assets/icons/profile pic.png",
-                                                height: 80.h,
-                                                width: 80.w,
-                                                color: kMainColor,
-                                              )
-                                            : Image.network(
-                                                widget.imageUrl,
-                                                height: 80.h,
-                                                width: 80.w,
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                        stackTrace) =>
-                                                    Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(3.0),
-                                                  child: Image.asset(
-                                                    "assets/icons/profile pic.png",
-                                                    height: 80.h,
-                                                    width: 80.w,
-                                                    color: kMainColor,
-                                                  ),
+                              FadedScaleAnimation(
+                                scaleDuration:
+                                    const Duration(milliseconds: 400),
+                                fadeDuration: const Duration(milliseconds: 400),
+                                child: ClipOval(
+                                  child: imageFromGallery != null
+                                      ? Image.file(
+                                          imageFromGallery!,
+                                          height: size.height * .14,
+                                          width: size.width * .30,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : (widget.imageUrl == "null"
+                                          ? Image.asset(
+                                              "assets/icons/profile pic.png",
+                                              height: size.height * .14,
+                                              width: size.width * .30,
+                                              color: kMainColor,
+                                            )
+                                          : Image.network(
+                                              widget.imageUrl,
+                                              height: size.height * .14,
+                                              width: size.width * .30,
+                                              fit: BoxFit.cover,
+                                              errorBuilder: (context, error,
+                                                      stackTrace) =>
+                                                  Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
+                                                child: Image.asset(
+                                                  "assets/icons/profile pic.png",
+                                                  height: size.height * .14,
+                                                  width: size.width * .30,
+                                                  color: kMainColor,
                                                 ),
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child: Shimmer.fromColors(
-                                                      baseColor:
-                                                          kShimmerBaseColor,
-                                                      highlightColor:
-                                                          kShimmerHighlightColor,
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      80.r),
-                                                        ),
+                                              ),
+                                              loadingBuilder:
+                                                  (BuildContext context,
+                                                      Widget child,
+                                                      ImageChunkEvent?
+                                                          loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                }
+                                                return Center(
+                                                  child: Shimmer.fromColors(
+                                                    baseColor:
+                                                        kShimmerBaseColor,
+                                                    highlightColor:
+                                                        kShimmerHighlightColor,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(80.r),
                                                       ),
                                                     ),
-                                                  );
-                                                },
-                                              )),
-                                  ),
+                                                  ),
+                                                );
+                                              },
+                                            )),
                                 ),
                               ),
                               Positioned(
@@ -215,27 +220,31 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                           const VerticalSpacingWidget(height: 20),
                           //! first name
-                          TextFormField(
-                            cursorColor: kMainColor,
-                            controller: firstNameController,
-                            keyboardType: TextInputType.name,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                IconlyLight.profile,
-                                color: kMainColor,
+                          SizedBox(
+                            height: size.height * .065,
+                            child: TextFormField(
+                              style: black13B500,
+                              cursorColor: kMainColor,
+                              controller: firstNameController,
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  IconlyLight.profile,
+                                  color: kMainColor,
+                                  size: 20.sp,
+                                ),
+                                hintStyle: grey13B600,
+                                hintText: widget.firstName,
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 10.0),
                               ),
-                              hintStyle: TextStyle(
-                                  fontSize: 15.sp, color: kSubTextColor),
-                              hintText: widget.firstName,
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 10.0),
                             ),
                           ),
                           const VerticalSpacingWidget(height: 10),
@@ -244,9 +253,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                height: 50.h,
+                                height: size.height * .065,
                                 width: 200.w,
                                 child: TextFormField(
+                                  style: black13B500,
                                   cursorColor: kMainColor,
                                   controller: mobileNoController,
                                   keyboardType: TextInputType.phone,
@@ -255,11 +265,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   decoration: InputDecoration(
                                     counterText: "",
                                     prefixIcon: Icon(
-                                      Icons.phone_iphone,
+                                      IconlyLight.call,
                                       color: kMainColor,
+                                      size: 20.sp,
                                     ),
-                                    hintStyle: TextStyle(
-                                        fontSize: 15.sp, color: kSubTextColor),
+                                    hintStyle: grey13B600,
                                     hintText: widget.phNo,
                                     filled: true,
                                     fillColor: kCardColor,
@@ -267,8 +277,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       borderRadius: BorderRadius.circular(4),
                                       borderSide: BorderSide.none,
                                     ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 16.0, horizontal: 10.0),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 6.h),
                                   ),
                                 ),
                               ),
@@ -286,7 +296,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   );
                                 },
                                 child: Container(
-                                  height: 50.h,
+                                  height: size.height * .065,
                                   width: 130.w,
                                   decoration: BoxDecoration(
                                     color: kCardColor,
@@ -297,19 +307,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
-                                        // dateOfBirth!,
                                         dOB != null
                                             ? DateFormat('dd-MM-yyyy')
                                                 .format(dOB!)
                                             : dateOfBirth.toString(),
-                                        style: TextStyle(
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: kTextColor),
+                                        style: black13B500,
                                       ),
                                       Icon(
                                         IconlyLight.calendar,
                                         color: kMainColor,
+                                        size: 20.sp,
                                       ),
                                     ],
                                   ),
@@ -318,27 +325,31 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 10),
-                          TextFormField(
-                            cursorColor: kMainColor,
-                            controller: locationController,
-                            keyboardType: TextInputType.name,
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.location_on_outlined,
-                                color: kMainColor,
+                          SizedBox(
+                            height: size.height * .065,
+                            child: TextFormField(
+                              style: black13B500,
+                              cursorColor: kMainColor,
+                              controller: locationController,
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  IconlyLight.location,
+                                  color: kMainColor,
+                                  size: 20.sp,
+                                ),
+                                hintStyle: grey13B600,
+                                hintText: widget.location,
+                                filled: true,
+                                fillColor: kCardColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 6.h),
                               ),
-                              hintStyle: TextStyle(
-                                  fontSize: 15.sp, color: kSubTextColor),
-                              hintText: widget.location,
-                              filled: true,
-                              fillColor: kCardColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 10.0),
                             ),
                           ),
                           const VerticalSpacingWidget(height: 10),
@@ -369,7 +380,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         }),
                                     Text(
                                       "Male",
-                                      style: TextStyle(fontSize: 15.sp),
+                                      style: black13B500,
                                     ),
                                   ],
                                 ),
@@ -397,7 +408,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         }),
                                     Text(
                                       "Female",
-                                      style: TextStyle(fontSize: 15.sp),
+                                      style: black13B500,
                                     ),
                                   ],
                                 ),
@@ -425,7 +436,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         }),
                                     Text(
                                       "Other",
-                                      style: TextStyle(fontSize: 15.sp),
+                                      style: black13B500,
                                     ),
                                   ],
                                 ),
@@ -436,6 +447,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           CommonButtonWidget(
                               title: "Update",
                               onTapFunction: () {
+                                setNewUserName(firstNameController.text);
                                 BlocProvider.of<EditUserBloc>(context).add(
                                   FetchEditUser(
                                       dob: dOB != null

@@ -8,7 +8,7 @@ import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/get_fav_model/get_fav_impl.dart';
 import '../../domain/get_fav_model/model/favorite_doctor.dart';
-import '../../domain/get_fav_model/model/get_fav_model.dart';
+import '../../domain/get_fav_model/model/get_favourite_doctor_model.dart';
 import '../core/api_end_pont.dart';
 
 @LazySingleton(as: GetFavDoctersRepo)
@@ -30,7 +30,7 @@ class GetDoctorsImpl implements GetFavDoctersRepo {
       );
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final result = GetFavModel.fromJson(response.data);
+        final result = GetFavouriteDoctorModel.fromJson(response.data);
 
         log("result service : $result");
         log("result service  response : ${response.data}");

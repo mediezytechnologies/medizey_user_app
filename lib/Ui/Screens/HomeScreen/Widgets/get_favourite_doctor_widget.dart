@@ -5,12 +5,13 @@ import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favour
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_favourite_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
 import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 
 class GetFavouriteDoctorWidget extends StatefulWidget {
   const GetFavouriteDoctorWidget({super.key});
@@ -54,7 +55,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                   ),
                   const VerticalSpacingWidget(height: 5),
                   LimitedBox(
-                    maxHeight: 210.h,
+                    maxHeight: size.height * .292,
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -63,8 +64,6 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                         itemCount: state.model.length,
                         itemBuilder: (context, index) {
                           return DoctorFavouriteCardWidget(
-                            userAwayFrom:
-                                state.model[index].distanceFromUser.toString(),
                             clinicList: state.model[index].clinics!.toList(),
                             doctorId: state.model[index].userId.toString(),
                             firstName: state.model[index].firstname.toString(),
@@ -79,9 +78,11 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                               onTap: () {
                                 setState(() {
                                   BlocProvider.of<GetFavDoctorBloc>(context)
-                                      .add(const GetFavDoctorEvent.started());
-                                  BlocProvider.of<GetDoctersBloc>(context)
-                                      .add(const GetDoctersEvent.started());
+                                      .add(const GetFavDoctorEvent
+                                          .getFavDocterForcedEvent());
+                                  BlocProvider.of<GetDoctersBloc>(context).add(
+                                      const GetDoctersEvent
+                                          .getDoctersForcedEvent());
                                   BlocProvider.of<GetFavDoctorBloc>(context)
                                       .add(GetFavDoctorEvent.changeFav(
                                           state.model[index].id!));
@@ -93,6 +94,10 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                       favouriteStatus: state.favId,
                                     ),
                                   );
+                                   BlocProvider.of<GetRecentlyBookedDoctorBloc>(
+                                      context)
+                                  .add(const GetRecentlyBookedDoctorEvent
+                                      .getRecentlyBookedDocterForcedEvent());
                                 });
                               },
                               child: SizedBox(
@@ -102,7 +107,6 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                   state.model[index].favoriteStatus == 1
                                       ? "assets/icons/favorite1.png"
                                       : "assets/icons/favorite2.png",
-                                  color: kMainColor,
                                 ),
                               ),
                             ),

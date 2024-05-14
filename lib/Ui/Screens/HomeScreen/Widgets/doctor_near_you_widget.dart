@@ -9,20 +9,23 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
+import '../../../CommonWidgets/text_style_widget.dart';
+
 class DoctorNearYouWidget extends StatefulWidget {
-  const DoctorNearYouWidget({
-    Key? key,
-    required this.doctorId,
-    required this.firstName,
-    required this.lastName,
-    required this.imageUrl,
-    required this.location,
-    required this.specialisation,
-    required this.favouriteStatus,
-    required this.docterDistance,
-    required this.img,
-    required this.onTap,
-  }) : super(key: key);
+  const DoctorNearYouWidget(
+      {Key? key,
+      required this.doctorId,
+      required this.firstName,
+      required this.lastName,
+      required this.imageUrl,
+      required this.location,
+      required this.specialisation,
+      required this.favouriteStatus,
+      required this.docterDistance,
+      // required this.img,
+      // required this.onTap,
+      required this.favourites})
+      : super(key: key);
 
   final String doctorId;
   final String firstName;
@@ -32,8 +35,9 @@ class DoctorNearYouWidget extends StatefulWidget {
   final String specialisation;
   final int favouriteStatus;
   final String docterDistance;
-  final String img;
-  final VoidCallback onTap;
+  // final String img;
+  // final VoidCallback onTap;
+  final Widget favourites;
 
   @override
   State<DoctorNearYouWidget> createState() => _DoctorNearYouWidgetState();
@@ -66,10 +70,10 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 8.w, 0),
             child: Container(
-              width: 130.w,
+              width: size.width * .335,
               decoration: BoxDecoration(
                 color: kCardColor,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,10 +84,10 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                       scaleDuration: const Duration(milliseconds: 400),
                       fadeDuration: const Duration(milliseconds: 400),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(10.r),
                         child: FancyShimmerImage(
-                            height: 110.h,
-                            width: 110.w,
+                            height: size.height * .12,
+                            width: size.width * .32,
                             boxFit: BoxFit.contain,
                             errorWidget: const Image(
                               image: AssetImage("assets/icons/no image.png"),
@@ -97,97 +101,80 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                     padding: EdgeInsets.symmetric(horizontal: 7.w),
                     child: Text(
                       "Dr ${widget.firstName} ${widget.lastName}",
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: kTextColor),
+                      style: black13B500,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 7.w),
-                    child: SizedBox(
-                      width: 120.w,
-                      child: Text(
-                        widget.specialisation,
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: kSubTextColor),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                    child: Text(
+                      widget.specialisation,
+                      style: grey11B400,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 7.w),
-                    child: SizedBox(
-                      width: 120.w,
-                      child: Text(
-                        widget.location,
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: kSubTextColor),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                    child: Text(
+                      widget.location,
+                      style: grey11B400,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                   SizedBox(
                     height: 5.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Row(
-                      children: [
-                        Icon(
-                          IconlyLight.location,
-                          size: 14.sp,
-                        ),
-                        SizedBox(
-                          width: 3.w,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: widget.docterDistance,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold),
+                  widget.docterDistance == 'null'
+                      ? const SizedBox()
+                      : Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
+                          child: Row(
                             children: [
-                              TextSpan(
-                                  text: ' away',
-                                  style: TextStyle(
-                                      color: kSubTextColor,
-                                      fontWeight: FontWeight.normal),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {})
+                              Icon(
+                                IconlyLight.location,
+                                size: 14.sp,
+                              ),
+                              SizedBox(
+                                width: 3.w,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: widget.docterDistance,
+                                  style: black11B500,
+                                  children: [
+                                    TextSpan(
+                                        text: ' away',
+                                        style: grey10B400,
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {})
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                        )
                 ],
               ),
             ),
           ),
           Positioned(
-              right: size.width * 0.04,
-              top: size.height * 0.019,
-              child: GestureDetector(
-                onTap: widget.onTap,
-                child: SizedBox(
-                  height: size.height * 0.04,
-                  width: size.width * 0.07,
-                  child: Image.asset(
-                    widget.img,
-                    color: kMainColor,
-                  ),
-                ),
-              ))
+            right: size.width * 0.04,
+            top: size.height * 0.019,
+            // child: GestureDetector(
+            //   onTap: widget.onTap,
+            //   child: SizedBox(
+            //     height: size.height * 0.03,
+            //     width: size.width * 0.06,
+            //     child: Image.asset(
+            //       widget.img,
+            //     ),
+            //   ),
+            // ),
+            child: widget.favourites,
+          )
         ],
       ),
     );

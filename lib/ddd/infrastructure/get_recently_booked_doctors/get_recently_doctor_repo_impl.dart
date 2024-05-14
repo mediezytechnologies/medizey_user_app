@@ -6,10 +6,10 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:mediezy_user/ddd/domain/get_recently_booked_doctors/get_recently_booked_doctors_repository.dart';
-import 'package:mediezy_user/ddd/domain/get_recently_booked_doctors/model/recently_booked_doctor.dart';
 import 'package:mediezy_user/ddd/domain/get_recently_booked_doctors/model/recently_booked_doctor_model.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../domain/get_recently_booked_doctors/model/recently_booked_doctor.dart';
 
 @LazySingleton(as: GetRecentlyBookedDoctorRepository)
 class GetRecentlyBookedDoctorsImpl

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
+import '../../../../Model/Clinics/clinic_model.dart';
 part 'search_doctor.g.dart';
 
 @JsonSerializable()
@@ -17,8 +17,6 @@ class SearchDoctor {
 	String? location;
 	@JsonKey(name: 'MainHospital') 
 	String? mainHospital;
-	@JsonKey(name: 'distance_from_user') 
-	String? distanceFromUser;
 	List<Clinics>? clinics;
 	int? favoriteStatus;
 
@@ -31,7 +29,6 @@ class SearchDoctor {
 		this.docterImage, 
 		this.location, 
 		this.mainHospital, 
-		this.distanceFromUser, 
 		this.clinics, 
 		this.favoriteStatus, 
 	});
