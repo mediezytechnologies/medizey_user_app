@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,44 +32,28 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
   final FocusNode phoneNumberFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: kBorderColor,
-        actions: [
-          IconButton(
-              onPressed: () async {
-                 
-                await GoogleAuthService().singnOut();
-                Navigator.pushReplacement(
+      body: BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
+        listener: (context, state) {
+          if (state.isError && state.status == false) {
+            GeneralServices.instance.showErrorMessage(context, state.message);
+          } else {
+            //    log( "fcm tok in api : ${preference.getString('token')}");
+
+            Future.delayed(Duration(seconds: 1))
+                .then((value) => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ));
-              },
-              icon: const Icon(Icons.logout))
-        ],
-      ),
-      body:   BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
-                  listener: (context, state) {
-                    if (state.isError && state.status == false) {
-                      GeneralServices.instance
-                          .showErrorMessage(context, state.message);
-                    } else {
-                    //    log( "fcm tok in api : ${preference.getString('token')}");
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const BottomNavigationControlWidget(),
-                          ),
-                          (route) => false);
-                    }
-                  },
+                      builder: (context) =>
+                          const BottomNavigationControlWidget(),
+                    ),
+                    (route) => false));
+          }
+        },
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
@@ -89,6 +74,10 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                 ),
                 const VerticalSpacingWidget(
                   height: 5,
+                ),
+                Text(
+                  firestore.toString(),
+                  style: black14B600,
                 ),
                 Text(
                   widget.result.email.toString(),
@@ -147,13 +136,18 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                 ),
                 CommonButtonWidget(
                     title: "Login",
-                    onTapFunction: () {
+                    onTapFunction: () async {
                       bool isValid = _formKey.currentState!.validate();
                       if (isValid) {
                         BlocProvider.of<FirebaseLoginBloc>(context)
                             .add(FirebaseLoginEvent.started(
                           phoneNumberController.text,
                         ));
+                        await FirestoreService().insertNote(
+                          phoneNumberController.text,
+                          widget.result.email.toString(),
+                        );
+                        CollectionReference reference =firestore.collection("login");
                         log("numb ${phoneNumberController.text}");
 
                         //        Navigator.pushAndRemoveUntil(
