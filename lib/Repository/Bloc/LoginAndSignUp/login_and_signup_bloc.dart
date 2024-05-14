@@ -33,16 +33,16 @@ class LoginAndSignupBloc
             'lastName', loginModel.user!.secondname.toString());
         preference.setString('userId', loginModel.user!.id.toString());
         userId = preference.getString('userId').toString();
-        print("<<<<<<userrr  $userId>>>>>>>>");
+        log("<<<<<<userrr  $userId>>>>>>>>");
         preference.setString(
             'phoneNumber', loginModel.user!.mobileNo.toString());
         String? token = await preference.getString('token');
         String? userName = await preference.getString('firstName');
         log("User name >>>>>> $userName");
-        print("Tokken >>>>>>>>>>>>>>>>>>$token");
+        log("Tokken >>>>>>>>>>>>>>>>>>$token");
         emit(LoginLoaded());
       } catch (error) {
-        print("LOGIN IN ERROR>>>>>>>>>>>>>>>>>>>>>>" + error.toString());
+        log("LOGIN IN ERROR>>>>>>>>>>>>>>>>>>>>>>" + error.toString());
         GeneralServices.instance.showToastMessage(error.toString());
         emit(LoginError());
       }

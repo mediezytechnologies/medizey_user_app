@@ -66,7 +66,7 @@ class GeneralServices {
             }),
           )
         : showDialog(
-             barrierDismissible: true,
+            barrierDismissible: true,
             context: context,
             builder: ((context) {
               return AlertDialog(
@@ -141,7 +141,7 @@ class GeneralServices {
             ),
           )
         : showDialog(
-             barrierDismissible: true,
+            barrierDismissible: true,
             context: context,
             builder: ((context) {
               return AlertDialog(

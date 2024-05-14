@@ -25,7 +25,7 @@ class GetDoctorsImpl implements GetDoctersRepo {
         headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
       )).get(
-     ApiEndPoints.getDoctors  ,
+        ApiEndPoints.getDoctors,
       );
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {

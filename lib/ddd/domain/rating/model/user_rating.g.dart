@@ -7,11 +7,11 @@ part of 'user_rating.dart';
 // **************************************************************************
 
 UserRating _$UserRatingFromJson(Map<String, dynamic> json) => UserRating(
-      ratingId: json['rating_id'] as int?,
-      reviewId: json['review_id'] as int?,
+      ratingId: (json['rating_id'] as num?)?.toInt(),
+      reviewId: (json['review_id'] as num?)?.toInt(),
       userComments: json['user_comments'] as String?,
       ratingStart: (json['rating_start'] as num?)?.toDouble(),
-      ratingEnd: json['rating_end'] as int?,
+      ratingEnd: (json['rating_end'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$UserRatingToJson(UserRating instance) =>

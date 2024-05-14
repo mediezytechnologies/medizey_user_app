@@ -91,7 +91,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(

@@ -512,7 +512,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               width: size.width * .7,
                               height: size.height * .065,
                               child: TextFormField(
-                                 style: black13B500,
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 controller: medicineController,
                                 onChanged: (value) {},

@@ -4,6 +4,8 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 //* black
 
+final black26B600 =
+    TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w600, color: kTextColor);
 final black16B600 =
     TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
 
@@ -75,9 +77,6 @@ final white9Bold =
 
 final white13B700 =
     TextStyle(fontSize: 13.sp, color: kCardColor, fontWeight: FontWeight.w700);
-    
-    final white14B500 =
-    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: kWhiteColor);
 
 final white12B600 =
     TextStyle(color: kCardColor, fontWeight: FontWeight.w600, fontSize: 12.sp);
@@ -85,7 +84,6 @@ final white12B600 =
 final white14B700 =
     TextStyle(color: kCardColor, fontWeight: FontWeight.w700, fontSize: 14.sp);
 
-    
 final white14B500 =
     TextStyle(color: kCardColor, fontWeight: FontWeight.w500, fontSize: 14.sp);
 

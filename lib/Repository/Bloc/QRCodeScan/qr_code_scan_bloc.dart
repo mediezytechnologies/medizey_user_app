@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Model/QRScanModel/qr_scan_model.dart';
@@ -19,7 +18,11 @@ class QrCodeScanBloc extends Bloc<QrCodeScanEvent, QrCodeScanState> {
             tokenId: event.tokenId);
         emit(QrCodeScanLoaded());
       } catch (e) {
-        emit(QrCodeScanError(errorMessage: e.toString(),),);
+        emit(
+          QrCodeScanError(
+            errorMessage: e.toString(),
+          ),
+        );
       }
     });
   }

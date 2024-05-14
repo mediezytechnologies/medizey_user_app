@@ -26,6 +26,7 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../CommonWidgets/text_style_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -367,6 +368,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTapFunction: () async {
                               GeneralServices.instance.appCloseDialogue(
                                   context, "Are you sure to log out", () async {
+                                await GoogleAuthService().singnOut();
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginScreen(),
+                                    ));
                                 final preferences =
                                     await SharedPreferences.getInstance();
                                 await preferences.remove('token');

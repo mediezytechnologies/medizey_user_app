@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
+import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/widgets/google_confirm_screen.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
 import 'package:mediezy_user/Ui/Screens/demo/google_auth_demo.dart';
 import 'package:mediezy_user/Ui/Screens/demo/push_notification_demo.dart';
@@ -17,8 +18,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
 @pragma('vm:entry-point')
-Future<void>firebaseMassigingBackgroundHandiler(RemoteMessage message)async{
-await Firebase.initializeApp();
+Future<void> firebaseMassigingBackgroundHandiler(RemoteMessage message) async {
+  await Firebase.initializeApp();
 }
 
 void main() async {
@@ -26,7 +27,7 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(firebaseMassigingBackgroundHandiler);
   await configureInjection();
   await GetStorage.init();
-    await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   SystemChrome.setPreferredOrientations([
@@ -86,11 +87,11 @@ class _MediezyState extends State<Mediezy> {
           theme: appThemeStyle(context),
           home:
 //LoginScreenGoogle()
-          
-    //DemoPushNotification()
-   hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+              //  GoogleContirmUserScreen()
+              //DemoPushNotification()
+              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );
   }
-} 
+}

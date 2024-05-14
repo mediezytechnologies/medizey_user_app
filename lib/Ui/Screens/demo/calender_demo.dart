@@ -1,12 +1,7 @@
-
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mediezy_user/Ui/Screens/demo/custom_calendder_packages.dart';
-
-
-
-
 
 class ScreenOne extends StatefulWidget {
   const ScreenOne({Key? key}) : super(key: key);
@@ -45,58 +40,53 @@ class _ScreenOneState extends State<ScreenOne> {
     return ListView(
       shrinkWrap: true,
       children: [
-         _customBackgroundExample(),
-            const SizedBox(
-              height: 32.0,
-            ),
-              const SizedBox(height: 20),
-            DatePickerDemoClass(
-              height: 150,
-              width: 80,
-        DateTime.now(),
-        initialSelectedDate: DateTime.now(),
-        selectionColor: Colors.black,
-        selectedTextColor: Colors.white,
-        
-
-        onDateChange: (date) {
-          // New date selected
-          setState(() {
-          selected = date;
-          });
-        },
-      ),
+        _customBackgroundExample(),
+        const SizedBox(
+          height: 32.0,
+        ),
+        const SizedBox(height: 20),
+        DatePickerDemoClass(
+          height: 150,
+          width: 80,
+          DateTime.now(),
+          initialSelectedDate: DateTime.now(),
+          selectionColor: Colors.black,
+          selectedTextColor: Colors.white,
+          onDateChange: (date) {
+            // New date selected
+            setState(() {
+              selected = date;
+            });
+          },
+        ),
         const SizedBox(height: 20),
         Text(selected.toString()),
-         const SizedBox(height: 20),
+        const SizedBox(height: 20),
         TextFormField(
           controller: _timeC,
           decoration: const InputDecoration(
               labelText: 'Time picker', border: OutlineInputBorder()),
         ),
-         const SizedBox(
-              height: 32.0,
-            ),
-         TextFormField(
+        const SizedBox(
+          height: 32.0,
+        ),
+        TextFormField(
           controller: _dateC,
           decoration: const InputDecoration(
               labelText: 'Time picker', border: OutlineInputBorder()),
         ),
-         const SizedBox(
-              height: 32.0,
-            ),
-       
-        ElevatedButton(onPressed: () => displayTimePicker(context), child: const Text("Pick Time")),
+        const SizedBox(
+          height: 32.0,
+        ),
+        ElevatedButton(
+            onPressed: () => displayTimePicker(context),
+            child: const Text("Pick Time")),
       ],
     );
   }
 
-
-
   Future displayTimePicker(BuildContext context) async {
-    var time = await showTimePicker(
-        context: context,
-        initialTime: timeOfDay);
+    var time = await showTimePicker(context: context, initialTime: timeOfDay);
 
     if (time != null) {
       setState(() {
@@ -104,7 +94,8 @@ class _ScreenOneState extends State<ScreenOne> {
       });
     }
   }
-   EasyDateTimeLine _customBackgroundExample() {
+
+  EasyDateTimeLine _customBackgroundExample() {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {

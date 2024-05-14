@@ -57,7 +57,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '220538846317',
     projectId: 'mediezy-28594',
     storageBucket: 'mediezy-28594.appspot.com',
-    iosClientId: '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
+    iosClientId:
+        '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
     iosBundleId: 'com.example.mediezyUser',
   );
 
@@ -67,7 +68,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '220538846317',
     projectId: 'mediezy-28594',
     storageBucket: 'mediezy-28594.appspot.com',
-    iosClientId: '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
+    iosClientId:
+        '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
     iosBundleId: 'com.example.mediezyUser',
   );
 

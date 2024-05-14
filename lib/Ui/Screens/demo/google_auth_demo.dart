@@ -10,52 +10,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../Consts/app_colors.dart';
-
-class AuthService {
-  FirebaseAuth firebaseauth = FirebaseAuth.instance;
-
-
-
-// Future<UserCredential> signInWithFacebook() async {
-//   // Trigger the sign-in flow
-//   final LoginResult loginResult = await FacebookAuth.instance.login();
-
-//   // Create a credential from the access token
-//   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!);
-
-//   // Once signed in, return the UserCredential
-//   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-// }
-//google//
-  Future<User?> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
-        final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-        UserCredential userCredential =
-            await firebaseauth.signInWithCredential(credential);
-        log(googleAuth.toString());
-        log("${googleAuth.accessToken}======= acces");
-        log("${googleAuth.idToken}=======");
-
-        return userCredential.user;
-      }
-    } catch (e) {
-      print(e);
-      print("exception");
-    }
-    return null;
-  }
-
-  Future singnOut() async {
-    await GoogleSignIn().signOut();
-    await firebaseauth.signOut();
-  }
-}
 
 //================================
 class FirestoreService {
@@ -75,8 +31,8 @@ class FirestoreService {
 class LoginScreenGoogle extends StatelessWidget {
   LoginScreenGoogle({Key? key}) : super(key: key);
 
- late GoogleSignInAccount _userObj;
- final GoogleSignIn _googleSignIn = GoogleSignIn();
+  late GoogleSignInAccount _userObj;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +69,14 @@ class LoginScreenGoogle extends StatelessWidget {
                 height10,
                 ElevatedButton(
                   onPressed: () async {
-                    User? result = await AuthService().signInWithGoogle();
+                    User? result = await GoogleAuthService().signInWithGoogle();
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomeScreenGoogle(result: result!,),
+                          builder: (context) => HomeScreenGoogle(
+                            result: result!,
+                          ),
                         ));
-                      
                   },
                   child: Text(
                     "Continue With Google",
@@ -146,7 +103,6 @@ class LoginScreenGoogle extends StatelessWidget {
 
 //home
 
-
 class HomeScreenGoogle extends StatefulWidget {
   HomeScreenGoogle({
     Key? key,
@@ -158,18 +114,16 @@ class HomeScreenGoogle extends StatefulWidget {
 }
 
 class _HomeScreenGoogleState extends State<HomeScreenGoogle> {
-
 // User? result;
-
 
   @override
   void initState() {
- //getUser();
+    //getUser();
     super.initState();
   }
 
-  getUser()async{
-   // result = await AuthService().signInWithGoogle();
+  getUser() async {
+    // result = await AuthService().signInWithGoogle();
   }
   // User user;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -178,7 +132,6 @@ class _HomeScreenGoogleState extends State<HomeScreenGoogle> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         // floatingActionButton: FloatingActionButton(backgroundColor: blackLight,
         //   onPressed: (){
@@ -195,7 +148,7 @@ class _HomeScreenGoogleState extends State<HomeScreenGoogle> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  await AuthService().singnOut();
+                  await GoogleAuthService().singnOut();
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -210,20 +163,25 @@ class _HomeScreenGoogleState extends State<HomeScreenGoogle> {
           color: kCardColor,
           height: double.infinity,
           child: Column(
-         mainAxisAlignment: MainAxisAlignment.center,
-         crossAxisAlignment: CrossAxisAlignment.center,
-         children: [
-             Image.network(widget.result.photoURL!),
-             const SizedBox(height: 20,),
-             Text(widget.result!.displayName.toString()),
-             const SizedBox(height: 20,),
-             Text(widget.result!.email.toString()),
-             const SizedBox(height: 20,),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.network(widget.result.photoURL!),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(widget.result!.displayName.toString()),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(widget.result!.email.toString()),
+              const SizedBox(
+                height: 20,
+              ),
               Text(widget.result.phoneNumber.toString()),
               // Text(widget.result.delete().toString()),
-             
-         ],
-       ),
+            ],
+          ),
         ));
   }
 }
@@ -247,12 +205,11 @@ class SubmitButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          backgroundColor:Colors.amber ,
+          backgroundColor: Colors.amber,
         ),
         onPressed: onpressed,
         child: Text(
           title,
-
         ));
   }
 }

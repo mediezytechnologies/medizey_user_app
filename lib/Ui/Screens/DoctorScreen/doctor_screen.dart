@@ -26,7 +26,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
   void initState() {
     BlocProvider.of<GetHealthCategoriesBloc>(context)
         .add(FetchHealthCategories());
-       BlocProvider.of<GetAllSpecialisationsBloc>(context)
+    BlocProvider.of<GetAllSpecialisationsBloc>(context)
         .add(FetchAllSpecialisations());
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "2"));
     super.initState();

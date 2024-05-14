@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:mediezy_user/ddd/infrastructure/notification_service.dart';
+import 'package:mediezy_user/ddd/infrastructure/firebase_service/notification_service.dart';
 
 class DemoPushNotification extends StatefulWidget {
   const DemoPushNotification({super.key});
@@ -15,14 +15,13 @@ class _DemoPushNotificationState extends State<DemoPushNotification> {
   @override
   void initState() {
     super.initState();
-  notificationServices.requesttNotificationPermission();
+    notificationServices.requesttNotificationPermission();
     notificationServices.forgoundMessage();
     notificationServices.firebaseInit(context);
     notificationServices.isRefreshToken();
     notificationServices.getDiviceToken().then((value) {
       log(value);
     });
-  
   }
 
   @override
@@ -31,9 +30,9 @@ class _DemoPushNotificationState extends State<DemoPushNotification> {
       appBar: AppBar(
         title: Text("Demo Notification Service"),
       ),
-      body: Column(children: [
-        Text("Demo Notification Service")
-      ],),
+      body: Column(
+        children: [Text("Demo Notification Service")],
+      ),
     );
   }
 }

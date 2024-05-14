@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mediezy_user/Model/auth/login_model.dart';
 import 'package:mediezy_user/Repository/Bloc/LoginAndSignUp/login_and_signup_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
@@ -16,11 +17,16 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/ForegetPasswordScreen/forget_password_screen.dart';
+import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/widgets/google_confirm_screen.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SignUpScreen/sign_up_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
+import '../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
+import 'package:sign_in_button/sign_in_button.dart';
+
+import '../../demo/google_auth_demo.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -37,6 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final locationController = Get.put(LocationController());
   late LoginModel loginModel;
   bool hidePassword = true;
+  late GoogleSignInAccount _userObj;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -235,11 +244,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                 }
                               }),
-                          // const VerticalSpacingWidget(height: 5),
-                          // SignInButton(
-                          //   Buttons.Google,
-                          //   onPressed: () {},
-                          // ),
+                          const VerticalSpacingWidget(height: 5),
+                          SignInButton(
+                            Buttons.google,
+                            text: "Sign up with Google",
+                            onPressed: () async {
+                              var result =
+                                  await GoogleAuthService().signInWithGoogle();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        GoogleContirmUserScreen(
+                                      result: result!,
+                                    ),
+                                  ));
+                            },
+                          ),
                           const VerticalSpacingWidget(height: 5),
                           Text("or", style: black13B500),
                           const VerticalSpacingWidget(height: 5),

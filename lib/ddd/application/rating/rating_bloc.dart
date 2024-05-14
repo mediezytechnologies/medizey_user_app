@@ -33,8 +33,6 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
       log("rating : ${event.radioIndex}");
     });
 
-
-
     //! for api
     on<_RatingGetFeedBacks>((event, emit) async {
       emit(state.copyWith(

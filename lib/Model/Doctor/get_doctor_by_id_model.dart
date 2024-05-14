@@ -25,8 +25,7 @@ class GetDoctorByIdModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     if (doctorDetails != null) {
-      data['Doctor Details'] =
-          doctorDetails!.map((v) => v.toJson()).toList();
+      data['Doctor Details'] = doctorDetails!.map((v) => v.toJson()).toList();
     }
     data['code'] = code;
     data['message'] = message;
@@ -125,4 +124,3 @@ class DoctorDetails {
     return data;
   }
 }
-

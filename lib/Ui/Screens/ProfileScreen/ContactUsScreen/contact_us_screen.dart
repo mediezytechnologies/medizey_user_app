@@ -54,7 +54,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   const VerticalSpacingWidget(height: 10),
                   Text("How may we\nhelp you?", style: black16B600),
                   const VerticalSpacingWidget(height: 13),
-                  Text("Let us know your queries & feedbacks",style: black13B500),
+                  Text("Let us know your queries & feedbacks",
+                      style: black13B500),
                   const VerticalSpacingWidget(height: 20),
                   //! email
                   SizedBox(
