@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
+import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
 import 'package:mediezy_user/Ui/Screens/demo/google_auth_demo.dart';
 import 'package:mediezy_user/Ui/Screens/demo/push_notification_demo.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
@@ -85,8 +87,8 @@ class _MediezyState extends State<Mediezy> {
           home:
 //LoginScreenGoogle()
           
-    DemoPushNotification()
-    //   hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+    //DemoPushNotification()
+   hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );
