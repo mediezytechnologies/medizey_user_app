@@ -14,11 +14,11 @@ class RatingEvent with _$RatingEvent {
   const factory RatingEvent.ratingGetFeedBacks(String feedback) =
       _RatingGetFeedBacks;
   const factory RatingEvent.ratingAddFeedBacks(
-      String appointmentId,
-      String rating,
-      String reviewId,
-      int? doctorRecommentation,
-      int? userComments,
-      String? ratingId,
-      ) = _RatingAddFeedBacks;
+    String appointmentId,
+    String rating,
+    String reviewId,
+    int? doctorRecommentation,
+    int? userComments,
+    String? ratingId,
+  ) = _RatingAddFeedBacks;
 }

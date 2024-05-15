@@ -7,10 +7,10 @@ abstract class RatingRepository {
   Future<Either<ErrorModel, List<UserRating>>> getRatingRepo(
       {required String ratingText});
   Future<Either<ErrorModel, AddRatingModel>> addRatingRepo(
-      {required String appointmentId,
-      required String rating,
-      String? ratingId,
-      String? reviewId,
+      {required int appointmentId,
+      required double rating,
+      int? ratingId,
+      int? reviewId,
       int? doctorRecommentation,
       int? userComments});
 }

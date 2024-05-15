@@ -208,7 +208,6 @@ class _DatePickerDemoClassState extends State<DatePickerDemoClass> {
                     });
                   },
                   onMonthUpdated: (selectedDate) {
-                    
                     _updateDisplayedMonthAndYear(selectedDate);
                   },
                 );

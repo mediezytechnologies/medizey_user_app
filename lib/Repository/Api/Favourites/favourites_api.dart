@@ -21,5 +21,4 @@ class FavouritesApi {
     print("<<<<<<<<<< FAVOURITE ADDED WORKED SUCCESSFULLY >>>>>>>>>>");
     return response.body;
   }
-
 }

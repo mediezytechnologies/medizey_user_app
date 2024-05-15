@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import '../../../../ddd/application/rating/rating_bloc.dart';
@@ -20,7 +21,7 @@ class RatingFormScreen extends StatefulWidget {
       : super(key: key);
 
   final String doctorName;
-  final String appointmentId;
+  final int appointmentId;
 
   @override
   State<RatingFormScreen> createState() => _RatingFormScreenState();
@@ -28,8 +29,13 @@ class RatingFormScreen extends StatefulWidget {
 
 class _RatingFormScreenState extends State<RatingFormScreen> {
   double? value;
-  String? ratingId;
-  String? reviewId;
+  int? ratingId;
+  int? reviewId;
+
+  double? ratingValue;
+  int? likedIndex;
+  int? radioIndex;
+
   List radioItem = [
     "Less than 20 min",
     "20 min to 40 min",
@@ -48,65 +54,60 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
       appBar: AppBar(
         title: Text("Dr ${widget.doctorName}."),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-                .add(FetchCompletedAppointments());
-            BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingTextChanged(""));
-            BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingReasonChanged(-1));
-            BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingLikeChanged(3));
-            BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingRadioChanged(5));
-            BlocProvider.of<RatingBloc>(context)
-                .add(const RatingEvent.ratingChanged(0));
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        const BottomNavigationControlWidget()));
+        leading: BlocBuilder<RatingBloc, RatingState>(
+          builder: (context, state) {
+            return BlocConsumer<RatingPostBloc, RatingPostState>(
+              listener: (context, postState) {
+                if (postState.isError) {
+                  GeneralServices.instance
+                      .showErrorMessage(context, postState.message);
+                } else if (postState.status == true) {
+                  GeneralServices.instance
+                      .showToastMessage("Review added successfully");
+                  BlocProvider.of<GetCompletedAppointmentsBloc>(context)
+                      .add(FetchCompletedAppointments());
+                  BlocProvider.of<RatingBloc>(context)
+                      .add(const RatingEvent.ratingTextChanged(""));
+                  BlocProvider.of<RatingBloc>(context)
+                      .add(const RatingEvent.ratingReasonChanged(-1));
+                  BlocProvider.of<RatingBloc>(context)
+                      .add(const RatingEvent.ratingLikeChanged(-1));
+                  BlocProvider.of<RatingBloc>(context)
+                      .add(const RatingEvent.ratingRadioChanged(-1));
+                  BlocProvider.of<RatingBloc>(context)
+                      .add(const RatingEvent.ratingChanged(0));
+
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const BottomNavigationControlWidget(),
+                      ));
+                }
+              },
+              builder: (context, postState) {
+                return IconButton(
+                  onPressed: () {
+                    BlocProvider.of<RatingPostBloc>(context).add(
+                      RatingPostEvent.ratingAddFeedBacks(
+                        widget.appointmentId,
+                        state.ratingValue,
+                        reviewId,
+                        state.likedIndex,
+                        state.radioIndex,
+                        ratingId,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                );
+              },
+            );
           },
-          icon: const Icon(Icons.arrow_back),
         ),
       ),
       body: SingleChildScrollView(
-        child:
-            // BlocConsumer<RatingBloc, RatingState>(
-            //   listener: (context, state) {
-            //    log("status dfdf : ${state.addStatus}");
-            //  if (state.addStatus) {
-            //   log("status ${state.addStatus==true}");
-
-            // GeneralServices.instance
-            //     .showToastMessage("Review added successfully");
-            // BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-            //     .add(FetchCompletedAppointments());
-            // BlocProvider.of<RatingBloc>(context)
-            //     .add(const RatingEvent.ratingTextChanged(""));
-            // BlocProvider.of<RatingBloc>(context)
-            //     .add(const RatingEvent.ratingReasonChanged(-1));
-            // BlocProvider.of<RatingBloc>(context)
-            //     .add(const RatingEvent.ratingLikeChanged(-1));
-            // BlocProvider.of<RatingBloc>(context)
-            //     .add(const RatingEvent.ratingRadioChanged(-1));
-            // BlocProvider.of<RatingBloc>(context)
-            //     .add(const RatingEvent.ratingChanged(0));
-            //   Navigator.pushReplacement(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) =>
-            //               const BottomNavigationControlWidget()));
-            // }
-            // if (state.addIsError) {
-            //   GeneralServices.instance
-            //       .showErrorMessage(context, state.addMessage);
-            // }
-
-            // },
-            // builder: (context, state) {
-            BlocBuilder<RatingBloc, RatingState>(
+        child: BlocBuilder<RatingBloc, RatingState>(
           builder: (context, state) {
             return Column(
               children: [
@@ -139,10 +140,29 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                     listener: (context, postState) {
                       if (postState.isError) {
                         GeneralServices.instance
-                            .showErrorMessage(context, state.addMessage);
-                      }
-                      else if(postState.status==true){
-log("hy its working fine");
+                            .showErrorMessage(context, postState.message);
+                      } else if (postState.status == true) {
+                        GeneralServices.instance
+                            .showToastMessage("Review added successfully");
+                        BlocProvider.of<GetCompletedAppointmentsBloc>(context)
+                            .add(FetchCompletedAppointments());
+                        BlocProvider.of<RatingBloc>(context)
+                            .add(const RatingEvent.ratingTextChanged(""));
+                        BlocProvider.of<RatingBloc>(context)
+                            .add(const RatingEvent.ratingReasonChanged(-1));
+                        BlocProvider.of<RatingBloc>(context)
+                            .add(const RatingEvent.ratingLikeChanged(3));
+                        BlocProvider.of<RatingBloc>(context)
+                            .add(const RatingEvent.ratingRadioChanged(5));
+                        BlocProvider.of<RatingBloc>(context)
+                            .add(const RatingEvent.ratingChanged(0));
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const BottomNavigationControlWidget(),
+                            ));
                       }
                     },
                     builder: (context, postState) {
@@ -152,17 +172,13 @@ log("hy its working fine");
                             BlocProvider.of<RatingPostBloc>(context).add(
                               RatingPostEvent.ratingAddFeedBacks(
                                 widget.appointmentId,
-                                state.ratingValue.toString(),
-                                reviewId.toString(),
-                                state.likedIndex != 3 ? state.likedIndex : 3,
-                                state.radioIndex != 5 ? state.radioIndex : 5,
-                                ratingId.toString(),
+                                state.ratingValue,
+                                reviewId,
+                                state.likedIndex,
+                                state.radioIndex,
+                                ratingId,
                               ),
                             );
-                            log("stat 1${widget.appointmentId}");
-                            log("sata 2 : ${state.ratingValue}");
-                            log(" working");
-                            log(" working");
                           });
                     },
                   ),
@@ -267,8 +283,10 @@ log("hy its working fine");
                 state.userRating.length,
                 (index) => GestureDetector(
                   onTap: () {
-                    reviewId = state.userRating[index].reviewId.toString();
-                    ratingId = state.userRating[index].ratingId.toString();
+                    log("rating id : ${state.userRating[index].ratingId}");
+                    reviewId = state.userRating[index].reviewId;
+                    ratingId = state.userRating[index].ratingId;
+                    log("rating id in veriable : ${ratingId}");
                     BlocProvider.of<RatingBloc>(context)
                         .add(RatingEvent.ratingReasonChanged(index));
                   },

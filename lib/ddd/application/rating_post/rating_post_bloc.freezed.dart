@@ -16,35 +16,30 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RatingPostEvent {
-  String get appointmentId => throw _privateConstructorUsedError;
-  String get rating => throw _privateConstructorUsedError;
-  String get reviewId => throw _privateConstructorUsedError;
+  int get appointmentId => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
+  int? get reviewId => throw _privateConstructorUsedError;
   int? get doctorRecommentation => throw _privateConstructorUsedError;
   int? get userComments => throw _privateConstructorUsedError;
-  String? get ratingId => throw _privateConstructorUsedError;
+  int? get ratingId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String appointmentId,
-            String rating,
-            String reviewId,
-            int? doctorRecommentation,
-            int? userComments,
-            String? ratingId)
+    required TResult Function(int appointmentId, double rating, int? reviewId,
+            int? doctorRecommentation, int? userComments, int? ratingId)
         ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String appointmentId, String rating, String reviewId,
-            int? doctorRecommentation, int? userComments, String? ratingId)?
+    TResult? Function(int appointmentId, double rating, int? reviewId,
+            int? doctorRecommentation, int? userComments, int? ratingId)?
         ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String appointmentId, String rating, String reviewId,
-            int? doctorRecommentation, int? userComments, String? ratingId)?
+    TResult Function(int appointmentId, double rating, int? reviewId,
+            int? doctorRecommentation, int? userComments, int? ratingId)?
         ratingAddFeedBacks,
     required TResult orElse(),
   }) =>
@@ -78,12 +73,12 @@ abstract class $RatingPostEventCopyWith<$Res> {
       _$RatingPostEventCopyWithImpl<$Res, RatingPostEvent>;
   @useResult
   $Res call(
-      {String appointmentId,
-      String rating,
-      String reviewId,
+      {int appointmentId,
+      double rating,
+      int? reviewId,
       int? doctorRecommentation,
       int? userComments,
-      String? ratingId});
+      int? ratingId});
 }
 
 /// @nodoc
@@ -101,7 +96,7 @@ class _$RatingPostEventCopyWithImpl<$Res, $Val extends RatingPostEvent>
   $Res call({
     Object? appointmentId = null,
     Object? rating = null,
-    Object? reviewId = null,
+    Object? reviewId = freezed,
     Object? doctorRecommentation = freezed,
     Object? userComments = freezed,
     Object? ratingId = freezed,
@@ -110,15 +105,15 @@ class _$RatingPostEventCopyWithImpl<$Res, $Val extends RatingPostEvent>
       appointmentId: null == appointmentId
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as String,
-      reviewId: null == reviewId
+              as double,
+      reviewId: freezed == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       doctorRecommentation: freezed == doctorRecommentation
           ? _value.doctorRecommentation
           : doctorRecommentation // ignore: cast_nullable_to_non_nullable
@@ -130,7 +125,7 @@ class _$RatingPostEventCopyWithImpl<$Res, $Val extends RatingPostEvent>
       ratingId: freezed == ratingId
           ? _value.ratingId
           : ratingId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ) as $Val);
   }
 }
@@ -144,12 +139,12 @@ abstract class _$$RatingAddFeedBacksImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String appointmentId,
-      String rating,
-      String reviewId,
+      {int appointmentId,
+      double rating,
+      int? reviewId,
       int? doctorRecommentation,
       int? userComments,
-      String? ratingId});
+      int? ratingId});
 }
 
 /// @nodoc
@@ -165,7 +160,7 @@ class __$$RatingAddFeedBacksImplCopyWithImpl<$Res>
   $Res call({
     Object? appointmentId = null,
     Object? rating = null,
-    Object? reviewId = null,
+    Object? reviewId = freezed,
     Object? doctorRecommentation = freezed,
     Object? userComments = freezed,
     Object? ratingId = freezed,
@@ -174,15 +169,15 @@ class __$$RatingAddFeedBacksImplCopyWithImpl<$Res>
       null == appointmentId
           ? _value.appointmentId
           : appointmentId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == reviewId
+              as double,
+      freezed == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       freezed == doctorRecommentation
           ? _value.doctorRecommentation
           : doctorRecommentation // ignore: cast_nullable_to_non_nullable
@@ -194,7 +189,7 @@ class __$$RatingAddFeedBacksImplCopyWithImpl<$Res>
       freezed == ratingId
           ? _value.ratingId
           : ratingId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -206,17 +201,17 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
       this.doctorRecommentation, this.userComments, this.ratingId);
 
   @override
-  final String appointmentId;
+  final int appointmentId;
   @override
-  final String rating;
+  final double rating;
   @override
-  final String reviewId;
+  final int? reviewId;
   @override
   final int? doctorRecommentation;
   @override
   final int? userComments;
   @override
-  final String? ratingId;
+  final int? ratingId;
 
   @override
   String toString() {
@@ -255,13 +250,8 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String appointmentId,
-            String rating,
-            String reviewId,
-            int? doctorRecommentation,
-            int? userComments,
-            String? ratingId)
+    required TResult Function(int appointmentId, double rating, int? reviewId,
+            int? doctorRecommentation, int? userComments, int? ratingId)
         ratingAddFeedBacks,
   }) {
     return ratingAddFeedBacks(appointmentId, rating, reviewId,
@@ -271,8 +261,8 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String appointmentId, String rating, String reviewId,
-            int? doctorRecommentation, int? userComments, String? ratingId)?
+    TResult? Function(int appointmentId, double rating, int? reviewId,
+            int? doctorRecommentation, int? userComments, int? ratingId)?
         ratingAddFeedBacks,
   }) {
     return ratingAddFeedBacks?.call(appointmentId, rating, reviewId,
@@ -282,8 +272,8 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String appointmentId, String rating, String reviewId,
-            int? doctorRecommentation, int? userComments, String? ratingId)?
+    TResult Function(int appointmentId, double rating, int? reviewId,
+            int? doctorRecommentation, int? userComments, int? ratingId)?
         ratingAddFeedBacks,
     required TResult orElse(),
   }) {
@@ -325,25 +315,25 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
 
 abstract class _RatingAddFeedBacks implements RatingPostEvent {
   const factory _RatingAddFeedBacks(
-      final String appointmentId,
-      final String rating,
-      final String reviewId,
+      final int appointmentId,
+      final double rating,
+      final int? reviewId,
       final int? doctorRecommentation,
       final int? userComments,
-      final String? ratingId) = _$RatingAddFeedBacksImpl;
+      final int? ratingId) = _$RatingAddFeedBacksImpl;
 
   @override
-  String get appointmentId;
+  int get appointmentId;
   @override
-  String get rating;
+  double get rating;
   @override
-  String get reviewId;
+  int? get reviewId;
   @override
   int? get doctorRecommentation;
   @override
   int? get userComments;
   @override
-  String? get ratingId;
+  int? get ratingId;
   @override
   @JsonKey(ignore: true)
   _$$RatingAddFeedBacksImplCopyWith<_$RatingAddFeedBacksImpl> get copyWith =>

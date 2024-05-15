@@ -164,8 +164,7 @@ class _GetCompletedFeedbackWidgetState
                                           appointmentId:
                                               getCompletedAppointmentsModel
                                                   .appointmentDetails![index]
-                                                  .appointmentId
-                                                  .toString(),
+                                                  .appointmentId!,
                                         ),
                                       ],
                                     )

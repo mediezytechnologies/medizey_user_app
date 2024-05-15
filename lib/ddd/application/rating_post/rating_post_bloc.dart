@@ -22,12 +22,13 @@ class RatingPostBloc extends Bloc<RatingPostEvent, RatingPostState> {
       );
       log(emit.toString());
       final addFeedbackResult = await ratingRepository.addRatingRepo(
-          appointmentId: event.appointmentId,
-          rating: event.rating,
-          doctorRecommentation: event.doctorRecommentation,
-          userComments: event.userComments,
-          ratingId: event.ratingId,
-          reviewId: event.reviewId);
+        appointmentId: event.appointmentId!,
+        rating: event.rating,
+        reviewId: event.reviewId,
+        doctorRecommentation: event.doctorRecommentation,
+        userComments: event.userComments,
+        ratingId: event.ratingId,
+      );
       emit(addFeedbackResult.fold(
           (l) => state.copyWith(
                 isloding: false,

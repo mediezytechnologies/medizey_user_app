@@ -8,12 +8,12 @@ part of 'review_details.dart';
 
 ReviewDetails _$ReviewDetailsFromJson(Map<String, dynamic> json) =>
     ReviewDetails(
-      reviewId: json['review_id'] as String?,
-      appointmentId: json['appointment_id'] as String?,
-      rating: json['rating'] as String?,
-      ratingId: json['rating_id'] as String?,
-      doctorRecommendation: json['doctor_recommendation'] as String?,
-      userComments: json['user_comments'] as String?,
+      reviewId: json['review_id'] as int?,
+      appointmentId: json['appointment_id'] as int?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      ratingId: json['rating_id'] as int?,
+      doctorRecommendation: json['doctor_recommendation'] as int?,
+      userComments: json['user_comments'] as int?,
       feedbackStatus: json['feedback_status'] as int?,
     );
 

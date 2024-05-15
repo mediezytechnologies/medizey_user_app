@@ -94,10 +94,10 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                       favouriteStatus: state.favId,
                                     ),
                                   );
-                                   BlocProvider.of<GetRecentlyBookedDoctorBloc>(
-                                      context)
-                                  .add(const GetRecentlyBookedDoctorEvent
-                                      .getRecentlyBookedDocterForcedEvent());
+                                  BlocProvider.of<GetRecentlyBookedDoctorBloc>(
+                                          context)
+                                      .add(const GetRecentlyBookedDoctorEvent
+                                          .getRecentlyBookedDocterForcedEvent());
                                 });
                               },
                               child: SizedBox(

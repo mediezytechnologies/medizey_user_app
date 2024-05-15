@@ -19,8 +19,9 @@ import '../../../application/get_fav_doctor/get_fav_doctor_bloc.dart' as _i16;
 import '../../../application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart'
     as _i29;
 import '../../../application/rating/rating_bloc.dart' as _i30;
-import '../../../application/search_doctor/search_doctor_bloc.dart' as _i31;
-import '../../../application/user_location/user_location_bloc.dart' as _i32;
+import '../../../application/rating_post/rating_post_bloc.dart' as _i31;
+import '../../../application/search_doctor/search_doctor_bloc.dart' as _i32;
+import '../../../application/user_location/user_location_bloc.dart' as _i33;
 import '../../../infrastructure/add_member/add_member_impl.dart' as _i6;
 import '../../../infrastructure/add_member_image/add_member_image_impl.dart'
     as _i4;
@@ -91,9 +92,11 @@ _i1.GetIt $initGetIt(
           get<_i17.GetRecentlyBookedDoctorRepository>()));
   gh.factory<_i30.RatingBloc>(
       () => _i30.RatingBloc(get<_i19.RatingRepository>()));
-  gh.factory<_i31.SearchDoctorBloc>(
-      () => _i31.SearchDoctorBloc(get<_i21.SearchDoctorRepository>()));
-  gh.factory<_i32.UserLocationBloc>(
-      () => _i32.UserLocationBloc(get<_i23.UserLocationRepo>()));
+  gh.factory<_i31.RatingPostBloc>(
+      () => _i31.RatingPostBloc(get<_i19.RatingRepository>()));
+  gh.factory<_i32.SearchDoctorBloc>(
+      () => _i32.SearchDoctorBloc(get<_i21.SearchDoctorRepository>()));
+  gh.factory<_i33.UserLocationBloc>(
+      () => _i33.UserLocationBloc(get<_i23.UserLocationRepo>()));
   return get;
 }

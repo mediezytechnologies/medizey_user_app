@@ -64,36 +64,37 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
       }));
     });
 
-    on<_RatingAddFeedBacks>((event, emit) async {
-      emit(state.copyWith(
-        addIsloading: true,
-        addIsError: false,
-        addMessage: "",
-        addStatus: false,
-      ));
-      final addFeedbackResult = await ratingRepository.addRatingRepo(
-          appointmentId: event.appointmentId,
-          rating: event.rating,
-          doctorRecommentation: event.doctorRecommentation,
-          userComments: event.userComments,
-          ratingId: event.ratingId,
-          reviewId: event.reviewId);
+    // on<_RatingAddFeedBacks>((event, emit) async {
+    //   emit(state.copyWith(
+    //     addIsloading: true,
+    //     addIsError: false,
+    //     addMessage: "",
+    //     addStatus: false,
+    //   ));
+    //   final addFeedbackResult = await ratingRepository.addRatingRepo(
+    //       appointmentId: event.appointmentId,
+    //       rating: event.rating,
+    //    doctorRecommentation: event.doctorRecommentation,
+    //       userComments: event.userComments,
+    //       rating Id: event.ratingId,
+    //      reviewId: event.reviewId,
+    //       );
 
-      emit(addFeedbackResult.fold(
-          (l) => state.copyWith(
-                addIsloading: false,
-                addIsError: true,
-                addMessage: l.message!,
-                addStatus: false,
-              ), (r) {
-        return state.copyWith(
-          addIsloading: false,
-          addIsError: false,
-          addMessage: state.message,
-          addStatus: true,
-          addRatingModel: r,
-        );
-      }));
-    });
+    //   emit(addFeedbackResult.fold(
+    //       (l) => state.copyWith(
+    //             addIsloading: false,
+    //             addIsError: true,
+    //             addMessage: l.message!,
+    //             addStatus: false,
+    //           ), (r) {
+    //     return state.copyWith(
+    //       addIsloading: false,
+    //       addIsError: false,
+    //       addMessage: state.message,
+    //       addStatus: true,
+    //       addRatingModel: r,
+    //     );
+    //   }));
+    // });
   }
 }

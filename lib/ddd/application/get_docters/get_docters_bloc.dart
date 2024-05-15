@@ -29,7 +29,7 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
           model: cachedDoctors,
         ));
         return;
-      }  
+      }
       final getDoctorResult = await getDoctersRepo.getDoctersRepo();
       emit(getDoctorResult.fold(
           (l) => state.copyWith(
@@ -52,7 +52,7 @@ class GetDoctersBloc extends Bloc<GetDoctersEvent, GetDoctersState> {
 
     on<_GetDoctersForcedEvent>((event, emit) async {
       final getDoctorResult = await getDoctersRepo.getDoctersRepo();
-      cachedDoctors =[];
+      cachedDoctors = [];
       emit(getDoctorResult.fold(
         (l) => state.copyWith(
           isloding: false,

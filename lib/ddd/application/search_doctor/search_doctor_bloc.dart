@@ -8,14 +8,13 @@ part 'search_doctor_event.dart';
 part 'search_doctor_state.dart';
 part 'search_doctor_bloc.freezed.dart';
 
-
 @injectable
 class SearchDoctorBloc extends Bloc<SearchDoctorEvent, SearchDoctorState> {
   final SearchDoctorRepository searchDoctorRepository;
   SearchDoctorBloc(this.searchDoctorRepository)
       : super(SearchDoctorState.initial()) {
     on<_Started>((event, emit) async {
-       if (event.isLoadingNeed) {
+      if (event.isLoadingNeed) {
         emit(state.copyWith(
           isloding: true,
           isError: false,

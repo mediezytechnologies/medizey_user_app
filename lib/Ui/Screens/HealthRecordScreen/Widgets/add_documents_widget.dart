@@ -1,4 +1,3 @@
-
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
@@ -34,8 +33,7 @@ class AddDocumentsWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: const Image(
-                  image: AssetImage(
-                      "assets/icons/add prescription.jpg"),
+                  image: AssetImage("assets/icons/add prescription.jpg"),
                   height: 100,
                   width: 100,
                 ),
@@ -62,8 +60,7 @@ class AddDocumentsWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: const Image(
-                  image:
-                      AssetImage("assets/icons/lab report.jpg"),
+                  image: AssetImage("assets/icons/lab report.jpg"),
                   height: 100,
                   width: 100,
                 ),
@@ -90,8 +87,7 @@ class AddDocumentsWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: const Image(
-                  image: AssetImage(
-                      "assets/icons/scanning report.jpg"),
+                  image: AssetImage("assets/icons/scanning report.jpg"),
                   height: 100,
                   width: 100,
                 ),
@@ -118,8 +114,7 @@ class AddDocumentsWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: const Image(
-                  image: AssetImage(
-                      "assets/icons/discharge report.jpg"),
+                  image: AssetImage("assets/icons/discharge report.jpg"),
                   height: 100,
                   width: 100,
                 ),

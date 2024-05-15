@@ -120,7 +120,6 @@ class _HomeAappBarState extends State<HomeAappBar> {
                   ],
                 ),
               ),
-
               Image(
                 image: const AssetImage(
                   "assets/icons/mediezy logo small.png",
@@ -128,7 +127,6 @@ class _HomeAappBarState extends State<HomeAappBar> {
                 height: 35.h,
                 width: 100.w,
               ),
-             
             ]),
       ),
     );

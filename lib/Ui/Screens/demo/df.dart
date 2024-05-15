@@ -58,7 +58,7 @@ class _ScrollScreenDemoState extends State<ScrollScreenDemo> {
     BlocProvider.of<GetHospitalBloc>(context).add((FetchAllHospitals()));
     BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
-        startPolling();
+    startPolling();
   }
 
   void startPolling() async {

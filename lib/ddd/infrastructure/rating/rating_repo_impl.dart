@@ -28,7 +28,7 @@ class RatingRepoImpl implements RatingRepository {
       )).get(
         "${ApiEndPoints.getRating}$ratingText",
       );
-      log(response.data.toString());
+      // log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = GetRatingModel.fromJson(response.data);
 
@@ -52,10 +52,10 @@ class RatingRepoImpl implements RatingRepository {
 
   @override
   Future<Either<ErrorModel, AddRatingModel>> addRatingRepo(
-      {required String appointmentId,
-      required String rating,
-      String? ratingId,
-      String? reviewId,
+      {required int appointmentId,
+      required double rating,
+      int? ratingId,
+      int? reviewId,
       int? doctorRecommentation,
       int? userComments}) async {
     final preference = await SharedPreferences.getInstance();
@@ -69,25 +69,22 @@ class RatingRepoImpl implements RatingRepository {
         ApiEndPoints.addRating,
         data: {
           "appointment_id": appointmentId,
-          "review_id": reviewId,
+          // "review_id": reviewId,
           "rating": rating,
-          "doctor_recommendation": doctorRecommentation,
-          "user_comments": userComments,
+          //   "doctor_recommendation": doctorRecommentation,
+          // "user_comments": userComments,
           "feedback_status": 1,
-          "rating_id": ratingId,
+          // "rating_id": ratingId,
         },
       );
       log(response.data.toString());
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final result = AddRatingModel.fromJson(response.data);
-
-        log("result service : $result");
-        return Right(result);
-      } else {
-        return Left(ErrorModel());
-      }
+      log(response.statusCode.toString());
+      AddRatingModel result = AddRatingModel.fromJson(response.data);
+      log(response.data.toString());
+      log(result.toString());
+      return Right(result);
     } on DioError catch (e) {
-      log(e.message!); 
+      log(e.message!);
       log("errrr : ${e.error.toString()}");
       log(e.error.toString());
 

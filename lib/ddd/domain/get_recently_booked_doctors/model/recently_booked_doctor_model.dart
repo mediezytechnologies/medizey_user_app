@@ -6,20 +6,20 @@ part 'recently_booked_doctor_model.g.dart';
 
 @JsonSerializable()
 class RecentlyBookedDoctorModel {
-	bool? status;
-	@JsonKey(name: 'recently_booked_doctor') 
-	List<RecentlyBookedDoctor>? recentlyBookedDoctor;
-	String? message;
+  bool? status;
+  @JsonKey(name: 'recently_booked_doctor')
+  List<RecentlyBookedDoctor>? recentlyBookedDoctor;
+  String? message;
 
-	RecentlyBookedDoctorModel({
-		this.status, 
-		this.recentlyBookedDoctor, 
-		this.message, 
-	});
+  RecentlyBookedDoctorModel({
+    this.status,
+    this.recentlyBookedDoctor,
+    this.message,
+  });
 
-	factory RecentlyBookedDoctorModel.fromJson(Map<String, dynamic> json) {
-		return _$RecentlyBookedDoctorModelFromJson(json);
-	}
+  factory RecentlyBookedDoctorModel.fromJson(Map<String, dynamic> json) {
+    return _$RecentlyBookedDoctorModelFromJson(json);
+  }
 
-	Map<String, dynamic> toJson() => _$RecentlyBookedDoctorModelToJson(this);
+  Map<String, dynamic> toJson() => _$RecentlyBookedDoctorModelToJson(this);
 }

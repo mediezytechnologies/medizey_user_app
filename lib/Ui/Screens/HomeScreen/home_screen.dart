@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:async';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -120,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
+                  dragStartBehavior: DragStartBehavior.start,
                   controller: _scrollViewController,
                   child: Column(
                     children: [
