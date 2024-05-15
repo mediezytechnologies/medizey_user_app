@@ -20,9 +20,8 @@ import '../../../../Services/general_services.dart';
 class GoogleContirmUserScreen extends StatefulWidget {
   const GoogleContirmUserScreen({
     super.key,
-    this.result,
   });
-  final User? result;
+
   @override
   State<GoogleContirmUserScreen> createState() =>
       _GoogleContirmUserScreenState();
@@ -32,11 +31,14 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
   final FocusNode phoneNumberFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(leading: IconButton(onPressed: () {
+        AuthServiceGoogle.instance.logOut(context);
+      }, icon: Icon(Icons.logout)),),
       body: BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
         listener: (context, state) {
           if (state.isError && state.status == false) {
@@ -44,7 +46,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
           } else {
             //    log( "fcm tok in api : ${preference.getString('token')}");
 
-            Future.delayed(Duration(seconds: 1))
+            Future.delayed(const Duration(seconds: 3))
                 .then((value) => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -69,15 +71,15 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                   height: 10,
                 ),
                 Text(
-                  "Hy, ${widget.result!.displayName??""}",
+                  "Hy, ${auth.currentUser!.displayName}",
                   style: black16B600,
                 ),
                 const VerticalSpacingWidget(
                   height: 5,
                 ),
-              
+
                 Text(
-                  widget.result!.email.toString(),
+                  auth.currentUser!.email!,
                   style: black14B600,
                 ),
                 const VerticalSpacingWidget(
@@ -140,13 +142,6 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                             .add(FirebaseLoginEvent.started(
                           phoneNumberController.text,
                         ));
-                        await FirestoreService().insertNote(
-                          phoneNumberController.text,
-                          widget.result!.email.toString(),
-                        );
-                        CollectionReference reference =
-                            firestore.collection("login");
-                        log("numb ${phoneNumberController.text}");
 
                         //        Navigator.pushAndRemoveUntil(
                         // context,

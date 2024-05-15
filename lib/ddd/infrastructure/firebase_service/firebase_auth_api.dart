@@ -18,7 +18,7 @@ class FirebaseLoginImpl implements AddFirebaseLogin {
     String phoneNumber,
   ) async {
     final preference = await SharedPreferences.getInstance();
-    String? firebaseToken = preference.getString('firebaseToken');
+    String? firebaseToken = preference.getString('firebaseTokens');
 
     log("fcm tok : $firebaseToken");
     // String? token =

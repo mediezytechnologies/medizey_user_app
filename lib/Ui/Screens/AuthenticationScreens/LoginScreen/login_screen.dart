@@ -247,38 +247,39 @@ class _LoginScreenState extends State<LoginScreen> {
                             Buttons.google,
                             text: "Sign in with Google",
                             onPressed: () async {
-                              User? result =
-                                  await GoogleAuthService().signInWithGoogle();
-                              if (result != null) {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          GoogleContirmUserScreen(
-                                        result: result,
-                                      ),
-                                    ));
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('Error'),
-                                      content: Text(
-                                          'Sign in failed. Please try again.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: Text('OK'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                            },
+                              AuthServiceGoogle.instance.signUpWithGoogle(context);
+                            //   User? result =
+                            //       await GoogleAuthService().signInWithGoogle();
+                            //   if (result != null) {
+                            //     Navigator.pushReplacement(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //           builder: (context) =>
+                            //               GoogleContirmUserScreen(
+                            //             result: result,
+                            //           ),
+                            //         ));
+                            //   } else {
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (BuildContext context) {
+                            //         return AlertDialog(
+                            //           title: Text('Error'),
+                            //           content: Text(
+                            //               'Sign in failed. Please try again.'),
+                            //           actions: <Widget>[
+                            //             TextButton(
+                            //               child: Text('OK'),
+                            //               onPressed: () {
+                            //                 Navigator.of(context).pop();
+                            //               },
+                            //             ),
+                            //           ],
+                            //         );
+                            //       },
+                            //     );
+                            //   }
+                          },
                           ),
                           const VerticalSpacingWidget(height: 5),
                           Text("or", style: black13B500),

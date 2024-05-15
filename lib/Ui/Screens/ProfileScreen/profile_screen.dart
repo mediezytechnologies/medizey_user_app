@@ -368,6 +368,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTapFunction: () async {
                               GeneralServices.instance.appCloseDialogue(
                                   context, "Are you sure to log out", () async {
+                                    AuthServiceGoogle.instance.logOut(context);
                                 await GoogleAuthService().singnOut();
                                 Navigator.pushReplacement(
                                     context,
