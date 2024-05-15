@@ -10,6 +10,7 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocBuilder<GetCompletedAppointmetsByPatientIdBloc,
           GetCompletedAppointmetsByPatientIdState>(
@@ -35,7 +36,10 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
             final completedAppointment = state.getCompletedAppointmentsModel;
             return completedAppointment.appointmentDetails == null
                 ? Center(
-                    child: Image.asset("assets/icons/no data.png"),
+                    child: Image.asset(
+                      "assets/icons/no data.png",
+                      height: size.height * .45,
+                    ),
                   )
                 : ListView.builder(
                     itemCount: completedAppointment.appointmentDetails!.length,

@@ -1,12 +1,9 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../domain/rating/model/add_rating_model/add_rating_model.dart';
 import '../../domain/rating/rating_repository.dart';
-
 part 'rating_post_event.dart';
 part 'rating_post_state.dart';
 part 'rating_post_bloc.freezed.dart';
