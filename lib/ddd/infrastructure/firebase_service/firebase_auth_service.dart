@@ -204,12 +204,12 @@ class AuthServiceGoogle {
         //* then sign to firebase
         try {
           await auth.signInWithCredential(credential);
-          // preference.setString('firebaseTokens',
-          //     googleSignInAuthentication.accessToken.toString());
-          // log(googleSignInAuthentication.toString());
-          // log("${googleSignInAuthentication.accessToken}======= acces nowfklsfjdklsa");
-          // log("${googleSignInAuthentication.idToken}=======");
-          // log(googleSignInAuthentication.idToken.toString());
+          preference.setString('firebaseTokens',
+              googleSignInAuthentication.accessToken.toString());
+          log(googleSignInAuthentication.toString());
+          log("${googleSignInAuthentication.accessToken}======= acces nowfklsfjdklsa");
+          log("${googleSignInAuthentication.idToken}=======");
+          log(googleSignInAuthentication.idToken.toString());
           Navigator.pop(context);
           Navigator.pushReplacement(
               context,
