@@ -19,6 +19,7 @@ class _AllUploadedPrecriptionScreenState
     extends State<AllUploadedPrecriptionScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocBuilder<GetAllPrescriptionsBloc, GetAllPrescriptionsState>(
         builder: (context, state) {
@@ -46,7 +47,10 @@ class _AllUploadedPrecriptionScreenState
                     padding: const EdgeInsets.all(8.0),
                     child: ListView(
                       children: [
-                        Image.asset("assets/icons/no data.png"),
+                        Image.asset(
+                          "assets/icons/no data.png",
+                          height: size.height * .45,
+                        ),
                         const VerticalSpacingWidget(height: 10),
                         GestureDetector(
                           onTap: () {
@@ -65,8 +69,7 @@ class _AllUploadedPrecriptionScreenState
                             image: const AssetImage(
                               "assets/images/upload_prescription.png",
                             ),
-                            width: 300.w,
-                            height: 150.h,
+                            height: size.height * .2,
                           ),
                         )
                       ],

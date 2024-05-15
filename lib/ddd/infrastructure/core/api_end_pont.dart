@@ -13,4 +13,5 @@ class ApiEndPoints {
   static const searchDoctor = '$baseUrl/searchdoctor?name=';
   static const getRating = '$baseUrl/getUserRating/';
   static const firbaseLogin = "$baseUrl/auth/social-accounts/login";
+  static const addRating = '$baseUrl/addDoctorReview';
 }

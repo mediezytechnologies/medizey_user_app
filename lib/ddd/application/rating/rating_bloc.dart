@@ -2,7 +2,8 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/rating/model/user_rating.dart';
+import '../../domain/rating/model/add_rating_model/add_rating_model.dart';
+import '../../domain/rating/model/get_rating_model/user_rating.dart';
 import '../../domain/rating/rating_repository.dart';
 part 'rating_event.dart';
 part 'rating_state.dart';
@@ -62,5 +63,38 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
         );
       }));
     });
+
+    // on<_RatingAddFeedBacks>((event, emit) async {
+    //   emit(state.copyWith(
+    //     addIsloading: true,
+    //     addIsError: false,
+    //     addMessage: "",
+    //     addStatus: false,
+    //   ));
+    //   final addFeedbackResult = await ratingRepository.addRatingRepo(
+    //       appointmentId: event.appointmentId,
+    //       rating: event.rating,
+    //    doctorRecommentation: event.doctorRecommentation,
+    //       userComments: event.userComments,
+    //       rating Id: event.ratingId,
+    //      reviewId: event.reviewId,
+    //       );
+
+    //   emit(addFeedbackResult.fold(
+    //       (l) => state.copyWith(
+    //             addIsloading: false,
+    //             addIsError: true,
+    //             addMessage: l.message!,
+    //             addStatus: false,
+    //           ), (r) {
+    //     return state.copyWith(
+    //       addIsloading: false,
+    //       addIsError: false,
+    //       addMessage: state.message,
+    //       addStatus: true,
+    //       addRatingModel: r,
+    //     );
+    //   }));
+    // });
   }
 }

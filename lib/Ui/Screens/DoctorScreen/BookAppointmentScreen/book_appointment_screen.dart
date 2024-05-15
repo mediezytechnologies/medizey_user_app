@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +15,7 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/token_card_widget.d
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
+import 'widget/calender_widget.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
   BookAppointmentScreen(
@@ -192,9 +192,47 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                 );
                               },
                             ),
-                            EasyDateTimeLine(
-                              initialDate: selectedDate,
-                              disabledDates: _getDisabledDates(),
+                            // EasyDateTimeLine(
+                            //   initialDate: selectedDate,
+                            //   disabledDates: _getDisabledDates(),
+                            //   onDateChange: (date) {
+                            //     String formattedDate =
+                            //         DateFormat('yyyy-MM-dd').format(date);
+                            //     setState(() {
+                            //       selectedDate = date;
+                            //     });
+                            //     BlocProvider.of<GetTokenBloc>(context).add(
+                            //       FetchToken(
+                            //         date: formattedDate,
+                            //         doctorId: widget.doctorId,
+                            //         hospitalId: selectedClinicId,
+                            //       ),
+                            //     );
+                            //   },
+                            //   activeColor: kMainColor,
+                            //   dayProps: EasyDayProps(
+                            //     height: size.height * .1,
+                            //     width: size.width * .15,
+                            //     activeDayNumStyle: white14B700,
+                            //     activeDayStrStyle: white10B400,
+                            //     activeMothStrStyle: white10B400,
+                            //     inactiveDayNumStyle: grey14B700,
+                            //     inactiveDayStrStyle: grey10B400,
+                            //     inactiveMothStrStyle: grey10B400,
+                            //     todayHighlightStyle:
+                            //         TodayHighlightStyle.withBackground,
+                            //     todayHighlightColor: const Color(0xffE1ECC8),
+                            //     borderColor: kMainColor,
+                            //   ),
+                            // ),
+                            // VerticalSpacingWidget(height: 10),
+                            DatePickerDemoClass(
+                              height: size.height * .15,
+                              width: size.width * .15,
+                              DateTime.now(),
+                              initialSelectedDate: DateTime.now(),
+                              selectionColor: kMainColor,
+                              selectedTextColor: kCardColor,
                               onDateChange: (date) {
                                 String formattedDate =
                                     DateFormat('yyyy-MM-dd').format(date);
@@ -209,27 +247,19 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                   ),
                                 );
                               },
-                              activeColor: kMainColor,
-                              dayProps: EasyDayProps(
-                                height: size.height * .1,
-                                width: size.width * .15,
-                                activeDayNumStyle: white14B700,
-                                activeDayStrStyle: white10B400,
-                                activeMothStrStyle: white10B400,
-                                inactiveDayNumStyle: grey14B700,
-                                inactiveDayStrStyle: grey10B400,
-                                inactiveMothStrStyle: grey10B400,
-                                todayHighlightStyle:
-                                    TodayHighlightStyle.withBackground,
-                                todayHighlightColor: const Color(0xffE1ECC8),
-                                borderColor: kMainColor,
-                              ),
+                              dateTextStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width > 450 ? 10.sp : 16.sp),
+                              dayTextStyle: TextStyle(
+                                  fontSize: size.width > 450 ? 8.sp : 12.sp),
+                              monthTextStyle: TextStyle(
+                                  fontSize: size.width > 450 ? 8.sp : 12.sp),
                             ),
                             BlocBuilder<GetTokenBloc, GetTokenState>(
                               builder: (context, state) {
                                 if (state is GetTokenLoading) {
                                   return SizedBox(
-                                    height: 200.h,
+                                    height: size.height * .65,
                                     child: Center(
                                       child: CircularProgressIndicator(
                                         color: kMainColor,
@@ -253,24 +283,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           .getTokenModel;
                                   if (getTokenModel.schedule == null) {
                                     return Center(
-                                      child: Column(
-                                        children: [
-                                          const VerticalSpacingWidget(
-                                              height: 10),
-                                          Image(
-                                            image: const AssetImage(
-                                                "assets/icons/no token.png"),
-                                            height: 250.h,
-                                            width: 250.w,
-                                          ),
-                                          Text(
-                                            getTokenModel.message.toString(),
-                                            style: TextStyle(
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          )
-                                        ],
+                                      child: Image(
+                                        image: const AssetImage(
+                                            "assets/icons/no token.png"),
+                                        height: size.height * .8,
+                                        width: size.width,
                                       ),
                                     );
                                   }
