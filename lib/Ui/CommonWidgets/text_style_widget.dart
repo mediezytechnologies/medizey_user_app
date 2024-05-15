@@ -119,6 +119,9 @@ final green12B700 = TextStyle(
 final green12B500 = TextStyle(
     color: kSecondaryColor, fontWeight: FontWeight.w500, fontSize: 12.sp);
 
+final green16 = TextStyle(
+    color: kSecondaryColor, fontWeight: FontWeight.bold, fontSize: 16.sp);
+
 //* main
 
 final main15 = TextStyle(fontSize: 13.sp, color: kMainColor);
@@ -128,6 +131,9 @@ final main12B600 =
 
 final main16B600 =
     TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kMainColor);
+
+final main17 =
+    TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: kMainColor);
 
 final main13B600 =
     TextStyle(color: kMainColor, fontWeight: FontWeight.w600, fontSize: 13.sp);
@@ -140,3 +146,6 @@ final main14B500 =
 
 final main13B500 =
     TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: kMainColor);
+
+final main20 =
+    TextStyle(fontSize: 20.sp, color: kMainColor, fontWeight: FontWeight.bold);

@@ -139,15 +139,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   Image(
                                     image: const AssetImage(
                                         "assets/icons/no doctor.png"),
-                                    height: 250.h,
-                                    width: 300.w,
-                                  ),
-                                  Text(
-                                    "No doctor found",
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
+                                    height: size.height * .5,
+                                    width: size.width * .85,
                                   ),
                                   const VerticalSpacingWidget(height: 20),
                                   const Padding(

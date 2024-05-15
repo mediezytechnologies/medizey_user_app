@@ -65,6 +65,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
                           style: TextStyle(
                               fontSize: 16.sp, fontWeight: FontWeight.bold),
                         )
+                        
                       ],
                     ),
                     const VerticalSpacingWidget(height: 50),

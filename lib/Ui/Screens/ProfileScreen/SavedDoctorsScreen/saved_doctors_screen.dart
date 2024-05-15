@@ -81,23 +81,10 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                   }
                   return state.model.isEmpty
                       ? Center(
-                          child: Column(
-                            children: [
-                              const VerticalSpacingWidget(height: 100),
-                              Image(
-                                image: const AssetImage(
-                                    "assets/icons/favourite.png"),
-                                height: 250.h,
-                                width: 300.w,
-                              ),
-                              Text(
-                                "No favourite doctors\nare available",
-                                style: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
+                          child: Image(
+                            image:
+                                const AssetImage("assets/icons/favourite.png"),
+                            height: size.height * 2,
                           ),
                         )
                       : SingleChildScrollView(

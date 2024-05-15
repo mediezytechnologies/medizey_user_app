@@ -19,7 +19,7 @@ class RatingPostBloc extends Bloc<RatingPostEvent, RatingPostState> {
       );
       log(emit.toString());
       final addFeedbackResult = await ratingRepository.addRatingRepo(
-        appointmentId: event.appointmentId!,
+        appointmentId: event.appointmentId,
         rating: event.rating,
         reviewId: event.reviewId,
         doctorRecommentation: event.doctorRecommentation,
