@@ -30,7 +30,8 @@ class OnceCompletedWidget extends StatelessWidget {
       required this.scanningTestName,
       required this.whenItStart,
       required this.whenItsCome,
-      required this.checkInTime});
+      required this.checkInTime,
+      required this.checkOutTime});
 
   final String doctorName;
   final String doctorImage;
@@ -51,6 +52,7 @@ class OnceCompletedWidget extends StatelessWidget {
   final String whenItStart;
   final String whenItsCome;
   final String checkInTime;
+  final String checkOutTime;
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +148,15 @@ class OnceCompletedWidget extends StatelessWidget {
                         child: Row(
                           children: [
                             Text("check in time : ", style: grey12B500),
+                            Text(checkInTime, style: black12B500),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * .65,
+                        child: Row(
+                          children: [
+                            Text("check out time : ", style: grey12B500),
                             Text(checkInTime, style: black12B500),
                           ],
                         ),

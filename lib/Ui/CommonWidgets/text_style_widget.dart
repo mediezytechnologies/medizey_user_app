@@ -129,6 +129,9 @@ final main15 = TextStyle(fontSize: 13.sp, color: kMainColor);
 final main12B600 =
     TextStyle(color: kMainColor, fontWeight: FontWeight.w600, fontSize: 12.sp);
 
+final main12B500 =
+    TextStyle(color: kMainColor, fontWeight: FontWeight.w500, fontSize: 12.sp);
+
 final main16B600 =
     TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kMainColor);
 

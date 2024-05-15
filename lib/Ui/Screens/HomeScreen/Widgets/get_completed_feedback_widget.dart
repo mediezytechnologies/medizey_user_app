@@ -152,6 +152,11 @@ class _GetCompletedFeedbackWidgetState
                                               .appointmentDetails![index]
                                               .scanName
                                               .toString(),
+                                      checkOutTime:
+                                          getCompletedAppointmentsModel
+                                              .appointmentDetails![index]
+                                              .checkoutTime
+                                              .toString(),
                                     ),
                                     // getCompletedAppointmentsModel
                                     //             .appointmentDetails![index]

@@ -58,7 +58,7 @@ class _AllUploadedDischargeSummaryScreenState
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const AddDocumentScreen(
+                                builder: (context) =>  AddDocumentScreen(
                                   appBarTitle: "Upload Discharge Summary",
                                   type: 3,
                                   stringType: "Discharge summary",

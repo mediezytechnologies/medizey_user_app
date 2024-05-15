@@ -19,10 +19,11 @@ class AddDocumentsWidget extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const AddDocumentScreen(
+                  builder: (context) => AddDocumentScreen(
                     appBarTitle: "Upload Prescription",
                     type: 2,
                     stringType: "Prescription",
+                    image: "assets/images/prescription_image.png",
                   ),
                 ),
               );
@@ -46,7 +47,7 @@ class AddDocumentsWidget extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const AddDocumentScreen(
+                  builder: (context) => AddDocumentScreen(
                     appBarTitle: "Upload Lab Report",
                     type: 1,
                     stringType: "Lab report",
@@ -73,7 +74,7 @@ class AddDocumentsWidget extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const AddDocumentScreen(
+                  builder: (context) => AddDocumentScreen(
                     appBarTitle: "Upload Scan Report",
                     type: 4,
                     stringType: "Scanning report",
@@ -100,7 +101,7 @@ class AddDocumentsWidget extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const AddDocumentScreen(
+                  builder: (context) => AddDocumentScreen(
                     appBarTitle: "Upload Discharge Summary",
                     type: 3,
                     stringType: "Discharge summary",

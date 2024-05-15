@@ -57,7 +57,7 @@ class _AllUploadedPrecriptionScreenState
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const AddDocumentScreen(
+                                builder: (context) =>  AddDocumentScreen(
                                   appBarTitle: "Upload Prescription",
                                   type: 2,
                                   stringType: "Prescription",

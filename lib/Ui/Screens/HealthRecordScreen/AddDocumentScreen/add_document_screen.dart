@@ -1,5 +1,6 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print
+// ignore_for_file: use_build_context_synchronously, avoid_print, must_be_immutable
 
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -13,15 +14,17 @@ import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/DocumentPreviewScreen
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class AddDocumentScreen extends StatefulWidget {
-  const AddDocumentScreen(
+  AddDocumentScreen(
       {super.key,
       required this.appBarTitle,
       required this.stringType,
-      required this.type});
+      required this.type,
+      this.image});
 
   final String appBarTitle;
   final String stringType;
   final int type;
+  String? image;
 
   @override
   State<AddDocumentScreen> createState() => _AddDocumentScreenState();
@@ -34,238 +37,187 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    log("image ${widget.image}");
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.appBarTitle),
         centerTitle: true,
       ),
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              color: kScaffoldColor,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: Column(
+            Row(
+              children: [
+                Icon(
+                  Icons.error,
+                  size: 30.sp,
+                ),
+                const HorizontalSpacingWidget(width: 10),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.error,
-                          size: 30.sp,
-                        ),
-                        const HorizontalSpacingWidget(width: 10),
-                        Text(
-                          "What is valid ${widget.stringType}?\nWhy upload a ${widget.stringType}",
-                          style: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.bold),
-                        )
-                        
-                      ],
+                    Text(
+                      "What is valid ${widget.stringType}?",
+                      style: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.bold),
                     ),
-                    const VerticalSpacingWidget(height: 50),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.description_outlined,
-                          size: 26.sp,
-                        ),
-                        const HorizontalSpacingWidget(width: 10),
-                        SizedBox(
-                          height: 60.h,
-                          width: 280.w,
-                          child: Text(
-                            "Our team will verify your ${widget.stringType} and call back to confirm your lab test order",
-                            style: TextStyle(
-                                fontSize: 14.sp, fontWeight: FontWeight.w400),
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )
-                      ],
-                    ),
-                    const VerticalSpacingWidget(height: 10),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.smartphone_outlined,
-                          size: 26.sp,
-                        ),
-                        const HorizontalSpacingWidget(width: 10),
-                        SizedBox(
-                          height: 80.h,
-                          width: 300.w,
-                          child: Text(
-                            "Your ${widget.stringType} will always available in your account so that you can access it anytime anywhere",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
+                    const VerticalSpacingWidget(height: 5),
+                    widget.image == null
+                        ? const SizedBox()
+                        : Image(
+                            image: AssetImage(
+                              widget.image.toString(),
                             ),
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )
-                      ],
+                            height: size.height * .2),
+                    const VerticalSpacingWidget(height: 5),
+                    Text(
+                      "Why upload a ${widget.stringType}",
+                      style: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.bold),
                     ),
-                    const VerticalSpacingWidget(height: 10),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.lock_outline,
-                          size: 26.sp,
-                        ),
-                        const HorizontalSpacingWidget(width: 10),
-                        Text(
-                          "Details from your ${widget.stringType} are only\nvisible to our team of specialist",
-                          style: TextStyle(
-                              fontSize: 14.sp, fontWeight: FontWeight.w400),
-                        )
-                      ],
-                    )
                   ],
-                ),
-              ),
+                )
+              ],
             ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: kCardColor,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+            const VerticalSpacingWidget(height: 10),
+            Row(
+              children: [
+                Icon(
+                  Icons.description_outlined,
+                  size: 26.sp,
+                ),
+                const HorizontalSpacingWidget(width: 10),
+                SizedBox(
+                  height: 60.h,
+                  width: 280.w,
+                  child: Text(
+                    "Our team will verify your ${widget.stringType} and call back to confirm your lab test order",
+                    style:
+                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+              ],
+            ),
+            const VerticalSpacingWidget(height: 10),
+            Row(
+              children: [
+                Icon(
+                  Icons.smartphone_outlined,
+                  size: 26.sp,
+                ),
+                const HorizontalSpacingWidget(width: 10),
+                SizedBox(
+                  height: 80.h,
+                  width: 300.w,
+                  child: Text(
+                    "Your ${widget.stringType} will always available in your account so that you can access it anytime anywhere",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+              ],
+            ),
+            const VerticalSpacingWidget(height: 10),
+            Row(
+              children: [
+                Icon(
+                  Icons.lock_outline,
+                  size: 26.sp,
+                ),
+                const HorizontalSpacingWidget(width: 10),
+                Text(
+                  "Details from your ${widget.stringType} are only\nvisible to our team of specialist",
+                  style:
+                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
+                )
+              ],
+            ),
+            const VerticalSpacingWidget(height: 50),
+            Text(
+              "Upload ${widget.stringType} from",
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+            ),
+            const VerticalSpacingWidget(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //! camera
+                InkWell(
+                  onTap: () {
+                    pickImageFromCamera();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    height: 40.h,
+                    width: 160.w,
+                    decoration: BoxDecoration(
+                      color: kMainColor,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image(
+                          image: const AssetImage("assets/icons/camera.png"),
+                          color: Colors.white,
+                          height: 32.h,
+                        ),
+                        Text(
+                          "Camera",
+                          style: TextStyle(
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const VerticalSpacingWidget(height: 50),
-                      Text(
-                        "Upload ${widget.stringType} from",
-                        style: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.w600),
-                      ),
-                      const VerticalSpacingWidget(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //! camera
-                          InkWell(
-                            onTap: () {
-                              pickImageFromCamera();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              height: 40.h,
-                              width: 160.w,
-                              decoration: BoxDecoration(
-                                color: kMainColor,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Image(
-                                    image: const AssetImage(
-                                        "assets/icons/camera.png"),
-                                    color: Colors.white,
-                                    height: 32.h,
-                                  ),
-                                  Text(
-                                    "Camera",
-                                    style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          //! gallery
-                          InkWell(
-                            onTap: () {
-                              pickImageFromGallery();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              height: 40.h,
-                              width: 160.w,
-                              decoration: BoxDecoration(
-                                color: kMainColor,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Image(
-                                    image: const AssetImage(
-                                        "assets/icons/gallery.png"),
-                                    color: Colors.white,
-                                    height: 32.h,
-                                  ),
-                                  Text(
-                                    "Gallery",
-                                    style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const VerticalSpacingWidget(height: 10),
-                      //! file
-                      // InkWell(
-                      //   onTap: () {
-                      //     pickFile();
-                      //   },
-                      //   child: Container(
-                      //     padding: const EdgeInsets.all(4),
-                      //     height: 40.h,
-                      //     width: double.infinity,
-                      //     decoration: BoxDecoration(
-                      //       color: kMainColor,
-                      //       borderRadius: BorderRadius.circular(5),
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: [
-                      //         Image(
-                      //           image:
-                      //               const AssetImage("assets/icons/file.png"),
-                      //           color: Colors.white,
-                      //           height: 32.h,
-                      //         ),
-                      //         const HorizontalSpacingWidget(width: 10),
-                      //         Text(
-                      //           "File",
-                      //           style: TextStyle(
-                      //               fontSize: 17.sp,
-                      //               fontWeight: FontWeight.w500,
-                      //               color: Colors.white),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+                //! gallery
+                InkWell(
+                  onTap: () {
+                    pickImageFromGallery();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    height: 40.h,
+                    width: 160.w,
+                    decoration: BoxDecoration(
+                      color: kMainColor,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image(
+                          image: const AssetImage("assets/icons/gallery.png"),
+                          color: Colors.white,
+                          height: 32.h,
+                        ),
+                        Text(
+                          "Gallery",
+                          style: TextStyle(
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
+              ],
+            ),
+            const VerticalSpacingWidget(height: 10),
           ],
         ),
       ),

@@ -55,7 +55,7 @@ class _AllUploadedLabReportScreenState
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const AddDocumentScreen(
+                                builder: (context) =>  AddDocumentScreen(
                                   appBarTitle: "Upload Lab Report",
                                   type: 1,
                                   stringType: "Lab report",
