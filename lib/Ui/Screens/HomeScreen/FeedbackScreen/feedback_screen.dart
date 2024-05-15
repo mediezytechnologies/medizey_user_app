@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import '../../../../ddd/application/rating/rating_bloc.dart';
@@ -115,24 +114,24 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                 const VerticalSpacingWidget(height: 5),
                 Text(
                   state.ratingTest,
-                  style: black14B600,
+                  style: black16B600,
                 ),
                 const VerticalSpacingWidget(height: 5),
                 const Divider(
-                  thickness: 2,
+                  thickness: 1,
                 ),
                 const VerticalSpacingWidget(height: 5),
                 reason(size, state, context),
-                const VerticalSpacingWidget(height: 10),
+                const VerticalSpacingWidget(height: 5),
                 const Divider(
-                  thickness: 2,
+                  thickness: 1,
                 ),
                 likeUnlike(size, state, context),
-                const VerticalSpacingWidget(height: 10),
+                const VerticalSpacingWidget(height: 5),
                 const Divider(
                   thickness: 2,
                 ),
-                const VerticalSpacingWidget(height: 10),
+                const VerticalSpacingWidget(height: 5),
                 radioButtonWidget(size, state, context),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
@@ -156,7 +155,6 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                             .add(const RatingEvent.ratingRadioChanged(5));
                         BlocProvider.of<RatingBloc>(context)
                             .add(const RatingEvent.ratingChanged(0));
-
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -196,7 +194,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
 
   RatingBar starRating(RatingState state, BuildContext context) {
     return RatingBar.builder(
-        itemSize: 27.r,
+        itemSize: 35.r,
         initialRating: state.ratingValue,
         minRating: 1,
         direction: Axis.horizontal,
@@ -247,72 +245,78 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
         });
   }
 
-  Column reason(Size size, RatingState state, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Sorry to hear to tell us what when wrong",
-          style: black13B600,
-        ),
-        const VerticalSpacingWidget(height: 5),
-        BlocBuilder<RatingBloc, RatingState>(
-          builder: (context, state) {
-            if (state.isloading) {
-              return SizedBox(
-                height: size.height * .3,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: kMainColor,
+  Padding reason(Size size, RatingState state, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Sorry to hear to tell us what when wrong",
+              style: black13B600,
+            ),
+          ),
+          const VerticalSpacingWidget(height: 5),
+          BlocBuilder<RatingBloc, RatingState>(
+            builder: (context, state) {
+              if (state.isloading) {
+                return SizedBox(
+                  height: size.height * .3,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: kMainColor,
+                    ),
+                  ),
+                );
+              }
+              if (state.isError) {
+                return const Center(
+                  child: Text("Something went wrong"),
+                );
+              }
+              return Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: size.height * 0.01,
+                spacing: size.width * 0.03,
+                children: List.generate(
+                  state.userRating.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      log("rating id : ${state.userRating[index].ratingId}");
+                      reviewId = state.userRating[index].reviewId;
+                      ratingId = state.userRating[index].ratingId;
+
+                      BlocProvider.of<RatingBloc>(context)
+                          .add(RatingEvent.ratingReasonChanged(index));
+                    },
+                    child: Container(
+                      height: size.height * 0.05,
+                      width: size.width * 0.40,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: state.reasonIndex == index
+                              ? kMainColor
+                              : kCardColor,
+                          border: Border.all(color: kBorderColor)),
+                      child: Center(
+                          child: Text(
+                        state.userRating[index].userComments.toString(),
+                        style: state.reasonIndex == index
+                            ? white13B500
+                            : black13B500,
+                      )),
+                    ),
                   ),
                 ),
               );
-            }
-            if (state.isError) {
-              return const Center(
-                child: Text("Something went wrong"),
-              );
-            }
-            return Wrap(
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runSpacing: size.height * 0.02,
-              spacing: size.width * 0.02,
-              children: List.generate(
-                state.userRating.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    log("rating id : ${state.userRating[index].ratingId}");
-                    reviewId = state.userRating[index].reviewId;
-                    ratingId = state.userRating[index].ratingId;
-                    log("rating id in veriable : ${ratingId}");
-                    BlocProvider.of<RatingBloc>(context)
-                        .add(RatingEvent.ratingReasonChanged(index));
-                  },
-                  child: Container(
-                    height: size.height * 0.055,
-                    width: size.width * 0.45,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: state.reasonIndex == index
-                            ? kMainColor
-                            : kCardColor,
-                        border: Border.all(color: kBorderColor)),
-                    child: Center(
-                        child: Text(
-                      state.userRating[index].userComments.toString(),
-                      style: state.reasonIndex == index
-                          ? white13B500
-                          : black13B500,
-                    )),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ],
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -339,8 +343,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(right: size.width * 0.03),
                   child: Container(
-                    height: size.height * 0.06,
-                    width: size.width * 0.2,
+                    padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
                         color: kCardColor,
@@ -353,12 +356,13 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                           color: state.likedIndex == index
                               ? kMainColor
                               : kSubTextColor,
+                          size: 18.sp,
                         ),
                         Text(
                           likeItem[index]['name'],
                           style: state.likedIndex == index
-                              ? main13B500
-                              : black13B500,
+                              ? main12B600
+                              : black12B600,
                         ),
                       ],
                     ),
@@ -397,8 +401,8 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                               .add(RatingEvent.ratingRadioChanged(index));
                         },
                         child: Container(
-                          height: 20,
-                          width: 40,
+                          height: 15,
+                          width: 35,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -412,8 +416,8 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                       Text(
                         radioItem[index],
                         style: state.radioIndex == index
-                            ? main13B500
-                            : black14B500,
+                            ? main12B500
+                            : black12B500,
                       ),
                     ],
                   );

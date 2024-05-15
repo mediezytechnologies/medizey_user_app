@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_loadin_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
@@ -78,23 +77,11 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                   }
                   return state.model.isEmpty
                       ? Center(
-                          child: Column(
-                            children: [
-                              const VerticalSpacingWidget(height: 80),
-                              Image(
-                                image: const AssetImage(
-                                    "assets/icons/no recent booked.png"),
-                                height: 250.h,
-                                width: 250.w,
-                              ),
-                              Text(
-                                "No Recent booked doctors\nare available",
-                                style: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
+                          child: Image(
+                            image: const AssetImage(
+                                "assets/icons/no recent booked.png"),
+                            height: size.height * 3,
+                            width: size.width * 3,
                           ),
                         )
                       : ListView.builder(

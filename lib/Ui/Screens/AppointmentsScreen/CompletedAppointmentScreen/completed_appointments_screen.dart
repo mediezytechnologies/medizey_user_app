@@ -6,6 +6,9 @@ import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetCompletedAppointm
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/Widgets/completed_appointment_card_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_doctors_near_you_screen.dart';
+
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class CompletedAppointmentScreen extends StatefulWidget {
   const CompletedAppointmentScreen({super.key});
@@ -33,6 +36,7 @@ class _CompletedAppointmentScreenState
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _refreshData,
@@ -70,23 +74,54 @@ class _CompletedAppointmentScreenState
                             .getCompletedAppointmentsModel;
                     return getCompletedAppointmentsModel.appointmentDetails ==
                             null
-                        ? Center(
+                        ? SizedBox(
+                            width: size.width,
                             child: Column(
                               children: [
-                                const VerticalSpacingWidget(height: 80),
-                                Image(
-                                  image: const AssetImage(
-                                      "assets/icons/no appointment.png"),
-                                  height: 250.h,
-                                  width: 250.w,
-                                ),
+                                const VerticalSpacingWidget(height: 20),
+                                Text("No appointment available", style: main20),
+                                const VerticalSpacingWidget(height: 10),
                                 Text(
-                                  "No Appointments available",
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.bold),
+                                  "Book a slot of your choice with expert\ndoctors near you and skip the queue\nwithout waiting for longtime",
+                                  style: green16,
                                   textAlign: TextAlign.center,
-                                )
+                                ),
+                                const VerticalSpacingWidget(height: 10),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AllDoctorNearYouScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: kMainColor,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    height: size.height * .05,
+                                    width: size.width * .5,
+                                    child: Center(
+                                      child: Text(
+                                        "Book appointment",
+                                        style: white13B700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const VerticalSpacingWidget(height: 10),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Image(
+                                    image: const AssetImage(
+                                        "assets/icons/no appointment.png"),
+                                    height: size.height * .5,
+                                    width: size.width * .8,
+                                  ),
+                                ),
                               ],
                             ),
                           )

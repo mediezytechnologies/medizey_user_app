@@ -56,7 +56,7 @@ class _AllUploadedScanReportScreenState
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AddDocumentScreen(
+                              builder: (context) => AddDocumentScreen(
                                 appBarTitle: "Upload Scan Report",
                                 type: 4,
                                 stringType: "Scanning report",
