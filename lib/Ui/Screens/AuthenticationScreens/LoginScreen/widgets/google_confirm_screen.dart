@@ -71,7 +71,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                   height: 10,
                 ),
                 Text(
-                  "Hy, ${auth.currentUser!.displayName}",
+                   auth.currentUser!.displayName.toString(),
                   style: black16B600,
                 ),
                 const VerticalSpacingWidget(
@@ -79,7 +79,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                 ),
 
                 Text(
-                  auth.currentUser!.email!,
+                  auth.currentUser!.email.toString(),
                   style: black14B600,
                 ),
                 const VerticalSpacingWidget(
