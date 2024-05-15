@@ -1,7 +1,7 @@
-// ignore_for_file: deprecated_member_use
 import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -25,8 +25,6 @@ import '../../../../ddd/application/location_controller/locationcontroller.dart'
 import '../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 import 'package:sign_in_button/sign_in_button.dart';
-
-import '../../demo/google_auth_demo.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -247,18 +245,39 @@ class _LoginScreenState extends State<LoginScreen> {
                           const VerticalSpacingWidget(height: 5),
                           SignInButton(
                             Buttons.google,
-                            text: "Sign up with Google",
+                            text: "Sign in with Google",
                             onPressed: () async {
-                              var result =
+                              User? result =
                                   await GoogleAuthService().signInWithGoogle();
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        GoogleContirmUserScreen(
-                                      result: result,
-                                    ),
-                                  ));
+                              if (result != null) {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          GoogleContirmUserScreen(
+                                        result: result,
+                                      ),
+                                    ));
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Error'),
+                                      content: Text(
+                                          'Sign in failed. Please try again.'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text('OK'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             },
                           ),
                           const VerticalSpacingWidget(height: 5),

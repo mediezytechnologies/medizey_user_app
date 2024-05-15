@@ -75,10 +75,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                 const VerticalSpacingWidget(
                   height: 5,
                 ),
-                Text(
-                  firestore.toString(),
-                  style: black14B600,
-                ),
+              
                 Text(
                   widget.result!.email.toString(),
                   style: black14B600,

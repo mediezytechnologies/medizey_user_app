@@ -64,12 +64,9 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import '../../ddd/application/add_members/add_members_bloc.dart';
 import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
-<<<<<<< HEAD
-=======
 import '../../ddd/application/rating/rating_bloc.dart';
 // import '../../ddd/application/rating_post/rating_post_bloc.dart';
 import '../../ddd/application/rating_post/rating_post_bloc.dart';
->>>>>>> akber_new
 import '../../ddd/application/search_doctor/search_doctor_bloc.dart';
 
 class AppBlocProviders {

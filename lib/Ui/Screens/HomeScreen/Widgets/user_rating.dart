@@ -13,7 +13,7 @@ class UserRatingWidget extends StatelessWidget {
       {super.key, required this.doctorName, required this.appointmentId});
 
   final String doctorName;
-  final String appointmentId;
+  final int appointmentId;
 
   @override
   Widget build(BuildContext context) {

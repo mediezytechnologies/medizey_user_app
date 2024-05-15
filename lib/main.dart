@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,13 +8,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
-import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/widgets/google_confirm_screen.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
-import 'package:mediezy_user/Ui/Screens/demo/google_auth_demo.dart';
-import 'package:mediezy_user/Ui/Screens/demo/push_notification_demo.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
+
+import 'ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 
 // @pragma('vm:entry-point')
 // Future<void> firebaseMassigingBackgroundHandiler(RemoteMessage message) async {
@@ -87,9 +85,9 @@ class _MediezyState extends State<Mediezy> {
           theme: appThemeStyle(context),
           home:
 //LoginScreenGoogle()
-              //  GoogleContirmUserScreen()
+          // LoginPageGoogle()
               //DemoPushNotification()
-              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+           hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

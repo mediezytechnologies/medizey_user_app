@@ -18,12 +18,12 @@ import '../../../application/firebase_login/firebase_login_bloc.dart' as _i14;
 import '../../../application/get_docters/get_docters_bloc.dart' as _i31;
 import '../../../application/get_fav_doctor/get_fav_doctor_bloc.dart' as _i19;
 import '../../../application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart'
-    as _i29;
-import '../../../application/rating/rating_bloc.dart' as _i30;
-import '../../../application/rating_post/rating_post_bloc.dart' as _i31;
-import '../../../application/search_doctor/search_doctor_bloc.dart' as _i32;
-import '../../../application/user_location/user_location_bloc.dart' as _i33;
-import '../../../infrastructure/add_member/add_member_impl.dart' as _i6;
+    as _i32;
+import '../../../application/rating/rating_bloc.dart' as _i33;
+import '../../../application/rating_post/rating_post_bloc.dart' as _i34;
+import '../../../application/search_doctor/search_doctor_bloc.dart' as _i35;
+import '../../../application/user_location/user_location_bloc.dart' as _i36;
+import '../../../infrastructure/add_member/add_member_impl.dart' as _i8;
 import '../../../infrastructure/add_member_image/add_member_image_impl.dart'
     as _i6;
 import '../../../infrastructure/edit_member/edit_member_impl.dart' as _i13;
@@ -65,41 +65,44 @@ _i1.GetIt $initGetIt(
     environment,
     environmentFilter,
   );
-  gh.lazySingleton<_i3.AddMemberImageRepo>(() => _i4.RegisterServiceImpl());
-  gh.lazySingleton<_i5.AddMemberRepo>(() => _i6.RegisterServiceImpl());
-  gh.factory<_i7.AddMembersBloc>(
-      () => _i7.AddMembersBloc(get<_i5.AddMemberRepo>()));
-  gh.lazySingleton<_i8.EditMemberImageRepo>(
-      () => _i9.EditMemberImageServiceImpl());
-  gh.lazySingleton<_i10.EditMemberRepo>(() => _i11.RegisterServiceImpl());
-  gh.lazySingleton<_i12.GetDoctersRepo>(() => _i13.GetDoctorsImpl());
-  gh.lazySingleton<_i14.GetFavDoctersRepo>(() => _i15.GetDoctorsImpl());
-  gh.factory<_i16.GetFavDoctorBloc>(
-      () => _i16.GetFavDoctorBloc(get<_i14.GetFavDoctersRepo>()));
-  gh.lazySingleton<_i17.GetRecentlyBookedDoctorRepository>(
-      () => _i18.GetRecentlyBookedDoctorsImpl());
-  gh.lazySingleton<_i19.RatingRepository>(() => _i20.RatingRepoImpl());
-  gh.lazySingleton<_i21.SearchDoctorRepository>(
-      () => _i22.SearchDoctorRepoImpl());
-  gh.lazySingleton<_i23.UserLocationRepo>(() => _i24.UserLoacationImpl());
-  gh.factory<_i25.AddMemberImageBloc>(
-      () => _i25.AddMemberImageBloc(get<_i3.AddMemberImageRepo>()));
-  gh.factory<_i26.EditMemberBloc>(
-      () => _i26.EditMemberBloc(get<_i10.EditMemberRepo>()));
-  gh.factory<_i27.EditMemberImageBloc>(
-      () => _i27.EditMemberImageBloc(get<_i8.EditMemberImageRepo>()));
-  gh.factory<_i28.GetDoctersBloc>(
-      () => _i28.GetDoctersBloc(get<_i12.GetDoctersRepo>()));
-  gh.factory<_i29.GetRecentlyBookedDoctorBloc>(() =>
-      _i29.GetRecentlyBookedDoctorBloc(
-          get<_i17.GetRecentlyBookedDoctorRepository>()));
-  gh.factory<_i30.RatingBloc>(
-      () => _i30.RatingBloc(get<_i19.RatingRepository>()));
-  gh.factory<_i31.RatingPostBloc>(
-      () => _i31.RatingPostBloc(get<_i19.RatingRepository>()));
-  gh.factory<_i32.SearchDoctorBloc>(
-      () => _i32.SearchDoctorBloc(get<_i21.SearchDoctorRepository>()));
-  gh.factory<_i33.UserLocationBloc>(
-      () => _i33.UserLocationBloc(get<_i23.UserLocationRepo>()));
+  gh.lazySingleton<_i3.AddFirebaseLogin>(() => _i4.FirebaseLoginImpl());
+  gh.lazySingleton<_i5.AddMemberImageRepo>(() => _i6.RegisterServiceImpl());
+  gh.lazySingleton<_i7.AddMemberRepo>(() => _i8.RegisterServiceImpl());
+  gh.factory<_i9.AddMembersBloc>(
+      () => _i9.AddMembersBloc(get<_i7.AddMemberRepo>()));
+  gh.lazySingleton<_i10.EditMemberImageRepo>(
+      () => _i11.EditMemberImageServiceImpl());
+  gh.lazySingleton<_i12.EditMemberRepo>(() => _i13.RegisterServiceImpl());
+  gh.factory<_i14.FirebaseLoginBloc>(
+      () => _i14.FirebaseLoginBloc(get<_i3.AddFirebaseLogin>()));
+  gh.lazySingleton<_i15.GetDoctersRepo>(() => _i16.GetDoctorsImpl());
+  gh.lazySingleton<_i17.GetFavDoctersRepo>(() => _i18.GetDoctorsImpl());
+  gh.factory<_i19.GetFavDoctorBloc>(
+      () => _i19.GetFavDoctorBloc(get<_i17.GetFavDoctersRepo>()));
+  gh.lazySingleton<_i20.GetRecentlyBookedDoctorRepository>(
+      () => _i21.GetRecentlyBookedDoctorsImpl());
+  gh.lazySingleton<_i22.RatingRepository>(() => _i23.RatingRepoImpl());
+  gh.lazySingleton<_i24.SearchDoctorRepository>(
+      () => _i25.SearchDoctorRepoImpl());
+  gh.lazySingleton<_i26.UserLocationRepo>(() => _i27.UserLoacationImpl());
+  gh.factory<_i28.AddMemberImageBloc>(
+      () => _i28.AddMemberImageBloc(get<_i5.AddMemberImageRepo>()));
+  gh.factory<_i29.EditMemberBloc>(
+      () => _i29.EditMemberBloc(get<_i12.EditMemberRepo>()));
+  gh.factory<_i30.EditMemberImageBloc>(
+      () => _i30.EditMemberImageBloc(get<_i10.EditMemberImageRepo>()));
+  gh.factory<_i31.GetDoctersBloc>(
+      () => _i31.GetDoctersBloc(get<_i15.GetDoctersRepo>()));
+  gh.factory<_i32.GetRecentlyBookedDoctorBloc>(() =>
+      _i32.GetRecentlyBookedDoctorBloc(
+          get<_i20.GetRecentlyBookedDoctorRepository>()));
+  gh.factory<_i33.RatingBloc>(
+      () => _i33.RatingBloc(get<_i22.RatingRepository>()));
+  gh.factory<_i34.RatingPostBloc>(
+      () => _i34.RatingPostBloc(get<_i22.RatingRepository>()));
+  gh.factory<_i35.SearchDoctorBloc>(
+      () => _i35.SearchDoctorBloc(get<_i24.SearchDoctorRepository>()));
+  gh.factory<_i36.UserLocationBloc>(
+      () => _i36.UserLocationBloc(get<_i26.UserLocationRepo>()));
   return get;
 }
