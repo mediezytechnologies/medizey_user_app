@@ -1,17 +1,17 @@
-part of 'fcm_token_bloc.dart';
+// part of 'fcm_token_bloc.dart';
 
-@freezed
-class FcmTokenState with _$FcmTokenState {
-  const factory FcmTokenState({
-required bool isloding,
+// @freezed
+// class FcmTokenState with _$FcmTokenState {
+//   const factory FcmTokenState({
+// required bool isloding,
   
-    required bool isError,
-    required String message,
-    required bool status,
+//     required bool isError,
+//     required String message,
+//     required bool status,
 
-  }) = _Initial;
+//   }) = _Initial;
 
   
-    factory FcmTokenState.initial() = FcmTokenState(isloding: false, isError: false,
-     message: "", status: false);
-}
+//     factory FcmTokenState.initial() = FcmTokenState(isloding: false, isError: false,
+//      message: "", status: false);
+// }
