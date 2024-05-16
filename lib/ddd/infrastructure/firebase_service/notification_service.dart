@@ -106,21 +106,33 @@ class NotificationServices {
     });
   }
 
-  void handleMesssage(BuildContext context, RemoteMessage message) {
-    log('In handleMesssage function');
-    if (message.data['type'] == 'text') {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(),));
-      // redirect to new screen or take different action based on payload that you receive.
-    }
-  }
+  // void handleMesssage(BuildContext context, RemoteMessage message) {
+  //   log('In handleMesssage function');
+  //   if (message.data['type'] == 'text') {
+  //     log(message.data.toString());
+     
+  //     // redirect to new screen or take different action based on payload that you receive.
+  //   }
+  // }
 
+void handleMesssage(BuildContext context, RemoteMessage message) {
+  log('In handleMesssage function');
+  if (message.data['type'] == 'text') {
+    log(message.data.toString());
+    // Navigate to the profile screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileScreen()),
+    );
+  }
+}
   Future<void> showNotification(RemoteMessage message) async {
     AndroidNotificationChannel androidNotificationChannel = AndroidNotificationChannel(
       message.notification!.android!.channelId.toString(),
       message.notification!.android!.channelId.toString(),
       importance: Importance.max,
       showBadge: true,
-      playSound:true
+      playSound:true,
     );
 
     AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
