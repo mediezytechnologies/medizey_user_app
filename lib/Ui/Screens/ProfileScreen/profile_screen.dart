@@ -366,15 +366,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             subTitle: "log out",
                             icon: Icons.logout,
                             onTapFunction: () async {
+
                               GeneralServices.instance.appCloseDialogue(
                                   context, "Are you sure to log out", () async {
+
+                                      AuthServiceGoogle.instance.logOut(context);
                                     AuthServiceGoogle.instance.logOut(context);
                                 await GoogleAuthService().singnOut();
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const LoginScreen(),
-                                    ));
+                          
                                 final preferences =
                                     await SharedPreferences.getInstance();
                                 await preferences.remove('token');

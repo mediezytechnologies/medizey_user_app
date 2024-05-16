@@ -1,16 +1,18 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:mediezy_user/ddd/infrastructure/firebase_service/notification_service.dart';
 
-class DemoPushNotification extends StatefulWidget {
-  const DemoPushNotification({super.key});
+import '../firebase_service/notification_service.dart';
+
+class HomeScreenfireDemo extends StatefulWidget {
+  const HomeScreenfireDemo({super.key,});
+
+
 
   @override
-  State<DemoPushNotification> createState() => _DemoPushNotificationState();
+  State<HomeScreenfireDemo> createState() => _HomeScreenfireDemoState();
 }
 
-class _DemoPushNotificationState extends State<DemoPushNotification> {
+class _HomeScreenfireDemoState extends State<HomeScreenfireDemo> {
+
   NotificationServices notificationServices = NotificationServices();
 
   @override
