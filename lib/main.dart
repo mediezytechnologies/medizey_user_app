@@ -13,8 +13,6 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
-import 'ddd/infrastructure/firebase_service/firebase_auth_service.dart';
-
 // @pragma('vm:entry-point')
 // Future<void> firebaseMassigingBackgroundHandiler(RemoteMessage message) async {
 //   await Firebase.initializeApp();
@@ -22,7 +20,7 @@ import 'ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // 
+  //
   await configureInjection();
   await GetStorage.init();
   await Firebase.initializeApp(
@@ -84,10 +82,7 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
           theme: appThemeStyle(context),
           home:
-//LoginScreenGoogle()
-          // LoginPageGoogle()
-              //DemoPushNotification()
-           hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

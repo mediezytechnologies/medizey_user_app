@@ -198,7 +198,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                             style: black14B600),
                         children: [
                           Text(
-                            'If you are unable to come at the estimated time on the app or booked time,you can Inform the clinic or hospital and wait for the next vacant time',
+                            'If you are unable to arrive at the estimated time on the app or the booked time, you can inform the clinic or hospital and wait for the next available time slot',
                             style: grey12B500,
                           ),
                         ],
@@ -214,7 +214,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                             style: black14B600),
                         children: [
                           Text(
-                            'We request that you reschedule your appointment so that others waiting in line can book the available slot, and you will lose your booking',
+                            'We request that you reschedule your appointment so that others waiting in line can book the available slot, otherwise, you will lose your booking',
                             style: grey12B500,
                           ),
                         ],

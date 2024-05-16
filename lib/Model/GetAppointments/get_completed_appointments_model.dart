@@ -246,6 +246,8 @@ class DoctorMedicines {
   int? evening;
   int? morning;
   int? type;
+  String? interval;
+  String? timeSection;
   String? medicalStoreName;
 
   DoctorMedicines(
@@ -257,6 +259,8 @@ class DoctorMedicines {
       this.evening,
       this.morning,
       this.type,
+      this.interval,
+      this.timeSection,
       this.medicalStoreName});
 
   DoctorMedicines.fromJson(Map<String, dynamic> json) {
@@ -268,20 +272,24 @@ class DoctorMedicines {
     evening = json['evening'];
     morning = json['morning'];
     type = json['type'];
+    interval = json['interval'];
+    timeSection = json['time_section'];
     medicalStoreName = json['medical_store_name'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['medicine_name'] = medicineName;
-    data['Dosage'] = dosage;
-    data['NoOfDays'] = noOfDays;
-    data['Noon'] = noon;
-    data['night'] = night;
-    data['evening'] = evening;
-    data['morning'] = morning;
-    data['type'] = type;
-    data['medical_store_name'] = medicalStoreName;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['medicine_name'] = this.medicineName;
+    data['Dosage'] = this.dosage;
+    data['NoOfDays'] = this.noOfDays;
+    data['Noon'] = this.noon;
+    data['night'] = this.night;
+    data['evening'] = this.evening;
+    data['morning'] = this.morning;
+    data['type'] = this.type;
+    data['interval'] = this.interval;
+    data['time_section'] = this.timeSection;
+    data['medical_store_name'] = this.medicalStoreName;
     return data;
   }
 }

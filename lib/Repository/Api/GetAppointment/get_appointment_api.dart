@@ -32,4 +32,17 @@ class GetAppointmentApi {
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
     return GetCompletedAppointmentsModel.fromJson(json.decode(response.body));
   }
+
+  //* get completed feedback appointments
+  Future<GetCompletedAppointmentsModel>
+      getCompletedFeedBackApointments() async {
+    String? userId;
+    final preference = await SharedPreferences.getInstance();
+    userId = preference.getString('userId').toString();
+    String basePath = "userCompletedFeedback";
+    final body = {"patient_user_id": userId};
+    Response response =
+        await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+    return GetCompletedAppointmentsModel.fromJson(json.decode(response.body));
+  }
 }

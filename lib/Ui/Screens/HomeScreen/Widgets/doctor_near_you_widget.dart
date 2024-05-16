@@ -22,8 +22,6 @@ class DoctorNearYouWidget extends StatefulWidget {
       required this.specialisation,
       required this.favouriteStatus,
       required this.docterDistance,
-      // required this.img,
-      // required this.onTap,
       required this.favourites})
       : super(key: key);
 
@@ -35,8 +33,6 @@ class DoctorNearYouWidget extends StatefulWidget {
   final String specialisation;
   final int favouriteStatus;
   final String docterDistance;
-  // final String img;
-  // final VoidCallback onTap;
   final Widget favourites;
 
   @override
@@ -44,13 +40,6 @@ class DoctorNearYouWidget extends StatefulWidget {
 }
 
 class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
-  bool isClicked = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -163,16 +152,6 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
           Positioned(
             right: size.width * 0.04,
             top: size.height * 0.019,
-            // child: GestureDetector(
-            //   onTap: widget.onTap,
-            //   child: SizedBox(
-            //     height: size.height * 0.03,
-            //     width: size.width * 0.06,
-            //     child: Image.asset(
-            //       widget.img,
-            //     ),
-            //   ),
-            // ),
             child: widget.favourites,
           )
         ],

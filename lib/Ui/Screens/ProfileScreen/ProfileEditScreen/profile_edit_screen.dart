@@ -82,7 +82,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     });
     firstNameController.text = widget.firstName;
     mobileNoController.text = widget.phNo;
-    locationController.text = widget.location;
+    locationController.text = widget.location == 'null' ? "" : widget.location;
     genderValue = widget.gender == "1"
         ? "Male"
         : (widget.gender == "2")
@@ -93,7 +93,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         : (widget.gender == "2")
             ? "2"
             : "0";
-    dateOfBirth = widget.dob;
+    dateOfBirth = widget.dob == 'null' ? "" : widget.dob;
     super.initState();
   }
 

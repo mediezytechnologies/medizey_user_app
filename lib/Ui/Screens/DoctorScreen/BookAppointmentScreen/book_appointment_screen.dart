@@ -286,8 +286,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       child: Image(
                                         image: const AssetImage(
                                             "assets/icons/no token.png"),
-                                        height: size.height * .8,
-                                        width: size.width,
+                                        height: size.height * .65,
                                       ),
                                     );
                                   }

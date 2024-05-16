@@ -69,12 +69,12 @@ class RatingRepoImpl implements RatingRepository {
         ApiEndPoints.addRating,
         data: {
           "appointment_id": appointmentId,
-          // "review_id": reviewId,
+          "review_id": reviewId,
           "rating": rating,
-          //   "doctor_recommendation": doctorRecommentation,
-          // "user_comments": userComments,
+          "doctor_recommendation": doctorRecommentation,
+          "user_comments": userComments,
           "feedback_status": 1,
-          // "rating_id": ratingId,
+          "rating_id": ratingId,
         },
       );
       log(response.data.toString());

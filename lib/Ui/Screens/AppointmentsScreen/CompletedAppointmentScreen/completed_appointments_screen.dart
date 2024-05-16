@@ -78,11 +78,11 @@ class _CompletedAppointmentScreenState
                             width: size.width,
                             child: Column(
                               children: [
-                                const VerticalSpacingWidget(height: 20),
+                                const VerticalSpacingWidget(height: 30),
                                 Text("No appointment available", style: main20),
-                                const VerticalSpacingWidget(height: 10),
+                                const VerticalSpacingWidget(height: 20),
                                 Text(
-                                  "Book a slot of your choice with expert\ndoctors near you and skip the queue\nwithout waiting for longtime",
+                                  "Book a slot of your choice with expert\ndoctors near you and skip the queue\nwithout waiting for long time",
                                   style: green16,
                                   textAlign: TextAlign.center,
                                 ),
@@ -113,14 +113,11 @@ class _CompletedAppointmentScreenState
                                   ),
                                 ),
                                 const VerticalSpacingWidget(height: 10),
-                                Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Image(
-                                    image: const AssetImage(
-                                        "assets/icons/no appointment.png"),
-                                    height: size.height * .5,
-                                    width: size.width * .8,
-                                  ),
+                                Image(
+                                  image: const AssetImage(
+                                      "assets/icons/no appointment.png"),
+                                  height: size.height * .4,
+                                  width: size.width * .8,
                                 ),
                               ],
                             ),

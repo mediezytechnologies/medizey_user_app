@@ -382,6 +382,23 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                         )
                                       ],
                                     ),
+                                    prescriptions[index].interval == null
+                                        ? const SizedBox()
+                                        : Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const VerticalSpacingWidget(
+                                                      height: 2),
+                                                  Text("Intervel : ",
+                                                      style: grey12B500),
+                                                  Text(
+                                                      "${prescriptions[index].interval} ${prescriptions[index].timeSection}",
+                                                      style: black13B500),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                     const VerticalSpacingWidget(height: 2),
                                   ],
                                 ),

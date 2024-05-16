@@ -8,6 +8,7 @@ import '../../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_
 import '../../../../ddd/application/rating/rating_bloc.dart';
 import '../../../../ddd/application/rating_post/rating_post_bloc.dart';
 import '../../../CommonWidgets/common_button_widget.dart';
+import '../../../CommonWidgets/common_loadin_widget.dart';
 import '../../../CommonWidgets/horizontal_spacing_widget.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
@@ -30,7 +31,6 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
   double? value;
   int? ratingId;
   int? reviewId;
-
   double? ratingValue;
   int? likedIndex;
   int? radioIndex;
@@ -87,6 +87,12 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
               builder: (context, postState) {
                 return IconButton(
                   onPressed: () {
+                    log("appointment id = ${widget.appointmentId}");
+                    log("rating value = ${state.ratingValue}");
+                    log("selected review id = $reviewId");
+                    log("liked index = ${state.likedIndex}");
+                    log("radio index = ${state.radioIndex}");
+                    log("rating id = $ratingId");
                     BlocProvider.of<RatingPostBloc>(context).add(
                       RatingPostEvent.ratingAddFeedBacks(
                         widget.appointmentId,
@@ -167,6 +173,12 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                       return CommonButtonWidget(
                           title: "Submit",
                           onTapFunction: () {
+                            log("appointment id = ${widget.appointmentId}");
+                            log("rating value = ${state.ratingValue}");
+                            log("selected review id = $reviewId");
+                            log("liked index = ${state.likedIndex}");
+                            log("radio index = ${state.radioIndex}");
+                            log("rating id = $ratingId");
                             BlocProvider.of<RatingPostBloc>(context).add(
                               RatingPostEvent.ratingAddFeedBacks(
                                 widget.appointmentId,
@@ -184,8 +196,6 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                 const VerticalSpacingWidget(height: 15)
               ],
             );
-            //   },
-            // );
           },
         ),
       ),
@@ -263,14 +273,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
           BlocBuilder<RatingBloc, RatingState>(
             builder: (context, state) {
               if (state.isloading) {
-                return SizedBox(
-                  height: size.height * .3,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: kMainColor,
-                    ),
-                  ),
-                );
+                return feedBackLoadingWidget();
               }
               if (state.isError) {
                 return const Center(
@@ -286,10 +289,8 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                   state.userRating.length,
                   (index) => GestureDetector(
                     onTap: () {
-                      log("rating id : ${state.userRating[index].ratingId}");
                       reviewId = state.userRating[index].reviewId;
                       ratingId = state.userRating[index].ratingId;
-
                       BlocProvider.of<RatingBloc>(context)
                           .add(RatingEvent.ratingReasonChanged(index));
                     },

@@ -2,25 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/once_completed_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/user_rating_widget.dart';
-import '../../../../Model/GetAppointments/get_completed_appointments_model.dart';
-import '../../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
+import '../../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../../CommonWidgets/heading_widget.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
 
-class GetCompletedFeedbackWidget extends StatefulWidget {
+class GetCompletedFeedbackWidget extends StatelessWidget {
   const GetCompletedFeedbackWidget({
     super.key,
   });
 
-  @override
-  State<GetCompletedFeedbackWidget> createState() =>
-      _GetCompletedFeedbackWidgetState();
-}
-
-class _GetCompletedFeedbackWidgetState
-    extends State<GetCompletedFeedbackWidget> {
-  late GetCompletedAppointmentsModel getCompletedAppointmentsModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,36 +18,33 @@ class _GetCompletedFeedbackWidgetState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlocBuilder<GetCompletedAppointmentsBloc,
-              GetCompletedAppointmentsState>(
+          BlocBuilder<GetCompletedFeedbackAppointmentBloc,
+              GetCompletedFeedBackAppointmentsState>(
             builder: (context, state) {
-              if (state is GetCompletedAppointmentError) {
+              if (state is GetCompletedFeedBackAppointmentError) {
                 return const Center(
                   child: Image(
-                    image:
-                        AssetImage("assets/images/something went wrong-01.png"),
+                    image: AssetImage(
+                      "assets/images/something went wrong-01.png",
+                    ),
+                    height: 50,
                   ),
                 );
               }
-              if (state is GetCompletedAppointmentLoaded) {
-                getCompletedAppointmentsModel =
-                    BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-                        .getCompletedAppointmentsModel;
-                return getCompletedAppointmentsModel.appointmentDetails == null
+              if (state is GetCompletedFeedBackAppointmentLoaded) {
+                final data = state.getCompletedAppointmentsModel;
+                return data.appointmentDetails == null ||
+                        data.appointmentDetails!.isEmpty
                     ? const SizedBox()
                     : ListView.builder(
                         padding: EdgeInsets.zero,
-                        itemCount: getCompletedAppointmentsModel
-                            .appointmentDetails!.length,
+                        itemCount: data.appointmentDetails!.length > 1
+                            ? 1
+                            : data.appointmentDetails!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          getCompletedAppointmentsModel =
-                              BlocProvider.of<GetCompletedAppointmentsBloc>(
-                                      context)
-                                  .getCompletedAppointmentsModel;
-                          return getCompletedAppointmentsModel
-                                      .appointmentDetails![index]
+                          return data.appointmentDetails![index]
                                       .feedbackStatus ==
                                   0
                               ? Column(
@@ -68,122 +55,85 @@ class _GetCompletedFeedbackWidgetState
                                     ),
                                     const VerticalSpacingWidget(height: 2),
                                     OnceCompletedWidget(
-                                      checkInTime: getCompletedAppointmentsModel
+                                      appointmentId: data
+                                          .appointmentDetails![index]
+                                          .appointmentId!,
+                                      checkInTime: data
                                           .appointmentDetails![index]
                                           .checkInTime
                                           .toString(),
-                                      whenItStart: getCompletedAppointmentsModel
+                                      whenItStart: data
                                           .appointmentDetails![index]
                                           .symptomStartTime
                                           .toString(),
-                                      whenItsCome: getCompletedAppointmentsModel
+                                      whenItsCome: data
                                           .appointmentDetails![index]
                                           .symptomFrequency
                                           .toString(),
-                                      prescriptions:
-                                          getCompletedAppointmentsModel
-                                              .appointmentDetails![index]
-                                              .doctorMedicines!
-                                              .toList(),
-                                      vitals: getCompletedAppointmentsModel
+                                      prescriptions: data
+                                          .appointmentDetails![index]
+                                          .doctorMedicines!
+                                          .toList(),
+                                      vitals: data
                                           .appointmentDetails![index].vitals!
                                           .toList(),
-                                      clinicName: getCompletedAppointmentsModel
+                                      clinicName: data
                                           .appointmentDetails![index].clinicName
                                           .toString(),
-                                      doctorImage: getCompletedAppointmentsModel
+                                      doctorImage: data
                                           .appointmentDetails![index]
                                           .doctorImage
                                           .toString(),
-                                      doctorName: getCompletedAppointmentsModel
+                                      doctorName: data
                                           .appointmentDetails![index].doctorName
                                           .toString(),
-                                      labName: getCompletedAppointmentsModel
+                                      labName: data
                                           .appointmentDetails![index].labName
                                           .toString(),
-                                      labTestName: getCompletedAppointmentsModel
+                                      labTestName: data
                                           .appointmentDetails![index].labTest
                                           .toString(),
-                                      note: getCompletedAppointmentsModel
+                                      note: data
                                           .appointmentDetails![index].notes
                                           .toString(),
-                                      patientName: getCompletedAppointmentsModel
+                                      patientName: data
                                           .appointmentDetails![index]
                                           .patientName
                                           .toString(),
-                                      prescriptionImage:
-                                          getCompletedAppointmentsModel
-                                              .appointmentDetails![index]
-                                              .prescriptionImage
-                                              .toString(),
-                                      tokenDate: getCompletedAppointmentsModel
+                                      prescriptionImage: data
+                                          .appointmentDetails![index]
+                                          .prescriptionImage
+                                          .toString(),
+                                      tokenDate: data
                                           .appointmentDetails![index].date
                                           .toString(),
-                                      tokenTime: getCompletedAppointmentsModel
-                                          .appointmentDetails![index]
+                                      tokenTime: data.appointmentDetails![index]
                                           .tokenStartTime
                                           .toString(),
-                                      symptoms: getCompletedAppointmentsModel
-                                                  .appointmentDetails![index]
+                                      symptoms: data.appointmentDetails![index]
                                                   .mainSymptoms ==
                                               null
-                                          ? getCompletedAppointmentsModel
-                                              .appointmentDetails![index]
-                                              .otherSymptoms!
-                                              .first
-                                              .symtoms
+                                          ? data.appointmentDetails![index]
+                                              .otherSymptoms!.first.symtoms
                                               .toString()
-                                          : getCompletedAppointmentsModel
-                                              .appointmentDetails![index]
-                                              .mainSymptoms!
-                                              .mainsymptoms
+                                          : data.appointmentDetails![index]
+                                              .mainSymptoms!.mainsymptoms
                                               .toString(),
-                                      reviewAfter: getCompletedAppointmentsModel
+                                      reviewAfter: data
                                           .appointmentDetails![index]
                                           .reviewAfter
                                           .toString(),
-                                      scanningCenterName:
-                                          getCompletedAppointmentsModel
-                                              .appointmentDetails![index]
-                                              .scanTest
-                                              .toString(),
-                                      scanningTestName:
-                                          getCompletedAppointmentsModel
-                                              .appointmentDetails![index]
-                                              .scanName
-                                              .toString(),
-                                      checkOutTime:
-                                          getCompletedAppointmentsModel
-                                              .appointmentDetails![index]
-                                              .checkoutTime
-                                              .toString(),
+                                      scanningCenterName: data
+                                          .appointmentDetails![index].scanTest
+                                          .toString(),
+                                      scanningTestName: data
+                                          .appointmentDetails![index].scanName
+                                          .toString(),
+                                      checkOutTime: data
+                                          .appointmentDetails![index]
+                                          .checkoutTime
+                                          .toString(),
                                     ),
-                                    // getCompletedAppointmentsModel
-                                    //             .appointmentDetails![index]
-                                    //             .feedbackStatus ==
-                                    //         0
-                                    //     ?
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const HeadingWidget(
-                                            title: "Submit your feedback"),
-                                        const VerticalSpacingWidget(height: 2),
-                                        UserRatingWidget(
-                                          doctorName:
-                                              getCompletedAppointmentsModel
-                                                  .appointmentDetails![index]
-                                                  .doctorName
-                                                  .toString(),
-                                          appointmentId:
-                                              getCompletedAppointmentsModel
-                                                  .appointmentDetails![index]
-                                                  .appointmentId!,
-                                        ),
-                                      ],
-                                    ),
-                                    // : const SizedBox(),
                                     const VerticalSpacingWidget(height: 5),
                                   ],
                                 )

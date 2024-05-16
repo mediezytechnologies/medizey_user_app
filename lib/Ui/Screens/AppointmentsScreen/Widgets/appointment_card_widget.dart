@@ -491,7 +491,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     color: kSubTextColor,
                   ),
                   Text(
-                    "Incase you can't make it for the appointment, please reschedule the appointment, preferably 5 hours before the shedule time.",
+                    "Incase you can't make it for the appointment, please reschedule the appointment, preferably 5 hours before the schedule time.",
                     style: grey10B500,
                   ),
                   const VerticalSpacingWidget(height: 5),
@@ -527,7 +527,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               size: 22.sp,
                             ),
                             const HorizontalSpacingWidget(width: 5),
-                            Text("Reshedule", style: black12B500),
+                            Text("Reschedule", style: black12B500),
                           ],
                         ),
                         Icon(

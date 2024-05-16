@@ -19,7 +19,7 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_w
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
-import '../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
+import '../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import 'Widgets/get_completed_feedback_widget.dart';
@@ -70,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .add(const GetDoctersEvent.started());
     BlocProvider.of<GetFavDoctorBloc>(context)
         .add(const GetFavDoctorEvent.started());
-    BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-        .add(FetchCompletedAppointments());
+    BlocProvider.of<GetCompletedFeedbackAppointmentBloc>(context)
+        .add(FetchCompletedFeedbackAppointments());
     startPolling();
   }
 

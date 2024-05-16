@@ -50,7 +50,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
               ),
               const VerticalSpacingWidget(height: 5),
               LimitedBox(
-                maxHeight: size.height * .225,
+                maxHeight: size.height * .250,
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
