@@ -13,8 +13,6 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
-import 'ddd/infrastructure/firebase_service/firebase_auth_service.dart';
-
 // @pragma('vm:entry-point')
 // Future<void> firebaseMassigingBackgroundHandiler(RemoteMessage message) async {
 //   await Firebase.initializeApp();
