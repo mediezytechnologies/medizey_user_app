@@ -10,19 +10,28 @@ part 'get_fav_doctor_bloc.freezed.dart';
 @injectable
 class GetFavDoctorBloc extends Bloc<GetFavDoctorEvent, GetFavDoctorState> {
   GetFavDoctersRepo getFavDoctersRepo;
+  List<FavoriteDoctor> cachedFavDoctors = [];
   GetFavDoctorBloc(this.getFavDoctersRepo)
       : super(GetFavDoctorState.initial()) {
     on<_Started>((event, emit) async {
-      if (event.isLoading) {
-        emit(state.copyWith(
-          isloding: true,
-          isError: false,
-          message: "",
-          status: false,
-          model: [],
-        ));
-      }
+      emit(state.copyWith(
+        isloding: true,
+        isError: false,
+        message: "",
+        status: false,
+        model: [],
+      ));
 
+      if (cachedFavDoctors.isNotEmpty) {
+        emit(state.copyWith(
+          isloding: false,
+          isError: false,
+          message: state.message,
+          status: state.status,
+          model: cachedFavDoctors,
+        ));
+        return;
+      }
       final getFavDoctorResult = await getFavDoctersRepo.getFavDocRepo();
       emit(getFavDoctorResult.fold(
           (l) => state.copyWith(
@@ -32,6 +41,7 @@ class GetFavDoctorBloc extends Bloc<GetFavDoctorEvent, GetFavDoctorState> {
                 model: [],
                 status: false,
               ), (r) {
+        cachedFavDoctors = r;
         return state.copyWith(
           isloding: false,
           isError: false,
@@ -40,6 +50,30 @@ class GetFavDoctorBloc extends Bloc<GetFavDoctorEvent, GetFavDoctorState> {
           model: r,
         );
       }));
+    });
+
+    on<_GetFavDocterForcedEvent>((event, emit) async {
+      final getFavDoctorResult = await getFavDoctersRepo.getFavDocRepo();
+      cachedFavDoctors = [];
+      emit(getFavDoctorResult.fold(
+        (l) => state.copyWith(
+          isloding: false,
+          isError: true,
+          message: l.message!,
+          model: [],
+          status: false,
+        ),
+        (r) {
+          cachedFavDoctors = r;
+          return state.copyWith(
+            isloding: false,
+            isError: false,
+            message: state.message,
+            status: state.status,
+            model: r,
+          );
+        },
+      ));
     });
 
     on<_ChangeFav>((event, emit) {

@@ -39,7 +39,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetFavDoctorBloc>(context)
-        .add(const GetFavDoctorEvent.started(true));
+        .add(const GetFavDoctorEvent.started());
     super.initState();
   }
 
@@ -171,12 +171,11 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           BlocProvider.of<GetFavDoctorBloc>(
                                                   context)
                                               .add(const GetFavDoctorEvent
-                                                  .started(false));
+                                                  .getFavDocterForcedEvent());
                                           BlocProvider.of<GetDoctersBloc>(
                                                   context)
-                                              .add(
-                                                  const GetDoctersEvent.started(
-                                                      false));
+                                              .add(const GetDoctersEvent
+                                                  .getDoctersForcedEvent());
                                           BlocProvider.of<AddFavouritesBloc>(
                                                   context)
                                               .add(
@@ -190,9 +189,8 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           BlocProvider.of<
                                                       GetRecentlyBookedDoctorBloc>(
                                                   context)
-                                              .add(
-                                                  const GetRecentlyBookedDoctorEvent
-                                                      .started(false));
+                                              .add(const GetRecentlyBookedDoctorEvent
+                                                  .getRecentlyBookedDocterForcedEvent());
                                         });
                                       },
                                       child: SizedBox(

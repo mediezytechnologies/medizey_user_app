@@ -11,30 +11,28 @@ part 'get_recently_booked_doctor_bloc.freezed.dart';
 class GetRecentlyBookedDoctorBloc
     extends Bloc<GetRecentlyBookedDoctorEvent, GetRecentlyBookedDoctorState> {
   final GetRecentlyBookedDoctorRepository getRecentlyBookedDoctorRepository;
-  // List<RecentlyBookedDoctor> cachedRecentlyBookedDoctors = [];
+  List<RecentlyBookedDoctor> cachedRecentlyBookedDoctors = [];
   GetRecentlyBookedDoctorBloc(this.getRecentlyBookedDoctorRepository)
       : super(GetRecentlyBookedDoctorState.initial()) {
     on<_Started>((event, emit) async {
-      if (event.isLoading) {
-        emit(state.copyWith(
-          isloding: true,
-          isError: false,
-          message: "",
-          status: false,
-          model: [],
-        ));
-      }
+      emit(state.copyWith(
+        isloding: true,
+        isError: false,
+        message: "",
+        status: false,
+        model: [],
+      ));
 
-      // if (cachedRecentlyBookedDoctors.isNotEmpty) {
-      //   emit(state.copyWith(
-      //     isloding: false,
-      //     isError: false,
-      //     message: state.message,
-      //     status: state.status,
-      //     model: cachedRecentlyBookedDoctors,
-      //   ));
-      //   return;
-      // }
+      if (cachedRecentlyBookedDoctors.isNotEmpty) {
+        emit(state.copyWith(
+          isloding: false,
+          isError: false,
+          message: state.message,
+          status: state.status,
+          model: cachedRecentlyBookedDoctors,
+        ));
+        return;
+      }
 
       final getRecentlyDoctorResult = await getRecentlyBookedDoctorRepository
           .getRecentlyBookedDoctorsRepo();
@@ -46,7 +44,7 @@ class GetRecentlyBookedDoctorBloc
                 model: [],
                 status: false,
               ), (r) {
-        // cachedRecentlyBookedDoctors = r;
+        cachedRecentlyBookedDoctors = r;
         return state.copyWith(
           isloding: false,
           isError: false,
@@ -57,39 +55,39 @@ class GetRecentlyBookedDoctorBloc
       }));
     });
 
-    // on<_GetRecentlyBookedDocterForcedEvent>((event, emit) async {
-    //   final getRecentlyDoctorResult = await getRecentlyBookedDoctorRepository
-    //       .getRecentlyBookedDoctorsRepo();
-    //   cachedRecentlyBookedDoctors = [];
-    //   emit(getRecentlyDoctorResult.fold(
-    //     (l) => state.copyWith(
-    //       isloding: false,
-    //       isError: true,
-    //       message: l.message!,
-    //       model: [],
-    //       status: false,
-    //     ),
-    //     (r) {
-    //       cachedRecentlyBookedDoctors = r;
-    //       return state.copyWith(
-    //         isloding: false,
-    //         isError: false,
-    //         message: state.message,
-    //         status: state.status,
-    //         model: r,
-    //       );
-    //     },
-    //   ));
-    // });
+    on<_GetRecentlyBookedDocterForcedEvent>((event, emit) async {
+      final getRecentlyDoctorResult = await getRecentlyBookedDoctorRepository
+          .getRecentlyBookedDoctorsRepo();
+      cachedRecentlyBookedDoctors = [];
+      emit(getRecentlyDoctorResult.fold(
+        (l) => state.copyWith(
+          isloding: false,
+          isError: true,
+          message: l.message!,
+          model: [],
+          status: false,
+        ),
+        (r) {
+          cachedRecentlyBookedDoctors = r;
+          return state.copyWith(
+            isloding: false,
+            isError: false,
+            message: state.message,
+            status: state.status,
+            model: r,
+          );
+        },
+      ));
+    });
 
     on<_ChangeFav>((event, emit) {
-      final updatedDoctors = state.model.map((doctor) {
+      final updatedRecentlyBookedDoctors = state.model.map((doctor) {
         if (doctor.id == event.favId) {
           doctor.favoriteStatus = doctor.favoriteStatus == 1 ? 0 : 1;
         }
         return doctor;
       }).toList();
-      emit(state.copyWith(model: updatedDoctors));
+      emit(state.copyWith(model: updatedRecentlyBookedDoctors));
     });
   }
 }

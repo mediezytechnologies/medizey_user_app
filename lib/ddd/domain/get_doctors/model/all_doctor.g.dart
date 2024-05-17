@@ -15,7 +15,6 @@ AllDoctor _$AllDoctorFromJson(Map<String, dynamic> json) => AllDoctor(
       docterImage: json['DocterImage'] as String?,
       location: json['Location'] as String?,
       mainHospital: json['MainHospital'] as String?,
-      nearestDoctorClinic: json['nearest_doctor_clinic'] as String?,
       clinics: (json['clinics'] as List<dynamic>?)
           ?.map((e) => Clinics.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -31,7 +30,6 @@ Map<String, dynamic> _$AllDoctorToJson(AllDoctor instance) => <String, dynamic>{
       'DocterImage': instance.docterImage,
       'Location': instance.location,
       'MainHospital': instance.mainHospital,
-      'nearest_doctor_clinic': instance.nearestDoctorClinic,
       'clinics': instance.clinics,
       'favoriteStatus': instance.favoriteStatus,
     };

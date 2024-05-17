@@ -21,31 +21,31 @@ class GetDoctorsImpl implements GetFavDoctersRepo {
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
     try {
-      // log("${ApiEndPoints.getFavDoctors}$userId");
+      log("${ApiEndPoints.getFavDoctors}$userId");
       final response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
       )).get(
         "${ApiEndPoints.getFavDoctors}$userId",
       );
-      // log(response.data.toString());
+      log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = GetFavouriteDoctorModel.fromJson(response.data);
 
-        // log("result service : $result");
-        // log("result service  response : ${response.data}");
+        log("result service : $result");
+        log("result service  response : ${response.data}");
 
         return Right(result.favoriteDoctors!);
       } else {
         return Left(ErrorModel());
       }
     } on DioError catch (e) {
-      // log("error ===================== ${e.message}");
-      // log(e.error.toString());
-      // log(e.error.toString());
+      log("error ===================== ${e.message}");
+      log(e.error.toString());
+      log(e.error.toString());
 
       final err = ErrorModel.fromJson(e.response!.data);
-      // log("err: $err");
+      log("err: $err");
       return Left(err);
     }
   }

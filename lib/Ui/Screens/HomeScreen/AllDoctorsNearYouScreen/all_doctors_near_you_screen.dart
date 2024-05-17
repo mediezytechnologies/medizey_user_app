@@ -40,7 +40,7 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetDoctersBloc>(context)
-        .add(const GetDoctersEvent.started(true));
+        .add(const GetDoctersEvent.started());
     super.initState();
   }
 
@@ -99,9 +99,8 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                       setState(() {
                                         BlocProvider.of<GetFavDoctorBloc>(
                                                 context)
-                                            .add(
-                                                const GetFavDoctorEvent.started(
-                                                    false));
+                                            .add(const GetFavDoctorEvent
+                                                .getFavDocterForcedEvent());
                                         BlocProvider.of<GetDoctersBloc>(context)
                                             .add(GetDoctersEvent.changeFav(
                                                 state.model[index].id!));
@@ -116,14 +115,13 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
                                         );
                                       });
                                       BlocProvider.of<GetDoctersBloc>(context)
-                                          .add(const GetDoctersEvent.started(
-                                              false));
+                                          .add(const GetDoctersEvent
+                                              .getDoctersForcedEvent());
                                       BlocProvider.of<
                                                   GetRecentlyBookedDoctorBloc>(
                                               context)
-                                          .add(
-                                              const GetRecentlyBookedDoctorEvent
-                                                  .started(false));
+                                          .add(const GetRecentlyBookedDoctorEvent
+                                              .getRecentlyBookedDocterForcedEvent());
                                     },
                                     child: SizedBox(
                                       height: size.height * 0.028,

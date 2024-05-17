@@ -72,11 +72,12 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                                   ),
                                 );
                                 BlocProvider.of<GetFavDoctorBloc>(context).add(
-                                    const GetFavDoctorEvent.started(false));
+                                    const GetFavDoctorEvent
+                                        .getFavDocterForcedEvent());
                                 BlocProvider.of<GetRecentlyBookedDoctorBloc>(
                                         context)
                                     .add(const GetRecentlyBookedDoctorEvent
-                                        .started(false));
+                                        .getRecentlyBookedDocterForcedEvent());
                               });
                             },
                             child: SizedBox(
@@ -89,8 +90,9 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                               ),
                             ),
                           ),
-                          docterDistance:
-                              state.model[index].nearestDoctorClinic.toString(),
+                          docterDistance: state
+                              .model[index].clinics!.first.distanceFromClinic
+                              .toString(),
                           doctorId: state.model[index].userId.toString(),
                           firstName: state.model[index].firstname.toString(),
                           lastName: state.model[index].secondname.toString(),

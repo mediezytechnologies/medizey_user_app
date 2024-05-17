@@ -76,7 +76,6 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
         availableTokenCount == 0
             ? const SizedBox()
             : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -90,7 +89,6 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
         totalTokenCount == 0
             ? const SizedBox()
             : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -105,7 +103,6 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
             ? nextDateAvailableTokenTime == "null"
                 ? const SizedBox()
                 : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [

@@ -2,7 +2,6 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -13,10 +12,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
-
-import '../../ddd/application/get_docters/get_docters_bloc.dart';
-import '../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
-import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 
 class DoctorCardWidget extends StatelessWidget {
   DoctorCardWidget(

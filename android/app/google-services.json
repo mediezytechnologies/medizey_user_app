@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "220538846317-p6bpvs781d4jtpf7ng5nrlumddot3b4v.apps.googleusercontent.com",
+          "client_id": "220538846317-ce1q4mncb7n193ov8qut8994g2d7974k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.mediezy.mediezy_user",
-            "certificate_hash": "d82f8fef2e9752fd1514f57a6bdeabbb06645023"
+            "certificate_hash": "53954a601304751cc871455f991d5f92b72ef85c"
           }
         },
         {
