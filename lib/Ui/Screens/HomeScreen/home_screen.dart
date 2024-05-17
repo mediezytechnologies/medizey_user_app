@@ -65,11 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());
     BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
-        .add(const GetRecentlyBookedDoctorEvent.started());
+        .add(const GetRecentlyBookedDoctorEvent.started(true));
     BlocProvider.of<GetDoctersBloc>(context)
-        .add(const GetDoctersEvent.started());
+        .add(const GetDoctersEvent.started(true));
     BlocProvider.of<GetFavDoctorBloc>(context)
-        .add(const GetFavDoctorEvent.started());
+        .add(const GetFavDoctorEvent.started(true));
     BlocProvider.of<GetCompletedFeedbackAppointmentBloc>(context)
         .add(FetchCompletedFeedbackAppointments());
     startPolling();

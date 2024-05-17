@@ -64,16 +64,10 @@ class _HomeRecentlyBookedDoctorWidgetState
                         favourites: GestureDetector(
                           onTap: () {
                             setState(() {
-                              BlocProvider.of<GetRecentlyBookedDoctorBloc>(
-                                      context)
-                                  .add(const GetRecentlyBookedDoctorEvent
-                                      .getRecentlyBookedDocterForcedEvent());
-                              BlocProvider.of<GetFavDoctorBloc>(context).add(
-                                  const GetFavDoctorEvent
-                                      .getFavDocterForcedEvent());
-                              BlocProvider.of<GetDoctersBloc>(context).add(
-                                  const GetDoctersEvent
-                                      .getDoctersForcedEvent());
+                              BlocProvider.of<GetFavDoctorBloc>(context)
+                                  .add(const GetFavDoctorEvent.started(false));
+                              BlocProvider.of<GetDoctersBloc>(context)
+                                  .add(const GetDoctersEvent.started(false));
                               BlocProvider.of<GetRecentlyBookedDoctorBloc>(
                                       context)
                                   .add(GetRecentlyBookedDoctorEvent.changeFav(

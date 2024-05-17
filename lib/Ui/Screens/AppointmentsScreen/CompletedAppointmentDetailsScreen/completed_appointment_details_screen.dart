@@ -9,6 +9,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 import '../../../CommonWidgets/text_style_widget.dart';
 import '../../../CommonWidgets/row_text_widget.dart';
+import 'widget/image_view_widget.dart';
 import 'widget/vitals_row_text_widget.dart';
 
 class CompletedAppointmentDetailsScreen extends StatelessWidget {
@@ -407,30 +408,6 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                       ],
                     )
                   : Container(),
-              prescriptionImage == "null"
-                  ? Container()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Prescription image : ", style: black13B500),
-                        const VerticalSpacingWidget(height: 5),
-                        Center(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: FancyShimmerImage(
-                                height: 400.h,
-                                boxFit: BoxFit.cover,
-                                errorWidget: const Image(
-                                  image: AssetImage(
-                                    "assets/icons/no image.png",
-                                  ),
-                                ),
-                                imageUrl: prescriptionImage),
-                          ),
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
               labTestName == "null"
                   ? Container()
                   : Column(
@@ -469,11 +446,46 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
               note == "null"
                   ? Container()
                   : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Additional notes: ", style: grey12B500),
                         const VerticalSpacingWidget(height: 2),
                         Text(note, style: black13B500),
+                      ],
+                    ),
+              prescriptionImage == "null"
+                  ? Container()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Prescription image : ", style: black13B500),
+                        const VerticalSpacingWidget(height: 5),
+                        Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ImageViewWidget(image: prescriptionImage),
+                                ),
+                              );
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: FancyShimmerImage(
+                                  height: size.height * .4,
+                                  boxFit: BoxFit.cover,
+                                  errorWidget: const Image(
+                                    image: AssetImage(
+                                      "assets/icons/no image.png",
+                                    ),
+                                  ),
+                                  imageUrl: prescriptionImage),
+                            ),
+                          ),
+                        ),
+                        const VerticalSpacingWidget(height: 5),
                       ],
                     ),
               const VerticalSpacingWidget(height: 5)

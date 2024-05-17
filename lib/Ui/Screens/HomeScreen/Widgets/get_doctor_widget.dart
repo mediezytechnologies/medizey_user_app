@@ -37,6 +37,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
         }
       },
       builder: (context, state) {
+        
         if (state.isloding) {
           return doctorNearYouLoadingWidget(context);
         }
@@ -72,12 +73,11 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                                   ),
                                 );
                                 BlocProvider.of<GetFavDoctorBloc>(context).add(
-                                    const GetFavDoctorEvent
-                                        .getFavDocterForcedEvent());
+                                    const GetFavDoctorEvent.started(false));
                                 BlocProvider.of<GetRecentlyBookedDoctorBloc>(
                                         context)
                                     .add(const GetRecentlyBookedDoctorEvent
-                                        .getRecentlyBookedDocterForcedEvent());
+                                        .started(false));
                               });
                             },
                             child: SizedBox(
