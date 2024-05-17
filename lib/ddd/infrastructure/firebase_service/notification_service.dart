@@ -117,14 +117,16 @@ class NotificationServices {
 
 void handleMesssage(BuildContext context, RemoteMessage message) {
   log('In handleMesssage function');
-  if (message.data['type'] == 'text') {
+  if (message.data['type'] == 'Sample Notification') {
     log(message.data.toString());
+     log("log");
     // Navigate to the profile screen
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ProfileScreen()),
     );
   }
+   log("un   log");
 }
   Future<void> showNotification(RemoteMessage message) async {
     AndroidNotificationChannel androidNotificationChannel = AndroidNotificationChannel(
