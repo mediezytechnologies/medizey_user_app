@@ -7,7 +7,7 @@
   
 //     required bool isError,
 //     required String message,
-//     required bool status,
+//    required bool status,
 
 //   }) = _Initial;
 

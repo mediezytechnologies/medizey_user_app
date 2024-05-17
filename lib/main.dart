@@ -21,18 +21,22 @@ import 'ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
 @pragma('vm:entry-point')
-Future<void> firebaseMassigingBackgroundHandiler(RemoteMessage message) async {
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+   log("its not working ");
   await Firebase.initializeApp();
+   log("its not working ");
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await configureInjection();
   await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+   
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -22,6 +22,7 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SignUpScreen/sign_
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
+import '../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 import 'package:sign_in_button/sign_in_button.dart';
@@ -240,6 +241,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                       );
+                                        BlocProvider.of<NotificatioTokenBloc>(context)
+                                      .add(
+                                  NotificatioTokenEvent.started() ,
+                                  );
+
                                 }
                               }),
                           const VerticalSpacingWidget(height: 5),

@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,6 +45,7 @@ class NotificationServices {
 
     NotificationSettings notificationSettings =
         await messaging.requestPermission(
+          
             alert: true,
             announcement: true,
             badge: true,
@@ -72,6 +74,8 @@ class NotificationServices {
 
   void firebaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((message) {
+        debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Message data: ${message.notification!.title.toString()}');
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
 
@@ -117,16 +121,26 @@ class NotificationServices {
 
 void handleMesssage(BuildContext context, RemoteMessage message) {
   log('In handleMesssage function');
-  if (message.data['type'] == 'Sample Notification') {
+ 
+  if (message.data['type'] == 'text') {
     log(message.data.toString());
-     log("log");
+     log("log text done ===============");
+
     // Navigate to the profile screen
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ProfileScreen()),
+      MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
     );
   }
-   log("un   log");
+ else  if (message.data['type']=='chat') {
+    log("log chat done =====================");
+    log(message.data.toString());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
+    );
+  }
+   //log("un   log");
 }
   Future<void> showNotification(RemoteMessage message) async {
     AndroidNotificationChannel androidNotificationChannel = AndroidNotificationChannel(

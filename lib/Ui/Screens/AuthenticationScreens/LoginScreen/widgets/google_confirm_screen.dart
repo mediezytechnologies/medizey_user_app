@@ -10,6 +10,7 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
+import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../CommonWidgets/common_button_widget.dart';
@@ -36,9 +37,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(leading: IconButton(onPressed: () {
-        AuthServiceGoogle.instance.logOut(context);
-      }, icon: Icon(Icons.logout)),),
+      
       body: BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
         listener: (context, state) {
           if (state.isError && state.status == false) {
@@ -142,7 +141,9 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                             .add(FirebaseLoginEvent.started(
                           phoneNumberController.text,
                         ));
-
+ BlocProvider.of<NotificatioTokenBloc>(context).add(
+                    NotificatioTokenEvent.started(),
+                  );
                         //        Navigator.pushAndRemoveUntil(
                         // context,
                         // MaterialPageRoute(

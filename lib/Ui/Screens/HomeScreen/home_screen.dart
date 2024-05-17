@@ -23,6 +23,7 @@ import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../ddd/infrastructure/firebase_service/notification_service.dart';
 import 'Widgets/get_completed_feedback_widget.dart';
 
@@ -35,7 +36,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController suggestionController = TextEditingController();
- 
+
   late Timer pollingTimer;
   bool isLoading = true;
   late ScrollController _scrollViewController;
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
     super.initState();
-    
+
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());
     BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
@@ -103,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
     return FadedSlideAnimation(
       beginOffset: const Offset(0, 0.3),
@@ -117,6 +119,11 @@ class _HomeScreenState extends State<HomeScreen> {
           return Future.value(false);
         },
         child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+              onPressed: () =>
+                  BlocProvider.of<NotificatioTokenBloc>(context).add(
+                    NotificatioTokenEvent.started(),
+                  )),
           backgroundColor: kSecondaryColor,
           body: Column(
             children: [

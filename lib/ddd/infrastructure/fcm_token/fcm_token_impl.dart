@@ -12,36 +12,36 @@ import '../../domain/fcmToken/fcmToken_service.dart';
 @LazySingleton(as: FccmTokenRepo)
 class FcmTokenImpl implements FccmTokenRepo {
   @override
-  Future<Either<ErrorModel, dynamic>> getEditmemberImageData() async {
+  Future<Either<ErrorModel, dynamic>> fcmTokenData() async {
     final preference = await SharedPreferences.getInstance();
     String? fcmToken = preference.getString('fcmToken');
-    String? token =
-        preference.getString('token') ?? preference.getString('tokenD');
+    String userId = preference.getString('userId').toString();
+    log("message api fcm token called $fcmToken");
     try {
       final response = await Dio(BaseOptions(
-        headers: {'Authorization': 'Bearer $token'},
-        contentType: 'application/json',
-      )).post(
-        ApiEndPoints.addMember,
+          //headers: {'Authorization': 'Bearer $token'},
+          //contentType: 'application/json',
+          )).post(
+        ApiEndPoints.fcmToken,
         data: {
           "fcm_token": fcmToken,
+          "user_id": userId,
         },
       );
+      log(userId);
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        log(response.data.toString());
+      log(response.data.toString());
+      log("res data${response.data.toString()}");
 
-        return Right(response.data);
-      } else {
-        return Left(ErrorModel());
-      }
+      return Right(response.data);
     } on DioError catch (e) {
       log(e.message!);
       log(e.error.toString());
       log(e.error.toString());
 
       final err = ErrorModel.fromJson(e.response!.data);
-      log("err: $err");
+      log("err msg: ${err.message}");
+      log("err: ${err.status}");
       return Left(err);
     }
   }
