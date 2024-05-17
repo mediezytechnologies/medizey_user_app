@@ -368,8 +368,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTapFunction: () async {
                               GeneralServices.instance.appCloseDialogue(
                                   context, "Are you sure to log out", () async {
-                                AuthServiceGoogle.instance.logOut(context);
-                                await GoogleAuthService().singnOut();
                                 final preferences =
                                     await SharedPreferences.getInstance();
                                 await preferences.remove('token');
@@ -377,6 +375,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 await preferences.remove('lastName');
                                 await preferences.remove('userId');
                                 await preferences.remove('phoneNumber');
+                                AuthServiceGoogle.instance.logOut(context);
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

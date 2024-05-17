@@ -69,12 +69,11 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
         leading: IconButton(
           onPressed: () {
             BlocProvider.of<GetDoctersBloc>(context)
-                .add(const GetDoctersEvent.getDoctersForcedEvent());
+                .add(const GetDoctersEvent.started(false));
+            BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
+                .add(const GetRecentlyBookedDoctorEvent.started(false));
             BlocProvider.of<GetFavDoctorBloc>(context)
-                .add(const GetFavDoctorEvent.getFavDocterForcedEvent());
-            BlocProvider.of<GetRecentlyBookedDoctorBloc>(context).add(
-                const GetRecentlyBookedDoctorEvent
-                    .getRecentlyBookedDocterForcedEvent());
+                .add(const GetFavDoctorEvent.started(false));
             Navigator.pop(context);
           },
           icon: Icon(Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back),

@@ -29,7 +29,6 @@ import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.d
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookingConfirmationScreen/booking_confirmation_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 
 class AppointmentDoneScreen extends StatefulWidget {
@@ -228,9 +227,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                         ),
                       ),
                     );
-                    BlocProvider.of<GetRecentlyBookedDoctorBloc>(context).add(
-                        const GetRecentlyBookedDoctorEvent
-                            .getRecentlyBookedDocterForcedEvent());
                   }
                   if (state is BookAppointmentError) {
                     Platform.isIOS

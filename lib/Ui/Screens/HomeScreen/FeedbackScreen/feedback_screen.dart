@@ -265,7 +265,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
           Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Sorry to hear to tell us what when wrong",
+              "Sorry to hear that. Please tell us what went wrong.",
               style: black13B600,
             ),
           ),

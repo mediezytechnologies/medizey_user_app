@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, no_leading_underscores_for_local_identifiers, must_be_immutable
 import 'dart:async';
+import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +77,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
         hospitalId: widget.clinicList.first.clinicId.toString(),
       ),
     );
+    log("selected clinic id >>> ${selectedClinicId.toString()}");
     super.initState();
   }
 
@@ -92,6 +94,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Date & Time"),

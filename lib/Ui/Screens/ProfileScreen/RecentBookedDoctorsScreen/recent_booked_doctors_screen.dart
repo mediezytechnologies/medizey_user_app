@@ -36,7 +36,7 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
-        .add(const GetRecentlyBookedDoctorEvent.started());
+        .add(const GetRecentlyBookedDoctorEvent.started(true));
     super.initState();
   }
 
@@ -96,11 +96,16 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                 onTap: () {
                                   setState(() {
                                     BlocProvider.of<GetFavDoctorBloc>(context)
-                                        .add(const GetFavDoctorEvent
-                                            .getFavDocterForcedEvent());
+                                        .add(const GetFavDoctorEvent.started(
+                                            false));
                                     BlocProvider.of<GetDoctersBloc>(context)
-                                        .add(const GetDoctersEvent
-                                            .getDoctersForcedEvent());
+                                        .add(const GetDoctersEvent.started(
+                                            false));
+                                    BlocProvider.of<
+                                                GetRecentlyBookedDoctorBloc>(
+                                            context)
+                                        .add(const GetRecentlyBookedDoctorEvent
+                                            .started(false));
                                     BlocProvider.of<
                                                 GetRecentlyBookedDoctorBloc>(
                                             context)
@@ -114,11 +119,6 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                                         favouriteStatus: state.favId,
                                       ),
                                     );
-                                    BlocProvider.of<
-                                                GetRecentlyBookedDoctorBloc>(
-                                            context)
-                                        .add(const GetRecentlyBookedDoctorEvent
-                                            .getRecentlyBookedDocterForcedEvent());
                                   });
                                 },
                                 child: SizedBox(
