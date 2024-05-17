@@ -6,17 +6,17 @@ part 'get_doctor_model.g.dart';
 
 @JsonSerializable()
 class GetDoctorModel {
-  bool? success;
-  @JsonKey(name: 'All Doctors')
-  List<AllDoctor>? allDoctors;
-  String? code;
-  String? message;
+	bool? success;
+	@JsonKey(name: 'All Doctors') 
+	List<AllDoctor>? allDoctors;
+	String? code;
+	String? message;
 
-  GetDoctorModel({this.success, this.allDoctors, this.code, this.message});
+	GetDoctorModel({this.success, this.allDoctors, this.code, this.message});
 
-  factory GetDoctorModel.fromJson(Map<String, dynamic> json) {
-    return _$GetDoctorModelFromJson(json);
-  }
+	factory GetDoctorModel.fromJson(Map<String, dynamic> json) {
+		return _$GetDoctorModelFromJson(json);
+	}
 
-  Map<String, dynamic> toJson() => _$GetDoctorModelToJson(this);
+	Map<String, dynamic> toJson() => _$GetDoctorModelToJson(this);
 }

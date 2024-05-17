@@ -37,7 +37,6 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
         }
       },
       builder: (context, state) {
-        
         if (state.isloding) {
           return doctorNearYouLoadingWidget(context);
         }
@@ -90,9 +89,8 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                               ),
                             ),
                           ),
-                          docterDistance: state
-                              .model[index].clinics!.first.distanceFromClinic
-                              .toString(),
+                          docterDistance:
+                              state.model[index].nearestDoctorClinic.toString(),
                           doctorId: state.model[index].userId.toString(),
                           firstName: state.model[index].firstname.toString(),
                           lastName: state.model[index].secondname.toString(),
