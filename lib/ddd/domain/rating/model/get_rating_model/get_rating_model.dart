@@ -6,15 +6,16 @@ part 'get_rating_model.g.dart';
 
 @JsonSerializable()
 class GetRatingModel {
-  @JsonKey(name: 'User_Rating')
-  List<UserRating>? userRating;
-  String? message;
+	String? heading;
+	@JsonKey(name: 'User_Rating') 
+	List<UserRating>? userRating;
+	String? message;
 
-  GetRatingModel({this.userRating, this.message});
+	GetRatingModel({this.heading, this.userRating, this.message});
 
-  factory GetRatingModel.fromJson(Map<String, dynamic> json) {
-    return _$GetRatingModelFromJson(json);
-  }
+	factory GetRatingModel.fromJson(Map<String, dynamic> json) {
+		return _$GetRatingModelFromJson(json);
+	}
 
-  Map<String, dynamic> toJson() => _$GetRatingModelToJson(this);
+	Map<String, dynamic> toJson() => _$GetRatingModelToJson(this);
 }

@@ -1,14 +1,8 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';

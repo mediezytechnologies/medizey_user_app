@@ -1,13 +1,17 @@
 import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Model/GetAppointments/get_completed_appointments_model.dart';
+import '../../../../ddd/application/rating/rating_bloc.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../Consts/app_colors.dart';
 import '../../AppointmentsScreen/CompletedAppointmentDetailsScreen/completed_appointment_details_screen.dart';
 import '../../../CommonWidgets/row_text_widget.dart';
+import '../FeedbackScreen/feedback_screen.dart';
 
 class OnceCompletedWidget extends StatelessWidget {
   const OnceCompletedWidget(
@@ -31,7 +35,8 @@ class OnceCompletedWidget extends StatelessWidget {
       required this.whenItStart,
       required this.whenItsCome,
       required this.checkInTime,
-      required this.checkOutTime});
+      required this.checkOutTime,
+      required this.appointmentId});
 
   final String doctorName;
   final String doctorImage;
@@ -53,6 +58,7 @@ class OnceCompletedWidget extends StatelessWidget {
   final String whenItsCome;
   final String checkInTime;
   final String checkOutTime;
+  final int appointmentId;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +99,7 @@ class OnceCompletedWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +110,7 @@ class OnceCompletedWidget extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: FancyShimmerImage(
-                        height: size.height * .15,
+                        height: size.height * .12,
                         width: size.width * .2,
                         boxFit: BoxFit.contain,
                         errorWidget: const Image(
@@ -113,7 +120,7 @@ class OnceCompletedWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 5),
+                  padding: const EdgeInsets.only(left: 8),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,36 +135,40 @@ class OnceCompletedWidget extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                          width: size.width * .65,
-                          child: Text(clinicName, style: grey12B500)),
+                        width: size.width * .68,
+                        child: Text(clinicName,
+                            style: grey12B500,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
+                      ),
                       SizedBox(
-                          width: size.width * .65,
-                          child: Text("$patientName for $symptoms",
-                              style: grey12B500)),
+                        width: size.width * .68,
+                        child: Text("$patientName for $symptoms",
+                            style: grey12B500,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
+                      ),
                       SizedBox(
-                        width: size.width * .65,
+                        width: size.width * .68,
                         child: Row(
                           children: [
                             Text("$tokenDate | ", style: black12B500),
-                            Text(tokenTime, style: black12B500),
+                            Text(tokenTime,
+                                style: black12B500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
                           ],
                         ),
                       ),
                       SizedBox(
-                        width: size.width * .65,
+                        width: size.width * .68,
                         child: Row(
                           children: [
-                            Text("check in time : ", style: grey12B500),
-                            Text(checkInTime, style: black12B500),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * .65,
-                        child: Row(
-                          children: [
-                            Text("check out time : ", style: grey12B500),
-                            Text(checkInTime, style: black12B500),
+                            Text("check in & check out: ", style: grey12B500),
+                            Text("$checkInTime & $checkOutTime",
+                                style: black12B500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
                           ],
                         ),
                       ),
@@ -170,9 +181,121 @@ class OnceCompletedWidget extends StatelessWidget {
                 ? const SizedBox()
                 : scanningTestName == "null"
                     ? const SizedBox()
-                    : RowTextWidget(
-                        heading: "Scanning", data: scanningTestName),
+                    : RowTextWidget(heading: "Lab test", data: labTestName),
             const VerticalSpacingWidget(height: 2),
+            scanningCenterName == "null"
+                ? const SizedBox()
+                : scanningTestName == "null"
+                    ? const SizedBox()
+                    : RowTextWidget(
+                        heading: "Scan test", data: scanningCenterName),
+            const VerticalSpacingWidget(height: 2),
+            ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: prescriptions.length > 1 ? 1 : prescriptions.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: size.height * .05,
+                    child: Row(
+                      children: [
+                        Text("Medicines : ", style: grey12B500),
+                        Text(
+                          "${prescriptions[index].medicineName.toString()} ...",
+                          style: black13B500,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+            Divider(color: kSubTextColor, thickness: .5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(
+                  Icons.stars,
+                  size: 40.sp,
+                  color: kMainColor,
+                ),
+                BlocBuilder<RatingBloc, RatingState>(
+                  builder: (context, state) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "How was your appointment experience \nwith Dr $doctorName",
+                          style: black13B500,
+                        ),
+                        RatingBar.builder(
+                            itemSize: 25.r,
+                            initialRating: state.ratingValue,
+                            minRating: 0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: kMainColor,
+                                ),
+                            onRatingUpdate: (rating) {
+                              if (rating == 0.5 || rating == 1) {
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingTextChanged(
+                                        "TERRIBLE"));
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingGetFeedBacks(
+                                        "TERRIBLE"));
+                              } else if (rating == 1.5 || rating == 2) {
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingTextChanged("BAD"));
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingGetFeedBacks(
+                                        "BAD"));
+                              } else if (rating == 2.5 || rating == 3) {
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingTextChanged(
+                                        "AVERAGE"));
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingGetFeedBacks(
+                                        "AVERAGE"));
+                              } else if (rating == 3.5 || rating == 4) {
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingTextChanged(
+                                        "GREAT"));
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingGetFeedBacks(
+                                        "GREAT"));
+                              } else if (rating == 4.5 || rating == 5) {
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingTextChanged(
+                                        "EXCELLENT"));
+                                BlocProvider.of<RatingBloc>(context).add(
+                                    const RatingEvent.ratingGetFeedBacks(
+                                        "EXCELLENT"));
+                              }
+                              BlocProvider.of<RatingBloc>(context)
+                                  .add(RatingEvent.ratingChanged(rating));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RatingFormScreen(
+                                      doctorName: doctorName,
+                                      appointmentId: appointmentId,
+                                    ),
+                                  ));
+                            }),
+                      ],
+                    );
+                  },
+                )
+              ],
+            ),
           ],
         ),
       ),

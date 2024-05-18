@@ -50,7 +50,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
               ),
               const VerticalSpacingWidget(height: 5),
               LimitedBox(
-                maxHeight: size.height * .225,
+                maxHeight: size.height * .250,
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
@@ -72,12 +72,11 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                                   ),
                                 );
                                 BlocProvider.of<GetFavDoctorBloc>(context).add(
-                                    const GetFavDoctorEvent
-                                        .getFavDocterForcedEvent());
+                                    const GetFavDoctorEvent.started(false));
                                 BlocProvider.of<GetRecentlyBookedDoctorBloc>(
                                         context)
                                     .add(const GetRecentlyBookedDoctorEvent
-                                        .getRecentlyBookedDocterForcedEvent());
+                                        .started(false));
                               });
                             },
                             child: SizedBox(
@@ -90,9 +89,8 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                               ),
                             ),
                           ),
-                          docterDistance: state
-                              .model[index].clinics!.first.distanceFromClinic
-                              .toString(),
+                          docterDistance:
+                              state.model[index].nearestDoctorClinic.toString(),
                           doctorId: state.model[index].userId.toString(),
                           firstName: state.model[index].firstname.toString(),
                           lastName: state.model[index].secondname.toString(),

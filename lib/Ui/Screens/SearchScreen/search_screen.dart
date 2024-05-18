@@ -171,7 +171,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               BlocProvider.of<GetFavDoctorBloc>(
                                                       context)
                                                   .add(const GetFavDoctorEvent
-                                                      .started());
+                                                      .started(false));
                                               BlocProvider.of<SearchDoctorBloc>(
                                                       context)
                                                   .add(SearchDoctorEvent
@@ -192,7 +192,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               BlocProvider.of<GetDoctersBloc>(
                                                       context)
                                                   .add(const GetDoctersEvent
-                                                      .started());
+                                                      .started(false));
                                             });
                                           },
                                           child: SizedBox(

@@ -108,9 +108,6 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
           theme: appThemeStyle(context),
           home:
-//LoginScreenGoogle()
-              // LoginPageGoogle()
-              //HomeScreenfireDemo()
               hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },

@@ -15,7 +15,7 @@ import '../core/api_end_pont.dart';
 @LazySingleton(as: RatingRepository)
 class RatingRepoImpl implements RatingRepository {
   @override
-  Future<Either<ErrorModel, List<UserRating>>> getRatingRepo(
+  Future<Either<ErrorModel,GetRatingModel>> getRatingRepo(
       {required String ratingText}) async {
     final preference = await SharedPreferences.getInstance();
     String? token =
@@ -35,7 +35,7 @@ class RatingRepoImpl implements RatingRepository {
         log("result service : $result");
         log("result service  response : ${response.data}");
 
-        return Right(result.userRating!);
+        return Right(result);
       } else {
         return Left(ErrorModel());
       }
@@ -69,12 +69,12 @@ class RatingRepoImpl implements RatingRepository {
         ApiEndPoints.addRating,
         data: {
           "appointment_id": appointmentId,
-          // "review_id": reviewId,
+          "review_id": reviewId,
           "rating": rating,
-          //   "doctor_recommendation": doctorRecommentation,
-          // "user_comments": userComments,
+          "doctor_recommendation": doctorRecommentation,
+          "user_comments": userComments,
           "feedback_status": 1,
-          // "rating_id": ratingId,
+          "rating_id": ratingId,
         },
       );
       log(response.data.toString());

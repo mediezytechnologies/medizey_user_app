@@ -61,6 +61,7 @@ import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
+import '../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../ddd/application/add_members/add_members_bloc.dart';
 import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
@@ -143,11 +144,13 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<SearchDoctorBloc>()),
         BlocProvider(create: (context) => getIt<RatingBloc>()),
         BlocProvider(create: (context) => getIt<RatingPostBloc>()),
-         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<FirebaseLoginBloc>(),
         ),
          BlocProvider(
           create: (context) => getIt<NotificatioTokenBloc>(),
         ),
+        BlocProvider(
+            create: (context) => GetCompletedFeedbackAppointmentBloc()),
       ];
 }
