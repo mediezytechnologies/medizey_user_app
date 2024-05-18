@@ -14,7 +14,6 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/ddd/infrastructure/demo_service/d.dart';
-import 'package:mediezy_user/ddd/infrastructure/firebase_service/dd.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
 import 'ddd/infrastructure/demo_service/emo.dart';
@@ -61,26 +60,20 @@ class _MediezyState extends State<Mediezy> {
   late StreamSubscription<ConnectivityResult> subscription;
 
   bool hasInternet = false;
- // NotificationServices notificationServices = NotificationServices();
-    NotificationServices notificationServices = NotificationServices();
-final _messagingService =
-      MessagingService(); 
+  NotificationServices notificationServices = NotificationServices();
 
   @override
   void initState() {
     super.initState();
-    // notificationServices.requestNotificationPermisions();
-    // notificationServices.isRefreshToken();
-    // notificationServices.getDeviceToken().then((value) {
-    //   log("not : $value");
-    // });
+    notificationServices.requestNotificationPermisions();
+    notificationServices.isRefreshToken();
+    notificationServices.getDeviceToken().then((value) {
+      log("not : $value");
+    });
 
-    // notificationServices.forgroundMessage();
-    // notificationServices.firebaseInit(context);
-    // notificationServices.setupInteractMessage(context);
-
-_messagingService
-        .init(context); 
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
 
     subscription = Connectivity()
         .onConnectivityChanged

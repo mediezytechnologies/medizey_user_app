@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mediezy_user/ddd/infrastructure/firebase_service/dd.dart';
 
 import '../firebase_service/notification_service.dart';
 
@@ -15,22 +14,19 @@ class HomeScreenfireDemo extends StatefulWidget {
 class _HomeScreenfireDemoState extends State<HomeScreenfireDemo> {
 
   NotificationServices notificationServices = NotificationServices();
-final _messagingService =
-      MessagingService(); 
+
   @override
   void initState() {
     super.initState();
 
-_messagingService
-        .init(context); 
-    // notificationServices.requestNotificationPermisions();
-    // notificationServices.forgroundMessage();
-    // notificationServices.firebaseInit(context);
-    // notificationServices.setupInteractMessage(context);
-    // notificationServices.isRefreshToken();
-    // notificationServices.getDeviceToken().then((value) {
-    //   print(value);
-    // });
+    notificationServices.requestNotificationPermisions();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isRefreshToken();
+    notificationServices.getDeviceToken().then((value) {
+      print(value);
+    });
 
 
   }
