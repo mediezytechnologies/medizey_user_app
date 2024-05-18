@@ -11,6 +11,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
+import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/ddd/infrastructure/demo_service/d.dart';
@@ -59,6 +60,7 @@ class Mediezy extends StatefulWidget {
 class _MediezyState extends State<Mediezy> {
   late StreamSubscription<ConnectivityResult> subscription;
 
+
   bool hasInternet = false;
   NotificationServices notificationServices = NotificationServices();
 
@@ -93,8 +95,7 @@ class _MediezyState extends State<Mediezy> {
       hasInternet = result != ConnectivityResult.none;
     });
   }
-
-  @override
+  
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 690),
@@ -102,6 +103,7 @@ class _MediezyState extends State<Mediezy> {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+            routes: {'/chat': (context) => const ProfileScreen()},
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(context),
