@@ -258,39 +258,39 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
   Padding reason(Size size, RatingState state, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "Sorry to hear that. Please tell us what went wrong.",
-              style: black13B600,
-            ),
-          ),
-          const VerticalSpacingWidget(height: 5),
-          BlocBuilder<RatingBloc, RatingState>(
-            builder: (context, state) {
-              if (state.isloading) {
-                return feedBackLoadingWidget();
-              }
-              if (state.isError) {
-                return const Center(
-                  child: Text("Something went wrong"),
-                );
-              }
-              return Wrap(
+      child: BlocBuilder<RatingBloc, RatingState>(
+        builder: (context, state) {
+          if (state.isloading) {
+            return feedBackLoadingWidget();
+          }
+          if (state.isError) {
+            return const Center(
+              child: Text("Something went wrong"),
+            );
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  state.userRating!.heading.toString(),
+                  style: black13B600,
+                ),
+              ),
+              const VerticalSpacingWidget(height: 5),
+              Wrap(
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 runSpacing: size.height * 0.01,
                 spacing: size.width * 0.03,
                 children: List.generate(
-                  state.userRating.length,
+                  state.userRating!.userRating!.length,
                   (index) => GestureDetector(
                     onTap: () {
-                      reviewId = state.userRating[index].reviewId;
-                      ratingId = state.userRating[index].ratingId;
+                      reviewId = state.userRating!.userRating![index].reviewId;
+                      ratingId = state.userRating!.userRating![index].ratingId;
                       BlocProvider.of<RatingBloc>(context)
                           .add(RatingEvent.ratingReasonChanged(index));
                     },
@@ -305,7 +305,8 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                           border: Border.all(color: kBorderColor)),
                       child: Center(
                           child: Text(
-                        state.userRating[index].userComments.toString(),
+                        state.userRating!.userRating![index].userComments
+                            .toString(),
                         style: state.reasonIndex == index
                             ? white13B500
                             : black13B500,
@@ -313,10 +314,10 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                     ),
                   ),
                 ),
-              );
-            },
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

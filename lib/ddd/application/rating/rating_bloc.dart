@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/rating/model/add_rating_model/add_rating_model.dart';
-import '../../domain/rating/model/get_rating_model/user_rating.dart';
+import '../../domain/rating/model/get_rating_model/get_rating_model.dart';
 import '../../domain/rating/rating_repository.dart';
 part 'rating_event.dart';
 part 'rating_state.dart';
@@ -41,7 +41,6 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
         isError: false,
         message: "",
         status: false,
-        userRating: [],
       ));
       log("Loading >>>>>>");
       final ratingResult =
@@ -51,7 +50,6 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
                 isloading: false,
                 isError: true,
                 message: l.message!,
-                userRating: [],
                 status: false,
               ), (r) {
         return state.copyWith(

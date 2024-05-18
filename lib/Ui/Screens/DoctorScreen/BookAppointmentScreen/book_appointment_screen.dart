@@ -286,10 +286,23 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           .getTokenModel;
                                   if (getTokenModel.schedule == null) {
                                     return Center(
-                                      child: Image(
-                                        image: const AssetImage(
-                                            "assets/icons/no token.png"),
-                                        height: size.height * .65,
+                                      child: Column(
+                                        children: [
+                                          Image(
+                                            image: const AssetImage(
+                                                "assets/icons/no token.png"),
+                                            height: size.height * .5,
+                                          ),
+                                          getTokenModel.message ==
+                                                  "Doctor is on Leave"
+                                              ? Text(
+                                                  getTokenModel.message
+                                                      .toString(),
+                                                  style: black14B600)
+                                              : const SizedBox(),
+                                          const VerticalSpacingWidget(
+                                              height: 10)
+                                        ],
                                       ),
                                     );
                                   }

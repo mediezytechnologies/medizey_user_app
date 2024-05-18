@@ -80,11 +80,66 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                     return doctorCardLoadingWidget();
                   }
                   return state.model.isEmpty
-                      ? Center(
-                          child: Image(
-                            image:
-                                const AssetImage("assets/icons/favourite.png"),
-                            height: size.height * 2,
+                      ? SizedBox(
+                          height: double.infinity,
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => SearchScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 8.w),
+                                  height: 45,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: kCardColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10.w),
+                                        child: Text(
+                                          "Search your doctor",
+                                          style: TextStyle(
+                                              fontSize: 15.sp,
+                                              color: kSubTextColor),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 10.w),
+                                        child: CircleAvatar(
+                                          backgroundColor: kSecondaryColor,
+                                          radius: 16,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Icon(
+                                              IconlyLight.search,
+                                              color: kCardColor,
+                                              size: 16.sp,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const VerticalSpacingWidget(height: 110),
+                              Image(
+                                image: const AssetImage(
+                                    "assets/icons/favourite.png"),
+                                width: size.width * .9,
+                              ),
+                            ],
                           ),
                         )
                       : SingleChildScrollView(
@@ -114,7 +169,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                       Padding(
                                         padding: EdgeInsets.only(left: 10.w),
                                         child: Text(
-                                          "Search your Doctor",
+                                          "Search your doctor",
                                           style: TextStyle(
                                               fontSize: 15.sp,
                                               color: kSubTextColor),

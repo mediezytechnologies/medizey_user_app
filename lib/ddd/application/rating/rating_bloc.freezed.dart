@@ -1429,7 +1429,7 @@ mixin _$RatingState {
   bool get addStatus => throw _privateConstructorUsedError;
   double get ratingValue => throw _privateConstructorUsedError;
   String get ratingTest => throw _privateConstructorUsedError;
-  List<UserRating> get userRating => throw _privateConstructorUsedError;
+  GetRatingModel? get userRating => throw _privateConstructorUsedError;
   int get reasonIndex => throw _privateConstructorUsedError;
   int get likedIndex => throw _privateConstructorUsedError;
   AddRatingModel? get addRatingModel => throw _privateConstructorUsedError;
@@ -1457,7 +1457,7 @@ abstract class $RatingStateCopyWith<$Res> {
       bool addStatus,
       double ratingValue,
       String ratingTest,
-      List<UserRating> userRating,
+      GetRatingModel? userRating,
       int reasonIndex,
       int likedIndex,
       AddRatingModel? addRatingModel,
@@ -1487,7 +1487,7 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
     Object? addStatus = null,
     Object? ratingValue = null,
     Object? ratingTest = null,
-    Object? userRating = null,
+    Object? userRating = freezed,
     Object? reasonIndex = null,
     Object? likedIndex = null,
     Object? addRatingModel = freezed,
@@ -1534,10 +1534,10 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
           ? _value.ratingTest
           : ratingTest // ignore: cast_nullable_to_non_nullable
               as String,
-      userRating: null == userRating
+      userRating: freezed == userRating
           ? _value.userRating
           : userRating // ignore: cast_nullable_to_non_nullable
-              as List<UserRating>,
+              as GetRatingModel?,
       reasonIndex: null == reasonIndex
           ? _value.reasonIndex
           : reasonIndex // ignore: cast_nullable_to_non_nullable
@@ -1577,7 +1577,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool addStatus,
       double ratingValue,
       String ratingTest,
-      List<UserRating> userRating,
+      GetRatingModel? userRating,
       int reasonIndex,
       int likedIndex,
       AddRatingModel? addRatingModel,
@@ -1605,7 +1605,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? addStatus = null,
     Object? ratingValue = null,
     Object? ratingTest = null,
-    Object? userRating = null,
+    Object? userRating = freezed,
     Object? reasonIndex = null,
     Object? likedIndex = null,
     Object? addRatingModel = freezed,
@@ -1652,10 +1652,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.ratingTest
           : ratingTest // ignore: cast_nullable_to_non_nullable
               as String,
-      userRating: null == userRating
-          ? _value._userRating
+      userRating: freezed == userRating
+          ? _value.userRating
           : userRating // ignore: cast_nullable_to_non_nullable
-              as List<UserRating>,
+              as GetRatingModel?,
       reasonIndex: null == reasonIndex
           ? _value.reasonIndex
           : reasonIndex // ignore: cast_nullable_to_non_nullable
@@ -1690,12 +1690,11 @@ class _$InitialImpl implements _Initial {
       required this.addStatus,
       required this.ratingValue,
       required this.ratingTest,
-      required final List<UserRating> userRating,
+      this.userRating,
       required this.reasonIndex,
       required this.likedIndex,
       this.addRatingModel,
-      required this.radioIndex})
-      : _userRating = userRating;
+      required this.radioIndex});
 
   @override
   final bool isloading;
@@ -1717,14 +1716,8 @@ class _$InitialImpl implements _Initial {
   final double ratingValue;
   @override
   final String ratingTest;
-  final List<UserRating> _userRating;
   @override
-  List<UserRating> get userRating {
-    if (_userRating is EqualUnmodifiableListView) return _userRating;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_userRating);
-  }
-
+  final GetRatingModel? userRating;
   @override
   final int reasonIndex;
   @override
@@ -1761,8 +1754,8 @@ class _$InitialImpl implements _Initial {
                 other.ratingValue == ratingValue) &&
             (identical(other.ratingTest, ratingTest) ||
                 other.ratingTest == ratingTest) &&
-            const DeepCollectionEquality()
-                .equals(other._userRating, _userRating) &&
+            (identical(other.userRating, userRating) ||
+                other.userRating == userRating) &&
             (identical(other.reasonIndex, reasonIndex) ||
                 other.reasonIndex == reasonIndex) &&
             (identical(other.likedIndex, likedIndex) ||
@@ -1786,7 +1779,7 @@ class _$InitialImpl implements _Initial {
       addStatus,
       ratingValue,
       ratingTest,
-      const DeepCollectionEquality().hash(_userRating),
+      userRating,
       reasonIndex,
       likedIndex,
       addRatingModel,
@@ -1811,7 +1804,7 @@ abstract class _Initial implements RatingState {
       required final bool addStatus,
       required final double ratingValue,
       required final String ratingTest,
-      required final List<UserRating> userRating,
+      final GetRatingModel? userRating,
       required final int reasonIndex,
       required final int likedIndex,
       final AddRatingModel? addRatingModel,
@@ -1838,7 +1831,7 @@ abstract class _Initial implements RatingState {
   @override
   String get ratingTest;
   @override
-  List<UserRating> get userRating;
+  GetRatingModel? get userRating;
   @override
   int get reasonIndex;
   @override
