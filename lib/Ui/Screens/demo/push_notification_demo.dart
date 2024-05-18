@@ -17,14 +17,14 @@ class _DemoPushNotificationState extends State<DemoPushNotification> {
   void initState() {
     super.initState();
 
-    notificationServices.requestNotificationPermisions();
-    notificationServices.forgroundMessage();
-    notificationServices.firebaseInit(context);
-    notificationServices.setupInteractMessage(context);
-    notificationServices.isRefreshToken();
-    notificationServices.getDeviceToken().then((value) {
-      print(value);
-    });
+    // notificationServices.requestNotificationPermisions();
+    // notificationServices.forgroundMessage();
+    // notificationServices.firebaseInit(context);
+    // notificationServices.setupInteractMessage(context);
+    // notificationServices.isRefreshToken();
+    // notificationServices.getDeviceToken().then((value) {
+    //   print(value);
+    // });
 
 
   }
