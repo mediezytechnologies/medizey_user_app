@@ -78,11 +78,10 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                               onTap: () {
                                 setState(() {
                                   BlocProvider.of<GetFavDoctorBloc>(context)
-                                      .add(const GetFavDoctorEvent
-                                          .getFavDocterForcedEvent());
+                                      .add(const GetFavDoctorEvent.started(
+                                          false));
                                   BlocProvider.of<GetDoctersBloc>(context).add(
-                                      const GetDoctersEvent
-                                          .getDoctersForcedEvent());
+                                      const GetDoctersEvent.started(false));
                                   BlocProvider.of<GetFavDoctorBloc>(context)
                                       .add(GetFavDoctorEvent.changeFav(
                                           state.model[index].id!));
@@ -97,7 +96,7 @@ class _GetFavouriteDoctorWidgetState extends State<GetFavouriteDoctorWidget> {
                                   BlocProvider.of<GetRecentlyBookedDoctorBloc>(
                                           context)
                                       .add(const GetRecentlyBookedDoctorEvent
-                                          .getRecentlyBookedDocterForcedEvent());
+                                          .started(false));
                                 });
                               },
                               child: SizedBox(

@@ -39,7 +39,7 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<GetFavDoctorBloc>(context)
-        .add(const GetFavDoctorEvent.started());
+        .add(const GetFavDoctorEvent.started(true));
     super.initState();
   }
 
@@ -171,11 +171,12 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           BlocProvider.of<GetFavDoctorBloc>(
                                                   context)
                                               .add(const GetFavDoctorEvent
-                                                  .getFavDocterForcedEvent());
+                                                  .started(false));
                                           BlocProvider.of<GetDoctersBloc>(
                                                   context)
-                                              .add(const GetDoctersEvent
-                                                  .getDoctersForcedEvent());
+                                              .add(
+                                                  const GetDoctersEvent.started(
+                                                      false));
                                           BlocProvider.of<AddFavouritesBloc>(
                                                   context)
                                               .add(
@@ -189,8 +190,9 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
                                           BlocProvider.of<
                                                       GetRecentlyBookedDoctorBloc>(
                                                   context)
-                                              .add(const GetRecentlyBookedDoctorEvent
-                                                  .getRecentlyBookedDocterForcedEvent());
+                                              .add(
+                                                  const GetRecentlyBookedDoctorEvent
+                                                      .started(false));
                                         });
                                       },
                                       child: SizedBox(
