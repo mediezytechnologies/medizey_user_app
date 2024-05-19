@@ -8,7 +8,6 @@
 
 #include <awesome_notifications/awesome_notifications_plugin.h>
 #include <file_selector_linux/file_selector_plugin.h>
-#include <gtk/gtk_plugin.h>
 #include <flutter_secure_storage_linux/flutter_secure_storage_linux_plugin.h>
 #include <maps_launcher/maps_launcher_plugin.h>
 #include <url_launcher_linux/url_launcher_plugin.h>
