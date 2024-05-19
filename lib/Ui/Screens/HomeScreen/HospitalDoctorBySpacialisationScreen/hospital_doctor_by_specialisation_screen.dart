@@ -98,7 +98,7 @@ class _HospitalDoctorBySpecialisationState
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
-                                      userAwayFrom: "2.2",
+                                      favourites: const SizedBox(),
                                       clinicList:
                                           getHospitalDoctorBySpecialisationModel
                                               .doctorDetails![index].clinics!

@@ -35,8 +35,7 @@ class GetBannerWidget extends StatelessWidget {
           if (state is BannerError) {
             return const Center(
               child: Image(
-                image: AssetImage(
-                    "assets/images/something went wrong-01.png"),
+                image: AssetImage("assets/images/something went wrong-01.png"),
               ),
             );
           }
@@ -53,11 +52,9 @@ class GetBannerWidget extends StatelessWidget {
                     child: FancyShimmerImage(
                       boxFit: BoxFit.fill,
                       errorWidget: const Image(
-                        image: AssetImage(
-                            "assets/icons/no image.png"),
+                        image: AssetImage("assets/icons/no image.png"),
                       ),
-                      imageUrl:
-                          banner.bannerImages![index],
+                      imageUrl: banner.bannerImages![index],
                     ),
                   ),
                 );

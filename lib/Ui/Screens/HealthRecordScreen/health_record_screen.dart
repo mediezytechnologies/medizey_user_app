@@ -331,7 +331,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                             style: black14B600),
                         children: [
                           Text(
-                            'Absolutely! Your health records can only be viewed by you and will never be shared by any third party. You can read our privacy policy&nbsp; to know more',
+                            'Absolutely! Your health records can only be viewed by you and your doctor, will never be shared by any third party. You can read our privacy policy to know more',
                             style: grey12B500,
                           ),
                         ],
@@ -348,7 +348,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                             style: black14B600),
                         children: [
                           Text(
-                            'You health records can only be viewed by you. However, you do have an option to share your health records with the doctor in the course of online or physical consultation.',
+                            'Your health records can only be viewed by you and your doctor. However, you do have an option to share your health records with the doctor in the course of physical consultation.',
                             style: grey12B500,
                           ),
                         ],

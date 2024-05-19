@@ -1,14 +1,13 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:async';
+import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -20,6 +19,13 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart'
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
+import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../../../ddd/infrastructure/firebase_service/notification_service.dart';
+import 'Widgets/get_completed_feedback_widget.dart';
 
 import '../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
@@ -33,6 +39,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController suggestionController = TextEditingController();
+
   late Timer pollingTimer;
   bool isLoading = true;
   late ScrollController _scrollViewController;
@@ -64,13 +71,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
     super.initState();
-    BlocProvider.of<GetDoctersBloc>(context).add(const GetDoctersEvent.started());
-        BlocProvider.of<GetFavDoctorBloc>(context).add(GetFavDoctorEvent.started());
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());
-    BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
-    BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
-        .add(FetchRecentlyBookedDoctors());
+    BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
+        .add(const GetRecentlyBookedDoctorEvent.started(true));
+    BlocProvider.of<GetDoctersBloc>(context)
+        .add(const GetDoctersEvent.started(true));
+    BlocProvider.of<GetFavDoctorBloc>(context)
+        .add(const GetFavDoctorEvent.started(true));
+    BlocProvider.of<GetCompletedFeedbackAppointmentBloc>(context)
+        .add(FetchCompletedFeedbackAppointments());
     startPolling();
   }
 
@@ -98,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
     return FadedSlideAnimation(
       beginOffset: const Offset(0, 0.3),
@@ -112,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Future.value(false);
         },
         child: Scaffold(
+          
           backgroundColor: kSecondaryColor,
           body: Column(
             mainAxisSize: MainAxisSize.min,
@@ -121,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
+                  dragStartBehavior: DragStartBehavior.start,
                   controller: _scrollViewController,
                   primary: false,
                   scrollDirection: Axis.vertical,
@@ -137,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             const VerticalSpacingWidget(height: 5),
                             const UpcommingAppoiment(),
                             const VerticalSpacingWidget(height: 5),
+                            const GetCompletedFeedbackWidget(),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: size.width * 0.01),
@@ -144,6 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const VerticalSpacingWidget(height: 5),
                             const GetFavouriteDoctorWidget(),
+                            const VerticalSpacingWidget(height: 5),
+                            const HomeRecentlyBookedDoctorWidget(),
                             const VerticalSpacingWidget(height: 5),
                           ],
                         ),
@@ -155,8 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: kSubScaffoldColor,
                         child: Column(
                           children: [
-                            const VerticalSpacingWidget(height: 5),
-                            const HomeRecentlyBookedDoctorWidget(),
                             const VerticalSpacingWidget(height: 5),
                             Padding(
                               padding: EdgeInsets.symmetric(

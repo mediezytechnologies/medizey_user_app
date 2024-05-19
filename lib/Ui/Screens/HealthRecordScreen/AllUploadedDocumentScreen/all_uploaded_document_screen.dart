@@ -17,6 +17,7 @@ class AllUploadedDocumentScreen extends StatefulWidget {
 class _AllUploadedDocumentScreenState extends State<AllUploadedDocumentScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocBuilder<GetAllUploadedDocumentsBloc,
           GetAllUploadedDocumentsState>(
@@ -41,7 +42,12 @@ class _AllUploadedDocumentScreenState extends State<AllUploadedDocumentScreen> {
           if (state is GetAllUploadedDocumentsLoaded) {
             final allDocumet = state.getAllUploadedDocumentModel;
             return allDocumet.documentData == null
-                ? Center(child: Image.asset("assets/icons/no data.png"))
+                ? Center(
+                    child: Image.asset(
+                      "assets/icons/no data.png",
+                      height: size.height * .45,
+                    ),
+                  )
                 : ListView.separated(
                     padding: EdgeInsets.zero,
                     itemCount: allDocumet.documentData!.length,

@@ -120,11 +120,7 @@ class _DoctorsBySpecialisationScreenState
                                       .doctorBySpecialization!.length,
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
-                                      userAwayFrom:
-                                          getDoctersAsPerSpecialisationModel
-                                              .doctorBySpecialization![index]
-                                              .distanceFromUser
-                                              .toString(),
+                                      favourites: const SizedBox(),
                                       clinicList:
                                           getDoctersAsPerSpecialisationModel
                                               .doctorBySpecialization![index]

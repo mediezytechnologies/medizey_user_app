@@ -1,26 +1,29 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
 
+import '../../../CommonWidgets/text_style_widget.dart';
+
 class DoctorNearYouWidget extends StatefulWidget {
-  const DoctorNearYouWidget({
-    super.key,
-    required this.firstName,
-    required this.lastName,
-    required this.imageUrl,
-    required this.location,
-    required this.doctorId,
-    required this.specialisation,
-    required this.favouriteStatus,
-    required this.docterDistance,
-  });
+  const DoctorNearYouWidget(
+      {Key? key,
+      required this.doctorId,
+      required this.firstName,
+      required this.lastName,
+      required this.imageUrl,
+      required this.location,
+      required this.specialisation,
+      required this.favouriteStatus,
+      required this.docterDistance,
+      required this.favourites})
+      : super(key: key);
 
   final String doctorId;
   final String firstName;
@@ -30,21 +33,16 @@ class DoctorNearYouWidget extends StatefulWidget {
   final String specialisation;
   final int favouriteStatus;
   final String docterDistance;
+  final Widget favourites;
 
   @override
   State<DoctorNearYouWidget> createState() => _DoctorNearYouWidgetState();
 }
 
 class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
-  bool isClicked = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -61,10 +59,10 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 8.w, 0),
             child: Container(
-              width: 130.w,
+              width: size.width * .335,
               decoration: BoxDecoration(
                 color: kCardColor,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,10 +73,10 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                       scaleDuration: const Duration(milliseconds: 400),
                       fadeDuration: const Duration(milliseconds: 400),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(10.r),
                         child: FancyShimmerImage(
-                            height: 100.h,
-                            width: 100.w,
+                            height: size.height * .12,
+                            width: size.width * .32,
                             boxFit: BoxFit.contain,
                             errorWidget: const Image(
                               image: AssetImage("assets/icons/no image.png"),
@@ -99,32 +97,26 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 7.w),
-                    child: SizedBox(
-                      width: 120.w,
-                      child: Text(
-                        widget.specialisation,
-                        style: grey11B400,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                    child: Text(
+                      widget.specialisation,
+                      style: grey11B400,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 7.w),
-                    child: SizedBox(
-                      width: 120.w,
-                      child: Text(
-                        widget.location,
-                        style: grey11B400,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                    child: Text(
+                      widget.location,
+                      style: grey11B400,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                   SizedBox(
                     height: 5.h,
                   ),
-                  widget.docterDistance == "0.0"
+                  widget.docterDistance == 'null'
                       ? const SizedBox()
                       : Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -140,13 +132,11 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
                               RichText(
                                 text: TextSpan(
                                   text: widget.docterDistance,
-                                  style: black12B500,
+                                  style: black11B500,
                                   children: [
                                     TextSpan(
                                         text: ' away',
-                                        style: TextStyle(
-                                            color: kSubTextColor,
-                                            fontWeight: FontWeight.normal),
+                                        style: grey10B400,
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {})
                                   ],
@@ -159,6 +149,11 @@ class _DoctorNearYouWidgetState extends State<DoctorNearYouWidget> {
               ),
             ),
           ),
+          Positioned(
+            right: size.width * 0.04,
+            top: size.height * 0.019,
+            child: widget.favourites,
+          )
         ],
       ),
     );

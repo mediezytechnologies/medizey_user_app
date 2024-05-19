@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use, no_leading_underscores_for_local_identifiers, must_be_immutable
 import 'dart:async';
+import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,22 +15,28 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/cinic_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/token_card_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import '../../../CommonWidgets/text_style_widget.dart';
+import 'widget/calender_widget.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
-  BookAppointmentScreen({
-    Key? key,
-    required this.doctorId,
-    required this.clinicList,
-    required this.doctorFirstName,
-    required this.doctorSecondName,
-    this.patientId,
-  }) : super(key: key);
+  BookAppointmentScreen(
+      {Key? key,
+      required this.doctorId,
+      required this.clinicList,
+      required this.doctorFirstName,
+      required this.doctorSecondName,
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId})
+      : super(key: key);
 
   final String doctorId;
   final String doctorFirstName;
   final String doctorSecondName;
   final List<Clinics> clinicList;
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<BookAppointmentScreen> createState() => _BookAppointmentScreenState();
@@ -43,7 +49,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   String selectedClinicName = "";
   String selectedClinicAddress = "";
   String selectedClinicLocation = "";
-
+  String selectedClinicConsutationFee = "";
   bool isClicked = false;
   late StreamSubscription<ConnectivityResult> subscription;
   void handleConnectivityChange(ConnectivityResult result) {
@@ -57,6 +63,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
     selectedClinicName = widget.clinicList.first.clinicName.toString();
     selectedClinicAddress = widget.clinicList.first.clinicAddress.toString();
     selectedClinicLocation = widget.clinicList.first.clinicLocation.toString();
+    selectedClinicConsutationFee =
+        widget.clinicList.first.consultationFee.toString();
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
@@ -69,6 +77,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
         hospitalId: widget.clinicList.first.clinicId.toString(),
       ),
     );
+    log("selected clinic id >>> ${selectedClinicId.toString()}");
     super.initState();
   }
 
@@ -84,6 +93,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Date & Time"),
@@ -141,6 +152,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                         selectedClinicLocation = widget
                                             .clinicList[index].clinicLocation
                                             .toString();
+                                        selectedClinicConsutationFee = widget
+                                            .clinicList[index].consultationFee
+                                            .toString();
                                         BlocProvider.of<GetTokenBloc>(context)
                                             .add(
                                           FetchToken(
@@ -181,9 +195,47 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                 );
                               },
                             ),
-                            EasyDateTimeLine(
-                              initialDate: selectedDate,
-                              disabledDates: _getDisabledDates(),
+                            // EasyDateTimeLine(
+                            //   initialDate: selectedDate,
+                            //   disabledDates: _getDisabledDates(),
+                            //   onDateChange: (date) {
+                            //     String formattedDate =
+                            //         DateFormat('yyyy-MM-dd').format(date);
+                            //     setState(() {
+                            //       selectedDate = date;
+                            //     });
+                            //     BlocProvider.of<GetTokenBloc>(context).add(
+                            //       FetchToken(
+                            //         date: formattedDate,
+                            //         doctorId: widget.doctorId,
+                            //         hospitalId: selectedClinicId,
+                            //       ),
+                            //     );
+                            //   },
+                            //   activeColor: kMainColor,
+                            //   dayProps: EasyDayProps(
+                            //     height: size.height * .1,
+                            //     width: size.width * .15,
+                            //     activeDayNumStyle: white14B700,
+                            //     activeDayStrStyle: white10B400,
+                            //     activeMothStrStyle: white10B400,
+                            //     inactiveDayNumStyle: grey14B700,
+                            //     inactiveDayStrStyle: grey10B400,
+                            //     inactiveMothStrStyle: grey10B400,
+                            //     todayHighlightStyle:
+                            //         TodayHighlightStyle.withBackground,
+                            //     todayHighlightColor: const Color(0xffE1ECC8),
+                            //     borderColor: kMainColor,
+                            //   ),
+                            // ),
+                            // VerticalSpacingWidget(height: 10),
+                            DatePickerDemoClass(
+                              height: size.height * .15,
+                              width: size.width * .15,
+                              DateTime.now(),
+                              initialSelectedDate: DateTime.now(),
+                              selectionColor: kMainColor,
+                              selectedTextColor: kCardColor,
                               onDateChange: (date) {
                                 String formattedDate =
                                     DateFormat('yyyy-MM-dd').format(date);
@@ -198,36 +250,19 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                   ),
                                 );
                               },
-                              activeColor: kMainColor,
-                              dayProps: EasyDayProps(
-                                height: 80.h,
-                                width: 65.w,
-                                activeDayNumStyle: TextStyle(
-                                  color: kCardColor,
+                              dateTextStyle: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20.sp,
-                                ),
-                                activeDayStrStyle: TextStyle(
-                                  color: kCardColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                ),
-                                activeMothStrStyle: TextStyle(
-                                  color: kCardColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                ),
-                                todayHighlightStyle:
-                                    TodayHighlightStyle.withBackground,
-                                todayHighlightColor: const Color(0xffE1ECC8),
-                                borderColor: kMainColor,
-                              ),
+                                  fontSize: size.width > 450 ? 10.sp : 16.sp),
+                              dayTextStyle: TextStyle(
+                                  fontSize: size.width > 450 ? 8.sp : 12.sp),
+                              monthTextStyle: TextStyle(
+                                  fontSize: size.width > 450 ? 8.sp : 12.sp),
                             ),
                             BlocBuilder<GetTokenBloc, GetTokenState>(
                               builder: (context, state) {
                                 if (state is GetTokenLoading) {
                                   return SizedBox(
-                                    height: 200.h,
+                                    height: size.height * .65,
                                     child: Center(
                                       child: CircularProgressIndicator(
                                         color: kMainColor,
@@ -253,21 +288,20 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                     return Center(
                                       child: Column(
                                         children: [
-                                          const VerticalSpacingWidget(
-                                              height: 10),
                                           Image(
                                             image: const AssetImage(
                                                 "assets/icons/no token.png"),
-                                            height: 250.h,
-                                            width: 250.w,
+                                            height: size.height * .5,
                                           ),
-                                          Text(
-                                            getTokenModel.message.toString(),
-                                            style: TextStyle(
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          )
+                                          getTokenModel.message ==
+                                                  "Doctor is on Leave"
+                                              ? Text(
+                                                  getTokenModel.message
+                                                      .toString(),
+                                                  style: black14B600)
+                                              : const SizedBox(),
+                                          const VerticalSpacingWidget(
+                                              height: 10)
                                         ],
                                       ),
                                     );
@@ -280,17 +314,14 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       if (getTokenModel.schedule?.schedule1
                                               ?.isNotEmpty ==
                                           true)
-                                        const Column(
+                                        Column(
                                           children: [
-                                            VerticalSpacingWidget(height: 10),
-                                            Text(
-                                              "Schedule 1",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            VerticalSpacingWidget(height: 5),
+                                            const VerticalSpacingWidget(
+                                                height: 10),
+                                            Text("Schedule 1",
+                                                style: black14B500),
+                                            const VerticalSpacingWidget(
+                                                height: 5),
                                           ],
                                         ),
                                       if (getTokenModel.schedule?.schedule1
@@ -312,7 +343,13 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              consultationFee:
+                                                  selectedClinicConsutationFee,
+                                              normalResheduleTokenId:
+                                                  widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
+                                              resheduleType:
+                                                  widget.resheduleType,
                                               clinicAddress:
                                                   selectedClinicAddress,
                                               clinicLocation:
@@ -366,17 +403,16 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       if (getTokenModel.schedule?.schedule2
                                               ?.isNotEmpty ==
                                           true)
-                                        const Column(
+                                        Column(
                                           children: [
-                                            VerticalSpacingWidget(height: 10),
+                                            const VerticalSpacingWidget(
+                                                height: 10),
                                             Text(
                                               "Schedule 2",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: black14B500,
                                             ),
-                                            VerticalSpacingWidget(height: 5),
+                                            const VerticalSpacingWidget(
+                                                height: 5),
                                           ],
                                         ),
 
@@ -386,8 +422,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                         GridView.builder(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10),
                                           shrinkWrap: true,
                                           itemCount: getTokenModel
                                               .schedule!.schedule2!.length,
@@ -400,7 +434,13 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              consultationFee:
+                                                  selectedClinicConsutationFee,
+                                              normalResheduleTokenId:
+                                                  widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
+                                              resheduleType:
+                                                  widget.resheduleType,
                                               clinicAddress:
                                                   selectedClinicAddress,
                                               clinicLocation:
@@ -454,28 +494,22 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       if (getTokenModel.schedule?.schedule3
                                               ?.isNotEmpty ==
                                           true)
-                                        const Column(
+                                        Column(
                                           children: [
-                                            VerticalSpacingWidget(height: 10),
-                                            Text(
-                                              "Schedule 3",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            VerticalSpacingWidget(height: 5),
+                                            const VerticalSpacingWidget(
+                                                height: 10),
+                                            Text("Schedule 3",
+                                                style: black14B500),
+                                            const VerticalSpacingWidget(
+                                                height: 5),
                                           ],
                                         ),
-
                                       if (getTokenModel.schedule?.schedule3
                                               ?.isNotEmpty ==
                                           true)
                                         GridView.builder(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10),
                                           shrinkWrap: true,
                                           itemCount: getTokenModel
                                               .schedule!.schedule3!.length,
@@ -488,7 +522,13 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                           ),
                                           itemBuilder: (context, index) {
                                             return TokenCardWidget(
+                                              consultationFee:
+                                                  selectedClinicConsutationFee,
+                                              normalResheduleTokenId:
+                                                  widget.normalResheduleTokenId,
                                               patientId: widget.patientId,
+                                              resheduleType:
+                                                  widget.resheduleType,
                                               clinicAddress:
                                                   selectedClinicAddress,
                                               clinicLocation:

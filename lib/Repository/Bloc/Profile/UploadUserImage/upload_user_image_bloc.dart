@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Repository/Api/Profile/profile_api.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-import 'package:meta/meta.dart';
 part 'upload_user_image_event.dart';
 part 'upload_user_image_state.dart';
 
@@ -21,7 +22,7 @@ class UploadUserImageBloc
         Map<String, dynamic> data = jsonDecode(updoadedSuccessfully);
         GeneralServices.instance.showToastMessage(data['response']);
       } catch (error) {
-        print("<<<<<<<<<<UploadUserImageError>>>>>>>>>>" + error.toString());
+        log("<<<<<<<<<<UploadUserImageError>>>>>>>>>>$error");
         emit(UploadUserImageError());
       }
     });

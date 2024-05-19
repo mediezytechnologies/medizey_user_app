@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Model/Profile/get_user_model.dart';
 import 'package:mediezy_user/Repository/Api/Profile/profile_api.dart';
-import 'package:meta/meta.dart';
-
 part 'get_user_event.dart';
 part 'get_user_state.dart';
 
@@ -16,7 +16,7 @@ class GetUserBloc extends Bloc<GetUserEvent, GetUserState> {
         getUserModel = await profileApi.getUserDetails();
         emit(GetUserDetailsLoaded());
       } catch (e) {
-        print("Error>>>>>>>>>>>>>><<<<<<<<<<<<<<>>>>>>>>>>>" + e.toString());
+        log("Error>>>>>>>>>>>>>><<<<<<<<<<<<<<>>>>>>>>>>>$e");
         emit(GetUserDetailsError());
       }
     });

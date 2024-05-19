@@ -6,13 +6,11 @@ import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/ge
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/OtherTypePatientDetails/other_type_patient_details_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/DoctorRecommend/doctor_recommend_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetClinic/get_clinic_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctorById/get_doctor_by_id_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetAllSpecialisations/get_all_specialisations_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetDoctorsAsPerSpecialisation/get_doctors_as_per_specialisation_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSymptoms/get_symptoms_bloc.dart';
@@ -53,19 +51,25 @@ import 'package:mediezy_user/Repository/Bloc/Profile/UploadUserImage/upload_user
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Questionare/GetCommonSymptom/get_common_symptom_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Questionare/GetQuestions/get_questions_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/SearchDoctor/search_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/ContactUs/contact_us_bloc.dart';
 import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member/edit_member_bloc.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
-
+import '../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../ddd/application/add_members/add_members_bloc.dart';
-import '../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
+import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../../ddd/application/rating/rating_bloc.dart';
+// import '../../ddd/application/rating_post/rating_post_bloc.dart';
+import '../../ddd/application/rating_post/rating_post_bloc.dart';
+import '../../ddd/application/search_doctor/search_doctor_bloc.dart';
 
 class AppBlocProviders {
   static get allBlocProviders => [
@@ -80,22 +84,17 @@ class AppBlocProviders {
         BlocProvider(create: (context) => GetAllSpecialisationsBloc()),
         BlocProvider(create: (context) => GetDoctorsAsPerSpecialisationBloc()),
         BlocProvider(create: (context) => AddFavouritesBloc()),
-        BlocProvider(create: (context) => GetFavouritesBloc()),
-        BlocProvider(create: (context) => SearchDoctorBloc()),
         BlocProvider(create: (context) => GetHealthCategoriesBloc()),
         BlocProvider(create: (context) => GetDoctorsByHealthCategoryBloc()),
         BlocProvider(create: (context) => GetUserBloc()),
         BlocProvider(create: (context) => EditUserBloc()),
-        //  BlocProvider(create: (context) => AddMemberBloc()),
         BlocProvider(create: (context) => GetAllMembersBloc()),
         BlocProvider(create: (context) => UploadDocumentBloc()),
         BlocProvider(create: (context) => UploadDocumentFinalBloc()),
         BlocProvider(create: (context) => GetMemberByIdBloc()),
-        // BlocProvider(create: (context) => EditMemberBloc()),
         BlocProvider(create: (context) => DeleteMemberBloc()),
         BlocProvider(create: (context) => GetAllUploadedDocumentsBloc()),
         BlocProvider(create: (context) => GetAllPrescriptionsBloc()),
-        BlocProvider(create: (context) => GetRecentlyBookedDoctorsBloc()),
         BlocProvider(create: (context) => GetPrescriptionViewBloc()),
         BlocProvider(create: (context) => TimeLineBloc()),
         BlocProvider(create: (context) => UploadUserImageBloc()),
@@ -131,28 +130,27 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<AddMemberImageBloc>()),
         BlocProvider(create: (context) => GetUpdatedMedicineBloc()),
         BlocProvider(create: (context) => getIt<EditMemberBloc>()),
-        BlocProvider(
-          create: (context) => getIt<AddMembersBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<AddMemberImageBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<UserLocationBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<EditMemberImageBloc>(),
-        ),
+        BlocProvider(create: (context) => getIt<AddMembersBloc>()),
+        BlocProvider(create: (context) => getIt<AddMemberImageBloc>()),
+        BlocProvider(create: (context) => getIt<UserLocationBloc>()),
+        BlocProvider(create: (context) => getIt<EditMemberImageBloc>()),
         BlocProvider(create: (context) => GetVitalsBloc()),
         BlocProvider(create: (context) => GetCommonSymptomBloc()),
         BlocProvider(create: (context) => GetQuestionsBloc()),
+        BlocProvider(create: (context) => getIt<GetDoctersBloc>()),
+        BlocProvider(create: (context) => OtherTypePatientDetailsBloc()),
+        BlocProvider(create: (context) => getIt<GetFavDoctorBloc>()),
+        BlocProvider(create: (context) => getIt<GetRecentlyBookedDoctorBloc>()),
+        BlocProvider(create: (context) => getIt<SearchDoctorBloc>()),
+        BlocProvider(create: (context) => getIt<RatingBloc>()),
+        BlocProvider(create: (context) => getIt<RatingPostBloc>()),
         BlocProvider(
-          create: (context) => getIt<GetDoctersBloc>(),
+          create: (context) => getIt<FirebaseLoginBloc>(),
         ),
          BlocProvider(
-          create: (context) => getIt<GetFavDoctorBloc>(),
+          create: (context) => getIt<NotificatioTokenBloc>(),
         ),
-        //GetFavDoctorBloc
-        BlocProvider(create: (context) => OtherTypePatientDetailsBloc()),
+        BlocProvider(
+            create: (context) => GetCompletedFeedbackAppointmentBloc()),
       ];
 }

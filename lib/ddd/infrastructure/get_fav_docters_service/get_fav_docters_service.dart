@@ -4,14 +4,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mediezy_user/ddd/domain/docters_model/model/get_docters_model.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../domain/docters_model/docters_impl.dart';
-import '../../domain/docters_model/model/all_doctor.dart';
 import '../../domain/get_fav_model/get_fav_impl.dart';
 import '../../domain/get_fav_model/model/favorite_doctor.dart';
-import '../../domain/get_fav_model/model/get_fav_model.dart';
+import '../../domain/get_fav_model/model/get_favourite_doctor_model.dart';
 import '../core/api_end_pont.dart';
 
 @LazySingleton(as: GetFavDoctersRepo)
@@ -24,31 +21,31 @@ class GetDoctorsImpl implements GetFavDoctersRepo {
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
     try {
-      log("${ApiEndPoints.getFavDoctors}$userId");
+      // log("${ApiEndPoints.getFavDoctors}$userId");
       final response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
       )).get(
         "${ApiEndPoints.getFavDoctors}$userId",
       );
-      log(response.data.toString());
+      // log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final result = GetFavModel.fromJson(response.data);
+        final result = GetFavouriteDoctorModel.fromJson(response.data);
 
-        log("result service : $result");
-        log("result service  response : ${response.data}");
+        // log("result service : $result");
+        // log("result service  response : ${response.data}");
 
         return Right(result.favoriteDoctors!);
       } else {
         return Left(ErrorModel());
       }
     } on DioError catch (e) {
-      log("error ===================== ${e.message}");
-      log(e.error.toString());
-      log(e.error.toString());
+      // log("error ===================== ${e.message}");
+      // log(e.error.toString());
+      // log(e.error.toString());
 
       final err = ErrorModel.fromJson(e.response!.data);
-      log("err: $err");
+      // log("err: $err");
       return Left(err);
     }
   }

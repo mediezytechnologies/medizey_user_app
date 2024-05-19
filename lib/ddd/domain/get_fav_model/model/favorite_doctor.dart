@@ -1,8 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
+<<<<<<<< HEAD:lib/ddd/domain/docters_model/model/all_doctor.dart
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
 
 import 'clinic.dart';
+part 'all_doctor.g.dart';
+========
+import '../../../../Model/Clinics/clinic_model.dart';
 part 'favorite_doctor.g.dart';
+>>>>>>>> ios_android:lib/ddd/domain/get_fav_model/model/favorite_doctor.dart
 
 @JsonSerializable()
 class FavoriteDoctor {
@@ -11,8 +16,6 @@ class FavoriteDoctor {
   int? userId;
   String? firstname;
   String? secondname;
-  @JsonKey(name: 'distance_from_user')
-  String? distanceFromUser;
   @JsonKey(name: 'Specialization')
   String? specialization;
   @JsonKey(name: 'DocterImage')
@@ -29,7 +32,6 @@ class FavoriteDoctor {
     this.userId,
     this.firstname,
     this.secondname,
-    this.distanceFromUser,
     this.specialization,
     this.docterImage,
     this.location,

@@ -1,23 +1,35 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+import 'dart:developer';
+import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/Search/search_doctor_model.dart';
-import 'package:mediezy_user/Repository/Bloc/SearchDoctor/search_doctor_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
+import '../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
+import '../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../ddd/application/search_doctor/search_doctor_bloc.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({super.key, this.patientId});
+  SearchScreen(
+      {super.key,
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -40,12 +52,14 @@ class _SearchScreenState extends State<SearchScreen> {
       handleConnectivityChange(result);
     });
     BlocProvider.of<SearchDoctorBloc>(context)
-        .add(FetchSeachedDoctor(searchQuery: ''));
+        .add(const SearchDoctorEvent.started('', true));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    log("token id ${widget.normalResheduleTokenId}");
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Search"),
@@ -70,8 +84,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           onChanged: (newValue) {
-                            BlocProvider.of<SearchDoctorBloc>(context)
-                                .add(FetchSeachedDoctor(searchQuery: newValue));
+                            BlocProvider.of<SearchDoctorBloc>(context).add(
+                                SearchDoctorEvent.started(newValue, false));
                           },
                           decoration: InputDecoration(
                             suffixIcon: Icon(
@@ -92,82 +106,128 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                     const VerticalSpacingWidget(height: 10),
-                    BlocBuilder<SearchDoctorBloc, SearchDoctorState>(
-                      builder: (context, state) {
-                        if (state is SearchDoctorLoading) {
-                          return SizedBox(
-                            height: 300.h,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: kMainColor,
+                    BlocConsumer<SearchDoctorBloc, SearchDoctorState>(
+                        listener: (context, state) {
+                      if (state.isError) {
+                        Center(
+                          child: Image(
+                            image: const AssetImage(
+                                "assets/images/something went wrong-01.png"),
+                            height: 200.h,
+                            width: 200.w,
+                          ),
+                        );
+                      }
+                    }, builder: (context, state) {
+                      if (state.isloding) {
+                        return SizedBox(
+                          height: 300.h,
+                          child: Center(
+                            child: Platform.isIOS
+                                ? CupertinoActivityIndicator(color: kMainColor)
+                                : CircularProgressIndicator(
+                                    color: kMainColor,
+                                  ),
+                          ),
+                        );
+                      }
+                      return state.model.isEmpty
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  const VerticalSpacingWidget(height: 20),
+                                  Image(
+                                    image: const AssetImage(
+                                        "assets/icons/no doctor.png"),
+                                    height: size.height * .5,
+                                    width: size.width * .85,
+                                  ),
+                                  const VerticalSpacingWidget(height: 20),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: RecommendedDoctorCard(),
+                                  ),
+                                  const VerticalSpacingWidget(height: 20),
+                                ],
                               ),
-                            ),
-                          );
-                        }
-                        if (state is SearchDoctorError) {
-                          return Center(
-                            child: Image(
-                              image: const AssetImage(
-                                  "assets/images/something went wrong-01.png"),
-                              height: 200.h,
-                              width: 200.w,
-                            ),
-                          );
-                        }
-                        if (state is SearchDoctorLoaded) {
-                          searchDoctorModel =
-                              BlocProvider.of<SearchDoctorBloc>(context)
-                                  .searchDoctorModel;
-                          return searchDoctorModel.searchDoctors == null ||
-                                  searchDoctorModel.searchDoctors!.isEmpty
-                              ? const RecommendedDoctorCard()
-                              : ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount:
-                                      searchDoctorModel.searchDoctors!.length,
-                                  itemBuilder: (context, index) {
-                                    return DoctorCardWidget(
-                                      patientId: widget.patientId,
-                                      userAwayFrom: searchDoctorModel
-                                          .searchDoctors![index]
-                                          .distanceFromUser
-                                          .toString(),
-                                      clinicList: searchDoctorModel
-                                          .searchDoctors![index].clinics!
-                                          .toList(),
-                                      doctorId: searchDoctorModel
-                                          .searchDoctors![index].userId
-                                          .toString(),
-                                      firstName: searchDoctorModel
-                                          .searchDoctors![index].firstname
-                                          .toString(),
-                                      lastName: searchDoctorModel
-                                          .searchDoctors![index].lastname
-                                          .toString(),
-                                      imageUrl: searchDoctorModel
-                                          .searchDoctors![index].docterImage
-                                          .toString(),
-                                      mainHospitalName: searchDoctorModel
-                                          .searchDoctors![index].mainHospital
-                                          .toString(),
-                                      specialisation: searchDoctorModel
-                                          .searchDoctors![index].specialization
-                                          .toString(),
-                                      location: searchDoctorModel
-                                          .searchDoctors![index].location
-                                          .toString(),
-                                    );
-                                  });
-                        }
-                        return Container();
-                      },
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: RecommendedDoctorCard(),
-                    )
+                            )
+                          : Column(
+                              children: [
+                                ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: state.model.length,
+                                    itemBuilder: (context, index) {
+                                      final doctor = state.model[index];
+                                      return DoctorCardWidget(
+                                        resheduleType: widget.resheduleType,
+                                        normalResheduleTokenId:
+                                            widget.normalResheduleTokenId,
+                                        favourites: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              BlocProvider.of<GetFavDoctorBloc>(
+                                                      context)
+                                                  .add(const GetFavDoctorEvent
+                                                      .started(false));
+                                              BlocProvider.of<SearchDoctorBloc>(
+                                                      context)
+                                                  .add(SearchDoctorEvent
+                                                      .changeFav(state
+                                                          .model[index].id!));
+                                              BlocProvider.of<
+                                                          AddFavouritesBloc>(
+                                                      context)
+                                                  .add(
+                                                AddFavourites(
+                                                  doctorId: state
+                                                      .model[index].userId
+                                                      .toString(),
+                                                  favouriteStatus: state.favId,
+                                                ),
+                                              );
+
+                                              BlocProvider.of<GetDoctersBloc>(
+                                                      context)
+                                                  .add(const GetDoctersEvent
+                                                      .started(false));
+                                            });
+                                          },
+                                          child: SizedBox(
+                                            height: size.height * 0.028,
+                                            width: size.width * 0.07,
+                                            child: Image.asset(
+                                              state.model[index]
+                                                          .favoriteStatus ==
+                                                      1
+                                                  ? "assets/icons/favorite1.png"
+                                                  : "assets/icons/favorite2.png",
+                                            ),
+                                          ),
+                                        ),
+                                        patientId: widget.patientId,
+                                        clinicList: doctor.clinics!.toList(),
+                                        doctorId: doctor.userId.toString(),
+                                        firstName: doctor.firstname.toString(),
+                                        lastName: doctor.lastname.toString(),
+                                        imageUrl: doctor.docterImage.toString(),
+                                        mainHospitalName:
+                                            doctor.mainHospital.toString(),
+                                        specialisation:
+                                            doctor.specialization.toString(),
+                                        location: doctor.location.toString(),
+                                      );
+                                    }),
+                                const VerticalSpacingWidget(height: 5),
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: RecommendedDoctorCard(),
+                                ),
+                              ],
+                            );
+                    }),
                   ],
                 ),
               );

@@ -1,13 +1,10 @@
 import 'dart:developer';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../domain/error_model/error_model.dart';
 import '../../domain/user_location/model/user_location_model.dart';
 import '../../domain/user_location/user_location_impl.dart';
-
 part 'user_location_event.dart';
 part 'user_location_state.dart';
 part 'user_location_bloc.freezed.dart';

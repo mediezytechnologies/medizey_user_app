@@ -60,9 +60,9 @@ class _UserDetailsDisplayCardWidgetState
     extends State<UserDetailsDisplayCardWidget> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.all(8),
-      height: 45.h,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
@@ -74,10 +74,14 @@ class _UserDetailsDisplayCardWidgetState
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Text(widget.patienName, style: black12B500),
-                ],
+              SizedBox(
+                width: size.width * .55,
+                child: Text(
+                  widget.patienName,
+                  style: black12B500,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               Row(
                 children: [

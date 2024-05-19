@@ -8,11 +8,10 @@ part of 'favorite_doctor.dart';
 
 FavoriteDoctor _$FavoriteDoctorFromJson(Map<String, dynamic> json) =>
     FavoriteDoctor(
-      id: json['id'] as int?,
-      userId: json['UserId'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      userId: (json['UserId'] as num?)?.toInt(),
       firstname: json['firstname'] as String?,
       secondname: json['secondname'] as String?,
-      distanceFromUser: json['distance_from_user'] as String?,
       specialization: json['Specialization'] as String?,
       docterImage: json['DocterImage'] as String?,
       location: json['Location'] as String?,
@@ -20,7 +19,7 @@ FavoriteDoctor _$FavoriteDoctorFromJson(Map<String, dynamic> json) =>
       clinics: (json['clinics'] as List<dynamic>?)
           ?.map((e) => Clinics.fromJson(e as Map<String, dynamic>))
           .toList(),
-      favoriteStatus: json['favoriteStatus'] as int?,
+      favoriteStatus: (json['favoriteStatus'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$FavoriteDoctorToJson(FavoriteDoctor instance) =>
@@ -29,7 +28,6 @@ Map<String, dynamic> _$FavoriteDoctorToJson(FavoriteDoctor instance) =>
       'UserId': instance.userId,
       'firstname': instance.firstname,
       'secondname': instance.secondname,
-      'distance_from_user': instance.distanceFromUser,
       'Specialization': instance.specialization,
       'DocterImage': instance.docterImage,
       'Location': instance.location,

@@ -9,6 +9,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../CommonWidgets/text_style_widget.dart';
+
 class ContactUsScreen extends StatefulWidget {
   const ContactUsScreen({super.key});
 
@@ -20,8 +22,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
   final FocusNode messageFocusController = FocusNode();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Contact Us"),
@@ -31,7 +35,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         listener: (context, state) {
           if (state is ContactUsLoaded) {
             GeneralServices.instance
-                .showSuccessMessage(context, state.successMessage);
+                .showDelaySuccessMessage(context, state.successMessage);
           }
           if (state is ContactUsError) {
             GeneralServices.instance
@@ -45,82 +49,103 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const VerticalSpacingWidget(height: 10),
-                  Text(
-                    "How may we\nhelp you?",
-                    style:
-                        TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
-                  ),
-                  const VerticalSpacingWidget(height: 13),
-                  Text(
-                    "Let us know your queries & feedbacks",
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: kSubTextColor),
-                  ),
-                  const VerticalSpacingWidget(height: 20),
-                  //! email
-                  TextFormField(
-                    cursorColor: kMainColor,
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: kMainColor,
-                      ),
-                      hintStyle:
-                          TextStyle(fontSize: 15.sp, color: kSubTextColor),
-                      hintText: "philipe@gmail.com",
-                      filled: true,
-                      fillColor: kCardColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  const VerticalSpacingWidget(height: 15),
-                  //! message
-                  TextFormField(
-                    maxLines: 4,
-                    cursorColor: kMainColor,
-                    controller: messageController,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        IconlyLight.edit,
-                        color: kMainColor,
-                      ),
-                      hintStyle:
-                          TextStyle(fontSize: 15.sp, color: kSubTextColor),
-                      hintText: "Write your message",
-                      filled: true,
-                      fillColor: kCardColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide.none,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const VerticalSpacingWidget(height: 10),
+                    Text("How may we\nhelp you?", style: black16B600),
+                    const VerticalSpacingWidget(height: 13),
+                    Text("Let us know your queries & feedbacks",
+                        style: black13B500),
+                    const VerticalSpacingWidget(height: 20),
+                    //! email
+                    SizedBox(
+                      height: size.height * .085,
+                      child: TextFormField(
+                        style: black13B500,
+                        cursorColor: kMainColor,
+                        controller: emailController,
+                        validator: (value) {
+                          if (value!.isEmpty ||
+                              !value.contains("@") ||
+                              !value.contains(".")) {
+                            return "Please enter the valid email address";
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            IconlyLight.message,
+                            color: kMainColor,
+                          ),
+                          hintStyle: grey13B600,
+                          hintText: "philipe@gmail.com",
+                          filled: true,
+                          fillColor: kCardColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(vertical: 6.h),
+                        ),
                       ),
                     ),
-                  ),
-                  const VerticalSpacingWidget(height: 20),
-                  //! submit
-                  CommonButtonWidget(
-                      title: "Submit",
-                      onTapFunction: () {
-                        BlocProvider.of<ContactUsBloc>(context).add(
-                            AddContactUs(
-                                description: messageController.text,
-                                email: emailController.text));
-                      }),
-                  const VerticalSpacingWidget(height: 20),
-                ],
+                    const VerticalSpacingWidget(height: 15),
+                    //! message
+                    SizedBox(
+                      child: TextFormField(
+                        style: black13B500,
+                        maxLines: 4,
+                        cursorColor: kMainColor,
+                        controller: messageController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter message";
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            IconlyLight.edit,
+                            color: kMainColor,
+                          ),
+                          hintStyle: grey13B600,
+                          hintText: "Write your message",
+                          filled: true,
+                          fillColor: kCardColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const VerticalSpacingWidget(height: 20),
+                    //! submit
+                    CommonButtonWidget(
+                        title: "Submit",
+                        onTapFunction: () {
+                          if (_formKey.currentState!.validate()) {
+                            BlocProvider.of<ContactUsBloc>(context).add(
+                              AddContactUs(
+                                  description: messageController.text,
+                                  email: emailController.text),
+                            );
+                            emailController.clear();
+                            messageController.clear();
+                          }
+                        }),
+                    const VerticalSpacingWidget(height: 20),
+                  ],
+                ),
               ),
             ),
           ),

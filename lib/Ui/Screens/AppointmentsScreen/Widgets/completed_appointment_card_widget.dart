@@ -1,10 +1,12 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/CompletedAppointmentDetailsScreen/completed_appointment_details_screen.dart';
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class CompletedAppointmentCardWidget extends StatelessWidget {
   const CompletedAppointmentCardWidget(
@@ -49,6 +51,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -84,17 +87,22 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  top: 8.0.h, bottom: 5.0.h, left: 8.w, right: 10.w),
+              padding: EdgeInsets.fromLTRB(5.w, 5.h, 5.w, 0),
               child: Row(
                 children: [
                   FadedScaleAnimation(
                     scaleDuration: const Duration(milliseconds: 400),
                     fadeDuration: const Duration(milliseconds: 400),
-                    child: Image.network(
-                      doctorImage,
-                      height: 105.h,
-                      width: 80.w,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FancyShimmerImage(
+                          height: size.height * .15,
+                          width: size.width * .2,
+                          boxFit: BoxFit.contain,
+                          errorWidget: const Image(
+                            image: AssetImage("assets/icons/no data.png"),
+                          ),
+                          imageUrl: doctorImage),
                     ),
                   ),
                   Padding(
@@ -103,57 +111,39 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const VerticalSpacingWidget(height: 10),
-                        Text(
-                          "Dr.$doctorName",
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                        SizedBox(
+                          width: size.width * .65,
+                          child: Text(
+                            "Dr $doctorName",
+                            style: black14B600,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
                         ),
-                        Text(
-                          clinicName.toString(),
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kSubTextColor),
+                        SizedBox(
+                          width: size.width * .65,
+                          child: Text(
+                            clinicName,
+                            style: grey12B500,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        Text(
-                          symptoms,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: kSubTextColor),
+                        SizedBox(
+                          width: size.width * .65,
+                          child: Text(
+                            symptoms,
+                            style: grey12B500,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         Row(
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  tokenDate,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: kTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  " | ",
-                                  style: TextStyle(
-                                    fontSize: 15.sp,
-                                    color: kTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  tokenTime,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: kTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                Text("$tokenDate | ", style: black12B500),
+                                Text(tokenTime, style: black12B500),
                               ],
                             ),
                           ],
@@ -167,12 +157,13 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                   color: kSubTextColor),
                             ),
-                            Text(
-                              patientName,
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                color: kTextColor,
-                                fontWeight: FontWeight.bold,
+                            SizedBox(
+                              width: size.width * .55,
+                              child: Text(
+                                patientName,
+                                style: black12B500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
@@ -189,7 +180,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: Text(
                   "View More",
-                  style: TextStyle(fontSize: 15.sp, color: Colors.blue),
+                  style: main15,
                 ),
               ),
             ),

@@ -3,8 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  awesome_notifications
   file_selector_linux
-  gtk
+  flutter_secure_storage_linux
   maps_launcher
   url_launcher_linux
 )

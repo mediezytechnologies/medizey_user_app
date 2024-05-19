@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Model/Doctor/doctor_model.dart';
-import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_dcotors_near_you_screen.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_doctors_near_you_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/doctor_near_you_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_screen_loading_widgets.dart';
+import '../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
+import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 
 class GetDoctorWidget extends StatefulWidget {
   const GetDoctorWidget({super.key});
@@ -18,75 +20,101 @@ class GetDoctorWidget extends StatefulWidget {
 }
 
 class _GetDoctorWidgetState extends State<GetDoctorWidget> {
-  late DoctorModel doctorModel;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetDoctorBloc, GetDoctorState>(
-      builder: (context, state) {
-        if (state is GetDoctorLoaded) {
-          doctorModel = BlocProvider.of<GetDoctorBloc>(context).doctorModel;
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HeadingWidget(
-                  title: "Doctors near you",
-                ),
-                const VerticalSpacingWidget(height: 5),
-                LimitedBox(
-                  maxHeight: 195.h,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: doctorModel.allDoctors!.length,
-                      itemBuilder: (context, index) {
-                        return DoctorNearYouWidget(
-                            docterDistance: doctorModel
-                                    .allDoctors![index].distanceFromUser ??
-                                "0.0",
-                            doctorId: doctorModel.allDoctors![index].userId
-                                .toString(),
-                            firstName: doctorModel.allDoctors![index].firstname
-                                .toString(),
-                            lastName: doctorModel.allDoctors![index].secondname
-                                .toString(),
-                            imageUrl: doctorModel.allDoctors![index].docterImage
-                                .toString(),
-                            location: doctorModel.allDoctors![index].location
-                                .toString(),
-                            specialisation: doctorModel
-                                .allDoctors![index].specialization
-                                .toString(),
-                            favouriteStatus: doctorModel
-                                .allDoctors![index].favoriteStatus!
-                                .toInt());
-                      }),
-                ),
-                const VerticalSpacingWidget(height: 5),
-                ViewAllButtonWidget(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) =>
-                              const AllDoctorNearYouScreen()),
-                        ),
-                      );
-                    },
-                    buttonText: "View near you doctors")
-              ],
+    final size = MediaQuery.of(context).size;
+    return BlocConsumer<GetDoctersBloc, GetDoctersState>(
+      listener: (context, state) {
+        if (state.isError) {
+          Center(
+            child: Image(
+              image:
+                  const AssetImage("assets/images/something went wrong-01.png"),
+              height: 200.h,
+              width: 200.w,
             ),
           );
         }
-        if (state is GetDoctorLoading) {
+      },
+      builder: (context, state) {
+        if (state.isloding) {
           return doctorNearYouLoadingWidget(context);
         }
-        if (state is GetDoctorError) {
-          return Container();
-        }
-        return Container();
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HeadingWidget(
+                title: "Doctors near you",
+              ),
+              const VerticalSpacingWidget(height: 5),
+              LimitedBox(
+                maxHeight: size.height * .250,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.model.length,
+                    itemBuilder: (context, index) {
+                      return DoctorNearYouWidget(
+                          favourites: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                BlocProvider.of<GetDoctersBloc>(context).add(
+                                    GetDoctersEvent.changeFav(
+                                        state.model[index].id!));
+                                BlocProvider.of<AddFavouritesBloc>(context).add(
+                                  AddFavourites(
+                                    doctorId:
+                                        state.model[index].userId.toString(),
+                                    favouriteStatus: state.favId,
+                                  ),
+                                );
+                                BlocProvider.of<GetFavDoctorBloc>(context).add(
+                                    const GetFavDoctorEvent.started(false));
+                                BlocProvider.of<GetRecentlyBookedDoctorBloc>(
+                                        context)
+                                    .add(const GetRecentlyBookedDoctorEvent
+                                        .started(false));
+                              });
+                            },
+                            child: SizedBox(
+                              height: size.height * 0.028,
+                              width: size.width * 0.07,
+                              child: Image.asset(
+                                state.model[index].favoriteStatus == 1
+                                    ? "assets/icons/favorite1.png"
+                                    : "assets/icons/favorite2.png",
+                              ),
+                            ),
+                          ),
+                          docterDistance:
+                              state.model[index].nearestDoctorClinic.toString(),
+                          doctorId: state.model[index].userId.toString(),
+                          firstName: state.model[index].firstname.toString(),
+                          lastName: state.model[index].secondname.toString(),
+                          imageUrl: state.model[index].docterImage.toString(),
+                          location: state.model[index].location.toString(),
+                          specialisation:
+                              state.model[index].specialization.toString(),
+                          favouriteStatus: state.model[index].favoriteStatus!);
+                    }),
+              ),
+              const VerticalSpacingWidget(height: 5),
+              ViewAllButtonWidget(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => const AllDoctorNearYouScreen()),
+                      ),
+                    );
+                  },
+                  buttonText: "View near you doctors")
+            ],
+          ),
+        );
       },
     );
   }

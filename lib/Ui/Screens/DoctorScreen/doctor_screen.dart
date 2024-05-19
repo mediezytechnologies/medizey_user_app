@@ -3,7 +3,6 @@
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetAllSpecialisations/get_all_specialisations_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetHealthCategories/get_health_categories_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
@@ -27,8 +26,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
   void initState() {
     BlocProvider.of<GetHealthCategoriesBloc>(context)
         .add(FetchHealthCategories());
-    BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
-        .add(FetchRecentlyBookedDoctors());
     BlocProvider.of<GetAllSpecialisationsBloc>(context)
         .add(FetchAllSpecialisations());
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "2"));

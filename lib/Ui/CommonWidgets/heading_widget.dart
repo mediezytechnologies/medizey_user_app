@@ -8,9 +8,6 @@ class HeadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: grey15B500
-    );
+    return Text(title, style: grey15B500);
   }
 }

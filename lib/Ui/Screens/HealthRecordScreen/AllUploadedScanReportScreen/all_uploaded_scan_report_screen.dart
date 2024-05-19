@@ -19,6 +19,7 @@ class _AllUploadedScanReportScreenState
     extends State<AllUploadedScanReportScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocBuilder<GetUploadedScanReportBloc, GetUploadedScanReportState>(
       builder: (context, state) {
         if (state is GetUploadedScanReportLoading) {
@@ -45,14 +46,17 @@ class _AllUploadedScanReportScreenState
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
                     children: [
-                      Image.asset("assets/icons/no data.png"),
+                      Image.asset(
+                        "assets/icons/no data.png",
+                        height: size.height * .45,
+                      ),
                       const VerticalSpacingWidget(height: 10),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AddDocumentScreen(
+                              builder: (context) => AddDocumentScreen(
                                 appBarTitle: "Upload Scan Report",
                                 type: 4,
                                 stringType: "Scanning report",
@@ -64,8 +68,7 @@ class _AllUploadedScanReportScreenState
                           image: const AssetImage(
                             "assets/images/upload_scan_report.png",
                           ),
-                          width: 300.w,
-                          height: 150.h,
+                          height: size.height * .2,
                         ),
                       )
                     ],

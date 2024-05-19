@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, use_rethrow_when_possible, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart';
 import 'package:mediezy_user/Model/Profile/edit_user_model.dart';
@@ -17,6 +18,7 @@ class ProfileApi {
   Future<GetUserModel> getUserDetails() async {
     final preferences = await SharedPreferences.getInstance();
     String? userId = preferences.getString('userId');
+    log(" userId  clint side  $userId");
     String basePath = "Useredit/$userId";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
