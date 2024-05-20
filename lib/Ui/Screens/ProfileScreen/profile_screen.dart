@@ -26,6 +26,9 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../ddd/firebase_service/firebase_auth_service.dart';
+import '../../CommonWidgets/text_style_widget.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -45,6 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         Navigator.push(
@@ -80,10 +84,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           highlightColor: kShimmerHighlightColor,
                           child: Container(
                             width: double.infinity,
-                            height: 110.h,
+                            height: size.height * .14,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         );
@@ -98,8 +102,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             BlocProvider.of<GetUserBloc>(context).getUserModel;
                         return Container(
                           decoration: BoxDecoration(
-                              color: kCardColor,
-                              borderRadius: BorderRadius.circular(10)),
+                            color: kCardColor,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -111,8 +116,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fadeDuration:
                                       const Duration(milliseconds: 400),
                                   child: Container(
-                                    height: 100.h,
-                                    width: 105.w,
+                                    height: size.height * .09,
+                                    width: size.width * .18,
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
@@ -122,54 +127,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       fadeDuration:
                                           const Duration(milliseconds: 400),
                                       child: ClipOval(
-                                        child: imageFromGallery != null
-                                            ? Image.file(
-                                                imageFromGallery!,
-                                                height: 80.h,
-                                                width: 80.w,
-                                                fit: BoxFit.cover,
+                                        child: (getUserModel
+                                                    .userdetails!.userProfile ==
+                                                null
+                                            ? Image.asset(
+                                                "assets/icons/profile pic.png",
+                                                height: size.height * .09,
+                                                width: size.width * .18,
+                                                color: kMainColor,
                                               )
-                                            : (getUserModel.userdetails!
-                                                        .userProfile ==
-                                                    "https://mediezy.com/UserImages"
-                                                ? Image.asset(
+                                            : Image.network(
+                                                getUserModel
+                                                    .userdetails!.userProfile
+                                                    .toString(),
+                                                height: size.height * .09,
+                                                width: size.width * .18,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Image.asset(
                                                     "assets/icons/profile pic.png",
-                                                    height: 80.h,
-                                                    width: 80.w,
+                                                    height: size.height * .09,
+                                                    width: size.width * .18,
                                                     color: kMainColor,
-                                                  )
-                                                : Image.network(
-                                                    getUserModel.userdetails!
-                                                        .userProfile
-                                                        .toString(),
-                                                    height: 80.h,
-                                                    width: 80.w,
-                                                    fit: BoxFit.cover,
-                                                  )),
+                                                  ),
+                                                ),
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child: Shimmer.fromColors(
+                                                      baseColor:
+                                                          kShimmerBaseColor,
+                                                      highlightColor:
+                                                          kShimmerHighlightColor,
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      80.r),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )),
                                       ),
                                     ),
                                   ),
                                 ),
-                                const HorizontalSpacingWidget(width: 25),
+                                const HorizontalSpacingWidget(width: 15),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      getUserModel.userdetails!.firstname
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: kTextColor),
-                                    ),
-                                    const VerticalSpacingWidget(height: 25),
+                                        getUserModel.userdetails!.firstname
+                                            .toString(),
+                                        style: black15B600),
+                                    const VerticalSpacingWidget(height: 2),
                                     Text(
-                                      "+91 ${getUserModel.userdetails!.mobileNo.toString()}",
-                                      style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: kSubTextColor),
-                                    ),
+                                        getUserModel.userdetails!.email
+                                            .toString(),
+                                        style: grey13B400),
+                                    const VerticalSpacingWidget(height: 2),
+                                    Text(
+                                        "+91 ${getUserModel.userdetails!.mobileNo.toString()}",
+                                        style: grey13B400),
                                   ],
                                 )
                               ],
@@ -180,13 +214,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       return Container();
                     },
                   ),
-                  const VerticalSpacingWidget(height: 10),
+                  const VerticalSpacingWidget(height: 5),
                   //! profile card items
                   Row(
                     children: [
                       Expanded(
                         child: ProfileCardWidget(
-                          title: "My Profile",
+                          title: "My profile",
                           subTitle: "Edit profile",
                           icon: Icons.edit_outlined,
                           onTapFunction: () {
@@ -220,7 +254,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
                         child: ProfileCardWidget(
-                            title: "Favourite Doctors",
+                            title: "Favourite doctors",
                             subTitle: "Doctors",
                             icon: Icons.bookmark_outline,
                             onTapFunction: () {
@@ -240,7 +274,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Expanded(
                         child: ProfileCardWidget(
-                          title: "About Us",
+                          title: "About us",
                           subTitle: "Know more",
                           icon: Icons.assignment_turned_in_outlined,
                           onTapFunction: () {
@@ -256,7 +290,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
                         child: ProfileCardWidget(
-                            title: "Recent Booked",
+                            title: "Recent booked",
                             subTitle: "Doctors",
                             icon: Icons.book,
                             onTapFunction: () {
@@ -332,6 +366,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             subTitle: "log out",
                             icon: Icons.logout,
                             onTapFunction: () async {
+
                               GeneralServices.instance.appCloseDialogue(
                                   context, "Are you sure to log out", () async {
                                 final preferences =
@@ -341,6 +376,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 await preferences.remove('lastName');
                                 await preferences.remove('userId');
                                 await preferences.remove('phoneNumber');
+                                AuthServiceGoogle.instance.logOut(context);
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

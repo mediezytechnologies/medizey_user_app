@@ -63,6 +63,7 @@ import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 
 import '../../ddd/application/add_members/add_members_bloc.dart';
+import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
 
 class AppBlocProviders {
   static get allBlocProviders => [
@@ -143,5 +144,8 @@ class AppBlocProviders {
           create: (context) => getIt<EditMemberImageBloc>(),
         ),
         BlocProvider(create: (context) => GetVitalsBloc()),
+         BlocProvider(
+          create: (context) => getIt<FirebaseLoginBloc>(),
+        ),
       ];
 }

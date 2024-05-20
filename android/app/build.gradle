@@ -82,4 +82,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation platform('com.google.firebase:firebase-bom:33.0.0')
+}
