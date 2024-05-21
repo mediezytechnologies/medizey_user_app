@@ -28,7 +28,7 @@ class FcmTokenImpl implements FccmTokenRepo {
           "user_id": userId,
         },
       );
-      log(userId);
+      log("user id in token : $userId");
 
       log(response.data.toString());
       log("res data${response.data.toString()}");

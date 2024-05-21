@@ -48,42 +48,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:220538846317:android:610940cdf00e7fe07f5364",
-        "android_client_info": {
-          "package_name": "com.mediezy.mediezytech.user"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "220538846317-7vq4a6rfnm489gurvrujniv8eraok9ps.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCXdwYQQ1C1sbm-rOrr2i6xA9R2j-D7sek"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "220538846317-7vq4a6rfnm489gurvrujniv8eraok9ps.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "220538846317-1rlm7ejs8e8fb47dhiu7l1shnl6pid0f.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.mediezy.mediezytechnology.user"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"
