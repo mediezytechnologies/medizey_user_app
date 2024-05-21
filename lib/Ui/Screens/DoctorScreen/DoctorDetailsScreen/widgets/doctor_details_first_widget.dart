@@ -41,30 +41,24 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
         color: kCardColor,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FadedScaleAnimation(
-                    scaleDuration: const Duration(milliseconds: 400),
-                    fadeDuration: const Duration(milliseconds: 400),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.r),
-                      child: FancyShimmerImage(
-                          height: size.height * .14,
-                          width: size.width * .19,
-                          boxFit: BoxFit.contain,
-                          errorWidget: const Image(
-                            image: AssetImage("assets/icons/no image.png"),
-                          ),
-                          imageUrl: image),
-                    ),
-                  ),
-                  Text('Dr.\n$firstName\n$secondName', style: black14B600),
-                ],
+              FadedScaleAnimation(
+                scaleDuration: const Duration(milliseconds: 400),
+                fadeDuration: const Duration(milliseconds: 400),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: FancyShimmerImage(
+                      height: size.height * .14,
+                      width: size.width * .19,
+                      boxFit: BoxFit.contain,
+                      errorWidget: const Image(
+                        image: AssetImage("assets/icons/no image.png"),
+                      ),
+                      imageUrl: image),
+                ),
               ),
               const HorizontalSpacingWidget(width: 20),
               Column(
@@ -95,49 +89,59 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const VerticalSpacingWidget(height: 15),
-                  BlocBuilder<AddFavouritesBloc, AddFavouritesState>(
-                    builder: (context, state) {
-                      return InkWell(
-                        onTap: () {
-                          BlocProvider.of<AddFavouritesBloc>(context).add(
-                            AddFavourites(
-                                doctorId: doctorId,
-                                favouriteStatus: favouriteStatus),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
-                            border: Border.all(width: 1.5.w, color: kMainColor),
-                          ),
-                          height: size.height * 0.04,
-                          width: size.width * .45,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                  state.favouriteStatusMap[doctorId] == false
-                                      ? "Remove from favourite"
-                                      : "Add to favourite",
-                                  style: main12B600),
-                              const HorizontalSpacingWidget(width: 5),
-                              Icon(
-                                state.favouriteStatusMap[doctorId] == false
-                                    ? CupertinoIcons.heart_fill
-                                    : CupertinoIcons.heart,
-                                color: kMainColor,
-                                size: 16.sp,
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
                 ],
               )
             ],
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              'Dr $firstName $secondName',
+              style: black14B600,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: BlocBuilder<AddFavouritesBloc, AddFavouritesState>(
+              builder: (context, state) {
+                return InkWell(
+                  onTap: () {
+                    BlocProvider.of<AddFavouritesBloc>(context).add(
+                      AddFavourites(
+                          doctorId: doctorId, favouriteStatus: favouriteStatus),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.r),
+                      border: Border.all(width: 1.5.w, color: kMainColor),
+                    ),
+                    height: size.height * 0.04,
+                    width: size.width * .45,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                            state.favouriteStatusMap[doctorId] == false
+                                ? "Remove from favourite"
+                                : "Add to favourite",
+                            style: main12B600),
+                        const HorizontalSpacingWidget(width: 5),
+                        Icon(
+                          state.favouriteStatusMap[doctorId] == false
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
+                          color: kMainColor,
+                          size: 16.sp,
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
