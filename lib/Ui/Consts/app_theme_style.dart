@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
-ThemeData appThemeStyle() {
+ThemeData appThemeStyle(BuildContext context) {
   return ThemeData(
     scaffoldBackgroundColor: kScaffoldColor,
+    textTheme: GoogleFonts.robotoTextTheme(
+      Theme.of(context).textTheme,
+    ),
     //* appbar
     appBarTheme: AppBarTheme(
       backgroundColor: kScaffoldColor,
@@ -12,7 +16,7 @@ ThemeData appThemeStyle() {
       centerTitle: false,
       elevation: 0,
       titleTextStyle: TextStyle(
-          fontSize: 20.sp, fontWeight: FontWeight.w600, color: Colors.black),
+          fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor),
     ),
   );
 }

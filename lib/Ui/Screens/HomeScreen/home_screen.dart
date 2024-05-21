@@ -1,32 +1,31 @@
 // ignore_for_file: deprecated_member_use
-
 import 'dart:async';
+import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Article/article_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetCompletedAppointments/get_completed_appointments_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetHealthSymptomsAndDoctor/GetHealthSymptoms/get_health_symptoms_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetRecentlyBookedDoctor/get_recently_booked_doctors_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetHealthCategories/get_health_categories_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospital/get_hospital_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_article_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_helath_concern_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_hospital_widget.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/home_recently_booked_doctor_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_recently_booked_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-import 'Widgets/home_appbar.dart';
+import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+import '../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
+import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
+import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../../../ddd/infrastructure/firebase_service/notification_service.dart';
+import 'Widgets/get_completed_feedback_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,29 +36,47 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController suggestionController = TextEditingController();
+
   late Timer pollingTimer;
   bool isLoading = true;
-
-//location //===========
-
+  late ScrollController _scrollViewController;
+  bool _showAppbar = true;
+  bool isScrollingDown = false;
 
   @override
   void initState() {
+    _scrollViewController = ScrollController();
+    _scrollViewController.addListener(() {
+      if (_scrollViewController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (!isScrollingDown) {
+          isScrollingDown = true;
+          _showAppbar = false;
+          setState(() {});
+        }
+      }
+
+      if (_scrollViewController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (isScrollingDown) {
+          isScrollingDown = false;
+          _showAppbar = true;
+          setState(() {});
+        }
+      }
+    });
     super.initState();
+
     BlocProvider.of<GetUpcomingAppointmentBloc>(context)
         .add(FetchUpComingAppointments());
-    BlocProvider.of<GetHealthCategoriesBloc>(context)
-        .add(FetchHealthCategories());
-    BlocProvider.of<GetUserBloc>(context).add(FetchUserDetails());
-    BlocProvider.of<GetRecentlyBookedDoctorsBloc>(context)
-        .add(FetchRecentlyBookedDoctors());
-    BlocProvider.of<GetHealthSymptomsBloc>(context)
-        .add(FetchAllHealthSymptoms());
-    BlocProvider.of<GetHospitalBloc>(context).add((FetchAllHospitals()));
-    BlocProvider.of<ArticleBloc>(context).add((FetchArticle()));
-    BlocProvider.of<GetCompletedAppointmentsBloc>(context)
-        .add(FetchCompletedAppointments());
-    BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "1"));
+    BlocProvider.of<GetRecentlyBookedDoctorBloc>(context)
+        .add(const GetRecentlyBookedDoctorEvent.started(true));
+    BlocProvider.of<GetDoctersBloc>(context)
+        .add(const GetDoctersEvent.started(true));
+    BlocProvider.of<GetFavDoctorBloc>(context)
+        .add(const GetFavDoctorEvent.started(true));
+    BlocProvider.of<GetCompletedFeedbackAppointmentBloc>(context)
+        .add(FetchCompletedFeedbackAppointments());
     startPolling();
   }
 
@@ -74,16 +91,20 @@ class _HomeScreenState extends State<HomeScreen> {
     pollingTimer.cancel();
   }
 
+  appBarScrolling() {}
+
   @override
   void dispose() {
     stopPolling();
+    stopPolling();
+    _scrollViewController.dispose();
+    _scrollViewController.removeListener(() {});
     super.dispose();
   }
 
-  ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
-
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
     return FadedSlideAnimation(
       beginOffset: const Offset(0, 0.3),
@@ -98,80 +119,69 @@ class _HomeScreenState extends State<HomeScreen> {
           return Future.value(false);
         },
         child: Scaffold(
+          
           backgroundColor: kSecondaryColor,
-          body: ValueListenableBuilder(
-              valueListenable: scrollNotifier,
-              builder: (context, index, _) {
-                return NotificationListener<UserScrollNotification>(
-                  onNotification: (notification) {
-                    final ScrollDirection direction = notification.direction;
-                    if (direction == ScrollDirection.reverse) {
-                      scrollNotifier.value = false;
-                    } else if (direction == ScrollDirection.forward) {
-                      scrollNotifier.value = true;
-                    }
-                    return true;
-                  },
-                  child: Stack(
+          body: Column(
+            children: [
+              HomeAappBar(
+                isAppBar: _showAppbar ? size.height * .10 : 0.0,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  dragStartBehavior: DragStartBehavior.start,
+                  controller: _scrollViewController,
+                  child: Column(
                     children: [
-                      ListView(
-                        children: [
-                          SizedBox(
-                            height: size.height * 0.06,
-                          ),
-                          const HomeIntroCard(),
-                          Container(
-                            width: double.infinity,
-                            color: kSubScaffoldColor,
-                            child: Padding(
+                      SizedBox(height: size.height * 0.02),
+                      const HomeIntroCard(),
+                      Container(
+                        width: double.infinity,
+                        color: kSubScaffoldColor,
+                        child: Column(
+                          children: [
+                            const VerticalSpacingWidget(height: 5),
+                            const UpcommingAppoiment(),
+                            const VerticalSpacingWidget(height: 5),
+                            const GetCompletedFeedbackWidget(),
+                            Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: size.width * 0.01),
-                              child: const Column(
-                                children: [
-                                  VerticalSpacingWidget(height: 5),
-                                  RecommendedDoctorCard(),
-                                  VerticalSpacingWidget(height: 5),
-                                  UpcommingAppoiment(),
-                                  VerticalSpacingWidget(height: 5),
-                                  HomeHealthConcernWidget(),
-                                  VerticalSpacingWidget(height: 5),
-                                  HomeRecentlyBookedDoctorWidget(),
-                                  VerticalSpacingWidget(height: 5),
-                                ],
-                              ),
+                              child: const GetDoctorWidget(),
                             ),
-                          ),
-                          HomeSuggestDoctorWidget(
-                              suggestionController: suggestionController),
-                          Container(
-                            width: double.infinity,
-                            color: kSubScaffoldColor,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.01),
-                              child: const Column(
-                                children: [
-                                  VerticalSpacingWidget(height: 5),
-                                  HomeHospitalWidget(),
-                                  VerticalSpacingWidget(height: 5),
-                                  HomeArticleWidget(),
-                                  VerticalSpacingWidget(height: 5),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Image(
-                            image: AssetImage("assets/images/mediezy.jpg"),
-                          ),
-                        ],
+                            const VerticalSpacingWidget(height: 5),
+                            const GetFavouriteDoctorWidget(),
+                            const VerticalSpacingWidget(height: 5),
+                            const HomeRecentlyBookedDoctorWidget(),
+                            const VerticalSpacingWidget(height: 5),
+                          ],
+                        ),
                       ),
-                      scrollNotifier.value == true
-                          ?  HomeAappBar()
-                          : const SizedBox(),
+                      HomeSuggestDoctorWidget(
+                          suggestionController: suggestionController),
+                      Container(
+                        width: double.infinity,
+                        color: kSubScaffoldColor,
+                        child: Column(
+                          children: [
+                            const VerticalSpacingWidget(height: 5),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.01),
+                              child: const RecommendedDoctorCard(),
+                            ),
+                            const VerticalSpacingWidget(height: 5),
+                          ],
+                        ),
+                      ),
+                      const Image(
+                        image: AssetImage("assets/images/mediezy.jpg"),
+                      ),
                     ],
                   ),
-                );
-              }),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

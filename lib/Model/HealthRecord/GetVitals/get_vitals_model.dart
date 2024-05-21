@@ -1,14 +1,14 @@
 class GetVitalsModel {
-  String? status;
+  bool? status;
   List<Vitals>? vitals;
 
   GetVitalsModel({this.status, this.vitals});
 
   GetVitalsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    if (json['Vitals'] != null) {
+    if (json['vitals'] != null) {
       vitals = <Vitals>[];
-      json['Vitals'].forEach((v) {
+      json['vitals'].forEach((v) {
         vitals!.add(Vitals.fromJson(v));
       });
     }
@@ -18,7 +18,7 @@ class GetVitalsModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     if (vitals != null) {
-      data['Vitals'] = vitals!.map((v) => v.toJson()).toList();
+      data['vitals'] = vitals!.map((v) => v.toJson()).toList();
     }
     return data;
   }

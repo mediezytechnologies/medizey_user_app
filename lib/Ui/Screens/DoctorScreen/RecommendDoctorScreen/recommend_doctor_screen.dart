@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/DoctorRecommend/doctor_recommend_bloc.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -36,8 +37,12 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
                 .showErrorMessage(context, state.errorMessage);
           }
           if (state is DoctorRecommendLoaded) {
-            return GeneralServices.instance
-                .showDelaySuccessMessage(context, state.successMesseage);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const BottomNavigationControlWidget(),
+                ),
+                (route) => false);
+            GeneralServices.instance.showToastMessage(state.successMesseage);
           }
         },
         child: SingleChildScrollView(
@@ -48,7 +53,7 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
               children: [
                 const VerticalSpacingWidget(height: 10),
                 Text(
-                  "Dotor name",
+                  "Doctor name",
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 13.sp,
@@ -100,7 +105,7 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
                     decoration: InputDecoration(
                       hintStyle:
                           TextStyle(fontSize: 13.sp, color: kSubTextColor),
-                      hintText: "Enter loaction",
+                      hintText: "Enter location",
                       filled: true,
                       fillColor: kCardColor,
                       border: OutlineInputBorder(

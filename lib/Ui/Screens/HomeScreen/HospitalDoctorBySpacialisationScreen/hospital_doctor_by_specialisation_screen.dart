@@ -6,7 +6,7 @@ import 'package:mediezy_user/Model/Hospital/get_hospital_doctor_by_specialisatio
 import 'package:mediezy_user/Repository/Bloc/Hospital/GetHospitalDoctorBySpecialisation/get_hospital_doctor_by_specialisation_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_card_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/doctor_card_widget.dart';
 
 class HospitalDoctorBySpecialisation extends StatefulWidget {
   const HospitalDoctorBySpecialisation(
@@ -98,6 +98,7 @@ class _HospitalDoctorBySpecialisationState
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     return DoctorCardWidget(
+                                      favourites: const SizedBox(),
                                       clinicList:
                                           getHospitalDoctorBySpecialisationModel
                                               .doctorDetails![index].clinics!

@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/doctor_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/health_record_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/home_screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
@@ -40,7 +39,7 @@ class _BottomNavigationControlWidgetState
 
   List<Widget> screens = const [
     HomeScreen(),
-    DoctorScreen(),
+    // DoctorScreen(),
     AppointmentsScreen(),
     HealthRecordScreen(),
     ProfileScreen(),
@@ -63,26 +62,26 @@ class _BottomNavigationControlWidgetState
         showUnselectedLabels: true,
         selectedItemColor: kMainColor,
         selectedLabelStyle: TextStyle(
-            color: kCardColor, fontSize: 10.sp, fontWeight: FontWeight.w500),
+            color: kCardColor, fontSize: 11.sp, fontWeight: FontWeight.w500),
         unselectedLabelStyle: TextStyle(
-            color: kCardColor, fontSize: 8.sp, fontWeight: FontWeight.w500),
+            color: kCardColor, fontSize: 9.sp, fontWeight: FontWeight.w500),
         items: [
           BottomNavigationBarItem(
               icon: Icon(
                   selectedIndex == 0 ? IconlyBold.home : IconlyLight.home,
                   color: kMainColor),
               label: "Home"),
-          BottomNavigationBarItem(
-              icon: ImageIcon(
-                selectedIndex == 1
-                    ? const AssetImage("assets/icons/doctorIconDark.png")
-                    : const AssetImage("assets/icons/doctorIconLight.png"),
-                color: kMainColor,
-              ),
-              label: "Doctor"),
+          // BottomNavigationBarItem(
+          //     icon: ImageIcon(
+          //       selectedIndex == 1
+          //           ? const AssetImage("assets/icons/doctorIconDark.png")
+          //           : const AssetImage("assets/icons/doctorIconLight.png"),
+          //       color: kMainColor,
+          //     ),
+          //     label: "Doctor"),
           BottomNavigationBarItem(
               icon: Icon(
-                  selectedIndex == 2
+                  selectedIndex == 1
                       ? IconlyBold.calendar
                       : IconlyLight.calendar,
                   color: kMainColor),
@@ -93,13 +92,13 @@ class _BottomNavigationControlWidgetState
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 label: const Text("Upload"),
                 child: Icon(
-                    selectedIndex == 3 ? IconlyBold.chart : IconlyLight.chart,
+                    selectedIndex == 2 ? IconlyBold.chart : IconlyLight.chart,
                     color: kMainColor),
               ),
               label: "Health records"),
           BottomNavigationBarItem(
               icon: Icon(
-                  selectedIndex == 4 ? IconlyBold.profile : IconlyLight.profile,
+                  selectedIndex == 3 ? IconlyBold.profile : IconlyLight.profile,
                   color: kMainColor),
               label: "Profile"),
         ],

@@ -32,7 +32,9 @@ class BookAppointmentBloc
             bookingType: event.bookingType,
             patientId: event.patientId,
             sheduleType: event.sheduleType,
-            tokenId: event.tokenId);
+            tokenId: event.tokenId,
+            resheduleOrNot: event.resheduleOrNot,
+            normalResheduleTokenId: event.normalResheduleTokenId);
         emit(BookAppointmentLoaded());
       } catch (error) {
         print("<<<<<<BOOK APPOINTMENT ERROR : $error>>>>>");

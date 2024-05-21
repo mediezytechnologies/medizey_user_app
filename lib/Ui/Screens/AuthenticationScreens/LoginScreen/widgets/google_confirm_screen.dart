@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
+import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../CommonWidgets/common_button_widget.dart';
 import '../../../../CommonWidgets/text_style_widget.dart';
@@ -133,9 +135,9 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                             .add(FirebaseLoginEvent.started(
                           phoneNumberController.text,
                         ));
-//  BlocProvider.of<NotificatioTokenBloc>(context).add(
-//                     NotificatioTokenEvent.started(),
-//                   );
+ BlocProvider.of<NotificatioTokenBloc>(context).add(
+                    NotificatioTokenEvent.started(),
+                  );
                         //        Navigator.pushAndRemoveUntil(
                         // context,
                         // MaterialPageRoute(

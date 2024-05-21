@@ -14,8 +14,7 @@ class CustomeAppBar extends StatelessWidget {
     return Stack(
       children: [
         const Image(
-          image:
-              AssetImage("assets/images/doctor image search.jpg"),
+          image: AssetImage("assets/images/doctor image search.jpg"),
           fit: BoxFit.fill,
         ),
         Positioned(
@@ -26,7 +25,7 @@ class CustomeAppBar extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const SearchScreen(),
+                  builder: (context) => SearchScreen(),
                 ),
               );
             },
@@ -44,8 +43,7 @@ class CustomeAppBar extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10.w),
                     child: Text(
                       "Search your Doctor",
-                      style: TextStyle(
-                          fontSize: 15.sp, color: kSubTextColor),
+                      style: TextStyle(fontSize: 15.sp, color: kSubTextColor),
                     ),
                   ),
                   Padding(

@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -18,6 +19,7 @@ import 'package:mediezy_user/Repository/Bloc/HealthRecord/UpdateMedicine/update_
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUpdatedMedicine/get_updated_medicine_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUpdatedMedicine/get_updated_medicine_event.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUpdatedMedicine/get_updated_medicine_state.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
@@ -26,6 +28,8 @@ import 'package:mediezy_user/ddd/application/edit_member/edit_member_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class EditPatientScreen extends StatefulWidget {
   const EditPatientScreen({
@@ -113,7 +117,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     super.initState();
     log("Patient imageee ${widget.patientImage}>>>>>>>>");
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
-       BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
+    BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
         .add(GetFetchUpdatedMedicineEvent(patientId: widget.patientId));
     nameController.text = widget.patienName;
@@ -157,6 +161,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Patient"),
@@ -187,71 +192,64 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: Container(
-                          height: 100.h,
-                          width: 110.w,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: FadedScaleAnimation(
-                            scaleDuration: const Duration(milliseconds: 400),
-                            fadeDuration: const Duration(milliseconds: 400),
-                            child: ClipOval(
-                              child: imagePath != null
-                                  ? Image.file(
-                                      File(imagePath!),
-                                      height: 80.h,
-                                      width: 80.w,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : (widget.patientImage == ""
-                                      ? Image.asset(
-                                          "assets/icons/profile pic.png",
-                                          height: 80.h,
-                                          width: 80.w,
-                                          color: kMainColor,
-                                        )
-                                      : Image.network(
-                                          widget.patientImage,
-                                          height: 80.h,
-                                          width: 80.w,
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  Padding(
-                                            padding: const EdgeInsets.all(3.0),
-                                            child: Image.asset(
-                                              "assets/icons/profile pic.png",
-                                              height: 80.h,
-                                              width: 80.w,
-                                              color: kMainColor,
-                                            ),
+                        child: FadedScaleAnimation(
+                          scaleDuration: const Duration(milliseconds: 400),
+                          fadeDuration: const Duration(milliseconds: 400),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(70.r),
+                            child: imagePath != null
+                                ? Image.file(
+                                    File(imagePath!),
+                                    height: size.height * .14,
+                                    width: size.width * .30,
+                                    fit: BoxFit.cover,
+                                  )
+                                : (widget.patientImage == ""
+                                    ? Image.asset(
+                                        "assets/icons/profile pic.png",
+                                        height: size.height * .14,
+                                        width: size.width * .30,
+                                        color: kMainColor,
+                                      )
+                                    : Image.network(
+                                        widget.patientImage,
+                                        height: size.height * .14,
+                                        width: size.width * .30,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Image.asset(
+                                            "assets/icons/profile pic.png",
+                                            height: size.height * .14,
+                                            width: size.width * .30,
+                                            color: kMainColor,
                                           ),
-                                          loadingBuilder: (BuildContext context,
-                                              Widget child,
-                                              ImageChunkEvent?
-                                                  loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Center(
-                                              child: Shimmer.fromColors(
-                                                baseColor: kShimmerBaseColor,
-                                                highlightColor:
-                                                    kShimmerHighlightColor,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            80.r),
-                                                  ),
+                                        ),
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return Center(
+                                            child: Shimmer.fromColors(
+                                              baseColor: kShimmerBaseColor,
+                                              highlightColor:
+                                                  kShimmerHighlightColor,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          80.r),
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        )),
-                            ),
+                                            ),
+                                          );
+                                        },
+                                      )),
                           ),
                         ),
                       ),
@@ -276,32 +274,23 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     // Text(imagePath!),
-                      Text(widget.patientImage ),
-                      Text(
-                        "Full Name",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13.sp,
-                            color: kSubTextColor),
-                      ),
-                      VerticalSpacingWidget(height: 5.h),
+                      Text("Full Name", style: grey12B500),
+                      VerticalSpacingWidget(height: 2.h),
                       SizedBox(
-                        height: 50.h,
+                        height: size.height * .065,
                         child: TextFormField(
-                          style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                          style: black13B500,
                           cursorColor: kMainColor,
                           controller: nameController,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
-                            hintStyle: TextStyle(
-                                fontSize: 13.sp, color: kSubTextColor),
+                            hintStyle: grey12B500,
                             hintText: widget.patienName,
                             filled: true,
                             fillColor: kCardColor,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(4.r),
                               borderSide: BorderSide.none,
                             ),
                             contentPadding: const EdgeInsets.symmetric(
@@ -318,20 +307,13 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Phone Number",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 13.sp,
-                                color: kSubTextColor),
-                          ),
-                          const VerticalSpacingWidget(height: 5),
+                          Text("Phone Number", style: grey12B500),
+                          const VerticalSpacingWidget(height: 2),
                           SizedBox(
-                            height: 50.h,
-                            width: 200.w,
+                            height: size.height * .065,
+                            width: size.width * .5,
                             child: TextFormField(
-                              style:
-                                  TextStyle(fontSize: 13.sp, color: kTextColor),
+                              style: black13B500,
                               cursorColor: kMainColor,
                               controller: phoneNumberController,
                               keyboardType: TextInputType.number,
@@ -339,13 +321,12 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               maxLength: 10,
                               decoration: InputDecoration(
                                 counterText: "",
-                                hintStyle: TextStyle(
-                                    fontSize: 13.sp, color: kSubTextColor),
+                                hintStyle: grey12B500,
                                 hintText: widget.patientNumber,
                                 filled: true,
                                 fillColor: kCardColor,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(4.r),
                                   borderSide: BorderSide.none,
                                 ),
                                 contentPadding: const EdgeInsets.symmetric(
@@ -358,50 +339,44 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "DOB",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 13.sp,
-                                color: kSubTextColor),
-                          ),
-                          VerticalSpacingWidget(height: 5.h),
+                          Text("DOB", style: grey12B500),
+                          VerticalSpacingWidget(height: 2.h),
                           InkWell(
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                              selectDate(
+                              selectIosDate(
                                 context: context,
-                                date: DateTime.now(),
+                                date: dateOfBirth ?? DateTime.now(),
                                 onDateSelected: (DateTime picked) async {
                                   setState(() {
                                     dateOfBirth = picked;
                                   });
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
                                 },
                               );
                             },
                             child: Container(
-                              height: 45.h,
-                              width: 130.w,
+                              height: size.height * .065,
+                              width: size.width * .35,
                               decoration: BoxDecoration(
-                                color: kCardColor,
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: BorderRadius.circular(4.r),
                               ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    dateOfBirth == null
-                                        ? widget.dateOfBirth
-                                        : DateFormat('yyy-MM-dd')
-                                            .format(dateOfBirth!),
-                                    style: TextStyle(
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: kTextColor),
-                                  ),
+                                      dateOfBirth == null
+                                          ? widget.dateOfBirth
+                                          : DateFormat('yyy-MM-dd')
+                                              .format(dateOfBirth!),
+                                      style: black13B500),
+                                  const HorizontalSpacingWidget(width: 10),
                                   Icon(
-                                    IconlyLight.calendar,
+                                    Platform.isIOS
+                                        ? CupertinoIcons.calendar
+                                        : IconlyLight.calendar,
                                     color: kMainColor,
                                   ),
                                 ],
@@ -412,7 +387,9 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       ),
                     ],
                   ),
-                  const VerticalSpacingWidget(height: 10),
+                  const VerticalSpacingWidget(height: 5),
+                  Text("Gender", style: grey12B500),
+                  VerticalSpacingWidget(height: 2.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -440,7 +417,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             ),
                             Text(
                               "Male",
-                              style: TextStyle(fontSize: 13.sp),
+                              style: black13B500,
                             ),
                           ],
                         ),
@@ -469,7 +446,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             ),
                             Text(
                               "Female",
-                              style: TextStyle(fontSize: 13.sp),
+                              style: black13B500,
                             ),
                           ],
                         ),
@@ -498,7 +475,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             ),
                             Text(
                               "Other",
-                              style: TextStyle(fontSize: 13.sp),
+                              style: black13B500,
                             ),
                           ],
                         ),
@@ -510,10 +487,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     children: [
                       Text(
                         "Using any regular medicines?",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.sp,
-                            color: kSubTextColor),
+                        style: grey12B500,
                       ),
                       Expanded(
                         child: Row(
@@ -542,12 +516,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                           });
                                         },
                                       ),
-                                      Text(
-                                        "Yes",
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: kSubTextColor),
-                                      ),
+                                      Text("Yes", style: black13B500),
                                     ],
                                   ),
                                 ),
@@ -575,12 +544,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                           });
                                         },
                                       ),
-                                      Text(
-                                        "No",
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: kSubTextColor),
-                                      ),
+                                      Text("No", style: black13B500),
                                     ],
                                   ),
                                 ),
@@ -633,7 +597,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                             decoration: BoxDecoration(
                                               color: kCardColor,
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                                  BorderRadius.circular(10.r),
                                             ),
                                             child: Row(
                                               children: [
@@ -647,52 +611,28 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            "Illness name : ",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 13.sp,
-                                                                color:
-                                                                    kSubTextColor),
-                                                          ),
+                                                              "Illness name : ",
+                                                              style:
+                                                                  grey12B500),
                                                           Text(
-                                                            medicine.illness
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 13.sp,
-                                                                color:
-                                                                    kTextColor),
-                                                          ),
+                                                              medicine.illness
+                                                                  .toString(),
+                                                              style:
+                                                                  black13B500),
                                                         ],
                                                       ),
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            "Medicine name : ",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 13.sp,
-                                                                color:
-                                                                    kSubTextColor),
-                                                          ),
+                                                              "Medicine name : ",
+                                                              style:
+                                                                  grey12B500),
                                                           Text(
-                                                            medicine
-                                                                .medicineName
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 13.sp,
-                                                                color:
-                                                                    kTextColor),
-                                                          ),
+                                                              medicine
+                                                                  .medicineName
+                                                                  .toString(),
+                                                              style:
+                                                                  black13B500),
                                                         ],
                                                       )
                                                     ],
@@ -779,13 +719,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       : Container(),
                   medicineDataLists!.isEmpty
                       ? const SizedBox()
-                      : Text(
-                          "New added medicine",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: kSubTextColor),
-                        ),
+                      : Text("New added medicine", style: grey12B500),
                   const VerticalSpacingWidget(height: 3),
                   ListView.builder(
                     itemCount: medicineDataLists!.length,
@@ -803,40 +737,19 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  "Illness name : ",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kSubTextColor),
-                                ),
-                                Text(
-                                  medicineDataLists![index].illness!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kTextColor),
-                                ),
+                                Text("Illness name : ", style: grey12B500),
+                                Text(medicineDataLists![index].illness!,
+                                    style: black13B500),
                               ],
                             ),
                             Row(
                               children: [
+                                Text("Medicine name : ", style: grey12B500),
                                 Text(
-                                  "Medicine name : ",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kSubTextColor),
-                                ),
-                                Text(
-                                  medicineDataLists![index]
-                                      .medicineName
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp,
-                                      color: kTextColor),
-                                ),
+                                    medicineDataLists![index]
+                                        .medicineName
+                                        .toString(),
+                                    style: black13B500),
                               ],
                             )
                           ],
@@ -849,22 +762,20 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 50.h,
+                              height: size.height * .065,
                               child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 controller: illnessController,
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintStyle: grey12B500,
                                   hintText: "In which illness",
                                   filled: true,
                                   fillColor: kCardColor,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4.r),
                                     borderSide: BorderSide.none,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
@@ -877,24 +788,22 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 SizedBox(
-                                  width: 250.w,
-                                  height: 50.h,
+                                  width: size.width * .7,
+                                  height: size.height * .065,
                                   child: TextFormField(
-                                    style: TextStyle(
-                                        fontSize: 13.sp, color: kTextColor),
+                                    style: black13B500,
                                     cursorColor: kMainColor,
                                     controller: medicineController,
                                     keyboardType: TextInputType.text,
                                     textInputAction: TextInputAction.next,
                                     decoration: InputDecoration(
-                                      hintStyle: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: kSubTextColor),
+                                      hintStyle: grey12B500,
                                       hintText: "Enter medicine name",
                                       filled: true,
                                       fillColor: kCardColor,
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
+                                        borderRadius:
+                                            BorderRadius.circular(4.r),
                                         borderSide: BorderSide.none,
                                       ),
                                       contentPadding:
@@ -937,13 +846,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        isEditOrAddMedicine ? "Update" : "Add",
-                                        style: TextStyle(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: kCardColor,
-                                        ),
-                                      ),
+                                          isEditOrAddMedicine
+                                              ? "Update"
+                                              : "Add",
+                                          style: white13B700),
                                     ),
                                   ),
                                 ),
@@ -953,13 +859,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           ],
                         )
                       : const SizedBox(),
-                  Text(
-                    "Any Allergy?",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13.sp,
-                        color: kSubTextColor),
-                  ),
+                  Text("Any Allergy?", style: grey12B500),
                   VerticalSpacingWidget(height: 2.h),
                   BlocBuilder<GetAllergyBloc, GetAllergyState>(
                     builder: (context, state) {
@@ -1028,8 +928,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   getAllergyModel.allergies![index].allergy
                                       .toString(),
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 9.8.sp,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 10.sp,
                                     color: selectedAllergies.contains(index)
                                         ? Colors.white
                                         : kTextColor,
@@ -1054,11 +954,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: SizedBox(
-                              height: 50.h,
+                              height: size.height * .065,
                               width: double.infinity,
                               child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {
@@ -1068,8 +967,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                 },
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintStyle: grey12B500,
                                   hintText: allergies[index]
                                           .allergyDetails!
                                           .isNotEmpty
@@ -1078,7 +976,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   filled: true,
                                   fillColor: kCardColor,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4.r),
                                     borderSide: BorderSide.none,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
@@ -1091,11 +989,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: SizedBox(
-                              height: 50.h,
+                              height: size.height * .065,
                               width: double.infinity,
                               child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {
@@ -1105,8 +1002,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                 },
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintStyle: grey12B500,
                                   hintText: allergies[index]
                                           .allergyDetails!
                                           .isNotEmpty
@@ -1115,7 +1011,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   filled: true,
                                   fillColor: kCardColor,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4.r),
                                     borderSide: BorderSide.none,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
@@ -1128,11 +1024,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: SizedBox(
-                              height: 50.h,
+                              height: size.height * .065,
                               width: double.infinity,
                               child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {
@@ -1142,8 +1037,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                 },
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintStyle: grey12B500,
                                   hintText: allergies[index]
                                           .allergyDetails!
                                           .isNotEmpty
@@ -1152,7 +1046,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   filled: true,
                                   fillColor: kCardColor,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4.r),
                                     borderSide: BorderSide.none,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
@@ -1165,11 +1059,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: SizedBox(
-                              height: 50.h,
+                              height: size.height * .065,
                               width: double.infinity,
                               child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {
@@ -1179,8 +1072,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                 },
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintStyle: grey12B500,
                                   hintText: allergies[index]
                                           .allergyDetails!
                                           .isNotEmpty
@@ -1189,7 +1081,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   filled: true,
                                   fillColor: kCardColor,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4.r),
                                     borderSide: BorderSide.none,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
@@ -1202,11 +1094,10 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: SizedBox(
-                              height: 50.h,
+                              height: size.height * .065,
                               width: double.infinity,
                               child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,
@@ -1216,8 +1107,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   });
                                 },
                                 decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintStyle: grey12B500,
                                   hintText: allergies[index]
                                           .allergyDetails!
                                           .isNotEmpty
@@ -1226,7 +1116,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   filled: true,
                                   fillColor: kCardColor,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4.r),
                                     borderSide: BorderSide.none,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
@@ -1241,13 +1131,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     },
                   ),
                   const VerticalSpacingWidget(height: 5),
-                  Text(
-                    "Any Surgery?",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13.sp,
-                        color: kSubTextColor),
-                  ),
+                  Text("Any Surgery?", style: grey12B500),
                   VerticalSpacingWidget(height: 2.h),
                   Wrap(
                     children: List.generate(surgeryTypes.length, (index) {
@@ -1309,7 +1193,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           child: Text(
                             surgeryTypes[index],
                             style: TextStyle(
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                               fontSize: 10.sp,
                               color: isSelected ? Colors.white : kTextColor,
                             ),
@@ -1321,22 +1205,21 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   const VerticalSpacingWidget(height: 5),
                   if (isOtherSurgerySelected)
                     SizedBox(
-                      height: 50.h,
+                      height: size.height * .065,
                       width: double.infinity,
                       child: TextFormField(
-                        style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                        style: black13B500,
                         cursorColor: kMainColor,
                         controller: otherSurgeryController,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                          hintStyle:
-                              TextStyle(fontSize: 13.sp, color: kSubTextColor),
+                          hintStyle: grey12B500,
                           hintText: "In which surgery",
                           filled: true,
                           fillColor: kCardColor,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(4.r),
                             borderSide: BorderSide.none,
                           ),
                           contentPadding: const EdgeInsets.symmetric(
@@ -1345,13 +1228,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                       ),
                     ),
                   const VerticalSpacingWidget(height: 5),
-                  Text(
-                    "Any Treatment taken for?",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13.sp,
-                        color: kSubTextColor),
-                  ),
+                  Text("Any Treatment taken for?", style: grey12B500),
                   VerticalSpacingWidget(height: 2.h),
                   Wrap(
                     children: List.generate(
@@ -1423,7 +1300,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             child: Text(
                               treatmentTypes[index],
                               style: TextStyle(
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 fontSize: 10.sp,
                                 color: isSelected ? Colors.white : kTextColor,
                               ),
@@ -1436,21 +1313,20 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   const VerticalSpacingWidget(height: 5),
                   if (isTreatmentOtherSelected)
                     SizedBox(
-                      height: 50.h,
+                      height: size.height * .065,
                       child: TextFormField(
-                        style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                        style: black13B500,
                         cursorColor: kMainColor,
                         controller: otherTreatmentController,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                          hintStyle:
-                              TextStyle(fontSize: 13.sp, color: kSubTextColor),
+                          hintStyle: grey12B500,
                           hintText: "Which Treatment",
                           filled: true,
                           fillColor: kCardColor,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(4.r),
                             borderSide: BorderSide.none,
                           ),
                           contentPadding: const EdgeInsets.symmetric(
@@ -1491,8 +1367,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           log("message state emit ui ${state.status}");
                           log("image null");
                           log("second call>>>>>>>>>");
-                          GeneralServices.instance.showToastMessage(
-                              "Family member added successfully");
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
                             BlocProvider.of<GetAllMembersBloc>(context)
@@ -1503,7 +1377,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           GeneralServices.instance
                               .showToastMessage("Updated successfully");
                         }
-                      } 
+                      }
                     },
                     builder: (context, state) {
                       return ElevatedButton(
@@ -1523,7 +1397,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               }
                             : () async {
                                 log("loaded Button pressed");
-
                                 BlocProvider.of<EditMemberBloc>(context).add(
                                   EditMemberEvent.started(
                                     widget.patientId,
@@ -1552,13 +1425,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   color: kCardColor,
                                 ),
                               )
-                            : Text(
-                                "Update Member",
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
-                              ),
+                            : Text("Update Member", style: white13B700),
                       );
                     },
                   ),
@@ -1609,5 +1476,26 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     if (picked != null) {
       onDateSelected(picked);
     }
+  }
+
+  Future<void> selectIosDate({
+    required BuildContext context,
+    required DateTime date,
+    required Function(DateTime) onDateSelected,
+  }) async {
+    await showModalBottomSheet<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoDatePicker(
+          mode: CupertinoDatePickerMode.date,
+          initialDateTime: date,
+          minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+          maximumDate: DateTime.now(),
+          onDateTimeChanged: (DateTime newDate) {
+            onDateSelected(newDate);
+          },
+        );
+      },
+    );
   }
 }

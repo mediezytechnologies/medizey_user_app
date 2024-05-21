@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: file_names, avoid_print
 
 import 'dart:convert';
 import 'dart:developer';
@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiException.dart';
 
 class ApiClient {
-  // static const String basePath = "https://mediezy.com/api/";
-static const String basePath = "https://test.mediezy.com/api/";
+  static const String basePath = "https://mediezy.com/api/";
+  // static const String basePath = "https://test.mediezy.com/api/";
 
   String orignalToken = '';
 

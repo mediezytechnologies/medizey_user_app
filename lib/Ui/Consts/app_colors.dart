@@ -11,3 +11,4 @@ Color kShimmerHighlightColor = Colors.grey.shade100;
 Color kBorderColor = const Color(0xFFD0D0D0);
 Color kSecondaryColor = const Color(0xFF4cb499);
 Color kSubScaffoldColor = const Color.fromARGB(255, 245, 248, 245);
+const kWhiteColor = Colors.white;

@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:mediezy_user/Model/AutoFetch/auto_fetch_model.dart';
 import 'package:mediezy_user/Model/BookAppointment/book_appointment_model.dart';
 import 'package:mediezy_user/Model/GetFamilyMembers/get_family_members_model.dart';
+import 'package:mediezy_user/Model/OtherTypePatientDetails/other_type_patient_details_model.dart';
 import 'package:mediezy_user/Repository/Api/ApiClient.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,25 +13,26 @@ class BookAppointmentApi {
   ApiClient apiClient = ApiClient();
 
   //* book appointment
-  Future<BookAppointmentModel> bookAppointment({
-    required String patientName,
-    required String doctorId,
-    required String clinicId,
-    required String date,
-    required String whenitcomes,
-    required String whenitstart,
-    required String tokenTime,
-    required String tokenNumber,
-    required String gender,
-    required String age,
-    required String mobileNo,
-    required String bookingType,
-    required List<String> appoinmentfor1,
-    required List<int> appoinmentfor2,
-    required String patientId,
-    required String sheduleType,
-    required String tokenId,
-  }) async {
+  Future<BookAppointmentModel> bookAppointment(
+      {required String patientName,
+      required String doctorId,
+      required String clinicId,
+      required String date,
+      required String whenitcomes,
+      required String whenitstart,
+      required String tokenTime,
+      required String tokenNumber,
+      required String gender,
+      required String age,
+      required String mobileNo,
+      required String bookingType,
+      required List<String> appoinmentfor1,
+      required List<int> appoinmentfor2,
+      required String patientId,
+      required String sheduleType,
+      required String tokenId,
+      required int resheduleOrNot,
+      required String normalResheduleTokenId}) async {
     String basePath = "patient/patientBookGeneratedTokens";
     final preferences = await SharedPreferences.getInstance();
     String? userId = preferences.getString('userId');
@@ -52,7 +54,9 @@ class BookAppointmentApi {
       "Bookingtype": bookingType,
       "patient_id": patientId,
       "schedule_type": sheduleType,
-      "token_id": tokenId
+      "token_id": tokenId,
+      "reschedule_type": resheduleOrNot,
+      "normal_reschedule_token_id": normalResheduleTokenId
     };
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
@@ -92,5 +96,20 @@ class BookAppointmentApi {
     print("Auto Fetch body :$body");
     print("<<<<<<<<<< AUTO FETCH DETAILS WORKED SUCCESSFULLY >>>>>>>>>>");
     return AutoFetchModel.fromJson(json.decode(response.body));
+  }
+
+  //* get other type patientDetails
+
+  Future<OtherTypePatientDetailsModel> otherTypePatientDetails(
+      {required String patientId}) async {
+    String basePath = "patient/otherUserTokenBooking";
+    final body = {
+      "mediezy_patient_id": patientId,
+    };
+    Response response =
+        await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+    print("Auto Fetch body :$body");
+    print("<<<<<<<<<< OTHER DETAILS WORKED SUCCESSFULLY >>>>>>>>>>");
+    return OtherTypePatientDetailsModel.fromJson(json.decode(response.body));
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetUploadedLabReport/get_uploaded_lab_report_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddDocumentScreen/add_document_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/all_lab_report_card_widget.dart';
 
 class AllUploadedLabReportScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _AllUploadedLabReportScreenState
     extends State<AllUploadedLabReportScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocBuilder<GetUploadedLabReportBloc, GetUploadedLabReportState>(
         builder: (context, state) {
@@ -29,19 +31,48 @@ class _AllUploadedLabReportScreenState
             );
           }
           if (state is GetUploadedLabReportError) {
-            return Center(
-              child: Image(
-                image: const AssetImage(
-                    "assets/images/something went wrong-01.png"),
-                height: 200.h,
-                width: 200.w,
-              ),
+            return Image(
+              image:
+                  const AssetImage("assets/images/something went wrong-01.png"),
+              height: 200.h,
+              width: 200.w,
             );
           }
           if (state is GetUploadedLabReportLoaded) {
             final labReport = state.getUploadedLabTestModel;
             return labReport.documentData == null
-                ? Image.asset("assets/icons/no data.png")
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(
+                      children: [
+                        Image.asset(
+                          "assets/icons/no data.png",
+                          height: size.height * .45,
+                        ),
+                        const VerticalSpacingWidget(height: 10),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>  AddDocumentScreen(
+                                  appBarTitle: "Upload Lab Report",
+                                  type: 1,
+                                  stringType: "Lab report",
+                                ),
+                              ),
+                            );
+                          },
+                          child: Image(
+                            image: const AssetImage(
+                              "assets/images/upload_lab_report.png",
+                            ),
+                            height: size.height * .2,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 : ListView.separated(
                     padding: EdgeInsets.zero,
                     itemCount: labReport.documentData!.length,

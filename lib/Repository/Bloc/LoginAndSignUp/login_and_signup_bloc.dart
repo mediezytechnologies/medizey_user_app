@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,14 +33,16 @@ class LoginAndSignupBloc
             'lastName', loginModel.user!.secondname.toString());
         preference.setString('userId', loginModel.user!.id.toString());
         userId = preference.getString('userId').toString();
-        print("<<<<<<userrr  $userId>>>>>>>>");
+        log("<<<<<<userrr  $userId>>>>>>>>");
         preference.setString(
             'phoneNumber', loginModel.user!.mobileNo.toString());
         String? token = await preference.getString('token');
-        print("Tokken >>>>>>>>>>>>>>>>>>$token");
+        String? userName = await preference.getString('firstName');
+        log("User name >>>>>> $userName");
+        log("Tokken >>>>>>>>>>>>>>>>>>$token");
         emit(LoginLoaded());
       } catch (error) {
-        print("LOGIN IN ERROR>>>>>>>>>>>>>>>>>>>>>>" + error.toString());
+        log("LOGIN IN ERROR>>>>>>>>>>>>>>>>>>>>>>" + error.toString());
         GeneralServices.instance.showToastMessage(error.toString());
         emit(LoginError());
       }

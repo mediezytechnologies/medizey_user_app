@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields
+// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields, unused_local_variable
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllergy/get_allery_model.dart';
+import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/get_family_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllergy/get_allergy_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
@@ -20,13 +21,14 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/application/add_members/add_members_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
+import '../../../CommonWidgets/text_style_widget.dart';
 
 class AddPatientScreen extends StatefulWidget {
-   AddPatientScreen({
-   
+  AddPatientScreen({
+    this.isEditing = false,
     super.key,
   });
-
+  bool isEditing;
   @override
   State<AddPatientScreen> createState() => _AddPatientScreenState();
 }
@@ -45,7 +47,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   final TextEditingController otherTreatmentController =
       TextEditingController();
   GlobalKey _dobColumnKey = GlobalKey();
-
   late GetAllergyModel getAllergyModel;
   String dustAllery = "";
   String genderValue = "Male";
@@ -77,6 +78,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Family Member"),
@@ -88,36 +90,30 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const VerticalSpacingWidget(height: 20),
+              const VerticalSpacingWidget(height: 10),
               Stack(
                 children: [
                   Align(
                     alignment: Alignment.center,
-                    child: Container(
-                      height: 130.h,
-                      width: 120.w,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: FadedScaleAnimation(
-                        scaleDuration: const Duration(milliseconds: 400),
-                        fadeDuration: const Duration(milliseconds: 400),
-                        child: ClipOval(
-                          child: imagePath != null
-                              ? Image.file(
-                                  File(imagePath!),
-                                  height: 80.h,
-                                  width: 80.w,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.asset(
-                                  "assets/icons/profile pic.png",
-                                  height: 80.h,
-                                  width: 80.w,
-                                  color: kMainColor,
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
+                    child: FadedScaleAnimation(
+                      scaleDuration: const Duration(milliseconds: 400),
+                      fadeDuration: const Duration(milliseconds: 400),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(70.r),
+                        child: imagePath != null
+                            ? Image.file(
+                                File(imagePath!),
+                                height: size.height * .14,
+                                width: size.width * .30,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                "assets/icons/profile pic.png",
+                                height: size.height * .14,
+                                width: size.width * .30,
+                                color: kMainColor,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                   ),
@@ -142,31 +138,24 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Full Name",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.sp,
-                        color: kSubTextColor),
-                  ),
-                  VerticalSpacingWidget(height: 5.h),
+                  Text("Full Name", style: grey12B500),
+                  VerticalSpacingWidget(height: 2.h),
                   SizedBox(
                     width: double.infinity,
-                    height: 50,
+                    height: size.height * .065,
                     child: TextFormField(
-                      style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                      style: black13B500,
                       cursorColor: kMainColor,
                       controller: fullNameController,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        hintStyle:
-                            TextStyle(fontSize: 12.sp, color: kSubTextColor),
+                        hintStyle: grey12B500,
                         hintText: "Enter full name",
                         filled: true,
                         fillColor: kCardColor,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(4.r),
                           borderSide: BorderSide.none,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
@@ -183,32 +172,25 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Phone Number",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13.sp,
-                            color: kSubTextColor),
-                      ),
-                      const VerticalSpacingWidget(height: 5),
+                      Text("Phone Number", style: grey12B500),
+                      const VerticalSpacingWidget(height: 2),
                       SizedBox(
-                        height: 50.h,
-                        width: 200.w,
+                        height: size.height * .065,
+                        width: size.width * .5,
                         child: TextFormField(
-                          style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                          style: black13B500,
                           cursorColor: kMainColor,
                           controller: phoneNumberController,
                           keyboardType: TextInputType.number,
                           maxLength: 10,
                           decoration: InputDecoration(
                             counterText: "",
-                            hintStyle: TextStyle(
-                                fontSize: 12.sp, color: kSubTextColor),
+                            hintStyle: grey12B500,
                             hintText: "Enter Phone Number",
                             filled: true,
                             fillColor: kCardColor,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(4.r),
                               borderSide: BorderSide.none,
                             ),
                             contentPadding: const EdgeInsets.symmetric(
@@ -223,19 +205,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "DOB",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13.sp,
-                              color: kSubTextColor),
-                        ),
-                        VerticalSpacingWidget(height: 5.h),
+                        Text("DOB", style: grey12B500),
+                        VerticalSpacingWidget(height: 2.h),
                         InkWell(
                           onTap: () {
-                           
-
-                            selectDate(
+                            selectIosDate(
                               context: context,
                               date: dateOfBirth ?? DateTime.now(),
                               onDateSelected: (DateTime picked) async {
@@ -248,10 +222,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             );
                           },
                           child: Container(
-                            height: 48.h,
-                            width: 130.w,
+                            height: size.height * .065,
+                            width: size.width * .35,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
+                              borderRadius: BorderRadius.circular(4.r),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -261,13 +235,13 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                       ? DateFormat('dd-MM-yyyy')
                                           .format(dateOfBirth!)
                                       : 'DOB',
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: kTextColor),
+                                  style: black13B500,
                                 ),
                                 Icon(
-                                  IconlyLight.calendar,
+                                  Platform.isIOS
+                                      ? CupertinoIcons.calendar
+                                      : IconlyLight.calendar,
+                                  size: 20.sp,
                                   color: kMainColor,
                                 ),
                               ],
@@ -283,13 +257,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Gender",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.sp,
-                        color: kSubTextColor),
-                  ),
+                  Text("Gender", style: grey12B500),
                   VerticalSpacingWidget(height: 2.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -318,7 +286,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                     });
                                   },
                                 ),
-                                Text("Male", style: TextStyle(fontSize: 13.sp)),
+                                Text("Male", style: black13B500),
                               ],
                             ),
                           ),
@@ -348,8 +316,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                     });
                                   },
                                 ),
-                                Text("Female",
-                                    style: TextStyle(fontSize: 13.sp)),
+                                Text(
+                                  "Female",
+                                  style: black13B500,
+                                ),
                               ],
                             ),
                           ),
@@ -379,8 +349,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                     });
                                   },
                                 ),
-                                Text("Other",
-                                    style: TextStyle(fontSize: 13.sp)),
+                                Text("Other", style: black13B500),
                               ],
                             ),
                           ),
@@ -393,13 +362,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Using any regular medicines?",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13.sp,
-                        color: kSubTextColor),
-                  ),
+                  Text("Using any regular medicines?", style: grey12B500),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -429,8 +392,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                   ),
                                   Text(
                                     "Yes",
-                                    style: TextStyle(
-                                        fontSize: 12.sp, color: kSubTextColor),
+                                    style: black13B500,
                                   ),
                                 ],
                               ),
@@ -461,8 +423,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                   ),
                                   Text(
                                     "No",
-                                    style: TextStyle(
-                                        fontSize: 12.sp, color: kSubTextColor),
+                                    style: black13B500,
                                   ),
                                 ],
                               ),
@@ -484,25 +445,17 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(bottom: 5),
                     decoration: BoxDecoration(
-                        color: kCardColor,
-                        borderRadius: BorderRadius.circular(10)),
+                      color: kCardColor,
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            Text(
-                              "Illness name : ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 13.sp,
-                                  color: kSubTextColor),
-                            ),
+                            Text("Illness name : ", style: grey12B500),
                             Text(
                               medicineDataLists![index].illness!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 13.sp,
-                                  color: kTextColor),
+                              style: black13B500,
                             ),
                           ],
                         ),
@@ -510,18 +463,13 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           children: [
                             Text(
                               "Medicine name : ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 13.sp,
-                                  color: kSubTextColor),
+                              style: grey12B500,
                             ),
                             Text(
-                              medicineDataLists![index].medicineName.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 13.sp,
-                                  color: kTextColor),
-                            ),
+                                medicineDataLists![index]
+                                    .medicineName
+                                    .toString(),
+                                style: black13B500),
                           ],
                         )
                       ],
@@ -534,23 +482,21 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 50.h,
+                          height: size.height * .065,
                           child: TextFormField(
-                            style:
-                                TextStyle(fontSize: 13.sp, color: kTextColor),
+                            style: black13B500,
                             cursorColor: kMainColor,
                             controller: illnessController,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
+                              hintStyle: grey12B500,
                               hintText: "In which illness",
                               filled: true,
                               fillColor: kCardColor,
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4.r),
                                 borderSide: BorderSide.none,
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -563,24 +509,22 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: 250.w,
-                              height: 50.h,
+                              width: size.width * .7,
+                              height: size.height * .065,
                               child: TextFormField(
-                                style: TextStyle(
-                                    fontSize: 13.sp, color: kTextColor),
+                                style: black13B500,
                                 cursorColor: kMainColor,
                                 controller: medicineController,
                                 onChanged: (value) {},
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 13.sp, color: kSubTextColor),
+                                  hintStyle: grey12B500,
                                   hintText: "Enter medicine name",
                                   filled: true,
                                   fillColor: kCardColor,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4.r),
                                     borderSide: BorderSide.none,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
@@ -609,20 +553,14 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 }
                               },
                               child: Container(
-                                height: 45.h,
-                                width: 70.w,
+                                height: size.height * .065,
+                                width: size.width * .2,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(4.r),
                                   color: kMainColor,
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    "Add",
-                                    style: TextStyle(
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: kCardColor),
-                                  ),
+                                  child: Text("Add", style: white13B700),
                                 ),
                               ),
                             )
@@ -632,13 +570,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ],
                     )
                   : Container(),
-              Text(
-                "Any Allergy?",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13.sp,
-                    color: kSubTextColor),
-              ),
+              Text("Any Allergy?", style: grey12B500),
               VerticalSpacingWidget(height: 2.h),
               BlocBuilder<GetAllergyBloc, GetAllergyState>(
                 builder: (context, state) {
@@ -693,7 +625,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                               color: selectedAllergies.contains(index)
                                   ? Colors.grey
                                   : kCardColor,
@@ -705,8 +637,8 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               getAllergyModel.allergies![index].allergy
                                   .toString(),
                               style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 9.8.sp,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10.sp,
                                 color: selectedAllergies.contains(index)
                                     ? Colors.white
                                     : kTextColor,
@@ -730,40 +662,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     case 0:
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: TextFormField(
-                          style: TextStyle(fontSize: 13.sp, color: kTextColor),
-                          cursorColor: kMainColor,
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) {
-                            setState(() {
-                              allergies[index].allergyDetails = value;
-                            });
-                          },
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            hintStyle: TextStyle(
-                                fontSize: 13.sp, color: kSubTextColor),
-                            hintText: "Enter Drug Name",
-                            filled: true,
-                            fillColor: kCardColor,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 10.0),
-                          ),
-                        ),
-                      );
-                    case 1:
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: SizedBox(
-                          height: 50.h,
-                          width: double.infinity,
+                          height: size.height * .065,
                           child: TextFormField(
-                            style:
-                                TextStyle(fontSize: 13.sp, color: kTextColor),
+                            style: black13B500,
                             cursorColor: kMainColor,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {
@@ -773,13 +675,43 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             },
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
+                              hintStyle: grey12B500,
+                              hintText: "Enter Drug Name",
+                              filled: true,
+                              fillColor: kCardColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.r),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 10.0),
+                            ),
+                          ),
+                        ),
+                      );
+                    case 1:
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: SizedBox(
+                          height: size.height * .065,
+                          width: double.infinity,
+                          child: TextFormField(
+                            style: black13B500,
+                            cursorColor: kMainColor,
+                            keyboardType: TextInputType.text,
+                            onChanged: (value) {
+                              setState(() {
+                                allergies[index].allergyDetails = value;
+                              });
+                            },
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              hintStyle: grey12B500,
                               hintText: "Enter skin allergy",
                               filled: true,
                               fillColor: kCardColor,
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4.r),
                                 borderSide: BorderSide.none,
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -792,11 +724,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: SizedBox(
-                          height: 50.h,
+                          height: size.height * .065,
                           width: double.infinity,
                           child: TextFormField(
-                            style:
-                                TextStyle(fontSize: 13.sp, color: kTextColor),
+                            style: black13B500,
                             cursorColor: kMainColor,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {
@@ -806,13 +737,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             },
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
+                              hintStyle: grey12B500,
                               hintText: "Enter dust allergy",
                               filled: true,
                               fillColor: kCardColor,
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4.r),
                                 borderSide: BorderSide.none,
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -825,11 +755,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: SizedBox(
-                          height: 50.h,
+                          height: size.height * .065,
                           width: double.infinity,
                           child: TextFormField(
-                            style:
-                                TextStyle(fontSize: 13.sp, color: kTextColor),
+                            style: black13B500,
                             cursorColor: kMainColor,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {
@@ -839,13 +768,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             },
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
+                              hintStyle: grey12B500,
                               hintText: "Enter food allergy",
                               filled: true,
                               fillColor: kCardColor,
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4.r),
                                 borderSide: BorderSide.none,
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -858,11 +786,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: SizedBox(
-                          height: 50.h,
+                          height: size.height * .065,
                           width: double.infinity,
                           child: TextFormField(
-                            style:
-                                TextStyle(fontSize: 13.sp, color: kTextColor),
+                            style: black13B500,
                             cursorColor: kMainColor,
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
@@ -872,13 +799,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               });
                             },
                             decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontSize: 13.sp, color: kSubTextColor),
+                              hintStyle: grey12B500,
                               hintText: "Enter allergy details",
                               filled: true,
                               fillColor: kCardColor,
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4.r),
                                 borderSide: BorderSide.none,
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -893,13 +819,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 },
               ),
               const VerticalSpacingWidget(height: 5),
-              Text(
-                "Any Surgery?",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13.sp,
-                    color: kSubTextColor),
-              ),
+              Text("Any Surgery?", style: grey12B500),
               VerticalSpacingWidget(height: 2.h),
               Wrap(
                 children: List.generate(
@@ -955,7 +875,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       child: Text(
                         surgeryTypes[index],
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 10.sp,
                           color: selectedSurgeryStart.contains(index)
                               ? Colors.white
@@ -969,17 +889,16 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               const VerticalSpacingWidget(height: 5),
               if (isOtherSurgerySelected)
                 SizedBox(
-                  height: 50.h,
+                  height: size.height * .065,
                   width: double.infinity,
                   child: TextFormField(
-                    style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                    style: black13B500,
                     cursorColor: kMainColor,
                     controller: otherSurgeryController,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      hintStyle:
-                          TextStyle(fontSize: 13.sp, color: kSubTextColor),
+                      hintStyle: grey12B500,
                       hintText: "Which Surgery",
                       filled: true,
                       fillColor: kCardColor,
@@ -993,13 +912,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   ),
                 ),
               const VerticalSpacingWidget(height: 5),
-              Text(
-                "Any Treatment taken for?",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13.sp,
-                    color: kSubTextColor),
-              ),
+              Text("Any Treatment taken for?", style: grey12B500),
               VerticalSpacingWidget(height: 2.h),
               Wrap(
                 children: List.generate(
@@ -1055,7 +968,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       child: Text(
                         treatmentTypes[index],
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 10.sp,
                           color: selectedTreatmentStart.contains(index)
                               ? Colors.white
@@ -1069,16 +982,15 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               const VerticalSpacingWidget(height: 5),
               if (isOtherTreatmentSelected)
                 SizedBox(
-                  height: 50.h,
+                  height: size.height * .065,
                   child: TextFormField(
-                    style: TextStyle(fontSize: 13.sp, color: kTextColor),
+                    style: black13B500,
                     cursorColor: kMainColor,
                     controller: otherTreatmentController,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      hintStyle:
-                          TextStyle(fontSize: 13.sp, color: kSubTextColor),
+                      hintStyle: grey12B500,
                       hintText: "Which Treatment",
                       filled: true,
                       fillColor: kCardColor,
@@ -1097,9 +1009,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   if (state.isError &&
                       state.status == false &&
                       state.message == 'Patient already exists.') {
-                    log("message error catched ui");
-                    log("message error ${state.message}");
-                    log("message state emit ui ${state.message}");
                     GeneralServices.instance
                         .showErrorMessage(context, state.message);
                   } else if (state.status == true) {
@@ -1114,16 +1023,18 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           .then((value) async {
                         BlocProvider.of<GetAllMembersBloc>(context)
                             .add(FetchAllMembers());
+                        BlocProvider.of<GetFamilyMembersBloc>(context)
+                            .add(FetchFamilyMember());
                         Navigator.pop(context);
                       });
                     } else {
-                      log("message state emit ui ${state.status}");
-                      log("image null");
                       GeneralServices.instance
                           .showToastMessage("Family member added successfully");
                       Future.delayed(const Duration(seconds: 1)).then((value) {
                         BlocProvider.of<GetAllMembersBloc>(context)
                             .add(FetchAllMembers());
+                        BlocProvider.of<GetFamilyMembersBloc>(context)
+                            .add(FetchFamilyMember());
                         Navigator.pop(context);
                       });
                     }
@@ -1132,10 +1043,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 builder: (context, state) {
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(330.w, 50.h),
+                      fixedSize: Size(330.w, 40.h),
                       backgroundColor: kMainColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                     onPressed: state.isloding
@@ -1170,9 +1081,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Select treatment");
                             } else {
-                              log("message $allergies");
-                              log(" jkfhsdjkf : $regularMedicine");
-                              log(" medisi : $medicineDataLists");
                               BlocProvider.of<AddMembersBloc>(context).add(
                                 AddMembersEvent.started(
                                   fullNameController.text,
@@ -1189,7 +1097,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                   medicineDataLists!,
                                 ),
                               );
-                              log('button pressed');
                             }
                           },
                     child: state.isloding
@@ -1198,13 +1105,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                               color: kCardColor,
                             ),
                           )
-                        : Text(
-                            "Add Member",
-                            style: TextStyle(
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
+                        : Text("Add Member", style: white13B700),
                   );
                 },
               ),
@@ -1229,30 +1130,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     });
   }
 
-
-
-
   Future<void> selectDate({
     required BuildContext context,
     required DateTime date,
     required Function(DateTime) onDateSelected,
   }) async {
-//      CupertinoDatePicker( 
-// minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-//       initialDateTime:date ,
-//       maximumDate:  DateTime.now(),
-//       mode: CupertinoDatePickerMode.date,
-      
-
-//       onDateTimeChanged: (value) {
-//         setState(() {
-//           date=value;
-//         });
-//       },
-
-
-//     );
-    
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: date,
@@ -1272,5 +1154,31 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     if (picked != null) {
       onDateSelected(picked);
     }
+  }
+
+  Future<void> selectIosDate({
+    required BuildContext context,
+    required DateTime date,
+    required Function(DateTime) onDateSelected,
+  }) async {
+    final DateTime? picked = await showModalBottomSheet<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 300.0,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: date,
+            minimumDate: DateTime.now().subtract(
+              const Duration(days: 365 * 100),
+            ),
+            maximumDate: DateTime.now(),
+            onDateTimeChanged: (DateTime newDate) {
+              onDateSelected(newDate);
+            },
+          ),
+        );
+      },
+    );
   }
 }

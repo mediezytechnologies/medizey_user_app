@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +27,7 @@ class GeneralServices {
       BuildContext context, String title, void Function()? yesFunction) {
     Platform.isIOS
         ? showCupertinoDialog(
-            barrierDismissible: false,
+            barrierDismissible: true,
             context: context,
             builder: ((context) {
               return CupertinoAlertDialog(
@@ -64,7 +66,7 @@ class GeneralServices {
             }),
           )
         : showDialog(
-            barrierDismissible: false,
+            barrierDismissible: true,
             context: context,
             builder: ((context) {
               return AlertDialog(
@@ -112,7 +114,7 @@ class GeneralServices {
   showDialogue(BuildContext context, String title) {
     Platform.isIOS
         ? showCupertinoDialog(
-            barrierDismissible: false,
+            barrierDismissible: true,
             context: context,
             builder: (context) => CupertinoAlertDialog(
               content: Text(
@@ -139,7 +141,7 @@ class GeneralServices {
             ),
           )
         : showDialog(
-            barrierDismissible: false,
+            barrierDismissible: true,
             context: context,
             builder: ((context) {
               return AlertDialog(
@@ -175,67 +177,125 @@ class GeneralServices {
 
   //* show success message for button click
   void showSuccessMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Align(
-            alignment: Alignment.center,
-            child:
-                Lottie.asset("assets/animations/success.json", height: 120.h),
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        );
-      },
-    );
+    Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+              title: Align(
+                alignment: Alignment.center,
+                child: Lottie.asset("assets/animations/success.json",
+                    height: 120.h),
+              ),
+              content: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/success.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          );
   }
 
   //* show error button click
   void showErrorMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Align(
-            alignment: Alignment.center,
-            child: Lottie.asset("assets/animations/error.json", height: 120.h),
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        );
-      },
-    );
+    Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+              title: Align(
+                alignment: Alignment.center,
+                child:
+                    Lottie.asset("assets/animations/error.json", height: 120.h),
+              ),
+              content: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/error.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          );
   }
 
   //* show delay success message
   void showDelaySuccessMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        Future.delayed(const Duration(seconds: 2), () {
-          Navigator.pop(context);
-          Navigator.pop(context);
-        });
-        return AlertDialog(
-          title: Align(
-            alignment: Alignment.center,
-            child:
-                Lottie.asset("assets/animations/success.json", height: 120.h),
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        );
-      },
-    );
+    Platform.isIOS
+        ? showCupertinoDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.pop(context);
+                log("delay worked");
+              });
+              return CupertinoAlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/success.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          )
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.pop(context);
+                log("delay worked");
+              });
+              return AlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/success.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          );
   }
 }

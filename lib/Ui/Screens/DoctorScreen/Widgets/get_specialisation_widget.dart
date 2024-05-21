@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/GetSpecialisations/get_specialisations_model.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetAllSpecialisations/get_all_specialisations_bloc.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/heading_view_all_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/heading_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorsBySpecialisationScreen/doctors_by_specialisation_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/SpecialisationsScreen/specialisations_Screen.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/doctor_screen_loading.dart';
 
 class GetSpecialisationWidget extends StatefulWidget {
   const GetSpecialisationWidget({super.key});
@@ -35,31 +36,18 @@ class _GetSpecialisationWidgetState extends State<GetSpecialisationWidget> {
         );
       }
       if (state is GetAllSpecialisationsLoading) {
-        return Center(
-          child: CircularProgressIndicator(
-            color: kMainColor,
-          ),
-        );
+        return specialisationLoadingWidget(context);
       }
       if (state is GetAllSpecialisationsLoaded) {
         getSpecialisationModel =
             BlocProvider.of<GetAllSpecialisationsBloc>(context)
                 .getSpecialisationsModel;
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: HeadingViewAllWidget(
-                title: "Find by specialisations",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SpecialisationsScreen(),
-                    ),
-                  );
-                },
-              ),
+              child: const HeadingWidget(title: "Find by specialisations"),
             ),
             const VerticalSpacingWidget(height: 5),
             Padding(
@@ -108,7 +96,18 @@ class _GetSpecialisationWidgetState extends State<GetSpecialisationWidget> {
                       );
                     }),
               ),
-            )
+            ),
+            const VerticalSpacingWidget(height: 5),
+            ViewAllButtonWidget(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => const SpecialisationsScreen()),
+                    ),
+                  );
+                },
+                buttonText: "View all specialisations")
           ],
         );
       }

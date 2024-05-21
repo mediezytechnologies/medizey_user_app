@@ -8,8 +8,8 @@ import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../domain/add_member/firebase_login/firebase_login_api_impl.dart';
-import '../domain/add_member/firebase_login/model/firebase_login_model.dart';
+import '../domain/firebase_login/firebase_login_api_impl.dart';
+import '../domain/firebase_login/model/firebase_login_model/firebase_login_model.dart';
 
 @LazySingleton(as: AddFirebaseLogin)
 class FirebaseLoginImpl implements AddFirebaseLogin {

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/DoctorsByHealthCategoryScreen/doctors_by_health_caregory_screen.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorsByHealthCategoryScreen/doctors_by_health_caregory_screen.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen(

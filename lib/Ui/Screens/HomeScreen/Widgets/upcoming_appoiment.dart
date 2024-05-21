@@ -47,7 +47,7 @@ class _UpcommingAppoimentState extends State<UpcommingAppoiment> {
                           title: "Your appointments",
                         ),
                       ),
-                      const VerticalSpacingWidget(height: 5),
+                      const VerticalSpacingWidget(height: 3),
                       ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
@@ -144,9 +144,12 @@ class _UpcommingAppoimentState extends State<UpcommingAppoiment> {
                               earlyTime: getUpComingAppointmentsModel
                                   .upcomingAppointments![index].doctorEarlyTime
                                   .toString(),
+                              // estimatedArrivalTime: getUpComingAppointmentsModel
+                              //     .upcomingAppointments![index]
+                              //     .estimateArrivalTime
+                              //     .toString(),
                               estimatedArrivalTime: getUpComingAppointmentsModel
-                                  .upcomingAppointments![index]
-                                  .estimateArrivalTime
+                                  .upcomingAppointments![index].newEstimateTime
                                   .toString(),
                               lateTime: getUpComingAppointmentsModel
                                   .upcomingAppointments![index].doctorLateTime

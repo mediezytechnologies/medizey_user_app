@@ -1,4 +1,4 @@
-import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
+import '../Clinics/clinic_model.dart';
 
 class GetDoctorByIdModel {
   bool? success;
@@ -35,6 +35,7 @@ class GetDoctorByIdModel {
 
 class DoctorDetails {
   int? id;
+  String? mediezyDoctorId;
   int? userId;
   String? firstname;
   String? secondname;
@@ -46,6 +47,7 @@ class DoctorDetails {
   String? emailID;
   String? mobileNumber;
   String? mainHospital;
+  String? consulationFees;
   List<String>? specifications;
   List<String>? subspecifications;
   List<Clinics>? clinics;
@@ -53,6 +55,7 @@ class DoctorDetails {
 
   DoctorDetails(
       {this.id,
+      this.mediezyDoctorId,
       this.userId,
       this.firstname,
       this.secondname,
@@ -64,6 +67,7 @@ class DoctorDetails {
       this.emailID,
       this.mobileNumber,
       this.mainHospital,
+      this.consulationFees,
       this.specifications,
       this.subspecifications,
       this.clinics,
@@ -71,6 +75,7 @@ class DoctorDetails {
 
   DoctorDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    mediezyDoctorId = json['mediezy_doctor_id'];
     userId = json['UserId'];
     firstname = json['firstname'];
     secondname = json['secondname'];
@@ -82,6 +87,7 @@ class DoctorDetails {
     emailID = json['emailID'];
     mobileNumber = json['Mobile Number'];
     mainHospital = json['MainHospital'];
+    consulationFees = json['consulation_fees'];
     specifications = json['specifications'].cast<String>();
     subspecifications = json['subspecifications'].cast<String>();
     if (json['clinics'] != null) {
@@ -96,6 +102,7 @@ class DoctorDetails {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['mediezy_doctor_id'] = mediezyDoctorId;
     data['UserId'] = userId;
     data['firstname'] = firstname;
     data['secondname'] = secondname;
@@ -107,6 +114,7 @@ class DoctorDetails {
     data['emailID'] = emailID;
     data['Mobile Number'] = mobileNumber;
     data['MainHospital'] = mainHospital;
+    data['consulation_fees'] = consulationFees;
     data['specifications'] = specifications;
     data['subspecifications'] = subspecifications;
     if (clinics != null) {

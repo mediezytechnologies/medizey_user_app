@@ -1,10 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/AppointmentDoneScreen/appointment_done_screen.dart';
 
 class TokenCardWidget extends StatefulWidget {
-  const TokenCardWidget(
+  TokenCardWidget(
       {super.key,
       required this.tokenNumber,
       required this.formatedTime,
@@ -21,7 +23,11 @@ class TokenCardWidget extends StatefulWidget {
       required this.sheduleType,
       required this.estimatedTime,
       required this.isReserved,
-      required this.tokenId});
+      required this.tokenId,
+      required this.consultationFee,
+      this.patientId,
+      this.resheduleType,
+      this.normalResheduleTokenId});
 
   final String tokenNumber;
   final String formatedTime;
@@ -39,6 +45,10 @@ class TokenCardWidget extends StatefulWidget {
   final String estimatedTime;
   final String isReserved;
   final String tokenId;
+  final String consultationFee;
+  String? patientId;
+  String? resheduleType;
+  String? normalResheduleTokenId;
 
   @override
   State<TokenCardWidget> createState() => _TokenCardWidgetState();
@@ -57,6 +67,7 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => AppointmentDoneScreen(
+                    consultationFee: widget.consultationFee,
                     tokenId: widget.tokenId,
                     bookingDate: widget.date,
                     bookingTime: widget.formatedTime,
@@ -70,19 +81,21 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
                     doctorSecondName: widget.doctorSecondName,
                     sheduleType: widget.sheduleType,
                     estimatedTime: widget.estimatedTime,
+                    patientId: widget.patientId,
+                    resheduleType: widget.resheduleType,
+                    normalResheduleTokenId: widget.normalResheduleTokenId,
                   ),
                 ),
               );
       },
       child: Container(
-        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: widget.isBooked == '1' ||
                   widget.isTimeOut == '1' ||
                   widget.isReserved == '1'
               ? Colors.grey.shade400
               : kCardColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: kMainColor, width: 1.5.w),
         ),
         child: Column(
@@ -91,8 +104,8 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
             Text(
               widget.tokenNumber,
               style: TextStyle(
-                  fontSize: 21.sp,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
                   color: widget.isBooked == '1' ||
                           widget.isTimeOut == '1' ||
                           widget.isReserved == '1'
@@ -102,7 +115,7 @@ class _TokenCardWidgetState extends State<TokenCardWidget> {
             Text(
               widget.formatedTime,
               style: TextStyle(
-                  fontSize: 10.sp,
+                  fontSize: 9.sp,
                   fontWeight: FontWeight.bold,
                   color: widget.isBooked == '1' ||
                           widget.isTimeOut == '1' ||

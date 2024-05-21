@@ -19,7 +19,7 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{

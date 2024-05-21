@@ -3,18 +3,16 @@
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Favourites/GetFavourites/get_favourites_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSpecialisations/GetAllSpecialisations/get_all_specialisations_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/HealthCategories/GetHealthCategories/get_health_categories_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/custome_app_bar.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_banner_widget.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_doctor_widget.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_specialisation_widget.dart';
-
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/home_helath_concern_widget.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/home_recently_booked_doctor_widget.dart';
 
 class DoctorScreen extends StatefulWidget {
   const DoctorScreen({super.key});
@@ -26,8 +24,8 @@ class DoctorScreen extends StatefulWidget {
 class _DoctorScreenState extends State<DoctorScreen> {
   @override
   void initState() {
-    BlocProvider.of<GetDoctorBloc>(context).add(FetchGetDoctor());
-    BlocProvider.of<GetFavouritesBloc>(context).add(FetchAllFavourites());
+    BlocProvider.of<GetHealthCategoriesBloc>(context)
+        .add(FetchHealthCategories());
     BlocProvider.of<GetAllSpecialisationsBloc>(context)
         .add(FetchAllSpecialisations());
     BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "2"));
@@ -58,11 +56,11 @@ class _DoctorScreenState extends State<DoctorScreen> {
                 children: [
                   CustomeAppBar(),
                   VerticalSpacingWidget(height: 5),
-                  GetDoctorWidget(),
-                  VerticalSpacingWidget(height: 5),
                   GetSpecialisationWidget(),
                   VerticalSpacingWidget(height: 5),
-                  GetFavouriteDoctorWidget(),
+                  HomeHealthConcernWidget(),
+                  HomeRecentlyBookedDoctorWidget(),
+                  VerticalSpacingWidget(height: 5),
                   GetBannerWidget(),
                   VerticalSpacingWidget(height: 5),
                 ],

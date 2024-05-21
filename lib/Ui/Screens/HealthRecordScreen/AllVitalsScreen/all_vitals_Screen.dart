@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +17,7 @@ class AllVitalsScreen extends StatefulWidget {
 class _AllVitalsScreenState extends State<AllVitalsScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocBuilder<GetVitalsBloc, GetVitalsState>(
         builder: (context, state) {
@@ -38,7 +41,10 @@ class _AllVitalsScreenState extends State<AllVitalsScreen> {
           if (state is GetVitalsLoaded) {
             return state.getVitalsModel.vitals == null
                 ? Center(
-                    child: Image.asset("assets/icons/no data.png"),
+                    child: Image.asset(
+                      "assets/icons/no data.png",
+                      height: size.height * .45,
+                    ),
                   )
                 : ListView.builder(
                     itemCount: state.getVitalsModel.vitals!.length,

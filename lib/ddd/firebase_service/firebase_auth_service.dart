@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -85,7 +86,7 @@ class LoginPageGoogle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Google Sign In Demo'),
+        title: const Text('Google Sign In Demo'),
       ),
       body: Center(
         child: ElevatedButton(
@@ -101,11 +102,11 @@ class LoginPageGoogle extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Error'),
-                    content: Text('Sign in failed. Please try again.'),
+                    title: const Text('Error'),
+                    content: const Text('Sign in failed. Please try again.'),
                     actions: <Widget>[
                       TextButton(
-                        child: Text('OK'),
+                        child: const Text('OK'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -116,7 +117,7 @@ class LoginPageGoogle extends StatelessWidget {
               );
             }
           },
-          child: Text('Sign in with Google'),
+          child: const Text('Sign in with Google'),
         ),
       ),
     );
@@ -132,7 +133,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
       ),
       body: Center(
         child: Column(
@@ -141,20 +142,20 @@ class ProfilePage extends StatelessWidget {
           children: <Widget>[
             Text(
               'Name: ${user.displayName}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Email: ${user.email}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 Navigator.pop(context);
               },
-              child: Text('Sign out'),
+              child: const Text('Sign out'),
             )
           ],
         ),
@@ -200,7 +201,7 @@ class AuthServiceGoogle {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => GoogleContirmUserScreen(),
+                builder: (context) => const GoogleContirmUserScreen(),
               ));
         } catch (error) {
           Navigator.pop(context);
@@ -225,7 +226,7 @@ class AuthServiceGoogle {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginScreen(),
+            builder: (context) => const LoginScreen(),
           ));
     } on FirebaseAuthException catch (error) {
       errorDialogue(errorMessage: error.toString(), context: context);
@@ -241,14 +242,14 @@ class AuthServiceGoogle {
             mainAxisSize: MainAxisSize.min,
             children: [
               CircularProgressIndicator(
-                color: Colors.amber,
+                color: kMainColor,
               ),
               SizedBox(
                 height: 18.h,
               ),
               Container(
                 margin: const EdgeInsets.only(left: 7),
-                child: Text(
+                child: const Text(
                   "Loading...",
                 ),
               ),

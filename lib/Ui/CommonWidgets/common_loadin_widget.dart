@@ -47,3 +47,26 @@ Widget doctorCardLoadingWidget() {
     ),
   );
 }
+
+Widget feedBackLoadingWidget() {
+  return Shimmer.fromColors(
+    baseColor: kShimmerBaseColor,
+    highlightColor: kShimmerHighlightColor,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const VerticalSpacingWidget(height: 5),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 8.w),
+          width: double.infinity,
+          height: 160.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        const VerticalSpacingWidget(height: 5),
+      ],
+    ),
+  );
+}
