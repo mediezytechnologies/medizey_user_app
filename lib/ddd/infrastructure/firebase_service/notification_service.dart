@@ -1,89 +1,97 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:analyzer/dart/ast/token.dart';
-import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationPlugin =
+
+  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  Future<String> getDiviceToken() async {
+  Future<String> getDeviceToken() async {
+    final preference = await SharedPreferences.getInstance();
     String? token = await messaging.getToken();
-    log("not tok : $token");
-    return token!;
+    log("fcm on service tok :$token ");
+    if (token != null) {
+      preference.setString('fcmToken', token.toString());
+      return token;
+    } else {
+      throw Exception("Failed to get FCM token");
+    }
   }
 
   void isRefreshToken() async {
-    messaging.onTokenRefresh.listen((event) {
-      event.toString();
-      log("token reseved");
-      log("token reseved $event");
+    messaging.onTokenRefresh.listen((token) async {
+      token.toString();
+      log('TOken Refereshed: $token');
+      final preference = await SharedPreferences.getInstance();
+      await preference.setString('fcmToken', token);
     });
   }
 
-  void requesttNotificationPermission() async {
+  void requestNotificationPermisions() async {
     if (Platform.isIOS) {
       await messaging.requestPermission(
-        alert: true,
-        announcement: true,
-        badge: true,
-        carPlay: true,
-        criticalAlert: true,
-        provisional: true,
-        sound: true,
-      );
+          alert: true,
+          announcement: true,
+          badge: true,
+          carPlay: true,
+          criticalAlert: true,
+          provisional: true,
+          sound: true);
     }
+
     NotificationSettings notificationSettings =
         await messaging.requestPermission(
-      alert: true,
-      announcement: true,
-      badge: true,
-      carPlay: true,
-      criticalAlert: true,
-      provisional: true,
-      sound: true,
-    );
+            alert: true,
+            announcement: true,
+            badge: true,
+            carPlay: true,
+            criticalAlert: true,
+            provisional: true,
+            sound: true);
 
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
-      log("user is alredy granded permission");
+      log('user is already granted permisions');
     } else if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      log("user is alredy granded provisional  permission");
+      log('user is already granted provisional permisions');
     } else {
-      log("user has denied permission");
+      log('User has denied permission');
     }
   }
 
-  //forground//===
-  Future forgoundMessage() async {
+  // For IoS
+  Future forgroundMessage() async {
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+            alert: true, badge: true, sound: true);
   }
 
   void firebaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((message) {
+      debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Message data: ${message.notification!.title.toString()}');
       RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification!.android!;
+      AndroidNotification? android = message.notification!.android;
 
-      log("notification tite: ${notification!.title}");
-      log("notification tite: ${notification.body}");
-      log("data : ${notification.body.toString()}");
+      log("Notification title: ${notification!.title}");
+      log("Notification title: ${notification!.body}");
+      log("Data: ${message.data.toString()}");
+
+      // For IoS
       if (Platform.isIOS) {
-        forgoundMessage();
+        forgroundMessage();
       }
+
       if (Platform.isAndroid) {
         initLocalNotifications(context, message);
-        showNotifications(message);
+        showNotification(message);
       }
     });
   }
@@ -92,52 +100,105 @@ class NotificationServices {
       BuildContext context, RemoteMessage message) async {
     var androidInitSettings =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var iosnitSettings = const DarwinInitializationSettings();
+    var iosInitSettings = const DarwinInitializationSettings();
+
     var initSettings = InitializationSettings(
-        android: androidInitSettings, iOS: iosnitSettings);
-    await flutterLocalNotificationPlugin.initialize(
-      initSettings,
-      onDidReceiveNotificationResponse: (details) {
-        handleMessage(context, message);
-      },
-    );
+        android: androidInitSettings, iOS: iosInitSettings);
+
+    await _flutterLocalNotificationsPlugin.initialize(initSettings,
+        onDidReceiveNotificationResponse: (payload) {
+      handleMesssage(context, message);
+    });
   }
 
-  void handleMessage(BuildContext context, RemoteMessage message) {
-    log('handle message functon');
-    if (message.data['type'] == 'text') {
-      //redirect to new screen
+  // void handleMesssage(BuildContext context, RemoteMessage message) {
+  //   log('In handleMesssage function');
+  //   if (message.data['type'] == 'text') {
+  //     log(message.data.toString());
+
+  //     // redirect to new screen or take different action based on payload that you receive.
+  //   }
+  // }
+
+  void handleMesssage(BuildContext context, RemoteMessage message) {
+    log('In handleMesssage function');
+    String? messageType = message.data['type'];
+
+    if (messageType != null) {
+      log('Message type: $messageType');
+      log('Message data: ${message.data}');
+      Widget screen;
+      switch (messageType) {
+        case 'text':
+          screen = SavedDoctorsScreen();
+          log("screen 0");
+          break;
+        case 'chat':
+          screen = SavedDoctorsScreen();
+          log("screen 1"); // Replace with the actual screen for chat
+          break;
+        default:
+          log('Unknown message type: $messageType');
+          return;
+      }
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
+      );
     }
+
+    // if (message.data['type'] == 'text') {
+
+    //   log(message.data.toString());
+    //    log("log text done ===============");
+
+    //   // Navigate to the profile screen
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
+    //   );
+    // }
+//  else  if (message.data['type']=='chat') {
+//     log("log chat done =====================");
+//     log(message.data.toString());
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
+//     );
+//   }
+    //log("un   log");
   }
 
-  Future<void> showNotifications(RemoteMessage message) async {
+  Future<void> showNotification(RemoteMessage message) async {
+    if (message.notification?.android == null) return;
     AndroidNotificationChannel androidNotificationChannel =
         AndroidNotificationChannel(
-            message.notification!.android!.channelId.toString(),
-            message.notification!.android!.channelId.toString(),
-            importance: Importance.max,
-            showBadge: true,
-            playSound: true);
+      message.notification!.android!.channelId.toString(),
+      message.notification!.android!.channelId.toString(),
+      importance: Importance.max,
+      showBadge: true,
+      playSound: true,
+    );
 
     AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-      androidNotificationChannel.id.toString(),
-      androidNotificationChannel.name.toString(),
-      channelDescription: "Flutter Notifications",
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-      ticker: 'tiker',
-      sound: androidNotificationChannel.sound,
-    );
+        AndroidNotificationDetails(androidNotificationChannel.id.toString(),
+            androidNotificationChannel.name.toString(),
+            channelDescription: 'Flutter Notifications',
+            importance: Importance.max,
+            priority: Priority.high,
+            playSound: true,
+            ticker: 'ticker',
+            sound: androidNotificationChannel.sound);
 
     const DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(
             presentAlert: true, presentBadge: true, presentSound: true);
+
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: darwinNotificationDetails);
+
     Future.delayed(Duration.zero, () {
-      flutterLocalNotificationPlugin.show(
+      _flutterLocalNotificationsPlugin.show(
           0,
           message.notification!.title.toString(),
           message.notification!.body.toString(),
@@ -145,15 +206,18 @@ class NotificationServices {
     });
   }
 
-  Future<void> setupInteractMessages(BuildContext context) async {
-    //when app is terminated//
+  Future<void> setupInteractMessage(BuildContext context) async {
+    // when app is terminated
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
+
     if (initialMessage != null) {
-      handleMessage(context, initialMessage);
+      handleMesssage(context, initialMessage);
     }
+
+    //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      handleMessage(context, event);
+      handleMesssage(context, event);
     });
   }
 }

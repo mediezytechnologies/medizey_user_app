@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import '../error_model/error_model.dart';
 import 'model/add_rating_model/add_rating_model.dart';
 import 'model/get_rating_model/get_rating_model.dart';
-import 'model/get_rating_model/user_rating.dart';
 
 abstract class RatingRepository {
   Future<Either<ErrorModel, GetRatingModel>> getRatingRepo(

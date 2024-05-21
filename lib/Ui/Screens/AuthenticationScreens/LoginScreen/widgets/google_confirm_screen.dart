@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
@@ -26,13 +27,18 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   final FocusNode phoneNumberFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(leading: IconButton(onPressed: () {
-        AuthServiceGoogle.instance.logOut(context);
-      }, icon: Icon(Icons.logout)),),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              AuthServiceGoogle.instance.logOut(context);
+            },
+            icon: Icon(Icons.logout)),
+      ),
       body: BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
         listener: (context, state) {
           if (state.isError && state.status == false) {
@@ -40,14 +46,14 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
           } else {
             //    log( "fcm tok in api : ${preference.getString('token')}");
 
-            Future.delayed(const Duration(seconds: 3))
-                .then((value) => Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const BottomNavigationControlWidget(),
-                    ),
-                    (route) => false));
+            Future.delayed(const Duration(seconds: 3)).then(
+              (value) => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BottomNavigationControlWidget(),
+                  ),
+                  (route) => false),
+            );
           }
         },
         builder: (context, state) {
@@ -65,7 +71,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                   height: 10,
                 ),
                 Text(
-                   auth.currentUser!.displayName.toString(),
+                  auth.currentUser!.displayName.toString(),
                   style: black16B600,
                 ),
                 const VerticalSpacingWidget(

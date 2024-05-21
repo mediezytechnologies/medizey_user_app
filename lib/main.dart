@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,20 +14,22 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
+import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
-// @pragma('vm:entry-point')
-// Future<void> firebaseMassigingBackgroundHandiler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-// }
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  log("its not working ");
+  await Firebase.initializeApp();
+  log("its not working ");
+}
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await configureInjection();
   await GetStorage.init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -47,10 +51,21 @@ class Mediezy extends StatefulWidget {
 class _MediezyState extends State<Mediezy> {
   late StreamSubscription<ConnectivityResult> subscription;
   bool hasInternet = false;
+  NotificationServices notificationServices = NotificationServices();
 
   @override
   void initState() {
     super.initState();
+    notificationServices.requestNotificationPermisions();
+    notificationServices.isRefreshToken();
+    notificationServices.getDeviceToken().then((value) {
+      log("not : $value");
+    });
+
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {

@@ -129,73 +129,69 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const VerticalSpacingWidget(height: 10),
                     //! full name
-                    SizedBox(
-                      height: size.height * .065,
-                      child: TextFormField(
-                        style: black13B500,
-                        cursorColor: kMainColor,
-                        controller: firstNameController,
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Fullname is missing";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            IconlyLight.profile,
-                            color: kMainColor,
-                          ),
-                          hintStyle: grey13B600,
-                          hintText: "Enter full name",
-                          filled: true,
-                          fillColor: kCardColor,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 6.h),
+                    TextFormField(
+                      style: black13B500,
+                      cursorColor: kMainColor,
+                      controller: firstNameController,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Fullname is missing";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          IconlyLight.profile,
+                          color: kMainColor,
                         ),
+                        hintStyle: grey13B600,
+                        hintText: "Enter full name",
+                        filled: true,
+                        fillColor: kCardColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
                       ),
                     ),
                     const VerticalSpacingWidget(height: 5),
                     //! email
-                    SizedBox(
-                      height: size.height * .065,
-                      child: TextFormField(
-                        style: black13B500,
-                        cursorColor: kMainColor,
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        focusNode: emailFocusController,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value!.isEmpty ||
-                              !value.contains("@") ||
-                              !value.contains(".")) {
-                            return "Email is missing";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.email_outlined,
-                            color: kMainColor,
-                          ),
-                          hintStyle: grey13B600,
-                          hintText: "Enter email",
-                          filled: true,
-                          fillColor: kCardColor,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 6.h),
+                    TextFormField(
+                      style: black13B500,
+                      cursorColor: kMainColor,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      focusNode: emailFocusController,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value!.isEmpty ||
+                            !value.contains("@") ||
+                            !value.contains(".")) {
+                          return "Email is missing";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.email_outlined,
+                          color: kMainColor,
                         ),
+                        hintStyle: grey13B600,
+                        hintText: "Enter email",
+                        filled: true,
+                        fillColor: kCardColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
                       ),
                     ),
                     const VerticalSpacingWidget(height: 5),
@@ -204,40 +200,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: SizedBox(
-                            height: size.height * .065,
-                            child: TextFormField(
-                              style: black13B500,
-                              cursorColor: kMainColor,
-                              controller: phoneNumberController,
-                              keyboardType: TextInputType.phone,
-                              focusNode: phoneNumberFocusController,
-                              textInputAction: TextInputAction.next,
-                              maxLength: 10,
-                              validator: (value) {
-                                if (value!.isEmpty || value.length < 10) {
-                                  return "Enter valid Phone number";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                counterText: "",
-                                prefixIcon: Icon(
-                                  Icons.phone_iphone,
-                                  color: kMainColor,
-                                ),
-                                hintStyle: grey13B600,
-                                hintText: "Enter phonenumber",
-                                filled: true,
-                                fillColor: kCardColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 6.h),
+                          child: TextFormField(
+                            style: black13B500,
+                            cursorColor: kMainColor,
+                            controller: phoneNumberController,
+                            keyboardType: TextInputType.phone,
+                            focusNode: phoneNumberFocusController,
+                            textInputAction: TextInputAction.next,
+                            maxLength: 10,
+                            validator: (value) {
+                              if (value!.isEmpty || value.length < 10) {
+                                return "Enter valid Phone number";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              counterText: "",
+                              prefixIcon: Icon(
+                                Icons.phone_iphone,
+                                color: kMainColor,
                               ),
+                              hintStyle: grey13B600,
+                              hintText: "Enter phonenumber",
+                              filled: true,
+                              fillColor: kCardColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
                             ),
                           ),
                         ),
@@ -290,94 +283,90 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const VerticalSpacingWidget(height: 5),
                     //! password
-                    SizedBox(
-                      height: size.height * .065,
-                      child: TextFormField(
-                        style: black13B500,
-                        cursorColor: kMainColor,
-                        controller: passwordController,
-                        keyboardType: TextInputType.text,
-                        focusNode: passwordFocusController,
-                        textInputAction: TextInputAction.next,
-                        obscureText: hidePassword,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 7) {
-                            return "Password is missing and must have 7 digits";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon:
-                              Icon(IconlyLight.password, color: kMainColor),
-                          suffixIcon: hidePassword
-                              ? IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      hidePassword = !hidePassword;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    IconlyLight.hide,
-                                    color: kMainColor,
-                                  ),
-                                )
-                              : IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      hidePassword = !hidePassword;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    IconlyLight.show,
-                                    color: kMainColor,
-                                  ),
+                    TextFormField(
+                      style: black13B500,
+                      cursorColor: kMainColor,
+                      controller: passwordController,
+                      keyboardType: TextInputType.text,
+                      focusNode: passwordFocusController,
+                      textInputAction: TextInputAction.next,
+                      obscureText: hidePassword,
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 7) {
+                          return "Password is missing and must have 7 digits";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon:
+                            Icon(IconlyLight.password, color: kMainColor),
+                        suffixIcon: hidePassword
+                            ? IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hidePassword = !hidePassword;
+                                  });
+                                },
+                                icon: Icon(
+                                  IconlyLight.hide,
+                                  color: kMainColor,
                                 ),
-                          hintStyle: grey13B600,
-                          hintText: "Enter password",
-                          filled: true,
-                          fillColor: kCardColor,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 6.h),
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hidePassword = !hidePassword;
+                                  });
+                                },
+                                icon: Icon(
+                                  IconlyLight.show,
+                                  color: kMainColor,
+                                ),
+                              ),
+                        hintStyle: grey13B600,
+                        hintText: "Enter password",
+                        filled: true,
+                        fillColor: kCardColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
                         ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
                       ),
                     ),
                     const VerticalSpacingWidget(height: 5),
                     //!location
-                    SizedBox(
-                      height: size.height * .065,
-                      child: TextFormField(
-                        style: black13B500,
-                        cursorColor: kMainColor,
-                        controller: locationController,
-                        keyboardType: TextInputType.text,
-                        focusNode: locationFocusController,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Location is missing";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            IconlyLight.location,
-                            color: kMainColor,
-                          ),
-                          hintStyle: grey13B600,
-                          hintText: "Enter location",
-                          filled: true,
-                          fillColor: kCardColor,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 6.h),
+                    TextFormField(
+                      style: black13B500,
+                      cursorColor: kMainColor,
+                      controller: locationController,
+                      keyboardType: TextInputType.text,
+                      focusNode: locationFocusController,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Location is missing";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          IconlyLight.location,
+                          color: kMainColor,
                         ),
+                        hintStyle: grey13B600,
+                        hintText: "Enter location",
+                        filled: true,
+                        fillColor: kCardColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
                       ),
                     ),
                     const VerticalSpacingWidget(height: 5),

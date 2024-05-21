@@ -7,13 +7,13 @@ import 'package:flutter/foundation.dart'
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
 /// Example:
-/// ```dart
+/// dart
 /// import 'firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
-/// ```
+/// 
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -28,9 +28,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -53,33 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDRB-DcMcdcL8rJrIDSvQrB6pQbyv2N6Jc',
-    appId: '1:220538846317:ios:d9f8cbf0459d286e7f5364',
+    appId: '1:220538846317:ios:35d4b2c83eb1ad4a7f5364',
     messagingSenderId: '220538846317',
     projectId: 'mediezy-28594',
     storageBucket: 'mediezy-28594.appspot.com',
     androidClientId: '220538846317-ce1q4mncb7n193ov8qut8994g2d7974k.apps.googleusercontent.com',
-    iosClientId: '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mediezyUser',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDRB-DcMcdcL8rJrIDSvQrB6pQbyv2N6Jc',
-    appId: '1:220538846317:ios:d9f8cbf0459d286e7f5364',
-    messagingSenderId: '220538846317',
-    projectId: 'mediezy-28594',
-    storageBucket: 'mediezy-28594.appspot.com',
-    androidClientId: '220538846317-ce1q4mncb7n193ov8qut8994g2d7974k.apps.googleusercontent.com',
-    iosClientId: '220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mediezyUser',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBIqgdthNZqe2Chb378t--AG82RzqHhTEk',
-    appId: '1:220538846317:web:6ad07d56fbc8c9ee7f5364',
-    messagingSenderId: '220538846317',
-    projectId: 'mediezy-28594',
-    authDomain: 'mediezy-28594.firebaseapp.com',
-    storageBucket: 'mediezy-28594.appspot.com',
-  );
-
+    iosClientId: '220538846317-1rlm7ejs8e8fb47dhiu7l1shnl6pid0f.apps.googleusercontent.com',
+    iosBundleId: 'com.mediezy.mediezytechnology.user',
+);
 }

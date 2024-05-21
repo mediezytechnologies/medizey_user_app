@@ -340,7 +340,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   size: 20.sp,
                                 ),
                                 hintStyle: grey13B600,
-                                hintText: widget.location,
+                                hintText: widget.location == 'null' ? "" : widget.location,
                                 filled: true,
                                 fillColor: kCardColor,
                                 border: OutlineInputBorder(
