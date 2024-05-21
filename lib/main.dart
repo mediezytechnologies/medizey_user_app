@@ -17,6 +17,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
+
+
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
    log("its not working ");
@@ -27,7 +29,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await configureInjection();
   await GetStorage.init();
   

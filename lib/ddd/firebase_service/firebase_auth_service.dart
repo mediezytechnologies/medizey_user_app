@@ -188,6 +188,8 @@ class AuthServiceGoogle {
         AuthCredential credential = GoogleAuthProvider.credential(
             idToken: googleSignInAuthentication.idToken,
             accessToken: googleSignInAuthentication.accessToken);
+
+            log("message tok : ${googleSignInAuthentication.accessToken}   ============================>>>>>>>>>>>>>"  );
         //* then sign to firebase
         try {
           await auth.signInWithCredential(credential);
