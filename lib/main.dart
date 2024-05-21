@@ -14,11 +14,7 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mediezy_user/ddd/infrastructure/demo_service/d.dart';
 import 'package:mediezy_user/firebase_options.dart';
-
-import 'ddd/infrastructure/demo_service/emo.dart';
-import 'ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
 @pragma('vm:entry-point')
