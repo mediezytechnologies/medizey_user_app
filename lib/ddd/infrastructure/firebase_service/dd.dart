@@ -1,74 +1,200 @@
-// import 'dart:developer';
-// import 'dart:io';
 
-// import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
+
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 // class NotificationServices {
-//   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-//   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+//   //initialising firebase message plugin
+//   FirebaseMessaging messaging = FirebaseMessaging.instance ;
 
-//   Future<String> getDeviceToken() async {
-//     final preferences = await SharedPreferences.getInstance();
-//     String? token = await messaging.getToken();
-//     log("FCM Token: $token");
-//     if (token != null) {
-//       await preferences.setString('fcmToken', token);
-//       return token;
-//     } else {
-//       throw Exception("Failed to get FCM token");
-//     }
+//   //initialising firebase message plugin
+//   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin  = FlutterLocalNotificationsPlugin();
+
+
+
+//   //function to initialise flutter local notification plugin to show notifications for android when app is active
+//   void initLocalNotifications(BuildContext context, RemoteMessage message)async{
+//     var androidInitializationSettings = const AndroidInitializationSettings('@mipmap/ic_launcher');
+//     var iosInitializationSettings = const DarwinInitializationSettings();
+
+//     var initializationSetting = InitializationSettings(
+//         android: androidInitializationSettings ,
+//         iOS: iosInitializationSettings
+//     );
+
+//     await _flutterLocalNotificationsPlugin.initialize(
+//         initializationSetting,
+//       onDidReceiveNotificationResponse: (payload){
+//           // handle interaction when app is active for android
+//           handleMessage(context, message);
+//       }
+//     );
 //   }
 
-//   void isRefreshToken() {
-//     messaging.onTokenRefresh.listen((token) async {
-//       log('Token Refreshed: $token');
-//       final preferences = await SharedPreferences.getInstance();
-//       await preferences.setString('fcmToken', token);
+//   void firebaseInit(BuildContext context){
+
+
+
+
+//     FirebaseMessaging.onMessage.listen((message) {
+
+//       RemoteNotification? notification = message.notification ;
+//       AndroidNotification? android = message.notification!.android ;
+
+//       if (kDebugMode) {
+//         print("notifications title:${notification!.title}");
+//         print("notifications body:${notification.body}");
+//         print('count:${android!.count}');
+//         print('data:${message.data.toString()}');
+//       }
+
+//       if(Platform.isIOS){
+//         forgroundMessage();
+//       }
+
+//       if(Platform.isAndroid){
+//         initLocalNotifications(context, message);
+//         showNotification(message);
+//       }
 //     });
 //   }
 
-//   Future<void> requestNotificationPermissions() async {
-//     if (Platform.isIOS) {
-//       await messaging.requestPermission(
+
+//   void requestNotificationPermission() async {
+//     NotificationSettings settings = await messaging.requestPermission(
 //         alert: true,
 //         announcement: true,
 //         badge: true,
 //         carPlay: true,
 //         criticalAlert: true,
 //         provisional: true,
-//         sound: true,
-//       );
-//     }
-
-//     NotificationSettings settings = await messaging.requestPermission(
-//       alert: true,
-//       announcement: true,
-//       badge: true,
-//       carPlay: true,
-//       criticalAlert: true,
-//       provisional: true,
-//       sound: true,
+//         sound: true ,
 //     );
 
-//     switch (settings.authorizationStatus) {
-//       case AuthorizationStatus.authorized:
-//         log('User granted permissions');
-//         break;
-//       case AuthorizationStatus.provisional:
-//         log('User granted provisional permissions');
-//         break;
-//       default:
-//         log('User denied permissions');
-//         break;
+//     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+//       if (kDebugMode) {
+//         print('user granted permission');
+//       }
+//     } else if (settings.authorizationStatus ==
+//         AuthorizationStatus.provisional) {
+//       if (kDebugMode) {
+//         print('user granted provisional permission');
+//       }
+//     } else {
+//       //appsetting.AppSettings.openNotificationSettings();
+//       if (kDebugMode) {
+//         print('user denied permission');
+//       }
 //     }
 //   }
 
-//   Future<void> foregroundMessage() async {
+//   // function to show visible notification when app is active
+//   Future<void> showNotification(RemoteMessage message)async{
+
+//     AndroidNotificationChannel channel = AndroidNotificationChannel(
+//         message.notification!.android!.channelId.toString(),
+//       message.notification!.android!.channelId.toString() ,
+//       importance: Importance.max  ,
+//       showBadge: true ,
+//       playSound: true,
+//       sound: const RawResourceAndroidNotificationSound('jetsons_doorbell')
+//     );
+
+//      AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+//       channel.id.toString(),
+//       channel.name.toString() ,
+//       channelDescription: 'your channel description',
+//       importance: Importance.high,
+//       priority: Priority.high ,
+//       playSound: true,
+//       ticker: 'ticker' ,
+//          sound: channel.sound
+//     //     sound: RawResourceAndroidNotificationSound('jetsons_doorbell')
+//     //  icon: largeIconPath
+//     );
+
+//     const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
+//       presentAlert: true ,
+//       presentBadge: true ,
+//       presentSound: true
+//     ) ;
+
+//     NotificationDetails notificationDetails = NotificationDetails(
+//       android: androidNotificationDetails,
+//       iOS: darwinNotificationDetails
+//     );
+
+//     Future.delayed(Duration.zero , (){
+//       _flutterLocalNotificationsPlugin.show(
+//           0,
+//           message.notification!.title.toString(),
+//           message.notification!.body.toString(),
+//           notificationDetails ,
+//       );
+//     });
+
+//   }
+
+//   //function to get device token on which we will send the notifications
+//   Future<String> getDeviceToken() async {
+//       final preference = await SharedPreferences.getInstance();
+//     String? token = await messaging.getToken();
+//      preference.setString(
+//             'fcmToken', token.toString());
+//     return token!;
+//   }
+
+//   void isTokenRefresh()async{
+//     messaging.onTokenRefresh.listen((event) {
+//       event.toString();
+//       if (kDebugMode) {
+//         print('refresh');
+//       }
+//     });
+//   }
+
+//   //handle tap on notification when app is in background or terminated
+//   Future<void> setupInteractMessage(BuildContext context)async{
+
+//     // when app is terminated
+//     RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+
+//     if(initialMessage != null){
+//       handleMessage(context, initialMessage);
+//     }
+
+
+//     //when app ins background
+//     FirebaseMessaging.onMessageOpenedApp.listen((event) {
+//       handleMessage(context, event);
+//     });
+
+//   }
+
+//   void handleMessage(BuildContext context, RemoteMessage message) {
+
+//     if(message.data['type'] =='text'){
+//       Navigator.push(context,
+//           MaterialPageRoute(builder: (context) => MessageScreen(
+//             id: message.data['id'] ,
+//           )));
+//     }
+//   }
+
+
+//   Future forgroundMessage() async {
 //     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
 //       alert: true,
 //       badge: true,
@@ -76,120 +202,62 @@
 //     );
 //   }
 
-//   void firebaseInit(BuildContext context) {
-//     FirebaseMessaging.onMessage.listen((message) {
-//       debugPrint('Got a message whilst in the foreground!');
-//       debugPrint('Message data: ${message.notification?.title}');
 
-//       RemoteNotification? notification = message.notification;
-//       if (notification != null) {
-//         log("Notification title: ${notification.title}");
-//         log("Notification body: ${notification.body}");
-//         log("Data: ${message.data}");
-
-//         if (Platform.isIOS) {
-//           foregroundMessage();
-//         }
-
-//         if (Platform.isAndroid) {
-//           initLocalNotifications(context, message);
-//           showNotification(message);
-//         }
-//       }
-//     });
-//   }
-
-//   Future<void> initLocalNotifications(BuildContext context, RemoteMessage message) async {
-//     const androidInitSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-//     const iosInitSettings = DarwinInitializationSettings();
-
-//     final initSettings = InitializationSettings(android: androidInitSettings, iOS: iosInitSettings);
-
-//     await _flutterLocalNotificationsPlugin.initialize(
-//       initSettings,
-//       onDidReceiveNotificationResponse: (payload) {
-//         handleMessage(context, message);
-//       },
-//     );
-//   }
-
-//   void handleMessage(BuildContext context, RemoteMessage message) {
-//     log('Handling message');
-
-//     String? messageType = message.data['type'];
-//     if (messageType != null) {
-//       log('Message type: $messageType');
-//       log('Message data: ${message.data}');
-
-//       Widget screen;
-
-//       switch (messageType) {
-//         case 'text':
-//           screen = SavedDoctorsScreen();
-//           break;
-//         case 'chat':
-//           screen = ProfileScreen(); // Replace with the actual screen for chat
-//           break;
-//         default:
-//           log('Unknown message type: $messageType');
-//           return;
-//       }
-
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(builder: (context) => screen),
-//       );
-//     }
-//   }
-
-//   Future<void> showNotification(RemoteMessage message) async {
-//     if (message.notification?.android == null) return;
-
-//     AndroidNotificationChannel androidNotificationChannel = AndroidNotificationChannel(
-//       message.notification!.android!.channelId ?? 'default_channel_id',
-//       message.notification!.android!.channelId ?? 'default_channel_name',
-//       importance: Importance.max,
-//       showBadge: true,
-//       playSound: true,
-//     );
-
-//     AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
-//       androidNotificationChannel.id,
-//       androidNotificationChannel.name,
-//       channelDescription: 'Flutter Notifications',
-//       importance: Importance.max,
-//       priority: Priority.high,
-//       playSound: true,
-//       ticker: 'ticker',
-//     );
-
-//     const darwinNotificationDetails = DarwinNotificationDetails(
-//       presentAlert: true,
-//       presentBadge: true,
-//       presentSound: true,
-//     );
-
-//     NotificationDetails notificationDetails = NotificationDetails(
-//       android: androidNotificationDetails,
-//       iOS: darwinNotificationDetails,
-//     );
-
-//     await _flutterLocalNotificationsPlugin.show(
-//       0,
-//       message.notification?.title ?? 'Notification',
-//       message.notification?.body ?? '',
-//       notificationDetails,
-//     );
-//   }
-
-//   Future<void> setupInteractMessage(BuildContext context) async {
-//     RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-//     if (initialMessage != null) {
-//       handleMessage(context, initialMessage);
-//     }
-
-//     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-//       handleMessage(context, message);
-//     });
-//   }
 // }
+
+
+
+class MessageScreen extends StatefulWidget {
+  final String id ;
+  const MessageScreen({Key? key , required this.id}) : super(key: key);
+
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(
+        title: Text('Message Screen' +widget.id)  ,
+      ),
+    );
+  }
+}
+
+
+
+class HomeScreenD extends StatefulWidget {
+  const HomeScreenD({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreenD> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreenD> {
+
+ 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   
+  }
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter Notifications'),
+      ),
+      body: Center(
+       child: Text("fjadsjkfhadjklsfadfklskldfs"),
+
+          // send notification from one device to another
+          
+            
+      ),
+    );
+  }
+}

@@ -16,6 +16,7 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 
+import 'ddd/infrastructure/firebase_service/dd.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
 
@@ -25,10 +26,16 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
    log("its not working ");
 }
+// @pragma('vm:entry-point')
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async {
+//   await Firebase.initializeApp();
+// }
+
 
 Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await configureInjection();
   await GetStorage.init();
@@ -59,7 +66,9 @@ class _MediezyState extends State<Mediezy> {
   @override
   void initState() {
     super.initState();
+   
       notificationServices.requestNotificationPermisions();
+       notificationServices.firebaseInit(context);
     notificationServices.isRefreshToken();
     notificationServices.getDeviceToken().then((value) {
       log("not : $value");
@@ -100,7 +109,8 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
              theme: appThemeStyle(context),
           home:
-              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+        //  HomeScreenD()
+          hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

@@ -13,12 +13,11 @@ class NotificationServices {
       FlutterLocalNotificationsPlugin();
 
   Future<String> getDeviceToken() async {
-      final preference = await SharedPreferences.getInstance();
+    final preference = await SharedPreferences.getInstance();
     String? token = await messaging.getToken();
     log("fcm on service tok :$token ");
-     if (token != null) {
-         preference.setString(
-            'fcmToken', token.toString());
+    if (token != null) {
+      preference.setString('fcmToken', token.toString());
       return token;
     } else {
       throw Exception("Failed to get FCM token");
@@ -26,7 +25,7 @@ class NotificationServices {
   }
 
   void isRefreshToken() async {
-    messaging.onTokenRefresh.listen((token)async {
+    messaging.onTokenRefresh.listen((token) async {
       token.toString();
       log('TOken Refereshed: $token');
       final preference = await SharedPreferences.getInstance();
@@ -48,7 +47,6 @@ class NotificationServices {
 
     NotificationSettings notificationSettings =
         await messaging.requestPermission(
-          
             alert: true,
             announcement: true,
             badge: true,
@@ -77,7 +75,7 @@ class NotificationServices {
 
   void firebaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((message) {
-        debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Got a message whilst in the foreground!');
       debugPrint('Message data: ${message.notification!.title.toString()}');
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
@@ -93,13 +91,10 @@ class NotificationServices {
 
       if (Platform.isAndroid) {
         initLocalNotifications(context, message);
+
         showNotification(message);
       }
     });
-
-  
-    
-    
   }
 
   void initLocalNotifications(
@@ -110,33 +105,33 @@ class NotificationServices {
 
     var initSettings = InitializationSettings(
         android: androidInitSettings, iOS: iosInitSettings);
+ 
 
     await _flutterLocalNotificationsPlugin.initialize(initSettings,
         onDidReceiveNotificationResponse: (payload) {
       handleMesssage(context, message);
     });
+ 
   }
-  
-  
 
   // void handleMesssage(BuildContext context, RemoteMessage message) {
   //   log('In handleMesssage function');
   //   if (message.data['type'] == 'text') {
   //     log(message.data.toString());
-     
+
   //     // redirect to new screen or take different action based on payload that you receive.
   //   }
   // }
 
-void handleMesssage(BuildContext context, RemoteMessage message) {
-  log('In handleMesssage function');
-  String? messageType = message.data['type'];
+  void handleMesssage(BuildContext context, RemoteMessage message) {
+    log('In handleMesssage function');
+    String? messageType = message.data['type'];
 
-if (messageType !=null) {
-   log('Message type: $messageType');
+    if (messageType != null) {
+      log('Message type: $messageType');
       log('Message data: ${message.data}');
-         Widget screen;
-          switch (messageType) {
+      Widget screen;
+      switch (messageType) {
         case 'text':
           screen = SavedDoctorsScreen();
           log("screen 0");
@@ -153,21 +148,19 @@ if (messageType !=null) {
         context,
         MaterialPageRoute(builder: (context) => screen),
       );
-  
-}
+    }
 
+    // if (message.data['type'] == 'text') {
 
-  // if (message.data['type'] == 'text') {
-    
-  //   log(message.data.toString());
-  //    log("log text done ===============");
+    //   log(message.data.toString());
+    //    log("log text done ===============");
 
-  //   // Navigate to the profile screen
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
-  //   );
-  // }
+    //   // Navigate to the profile screen
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
+    //   );
+    // }
 //  else  if (message.data['type']=='chat') {
 //     log("log chat done =====================");
 //     log(message.data.toString());
@@ -176,44 +169,45 @@ if (messageType !=null) {
 //       MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
 //     );
 //   }
-   //log("un   log");
-}
+    //log("un   log");
+  }
+
   Future<void> showNotification(RemoteMessage message) async {
-      if (message.notification?.android == null) return;
-    AndroidNotificationChannel androidNotificationChannel = AndroidNotificationChannel(
+    if (message.notification?.android == null) return;
+    AndroidNotificationChannel androidNotificationChannel =
+        AndroidNotificationChannel(
       message.notification!.android!.channelId.toString(),
       message.notification!.android!.channelId.toString(),
       importance: Importance.max,
       showBadge: true,
-      playSound:true,
-    );
-
-    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
-      androidNotificationChannel.id.toString(),
-      androidNotificationChannel.name.toString(),
-      channelDescription: 'Flutter Notifications',
-      importance: Importance.max,
-      priority: Priority.high,
       playSound: true,
-      ticker: 'ticker',
-      sound: androidNotificationChannel.sound
     );
 
-    const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
-      presentAlert: true, presentBadge: true, presentSound: true
-    );
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails(androidNotificationChannel.id.toString(),
+            androidNotificationChannel.name.toString(),
+            channelDescription: 'Flutter Notifications',
+            importance: Importance.max,
+            priority: Priority.high,
+            playSound: true,
+            ticker: 'ticker',
+            sound: androidNotificationChannel.sound);
+
+    const DarwinNotificationDetails darwinNotificationDetails =
+        DarwinNotificationDetails(
+            presentAlert: true, presentBadge: true, presentSound: true);
 
     NotificationDetails notificationDetails = NotificationDetails(
-      android: androidNotificationDetails, iOS: darwinNotificationDetails
-    );
+        android: androidNotificationDetails, iOS: darwinNotificationDetails);
 
     Future.delayed(Duration.zero, () {
-      _flutterLocalNotificationsPlugin.show(0, 
-      message.notification!.title.toString(), 
-      message.notification!.body.toString(), notificationDetails);
+      _flutterLocalNotificationsPlugin.show(
+        0,
+        message.notification!.title.toString(),
+        message.notification!.body.toString(),
+        notificationDetails,
+      );
     });
-
-
   }
 
   Future<void> setupInteractMessage(BuildContext context) async {
@@ -230,6 +224,4 @@ if (messageType !=null) {
       handleMesssage(context, event);
     });
   }
-
-  
 }
