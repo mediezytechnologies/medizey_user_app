@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -12,26 +11,26 @@ import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
+import 'package:mediezy_user/Ui/Screens/demo/razor_pay_demo.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
-
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-   log("its not working ");
+  log("its not working ");
   await Firebase.initializeApp();
-   log("its not working ");
+  log("its not working ");
 }
 
-Future <void> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await configureInjection();
   await GetStorage.init();
-  
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -52,13 +51,13 @@ class Mediezy extends StatefulWidget {
 
 class _MediezyState extends State<Mediezy> {
   late StreamSubscription<ConnectivityResult> subscription;
-   bool hasInternet = false;
+  bool hasInternet = false;
   NotificationServices notificationServices = NotificationServices();
 
   @override
   void initState() {
     super.initState();
-      notificationServices.requestNotificationPermisions();
+    notificationServices.requestNotificationPermisions();
     notificationServices.isRefreshToken();
     notificationServices.getDeviceToken().then((value) {
       log("not : $value");
@@ -97,9 +96,10 @@ class _MediezyState extends State<Mediezy> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
-             theme: appThemeStyle(context),
-          home:
-              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          theme: appThemeStyle(context),
+          // home:
+          //     hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          home: RazorPayDemo(),
         );
       },
     );
