@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -6,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mediezy_user/Model/auth/login_model.dart';
 import 'package:mediezy_user/Repository/Bloc/LoginAndSignUp/login_and_signup_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
@@ -40,8 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final locationController = Get.put(LocationController());
   late LoginModel loginModel;
   bool hidePassword = true;
-  late GoogleSignInAccount _userObj;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(4),
                                 borderSide: BorderSide.none,
                               ),
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 10.0),
                             ),
                           ),
@@ -235,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                         BlocProvider.of<NotificatioTokenBloc>(context)
                                       .add(
-                                  NotificatioTokenEvent.started() ,
+                                  const NotificatioTokenEvent.started() ,
                                   );
 
                                 }

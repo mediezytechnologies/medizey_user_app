@@ -5,9 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
-import '../../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
-import '../../../../CommonWidgets/common_button_widget.dart';
 import '../../../../CommonWidgets/text_style_widget.dart';
 import '../../../../Consts/app_colors.dart';
 import '../../../../Services/general_services.dart';
@@ -31,7 +29,6 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      
       body: BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
         listener: (context, state) {
           if (state.isError && state.status == false) {
@@ -64,7 +61,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                   height: 10,
                 ),
                 Text(
-                   auth.currentUser!.displayName.toString(),
+                  auth.currentUser!.displayName.toString(),
                   style: black16B600,
                 ),
                 const VerticalSpacingWidget(
@@ -87,65 +84,91 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                 ),
                 Form(
                   key: _formKey,
-                  child: SizedBox(
-                    height: 50,
-                    child: TextFormField(
-                      style: black13B500,
-                      cursorColor: kMainColor,
-                      controller: phoneNumberController,
-                      keyboardType: TextInputType.phone,
-                      focusNode: phoneNumberFocusController,
-                      textInputAction: TextInputAction.next,
-                      maxLength: 10,
-                      validator: (value) {
-                        if (value!.isEmpty || value.length < 10) {
-                          return "Enter valid Phone number";
-                        } else {
-                          return null;
-                        }
-                      },
-                      decoration: InputDecoration(
-                        counterText: "",
-                        prefixIcon: Icon(
-                          Icons.call,
-                          color: kMainColor,
-                        ),
-                        hintStyle: grey13B600,
-                        hintText: "Enter phone number",
-                        filled: true,
-                        fillColor: kCardColor,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 6.h),
+                  child: TextFormField(
+                    style: black13B500,
+                    cursorColor: kMainColor,
+                    controller: phoneNumberController,
+                    keyboardType: TextInputType.phone,
+                    focusNode: phoneNumberFocusController,
+                    textInputAction: TextInputAction.next,
+                    maxLength: 10,
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 10) {
+                        return "Enter valid Phone number";
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: InputDecoration(
+                      counterText: "",
+                      prefixIcon: Icon(
+                        Icons.call,
+                        color: kMainColor,
                       ),
+                      hintStyle: grey13B600,
+                      hintText: "Enter phone number",
+                      filled: true,
+                      fillColor: kCardColor,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
                     ),
                   ),
                 ),
                 const VerticalSpacingWidget(
                   height: 10,
                 ),
-                CommonButtonWidget(
-                    title: "Login",
-                    onTapFunction: () async {
-                      bool isValid = _formKey.currentState!.validate();
-                      if (isValid) {
-                        BlocProvider.of<FirebaseLoginBloc>(context)
-                            .add(FirebaseLoginEvent.started(
-                          phoneNumberController.text,
-                        ));
- BlocProvider.of<NotificatioTokenBloc>(context).add(
-                    NotificatioTokenEvent.started(),
-                  );
-                        //        Navigator.pushAndRemoveUntil(
-                        // context,
-                        // MaterialPageRoute(
-                        //   builder: (context) => const BottomNavigationControlWidget(),
-                        // ),
-                        // (route) => false);
-                      }
-                    }),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(330.w, 40.h),
+                    backgroundColor: kMainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                  ),
+                  onPressed: () async {
+                    bool isValid = _formKey.currentState!.validate();
+                    if (isValid) {
+                      BlocProvider.of<FirebaseLoginBloc>(context)
+                          .add(FirebaseLoginEvent.started(
+                        phoneNumberController.text,
+                      ));
+                      BlocProvider.of<NotificatioTokenBloc>(context).add(
+                        const NotificatioTokenEvent.started(),
+                      );
+                    }
+                  },
+                  child: state.isloding
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: kCardColor,
+                          ),
+                        )
+                      : Text("Add Member", style: white13B700),
+                ),
+                // CommonButtonWidget(
+                //     title: "Login",
+                //     onTapFunction: () async {
+                //       bool isValid = _formKey.currentState!.validate();
+                //       if (isValid) {
+                //         BlocProvider.of<FirebaseLoginBloc>(context)
+                //             .add(FirebaseLoginEvent.started(
+                //           phoneNumberController.text,
+                //         ));
+                //         BlocProvider.of<NotificatioTokenBloc>(context).add(
+                //           NotificatioTokenEvent.started(),
+                //         );
+                //         //        Navigator.pushAndRemoveUntil(
+                //         // context,
+                //         // MaterialPageRoute(
+                //         //   builder: (context) => const BottomNavigationControlWidget(),
+                //         // ),
+                //         // (route) => false);
+                //       }
+                //     }),
                 // BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
                 //   listener: (context, state) {
                 //     if (state.isError && state.status == false) {

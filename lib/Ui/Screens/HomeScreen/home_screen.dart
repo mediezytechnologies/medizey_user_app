@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:async';
-import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
