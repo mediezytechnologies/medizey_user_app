@@ -50,6 +50,20 @@ class BookingConfirmationScreen extends StatefulWidget {
 }
 
 class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -65,11 +79,12 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Booking Successfull"),
+          title: const Text("Booking Successful"),
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -194,7 +209,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                       child: ExpansionTile(
                         tilePadding: EdgeInsets.zero,
                         childrenPadding: EdgeInsets.symmetric(horizontal: 8.w),
-                        title: Text('What happened when i arrived late?',
+                        title: Text('What happened when I arrived late?',
                             style: black14B600),
                         children: [
                           Text(
@@ -210,7 +225,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                       child: ExpansionTile(
                         tilePadding: EdgeInsets.zero,
                         childrenPadding: EdgeInsets.symmetric(horizontal: 8.w),
-                        title: Text('If i am not able to visit the doctor?',
+                        title: Text('If I am not able to visit the doctor?',
                             style: black14B600),
                         children: [
                           Text(

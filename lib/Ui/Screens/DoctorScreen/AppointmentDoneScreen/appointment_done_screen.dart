@@ -126,6 +126,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
   String? patientAge;
   String? patientPhoneNumber;
   String? patientMediezyId;
+  double platFormFee = 10.0;
+  bool isFeeChecked = false;
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -148,6 +150,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
 
   @override
   void initState() {
+    super.initState();
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
@@ -156,8 +159,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
     BlocProvider.of<GetSymptomsBloc>(context)
         .add(FetchSymptoms(doctorId: widget.doctorId));
     BlocProvider.of<GetFamilyMembersBloc>(context).add(FetchFamilyMember());
+    calculatePlatFormFee();
     checkPatientIdAvailableOrNot();
-    super.initState();
   }
 
   @override
@@ -1628,18 +1631,49 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                           children: [
                                             Text("Platform Fee",
                                                 style: grey13B400),
-                                            Text("₹ 10", style: black14B500),
+                                            Text("₹ ${platFormFee.toString()}",
+                                                style: black14B500),
                                           ],
                                         )
                                       : const SizedBox(),
+                                  const VerticalSpacingWidget(height: 5),
+                                  SizedBox(
+                                    height: 20.h,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Consultation fee",
+                                            style: grey13B400),
+                                        Row(
+                                          children: [
+                                            Transform.scale(
+                                              scale: 0.8,
+                                              child: Checkbox(
+                                                activeColor: kMainColor,
+                                                value: isFeeChecked,
+                                                onChanged: (bool? value) {
+                                                  setState(() {
+                                                    isFeeChecked = value!;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                            Text("₹ ${widget.consultationFee}",
+                                                style: black14B500),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   const VerticalSpacingWidget(height: 5),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Consultation fee",
-                                          style: grey13B400),
-                                      Text("₹ ${widget.consultationFee}",
+                                      Text("Total", style: grey13B400),
+                                      Text(
+                                          "₹ ${isFeeChecked ? double.parse(widget.consultationFee) + platFormFee : platFormFee}",
                                           style: black14B500),
                                     ],
                                   ),
@@ -1822,6 +1856,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
         );
       }),
     );
+  }
+
+  void calculatePlatFormFee() {
+    double consultationFee = double.tryParse(widget.consultationFee) ?? 0.0;
+    platFormFee = consultationFee <= 200 ? 10 : consultationFee * 5 / 100;
   }
 
   Future<dynamic> showErrorDialogueIos(

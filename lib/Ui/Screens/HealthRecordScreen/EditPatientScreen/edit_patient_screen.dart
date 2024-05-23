@@ -48,6 +48,7 @@ class EditPatientScreen extends StatefulWidget {
     required this.treatmentDetails,
     required this.allergiesDetails,
     required this.dateOfBirth,
+    required this.dobShow,
   });
 
   final String patientId;
@@ -64,6 +65,7 @@ class EditPatientScreen extends StatefulWidget {
   final String surgeryDetails;
   final String treatmentDetails;
   final String dateOfBirth;
+  final String dobShow;
 
   @override
   State<EditPatientScreen> createState() => _EditPatientScreenState();
@@ -368,8 +370,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                 children: [
                                   Text(
                                       dateOfBirth == null
-                                          ? widget.dateOfBirth
-                                          : DateFormat('yyy-MM-dd')
+                                          ? widget.dobShow
+                                          : DateFormat('dd-MM-yyy')
                                               .format(dateOfBirth!),
                                       style: black13B500),
                                   const HorizontalSpacingWidget(width: 10),

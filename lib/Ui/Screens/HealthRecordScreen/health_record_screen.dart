@@ -613,6 +613,9 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                                     itemBuilder: (context, index) {
                                       return selectedPatientIndex == index
                                           ? UserDetailsDisplayCardWidget(
+                                              dobShow: getAllMembersModel
+                                                  .patientData![index].dobShow
+                                                  .toString(),
                                               patientId: getAllMembersModel
                                                   .patientData![index].id
                                                   .toString(),

@@ -9,6 +9,7 @@ import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.d
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/AppointmentDoneScreen/appointment_done_screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../main.dart';
 
 import '../../../Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../main.dart';

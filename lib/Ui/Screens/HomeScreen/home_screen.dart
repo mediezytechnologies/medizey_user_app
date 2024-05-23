@@ -22,7 +22,6 @@ import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
-import '../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import 'Widgets/get_completed_feedback_widget.dart';
 
 class HomeScreen extends StatefulWidget {

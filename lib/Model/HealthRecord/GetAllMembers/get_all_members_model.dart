@@ -39,6 +39,7 @@ class PatientData {
   String? surgeryDetails;
   String? treatmentTakenDetails;
   String? patientImage;
+  String? dobShow;
   List<MedicineDetails>? medicineDetails;
   List<AllergiesDetails>? allergiesDetails;
 
@@ -58,7 +59,8 @@ class PatientData {
       this.treatmentTakenDetails,
       this.patientImage,
       this.medicineDetails,
-      this.allergiesDetails});
+      this.allergiesDetails,
+      this.dobShow});
 
   PatientData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -67,6 +69,7 @@ class PatientData {
     patientAge = json['patient_age'];
     dob = json['dob'];
     displayAge = json['display_age'];
+
     patientGender = json['patient_gender'];
     patientMobileNumber = json['patient_mobile_number'];
     regularMedicine = json['regular_medicine'];
@@ -87,6 +90,7 @@ class PatientData {
         allergiesDetails!.add(AllergiesDetails.fromJson(v));
       });
     }
+    dobShow = json['dobshow'];
   }
 
   Map<String, dynamic> toJson() {
@@ -113,6 +117,7 @@ class PatientData {
       data['allergies_details'] =
           allergiesDetails!.map((v) => v.toJson()).toList();
     }
+    data['dobshow'] = dobShow;
     return data;
   }
 }

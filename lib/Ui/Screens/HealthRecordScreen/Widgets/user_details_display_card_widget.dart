@@ -31,7 +31,8 @@ class UserDetailsDisplayCardWidget extends StatefulWidget {
       required this.dateOfBirth,
       required this.mediezyPatientId,
       required this.patientIndex,
-      required this.displayAge});
+      required this.displayAge,
+      required this.dobShow});
 
   final String patientId;
   final String patienName;
@@ -50,6 +51,7 @@ class UserDetailsDisplayCardWidget extends StatefulWidget {
   final String mediezyPatientId;
   final int patientIndex;
   final String displayAge;
+  final String dobShow;
 
   @override
   State<UserDetailsDisplayCardWidget> createState() =>
@@ -118,6 +120,7 @@ class _UserDetailsDisplayCardWidgetState
                     MaterialPageRoute(
                       builder: (context) {
                         return EditPatientScreen(
+                          dobShow: widget.dobShow,
                           dateOfBirth: widget.dateOfBirth,
                           surgeryDetails: widget.surgeryDetails.toString(),
                           treatmentDetails: widget.treatmentDetails.toString(),
