@@ -421,7 +421,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const BottomNavigationControlWidget(),
+              builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
             ),
           );
           return Future.value(false);

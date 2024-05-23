@@ -1,9 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.dart';
@@ -14,8 +18,13 @@ import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
 import '../../ddd/application/notification_token/notificatio_token_bloc.dart';
 
 class BottomNavigationControlWidget extends StatefulWidget {
-  const BottomNavigationControlWidget({super.key});
-
+  BottomNavigationControlWidget({
+    Key? key,
+    required this.selectedIndex,
+    this.typeId =0,
+  }) : super(key: key);
+ int selectedIndex;
+ int typeId;
   @override
   State<BottomNavigationControlWidget> createState() =>
       _BottomNavigationControlWidgetState();
@@ -23,46 +32,66 @@ class BottomNavigationControlWidget extends StatefulWidget {
 
 class _BottomNavigationControlWidgetState
     extends State<BottomNavigationControlWidget> {
-  int selectedIndex = 0;
+
+
+  //int selectedIndex = 0;
   late StreamSubscription<ConnectivityResult> subscription;
+  
+  // List<Widget> screens = [];
   @override
+
   void initState() {
+   
     super.initState();
+  //   screens =  [
+  //   const HomeScreen(),
+  //   // DoctorScreen(),
+  //   AppointmentsScreen(initialIndex:widget.typeId==0? 0:1,),
+  //   const HealthRecordScreen(),
+  //   const ProfileScreen(),
+  // ];
     BlocProvider.of<NotificatioTokenBloc>(context).add(
-      NotificatioTokenEvent.started(),
+      const NotificatioTokenEvent.started(),
     );
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       handleConnectivityChange(result);
     });
+   
+    
   }
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
     } else {}
   }
+ 
 
-  List<Widget> screens = const [
-    HomeScreen(),
-    // DoctorScreen(),
-    AppointmentsScreen(),
-    HealthRecordScreen(),
-    ProfileScreen(),
-  ];
+ 
 
   void selectScreen(int index) {
     setState(() {
-      selectedIndex = index;
+    widget.selectedIndex = index;
+   
+    log("message typei ${widget.typeId} : ===========================");
+     AppointmentsScreen(initialIndex:0,);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+     List<Widget> screens = [
+      const HomeScreen(),
+      AppointmentsScreen(initialIndex: widget.typeId == 0 ? 0 : 1),
+      const HealthRecordScreen(),
+      const ProfileScreen(),
+    ];
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         onTap: selectScreen,
-        currentIndex: selectedIndex,
+        currentIndex:widget. selectedIndex,
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: true,
         showUnselectedLabels: true,
@@ -74,7 +103,7 @@ class _BottomNavigationControlWidgetState
         items: [
           BottomNavigationBarItem(
               icon: Icon(
-                  selectedIndex == 0 ? IconlyBold.home : IconlyLight.home,
+                widget. selectedIndex   == 0 ? IconlyBold.home : IconlyLight.home,
                   color: kMainColor),
               label: "Home"),
           // BottomNavigationBarItem(
@@ -87,7 +116,7 @@ class _BottomNavigationControlWidgetState
           //     label: "Doctor"),
           BottomNavigationBarItem(
               icon: Icon(
-                  selectedIndex == 1
+                  widget. selectedIndex == 1
                       ? IconlyBold.calendar
                       : IconlyLight.calendar,
                   color: kMainColor),
@@ -98,13 +127,13 @@ class _BottomNavigationControlWidgetState
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 label: const Text("Upload"),
                 child: Icon(
-                    selectedIndex == 2 ? IconlyBold.chart : IconlyLight.chart,
+                    widget. selectedIndex == 2 ? IconlyBold.chart : IconlyLight.chart,
                     color: kMainColor),
               ),
               label: "Health records"),
           BottomNavigationBarItem(
               icon: Icon(
-                  selectedIndex == 3 ? IconlyBold.profile : IconlyLight.profile,
+                  widget. selectedIndex == 3 ? IconlyBold.profile : IconlyLight.profile,
                   color: kMainColor),
               label: "Profile"),
         ],
@@ -116,7 +145,7 @@ class _BottomNavigationControlWidgetState
           if (connectivityResult == ConnectivityResult.none) {
             return const InternetHandleScreen();
           } else {
-            return screens[selectedIndex];
+            return screens[widget. selectedIndex];
           }
         },
       ),

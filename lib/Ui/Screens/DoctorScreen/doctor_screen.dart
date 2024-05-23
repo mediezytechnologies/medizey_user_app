@@ -39,7 +39,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const BottomNavigationControlWidget(),
+            builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
           ),
         );
         return Future.value(false);

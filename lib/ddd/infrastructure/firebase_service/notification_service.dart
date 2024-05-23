@@ -5,9 +5,12 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.dart';
+import 'package:mediezy_user/Ui/Screens/DoctorScreen/AppointmentDoneScreen/appointment_done_screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../main.dart';
 
 class NotificationServices {
@@ -37,18 +40,27 @@ class NotificationServices {
     });
   }
 
-  
-
   void requestNotificationPermisions() async {
     if (Platform.isIOS) {
-      await messaging.requestPermission(
-          alert: true,
-          announcement: true,
-          badge: true,
-          carPlay: true,
-          criticalAlert: true,
-          provisional: true,
-          sound: true);
+      NotificationSettings notificationSettings =
+          await messaging.requestPermission(
+              alert: true,
+              announcement: true,
+              badge: true,
+              carPlay: true,
+              criticalAlert: true,
+              provisional: true,
+              sound: true);
+      if (notificationSettings.authorizationStatus ==
+          AuthorizationStatus.authorized) {
+        log('user is already granted permisions in iso');
+        log("notification not ios ==========");
+      } else if (notificationSettings.authorizationStatus ==
+          AuthorizationStatus.provisional) {
+        log('user is already granted provisional permisions ios');
+      } else {
+        log('User has denied permission ios');
+      }
     }
 
     NotificationSettings notificationSettings =
@@ -88,7 +100,7 @@ class NotificationServices {
       AndroidNotification? android = message.notification!.android;
 
       log("Notification title: ${notification!.title}");
-      log("Notification title: ${notification!.body}");
+      log("Notification title: ${notification.body}");
       log("Data: ${message.data.toString()}");
 
       // For IoS
@@ -112,24 +124,12 @@ class NotificationServices {
 
     var initSettings = InitializationSettings(
         android: androidInitSettings, iOS: iosInitSettings);
- 
 
     await _flutterLocalNotificationsPlugin.initialize(initSettings,
         onDidReceiveNotificationResponse: (payload) {
       handleMesssage(context, message);
     });
-    
- 
   }
-
-  // void handleMesssage(BuildContext context, RemoteMessage message) {
-  //   log('In handleMesssage function');
-  //   if (message.data['type'] == 'text') {
-  //     log(message.data.toString());
-
-  //     // redirect to new screen or take different action based on payload that you receive.
-  //   }
-  // }
 
   void handleMesssage(BuildContext context, RemoteMessage message) {
     log('In handleMesssage function');
@@ -138,23 +138,59 @@ class NotificationServices {
     if (messageType != null) {
       log('Message type: $messageType');
       log('Message data: ${message.data}');
-      Widget screen;
       switch (messageType) {
-        case 'text':
-          navigatorKey.currentState?.push( MaterialPageRoute(builder: (context) => SavedDoctorsScreen()));
-       
-         
-          log("screen 0");
-          break;
         case 'chat':
-          navigatorKey.currentState?.push( MaterialPageRoute(builder: (context) => SavedDoctorsScreen()));
-          log("screen 1"); // Replace with the actual screen for chat
+          navigatorKey.currentState?.push(MaterialPageRoute(
+              builder: (context) => BottomNavigationControlWidget(
+                    selectedIndex: 1,
+                    typeId: 1,
+                  )));
+          log("screen 0"); // Replace with the actual screen for chat
+          break;
+        case 'send-e-t-a-push-alert':
+          navigatorKey.currentState?.push(MaterialPageRoute(
+            builder: (context) =>
+                BottomNavigationControlWidget(selectedIndex: 0),
+          ));
+          log("screen 1");
+          break;
+
+        case 'booking-success':
+          navigatorKey.currentState?.push(MaterialPageRoute(
+              builder: (context) => BottomNavigationControlWidget(
+                    selectedIndex: 0,
+                  )));
+          log("screen 2"); // Replace with the actual screen for chat
+          break;
+        case 'schedule-started-alert':
+          navigatorKey.currentState?.push(MaterialPageRoute(
+              builder: (context) => BottomNavigationControlWidget(
+                    selectedIndex: 1,
+                    typeId: 0,
+                  )));
+          log("screen 3"); // Replace with the actual screen for chat
+          break;
+        case 'doctor-reschedules':
+          navigatorKey.currentState?.push(MaterialPageRoute(
+              builder: (context) => BottomNavigationControlWidget(
+                    selectedIndex: 1,
+                    typeId: 0,
+                  )));
+          log("screen 4"); // Replace with the actual screen for chat
+          break;
+        case 'appointment-completed-alert':
+          navigatorKey.currentState?.push(MaterialPageRoute(
+              builder: (context) => BottomNavigationControlWidget(
+                    selectedIndex: 0,
+                    typeId: 0,
+                  )));
+          log("screen 5"); // Replace with the actual screen for chat
           break;
         default:
+          log("screen 6"); // Re
           log('Unknown message type: $messageType');
           return;
       }
-     
     }
 
     // if (message.data['type'] == 'text') {

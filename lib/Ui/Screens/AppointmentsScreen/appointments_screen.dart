@@ -1,9 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: file_names, deprecated_member_use
 
 import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
@@ -11,8 +14,11 @@ import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/CompletedAppointmentS
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/UpcomingAppointmentScreen/up_coming_appointment_Screen.dart';
 
 class AppointmentsScreen extends StatefulWidget {
-  const AppointmentsScreen({super.key});
-
+   AppointmentsScreen({
+    Key? key,
+  this.initialIndex=0,
+  }) : super(key: key);
+int initialIndex;
   @override
   State<AppointmentsScreen> createState() => _AppointmentsScreenState();
 }
@@ -38,13 +44,14 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: widget.initialIndex,
       length: 2,
       child: WillPopScope(
         onWillPop: () async {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const BottomNavigationControlWidget(),
+              builder: (context) =>  BottomNavigationControlWidget(selectedIndex: 0,),
             ),
           );
           return Future.value(false);

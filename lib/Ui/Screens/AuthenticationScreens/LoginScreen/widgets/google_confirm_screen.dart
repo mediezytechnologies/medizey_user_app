@@ -41,7 +41,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          const BottomNavigationControlWidget(),
+                           BottomNavigationControlWidget(selectedIndex: 0,),
                     ),
                     (route) => false));
           }
