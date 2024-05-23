@@ -116,13 +116,13 @@ class _HomeScreenState extends State<HomeScreen> {
           return Future.value(false);
         },
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              BlocProvider.of<NotificatioTokenBloc>(context).add(
-                const NotificatioTokenEvent.started(),
-              );
-            },
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //     BlocProvider.of<NotificatioTokenBloc>(context).add(
+          //       const NotificatioTokenEvent.started(),
+          //     );
+          //   },
+          // ),
           backgroundColor: kSecondaryColor,
           body: Column(
             children: [
