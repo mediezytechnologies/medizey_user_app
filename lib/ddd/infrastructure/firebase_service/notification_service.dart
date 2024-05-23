@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../main.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -111,6 +115,7 @@ class NotificationServices {
         onDidReceiveNotificationResponse: (payload) {
       handleMesssage(context, message);
     });
+    
  
   }
 
@@ -133,21 +138,20 @@ class NotificationServices {
       Widget screen;
       switch (messageType) {
         case 'text':
-          screen = SavedDoctorsScreen();
+          navigatorKey.currentState?.push( MaterialPageRoute(builder: (context) => SavedDoctorsScreen()));
+       
+         
           log("screen 0");
           break;
         case 'chat':
-          screen = SavedDoctorsScreen();
+          navigatorKey.currentState?.push( MaterialPageRoute(builder: (context) => SavedDoctorsScreen()));
           log("screen 1"); // Replace with the actual screen for chat
           break;
         default:
           log('Unknown message type: $messageType');
           return;
       }
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
-      );
+     
     }
 
     // if (message.data['type'] == 'text') {

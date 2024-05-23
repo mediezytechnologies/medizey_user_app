@@ -18,7 +18,7 @@ import 'package:mediezy_user/firebase_options.dart';
 
 import 'ddd/infrastructure/firebase_service/dd.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
