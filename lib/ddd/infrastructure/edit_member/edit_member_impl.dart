@@ -32,29 +32,33 @@ class RegisterServiceImpl implements EditMemberRepo {
 
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
+
+    var fomData = {
+      "patient_id": patientId,
+      "full_name": fullName,
+      "mobile_number": mobileNumber,
+      "gender": gender,
+      "date_of_birth": age,
+      "regularMedicine": regularMedicine,
+      "surgery_name": surgeryName,
+      "surgery_details": surgeryDetails,
+      "treatment_taken": treatmentTaken,
+      "treatment_taken_details": treatmentTakenDetails,
+      "allergies": allergies,
+      "medicines": medicines,
+    };
+
+    log("formData ==== :$fomData");
+    log("age ====== $age");
     try {
       final response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
         contentType: 'application/json',
       )).post(
         ApiEndPoints.editMember,
-        data: {
-          "patient_id": patientId,
-          "full_name": fullName,
-          "mobile_number": mobileNumber,
-          "gender": gender,
-          "date_of_birth": age,
-          "regularMedicine": regularMedicine,
-          "surgery_name": surgeryName,
-          "surgery_details": surgeryDetails,
-          "treatment_taken": treatmentTaken,
-          "treatment_taken_details": treatmentTakenDetails,
-          "allergies": allergies,
-          "medicines": medicines,
-        },
+        data: fomData,
       );
-
-      log(response.data.toString());
+      log("response data ${response.data}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = ClintClinicModelData.fromJson(response.data);
         log("result service : $result");

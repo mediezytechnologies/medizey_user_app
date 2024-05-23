@@ -148,6 +148,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
 
   @override
   void initState() {
+    super.initState();
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
@@ -157,7 +158,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
         .add(FetchSymptoms(doctorId: widget.doctorId));
     BlocProvider.of<GetFamilyMembersBloc>(context).add(FetchFamilyMember());
     checkPatientIdAvailableOrNot();
-    super.initState();
   }
 
   @override

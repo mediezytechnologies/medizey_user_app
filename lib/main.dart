@@ -100,7 +100,11 @@ class _MediezyState extends State<Mediezy> {
           theme: appThemeStyle(context),
           home:
               hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+<<<<<<< Updated upstream
          // home: RazorPayDemo(),
+=======
+          // home: RazorPayDemo(),
+>>>>>>> Stashed changes
         );
       },
     );

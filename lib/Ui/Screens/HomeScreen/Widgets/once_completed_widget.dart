@@ -128,7 +128,7 @@ class OnceCompletedWidget extends StatelessWidget {
                       SizedBox(
                         width: size.width * .65,
                         child: Text(
-                          "Dr. $doctorName",
+                          "Dr $doctorName",
                           style: black14B600,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
