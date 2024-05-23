@@ -16,7 +16,7 @@ import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   log("its not working ");
@@ -94,12 +94,13 @@ class _MediezyState extends State<Mediezy> {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          navigatorKey: navigatorKey,
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(context),
-          // home:
-          //     hasInternet ? const SplashScreen() : const InternetHandleScreen(),
-          home: RazorPayDemo(),
+          home:
+              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+         // home: RazorPayDemo(),
         );
       },
     );

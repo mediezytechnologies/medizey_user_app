@@ -15,7 +15,7 @@ class NotificationServices {
   Future<String> getDeviceToken() async {
       final preference = await SharedPreferences.getInstance();
     String? token = await messaging.getToken();
-    log("fcm on service tok :$token ");
+    log("fcm on notification service tok :$token ");
      if (token != null) {
          preference.setString(
             'fcmToken', token.toString());
@@ -33,6 +33,8 @@ class NotificationServices {
       await preference.setString('fcmToken', token);
     });
   }
+
+  
 
   void requestNotificationPermisions() async {
     if (Platform.isIOS) {
@@ -60,6 +62,7 @@ class NotificationServices {
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
       log('user is already granted permisions');
+      log("notification not ==========");
     } else if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.provisional) {
       log('user is already granted provisional permisions');
