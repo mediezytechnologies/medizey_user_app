@@ -73,7 +73,8 @@ class AppointmentDoneDemoScreen extends StatefulWidget {
   String? normalResheduleTokenId;
 
   @override
-  State<AppointmentDoneDemoScreen> createState() => _AppointmentDoneDemoScreenState();
+  State<AppointmentDoneDemoScreen> createState() =>
+      _AppointmentDoneDemoScreenState();
 }
 
 class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
@@ -129,6 +130,8 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
   String? patientPhoneNumber;
   String? patientMediezyId;
   late Razorpay _razorpay;
+  double platFormFee = 10.0;
+  bool isFeeChecked = false;
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -160,6 +163,7 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
     BlocProvider.of<GetSymptomsBloc>(context)
         .add(FetchSymptoms(doctorId: widget.doctorId));
     BlocProvider.of<GetFamilyMembersBloc>(context).add(FetchFamilyMember());
+    calculatePlatFormFee();
     checkPatientIdAvailableOrNot();
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -182,10 +186,11 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
         .showToastMessage("External wallet${response.walletName}");
   }
 
-  void openCheckout() {
+  void openPaymentCheckout(amount) {
+    amount = amount * 100;
     var options = {
       'key': 'rzp_live_VUHG1603ofFkWt',
-      'amount': 100,
+      'amount': amount,
       'name': 'Mediezy Technologies',
       'description': 'Platform fee',
       'prefill': {'contact': '9744887799', 'email': 'mediezytech@gmail.com'},
@@ -1679,27 +1684,46 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
                                           children: [
                                             Text("Platform Fee",
                                                 style: grey13B400),
-                                            Text("₹ 10", style: black14B500),
+                                            Text("₹ ${platFormFee.toString()}",
+                                                style: black14B500),
                                           ],
                                         )
                                       : const SizedBox(),
                                   const VerticalSpacingWidget(height: 5),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Consultation fee",
-                                          style: grey13B400),
-                                      Text("₹ ${widget.consultationFee}",
-                                          style: black14B500),
-                                    ],
+                                  SizedBox(
+                                    height: 20.h,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Consultation fee",
+                                            style: grey13B400),
+                                        Row(
+                                          children: [
+                                            Transform.scale(
+                                              scale: 0.8,
+                                              child: Checkbox(
+                                                activeColor: kMainColor,
+                                                value: isFeeChecked,
+                                                onChanged: (bool? value) {
+                                                  setState(() {
+                                                    isFeeChecked = value!;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                            Text("₹ ${widget.consultationFee}",
+                                                style: black14B500),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   const VerticalSpacingWidget(height: 20),
                                   CommonButtonWidget(
                                     title: "Book Now",
                                     onTapFunction: () {
-                                      if (patientNameController
-                                              .text.isEmpty &&
+                                      if (patientNameController.text.isEmpty &&
                                           patientName == null) {
                                         GeneralServices.instance
                                             .showErrorMessage(
@@ -1714,8 +1738,8 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
                                               .text.isEmpty &&
                                           patientPhoneNumber == null) {
                                         GeneralServices.instance
-                                            .showErrorMessage(context,
-                                                "Fill contact number");
+                                            .showErrorMessage(
+                                                context, "Fill contact number");
                                       } else if (selectedSymptoms.isEmpty &&
                                           appointmentForController
                                               .text.isEmpty) {
@@ -1731,59 +1755,68 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
                                             .showErrorMessage(context,
                                                 "Please select how frequently");
                                       } else {
-                                        BlocProvider.of<BookAppointmentBloc>(
-                                                context)
-                                            .add(
-                                          PassBookAppointMentEvent(
-                                              normalResheduleTokenId: widget
-                                                  .normalResheduleTokenId
-                                                  .toString(),
-                                              resheduleOrNot:
-                                                  widget.patientId == null &&
-                                                          widget.resheduleType ==
-                                                              null
-                                                      ? 0
-                                                      : (widget.resheduleType ==
-                                                              '1')
-                                                          ? 1
-                                                          : 2,
-                                              patientName: bookingFor == "Other"
-                                                  ? patientName.toString()
-                                                  : patientNameController
-                                                      .text,
-                                              doctorId: widget.doctorId,
-                                              clinicId: widget.clinicId,
-                                              date: formatDate(),
-                                              whenitcomes: selectedStart == 3
-                                                  ? "${daysController.text} days before"
-                                                  : deceaseStartingTime[
-                                                      selectedStart],
-                                              whenitstart: deceaseRepeats[
-                                                  selectedCome],
-                                              tokenTime: widget.bookingTime,
-                                              tokenNumber: widget.tokenNo,
-                                              gender: bookingFor == "Other"
-                                                  ? patientGender.toString()
-                                                  : dropdownValue,
-                                              age: bookingFor == "Other"
-                                                  ? patientAge.toString()
-                                                  : originalAge.toString(),
-                                              mobileNo: bookingFor == "Other"
-                                                  ? patientPhoneNumber
-                                                      .toString()
-                                                  : patientContactNumberController
-                                                      .text,
-                                              appoinmentfor1:
-                                                  appointmentForController
-                                                          .text.isEmpty
-                                                      ? []
-                                                      : [appointmentForController.text],
-                                              appoinmentfor2: selectedSymptoms,
-                                              bookingType: selectedBookingFor,
-                                              patientId: bookingFor == "Other" ? patientMediezyId.toString() : patientId,
-                                              sheduleType: widget.sheduleType,
-                                              tokenId: widget.tokenId),
-                                        );
+                                        openPaymentCheckout(isFeeChecked
+                                            ? double.parse(
+                                                    widget.consultationFee) +
+                                                platFormFee
+                                            : platFormFee);
+                                        // BlocProvider.of<BookAppointmentBloc>(
+                                        //         context)
+                                        //     .add(
+                                        //   PassBookAppointMentEvent(
+                                        //       normalResheduleTokenId: widget
+                                        //           .normalResheduleTokenId
+                                        //           .toString(),
+                                        //       resheduleOrNot:
+                                        //           widget.patientId == null &&
+                                        //                   widget.resheduleType ==
+                                        //                       null
+                                        //               ? 0
+                                        //               : (widget.resheduleType ==
+                                        //                       '1')
+                                        //                   ? 1
+                                        //                   : 2,
+                                        //       patientName: bookingFor == "Other"
+                                        //           ? patientName.toString()
+                                        //           : patientNameController.text,
+                                        //       doctorId: widget.doctorId,
+                                        //       clinicId: widget.clinicId,
+                                        //       date: formatDate(),
+                                        //       whenitcomes: selectedStart == 3
+                                        //           ? "${daysController.text} days before"
+                                        //           : deceaseStartingTime[
+                                        //               selectedStart],
+                                        //       whenitstart:
+                                        //           deceaseRepeats[selectedCome],
+                                        //       tokenTime: widget.bookingTime,
+                                        //       tokenNumber: widget.tokenNo,
+                                        //       gender: bookingFor == "Other"
+                                        //           ? patientGender.toString()
+                                        //           : dropdownValue,
+                                        //       age: bookingFor == "Other"
+                                        //           ? patientAge.toString()
+                                        //           : originalAge.toString(),
+                                        //       mobileNo: bookingFor == "Other"
+                                        //           ? patientPhoneNumber
+                                        //               .toString()
+                                        //           : patientContactNumberController
+                                        //               .text,
+                                        //       appoinmentfor1:
+                                        //           appointmentForController
+                                        //                   .text.isEmpty
+                                        //               ? []
+                                        //               : [
+                                        //                   appointmentForController
+                                        //                       .text
+                                        //                 ],
+                                        //       appoinmentfor2: selectedSymptoms,
+                                        //       bookingType: selectedBookingFor,
+                                        //       patientId: bookingFor == "Other"
+                                        //           ? patientMediezyId.toString()
+                                        //           : patientId,
+                                        //       sheduleType: widget.sheduleType,
+                                        //       tokenId: widget.tokenId),
+                                        // );
                                       }
                                     },
                                   ),
@@ -1870,6 +1903,11 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
         );
       }),
     );
+  }
+
+  void calculatePlatFormFee() {
+    double consultationFee = double.tryParse(widget.consultationFee) ?? 0.0;
+    platFormFee = consultationFee <= 200 ? 10 : consultationFee * 5 / 100;
   }
 
   Future<dynamic> showErrorDialogueIos(
