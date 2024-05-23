@@ -1666,16 +1666,17 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                       ],
                                     ),
                                   ),
-                                  //  const VerticalSpacingWidget(height: 5),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Text("Total", style: grey13B400),
-                                  //     Text("₹ ${10}",
-                                  //         style: black14B500),
-                                  //   ],
-                                  // ),
+                                  const VerticalSpacingWidget(height: 5),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Total", style: grey13B400),
+                                      Text(
+                                          "₹ ${isFeeChecked ? double.parse(widget.consultationFee) + platFormFee : platFormFee}",
+                                          style: black14B500),
+                                    ],
+                                  ),
                                   const VerticalSpacingWidget(height: 20),
                                   CommonButtonWidget(
                                     title: "Book Now",
