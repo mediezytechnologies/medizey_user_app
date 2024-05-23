@@ -24,7 +24,7 @@ class FcmTokenImpl implements FccmTokenRepo {
           )).post(
         ApiEndPoints.fcmToken,
         data: {
-          "fcm_token": fcmToken,
+          "fcm_token": "eS1kqR7sXEYIkW9i3RL1wa:APA91bF8L_Q9SUWBP77Dj4AXwtBoIedvG5qdDYxRzECakCwarLpHkNuhbFInUtMRNPN1wYe_Y8OQTpZRGDkVuA8BDZhnQ4pBXVXf5BLA9zXkp5q4Oxhc16dEmq89fWl14lIomRRFvUWr",
           "user_id": userId,
         },
       );

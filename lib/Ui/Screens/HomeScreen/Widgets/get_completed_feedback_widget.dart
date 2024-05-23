@@ -21,16 +21,16 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
           BlocBuilder<GetCompletedFeedbackAppointmentBloc,
               GetCompletedFeedBackAppointmentsState>(
             builder: (context, state) {
-              if (state is GetCompletedFeedBackAppointmentError) {
-                return const Center(
-                  child: Image(
-                    image: AssetImage(
-                      "assets/images/something went wrong-01.png",
-                    ),
-                    height: 50,
-                  ),
-                );
-              }
+              // if (state is GetCompletedFeedBackAppointmentError) {
+              //   return const Center(
+              //     child: Image(
+              //       image: AssetImage(
+              //         "assets/images/something went wrong-01.png",
+              //       ),
+              //       height: 50,
+              //     ),
+              //   );
+              // }
               if (state is GetCompletedFeedBackAppointmentLoaded) {
                 final data = state.getCompletedAppointmentsModel;
                 return data.appointmentDetails == null ||

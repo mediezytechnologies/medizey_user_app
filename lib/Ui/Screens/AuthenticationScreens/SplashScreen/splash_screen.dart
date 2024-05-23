@@ -37,6 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
                       builder: (context) =>
                           const BottomNavigationControlWidget()),
                   (route) => false));
+                   BlocProvider.of<NotificatioTokenBloc>(context)
+                                      .add(
+                                  NotificatioTokenEvent.started() ,
+                                  );
           locationController.fetchCountry();
 
           log("code${locationController.postCode.value}");

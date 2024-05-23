@@ -89,7 +89,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                     Align(
                       alignment: Alignment.center,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
                             height: 35.h,

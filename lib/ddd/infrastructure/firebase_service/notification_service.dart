@@ -37,6 +37,8 @@ class NotificationServices {
     });
   }
 
+  
+
   void requestNotificationPermisions() async {
     if (Platform.isIOS) {
       await messaging.requestPermission(
@@ -62,6 +64,7 @@ class NotificationServices {
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
       log('user is already granted permisions');
+      log("notification not ==========");
     } else if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.provisional) {
       log('user is already granted provisional permisions');

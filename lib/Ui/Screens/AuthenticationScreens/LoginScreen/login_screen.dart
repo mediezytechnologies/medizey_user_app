@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -6,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mediezy_user/Model/auth/login_model.dart';
 import 'package:mediezy_user/Repository/Bloc/LoginAndSignUp/login_and_signup_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
@@ -40,8 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final locationController = Get.put(LocationController());
   late LoginModel loginModel;
   bool hidePassword = true;
-  late GoogleSignInAccount _userObj;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -99,97 +98,91 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           const VerticalSpacingWidget(height: 400),
                           //! email
-                          SizedBox(
-                            height: size.height * .065,
-                            child: TextFormField(
-                              style: black13B500,
-                              cursorColor: kMainColor,
-                              controller: emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value!.isEmpty ||
-                                    !value.contains("@") ||
-                                    !value.contains(".")) {
-                                  return "Please enter the valid email address";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                  color: kMainColor,
-                                ),
-                                hintStyle: grey13B600,
-                                hintText: "Enter email",
-                                filled: true,
-                                fillColor: kCardColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 6.h),
+                          TextFormField(
+                            style: black13B500,
+                            cursorColor: kMainColor,
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (value!.isEmpty ||
+                                  !value.contains("@") ||
+                                  !value.contains(".")) {
+                                return "Please enter the valid email address";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.email_outlined,
+                                color: kMainColor,
                               ),
+                              hintStyle: grey13B600,
+                              hintText: "Enter email",
+                              filled: true,
+                              fillColor: kCardColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
                             ),
                           ),
                           const VerticalSpacingWidget(height: 10),
                           //! password
-                          SizedBox(
-                            height: size.height * .065,
-                            child: TextFormField(
-                              style: black13B500,
-                              cursorColor: kMainColor,
-                              controller: passwordController,
-                              keyboardType: TextInputType.text,
-                              focusNode: passwordFocusController,
-                              textInputAction: TextInputAction.done,
-                              obscureText: hidePassword,
-                              validator: (value) {
-                                if (value!.isEmpty || value.length < 7) {
-                                  return "Please enter correct password";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(IconlyLight.password,
-                                    color: kMainColor),
-                                suffixIcon: hidePassword
-                                    ? IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            hidePassword = !hidePassword;
-                                          });
-                                        },
-                                        icon: Icon(
-                                          IconlyLight.hide,
-                                          color: kMainColor,
-                                        ),
-                                      )
-                                    : IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            hidePassword = !hidePassword;
-                                          });
-                                        },
-                                        icon: Icon(
-                                          IconlyLight.show,
-                                          color: kMainColor,
-                                        ),
+                          TextFormField(
+                            style: black13B500,
+                            cursorColor: kMainColor,
+                            controller: passwordController,
+                            keyboardType: TextInputType.text,
+                            focusNode: passwordFocusController,
+                            textInputAction: TextInputAction.done,
+                            obscureText: hidePassword,
+                            validator: (value) {
+                              if (value!.isEmpty || value.length < 7) {
+                                return "Please enter correct password";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              prefixIcon:
+                                  Icon(IconlyLight.password, color: kMainColor),
+                              suffixIcon: hidePassword
+                                  ? IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          hidePassword = !hidePassword;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        IconlyLight.hide,
+                                        color: kMainColor,
                                       ),
-                                hintStyle: grey13B600,
-                                hintText: "Enter password",
-                                filled: true,
-                                fillColor: kCardColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 6.h),
+                                    )
+                                  : IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          hidePassword = !hidePassword;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        IconlyLight.show,
+                                        color: kMainColor,
+                                      ),
+                                    ),
+                              hintStyle: grey13B600,
+                              hintText: "Enter password",
+                              filled: true,
+                              fillColor: kCardColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide.none,
                               ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
                             ),
                           ),
                           const VerticalSpacingWidget(height: 4),
@@ -241,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                         BlocProvider.of<NotificatioTokenBloc>(context)
                                       .add(
-                                  NotificatioTokenEvent.started() ,
+                                  const NotificatioTokenEvent.started() ,
                                   );
 
                                 }

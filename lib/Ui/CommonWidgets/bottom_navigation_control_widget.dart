@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
@@ -9,6 +10,8 @@ import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.d
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/health_record_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/home_screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/profile_screen.dart';
+
+import '../../ddd/application/notification_token/notificatio_token_bloc.dart';
 
 class BottomNavigationControlWidget extends StatefulWidget {
   const BottomNavigationControlWidget({super.key});
@@ -25,6 +28,9 @@ class _BottomNavigationControlWidgetState
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<NotificatioTokenBloc>(context).add(
+      NotificatioTokenEvent.started(),
+    );
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
