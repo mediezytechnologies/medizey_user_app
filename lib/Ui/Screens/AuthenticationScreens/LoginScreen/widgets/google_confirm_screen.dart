@@ -2,9 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
+import '../../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../../../../../ddd/application/user_location/user_location_bloc.dart';
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../CommonWidgets/text_style_widget.dart';
 import '../../../../Consts/app_colors.dart';
@@ -24,6 +27,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
   final FocusNode phoneNumberFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final locationController = Get.put(LocationController());
   FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -136,6 +140,18 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                           .add(FirebaseLoginEvent.started(
                         phoneNumberController.text,
                       ));
+                      locationController.fetchCountry().then(
+                            (value) =>
+                                BlocProvider.of<UserLocationBloc>(context).add(
+                              UserLocationEvent.started(
+                                locationController.latitude.value.toString(),
+                                locationController.longitude.value.toString(),
+                                locationController.dist.value,
+                                locationController.locality.value,
+                                locationController.locationAdress.value,
+                              ),
+                            ),
+                          );
                       BlocProvider.of<NotificatioTokenBloc>(context).add(
                         const NotificatioTokenEvent.started(),
                       );

@@ -161,6 +161,11 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                                   .upcomingAppointments!.length,
                               itemBuilder: (context, index) {
                                 return AppointmentCardWidget(
+                                  sheduleLateMessage:
+                                      getUpComingAppointmentsModel
+                                          .upcomingAppointments![index]
+                                          .sheduleLateMessage
+                                          .toString(),
                                   isCheckIn: getUpComingAppointmentsModel
                                       .upcomingAppointments![index]
                                       .isCheckedin!,

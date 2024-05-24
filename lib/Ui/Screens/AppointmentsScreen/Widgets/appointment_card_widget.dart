@@ -21,35 +21,35 @@ import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
-  const AppointmentCardWidget({
-    super.key,
-    required this.doctorId,
-    required this.docterImage,
-    required this.docterName,
-    required this.appointmentFor,
-    required this.tokenNumber,
-    required this.appointmentDate,
-    required this.appointmentTime,
-    required this.patientName,
-    required this.liveToken,
-    required this.estimatedArrivalTime,
-    required this.consultationStartingTime,
-    required this.lateTime,
-    required this.earlyTime,
-    required this.leaveMessage,
-    required this.bookedClinicName,
-    required this.bookingTimeAndDate,
-    required this.resheduleStatus,
-    required this.clinicList,
-    required this.isPatientAbsent,
-    required this.nextAvailableDateAndTime,
-    required this.nextAvailableTokenNumber,
-    required this.patientId,
-    required this.tokenId,
-    required this.doctorUniqueId,
-    required this.isReached,
-    required this.isCheckIn,
-  });
+  const AppointmentCardWidget(
+      {super.key,
+      required this.doctorId,
+      required this.docterImage,
+      required this.docterName,
+      required this.appointmentFor,
+      required this.tokenNumber,
+      required this.appointmentDate,
+      required this.appointmentTime,
+      required this.patientName,
+      required this.liveToken,
+      required this.estimatedArrivalTime,
+      required this.consultationStartingTime,
+      required this.lateTime,
+      required this.earlyTime,
+      required this.leaveMessage,
+      required this.bookedClinicName,
+      required this.bookingTimeAndDate,
+      required this.resheduleStatus,
+      required this.clinicList,
+      required this.isPatientAbsent,
+      required this.nextAvailableDateAndTime,
+      required this.nextAvailableTokenNumber,
+      required this.patientId,
+      required this.tokenId,
+      required this.doctorUniqueId,
+      required this.isReached,
+      required this.isCheckIn,
+      required this.sheduleLateMessage});
 
   final String doctorId;
   final String docterImage;
@@ -77,6 +77,7 @@ class AppointmentCardWidget extends StatefulWidget {
   final String doctorUniqueId;
   final int isReached;
   final int isCheckIn;
+  final String sheduleLateMessage;
 
   @override
   State<AppointmentCardWidget> createState() => _AppointmentCardWidgetState();
@@ -487,6 +488,18 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         const VerticalSpacingWidget(height: 2),
                       ],
                     ),
+                  const VerticalSpacingWidget(height: 2),
+                  widget.sheduleLateMessage == 'null'
+                      ? const SizedBox()
+                      : Row(
+                          children: [
+                            CircleAvatar(
+                                radius: 2.5.r,
+                                backgroundColor: kSecondaryColor),
+                            const HorizontalSpacingWidget(width: 5),
+                            Text(widget.sheduleLateMessage, style: black12B500),
+                          ],
+                        ),
                   Divider(
                     color: kSubTextColor,
                   ),

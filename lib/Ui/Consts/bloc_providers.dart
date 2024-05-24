@@ -61,6 +61,7 @@ import 'package:mediezy_user/ddd/application/get_fav_doctor/get_fav_doctor_bloc.
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
+import '../../Repository/Bloc/BookAppointment/BookAppointmentInitial/book_appointment_initial_bloc.dart';
 import '../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../ddd/application/add_members/add_members_bloc.dart';
 import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
@@ -152,5 +153,9 @@ class AppBlocProviders {
         ),
         BlocProvider(
             create: (context) => GetCompletedFeedbackAppointmentBloc()),
+          BlocProvider(
+            create: (context) => BookAppointmentInitialBloc()),
+
+            
       ];
 }

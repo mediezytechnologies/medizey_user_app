@@ -1624,6 +1624,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     ],
                                   ),
                                   const VerticalSpacingWidget(height: 5),
+                                  const VerticalSpacingWidget(height: 5),
                                   widget.patientId == null
                                       ? Row(
                                           mainAxisAlignment:
@@ -1637,46 +1638,51 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                         )
                                       : const SizedBox(),
                                   const VerticalSpacingWidget(height: 5),
-                                  SizedBox(
-                                    height: 20.h,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Consultation fee",
-                                            style: grey13B400),
-                                        Row(
-                                          children: [
-                                            Transform.scale(
-                                              scale: 0.8,
-                                              child: Checkbox(
-                                                activeColor: kMainColor,
-                                                value: isFeeChecked,
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    isFeeChecked = value!;
-                                                  });
-                                                },
+                                  widget.patientId == null
+                                      ? SizedBox(
+                                          height: 20.h,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Consultation fee",
+                                                  style: grey13B400),
+                                              Row(
+                                                children: [
+                                                  Transform.scale(
+                                                    scale: 0.8,
+                                                    child: Checkbox(
+                                                      activeColor: kMainColor,
+                                                      value: isFeeChecked,
+                                                      onChanged: (bool? value) {
+                                                        setState(() {
+                                                          isFeeChecked = value!;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                      "₹ ${widget.consultationFee}",
+                                                      style: black14B500),
+                                                ],
                                               ),
-                                            ),
-                                            Text("₹ ${widget.consultationFee}",
+                                            ],
+                                          ),
+                                        )
+                                      : const SizedBox(),
+                                  const VerticalSpacingWidget(height: 5),
+                                  widget.patientId == null
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Total", style: grey13B400),
+                                            Text(
+                                                "₹ ${isFeeChecked ? double.parse(widget.consultationFee) + platFormFee : platFormFee}",
                                                 style: black14B500),
                                           ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const VerticalSpacingWidget(height: 5),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Total", style: grey13B400),
-                                      Text(
-                                          "₹ ${isFeeChecked ? double.parse(widget.consultationFee) + platFormFee : platFormFee}",
-                                          style: black14B500),
-                                    ],
-                                  ),
+                                        )
+                                      : const SizedBox(),
                                   const VerticalSpacingWidget(height: 20),
                                   CommonButtonWidget(
                                     title: "Book Now",
