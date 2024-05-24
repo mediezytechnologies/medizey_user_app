@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '220538846317',
     projectId: 'mediezy-28594',
     storageBucket: 'mediezy-28594.appspot.com',
-    androidClientId: '220538846317-ce1q4mncb7n193ov8qut8994g2d7974k.apps.googleusercontent.com',
+    androidClientId: '220538846317-12616eal8rltihnngmt2hut7q8i6jgkq.apps.googleusercontent.com',
     iosClientId: '220538846317-1rlm7ejs8e8fb47dhiu7l1shnl6pid0f.apps.googleusercontent.com',
     iosBundleId: 'com.mediezy.mediezytechnology.user',
   );

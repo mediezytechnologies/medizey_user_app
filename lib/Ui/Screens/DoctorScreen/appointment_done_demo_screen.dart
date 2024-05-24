@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -166,19 +167,29 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
     calculatePlatFormFee();
     checkPatientIdAvailableOrNot();
     _razorpay = Razorpay();
+    
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+      
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     GeneralServices.instance
         .showToastMessage("Payment succesfull${response.paymentId}");
-  }
+        log("paymentId id ${response.paymentId}");
+         log("orderId id ${response.orderId}");
+           log("signature id ${response.signature}");
+            
+               log("data id ${response.data}");
 
+        
+  }
+ 
   void _handlePaymentError(PaymentFailureResponse response) {
     GeneralServices.instance
         .showToastMessage("Payment failed${response.message}");
+         log("paiment id ${response.message}");
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -205,6 +216,7 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
 
     try {
       _razorpay.open(options);
+      
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -229,7 +241,7 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AppointmentsScreen(),
+                  builder: (context) =>  AppointmentsScreen(),
                 ),
               );
             },

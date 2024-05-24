@@ -1,24 +1,30 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/AppointmentDoneScreen/appointment_done_screen.dart';
-import 'package:mediezy_user/Ui/Screens/ProfileScreen/SavedDoctorsScreen/saved_doctors_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../main.dart';
-
 import '../../../Ui/CommonWidgets/bottom_navigation_control_widget.dart';
-import '../../../main.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+
+  Future<void> enableNotifications() async {
+     requestNotificationPermisions();
+    log('Notifications enabled');
+  }
+
+  Future<void> disableNotifications() async {
+    requestNotificationPermisionsDenied();
+    log('Notifications disabled');
+  }
+
+
 
   Future<String> getDeviceToken() async {
     final preference = await SharedPreferences.getInstance();
@@ -40,6 +46,8 @@ class NotificationServices {
       await preference.setString('fcmToken', token);
     });
   }
+
+  
 
   void requestNotificationPermisions() async {
     if (Platform.isIOS) {
@@ -128,11 +136,11 @@ class NotificationServices {
 
     await _flutterLocalNotificationsPlugin.initialize(initSettings,
         onDidReceiveNotificationResponse: (payload) {
-      handleMesssage(context, message);
+      handleMesssage( message);
     });
   }
 
-  void handleMesssage(BuildContext context, RemoteMessage message) {
+  void handleMesssage( RemoteMessage message) {
     log('In handleMesssage function');
     String? messageType = message.data['type'];
 
@@ -260,12 +268,62 @@ class NotificationServices {
         await FirebaseMessaging.instance.getInitialMessage();
 
     if (initialMessage != null) {
-      handleMesssage(context, initialMessage);
+      handleMesssage( initialMessage);
     }
 
     //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      handleMesssage(context, event);
+      handleMesssage( event);
     });
   }
+
+
+//disable notification //===============
+  void requestNotificationPermisionsDenied() async {
+    if (Platform.isIOS) {
+      NotificationSettings notificationSettings =
+          await messaging.requestPermission(
+              alert: false,
+              announcement: false,
+              badge: false,
+              carPlay: false,
+              criticalAlert: false,
+              provisional: false,
+              sound: false);
+      if (notificationSettings.authorizationStatus ==
+          AuthorizationStatus.authorized) {
+        log('user is already granted permisions in iso');
+        log("notification not ios ==========");
+      } else if (notificationSettings.authorizationStatus ==
+          AuthorizationStatus.provisional) {
+        log('user is already granted provisional permisions ios');
+      } else {
+        log('User has denied permission ios');
+      }
+    }
+
+    NotificationSettings notificationSettings =
+        await messaging.requestPermission(
+            alert: false,
+            announcement: false,
+            badge: false,
+            carPlay: false,
+            criticalAlert: false,
+            provisional: false,
+            sound: false);
+
+    if (notificationSettings.authorizationStatus ==
+        AuthorizationStatus.authorized) {
+      log('user is already granted permisions');
+      log("notification not ==========");
+    } else if (notificationSettings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      log('user is already granted provisional permisions');
+    } else {
+      log('User has denied permission');
+    }
+  }
+
+
+
 }
