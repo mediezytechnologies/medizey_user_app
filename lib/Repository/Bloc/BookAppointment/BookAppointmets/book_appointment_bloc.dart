@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Model/BookAppointment/book_appointment_model.dart';

@@ -32,17 +32,19 @@ class LoginAndSignupBloc
         preference.setString(
             'lastName', loginModel.user!.secondname.toString());
         preference.setString('userId', loginModel.user!.id.toString());
+        preference.setString('email', loginModel.user!.email.toString());
         userId = preference.getString('userId').toString();
         log("<<<<<<userrr  $userId>>>>>>>>");
         preference.setString(
             'phoneNumber', loginModel.user!.mobileNo.toString());
-        String? token = await preference.getString('token');
-        String? userName = await preference.getString('firstName');
+
+        String? token = preference.getString('token');
+        String? userName = preference.getString('firstName');
         log("User name >>>>>> $userName");
         log("Tokken >>>>>>>>>>>>>>>>>>$token");
         emit(LoginLoaded());
       } catch (error) {
-        log("LOGIN IN ERROR>>>>>>>>>>>>>>>>>>>>>>" + error.toString());
+        log("LOGIN IN ERROR>>>>>>>>>>>>>>>>>>>>>>$error");
         GeneralServices.instance.showToastMessage(error.toString());
         emit(LoginError());
       }

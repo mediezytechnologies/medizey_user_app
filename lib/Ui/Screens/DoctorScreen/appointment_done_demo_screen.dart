@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:developer';
@@ -19,6 +19,7 @@ import 'package:mediezy_user/Repository/Bloc/BookAppointment/AutoFetch/auto_fetc
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/BookAppointmets/book_appointment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/get_family_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/OtherTypePatientDetails/other_type_patient_details_bloc.dart';
+import 'package:mediezy_user/Repository/Bloc/BookAppointment/Payment/payment_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetSymptoms/get_symptoms_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/GetToken/get_token_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
@@ -31,6 +32,7 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookingConfirmationScreen/b
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Repository/Bloc/BookAppointment/BookAppointmentInitial/book_appointment_initial_bloc.dart';
 import '../../CommonWidgets/text_style_widget.dart';
@@ -173,50 +175,67 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    final preference = await SharedPreferences.getInstance();
+    String? email = preference.getString('email');
     GeneralServices.instance
         .showToastMessage("Payment succesfull${response.paymentId}");
-    log("Order id >>> ${response.orderId.toString()}");
-    log("signature id >>> ${response.signature.toString()}");
-    log("payment id >>> ${response.paymentId.toString()}");
-    BlocProvider.of<BookAppointmentBloc>(context).add(
-      PassBookAppointMentEvent(
-          normalResheduleTokenId: widget.normalResheduleTokenId.toString(),
-          resheduleOrNot:
-              widget.patientId == null && widget.resheduleType == null
-                  ? 0
-                  : (widget.resheduleType == '1')
-                      ? 1
-                      : 2,
-          patientName: bookingFor == "Other"
-              ? patientName.toString()
-              : patientNameController.text,
-          doctorId: widget.doctorId,
-          clinicId: widget.clinicId,
-          date: formatDate(),
-          whenitcomes: selectedStart == 3
-              ? "${daysController.text} days before"
-              : deceaseStartingTime[selectedStart],
-          whenitstart: deceaseRepeats[selectedCome],
-          tokenTime: widget.bookingTime,
-          tokenNumber: widget.tokenNo,
-          gender:
-              bookingFor == "Other" ? patientGender.toString() : dropdownValue,
-          age: bookingFor == "Other"
-              ? patientAge.toString()
-              : originalAge.toString(),
-          mobileNo: bookingFor == "Other"
-              ? patientPhoneNumber.toString()
-              : patientContactNumberController.text,
-          appoinmentfor1: appointmentForController.text.isEmpty
-              ? []
-              : [appointmentForController.text],
-          appoinmentfor2: selectedSymptoms,
-          bookingType: selectedBookingFor,
-          patientId:
-              bookingFor == "Other" ? patientMediezyId.toString() : patientId,
-          sheduleType: widget.sheduleType,
-          tokenId: widget.tokenId),
+    Future.delayed(const Duration(seconds: 2), () async {
+      BlocProvider.of<BookAppointmentBloc>(context).add(
+        PassBookAppointMentEvent(
+            normalResheduleTokenId: widget.normalResheduleTokenId.toString(),
+            resheduleOrNot:
+                widget.patientId == null && widget.resheduleType == null
+                    ? 0
+                    : (widget.resheduleType == '1')
+                        ? 1
+                        : 2,
+            patientName: bookingFor == "Other"
+                ? patientName.toString()
+                : patientNameController.text,
+            doctorId: widget.doctorId,
+            clinicId: widget.clinicId,
+            date: formatDate(),
+            whenitcomes: selectedStart == 3
+                ? "${daysController.text} days before"
+                : deceaseStartingTime[selectedStart],
+            whenitstart: deceaseRepeats[selectedCome],
+            tokenTime: widget.bookingTime,
+            tokenNumber: widget.tokenNo,
+            gender: bookingFor == "Other"
+                ? patientGender.toString()
+                : dropdownValue,
+            age: bookingFor == "Other"
+                ? patientAge.toString()
+                : originalAge.toString(),
+            mobileNo: bookingFor == "Other"
+                ? patientPhoneNumber.toString()
+                : patientContactNumberController.text,
+            appoinmentfor1: appointmentForController.text.isEmpty
+                ? []
+                : [appointmentForController.text],
+            appoinmentfor2: selectedSymptoms,
+            bookingType: selectedBookingFor,
+            patientId:
+                bookingFor == "Other" ? patientMediezyId.toString() : patientId,
+            sheduleType: widget.sheduleType,
+            tokenId: widget.tokenId),
+      );
+    }).then(
+      (value) => BlocProvider.of<PaymentBloc>(context).add(
+        PassPaymentEvent(
+            razorPaymentId: response.paymentId.toString(),
+            tokenId: widget.tokenId.toString(),
+            currency: "INR",
+            contactNumber: bookingFor == "Other"
+                ? patientPhoneNumber.toString()
+                : patientContactNumberController.text,
+            email: email.toString(),
+            // amount: isFeeChecked
+            //     ? double.parse(widget.consultationFee) + platFormFee
+            //     : platFormFee,
+            amount: 1),
+      ),
     );
   }
 
@@ -230,11 +249,11 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
         .showToastMessage("External wallet${response.walletName}");
   }
 
-  void openPaymentCheckout(amount) {
-    amount = amount * 100;
+  void openPaymentCheckout() {
+    // amount = amount * 100;
     var options = {
       'key': 'rzp_live_VUHG1603ofFkWt',
-      'amount': amount,
+      'amount': 100,
       'name': 'Mediezy Technologies',
       "image": "https://test.mediezy.com/UserImages/mediezyhearticon.png",
       'description': 'Platform fee',
@@ -298,9 +317,10 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
                   if (state is BookAppointmentInitialLoaded) {
                     if (state.bookApointmentInitialModel.status == true &&
                         widget.patientId == null) {
-                      openPaymentCheckout(isFeeChecked
-                          ? double.parse(widget.consultationFee) + platFormFee
-                          : platFormFee);
+                      // openPaymentCheckout(isFeeChecked
+                      //     ? double.parse(widget.consultationFee) + platFormFee
+                      //     : platFormFee);
+                      openPaymentCheckout();
                     } else if (state.bookApointmentInitialModel.status ==
                             true &&
                         widget.patientId != null) {
