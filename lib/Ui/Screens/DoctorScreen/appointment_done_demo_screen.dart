@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -33,7 +32,6 @@ import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddP
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../Repository/Bloc/BookAppointment/BookAppointmentInitial/book_appointment_initial_bloc.dart';
 import '../../CommonWidgets/text_style_widget.dart';
 

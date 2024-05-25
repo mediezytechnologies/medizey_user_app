@@ -51,16 +51,17 @@ class BookingConfirmationScreen extends StatefulWidget {
 
 class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
   final ScrollController _scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
-      );
+      Future.delayed(const Duration(milliseconds: 300), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeInOut,
+        );
+      });
     });
   }
 
