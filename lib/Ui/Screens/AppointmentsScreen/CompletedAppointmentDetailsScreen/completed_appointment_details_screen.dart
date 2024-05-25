@@ -349,8 +349,11 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                                             style: black13B500),
                                         Text(
                                             prescriptions[index].type == 1
-                                                ? "Before Food"
-                                                : "After Food",
+                                                ? "Before food"
+                                                : (prescriptions[index].type ==
+                                                        2)
+                                                    ? "After food"
+                                                    : "With food",
                                             style: black13B500)
                                       ],
                                     ),

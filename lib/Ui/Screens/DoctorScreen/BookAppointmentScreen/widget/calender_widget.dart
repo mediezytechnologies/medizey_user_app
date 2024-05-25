@@ -72,7 +72,7 @@ class _DatePickerDemoClassState extends State<DatePickerDemoClass> {
 
   DateTime? currentDate;
   DateTime? date;
-  String displayedMonth = DateFormat("MMM").format(DateTime.now());
+  String displayedMonth = DateFormat("MMM").format(DateTime.now()).toUpperCase();
   String displayedYear = DateFormat("yyyy").format(DateTime.now());
   @override
   void initState() {
