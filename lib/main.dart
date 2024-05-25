@@ -23,9 +23,9 @@ import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-   log("its not working ");
+  log("its not working ");
   await Firebase.initializeApp();
-   log("its not working ");
+  log("its not working ");
 }
 
 void main() async {
@@ -37,7 +37,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-   
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -59,7 +58,6 @@ class Mediezy extends StatefulWidget {
 
 class _MediezyState extends State<Mediezy> {
   late StreamSubscription<ConnectivityResult> subscription;
-
 
   bool hasInternet = false;
   NotificationServices notificationServices = NotificationServices();
@@ -95,7 +93,7 @@ class _MediezyState extends State<Mediezy> {
       hasInternet = result != ConnectivityResult.none;
     });
   }
-  
+
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 690),
@@ -103,12 +101,12 @@ class _MediezyState extends State<Mediezy> {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
-            routes: {'/chat': (context) => const ProfileScreen()},
+          routes: {'/chat': (context) => const ProfileScreen()},
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(context),
-          home:GoogleSiginWidge()
-            //  hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+          home:
+              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );
