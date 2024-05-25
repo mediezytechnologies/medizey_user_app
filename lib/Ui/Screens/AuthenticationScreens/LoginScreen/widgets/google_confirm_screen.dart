@@ -1,10 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
+import '../../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../../../../../ddd/application/user_location/user_location_bloc.dart';
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../CommonWidgets/text_style_widget.dart';
 import '../../../../Consts/app_colors.dart';
@@ -24,6 +30,8 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
   final FocusNode phoneNumberFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final locationController = Get.put(LocationController());
+
   FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -67,7 +75,6 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                 const VerticalSpacingWidget(
                   height: 5,
                 ),
-
                 Text(
                   auth.currentUser!.email.toString(),
                   style: black14B600,
@@ -130,12 +137,27 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                     ),
                   ),
                   onPressed: () async {
+                    final preference = await SharedPreferences.getInstance();
+                    preference.setString(
+                        'email', auth.currentUser!.email.toString());
                     bool isValid = _formKey.currentState!.validate();
                     if (isValid) {
                       BlocProvider.of<FirebaseLoginBloc>(context)
                           .add(FirebaseLoginEvent.started(
                         phoneNumberController.text,
                       ));
+                      locationController.fetchCountry().then(
+                            (value) =>
+                                BlocProvider.of<UserLocationBloc>(context).add(
+                              UserLocationEvent.started(
+                                locationController.latitude.value.toString(),
+                                locationController.longitude.value.toString(),
+                                locationController.dist.value,
+                                locationController.locality.value,
+                                locationController.locationAdress.value,
+                              ),
+                            ),
+                          );
                       BlocProvider.of<NotificatioTokenBloc>(context).add(
                         const NotificatioTokenEvent.started(),
                       );
@@ -149,66 +171,6 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                         )
                       : Text("Add Member", style: white13B700),
                 ),
-                // CommonButtonWidget(
-                //     title: "Login",
-                //     onTapFunction: () async {
-                //       bool isValid = _formKey.currentState!.validate();
-                //       if (isValid) {
-                //         BlocProvider.of<FirebaseLoginBloc>(context)
-                //             .add(FirebaseLoginEvent.started(
-                //           phoneNumberController.text,
-                //         ));
-                //         BlocProvider.of<NotificatioTokenBloc>(context).add(
-                //           NotificatioTokenEvent.started(),
-                //         );
-                //         //        Navigator.pushAndRemoveUntil(
-                //         // context,
-                //         // MaterialPageRoute(
-                //         //   builder: (context) => const BottomNavigationControlWidget(),
-                //         // ),
-                //         // (route) => false);
-                //       }
-                //     }),
-                // BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
-                //   listener: (context, state) {
-                //     if (state.isError && state.status == false) {
-                //       GeneralServices.instance
-                //           .showErrorMessage(context, state.message);
-                //     } else {
-                //       Navigator.pushAndRemoveUntil(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (context) =>
-                //                 const BottomNavigationControlWidget(),
-                //           ),
-                //           (route) => false);
-                //     }
-                //   },
-                //   builder: (context, state) {
-                //     return SizedBox(
-                //       height: 60,
-                //       child: CommonButtonWidget(
-                //           title: "Login",
-                //           onTapFunction: () {
-                //             bool isValid = _formKey.currentState!.validate();
-                //             if (isValid) {
-                //               BlocProvider.of<FirebaseLoginBloc>(context)
-                //                   .add(FirebaseLoginEvent.started(
-                //                 phoneNumberController.text,
-                //               ));
-                //               log("numb ${phoneNumberController.text}");
-
-                //               //        Navigator.pushAndRemoveUntil(
-                //               // context,
-                //               // MaterialPageRoute(
-                //               //   builder: (context) => const BottomNavigationControlWidget(),
-                //               // ),
-                //               // (route) => false);
-                //             }
-                //           }),
-                //     );
-                //   },
-                // ),
               ],
             ),
           );
