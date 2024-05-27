@@ -238,9 +238,9 @@ class VitalWidget extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        const HorizontalSpacingWidget(width: 20),
                       ],
                     ),
-              const HorizontalSpacingWidget(width: 20),
               Row(
                 children: [
                   Text(

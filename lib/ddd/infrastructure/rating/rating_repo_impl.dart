@@ -9,7 +9,6 @@ import 'package:mediezy_user/ddd/domain/rating/model/add_rating_model/add_rating
 import 'package:mediezy_user/ddd/domain/rating/rating_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/rating/model/get_rating_model/get_rating_model.dart';
-import '../../domain/rating/model/get_rating_model/user_rating.dart';
 import '../core/api_end_pont.dart';
 
 @LazySingleton(as: RatingRepository)

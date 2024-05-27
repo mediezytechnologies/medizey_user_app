@@ -553,7 +553,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 }
                               },
                               child: Container(
-                                height: size.height * .065,
+                                height: size.height * .062,
                                 width: size.width * .2,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4.r),
@@ -1043,7 +1043,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                 builder: (context, state) {
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(330.w, 40.h),
+                      fixedSize: Size(size.width * 32, size.height * .06),
                       backgroundColor: kMainColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.r),

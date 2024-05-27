@@ -83,81 +83,74 @@ class AllLabReportCardWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Details : ",
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.bold,
+              SizedBox(
+                height: 20.h,
+                child: Row(
+                  children: [
+                    Text(
+                      "Patient : ",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: kSubTextColor),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  const HorizontalSpacingWidget(width: 130),
-                  PopupMenuButton(
-                    iconSize: 20.sp,
-                    icon: Icon(
-                      Icons.more_vert,
-                      color: kMainColor,
+                    SizedBox(
+                      width: 140.w,
+                      child: Text(
+                        patientName,
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    itemBuilder: (context) => <PopupMenuEntry<dynamic>>[
-                      PopupMenuItem(
-                        onTap: () async {
-                          await Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => EditLabScreen(
-                                documentId: documentId,
-                                patientId: patientId,
+                    PopupMenuButton(
+                      iconSize: 18.sp,
+                      icon: Icon(
+                        Icons.more_vert,
+                        color: kMainColor,
+                      ),
+                      itemBuilder: (context) => <PopupMenuEntry<dynamic>>[
+                        PopupMenuItem(
+                          onTap: () async {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => EditLabScreen(
+                                  documentId: documentId,
+                                  patientId: patientId,
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Edit",
-                          style: TextStyle(
-                              fontSize: 15.sp, fontWeight: FontWeight.w700),
-                          overflow: TextOverflow.ellipsis,
+                            );
+                          },
+                          child: Text(
+                            "Edit",
+                            style: TextStyle(
+                                fontSize: 15.sp, fontWeight: FontWeight.w700),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                      PopupMenuItem(
-                        onTap: () {
-                          BlocProvider.of<DeleteDocumentBloc>(context).add(
-                            FetchDeletedDocument(
-                                documentId: documentId, type: "1"),
-                          );
-                        },
-                        child: Text(
-                          "Delete",
-                          style: TextStyle(
-                              fontSize: 15.sp, fontWeight: FontWeight.w700),
-                          overflow: TextOverflow.ellipsis,
+                        PopupMenuItem(
+                          onTap: () {
+                            BlocProvider.of<DeleteDocumentBloc>(context).add(
+                              FetchDeletedDocument(
+                                  documentId: documentId, type: "1"),
+                            );
+                          },
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                                fontSize: 15.sp, fontWeight: FontWeight.w700),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Patient : ",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: kSubTextColor),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    patientName,
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.bold,
+                      ],
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  ],
+                ),
               ),
               Row(
                 children: [

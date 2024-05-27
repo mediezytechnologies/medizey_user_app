@@ -840,8 +840,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                     });
                                   },
                                   child: Container(
-                                    height: 45.h,
-                                    width: 80.w,
+                                    height: size.height * .062,
+                                    width: size.width * .2,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
                                       color: kMainColor,
@@ -1384,7 +1384,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     builder: (context, state) {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          fixedSize: Size(330.w, 50.h),
+                          fixedSize: Size(size.width * 32, size.height * .06),
                           backgroundColor: kMainColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),

@@ -23,7 +23,6 @@ import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.da
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../../ddd/firebase_service/firebase_auth_service.dart';
-import '../../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../../CommonWidgets/text_style_widget.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
@@ -246,37 +245,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: "Sign in with Google",
                             onPressed: () async {
                               AuthServiceGoogle.instance.signUpWithGoogle(context);
-                            //   User? result =
-                            //       await GoogleAuthService().signInWithGoogle();
-                            //   if (result != null) {
-                            //     Navigator.pushReplacement(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //           builder: (context) =>
-                            //               GoogleContirmUserScreen(
-                            //             result: result,
-                            //           ),
-                            //         ));
-                            //   } else {
-                            //     showDialog(
-                            //       context: context,
-                            //       builder: (BuildContext context) {
-                            //         return AlertDialog(
-                            //           title: Text('Error'),
-                            //           content: Text(
-                            //               'Sign in failed. Please try again.'),
-                            //           actions: <Widget>[
-                            //             TextButton(
-                            //               child: Text('OK'),
-                            //               onPressed: () {
-                            //                 Navigator.of(context).pop();
-                            //               },
-                            //             ),
-                            //           ],
-                            //         );
-                            //       },
-                            //     );
-                            //   }
+                            
                           },
                           ),
                           const VerticalSpacingWidget(height: 5),

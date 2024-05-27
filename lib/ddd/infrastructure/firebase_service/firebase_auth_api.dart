@@ -1,13 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../domain/add_member/add_member_service.dart';
 import '../../domain/firebase_login/firebase_login_api_impl.dart';
 import '../../domain/firebase_login/model/firebase_login_model/firebase_login_model.dart';
 
@@ -46,7 +45,7 @@ class FirebaseLoginImpl implements AddFirebaseLogin {
 
         preference.setString('userId', result.user!.id.toString());
         userId = preference.getString('userId').toString();
-        print("<<<<<<userrr  $userId>>>>>>>>");
+        log("<<<<<<userrr  $userId>>>>>>>>");
         preference.setString('phoneNumber', result.user!.mobileNo.toString());
 
         String? userName = preference.getString('firstName');

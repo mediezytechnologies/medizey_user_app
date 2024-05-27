@@ -17,6 +17,7 @@ class FcmTokenImpl implements FccmTokenRepo {
     String? fcmToken = preference.getString('fcmToken');
     String userId = preference.getString('userId').toString();
     log("message api natification fcm token called $fcmToken");
+    log("Apiiiiiiii>>>>> ${ApiEndPoints.fcmToken}");
     try {
       final response = await Dio(BaseOptions(
           //headers: {'Authorization': 'Bearer $token'},

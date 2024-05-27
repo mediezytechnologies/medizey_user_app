@@ -25,9 +25,7 @@ import 'package:mediezy_user/Ui/Screens/ProfileScreen/Widgets/profile_card_widge
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../ddd/firebase_service/firebase_auth_service.dart';
-import '../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../CommonWidgets/text_style_widget.dart';
 
 class ProfileScreen extends StatefulWidget {

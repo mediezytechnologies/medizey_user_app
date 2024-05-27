@@ -87,7 +87,7 @@ class _RecentBookedDoctorsScreenState extends State<RecentBookedDoctorsScreen> {
                       : ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+                           physics: const BouncingScrollPhysics(),
                           itemCount: state.model.length,
                           itemBuilder: (context, index) {
                             final doctor = state.model[index];

@@ -52,7 +52,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(
           context,

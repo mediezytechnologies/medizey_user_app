@@ -3,14 +3,12 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-
 import '../../../CommonWidgets/text_style_widget.dart';
 import '../../../CommonWidgets/row_text_widget.dart';
 import 'widget/image_view_widget.dart';
-import 'widget/vitals_row_text_widget.dart';
+import 'widget/medicine_widget.dart';
+import 'widget/vitals_widget.dart';
 
 class CompletedAppointmentDetailsScreen extends StatelessWidget {
   const CompletedAppointmentDetailsScreen({
@@ -189,76 +187,17 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.only(bottom: 5.h),
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: kCardColor,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        vitals[index].height == null
-                                            ? const SizedBox()
-                                            : VitalsRowTextWidget(
-                                                heading: "Height",
-                                                data:
-                                                    "${vitals[index].height.toString()} cm",
-                                              ),
-                                        const HorizontalSpacingWidget(
-                                            width: 10),
-                                        vitals[index].weight == null
-                                            ? const SizedBox()
-                                            : VitalsRowTextWidget(
-                                                heading: "Weight",
-                                                data:
-                                                    "${vitals[index].weight.toString()} kg",
-                                              ),
-                                        const HorizontalSpacingWidget(
-                                            width: 10),
-                                        vitals[index].heartRate == null
-                                            ? const SizedBox()
-                                            : VitalsRowTextWidget(
-                                                heading: "Heartrate",
-                                                data:
-                                                    "${vitals[index].heartRate.toString()} BPM",
-                                              ),
-                                      ],
-                                    ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    Row(
-                                      children: [
-                                        vitals[index].temperature == null
-                                            ? const SizedBox()
-                                            : VitalsRowTextWidget(
-                                                heading: "Temperature",
-                                                data:
-                                                    "${vitals[index].temperature.toString()} ${vitals[index].temperatureType.toString()}",
-                                              ),
-                                        const HorizontalSpacingWidget(width: 5),
-                                        vitals[index].spo2 == null
-                                            ? const SizedBox()
-                                            : VitalsRowTextWidget(
-                                                heading: "Temperature",
-                                                data:
-                                                    "${vitals[index].spo2.toString()} %",
-                                              ),
-                                        const HorizontalSpacingWidget(width: 5),
-                                        vitals[index].sys == null &&
-                                                vitals[index].dia == null
-                                            ? const SizedBox()
-                                            : VitalsRowTextWidget(
-                                                heading: "BP",
-                                                data:
-                                                    "${vitals[index].sys ?? "N/A"} / ${vitals[index].dia ?? "N/A"}",
-                                              ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                              return VitalsWidget(
+                                dia: vitals[index].dia.toString(),
+                                heartRate: vitals[index].heartRate.toString(),
+                                height: vitals[index].height.toString(),
+                                spo2: vitals[index].spo2.toString(),
+                                sys: vitals[index].sys.toString(),
+                                temperature:
+                                    vitals[index].temperature.toString(),
+                                temperatureType:
+                                    vitals[index].temperatureType.toString(),
+                                weight: vitals[index].weight.toString(),
                               );
                             }),
                       ],
@@ -275,137 +214,25 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.only(bottom: 5.h),
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: kCardColor,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    prescriptions[index].medicalStoreName ==
-                                            null
-                                        ? const SizedBox()
-                                        : Row(
-                                            children: [
-                                              Text("Medical store name :",
-                                                  style: grey12B500),
-                                              const HorizontalSpacingWidget(
-                                                  width: 5),
-                                              Text(
-                                                  prescriptions[index]
-                                                      .medicalStoreName
-                                                      .toString(),
-                                                  style: black13B500)
-                                            ],
-                                          ),
-                                    const VerticalSpacingWidget(height: 5),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Medicine Name :",
-                                            style: grey12B500),
-                                        Text("Dosage :", style: grey12B500)
-                                      ],
-                                    ),
-                                    const VerticalSpacingWidget(height: 2),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                            prescriptions[index]
-                                                .medicineName
-                                                .toString(),
-                                            style: black13B500),
-                                        Text(
-                                            prescriptions[index]
-                                                .dosage
-                                                .toString(),
-                                            style: black13B500)
-                                      ],
-                                    ),
-                                    const VerticalSpacingWidget(height: 4),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Days :", style: grey12B500),
-                                        Text("", style: black13B500)
-                                      ],
-                                    ),
-                                    const VerticalSpacingWidget(height: 2),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                            prescriptions[index]
-                                                .noOfDays
-                                                .toString(),
-                                            style: black13B500),
-                                        Text(
-                                            prescriptions[index].type == 1
-                                                ? "Before food"
-                                                : (prescriptions[index].type ==
-                                                        2)
-                                                    ? "After food"
-                                                    : "With food",
-                                            style: black13B500)
-                                      ],
-                                    ),
-                                    const VerticalSpacingWidget(height: 4),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Medicine taken :",
-                                            style: grey12B500),
-                                        Row(
-                                          children: [
-                                            prescriptions[index].morning == 1
-                                                ? Text("Morning",
-                                                    style: black13B500)
-                                                : Container(),
-                                            const HorizontalSpacingWidget(
-                                                width: 5),
-                                            prescriptions[index].noon == 1
-                                                ? Text("Noon",
-                                                    style: black13B500)
-                                                : Container(),
-                                            const HorizontalSpacingWidget(
-                                                width: 5),
-                                            prescriptions[index].night == 1
-                                                ? Text("Night",
-                                                    style: black13B500)
-                                                : Container(),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    prescriptions[index].interval == null
-                                        ? const SizedBox()
-                                        : Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  Text("Intervel : ",
-                                                      style: grey12B500),
-                                                  Text(
-                                                      "${prescriptions[index].interval} ${prescriptions[index].timeSection}",
-                                                      style: black13B500),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                    const VerticalSpacingWidget(height: 2),
-                                  ],
-                                ),
+                              return MedicineWidget(
+                                medicalStoreName: prescriptions[index]
+                                    .medicalStoreName
+                                    .toString(),
+                                medicineName: prescriptions[index]
+                                    .medicineName
+                                    .toString(),
+                                dosage: prescriptions[index].dosage.toString(),
+                                intervel:
+                                    prescriptions[index].interval.toString(),
+                                intervelSection:
+                                    prescriptions[index].timeSection.toString(),
+                                noOfDays:
+                                    prescriptions[index].noOfDays.toString(),
+                                morning: prescriptions[index].morning!,
+                                noon: prescriptions[index].noon!,
+                                evening: prescriptions[index].evening!,
+                                night: prescriptions[index].night!,
+                                foodType: prescriptions[index].type!,
                               );
                             }),
                       ],

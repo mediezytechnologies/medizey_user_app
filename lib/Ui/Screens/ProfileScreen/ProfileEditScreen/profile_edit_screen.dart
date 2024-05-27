@@ -120,7 +120,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (ctx) =>    BottomNavigationControlWidget(selectedIndex: 0,),
+                        builder: (ctx) =>
+                            BottomNavigationControlWidget(selectedIndex: 3),
                       ),
                     );
                   }
@@ -141,69 +142,75 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 scaleDuration:
                                     const Duration(milliseconds: 400),
                                 fadeDuration: const Duration(milliseconds: 400),
-                                child: ClipOval(
-                                  child: imageFromGallery != null
-                                      ? Image.file(
-                                          imageFromGallery!,
-                                          height: size.height * .14,
-                                          width: size.width * .30,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : (widget.imageUrl == "null"
-                                          ? Image.asset(
-                                              "assets/icons/profile pic.png",
-                                              height: size.height * .14,
-                                              width: size.width * .30,
-                                              color: kMainColor,
-                                            )
-                                          : Image.network(
-                                              widget.imageUrl,
-                                              height: size.height * .14,
-                                              width: size.width * .30,
-                                              fit: BoxFit.cover,
-                                              errorBuilder: (context, error,
-                                                      stackTrace) =>
-                                                  Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Image.asset(
-                                                  "assets/icons/profile pic.png",
-                                                  height: size.height * .14,
-                                                  width: size.width * .30,
-                                                  color: kMainColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: imageFromGallery != null
+                                        ? Image.file(
+                                            imageFromGallery!,
+                                            height: size.width * .28,
+                                            width: size.width * .28,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : (widget.imageUrl == "null"
+                                            ? Image.asset(
+                                                "assets/icons/profile pic.png",
+                                                height: size.width * .28,
+                                                width: size.width * .28,
+                                                color: kMainColor,
+                                              )
+                                            : Image.network(
+                                                widget.imageUrl,
+                                                height: size.width * .28,
+                                                width: size.width * .28,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Image.asset(
+                                                    "assets/icons/profile pic.png",
+                                                    height: size.width * .28,
+                                                    width: size.width * .28,
+                                                    color: kMainColor,
+                                                  ),
                                                 ),
-                                              ),
-                                              loadingBuilder:
-                                                  (BuildContext context,
-                                                      Widget child,
-                                                      ImageChunkEvent?
-                                                          loadingProgress) {
-                                                if (loadingProgress == null) {
-                                                  return child;
-                                                }
-                                                return Center(
-                                                  child: Shimmer.fromColors(
-                                                    baseColor:
-                                                        kShimmerBaseColor,
-                                                    highlightColor:
-                                                        kShimmerHighlightColor,
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(80.r),
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child: Shimmer.fromColors(
+                                                      baseColor:
+                                                          kShimmerBaseColor,
+                                                      highlightColor:
+                                                          kShimmerHighlightColor,
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      80.r),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            )),
+                                                  );
+                                                },
+                                              )),
+                                  ),
                                 ),
                               ),
                               Positioned(
                                 bottom: -10.h,
-                                right: -12.w,
+                                right: -10.w,
                                 child: IconButton(
                                   onPressed: () {
                                     pickImageFromGallery();
@@ -340,7 +347,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   size: 20.sp,
                                 ),
                                 hintStyle: grey13B600,
-                                hintText: widget.location == 'null' ? "" : widget.location,
+                                hintText: widget.location == 'null'
+                                    ? ""
+                                    : widget.location,
                                 filled: true,
                                 fillColor: kCardColor,
                                 border: OutlineInputBorder(

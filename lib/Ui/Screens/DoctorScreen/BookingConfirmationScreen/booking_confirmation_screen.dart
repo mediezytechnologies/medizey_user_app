@@ -51,18 +51,29 @@ class BookingConfirmationScreen extends StatefulWidget {
 
 class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
   final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 300), () {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(seconds: 1),
-          curve: Curves.easeInOut,
-        );
-      });
+      _ensureScrolling();
     });
+  }
+
+  void _ensureScrolling() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (_scrollController.hasClients) {
+      await Future.delayed(const Duration(milliseconds: 300));
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      // Try again if clients are not yet attached
+      await Future.delayed(const Duration(milliseconds: 300));
+      _ensureScrolling();
+    }
   }
 
   @override
@@ -73,7 +84,8 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
+            builder: (context) =>
+                BottomNavigationControlWidget(selectedIndex: 0),
           ),
         );
         return Future.value(false);
@@ -252,7 +264,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (ctx) =>
-                                   BottomNavigationControlWidget(selectedIndex: 0,),
+                                BottomNavigationControlWidget(selectedIndex: 0),
                           ),
                           (route) => false);
                     }),

@@ -195,40 +195,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                 );
                               },
                             ),
-                            // EasyDateTimeLine(
-                            //   initialDate: selectedDate,
-                            //   disabledDates: _getDisabledDates(),
-                            //   onDateChange: (date) {
-                            //     String formattedDate =
-                            //         DateFormat('yyyy-MM-dd').format(date);
-                            //     setState(() {
-                            //       selectedDate = date;
-                            //     });
-                            //     BlocProvider.of<GetTokenBloc>(context).add(
-                            //       FetchToken(
-                            //         date: formattedDate,
-                            //         doctorId: widget.doctorId,
-                            //         hospitalId: selectedClinicId,
-                            //       ),
-                            //     );
-                            //   },
-                            //   activeColor: kMainColor,
-                            //   dayProps: EasyDayProps(
-                            //     height: size.height * .1,
-                            //     width: size.width * .15,
-                            //     activeDayNumStyle: white14B700,
-                            //     activeDayStrStyle: white10B400,
-                            //     activeMothStrStyle: white10B400,
-                            //     inactiveDayNumStyle: grey14B700,
-                            //     inactiveDayStrStyle: grey10B400,
-                            //     inactiveMothStrStyle: grey10B400,
-                            //     todayHighlightStyle:
-                            //         TodayHighlightStyle.withBackground,
-                            //     todayHighlightColor: const Color(0xffE1ECC8),
-                            //     borderColor: kMainColor,
-                            //   ),
-                            // ),
-                            // VerticalSpacingWidget(height: 10),
                             DatePickerDemoClass(
                               height: size.height * .15,
                               width: size.width * .15,

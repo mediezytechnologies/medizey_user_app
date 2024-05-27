@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/AppointmentDoneScreen/appointment_done_screen.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/appointment_done_demo_screen.dart';
 
 class TokenCardWidget extends StatefulWidget {
   TokenCardWidget(

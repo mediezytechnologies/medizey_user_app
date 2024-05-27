@@ -3,13 +3,11 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart';
+import 'package:mediezy_user/ddd/infrastructure/core/baseurl.dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiException.dart';
 
 class ApiClient {
-static const String basePath = "https://mediezy.com/api/";
-//static const String basePath = "https://test.mediezy.com/api/";
-
   String orignalToken = '';
 
   Future<Response> invokeAPI(
@@ -35,7 +33,7 @@ static const String basePath = "https://mediezy.com/api/";
       print(jsonEncode(body));
     }
     Response response;
-    String url = basePath + path;
+    String url = baseUrl + path;
     print('========================================$url');
     final nullableHeaderParams = (headerParams.isEmpty) ? null : headerParams;
 

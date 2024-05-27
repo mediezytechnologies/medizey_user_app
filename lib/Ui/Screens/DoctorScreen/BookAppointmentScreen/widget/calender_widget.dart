@@ -317,7 +317,7 @@ class DateWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       child: Container(
         width: width,
         margin: const EdgeInsets.all(3.0),

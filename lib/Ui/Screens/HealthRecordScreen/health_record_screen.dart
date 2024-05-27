@@ -421,7 +421,9 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
+              builder: (context) => BottomNavigationControlWidget(
+                selectedIndex: 0,
+              ),
             ),
           );
           return Future.value(false);
@@ -718,7 +720,6 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                         ],
                       ),
                     ),
-                    const VerticalSpacingWidget(height: 5),
                     Theme(
                       data: Theme.of(context)
                           .copyWith(dividerColor: Colors.transparent),
