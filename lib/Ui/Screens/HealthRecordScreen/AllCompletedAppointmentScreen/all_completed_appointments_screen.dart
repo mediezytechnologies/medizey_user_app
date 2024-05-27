@@ -100,10 +100,10 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                             .appointmentDetails![index].reviewAfter
                             .toString(),
                         scanningCenterName: completedAppointment
-                            .appointmentDetails![index].scanTest
+                            .appointmentDetails![index].scanName
                             .toString(),
                         scanningTestName: completedAppointment
-                            .appointmentDetails![index].scanName
+                            .appointmentDetails![index].scanTest
                             .toString(),
                       );
                     });

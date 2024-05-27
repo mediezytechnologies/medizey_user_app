@@ -192,10 +192,10 @@ class _CompletedAppointmentScreenState
                                     .toString(),
                                 scanningCenterName:
                                     getCompletedAppointmentsModel
-                                        .appointmentDetails![index].scanTest
+                                        .appointmentDetails![index].scanName
                                         .toString(),
                                 scanningTestName: getCompletedAppointmentsModel
-                                    .appointmentDetails![index].scanName
+                                    .appointmentDetails![index].scanTest
                                     .toString(),
                               );
                             });

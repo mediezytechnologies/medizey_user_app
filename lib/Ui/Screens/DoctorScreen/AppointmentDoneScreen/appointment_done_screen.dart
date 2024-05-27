@@ -1645,22 +1645,23 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text("Consultation fee",
+                                              Text(
+                                                  "Consultation fee (pay at clinic)",
                                                   style: grey13B400),
                                               Row(
                                                 children: [
-                                                  Transform.scale(
-                                                    scale: 0.8,
-                                                    child: Checkbox(
-                                                      activeColor: kMainColor,
-                                                      value: isFeeChecked,
-                                                      onChanged: (bool? value) {
-                                                        setState(() {
-                                                          isFeeChecked = value!;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
+                                                  // Transform.scale(
+                                                  //   scale: 0.8,
+                                                  //   child: Checkbox(
+                                                  //     activeColor: kMainColor,
+                                                  //     value: isFeeChecked,
+                                                  //     onChanged: (bool? value) {
+                                                  //       setState(() {
+                                                  //         isFeeChecked = value!;
+                                                  //       });
+                                                  //     },
+                                                  //   ),
+                                                  // ),
                                                   Text(
                                                       "₹ ${widget.consultationFee}",
                                                       style: black14B500),
@@ -1671,18 +1672,18 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                         )
                                       : const SizedBox(),
                                   const VerticalSpacingWidget(height: 5),
-                                  widget.patientId == null
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Total", style: grey13B400),
-                                            Text(
-                                                "₹ ${isFeeChecked ? double.parse(widget.consultationFee) + platFormFee : platFormFee}",
-                                                style: black14B500),
-                                          ],
-                                        )
-                                      : const SizedBox(),
+                                  // widget.patientId == null
+                                  //     ? Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //           Text("Total", style: grey13B400),
+                                  //           Text(
+                                  //               "₹ ${isFeeChecked ? double.parse(widget.consultationFee) + platFormFee : platFormFee}",
+                                  //               style: black14B500),
+                                  //         ],
+                                  //       )
+                                  //     : const SizedBox(),
                                   const VerticalSpacingWidget(height: 20),
                                   CommonButtonWidget(
                                     title: "Book Now",

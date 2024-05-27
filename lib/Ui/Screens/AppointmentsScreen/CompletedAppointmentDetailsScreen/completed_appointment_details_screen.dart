@@ -432,7 +432,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   : Column(
                       children: [
                         RowTextWidget(
-                            heading: "Scanning test", data: scanningCenterName),
+                            heading: "Scanning test", data: scanningTestName),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
@@ -442,7 +442,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                       children: [
                         RowTextWidget(
                             heading: "Scanning center name",
-                            data: scanningTestName),
+                            data: scanningCenterName),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),

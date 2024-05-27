@@ -334,6 +334,58 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                             ),
                           ),
                           const VerticalSpacingWidget(height: 10),
+                          widget.type == 1 ||
+                                  widget.type == 3 ||
+                                  widget.type == 4
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.type == 1
+                                          ? "Lab test name"
+                                          : (widget.type == 3)
+                                              ? "Admitted for"
+                                              : "Scan test name",
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: kSubTextColor,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    const VerticalSpacingWidget(height: 5),
+                                    SizedBox(
+                                      height: 45.h,
+                                      width: double.infinity,
+                                      child: TextFormField(
+                                        cursorColor: kMainColor,
+                                        controller:
+                                            labTextAndScanTestNameAndAppointmentForController,
+                                        keyboardType: TextInputType.text,
+                                        textInputAction: TextInputAction.next,
+                                        decoration: InputDecoration(
+                                          hintStyle: TextStyle(
+                                              fontSize: 13.sp,
+                                              color: kSubTextColor),
+                                          hintText: widget.type == 1
+                                              ? "Enter lab test name"
+                                              : (widget.type == 3)
+                                                  ? "Enter admitted for"
+                                                  : "Enter scan test name",
+                                          filled: true,
+                                          fillColor: kCardColor,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 10.w, vertical: 15.h),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : Container(),
+                          const VerticalSpacingWidget(height: 5),
                         ],
                       )
                     : Container(),
@@ -381,57 +433,7 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                     )
                   ],
                 ),
-                const VerticalSpacingWidget(height: 5),
-                widget.type == 1 || widget.type == 3 || widget.type == 4
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.type == 1
-                                ? "Lab test name"
-                                : (widget.type == 3)
-                                    ? "Admitted for"
-                                    : "Scan test name",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: kSubTextColor,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          const VerticalSpacingWidget(height: 5),
-                          SizedBox(
-                            height: 45.h,
-                            width: double.infinity,
-                            child: TextFormField(
-                              cursorColor: kMainColor,
-                              controller:
-                                  labTextAndScanTestNameAndAppointmentForController,
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                    fontSize: 13.sp, color: kSubTextColor),
-                                hintText: widget.type == 1
-                                    ? "Enter lab test name"
-                                    : (widget.type == 3)
-                                        ? "Enter admitted for"
-                                        : "Enter scan test name",
-                                filled: true,
-                                fillColor: kCardColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 15.h),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    : Container(),
-                const VerticalSpacingWidget(height: 5),
-                Divider(color: kSubTextColor, height: 5.h),
-                const VerticalSpacingWidget(height: 5),
+                const VerticalSpacingWidget(height: 10),
                 Text(
                   "Additional note",
                   style: TextStyle(
@@ -482,6 +484,11 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                         GeneralServices.instance
                             .showErrorMessage(context, "Enter scan test name");
                       } else if (widget.type == 3 &&
+                          labNameAndScanningCenterNameAndHospitalNameController
+                              .text.isEmpty) {
+                        GeneralServices.instance
+                            .showErrorMessage(context, "Enter hospital name");
+                      } else if (widget.type == 3 &&
                           labTextAndScanTestNameAndAppointmentForController
                               .text.isEmpty) {
                         GeneralServices.instance
@@ -513,6 +520,7 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                         );
                       }
                     }),
+                const VerticalSpacingWidget(height: 10)
               ],
             ),
           ),
