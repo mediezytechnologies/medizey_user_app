@@ -26,6 +26,7 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../ddd/firebase_service/firebase_auth_service.dart';
 import '../../../ddd/infrastructure/firebase_service/firebase_auth_service.dart';
 import '../../CommonWidgets/text_style_widget.dart';
 
@@ -54,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const BottomNavigationControlWidget(),
+            builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
           ),
         );
         return Future.value(false);

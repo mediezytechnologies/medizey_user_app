@@ -16,7 +16,7 @@ class FcmTokenImpl implements FccmTokenRepo {
     final preference = await SharedPreferences.getInstance();
     String? fcmToken = preference.getString('fcmToken');
     String userId = preference.getString('userId').toString();
-    log("message api fcm token called $fcmToken");
+    log("message api natification fcm token called $fcmToken");
     try {
       final response = await Dio(BaseOptions(
           //headers: {'Authorization': 'Bearer $token'},
@@ -24,7 +24,7 @@ class FcmTokenImpl implements FccmTokenRepo {
           )).post(
         ApiEndPoints.fcmToken,
         data: {
-          "fcm_token": "eS1kqR7sXEYIkW9i3RL1wa:APA91bF8L_Q9SUWBP77Dj4AXwtBoIedvG5qdDYxRzECakCwarLpHkNuhbFInUtMRNPN1wYe_Y8OQTpZRGDkVuA8BDZhnQ4pBXVXf5BLA9zXkp5q4Oxhc16dEmq89fWl14lIomRRFvUWr",
+          "fcm_token": fcmToken,
           "user_id": userId,
         },
       );

@@ -69,7 +69,7 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (ctx) => const BottomNavigationControlWidget(),
+                  builder: (ctx) =>    BottomNavigationControlWidget(selectedIndex: 0,),
                 ),
               );
             });

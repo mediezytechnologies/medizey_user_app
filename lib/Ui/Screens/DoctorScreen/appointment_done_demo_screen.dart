@@ -291,7 +291,7 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AppointmentsScreen(),
+                  builder: (context) =>  AppointmentsScreen(),
                 ),
               );
             },

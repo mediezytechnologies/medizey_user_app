@@ -39,7 +39,7 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
           if (state is DoctorRecommendLoaded) {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => const BottomNavigationControlWidget(),
+                  builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
                 ),
                 (route) => false);
             GeneralServices.instance.showToastMessage(state.successMesseage);

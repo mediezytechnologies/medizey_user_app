@@ -176,7 +176,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AppointmentsScreen(),
+                  builder: (context) =>  AppointmentsScreen(),
                 ),
               );
             },

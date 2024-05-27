@@ -80,7 +80,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const BottomNavigationControlWidget(),
+                               BottomNavigationControlWidget(selectedIndex: 0,),
                       ));
                 }
               },
@@ -165,7 +165,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const BottomNavigationControlWidget(),
+                                    BottomNavigationControlWidget(selectedIndex: 0,),
                             ));
                       }
                     },

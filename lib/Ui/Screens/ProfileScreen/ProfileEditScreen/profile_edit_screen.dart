@@ -120,7 +120,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (ctx) => const BottomNavigationControlWidget(),
+                        builder: (ctx) =>    BottomNavigationControlWidget(selectedIndex: 0,),
                       ),
                     );
                   }

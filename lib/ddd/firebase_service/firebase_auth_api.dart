@@ -21,8 +21,7 @@ class FirebaseLoginImpl implements AddFirebaseLogin {
     String? firebaseToken = preference.getString('firebaseTokens');
 
     log("fcm tok : $firebaseToken");
-    // String? token =
-    //     preference.getString('token') ?? preference.getString('tokenD');
+  
     try {
       final response = await Dio(BaseOptions(
         // headers: {'Authorization': 'Bearer $token'},

@@ -73,7 +73,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const BottomNavigationControlWidget(),
+            builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
           ),
         );
         return Future.value(false);
@@ -252,7 +252,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (ctx) =>
-                                const BottomNavigationControlWidget(),
+                                   BottomNavigationControlWidget(selectedIndex: 0,),
                           ),
                           (route) => false);
                     }),

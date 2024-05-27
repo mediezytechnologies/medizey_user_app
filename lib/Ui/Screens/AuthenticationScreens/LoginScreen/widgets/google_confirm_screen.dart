@@ -42,14 +42,16 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
           if (state.isError && state.status == false) {
             GeneralServices.instance.showErrorMessage(context, state.message);
           } else {
-            Future.delayed(const Duration(seconds: 3)).then(
-              (value) => Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BottomNavigationControlWidget(),
-                  ),
-                  (route) => false),
-            );
+            //    log( "fcm tok in api : ${preference.getString('token')}");
+
+            Future.delayed(const Duration(seconds: 3))
+                .then((value) => Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                           BottomNavigationControlWidget(selectedIndex: 0,),
+                    ),
+                    (route) => false));
           }
         },
         builder: (context, state) {

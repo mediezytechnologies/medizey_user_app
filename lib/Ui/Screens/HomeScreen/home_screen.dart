@@ -19,9 +19,11 @@ import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_w
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../../ddd/infrastructure/firebase_service/notification_service.dart';
 import 'Widgets/get_completed_feedback_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,6 +35,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController suggestionController = TextEditingController();
+  // bool _notificationsEnabled = false;
+  // final NotificationServices _notificationServices = NotificationServices();
+ 
+
+
 
   late Timer pollingTimer;
   bool isLoading = true;
@@ -42,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+   
     _scrollViewController = ScrollController();
     _scrollViewController.addListener(() {
       if (_scrollViewController.position.userScrollDirection ==
@@ -76,6 +84,20 @@ class _HomeScreenState extends State<HomeScreen> {
         .add(FetchCompletedFeedbackAppointments());
     startPolling();
   }
+
+  
+
+  // Future<void> _toggleNotifications(bool value) async {
+   
+
+  //   if (value) {
+  //     await _notificationServices.enableNotifications();
+  //     _notificationsEnabled =true;
+  //   } else {
+  //     await _notificationServices.disableNotifications();
+  //      _notificationsEnabled =false;
+  //   }
+  // }
 
   void startPolling() async {
     pollingTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
@@ -150,6 +172,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   horizontal: size.width * 0.01),
                               child: const GetDoctorWidget(),
                             ),
+        //                     SwitchListTile(
+        //   title: const Text('Enable Notifications'),
+        //   value: _notificationsEnabled,
+        //   onChanged: _toggleNotifications,
+        // ),
                             const VerticalSpacingWidget(height: 5),
                             const GetFavouriteDoctorWidget(),
                             const VerticalSpacingWidget(height: 5),

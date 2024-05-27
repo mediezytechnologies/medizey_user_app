@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) =>
-                          const BottomNavigationControlWidget()),
+                            BottomNavigationControlWidget(selectedIndex: 0,),),
                   (route) => false));
                    BlocProvider.of<NotificatioTokenBloc>(context)
                                       .add(
