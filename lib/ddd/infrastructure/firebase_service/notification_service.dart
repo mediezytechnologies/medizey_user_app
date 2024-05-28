@@ -15,9 +15,8 @@ class NotificationServices {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-
   Future<void> enableNotifications() async {
-     requestNotificationPermisions();
+    requestNotificationPermisions();
     log('Notifications enabled');
   }
 
@@ -25,8 +24,6 @@ class NotificationServices {
     requestNotificationPermisionsDenied();
     log('Notifications disabled');
   }
-
-
 
   Future<String> getDeviceToken() async {
     final preference = await SharedPreferences.getInstance();
@@ -49,28 +46,25 @@ class NotificationServices {
     });
   }
 
-  
-
   void requestNotificationPermisions() async {
+    NotificationSettings settings = await messaging.getNotificationSettings();
     if (Platform.isIOS) {
-      NotificationSettings notificationSettings =
-          await messaging.requestPermission(
-              alert: true,
-              announcement: true,
-              badge: true,
-              carPlay: true,
-              criticalAlert: true,
-              provisional: true,
-              sound: true);
-      if (notificationSettings.authorizationStatus ==
-          AuthorizationStatus.authorized) {
-        log('user is already granted permisions in iso');
-        log("notification not ios ==========");
-      } else if (notificationSettings.authorizationStatus ==
+        FirebaseMessaging.instance.requestPermission();
+      NotificationSettings settings = await messaging.requestPermission(
+          alert: true,
+          announcement: true,
+          badge: true,
+          carPlay: true,
+          criticalAlert: true,
+      provisional: true,
+          sound: true);
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        log('User granted permission');
+      } else if (settings.authorizationStatus ==
           AuthorizationStatus.provisional) {
-        log('user is already granted provisional permisions ios');
+        log('User granted provisional permission');
       } else {
-        log('User has denied permission ios');
+        log('User declined or has not accepted permission');
       }
     }
 
@@ -138,11 +132,11 @@ class NotificationServices {
 
     await _flutterLocalNotificationsPlugin.initialize(initSettings,
         onDidReceiveNotificationResponse: (payload) {
-      handleMesssage( message);
+      handleMesssage(message);
     });
   }
 
-  void handleMesssage( RemoteMessage message) {
+  void handleMesssage(RemoteMessage message) {
     log('In handleMesssage function');
     String? messageType = message.data['type'];
 
@@ -270,15 +264,14 @@ class NotificationServices {
         await FirebaseMessaging.instance.getInitialMessage();
 
     if (initialMessage != null) {
-      handleMesssage( initialMessage);
+      handleMesssage(initialMessage);
     }
 
     //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      handleMesssage( event);
+      handleMesssage(event);
     });
   }
-
 
 //disable notification //===============
   void requestNotificationPermisionsDenied() async {
@@ -325,7 +318,4 @@ class NotificationServices {
       log('User has denied permission');
     }
   }
-
-
-
 }
