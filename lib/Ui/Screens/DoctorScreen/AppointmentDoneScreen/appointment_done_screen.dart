@@ -29,7 +29,7 @@ import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.d
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookingConfirmationScreen/booking_confirmation_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 
 class AppointmentDoneScreen extends StatefulWidget {
   AppointmentDoneScreen(

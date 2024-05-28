@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import '../../../../CommonWidgets/text_style_widget.dart';
+import '../../../../Consts/text_style.dart';
 import '../../../../CommonWidgets/vertical_spacing_widget.dart';
 
 class DatePickerDemoClass extends StatefulWidget {

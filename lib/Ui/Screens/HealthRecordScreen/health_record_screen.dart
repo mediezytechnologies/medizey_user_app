@@ -378,7 +378,7 @@ import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
+import 'package:mediezy_user/Ui/Consts/text_style.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_banner_widget.dart';

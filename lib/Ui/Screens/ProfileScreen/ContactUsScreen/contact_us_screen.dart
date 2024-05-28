@@ -8,8 +8,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 
 class ContactUsScreen extends StatefulWidget {
   const ContactUsScreen({super.key});
@@ -23,6 +22,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   final TextEditingController messageController = TextEditingController();
   final FocusNode messageFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -95,7 +95,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         ),
                       ),
                     ),
+
                     const VerticalSpacingWidget(height: 15),
+
                     //! message
                     SizedBox(
                       child: TextFormField(
@@ -143,6 +145,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             messageController.clear();
                           }
                         }),
+
                     const VerticalSpacingWidget(height: 20),
                   ],
                 ),

@@ -52,6 +52,7 @@ class DoctorDetails {
   List<String>? subspecifications;
   List<Clinics>? clinics;
   int? favoriteStatus;
+  String? qualification;
 
   DoctorDetails(
       {this.id,
@@ -71,7 +72,8 @@ class DoctorDetails {
       this.specifications,
       this.subspecifications,
       this.clinics,
-      this.favoriteStatus});
+      this.favoriteStatus,
+      this.qualification});
 
   DoctorDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -97,6 +99,7 @@ class DoctorDetails {
       });
     }
     favoriteStatus = json['favoriteStatus'];
+    qualification = json['qualification'];
   }
 
   Map<String, dynamic> toJson() {
@@ -121,6 +124,7 @@ class DoctorDetails {
       data['clinics'] = clinics!.map((v) => v.toJson()).toList();
     }
     data['favoriteStatus'] = favoriteStatus;
+    data['qualification'] = qualification;
     return data;
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import '../../../../CommonWidgets/horizontal_spacing_widget.dart';
-import '../../../../CommonWidgets/text_style_widget.dart';
+import '../../../../Consts/text_style.dart';
 import '../../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../Consts/app_colors.dart';
 

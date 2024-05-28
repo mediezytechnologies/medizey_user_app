@@ -21,7 +21,7 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/application/add_members/add_members_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 
 class AddPatientScreen extends StatefulWidget {
   AddPatientScreen({

@@ -6,7 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../Model/GetAppointments/get_completed_appointments_model.dart';
 import '../../../../ddd/application/rating/rating_bloc.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../Consts/app_colors.dart';
 import '../../AppointmentsScreen/CompletedAppointmentDetailsScreen/completed_appointment_details_screen.dart';

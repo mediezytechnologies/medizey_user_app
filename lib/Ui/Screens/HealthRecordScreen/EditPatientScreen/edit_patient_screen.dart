@@ -30,7 +30,7 @@ import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 
 class EditPatientScreen extends StatefulWidget {
   const EditPatientScreen({

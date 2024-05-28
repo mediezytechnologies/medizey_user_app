@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../CommonWidgets/horizontal_spacing_widget.dart';
-import '../../../../CommonWidgets/text_style_widget.dart';
+import '../../../../Consts/text_style.dart';
 import '../../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../Consts/app_colors.dart';
 
@@ -86,9 +86,9 @@ class MedicineWidget extends StatelessWidget {
               Text(noOfDays, style: black13B500),
               Text(
                   foodType == 1
-                      ? "Before food"
+                      ? "After food"
                       : (foodType == 2)
-                          ? "After food"
+                          ? "Before food"
                           : (foodType == 3)
                               ? "With food"
                               : "If required",

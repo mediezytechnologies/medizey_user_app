@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Color kMainColor = Color.fromRGBO(89, 93, 229, 1);
+Color kMainColor = const Color.fromRGBO(89, 93, 229, 1);
 Color kScaffoldColor = const Color(0xFFF3F7F8);
 Color kCardColor = const Color(0xFFFFFFFF);
 Color kSubTextColor = const Color(0xFF7C7C7C);

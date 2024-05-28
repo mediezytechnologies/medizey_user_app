@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.dart';
 import '../../../../CommonWidgets/horizontal_spacing_widget.dart';
-import '../../../../CommonWidgets/text_style_widget.dart';
+import '../../../../Consts/text_style.dart';
 import '../../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../Consts/app_colors.dart';
 
@@ -20,7 +20,8 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
       required this.location,
       required this.mainHospital,
       required this.doctorId,
-      required this.favouriteStatus});
+      required this.favouriteStatus,
+      required this.qualification});
 
   final String image;
   final String firstName;
@@ -30,6 +31,7 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
   final String mainHospital;
   final String doctorId;
   final int favouriteStatus;
+  final String qualification;
 
   @override
   Widget build(BuildContext context) {
@@ -48,42 +50,57 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
               FadedScaleAnimation(
                 scaleDuration: const Duration(milliseconds: 400),
                 fadeDuration: const Duration(milliseconds: 400),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.r),
-                  child: FancyShimmerImage(
-                      height: size.height * .14,
-                      width: size.width * .19,
-                      boxFit: BoxFit.contain,
+                child: Container(
+                  height: size.width * .26,
+                  width: size.width * .26,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.r),
+                    color: Colors.grey.shade400,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50.r),
+                    child: FancyShimmerImage(
+                      height: size.height * .15,
+                      width: size.width * .2,
+                      boxFit: BoxFit.cover,
                       errorWidget: const Image(
                         image: AssetImage("assets/icons/no image.png"),
                       ),
-                      imageUrl: image),
+                      imageUrl: image,
+                    ),
+                  ),
                 ),
               ),
               const HorizontalSpacingWidget(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Specialisation In", style: grey11B400),
                   SizedBox(
                     width: size.width * .5,
                     child: Text(
-                      specialization,
-                      style: black12B500,
-                      maxLines: 2,
+                      'Dr $firstName $secondName',
+                      style: black14B600,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   const VerticalSpacingWidget(height: 2),
-                  Text("Location", style: grey11B400),
-                  Text(location, style: black12B500),
+                  Text(specialization, style: black12B500),
                   const VerticalSpacingWidget(height: 2),
-                  Text("Works at", style: grey11B400),
                   SizedBox(
-                    height: size.height * .035,
                     width: size.width * .5,
                     child: Text(
-                      mainHospital,
+                     qualification,
+                      style: black12B500,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const VerticalSpacingWidget(height: 2),
+                  SizedBox(
+                    width: size.width * .5,
+                    child: Text(
+                      location,
                       style: black12B500,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -92,15 +109,6 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
                 ],
               )
             ],
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Text(
-              'Dr $firstName $secondName',
-              style: black14B600,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -116,10 +124,10 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(width: 1.5.w, color: kMainColor),
+                      border: Border.all(width: 1.w, color: kMainColor),
                     ),
-                    height: size.height * 0.04,
-                    width: size.width * .45,
+                    height: size.height * 0.035,
+                    width: size.width * .42,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -127,14 +135,14 @@ class DoctorDetailsFirstWidget extends StatelessWidget {
                             state.favouriteStatusMap[doctorId] == false
                                 ? "Remove from favourite"
                                 : "Add to favourite",
-                            style: main12B600),
+                            style: main11B500),
                         const HorizontalSpacingWidget(width: 5),
                         Icon(
                           state.favouriteStatusMap[doctorId] == false
                               ? CupertinoIcons.heart_fill
                               : CupertinoIcons.heart,
                           color: kMainColor,
-                          size: 16.sp,
+                          size: 15.sp,
                         )
                       ],
                     ),

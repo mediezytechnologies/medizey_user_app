@@ -33,7 +33,7 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Repository/Bloc/BookAppointment/BookAppointmentInitial/book_appointment_initial_bloc.dart';
-import '../../CommonWidgets/text_style_widget.dart';
+import '../../Consts/text_style.dart';
 
 class AppointmentDoneDemoScreen extends StatefulWidget {
   AppointmentDoneDemoScreen(

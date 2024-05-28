@@ -36,9 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController suggestionController = TextEditingController();
   // bool _notificationsEnabled = false;
   // final NotificationServices _notificationServices = NotificationServices();
- 
-
-
 
   late Timer pollingTimer;
   bool isLoading = true;
@@ -48,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-   
     _scrollViewController = ScrollController();
     _scrollViewController.addListener(() {
       if (_scrollViewController.position.userScrollDirection ==
@@ -84,10 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
     startPolling();
   }
 
-  
-
   // Future<void> _toggleNotifications(bool value) async {
-   
 
   //   if (value) {
   //     await _notificationServices.enableNotifications();
@@ -136,13 +129,25 @@ class _HomeScreenState extends State<HomeScreen> {
           return Future.value(false);
         },
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              BlocProvider.of<NotificatioTokenBloc>(context).add(
-                const NotificatioTokenEvent.started(),
-              );
-            },
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   backgroundColor: kMainColor,
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Icon(CupertinoIcons.chat_bubble_text,
+          //           size: 22.sp, color: kCardColor),
+          //       Text("Chat", style: white12B400)
+          //     ],
+          //   ),
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => const ChatScreen(),
+          //       ),
+          //     );
+          //   },
+          // ),
           backgroundColor: kSecondaryColor,
           body: Column(
             children: [
@@ -171,11 +176,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   horizontal: size.width * 0.01),
                               child: const GetDoctorWidget(),
                             ),
-        //                     SwitchListTile(
-        //   title: const Text('Enable Notifications'),
-        //   value: _notificationsEnabled,
-        //   onChanged: _toggleNotifications,
-        // ),
+                            //                     SwitchListTile(
+                            //   title: const Text('Enable Notifications'),
+                            //   value: _notificationsEnabled,
+                            //   onChanged: _toggleNotifications,
+                            // ),
                             const VerticalSpacingWidget(height: 5),
                             const GetFavouriteDoctorWidget(),
                             const VerticalSpacingWidget(height: 5),

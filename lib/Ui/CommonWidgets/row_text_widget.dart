@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'text_style_widget.dart';
+import '../Consts/text_style.dart';
 
 class RowTextWidget extends StatelessWidget {
   const RowTextWidget({super.key, required this.heading, required this.data});
