@@ -14,6 +14,7 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:upgrader/upgrader.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
 import 'dart:io' show Platform;
