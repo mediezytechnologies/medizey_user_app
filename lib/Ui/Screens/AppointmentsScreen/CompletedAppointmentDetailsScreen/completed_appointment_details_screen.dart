@@ -275,12 +275,14 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                     ),
               note == "null"
                   ? Container()
-                  : Column(
+                  : Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Additional notes: ", style: grey12B500),
+                        Text("Additional notes : ", style: grey12B500),
                         const VerticalSpacingWidget(height: 2),
-                        Text(note, style: black13B500),
+                        Expanded(
+                          child: Text(note, style: black13B500),
+                        ),
                       ],
                     ),
               prescriptionImage == "null"
