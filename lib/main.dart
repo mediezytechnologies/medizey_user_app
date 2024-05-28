@@ -14,7 +14,9 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
+import 'package:upgrader/upgrader.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
+import 'dart:io' show Platform;
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -96,13 +98,22 @@ class _MediezyState extends State<Mediezy> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          navigatorKey: navigatorKey,
-          debugShowCheckedModeBanner: false,
-          title: 'Mediezy User',
-          theme: appThemeStyle(context),
-          home:
-              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
+        return UpgradeAlert(
+          dialogStyle: Platform.isIOS
+              ? UpgradeDialogStyle.cupertino
+              : UpgradeDialogStyle.material,
+          showIgnore: false,
+          showLater: true,
+          showReleaseNotes: true,
+          child: MaterialApp(
+            navigatorKey: navigatorKey,
+            debugShowCheckedModeBanner: false,
+            title: 'Mediezy User',
+            theme: appThemeStyle(context),
+            home: hasInternet
+                ? const SplashScreen()
+                : const InternetHandleScreen(),
+          ),
         );
       },
     );

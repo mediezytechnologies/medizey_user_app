@@ -41,8 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<GetUserBloc>(context).add(FetchUserDetails());
     super.initState();
+    BlocProvider.of<GetUserBloc>(context).add(FetchUserDetails());
   }
 
   @override
@@ -53,7 +53,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
+            builder: (context) => BottomNavigationControlWidget(
+              selectedIndex: 0,
+            ),
           ),
         );
         return Future.value(false);
@@ -214,6 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
                   const VerticalSpacingWidget(height: 5),
+
                   //! profile card items
                   Row(
                     children: [
