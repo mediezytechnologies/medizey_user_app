@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import '../../../../CommonWidgets/horizontal_spacing_widget.dart';
-import '../../../../CommonWidgets/text_style_widget.dart';
+import '../../../../Consts/text_style.dart';
 
 class VitalsRowTextWidget extends StatelessWidget {
   const VitalsRowTextWidget(

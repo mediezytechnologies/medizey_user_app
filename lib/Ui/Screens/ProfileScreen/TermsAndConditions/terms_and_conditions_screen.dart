@@ -1,6 +1,6 @@
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/text_style_widget.dart';
+import 'package:mediezy_user/Ui/Consts/text_style.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 
 class TermsAndConditionScreen extends StatelessWidget {

@@ -10,7 +10,7 @@ import '../../../../ddd/application/rating_post/rating_post_bloc.dart';
 import '../../../CommonWidgets/common_button_widget.dart';
 import '../../../CommonWidgets/common_loadin_widget.dart';
 import '../../../CommonWidgets/horizontal_spacing_widget.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../Consts/app_colors.dart';
 import '../../../Services/general_services.dart';

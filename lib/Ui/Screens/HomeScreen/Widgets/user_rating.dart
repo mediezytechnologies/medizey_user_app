@@ -5,7 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import '../../../../ddd/application/rating/rating_bloc.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 import '../FeedbackScreen/feedback_screen.dart';
 
 class UserRatingWidget extends StatelessWidget {

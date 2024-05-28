@@ -9,7 +9,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 
 class BookingConfirmationScreen extends StatefulWidget {
   const BookingConfirmationScreen(
@@ -212,6 +212,19 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                             ),
                           ],
                         ),
+                      ],
+                    ),
+                    const VerticalSpacingWidget(height: 5),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Note : ", style: red11B600),
+                        const HorizontalSpacingWidget(width: 5),
+                        Expanded(
+                          child: Text(
+                              "You should arrive at ${widget.estimatedTime} or live estimated arrival time given on home page",
+                              style: red11B600),
+                        )
                       ],
                     ),
                     const VerticalSpacingWidget(height: 5),

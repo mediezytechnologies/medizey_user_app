@@ -22,7 +22,7 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/widgets
 import '../../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 
 class DoctorDetailsScreen extends StatefulWidget {
   DoctorDetailsScreen(
@@ -128,6 +128,9 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                               child: Column(
                                 children: [
                                   DoctorDetailsFirstWidget(
+                                    qualification: getDoctorByIdModel
+                                          .doctorDetails!.first.qualification
+                                          .toString(),
                                       image: getDoctorByIdModel
                                           .doctorDetails!.first.docterImage
                                           .toString(),

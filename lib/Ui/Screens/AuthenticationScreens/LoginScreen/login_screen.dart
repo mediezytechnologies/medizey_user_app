@@ -23,7 +23,7 @@ import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.da
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../../ddd/firebase_service/firebase_auth_service.dart';
-import '../../../CommonWidgets/text_style_widget.dart';
+import '../../../Consts/text_style.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 class LoginScreen extends StatefulWidget {

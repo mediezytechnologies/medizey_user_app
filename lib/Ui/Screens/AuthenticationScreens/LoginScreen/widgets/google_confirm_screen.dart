@@ -12,7 +12,7 @@ import '../../../../../ddd/application/location_controller/locationcontroller.da
 import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../../../ddd/application/user_location/user_location_bloc.dart';
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
-import '../../../../CommonWidgets/text_style_widget.dart';
+import '../../../../Consts/text_style.dart';
 import '../../../../Consts/app_colors.dart';
 import '../../../../Services/general_services.dart';
 

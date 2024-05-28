@@ -26,7 +26,7 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../ddd/firebase_service/firebase_auth_service.dart';
-import '../../CommonWidgets/text_style_widget.dart';
+import '../../Consts/text_style.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
