@@ -14,6 +14,7 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:upgrader/upgrader.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
@@ -38,6 +39,20 @@ Future<void> main() async {
           Permission.notification.request();
         }
       });
+      WidgetsFlutterBinding.ensureInitialized();
+
+
+
+PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+String appName = packageInfo.appName;
+String packageName = packageInfo.packageName;
+String version = packageInfo.version;
+
+log("appname  $appName");
+log("packageName  $packageName");
+log("version  $version");
+
   await configureInjection();
   await GetStorage.init();
 
@@ -117,7 +132,8 @@ class _MediezyState extends State<Mediezy> {
             debugShowCheckedModeBanner: false,
             title: 'Mediezy User',
             theme: appThemeStyle(context),
-            home: hasInternet
+            home:
+             hasInternet
                 ? const SplashScreen()
                 : const InternetHandleScreen(),
           ),

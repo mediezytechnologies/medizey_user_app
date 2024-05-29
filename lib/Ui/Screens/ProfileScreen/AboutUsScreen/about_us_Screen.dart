@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:developer';
+
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,9 +19,12 @@ class AboutUsScreen extends StatefulWidget {
 class _AboutUsScreenState extends State<AboutUsScreen> {
   String _version = '';
   Future<void> _loadVersionInfo() async {
-    final packageInfo = await PackageInfo.fromPlatform();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    
+   // final packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       _version = packageInfo.version;
+      log("version  $_version");
     });
   }
 
