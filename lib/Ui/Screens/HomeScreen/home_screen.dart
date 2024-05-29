@@ -1,15 +1,18 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:async';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
+import 'package:mediezy_user/Ui/Consts/text_style.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/home_recently_booked_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
@@ -22,6 +25,7 @@ import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import 'ChatScreen/chat_screen.dart';
 import 'Widgets/get_completed_feedback_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -79,17 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
     startPolling();
   }
 
-  // Future<void> _toggleNotifications(bool value) async {
-
-  //   if (value) {
-  //     await _notificationServices.enableNotifications();
-  //     _notificationsEnabled =true;
-  //   } else {
-  //     await _notificationServices.disableNotifications();
-  //      _notificationsEnabled =false;
-  //   }
-  // }
-
   void startPolling() async {
     pollingTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
       BlocProvider.of<GetUpcomingAppointmentBloc>(context)
@@ -128,25 +121,25 @@ class _HomeScreenState extends State<HomeScreen> {
           return Future.value(false);
         },
         child: Scaffold(
-          // floatingActionButton: FloatingActionButton(
-          //   backgroundColor: kMainColor,
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       Icon(CupertinoIcons.chat_bubble_text,
-          //           size: 22.sp, color: kCardColor),
-          //       Text("Chat", style: white12B400)
-          //     ],
-          //   ),
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => const ChatScreen(),
-          //       ),
-          //     );
-          //   },
-          // ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: kMainColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(CupertinoIcons.chat_bubble_text,
+                    size: 22.sp, color: kCardColor),
+                Text("Chat", style: white12B400)
+              ],
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChatScreen(),
+                ),
+              );
+            },
+          ),
           backgroundColor: kSecondaryColor,
           body: Column(
             children: [
@@ -175,11 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   horizontal: size.width * 0.01),
                               child: const GetDoctorWidget(),
                             ),
-                            //                     SwitchListTile(
-                            //   title: const Text('Enable Notifications'),
-                            //   value: _notificationsEnabled,
-                            //   onChanged: _toggleNotifications,
-                            // ),
                             const VerticalSpacingWidget(height: 5),
                             const GetFavouriteDoctorWidget(),
                             const VerticalSpacingWidget(height: 5),

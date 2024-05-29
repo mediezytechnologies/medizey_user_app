@@ -176,7 +176,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  AppointmentsScreen(),
+                  builder: (context) => AppointmentsScreen(),
                 ),
               );
             },
@@ -529,8 +529,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                       const VerticalSpacingWidget(
                                                           height: 10),
                                                       CommonButtonWidget(
-                                                          title: "Add member",
-                                                          onTapFunction: () {
+                                                          widget: Text(
+                                                              "Add member",
+                                                              style:
+                                                                  white13B700),
+                                                        onTapFunction: () {
                                                             Navigator.push(
                                                               context,
                                                               MaterialPageRoute(
@@ -1686,7 +1689,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                   //     : const SizedBox(),
                                   const VerticalSpacingWidget(height: 20),
                                   CommonButtonWidget(
-                                    title: "Book Now",
+                                    widget:
+                                        Text("Book Now", style: white13B700),
                                     onTapFunction: () {
                                       if (patientNameController.text.isEmpty &&
                                           patientName == null) {

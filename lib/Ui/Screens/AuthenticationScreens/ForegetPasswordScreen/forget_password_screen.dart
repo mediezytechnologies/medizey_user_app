@@ -6,6 +6,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
+import '../../../Consts/text_style.dart';
+
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
 
@@ -68,7 +70,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
               const VerticalSpacingWidget(height: 30),
               //! reset
-              CommonButtonWidget(title: "Reset Password", onTapFunction: () {})
+              CommonButtonWidget(
+                widget: Text("Reset Password", style: white13B700),
+                onTapFunction: () {},
+              )
             ],
           ),
         ),

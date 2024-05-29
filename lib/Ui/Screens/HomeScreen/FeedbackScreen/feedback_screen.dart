@@ -79,8 +79,9 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                               BottomNavigationControlWidget(selectedIndex: 0,),
+                        builder: (context) => BottomNavigationControlWidget(
+                          selectedIndex: 0,
+                        ),
                       ));
                 }
               },
@@ -165,13 +166,15 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                    BottomNavigationControlWidget(selectedIndex: 0,),
+                                  BottomNavigationControlWidget(
+                                selectedIndex: 0,
+                              ),
                             ));
                       }
                     },
                     builder: (context, postState) {
                       return CommonButtonWidget(
-                          title: "Submit",
+                          widget: Text("Submit", style: white13B700),
                           onTapFunction: () {
                             log("appointment id = ${widget.appointmentId}");
                             log("rating value = ${state.ratingValue}");

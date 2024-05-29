@@ -128,7 +128,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                               child: Column(
                                 children: [
                                   DoctorDetailsFirstWidget(
-                                    qualification: getDoctorByIdModel
+                                      qualification: getDoctorByIdModel
                                           .doctorDetails!.first.qualification
                                           .toString(),
                                       image: getDoctorByIdModel
@@ -352,7 +352,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             left: 10.w,
                             right: 10.w,
                             child: CommonButtonWidget(
-                              title: "Book Appointment Now",
+                              widget: Text("Book Appointment Now",
+                                  style: white13B700),
                               onTapFunction: () {
                                 Navigator.push(
                                   context,

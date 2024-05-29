@@ -271,7 +271,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: CommonButtonWidget(
-                    title: "Done",
+                    widget: Text("Done", style: white13B700),
                     onTapFunction: () {
                       Navigator.pushAndRemoveUntil(
                           context,

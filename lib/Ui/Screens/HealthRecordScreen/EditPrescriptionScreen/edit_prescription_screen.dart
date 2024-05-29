@@ -14,6 +14,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import '../../../../Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
+import '../../../Consts/text_style.dart';
 
 class EditPrescriptionScreen extends StatefulWidget {
   const EditPrescriptionScreen({
@@ -251,7 +252,7 @@ class _EditPrescriptionScreenState extends State<EditPrescriptionScreen> {
                       ),
                       const VerticalSpacingWidget(height: 20),
                       CommonButtonWidget(
-                        title: "Update",
+                       widget: Text("Update", style: white13B700),
                         onTapFunction: () {
                           if (imageFromGallery != null) {
                             BlocProvider.of<UploadDocumentFinalBloc>(context)

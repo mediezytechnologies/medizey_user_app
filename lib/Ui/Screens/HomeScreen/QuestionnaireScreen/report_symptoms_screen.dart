@@ -6,6 +6,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/AllDoctorsNearYouScreen/all_doctors_near_you_screen.dart';
 
+import '../../../Consts/text_style.dart';
+
 class ReportSymptomsScreen extends StatefulWidget {
   const ReportSymptomsScreen({super.key});
 
@@ -213,7 +215,7 @@ class _ReportSymptomsScreenState extends State<ReportSymptomsScreen> {
               ),
               const VerticalSpacingWidget(height: 10),
               CommonButtonWidget(
-                  title: "Book Appointment",
+                  widget: Text("Book Appointment", style: white13B700),
                   onTapFunction: () {
                     Navigator.push(
                       context,

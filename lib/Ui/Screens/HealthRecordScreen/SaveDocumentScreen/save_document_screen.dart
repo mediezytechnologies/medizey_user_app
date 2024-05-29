@@ -14,6 +14,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../Consts/text_style.dart';
+
 class DocumentSaveScreen extends StatefulWidget {
   const DocumentSaveScreen(
       {super.key, required this.type, required this.documentId});
@@ -465,7 +467,7 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                 ),
                 const VerticalSpacingWidget(height: 10),
                 CommonButtonWidget(
-                    title: "Save",
+                  widget: Text("Update", style: white13B700),
                     onTapFunction: () {
                       if (selectedPatientId.isEmpty) {
                         GeneralServices.instance
