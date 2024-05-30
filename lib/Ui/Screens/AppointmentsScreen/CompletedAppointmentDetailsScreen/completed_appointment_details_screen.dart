@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import 'package:mediezy_user/pdf_demo.dart';
 import '../../../Consts/text_style.dart';
 import '../../../CommonWidgets/row_text_widget.dart';
 import 'widget/image_view_widget.dart';
@@ -59,6 +60,9 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Appointment Details"),
         centerTitle: true,
+        actions: [
+       //   PdfDownloadButton(doctorImage: doctorImage,)
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
