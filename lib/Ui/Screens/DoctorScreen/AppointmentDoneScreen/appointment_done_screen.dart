@@ -533,7 +533,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                               "Add member",
                                                               style:
                                                                   white13B700),
-                                                        onTapFunction: () {
+                                                          onTapFunction: () {
                                                             Navigator.push(
                                                               context,
                                                               MaterialPageRoute(
@@ -1692,7 +1692,14 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                     widget:
                                         Text("Book Now", style: white13B700),
                                     onTapFunction: () {
-                                      if (patientNameController.text.isEmpty &&
+                                      if (bookingFor == "Family Member" &&
+                                          getFamilyMembersModel
+                                              .familyMember!.isEmpty) {
+                                        GeneralServices.instance
+                                            .showErrorMessage(
+                                                context, "Add family member");
+                                      } else if (patientNameController
+                                              .text.isEmpty &&
                                           patientName == null) {
                                         GeneralServices.instance
                                             .showErrorMessage(
