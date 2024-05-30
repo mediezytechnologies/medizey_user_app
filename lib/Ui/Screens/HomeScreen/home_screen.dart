@@ -12,7 +12,6 @@ import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointme
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Consts/text_style.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/home_recently_booked_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
@@ -122,15 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
+            shape: const StadiumBorder(),
             backgroundColor: kMainColor,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(CupertinoIcons.chat_bubble_text,
-                    size: 22.sp, color: kCardColor),
-                Text("Chat", style: white12B400)
-              ],
-            ),
+            child: Icon(CupertinoIcons.chat_bubble_text,
+                size: 24.sp, color: kCardColor),
             onPressed: () {
               Navigator.push(
                 context,

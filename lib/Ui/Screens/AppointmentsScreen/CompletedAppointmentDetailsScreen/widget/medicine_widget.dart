@@ -85,13 +85,15 @@ class MedicineWidget extends StatelessWidget {
             children: [
               Text(noOfDays, style: black13B500),
               Text(
-                  foodType == 1
-                      ? "After food"
-                      : (foodType == 2)
-                          ? "Before food"
-                          : (foodType == 3)
-                              ? "With food"
-                              : "If required",
+                  foodType == 0
+                      ? ""
+                      : foodType == 1
+                          ? "After food"
+                          : (foodType == 2)
+                              ? "Before food"
+                              : (foodType == 3)
+                                  ? "With food"
+                                  : "If required",
                   style: black13B500)
             ],
           ),

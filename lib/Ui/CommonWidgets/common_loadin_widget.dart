@@ -115,35 +115,40 @@ Widget chatBotLoadingWidget() {
   return Shimmer.fromColors(
     baseColor: kShimmerBaseColor,
     highlightColor: kShimmerHighlightColor,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+    child: Column(
       children: [
-        Container(
-          height: 45.h,
-          width: 45.w,
-          decoration: BoxDecoration(
-            color: kMainColor,
-            borderRadius: BorderRadius.circular(50.r),
-          ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Image(
-                image: const AssetImage("assets/icons/profile pic.png"),
-                color: kCardColor,
+        const VerticalSpacingWidget(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 45.h,
+              width: 45.w,
+              decoration: BoxDecoration(
+                color: kMainColor,
+                borderRadius: BorderRadius.circular(50.r),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Image(
+                    image: const AssetImage("assets/icons/profile pic.png"),
+                    color: kCardColor,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        const HorizontalSpacingWidget(width: 5),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 8.w),
-          width: 250.w,
-          height: 45.h,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
+            const HorizontalSpacingWidget(width: 5),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 8.w),
+              width: 250.w,
+              height: 45.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ],
         ),
       ],
     ),
