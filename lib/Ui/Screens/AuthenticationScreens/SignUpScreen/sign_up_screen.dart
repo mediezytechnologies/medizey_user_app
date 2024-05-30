@@ -429,7 +429,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const VerticalSpacingWidget(height: 10),
                     //! signup
                     CommonButtonWidget(
-                        title: "Sign up",
+                        widget: Text("Sign up", style: white13B700),
                         onTapFunction: () {
                           if (_formKey.currentState!.validate()) {
                             BlocProvider.of<LoginAndSignupBloc>(context).add(

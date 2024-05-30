@@ -6,6 +6,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorsByHealthCategoryScreen/doctors_by_health_caregory_screen.dart';
 
+import '../../../Consts/text_style.dart';
+
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen(
       {super.key,
@@ -118,7 +120,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
             left: 10.w,
             right: 10.w,
             child: CommonButtonWidget(
-              title: "Book Appointment Now",
+              widget: Text("Book Appointment Now", style: white13B700),
               onTapFunction: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {

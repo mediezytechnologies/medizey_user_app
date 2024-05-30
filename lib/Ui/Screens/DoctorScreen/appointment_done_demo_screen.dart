@@ -291,7 +291,7 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  AppointmentsScreen(),
+                  builder: (context) => AppointmentsScreen(),
                 ),
               );
             },
@@ -721,7 +721,10 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
                                                         const VerticalSpacingWidget(
                                                             height: 10),
                                                         CommonButtonWidget(
-                                                            title: "Add member",
+                                                            widget: Text(
+                                                                "Add member",
+                                                                style:
+                                                                    white13B700),
                                                             onTapFunction: () {
                                                               Navigator.push(
                                                                 context,
@@ -1893,7 +1896,8 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
                                     //     : const SizedBox(),
                                     const VerticalSpacingWidget(height: 20),
                                     CommonButtonWidget(
-                                      title: "Book Now",
+                                      widget:
+                                          Text("Book Now", style: white13B700),
                                       onTapFunction: () {
                                         if (patientNameController
                                                 .text.isEmpty &&

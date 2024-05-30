@@ -28,12 +28,14 @@ class RatingFormScreen extends StatefulWidget {
 }
 
 class _RatingFormScreenState extends State<RatingFormScreen> {
+  final TextEditingController otherController = TextEditingController();
   double? value;
   int? ratingId;
   int? reviewId;
   double? ratingValue;
   int? likedIndex;
   int? radioIndex;
+  bool isOtherSelected = false;
 
   List radioItem = [
     "Less than 20 min",
@@ -51,7 +53,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dr ${widget.doctorName}."),
+        title: Text("Dr ${widget.doctorName}"),
         centerTitle: true,
         leading: BlocBuilder<RatingBloc, RatingState>(
           builder: (context, state) {
@@ -75,24 +77,18 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                       .add(const RatingEvent.ratingRadioChanged(-1));
                   BlocProvider.of<RatingBloc>(context)
                       .add(const RatingEvent.ratingChanged(0));
-
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                               BottomNavigationControlWidget(selectedIndex: 0,),
+                        builder: (context) => BottomNavigationControlWidget(
+                          selectedIndex: 0,
+                        ),
                       ));
                 }
               },
               builder: (context, postState) {
                 return IconButton(
                   onPressed: () {
-                    log("appointment id = ${widget.appointmentId}");
-                    log("rating value = ${state.ratingValue}");
-                    log("selected review id = $reviewId");
-                    log("liked index = ${state.likedIndex}");
-                    log("radio index = ${state.radioIndex}");
-                    log("rating id = $ratingId");
                     BlocProvider.of<RatingPostBloc>(context).add(
                       RatingPostEvent.ratingAddFeedBacks(
                         widget.appointmentId,
@@ -135,7 +131,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                 likeUnlike(size, state, context),
                 const VerticalSpacingWidget(height: 5),
                 const Divider(
-                  thickness: 2,
+                  thickness: 1,
                 ),
                 const VerticalSpacingWidget(height: 5),
                 radioButtonWidget(size, state, context),
@@ -162,16 +158,18 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                         BlocProvider.of<RatingBloc>(context)
                             .add(const RatingEvent.ratingChanged(0));
                         Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                    BottomNavigationControlWidget(selectedIndex: 0,),
-                            ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BottomNavigationControlWidget(
+                              selectedIndex: 0,
+                            ),
+                          ),
+                        );
                       }
                     },
                     builder: (context, postState) {
                       return CommonButtonWidget(
-                          title: "Submit",
+                          widget: Text("Submit", style: white13B700),
                           onTapFunction: () {
                             log("appointment id = ${widget.appointmentId}");
                             log("rating value = ${state.ratingValue}");
@@ -216,6 +214,10 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
               color: kMainColor,
             ),
         onRatingUpdate: (rating) {
+          BlocProvider.of<RatingBloc>(context).add(
+            const RatingEvent.ratingReasonChanged(-1),
+          );
+          isOtherSelected = false;
           value = rating;
           log(rating.toString());
           log("rating ui bulidre :  ${state.ratingValue}");
@@ -284,25 +286,30 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 runSpacing: size.height * 0.01,
-                spacing: size.width * 0.03,
+                spacing: size.width * 0.065,
                 children: List.generate(
                   state.userRating!.userRating!.length,
                   (index) => GestureDetector(
                     onTap: () {
                       reviewId = state.userRating!.userRating![index].reviewId;
                       ratingId = state.userRating!.userRating![index].ratingId;
+                      state.userRating!.userRating![index].userComments ==
+                              "Other"
+                          ? isOtherSelected = true
+                          : isOtherSelected = false;
                       BlocProvider.of<RatingBloc>(context)
                           .add(RatingEvent.ratingReasonChanged(index));
                     },
                     child: Container(
                       height: size.height * 0.05,
-                      width: size.width * 0.40,
+                      width: size.width * 0.42,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: state.reasonIndex == index
-                              ? kMainColor
-                              : kCardColor,
-                          border: Border.all(color: kBorderColor)),
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: state.reasonIndex == index
+                            ? kMainColor
+                            : kCardColor,
+                        border: Border.all(color: kBorderColor),
+                      ),
                       child: Center(
                           child: Text(
                         state.userRating!.userRating![index].userComments
@@ -315,6 +322,37 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                   ),
                 ),
               ),
+              // isOtherSelected == "Doctor was Friendly"
+              //     ?
+              isOtherSelected
+                  ? Column(
+                      children: [
+                        const VerticalSpacingWidget(height: 10),
+                        SizedBox(
+                          width: size.width * .90,
+                          child: TextFormField(
+                            style: black13B500,
+                            cursorColor: kMainColor,
+                            controller: otherController,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.done,
+                            decoration: InputDecoration(
+                              hintStyle: grey13B600,
+                              hintText: "Enter your response",
+                              filled: true,
+                              fillColor: kCardColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.r),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox()
             ],
           );
         },

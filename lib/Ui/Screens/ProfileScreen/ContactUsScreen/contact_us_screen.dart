@@ -133,7 +133,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     const VerticalSpacingWidget(height: 20),
                     //! submit
                     CommonButtonWidget(
-                        title: "Submit",
+                        widget: Text("Submit", style: white13B700),
                         onTapFunction: () {
                           if (_formKey.currentState!.validate()) {
                             BlocProvider.of<ContactUsBloc>(context).add(

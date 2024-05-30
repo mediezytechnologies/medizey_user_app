@@ -454,7 +454,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                           const VerticalSpacingWidget(height: 30),
                           CommonButtonWidget(
-                              title: "Update",
+                              widget: Text("Update", style: white13B700),
                               onTapFunction: () {
                                 setNewUserName(firstNameController.text);
                                 BlocProvider.of<EditUserBloc>(context).add(

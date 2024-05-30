@@ -10,6 +10,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/SaveDocumentScreen/save_document_screen.dart';
 
+import '../../../Consts/text_style.dart';
+
 class DocumentPreviewScreen extends StatefulWidget {
   final File? imageFile;
   final String? imageUrl;
@@ -90,7 +92,7 @@ class _DocumentPreviewScreenState extends State<DocumentPreviewScreen> {
                   const Text('No Image Selected'),
                 const VerticalSpacingWidget(height: 20),
                 CommonButtonWidget(
-                  title: "Upload",
+                  widget: Text("Upload", style: white13B700),
                   onTapFunction: () {
                     print(
                         ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${widget.imageFile}");

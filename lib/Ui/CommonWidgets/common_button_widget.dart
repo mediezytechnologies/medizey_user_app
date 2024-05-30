@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Ui/Consts/text_style.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 
 class CommonButtonWidget extends StatelessWidget {
   const CommonButtonWidget(
-      {super.key, required this.title, required this.onTapFunction});
+      {super.key, required this.widget, required this.onTapFunction});
 
-  final String title;
+  final Widget widget;
   final Function onTapFunction;
 
   @override
@@ -25,7 +24,7 @@ class CommonButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
         ),
         child: Center(
-          child: Text(title, style: white13B700),
+          child: widget,
         ),
       ),
     );

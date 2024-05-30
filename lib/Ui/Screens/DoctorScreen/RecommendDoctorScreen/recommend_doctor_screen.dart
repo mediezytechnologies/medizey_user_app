@@ -8,6 +8,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../Consts/text_style.dart';
+
 class RecommendedDoctorScreen extends StatefulWidget {
   const RecommendedDoctorScreen({super.key});
 
@@ -39,7 +41,9 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
           if (state is DoctorRecommendLoaded) {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) =>    BottomNavigationControlWidget(selectedIndex: 0,),
+                  builder: (context) => BottomNavigationControlWidget(
+                    selectedIndex: 0,
+                  ),
                 ),
                 (route) => false);
             GeneralServices.instance.showToastMessage(state.successMesseage);
@@ -220,7 +224,7 @@ class _RecommendedDoctorScreenState extends State<RecommendedDoctorScreen> {
                 ),
                 const VerticalSpacingWidget(height: 50),
                 CommonButtonWidget(
-                    title: "Done",
+                    widget: Text("Done", style: white13B700),
                     onTapFunction: () {
                       if (doctorNameController.text.isEmpty) {
                         GeneralServices.instance

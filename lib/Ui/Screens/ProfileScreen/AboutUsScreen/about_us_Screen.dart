@@ -6,8 +6,6 @@ import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import '../../../Consts/text_style.dart';
 
 class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({super.key});
@@ -17,21 +15,18 @@ class AboutUsScreen extends StatefulWidget {
 }
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
-  String _version = '';
-  Future<void> _loadVersionInfo() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    
-   // final packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      _version = packageInfo.version;
-      log("version  $_version");
-    });
-  }
+  // String _version = '';
+  // Future<void> _loadVersionInfo() async {
+  //   final packageInfo = await PackageInfo.fromPlatform();
+  //   setState(() {
+  //     _version = packageInfo.version;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    _loadVersionInfo();
+    // _loadVersionInfo();
   }
 
   @override
@@ -57,15 +52,15 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     fontWeight: FontWeight.w400,
                     color: kTextColor),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Text(
-                    'App Version: $_version',
-                    style: red10B600,
-                  ),
-                ),
-              )
+              // Align(
+              //   alignment: Alignment.bottomCenter,
+              //   child: Center(
+              //     child: Text(
+              //       'App Version: $_version',
+              //       style: red10B600,
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

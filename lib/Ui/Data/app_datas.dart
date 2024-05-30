@@ -49,3 +49,8 @@ class MedicineData {
 
   MedicineData({required this.medicineName, required this.illnessName});
 }
+
+
+
+
+

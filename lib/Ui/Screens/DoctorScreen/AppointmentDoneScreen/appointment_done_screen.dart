@@ -176,7 +176,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  AppointmentsScreen(),
+                  builder: (context) => AppointmentsScreen(),
                 ),
               );
             },
@@ -529,7 +529,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                       const VerticalSpacingWidget(
                                                           height: 10),
                                                       CommonButtonWidget(
-                                                          title: "Add member",
+                                                          widget: Text(
+                                                              "Add member",
+                                                              style:
+                                                                  white13B700),
                                                           onTapFunction: () {
                                                             Navigator.push(
                                                               context,
@@ -1686,9 +1689,17 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                   //     : const SizedBox(),
                                   const VerticalSpacingWidget(height: 20),
                                   CommonButtonWidget(
-                                    title: "Book Now",
+                                    widget:
+                                        Text("Book Now", style: white13B700),
                                     onTapFunction: () {
-                                      if (patientNameController.text.isEmpty &&
+                                      if (bookingFor == "Family Member" &&
+                                          getFamilyMembersModel
+                                              .familyMember!.isEmpty) {
+                                        GeneralServices.instance
+                                            .showErrorMessage(
+                                                context, "Add family member");
+                                      } else if (patientNameController
+                                              .text.isEmpty &&
                                           patientName == null) {
                                         GeneralServices.instance
                                             .showErrorMessage(

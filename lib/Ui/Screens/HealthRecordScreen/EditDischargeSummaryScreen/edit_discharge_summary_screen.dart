@@ -13,6 +13,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../Consts/text_style.dart';
+
 class EditDischageSummaryScreen extends StatefulWidget {
   const EditDischageSummaryScreen({
     super.key,
@@ -307,7 +309,7 @@ class _EditDischageSummaryScreenState extends State<EditDischageSummaryScreen> {
                       ),
                       const VerticalSpacingWidget(height: 10),
                       CommonButtonWidget(
-                          title: "Update",
+                          widget: Text("Update", style: white13B700),
                           onTapFunction: () {
                             if (imageFromGallery != null) {
                               BlocProvider.of<UploadDocumentFinalBloc>(context)
