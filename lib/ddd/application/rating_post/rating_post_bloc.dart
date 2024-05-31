@@ -25,6 +25,8 @@ class RatingPostBloc extends Bloc<RatingPostEvent, RatingPostState> {
         doctorRecommentation: event.doctorRecommentation,
         userComments: event.userComments,
         ratingId: event.ratingId,
+        otherComments: event.otherComment
+        
       );
       emit(addFeedbackResult.fold(
           (l) => state.copyWith(

@@ -9,5 +9,6 @@ class RatingPostEvent with _$RatingPostEvent {
     int? doctorRecommentation,
     int? userComments,
     int? ratingId,
+    String? otherComment,
   ) = _RatingAddFeedBacks;
 }

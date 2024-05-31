@@ -22,24 +22,43 @@ mixin _$RatingPostEvent {
   int? get doctorRecommentation => throw _privateConstructorUsedError;
   int? get userComments => throw _privateConstructorUsedError;
   int? get ratingId => throw _privateConstructorUsedError;
+  String? get otherComment => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int appointmentId, double rating, int? reviewId,
-            int? doctorRecommentation, int? userComments, int? ratingId)
+    required TResult Function(
+            int appointmentId,
+            double rating,
+            int? reviewId,
+            int? doctorRecommentation,
+            int? userComments,
+            int? ratingId,
+            String? otherComment)
         ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int appointmentId, double rating, int? reviewId,
-            int? doctorRecommentation, int? userComments, int? ratingId)?
+    TResult? Function(
+            int appointmentId,
+            double rating,
+            int? reviewId,
+            int? doctorRecommentation,
+            int? userComments,
+            int? ratingId,
+            String? otherComment)?
         ratingAddFeedBacks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int appointmentId, double rating, int? reviewId,
-            int? doctorRecommentation, int? userComments, int? ratingId)?
+    TResult Function(
+            int appointmentId,
+            double rating,
+            int? reviewId,
+            int? doctorRecommentation,
+            int? userComments,
+            int? ratingId,
+            String? otherComment)?
         ratingAddFeedBacks,
     required TResult orElse(),
   }) =>
@@ -78,7 +97,8 @@ abstract class $RatingPostEventCopyWith<$Res> {
       int? reviewId,
       int? doctorRecommentation,
       int? userComments,
-      int? ratingId});
+      int? ratingId,
+      String? otherComment});
 }
 
 /// @nodoc
@@ -100,6 +120,7 @@ class _$RatingPostEventCopyWithImpl<$Res, $Val extends RatingPostEvent>
     Object? doctorRecommentation = freezed,
     Object? userComments = freezed,
     Object? ratingId = freezed,
+    Object? otherComment = freezed,
   }) {
     return _then(_value.copyWith(
       appointmentId: null == appointmentId
@@ -126,6 +147,10 @@ class _$RatingPostEventCopyWithImpl<$Res, $Val extends RatingPostEvent>
           ? _value.ratingId
           : ratingId // ignore: cast_nullable_to_non_nullable
               as int?,
+      otherComment: freezed == otherComment
+          ? _value.otherComment
+          : otherComment // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -144,7 +169,8 @@ abstract class _$$RatingAddFeedBacksImplCopyWith<$Res>
       int? reviewId,
       int? doctorRecommentation,
       int? userComments,
-      int? ratingId});
+      int? ratingId,
+      String? otherComment});
 }
 
 /// @nodoc
@@ -164,6 +190,7 @@ class __$$RatingAddFeedBacksImplCopyWithImpl<$Res>
     Object? doctorRecommentation = freezed,
     Object? userComments = freezed,
     Object? ratingId = freezed,
+    Object? otherComment = freezed,
   }) {
     return _then(_$RatingAddFeedBacksImpl(
       null == appointmentId
@@ -190,6 +217,10 @@ class __$$RatingAddFeedBacksImplCopyWithImpl<$Res>
           ? _value.ratingId
           : ratingId // ignore: cast_nullable_to_non_nullable
               as int?,
+      freezed == otherComment
+          ? _value.otherComment
+          : otherComment // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -197,8 +228,14 @@ class __$$RatingAddFeedBacksImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
-  const _$RatingAddFeedBacksImpl(this.appointmentId, this.rating, this.reviewId,
-      this.doctorRecommentation, this.userComments, this.ratingId);
+  const _$RatingAddFeedBacksImpl(
+      this.appointmentId,
+      this.rating,
+      this.reviewId,
+      this.doctorRecommentation,
+      this.userComments,
+      this.ratingId,
+      this.otherComment);
 
   @override
   final int appointmentId;
@@ -212,10 +249,12 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
   final int? userComments;
   @override
   final int? ratingId;
+  @override
+  final String? otherComment;
 
   @override
   String toString() {
-    return 'RatingPostEvent.ratingAddFeedBacks(appointmentId: $appointmentId, rating: $rating, reviewId: $reviewId, doctorRecommentation: $doctorRecommentation, userComments: $userComments, ratingId: $ratingId)';
+    return 'RatingPostEvent.ratingAddFeedBacks(appointmentId: $appointmentId, rating: $rating, reviewId: $reviewId, doctorRecommentation: $doctorRecommentation, userComments: $userComments, ratingId: $ratingId, otherComment: $otherComment)';
   }
 
   @override
@@ -233,12 +272,14 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
             (identical(other.userComments, userComments) ||
                 other.userComments == userComments) &&
             (identical(other.ratingId, ratingId) ||
-                other.ratingId == ratingId));
+                other.ratingId == ratingId) &&
+            (identical(other.otherComment, otherComment) ||
+                other.otherComment == otherComment));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, appointmentId, rating, reviewId,
-      doctorRecommentation, userComments, ratingId);
+      doctorRecommentation, userComments, ratingId, otherComment);
 
   @JsonKey(ignore: true)
   @override
@@ -250,36 +291,54 @@ class _$RatingAddFeedBacksImpl implements _RatingAddFeedBacks {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int appointmentId, double rating, int? reviewId,
-            int? doctorRecommentation, int? userComments, int? ratingId)
+    required TResult Function(
+            int appointmentId,
+            double rating,
+            int? reviewId,
+            int? doctorRecommentation,
+            int? userComments,
+            int? ratingId,
+            String? otherComment)
         ratingAddFeedBacks,
   }) {
     return ratingAddFeedBacks(appointmentId, rating, reviewId,
-        doctorRecommentation, userComments, ratingId);
+        doctorRecommentation, userComments, ratingId, otherComment);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int appointmentId, double rating, int? reviewId,
-            int? doctorRecommentation, int? userComments, int? ratingId)?
+    TResult? Function(
+            int appointmentId,
+            double rating,
+            int? reviewId,
+            int? doctorRecommentation,
+            int? userComments,
+            int? ratingId,
+            String? otherComment)?
         ratingAddFeedBacks,
   }) {
     return ratingAddFeedBacks?.call(appointmentId, rating, reviewId,
-        doctorRecommentation, userComments, ratingId);
+        doctorRecommentation, userComments, ratingId, otherComment);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int appointmentId, double rating, int? reviewId,
-            int? doctorRecommentation, int? userComments, int? ratingId)?
+    TResult Function(
+            int appointmentId,
+            double rating,
+            int? reviewId,
+            int? doctorRecommentation,
+            int? userComments,
+            int? ratingId,
+            String? otherComment)?
         ratingAddFeedBacks,
     required TResult orElse(),
   }) {
     if (ratingAddFeedBacks != null) {
       return ratingAddFeedBacks(appointmentId, rating, reviewId,
-          doctorRecommentation, userComments, ratingId);
+          doctorRecommentation, userComments, ratingId, otherComment);
     }
     return orElse();
   }
@@ -320,7 +379,8 @@ abstract class _RatingAddFeedBacks implements RatingPostEvent {
       final int? reviewId,
       final int? doctorRecommentation,
       final int? userComments,
-      final int? ratingId) = _$RatingAddFeedBacksImpl;
+      final int? ratingId,
+      final String? otherComment) = _$RatingAddFeedBacksImpl;
 
   @override
   int get appointmentId;
@@ -334,6 +394,8 @@ abstract class _RatingAddFeedBacks implements RatingPostEvent {
   int? get userComments;
   @override
   int? get ratingId;
+  @override
+  String? get otherComment;
   @override
   @JsonKey(ignore: true)
   _$$RatingAddFeedBacksImplCopyWith<_$RatingAddFeedBacksImpl> get copyWith =>

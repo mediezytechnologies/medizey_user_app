@@ -65,6 +65,13 @@ class _LoginScreenState extends State<LoginScreen> {
             return Future.value(false);
           },
           child: Scaffold(
+            // floatingActionButton: FloatingActionButton(
+            //   onPressed: () async {
+            //     final preferences = await SharedPreferences.getInstance();
+            //     String? token = preferences.getString('token');
+            //     log("Token >>>>> $token");
+            //   },
+            // ),
             body: FadedSlideAnimation(
               beginOffset: const Offset(0, 0.3),
               endOffset: const Offset(0, 0),

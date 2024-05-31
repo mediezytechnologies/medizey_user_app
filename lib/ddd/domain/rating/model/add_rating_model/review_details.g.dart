@@ -14,6 +14,7 @@ ReviewDetails _$ReviewDetailsFromJson(Map<String, dynamic> json) =>
       ratingId: (json['rating_id'] as num?)?.toInt(),
       doctorRecommendation: (json['doctor_recommendation'] as num?)?.toInt(),
       userComments: (json['user_comments'] as num?)?.toInt(),
+      otherComments: json['other_comments'] as String?,
       feedbackStatus: (json['feedback_status'] as num?)?.toInt(),
     );
 
@@ -25,5 +26,6 @@ Map<String, dynamic> _$ReviewDetailsToJson(ReviewDetails instance) =>
       'rating_id': instance.ratingId,
       'doctor_recommendation': instance.doctorRecommendation,
       'user_comments': instance.userComments,
+      'other_comments': instance.otherComments,
       'feedback_status': instance.feedbackStatus,
     };

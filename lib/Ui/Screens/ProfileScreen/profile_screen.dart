@@ -61,6 +61,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Future.value(false);
       },
       child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () async {
+        //     final preferences = await SharedPreferences.getInstance();
+        //     String? token = preferences.getString('token');
+        //     log("Token >>>>> $token");
+        //   },
+        // ),
         appBar: AppBar(
           title: const Text("Account"),
           centerTitle: true,
@@ -363,13 +370,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
+                        // child: ProfileCardWidget(
+                        //     title: "Log out",
+                        //     subTitle: "log out",
+                        //     icon: Icons.logout,
+                        //     onTapFunction: () async {
+                        //       GeneralServices.instance.appCloseDialogue(
+                        //           context, "Are you sure to log out", () async {
+                        //         final preferences =
+                        //             await SharedPreferences.getInstance();
+                        //         await preferences.remove('token');
+                        //         await preferences.remove('firstName');
+                        //         await preferences.remove('lastName');
+                        //         await preferences.remove('userId');
+                        //         await preferences.remove('phoneNumber');
+                        //         await preferences.remove('email');
+                        //         AuthServiceGoogle.instance.logOut(context);
+                        //         Navigator.pushReplacement(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //             builder: (context) => const LoginScreen(),
+                        //           ),
+                        //         );
+                        //       });
+                        //     }),
                         child: ProfileCardWidget(
-                            title: "Log out",
-                            subTitle: "log out",
-                            icon: Icons.logout,
-                            onTapFunction: () async {
-                              GeneralServices.instance.appCloseDialogue(
-                                  context, "Are you sure to log out", () async {
+                          title: "Log out",
+                          subTitle: "log out",
+                          icon: Icons.logout,
+                          onTapFunction: () async {
+                            GeneralServices.instance.appCloseDialogue(
+                              context,
+                              "Are you sure to log out",
+                              () async {
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                          color: kCardColor),
+                                    );
+                                  },
+                                );
                                 final preferences =
                                     await SharedPreferences.getInstance();
                                 await preferences.remove('token');
@@ -378,15 +421,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 await preferences.remove('userId');
                                 await preferences.remove('phoneNumber');
                                 await preferences.remove('email');
-                                AuthServiceGoogle.instance.logOut(context);
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ),
+
+                                await Future.delayed(
+                                  const Duration(seconds: 3),
                                 );
-                              });
-                            }),
+                                bool isTokenRemoved =
+                                    preferences.getString('token') == null;
+                                bool isFirstNameRemoved =
+                                    preferences.getString('firstName') == null;
+                                bool isLastNameRemoved =
+                                    preferences.getString('lastName') == null;
+                                bool isUserIdRemoved =
+                                    preferences.getString('userId') == null;
+                                bool isPhoneNumberRemoved =
+                                    preferences.getString('phoneNumber') ==
+                                        null;
+                                bool isEmailRemoved =
+                                    preferences.getString('email') == null;
+                                Navigator.of(context).pop();
+                                if (isTokenRemoved &&
+                                    isFirstNameRemoved &&
+                                    isLastNameRemoved &&
+                                    isUserIdRemoved &&
+                                    isPhoneNumberRemoved &&
+                                    isEmailRemoved) {
+                                  AuthServiceGoogle.instance.logOut(context);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginScreen(),
+                                    ),
+                                  );
+                                } else {
+                                  GeneralServices.instance.showToastMessage(
+                                      "Error logging out. Please try again");
+                                }
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

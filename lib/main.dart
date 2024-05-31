@@ -101,9 +101,8 @@ class _MediezyState extends State<Mediezy> {
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(context),
-          home: hasInternet
-              ? const SplashScreen()
-              : const InternetHandleScreen(),
+          home:
+              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

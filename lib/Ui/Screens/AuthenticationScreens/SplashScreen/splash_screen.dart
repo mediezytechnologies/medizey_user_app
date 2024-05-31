@@ -18,8 +18,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Future<void> checkuserlogin() async {
-    BlocProvider.of<NotificatioTokenBloc>(context).add(
-                    NotificatioTokenEvent.started());
+    BlocProvider.of<NotificatioTokenBloc>(context)
+        .add(const NotificatioTokenEvent.started());
     final preferences = await SharedPreferences.getInstance();
     String? token = preferences.getString('token');
 
@@ -31,16 +31,17 @@ class _SplashScreenState extends State<SplashScreen> {
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               (route) => false);
         } else {
-          Future.delayed(const Duration(seconds: 1)).then((value) =>
-              Navigator.of(context).pushAndRemoveUntil(
+          Future.delayed(const Duration(seconds: 1))
+              .then((value) => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                      builder: (context) =>
-                            BottomNavigationControlWidget(selectedIndex: 0,),),
+                    builder: (context) => BottomNavigationControlWidget(
+                      selectedIndex: 0,
+                    ),
+                  ),
                   (route) => false));
-                   BlocProvider.of<NotificatioTokenBloc>(context)
-                                      .add(
-                                  NotificatioTokenEvent.started() ,
-                                  );
+          BlocProvider.of<NotificatioTokenBloc>(context).add(
+            NotificatioTokenEvent.started(),
+          );
           locationController.fetchCountry();
 
           log("code${locationController.postCode.value}");

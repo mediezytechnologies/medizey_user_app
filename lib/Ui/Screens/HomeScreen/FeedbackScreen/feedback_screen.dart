@@ -91,13 +91,13 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                   onPressed: () {
                     BlocProvider.of<RatingPostBloc>(context).add(
                       RatingPostEvent.ratingAddFeedBacks(
-                        widget.appointmentId,
-                        state.ratingValue,
-                        reviewId,
-                        state.likedIndex,
-                        state.radioIndex,
-                        ratingId,
-                      ),
+                          widget.appointmentId,
+                          state.ratingValue,
+                          reviewId,
+                          state.likedIndex,
+                          state.radioIndex,
+                          ratingId,
+                          otherController.text.trim()),
                     );
                   },
                   icon: const Icon(Icons.arrow_back),
@@ -177,16 +177,24 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                             log("liked index = ${state.likedIndex}");
                             log("radio index = ${state.radioIndex}");
                             log("rating id = $ratingId");
-                            BlocProvider.of<RatingPostBloc>(context).add(
-                              RatingPostEvent.ratingAddFeedBacks(
-                                widget.appointmentId,
-                                state.ratingValue,
-                                reviewId,
-                                state.likedIndex,
-                                state.radioIndex,
-                                ratingId,
-                              ),
-                            );
+                            log("Other comments = ${otherController.text}");
+                            if (isOtherSelected == true &&
+                                otherController.text.isEmpty) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Please enter your feedback");
+                            } else {
+                              BlocProvider.of<RatingPostBloc>(context).add(
+                                RatingPostEvent.ratingAddFeedBacks(
+                                  widget.appointmentId,
+                                  state.ratingValue,
+                                  reviewId,
+                                  state.likedIndex,
+                                  state.radioIndex,
+                                  ratingId,
+                                  otherController.text,
+                                ),
+                              );
+                            }
                           });
                     },
                   ),
@@ -322,8 +330,6 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                   ),
                 ),
               ),
-              // isOtherSelected == "Doctor was Friendly"
-              //     ?
               isOtherSelected
                   ? Column(
                       children: [
@@ -338,7 +344,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                               hintStyle: grey13B600,
-                              hintText: "Enter your response",
+                              hintText: "Enter your feedback",
                               filled: true,
                               fillColor: kCardColor,
                               border: OutlineInputBorder(
