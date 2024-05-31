@@ -67,6 +67,7 @@ import '../../Repository/Bloc/Chat/chat_bloc.dart';
 import '../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../ddd/application/add_members/add_members_bloc.dart';
 import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
+import '../../ddd/application/forgot_password/forgot_password_bloc.dart';
 import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import '../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../ddd/application/rating/rating_bloc.dart';
@@ -154,5 +155,6 @@ class AppBlocProviders {
         BlocProvider(create: (context) => BookAppointmentInitialBloc()),
         BlocProvider(create: (context) => PaymentBloc()),
         BlocProvider(create: (context) => ChatBloc()),
+        BlocProvider(create: (context) => getIt<ForgotPasswordBloc>()),
       ];
 }

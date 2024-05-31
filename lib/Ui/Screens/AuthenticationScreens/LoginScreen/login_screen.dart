@@ -16,7 +16,7 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
-import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/ForegetPasswordScreen/forget_password_screen.dart';
+import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/ForgotPasswordScreen/forgot_password_screen.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SignUpScreen/sign_up_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
@@ -205,12 +205,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const ForgetPasswordScreen(),
+                                          const ForgotPasswordScreen(),
                                     ),
                                   );
                                 },
                                 child:
-                                    Text("Forget password", style: main12B600),
+                                    Text("Forgot password", style: main12B600),
                               ),
                             ),
                             const VerticalSpacingWidget(height: 10),
