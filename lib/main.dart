@@ -13,6 +13,7 @@ import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mediezy_user/divice_inf0.dart';
 import 'package:mediezy_user/firebase_options.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -123,7 +124,9 @@ class _MediezyState extends State<Mediezy> {
           debugShowCheckedModeBanner: false,
           title: 'Mediezy User',
           theme: appThemeStyle(context),
-          home: hasInternet
+          home:
+//EnternetConnectionCheck()
+           hasInternet
               ? const SplashScreen()
               : const InternetHandleScreen(),
         );

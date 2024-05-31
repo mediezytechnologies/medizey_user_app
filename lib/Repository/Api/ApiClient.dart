@@ -30,7 +30,8 @@ class ApiClient {
         'Accept': 'application/json',
         "content-type": "multipart/form-data"
       };
-      print(jsonEncode(body));
+      log("http clint call ========  ${jsonEncode(body)}");
+      log("http clint call method ========  ${jsonEncode(method)}");
     }
     Response response;
     String url = baseUrl + path;
@@ -46,6 +47,7 @@ class ApiClient {
               //  "content-type": "multipart/form-data"
             },
             body: jsonEncode(body));
+            log("http pst api body        ==========   $body");
         break;
       case "PUT":
         response = await put(Uri.parse(url),
