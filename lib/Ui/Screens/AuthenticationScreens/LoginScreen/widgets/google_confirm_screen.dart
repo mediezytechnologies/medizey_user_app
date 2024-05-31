@@ -31,7 +31,6 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   final FocusNode phoneNumberFocusController = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final locationController = Get.put(LocationController());
-
   FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -42,14 +41,13 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
           if (state.isError && state.status == false) {
             GeneralServices.instance.showErrorMessage(context, state.message);
           } else {
-            //    log( "fcm tok in api : ${preference.getString('token')}");
-
             Future.delayed(const Duration(seconds: 3))
                 .then((value) => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                           BottomNavigationControlWidget(selectedIndex: 0,),
+                      builder: (context) => BottomNavigationControlWidget(
+                        selectedIndex: 0,
+                      ),
                     ),
                     (route) => false));
           }
@@ -63,7 +61,8 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
               children: [
                 Image.asset(
                   'assets/icons/mediezyIcon.png',
-                  scale: 25.sp,
+                  height: size.height * .09,
+                  width:size.width * .20,
                 ),
                 const VerticalSpacingWidget(
                   height: 10,

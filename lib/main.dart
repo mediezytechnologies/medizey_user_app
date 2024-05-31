@@ -125,10 +125,7 @@ class _MediezyState extends State<Mediezy> {
           title: 'Mediezy User',
           theme: appThemeStyle(context),
           home:
-//EnternetConnectionCheck()
-           hasInternet
-              ? const SplashScreen()
-              : const InternetHandleScreen(),
+              hasInternet ? const SplashScreen() : const InternetHandleScreen(),
         );
       },
     );

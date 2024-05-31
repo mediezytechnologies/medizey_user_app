@@ -15,4 +15,7 @@ class ApiEndPoints {
   static const firbaseLogin = "${baseUrl}auth/social-accounts/login";
   static const addRating = '${baseUrl}addDoctorReview';
   static const fcmToken = '${baseUrl}reciveFCMToken';
+  static const forgotPassword = '${baseUrl}user/forgot-password';
+  static const otpVerfication = '${baseUrl}user/forgot-password/verify-otp';
+  static const resetPassword = '${baseUrl}user/forgot-password/reset-password';
 }

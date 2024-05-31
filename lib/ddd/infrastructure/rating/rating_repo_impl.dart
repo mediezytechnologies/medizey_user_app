@@ -14,7 +14,7 @@ import '../core/api_end_pont.dart';
 @LazySingleton(as: RatingRepository)
 class RatingRepoImpl implements RatingRepository {
   @override
-  Future<Either<ErrorModel,GetRatingModel>> getRatingRepo(
+  Future<Either<ErrorModel, GetRatingModel>> getRatingRepo(
       {required String ratingText}) async {
     final preference = await SharedPreferences.getInstance();
     String? token =
@@ -56,7 +56,8 @@ class RatingRepoImpl implements RatingRepository {
       int? ratingId,
       int? reviewId,
       int? doctorRecommentation,
-      int? userComments}) async {
+      int? userComments,
+      String? otherComments}) async {
     final preference = await SharedPreferences.getInstance();
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
@@ -74,6 +75,7 @@ class RatingRepoImpl implements RatingRepository {
           "user_comments": userComments,
           "feedback_status": 1,
           "rating_id": ratingId,
+          "other_comments": otherComments
         },
       );
       log(response.data.toString());

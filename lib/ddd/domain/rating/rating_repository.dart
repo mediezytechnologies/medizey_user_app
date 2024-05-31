@@ -12,5 +12,7 @@ abstract class RatingRepository {
       int? ratingId,
       int? reviewId,
       int? doctorRecommentation,
-      int? userComments});
+      int? userComments,
+      String? otherComments,
+      });
 }
