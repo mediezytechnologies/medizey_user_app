@@ -144,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SingleChildScrollView(
                   dragStartBehavior: DragStartBehavior.start,
                   controller: _scrollViewController,
+                  physics: const ClampingScrollPhysics(),
                   child: Column(
                     children: [
                       SizedBox(height: size.height * 0.02),

@@ -58,7 +58,6 @@ class _MediezyState extends State<Mediezy> {
   @override
   void initState() {
     super.initState();
-
     notificationServices.requestNotificationPermisions();
     notificationServices.firebaseInit(context);
     notificationServices.isRefreshToken();

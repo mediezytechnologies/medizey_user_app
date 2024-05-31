@@ -15,17 +15,22 @@ import '../../../application/edit_member/edit_member_bloc.dart' as _i34;
 import '../../../application/edit_member_image/edit_member_image_bloc.dart'
     as _i35;
 import '../../../application/firebase_login/firebase_login_bloc.dart' as _i16;
-import '../../../application/forgot_password/forgot_password_bloc.dart' as _i36;
-import '../../../application/get_docters/get_docters_bloc.dart' as _i37;
+import '../../../application/forgot_password/forget_password_first/forget_password_first_bloc.dart'
+    as _i36;
+import '../../../application/forgot_password/forget_password_three/forget_password_three_bloc.dart'
+    as _i37;
+import '../../../application/forgot_password/forget_password_two/forget_password_two_bloc.dart'
+    as _i38;
+import '../../../application/get_docters/get_docters_bloc.dart' as _i39;
 import '../../../application/get_fav_doctor/get_fav_doctor_bloc.dart' as _i23;
 import '../../../application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart'
-    as _i38;
+    as _i40;
 import '../../../application/notification_token/notificatio_token_bloc.dart'
     as _i26;
-import '../../../application/rating/rating_bloc.dart' as _i39;
-import '../../../application/rating_post/rating_post_bloc.dart' as _i40;
-import '../../../application/search_doctor/search_doctor_bloc.dart' as _i41;
-import '../../../application/user_location/user_location_bloc.dart' as _i42;
+import '../../../application/rating/rating_bloc.dart' as _i41;
+import '../../../application/rating_post/rating_post_bloc.dart' as _i42;
+import '../../../application/search_doctor/search_doctor_bloc.dart' as _i43;
+import '../../../application/user_location/user_location_bloc.dart' as _i44;
 import '../../../infrastructure/add_member/add_member_impl.dart' as _i8;
 import '../../../infrastructure/add_member_image/add_member_image_impl.dart'
     as _i6;
@@ -104,20 +109,24 @@ _i1.GetIt $initGetIt(
       () => _i34.EditMemberBloc(get<_i12.EditMemberRepo>()));
   gh.factory<_i35.EditMemberImageBloc>(
       () => _i35.EditMemberImageBloc(get<_i10.EditMemberImageRepo>()));
-  gh.factory<_i36.ForgotPasswordBloc>(
-      () => _i36.ForgotPasswordBloc(get<_i17.ForgotPasswordRepository>()));
-  gh.factory<_i37.GetDoctersBloc>(
-      () => _i37.GetDoctersBloc(get<_i19.GetDoctersRepo>()));
-  gh.factory<_i38.GetRecentlyBookedDoctorBloc>(() =>
-      _i38.GetRecentlyBookedDoctorBloc(
+  gh.factory<_i36.ForgetPasswordFirstBloc>(
+      () => _i36.ForgetPasswordFirstBloc(get<_i17.ForgotPasswordRepository>()));
+  gh.factory<_i37.ForgetPasswordThreeBloc>(
+      () => _i37.ForgetPasswordThreeBloc(get<_i17.ForgotPasswordRepository>()));
+  gh.factory<_i38.ForgetPasswordTwoBloc>(
+      () => _i38.ForgetPasswordTwoBloc(get<_i17.ForgotPasswordRepository>()));
+  gh.factory<_i39.GetDoctersBloc>(
+      () => _i39.GetDoctersBloc(get<_i19.GetDoctersRepo>()));
+  gh.factory<_i40.GetRecentlyBookedDoctorBloc>(() =>
+      _i40.GetRecentlyBookedDoctorBloc(
           get<_i24.GetRecentlyBookedDoctorRepository>()));
-  gh.factory<_i39.RatingBloc>(
-      () => _i39.RatingBloc(get<_i27.RatingRepository>()));
-  gh.factory<_i40.RatingPostBloc>(
-      () => _i40.RatingPostBloc(get<_i27.RatingRepository>()));
-  gh.factory<_i41.SearchDoctorBloc>(
-      () => _i41.SearchDoctorBloc(get<_i29.SearchDoctorRepository>()));
-  gh.factory<_i42.UserLocationBloc>(
-      () => _i42.UserLocationBloc(get<_i31.UserLocationRepo>()));
+  gh.factory<_i41.RatingBloc>(
+      () => _i41.RatingBloc(get<_i27.RatingRepository>()));
+  gh.factory<_i42.RatingPostBloc>(
+      () => _i42.RatingPostBloc(get<_i27.RatingRepository>()));
+  gh.factory<_i43.SearchDoctorBloc>(
+      () => _i43.SearchDoctorBloc(get<_i29.SearchDoctorRepository>()));
+  gh.factory<_i44.UserLocationBloc>(
+      () => _i44.UserLocationBloc(get<_i31.UserLocationRepo>()));
   return get;
 }
