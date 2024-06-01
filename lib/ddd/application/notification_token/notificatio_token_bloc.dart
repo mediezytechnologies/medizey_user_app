@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../domain/error_model/error_model.dart';
 import '../../domain/fcmToken/fcmToken_service.dart';
 

@@ -14,6 +14,7 @@ import 'package:mediezy_user/Model/HealthRecord/GetAllergy/get_allery_model.dart
 import 'package:mediezy_user/Repository/Bloc/BookAppointment/GetFamilyMembers/get_family_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllergy/get_allergy_bloc.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
@@ -596,6 +597,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                           onTap: () {
                             setState(() {
                               if (index == 4) {
+                                // If "No" is selected
                                 if (selectedAllergies.contains(index)) {
                                   selectedAllergies.remove(index);
                                   allergies.removeWhere((element) =>
@@ -605,8 +607,9 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                   allergies.clear();
                                   allergies.add(
                                     Allergy(
-                                        allergyDetails: '',
-                                        allergyId: index + 1),
+                                      allergyDetails: '',
+                                      allergyId: index + 1,
+                                    ),
                                   );
                                 }
                               } else {
@@ -617,8 +620,15 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                                 } else {
                                   selectedAllergies.add(index);
                                   allergies.add(Allergy(
-                                      allergyDetails: '',
-                                      allergyId: index + 1));
+                                    allergyDetails: '',
+                                    allergyId: index + 1,
+                                  ));
+                                  if (selectedAllergies.contains(4)) {
+                                    // Unselect "No" if it is selected
+                                    selectedAllergies.remove(4);
+                                    allergies.removeWhere(
+                                        (element) => element.allergyId! == 5);
+                                  }
                                 }
                               }
                             });
@@ -1014,6 +1024,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                   } else if (state.status == true) {
                     log(" no error");
                     if (imagePath != null) {
+                      log("Image path is null");
                       Future.delayed(const Duration(seconds: 1)).then((value) =>
                           BlocProvider.of<AddMemberImageBloc>(context)
                               .add(AddMemberImageEvent.started(imagePath!)));
@@ -1025,17 +1036,26 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             .add(FetchAllMembers());
                         BlocProvider.of<GetFamilyMembersBloc>(context)
                             .add(FetchFamilyMember());
-                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                BottomNavigationControlWidget(selectedIndex: 2),
+                          ),
+                        );
                       });
                     } else {
+                      log("kerriiiii>> pattttyy");
                       GeneralServices.instance
                           .showToastMessage("Family member added successfully");
                       Future.delayed(const Duration(seconds: 1)).then((value) {
-                        BlocProvider.of<GetAllMembersBloc>(context)
-                            .add(FetchAllMembers());
-                        BlocProvider.of<GetFamilyMembersBloc>(context)
-                            .add(FetchFamilyMember());
-                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                BottomNavigationControlWidget(selectedIndex: 2),
+                          ),
+                        );
                       });
                     }
                   }

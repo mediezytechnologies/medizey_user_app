@@ -8,6 +8,8 @@ import 'package:lottie/lottie.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'dart:io' show Platform;
 
+import '../Consts/text_style.dart';
+
 class GeneralServices {
   static GeneralServices instance = GeneralServices();
 
@@ -33,19 +35,13 @@ class GeneralServices {
               return CupertinoAlertDialog(
                 content: Text(
                   title,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: kTextColor),
+                  style: black16B600
                 ),
                 actions: [
                   TextButton(
                     child: Text(
                       "No",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: kTextColor),
+                      style: black14B500
                     ),
                     onPressed: () {
                       Navigator.pop(context);
@@ -55,10 +51,7 @@ class GeneralServices {
                     onPressed: yesFunction,
                     child: Text(
                       "Yes",
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.red),
+                      style:red16B600
                     ),
                   )
                 ],
@@ -72,23 +65,17 @@ class GeneralServices {
               return AlertDialog(
                 backgroundColor: Theme.of(context).cardColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
                 content: Text(
                   title,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: kTextColor),
+                  style:black16B600
                 ),
                 actions: [
                   TextButton(
                     child: Text(
                       "No",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: kTextColor),
+                      style: black14B500
                     ),
                     onPressed: () {
                       Navigator.pop(context);
@@ -98,10 +85,7 @@ class GeneralServices {
                     onPressed: yesFunction,
                     child: Text(
                       "Yes",
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.red),
+                      style: red16B600
                     ),
                   )
                 ],
