@@ -52,6 +52,8 @@ class BookingConfirmationScreen extends StatefulWidget {
 class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
   final ScrollController _scrollController = ScrollController();
 
+  bool isQuestionClicked = false;
+
   @override
   void initState() {
     super.initState();
@@ -149,14 +151,13 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                     ),
                     const VerticalSpacingWidget(height: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Patient name", style: grey12B500),
                             SizedBox(
-                                width: size.width * .25,
+                                width: size.width * .30,
                                 child: Text(
                                   widget.name,
                                   style: black12B600,
@@ -177,11 +178,13 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                                 style: black12B600),
                           ],
                         ),
+                        const HorizontalSpacingWidget(width: 20),
                         Container(
                           height: 140.h,
                           width: 1.w,
                           color: kSubTextColor,
                         ),
+                        const HorizontalSpacingWidget(width: 20),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -204,7 +207,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                             const VerticalSpacingWidget(height: 2),
                             Text("Location", style: grey12B500),
                             SizedBox(
-                              width: size.width * .35,
+                              width: size.width * .50,
                               child: Text(widget.location,
                                   style: black12B600,
                                   maxLines: 1,
@@ -228,45 +231,75 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                       ],
                     ),
                     const VerticalSpacingWidget(height: 5),
-                    Text("Need help with other issues", style: grey15B500),
-                    Theme(
-                      data: Theme.of(context)
-                          .copyWith(dividerColor: Colors.transparent),
-                      child: ExpansionTile(
-                        tilePadding: EdgeInsets.zero,
-                        childrenPadding: EdgeInsets.symmetric(horizontal: 8.w),
-                        title: Text('What happened when I arrived late?',
-                            style: black14B600),
-                        children: [
-                          Text(
-                            'If you are unable to arrive at the estimated time on the app or the booked time, you can inform the clinic or hospital and wait for the next available time slot',
-                            style: grey12B500,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Theme(
-                      data: Theme.of(context)
-                          .copyWith(dividerColor: Colors.transparent),
-                      child: ExpansionTile(
-                        tilePadding: EdgeInsets.zero,
-                        childrenPadding: EdgeInsets.symmetric(horizontal: 8.w),
-                        title: Text('If I am not able to visit the doctor?',
-                            style: black14B600),
-                        children: [
-                          Text(
-                            'We request that you reschedule your appointment so that others waiting in line can book the available slot, otherwise, you will lose your booking',
-                            style: grey12B500,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const VerticalSpacingWidget(height: 5),
                   ],
                 ),
               ),
               const Image(
                   image: AssetImage("assets/images/confirm_screen_image.jpg")),
+              const VerticalSpacingWidget(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Need help with other issues", style: black14B600),
+                        GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isQuestionClicked = !isQuestionClicked;
+                              });
+                            },
+                            child: const Icon(Icons.keyboard_arrow_down))
+                      ],
+                    ),
+                    isQuestionClicked
+                        ? Column(
+                            children: [
+                              Theme(
+                                data: Theme.of(context)
+                                    .copyWith(dividerColor: Colors.transparent),
+                                child: ExpansionTile(
+                                  tilePadding: EdgeInsets.zero,
+                                  childrenPadding:
+                                      EdgeInsets.symmetric(horizontal: 8.w),
+                                  title: Text(
+                                      'What happened when I arrived late?',
+                                      style: black14B600),
+                                  children: [
+                                    Text(
+                                      'If you are unable to arrive at the estimated time on the app or the booked time, you can inform the clinic or hospital and wait for the next available time slot',
+                                      style: grey12B500,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Theme(
+                                data: Theme.of(context)
+                                    .copyWith(dividerColor: Colors.transparent),
+                                child: ExpansionTile(
+                                  tilePadding: EdgeInsets.zero,
+                                  childrenPadding:
+                                      EdgeInsets.symmetric(horizontal: 8.w),
+                                  title: Text(
+                                      'If I am not able to visit the doctor?',
+                                      style: black14B600),
+                                  children: [
+                                    Text(
+                                      'We request that you reschedule your appointment so that others waiting in line can book the available slot, otherwise, you will lose your booking',
+                                      style: grey12B500,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
+              ),
               const VerticalSpacingWidget(height: 10),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),

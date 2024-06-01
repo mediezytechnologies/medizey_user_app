@@ -111,7 +111,7 @@ class _GetDoctorWidgetState extends State<GetDoctorWidget> {
                       ),
                     );
                   },
-                  buttonText: "View near you doctors")
+                  buttonText: "View all near you doctors")
             ],
           ),
         );

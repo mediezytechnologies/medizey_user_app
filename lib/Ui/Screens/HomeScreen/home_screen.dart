@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: WillPopScope(
         onWillPop: () async {
           GeneralServices.instance
-              .appCloseDialogue(context, "Are you want to Exit", () async {
+              .appCloseDialogue(context, "Are you want to exit?", () async {
             SystemNavigator.pop();
           });
           return Future.value(false);
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             shape: const StadiumBorder(),
-            backgroundColor: kMainColor,
+            backgroundColor: kSubMainColor,
             child: Icon(CupertinoIcons.chat_bubble_text,
                 size: 24.sp, color: kCardColor),
             onPressed: () {

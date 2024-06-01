@@ -30,6 +30,7 @@ import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../Consts/text_style.dart';
 
 class EditPatientScreen extends StatefulWidget {
@@ -887,8 +888,37 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             getAllergyModel.allergies!.length,
                             (index) => GestureDetector(
                               onTap: () {
+                                // setState(() {
+                                //   if (index == 4) {
+                                //     if (selectedAllergies.contains(index)) {
+                                //       selectedAllergies.remove(index);
+                                //       allergies.removeWhere((element) =>
+                                //           element.allergyId! == index + 1);
+                                //     } else {
+                                //       selectedAllergies = {index};
+                                //       allergies.clear();
+                                //       allergies.add(
+                                //         Allergy(
+                                //             allergyDetails: '',
+                                //             allergyId: index + 1),
+                                //       );
+                                //     }
+                                //   } else {
+                                //     if (selectedAllergies.contains(index)) {
+                                //       selectedAllergies.remove(index);
+                                //       allergies.removeWhere((element) =>
+                                //           element.allergyId! == index + 1);
+                                //     } else {
+                                //       selectedAllergies.add(index);
+                                //       allergies.add(Allergy(
+                                //           allergyDetails: '',
+                                //           allergyId: index + 1));
+                                //     }
+                                //   }
+                                // });
                                 setState(() {
                                   if (index == 4) {
+                                    // If "No" is selected
                                     if (selectedAllergies.contains(index)) {
                                       selectedAllergies.remove(index);
                                       allergies.removeWhere((element) =>
@@ -898,8 +928,9 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                       allergies.clear();
                                       allergies.add(
                                         Allergy(
-                                            allergyDetails: '',
-                                            allergyId: index + 1),
+                                          allergyDetails: '',
+                                          allergyId: index + 1,
+                                        ),
                                       );
                                     }
                                   } else {
@@ -910,8 +941,15 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                     } else {
                                       selectedAllergies.add(index);
                                       allergies.add(Allergy(
-                                          allergyDetails: '',
-                                          allergyId: index + 1));
+                                        allergyDetails: '',
+                                        allergyId: index + 1,
+                                      ));
+                                      if (selectedAllergies.contains(4)) {
+                                        // Unselect "No" if it is selected
+                                        selectedAllergies.remove(4);
+                                        allergies.removeWhere((element) =>
+                                            element.allergyId! == 5);
+                                      }
                                     }
                                   }
                                 });
@@ -1359,9 +1397,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                           imagePath!, widget.patientId)));
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
-                            BlocProvider.of<GetAllMembersBloc>(context)
-                                .add(FetchAllMembers());
-                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BottomNavigationControlWidget(
+                                        selectedIndex: 2),
+                              ),
+                            );
                             GeneralServices.instance
                                 .showToastMessage("Updated successfully");
                           });
@@ -1372,9 +1415,14 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           log("second call>>>>>>>>>");
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
-                            BlocProvider.of<GetAllMembersBloc>(context)
-                                .add(FetchAllMembers());
-                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BottomNavigationControlWidget(
+                                        selectedIndex: 2),
+                              ),
+                            );
                           });
                           log('button pressed in the form data section');
                           GeneralServices.instance

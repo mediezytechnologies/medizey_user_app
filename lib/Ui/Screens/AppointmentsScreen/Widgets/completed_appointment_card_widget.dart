@@ -96,8 +96,8 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FancyShimmerImage(
-                          height: size.height * .15,
-                          width: size.width * .2,
+                          height: size.height * .12,
+                            width: size.width * .25,
                           boxFit: BoxFit.contain,
                           errorWidget: const Image(
                             image: AssetImage("assets/icons/no data.png"),

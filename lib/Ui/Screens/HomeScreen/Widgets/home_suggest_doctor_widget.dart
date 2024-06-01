@@ -9,6 +9,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../Consts/text_style.dart';
+
 class HomeSuggestDoctorWidget extends StatelessWidget {
   HomeSuggestDoctorWidget({
     super.key,
@@ -57,11 +59,8 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "We really appreciate\n your feedback",
-                style: TextStyle(
-                    fontSize: 9.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                "We really appreciate\nyour feedback",
+                style: white10B500
               ),
               const HorizontalSpacingWidget(width: 40),
               Focus(

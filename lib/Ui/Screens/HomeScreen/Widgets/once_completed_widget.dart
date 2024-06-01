@@ -110,8 +110,8 @@ class OnceCompletedWidget extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: FancyShimmerImage(
-                        height: size.height * .12,
-                        width: size.width * .2,
+                         height: size.height * .13,
+                        width: size.width * .21,
                         boxFit: BoxFit.contain,
                         errorWidget: const Image(
                           image: AssetImage("assets/icons/no data.png"),

@@ -370,30 +370,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       const HorizontalSpacingWidget(width: 5),
                       Expanded(
-                        // child: ProfileCardWidget(
-                        //     title: "Log out",
-                        //     subTitle: "log out",
-                        //     icon: Icons.logout,
-                        //     onTapFunction: () async {
-                        //       GeneralServices.instance.appCloseDialogue(
-                        //           context, "Are you sure to log out", () async {
-                        //         final preferences =
-                        //             await SharedPreferences.getInstance();
-                        //         await preferences.remove('token');
-                        //         await preferences.remove('firstName');
-                        //         await preferences.remove('lastName');
-                        //         await preferences.remove('userId');
-                        //         await preferences.remove('phoneNumber');
-                        //         await preferences.remove('email');
-                        //         AuthServiceGoogle.instance.logOut(context);
-                        //         Navigator.pushReplacement(
-                        //           context,
-                        //           MaterialPageRoute(
-                        //             builder: (context) => const LoginScreen(),
-                        //           ),
-                        //         );
-                        //       });
-                        //     }),
                         child: ProfileCardWidget(
                           title: "Log out",
                           subTitle: "log out",
@@ -401,7 +377,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTapFunction: () async {
                             GeneralServices.instance.appCloseDialogue(
                               context,
-                              "Are you sure to log out",
+                              "Are you sure to log out?",
                               () async {
                                 showDialog(
                                   context: context,

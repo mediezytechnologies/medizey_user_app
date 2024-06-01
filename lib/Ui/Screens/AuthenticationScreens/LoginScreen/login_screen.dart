@@ -16,7 +16,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Data/app_datas.dart';
-import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/ForgotPasswordScreen/forgot_password_screen.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SignUpScreen/sign_up_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/user_location/user_location_bloc.dart';
@@ -25,6 +24,8 @@ import '../../../../ddd/application/notification_token/notificatio_token_bloc.da
 import '../../../../ddd/firebase_service/firebase_auth_service.dart';
 import '../../../Consts/text_style.dart';
 import 'package:sign_in_button/sign_in_button.dart';
+
+import '../ForgotPasswordScreen/forgot_password_one.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -205,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const ForgotPasswordScreen(),
+                                          const ForgotPasswordOne(),
                                     ),
                                   );
                                 },
