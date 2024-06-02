@@ -126,6 +126,8 @@ PODS:
     - Mantle
     - SDWebImage
     - SDWebImageWebPCoder
+  - flutter_internet_speed_test (1.0.0):
+    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_pdfview (1.0.2):
@@ -277,6 +279,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
   - flutter_image_compress_common (from `.symlinks/plugins/flutter_image_compress_common/ios`)
+  - flutter_internet_speed_test (from `.symlinks/plugins/flutter_internet_speed_test/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -347,6 +350,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_barcode_scanner/ios"
   flutter_image_compress_common:
     :path: ".symlinks/plugins/flutter_image_compress_common/ios"
+  flutter_internet_speed_test:
+    :path: ".symlinks/plugins/flutter_internet_speed_test/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_pdfview:
@@ -404,6 +409,7 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_barcode_scanner: 7a1144744c28dc0c57a8de7218ffe5ec59a9e4bf
   flutter_image_compress_common: ec1d45c362c9d30a3f6a0426c297f47c52007e3e
+  flutter_internet_speed_test: 0fa50cf67c71323b8c61227e88b3a0f2478fbdef
   flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
   fluttertoast: 9f2f8e81bb5ce18facb9748d7855bf5a756fe3db
