@@ -26,6 +26,7 @@ import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import 'ChatScreen/chat_screen.dart';
 import 'Widgets/get_completed_feedback_widget.dart';
+import 'dart:io' show Platform;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -144,7 +145,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SingleChildScrollView(
                   dragStartBehavior: DragStartBehavior.start,
                   controller: _scrollViewController,
-                  physics: const ClampingScrollPhysics(),
+                  physics: Platform.isAndroid
+                      ? const AlwaysScrollableScrollPhysics()
+                      : const ClampingScrollPhysics(),
                   child: Column(
                     children: [
                       SizedBox(height: size.height * 0.02),

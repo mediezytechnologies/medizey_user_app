@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'dart:io' show Platform;
-
 import '../Consts/text_style.dart';
 
 class GeneralServices {

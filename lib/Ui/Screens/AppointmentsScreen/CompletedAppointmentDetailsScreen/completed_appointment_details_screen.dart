@@ -74,8 +74,8 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FancyShimmerImage(
-                          height: size.height * .15,
-                          width: size.width * .2,
+                          height: size.height * .13,
+                          width: size.width * .32,
                           boxFit: BoxFit.contain,
                           errorWidget: const Image(
                             image: AssetImage("assets/icons/no data.png"),
@@ -90,7 +90,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(
-                          width: size.width * .5,
+                          width: size.width * .45,
                           child: Text(
                             "Dr $doctorName",
                             style: black14B600,
@@ -99,7 +99,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: size.width * .5,
+                          width: size.width * .45,
                           child: Text(
                             clinicName,
                             style: grey12B500,
@@ -123,7 +123,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                           children: [
                             Text("For: ", style: grey12B500),
                             SizedBox(
-                              width: size.width * .55,
+                              width: size.width * .45,
                               child: Text(
                                 patientName,
                                 style: black12B500,
@@ -139,21 +139,11 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const VerticalSpacingWidget(height: 5),
               Text("Additional Details", style: grey13B600),
               const VerticalSpacingWidget(height: 5),
               RowTextWidget(heading: "Appointment for", data: symptoms),
               const VerticalSpacingWidget(height: 5),
-              reviewAfter == "null"
-                  ? Container()
-                  : Column(
-                      children: [
-                        RowTextWidget(
-                          heading: "Review after",
-                          data: "$reviewAfter days",
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
               whenItStart == "null"
                   ? Container()
                   : Column(
@@ -238,6 +228,17 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                       ],
                     )
                   : Container(),
+              reviewAfter == "null"
+                  ? Container()
+                  : Column(
+                      children: [
+                        RowTextWidget(
+                          heading: "Review after",
+                          data: "$reviewAfter days",
+                        ),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
               labTestName == "null"
                   ? Container()
                   : Column(
@@ -306,7 +307,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FancyShimmerImage(
-                                  height: size.height * .4,
+                                  height: size.height * .3,
                                   boxFit: BoxFit.cover,
                                   errorWidget: const Image(
                                     image: AssetImage(

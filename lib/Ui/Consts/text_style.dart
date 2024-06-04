@@ -11,6 +11,9 @@ final black16B600 =
 
 final black15B600 =
     TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: kTextColor);
+
+    final black15B500 =
+    TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: kTextColor);
 final black14B600 =
     TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: kTextColor);
 
@@ -104,6 +107,12 @@ final white10B500 =
 
 final white12B400 =
     TextStyle(color: kCardColor, fontWeight: FontWeight.w400, fontSize: 12.sp);
+
+final white30B =
+    TextStyle(color: kCardColor, fontWeight: FontWeight.bold, fontSize: 30.sp);
+
+final white16B500 =
+    TextStyle(color: kCardColor, fontWeight: FontWeight.w500, fontSize: 16.sp);
 //* red
 
 final red11B600 =
@@ -111,6 +120,10 @@ final red11B600 =
 
 final red9B500 =
     TextStyle(fontSize: 9.sp, color: Colors.red, fontWeight: FontWeight.w400);
+
+
+final red10B500 =
+    TextStyle(fontSize: 10.sp, color: Colors.red, fontWeight: FontWeight.w400);
 
 final red16B600 =
     TextStyle(fontSize: 16.sp, color: Colors.red, fontWeight: FontWeight.w600);

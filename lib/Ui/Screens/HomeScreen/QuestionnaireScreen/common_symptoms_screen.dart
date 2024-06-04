@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediezy_user/Repository/Bloc/Questionare/GetCommonSymptom/get_common_symptom_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/QuestionnaireScreen/symptoms_view_screen.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/QuestionnaireScreen/question_view_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../../ddd/application/questionare/get_questionare_symptom/get_questionare_symptom_bloc_bloc.dart';
+import '../../../Consts/text_style.dart';
 
 class CommonSymptomsScreen extends StatefulWidget {
   const CommonSymptomsScreen({super.key});
@@ -27,13 +29,15 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<GetCommonSymptomBloc>(context).add(FetchCommonSymptoms());
+    BlocProvider.of<GetQuestionareSymptomBlocBloc>(context)
+        .add(const GetQuestionareSymptomBlocEvent.started());
     getUserName();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kScaffoldColor,
       appBar: AppBar(),
@@ -53,19 +57,11 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Hi $userName, let's get started.",
-                      style: TextStyle(
-                          fontSize: 15.sp, fontWeight: FontWeight.bold),
-                    ),
+                    Text("Hi $userName, let's get started.",
+                        style: black14B600),
                     const VerticalSpacingWidget(height: 5),
-                    Text(
-                      "Please Pick a symptom that is troubling you the most",
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: kSubTextColor),
-                    ),
+                    Text("Please Pick a symptom that is troubling you the most",
+                        style: grey13B500),
                   ],
                 ),
               ),
@@ -73,110 +69,97 @@ class _CommonSymptomsScreenState extends State<CommonSymptomsScreen> {
             const VerticalSpacingWidget(height: 5),
             Text(
               "Common Symptoms",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp),
+              style: black15B500,
             ),
             const VerticalSpacingWidget(height: 10),
-            BlocBuilder<GetCommonSymptomBloc, GetCommonSymptomState>(
-              builder: (context, state) {
-                if (state is GetCommonSymptomLoading) {
-                  return SizedBox(
-                    height: 350.h,
-                    child: Center(
-                      child: CircularProgressIndicator(color: kMainColor),
-                    ),
-                  );
-                }
-                if (state is GetCommonSymptomError) {
-                  return Center(
-                    child: Text(
-                      state.errorMessage.toString(),
-                    ),
-                  );
-                }
-                if (state is GetCommonSymptomLoaded) {
-                  return GridView.builder(
-                      itemCount: state.commonSymptomModel.data!.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 10,
-                              childAspectRatio: .95),
-                      itemBuilder: (context, index) {
-                        final symptom = state.commonSymptomModel.data![index];
-                        return Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SymptomsViewScreen(),
+            BlocBuilder<GetQuestionareSymptomBlocBloc,
+                GetQuestionareSymptomBlocState>(builder: (context, state) {
+              if (state.isloding) {
+                return SizedBox(
+                  height: size.height * .7,
+                  child: Center(
+                    child: CircularProgressIndicator(color: kMainColor),
+                  ),
+                );
+              }
+              if (state.isError) {
+                return Center(
+                  child: Text(
+                    state.message.toString(),
+                  ),
+                );
+              }
+              return GridView.builder(
+                  itemCount: state.model.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: size.width * .01,
+                      mainAxisSpacing: size.width * .01,
+                      childAspectRatio: .95),
+                  itemBuilder: (context, index) {
+                    final symptom = state.model[index];
+                    return Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QuestionViewScreen(
+                                  symptomId:
+                                      state.model[index].symptomId.toString(),
+                                  symptomName:
+                                      state.model[index].symptomName.toString(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.r),
+                            child: Image.network(
+                              symptom.symptomImage.toString(),
+                              height: size.height * .15,
+                              width: size.width * .28,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Image.asset(
+                                  "assets/icons/no image.png",
+                                  height: size.height * .15,
+                                  width: size.width * .28,
+                                  color: kMainColor,
+                                ),
+                              ),
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+                                return Center(
+                                  child: Shimmer.fromColors(
+                                    baseColor: kShimmerBaseColor,
+                                    highlightColor: kShimmerHighlightColor,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(80.r),
+                                      ),
+                                    ),
                                   ),
                                 );
                               },
-                              // child: Container(
-                              //   height: 100.h,
-                              //   width: 100.w,
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.circular(10),
-                              //     image: DecorationImage(
-                              //       image: ,
-                              //         // image: NetworkImage(
-                              //         //   symptom.symptomImage.toString(),
-                              //         // ),
-                              //         fit: BoxFit.fill),
-                              //   ),
-                              // ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.r),
-                                child: Image.network(
-                                  symptom.symptomImage.toString(),
-                                  height: 100.h,
-                                  width: 100.w,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) =>
-                                      Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Image.asset(
-                                      "assets/icons/no image.png",
-                                      height: 100.h,
-                                      width: 100.w,
-                                      color: kMainColor,
-                                    ),
-                                  ),
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    }
-                                    return Center(
-                                      child: Shimmer.fromColors(
-                                        baseColor: kShimmerBaseColor,
-                                        highlightColor: kShimmerHighlightColor,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(80.r),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
                             ),
-                          ],
-                        );
-                      });
-                }
-                return Container();
-              },
-            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            }),
           ],
         ),
       ),

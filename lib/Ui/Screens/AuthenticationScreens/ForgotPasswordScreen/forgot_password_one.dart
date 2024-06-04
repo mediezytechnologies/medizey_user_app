@@ -22,6 +22,7 @@ class _ForgotPasswordOneState extends State<ForgotPasswordOne> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<ForgetPasswordFirstBloc, ForgetPasswordFirstState>(
@@ -49,12 +50,14 @@ class _ForgotPasswordOneState extends State<ForgotPasswordOne> {
               child: Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Image(
-                      image: AssetImage("assets/icons/mediezyIcon.png"),
-                    ),
-                    const VerticalSpacingWidget(height: 20),
+                    const VerticalSpacingWidget(height: 50),
+                    Image(
+                        image: const AssetImage(
+                          "assets/icons/forgot_password_one.png",
+                        ),
+                        height: size.height * .17),
+                    const VerticalSpacingWidget(height: 30),
                     Text("Forgot password", style: black15B600),
                     const VerticalSpacingWidget(height: 15),
                     Text("Please enter your Email ID and get code",

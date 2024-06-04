@@ -13,7 +13,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.d
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/AboutUsScreen/about_us_Screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/ContactUsScreen/contact_us_screen.dart';
 import 'package:mediezy_user/Ui/Screens/ProfileScreen/PrivacyPolicy/privacy_policy_screen.dart';
@@ -27,6 +26,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../ddd/firebase_service/firebase_auth_service.dart';
 import '../../Consts/text_style.dart';
+import '../AuthenticationScreens/OnBoardingScreen/on_boarding_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -425,7 +425,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const LoginScreen(),
+                                      builder: (context) => const OnBoardingScreen(),
                                     ),
                                   );
                                 } else {

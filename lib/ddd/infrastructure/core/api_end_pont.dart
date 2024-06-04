@@ -18,4 +18,7 @@ class ApiEndPoints {
   static const forgotPassword = '${baseUrl}user/forgot-password';
   static const otpVerfication = '${baseUrl}user/forgot-password/verify-otp';
   static const resetPassword = '${baseUrl}user/forgot-password/reset-password';
+  static const questionareGetSymptoms = '${baseUrl}patient/listSymptoms';
+  static const getQuestions = '${baseUrl}patient/getSymptomsQuestions';
+  static const submitAnswer = '${baseUrl}patient/addSymptomUserResponse';
 }

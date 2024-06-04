@@ -49,8 +49,6 @@ import 'package:mediezy_user/Repository/Bloc/Profile/EditUser/edit_user_bloc.dar
 import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Profile/UploadUserImage/upload_user_image_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Questionare/GetCommonSymptom/get_common_symptom_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/Questionare/GetQuestions/get_questions_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/ContactUs/contact_us_bloc.dart';
@@ -72,6 +70,9 @@ import '../../ddd/application/forgot_password/forget_password_three/forget_passw
 import '../../ddd/application/forgot_password/forget_password_two/forget_password_two_bloc.dart';
 import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import '../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../../ddd/application/questionare/get_questionare_symptom/get_questionare_symptom_bloc_bloc.dart';
+import '../../ddd/application/questionare/get_questions/get_questions_bloc.dart';
+import '../../ddd/application/questionare/submit_answer/submit_answer_bloc.dart';
 import '../../ddd/application/rating/rating_bloc.dart';
 import '../../ddd/application/rating_post/rating_post_bloc.dart';
 import '../../ddd/application/search_doctor/search_doctor_bloc.dart';
@@ -140,8 +141,6 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<UserLocationBloc>()),
         BlocProvider(create: (context) => getIt<EditMemberImageBloc>()),
         BlocProvider(create: (context) => GetVitalsBloc()),
-        BlocProvider(create: (context) => GetCommonSymptomBloc()),
-        BlocProvider(create: (context) => GetQuestionsBloc()),
         BlocProvider(create: (context) => getIt<GetDoctersBloc>()),
         BlocProvider(create: (context) => OtherTypePatientDetailsBloc()),
         BlocProvider(create: (context) => getIt<GetFavDoctorBloc>()),
@@ -159,5 +158,9 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<ForgetPasswordFirstBloc>()),
         BlocProvider(create: (context) => getIt<ForgetPasswordTwoBloc>()),
         BlocProvider(create: (context) => getIt<ForgetPasswordThreeBloc>()),
+        BlocProvider(
+            create: (context) => getIt<GetQuestionareSymptomBlocBloc>()),
+        BlocProvider(create: (context) => getIt<GetQuestionsBloc>()),
+        BlocProvider(create: (context) => getIt<SubmitAnswerBloc>()),
       ];
 }

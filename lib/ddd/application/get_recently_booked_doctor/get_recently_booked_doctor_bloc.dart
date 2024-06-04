@@ -11,7 +11,6 @@ part 'get_recently_booked_doctor_bloc.freezed.dart';
 class GetRecentlyBookedDoctorBloc
     extends Bloc<GetRecentlyBookedDoctorEvent, GetRecentlyBookedDoctorState> {
   final GetRecentlyBookedDoctorRepository getRecentlyBookedDoctorRepository;
-  // List<RecentlyBookedDoctor> cachedRecentlyBookedDoctors = [];
   GetRecentlyBookedDoctorBloc(this.getRecentlyBookedDoctorRepository)
       : super(GetRecentlyBookedDoctorState.initial()) {
     on<_Started>((event, emit) async {
@@ -25,17 +24,6 @@ class GetRecentlyBookedDoctorBloc
         ));
       }
 
-      // if (cachedRecentlyBookedDoctors.isNotEmpty) {
-      //   emit(state.copyWith(
-      //     isloding: false,
-      //     isError: false,
-      //     message: state.message,
-      //     status: state.status,
-      //     model: cachedRecentlyBookedDoctors,
-      //   ));
-      //   return;
-      // }
-
       final getRecentlyDoctorResult = await getRecentlyBookedDoctorRepository
           .getRecentlyBookedDoctorsRepo();
       emit(getRecentlyDoctorResult.fold(
@@ -46,7 +34,6 @@ class GetRecentlyBookedDoctorBloc
                 model: [],
                 status: false,
               ), (r) {
-        // cachedRecentlyBookedDoctors = r;
         return state.copyWith(
           isloding: false,
           isError: false,
@@ -56,31 +43,6 @@ class GetRecentlyBookedDoctorBloc
         );
       }));
     });
-
-    // on<_GetRecentlyBookedDocterForcedEvent>((event, emit) async {
-    //   final getRecentlyDoctorResult = await getRecentlyBookedDoctorRepository
-    //       .getRecentlyBookedDoctorsRepo();
-    //   cachedRecentlyBookedDoctors = [];
-    //   emit(getRecentlyDoctorResult.fold(
-    //     (l) => state.copyWith(
-    //       isloding: false,
-    //       isError: true,
-    //       message: l.message!,
-    //       model: [],
-    //       status: false,
-    //     ),
-    //     (r) {
-    //       cachedRecentlyBookedDoctors = r;
-    //       return state.copyWith(
-    //         isloding: false,
-    //         isError: false,
-    //         message: state.message,
-    //         status: state.status,
-    //         model: r,
-    //       );
-    //     },
-    //   ));
-    // });
 
     on<_ChangeFav>((event, emit) {
       final updatedDoctors = state.model.map((doctor) {

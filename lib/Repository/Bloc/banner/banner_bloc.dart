@@ -12,10 +12,8 @@ class BannerBloc extends Bloc<BannerEvent, BannerState> {
       emit(BannerLoading());
       try {
         final bannerModel = await bannerApi.getBanner(type: event.type);
-
         emit(BannerLoaded(bannerModel: bannerModel));
       } catch (error) {
-        print("banner error");
         emit(BannerError());
       }
     });

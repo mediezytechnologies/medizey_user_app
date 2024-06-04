@@ -6,7 +6,10 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/QuestionnaireScreen/report_symptoms_screen.dart';
 
 class SymptomsViewScreen extends StatefulWidget {
-  const SymptomsViewScreen({super.key});
+  const SymptomsViewScreen({super.key, required this.symptomId, required this.symptomName});
+
+  final String symptomId;
+  final String symptomName;
 
   @override
   State<SymptomsViewScreen> createState() => _SymptomsViewScreenState();

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
-import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
+import '../OnBoardingScreen/on_boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () async {
         if (token == null) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(builder: (context) => const OnBoardingScreen()),
               (route) => false);
         } else {
           Future.delayed(const Duration(seconds: 1))
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   (route) => false));
           BlocProvider.of<NotificatioTokenBloc>(context).add(
-            NotificatioTokenEvent.started(),
+            const NotificatioTokenEvent.started(),
           );
           locationController.fetchCountry();
 
