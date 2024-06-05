@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
@@ -231,7 +230,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
     setState(() async {
       if (pickedFile != null) {
         // Compress the selected image
-        imageFromGallery = await compressImage(pickedFile.path);
+        imageFromGallery =   File(pickedFile.path);
 
         // Navigate to DocumentPreviewScreen
         Navigator.push(
@@ -252,16 +251,18 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   //* pick image from camera
   Future<void> pickImageFromCamera() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.camera,imageQuality: 85);
 
     if (pickedFile != null) {
       try {
-        File compressedImage = await compressImage(pickedFile.path);
+        
+        File file = File(pickedFile.path);
+     //   File compressedImage = await compressImage(pickedFile.path);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DocumentPreviewScreen(
-              imageFile: compressedImage,
+              imageFile: file,
               type: widget.type,
             ),
           ),
@@ -276,26 +277,26 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   }
 
   //* Image compression function
-  Future<File> compressImage(String imagePath) async {
-    File imageFile = File(imagePath);
-    int fileSize = await imageFile.length();
-    int maxFileSize = 2048 * 1024;
-    if (fileSize <= maxFileSize) {
-      return imageFile;
-    }
-    Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
-      imagePath,
-      quality: 85,
-    );
-    if (compressedBytes != null) {
-      List<int> compressedList = compressedBytes.toList();
-      File compressedImage = File(imagePath)..writeAsBytesSync(compressedList);
-      return compressedImage;
-    } else {
-      throw Exception('Image compression failed');
-    }
-  }
-}
+//   Future<File> compressImage(String imagePath) async {
+//     File imageFile = File(imagePath);
+//     int fileSize = await imageFile.length();
+//     int maxFileSize = 2048 * 1024;
+//     if (fileSize <= maxFileSize) {
+//       return imageFile;
+//     }
+//     // Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
+//     //   imagePath,
+//     //   quality: 85,
+//     // );
+//     if (compressedBytes != null) {
+//       List<int> compressedList = compressedBytes.toList();
+//       File compressedImage = File(imagePath)..writeAsBytesSync(compressedList);
+//       return compressedImage;
+//     } else {
+//       throw Exception('Image compression failed');
+//     }
+//   }
+// }
 //*pick file from mobile
 // Future<void> pickFile() async {
 //   try {
@@ -320,3 +321,4 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
 //     print('Error picking file: $e');
 //   }
 // }
+}

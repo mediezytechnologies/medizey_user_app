@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
@@ -372,37 +371,37 @@ class _EditScanScreeState extends State<EditScanScree> {
 
   Future pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery,imageQuality: 85);
 
     if (pickedFile != null) {
-      File compressedImage = await compressImage(pickedFile.path);
+      File compressedImage = File(pickedFile.path);
       setState(() {
         editedImage = compressedImage;
       });
-      imageFromGallery = await compressImage(pickedFile.path);
+      imageFromGallery =  compressedImage;
     } else {
       GeneralServices.instance.showToastMessage('No image selected');
     }
   }
 
   //* Image compression function
-  Future<File> compressImage(String imagePath) async {
-    File imageFile = File(imagePath);
-    int fileSize = await imageFile.length();
-    int maxFileSize = 2048 * 1024;
-    if (fileSize <= maxFileSize) {
-      return imageFile;
-    }
-    Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
-      imagePath,
-      quality: 85,
-    );
-    if (compressedBytes != null) {
-      List<int> compressedList = compressedBytes.toList();
-      File compressedImage = File(imagePath)..writeAsBytesSync(compressedList);
-      return compressedImage;
-    } else {
-      throw Exception('Image compression failed');
-    }
-  }
+  // Future<File> compressImage(String imagePath) async {
+  //   File imageFile = File(imagePath);
+  //   int fileSize = await imageFile.length();
+  //   int maxFileSize = 2048 * 1024;
+  //   if (fileSize <= maxFileSize) {
+  //     return imageFile;
+  //   }
+  //   Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
+  //     imagePath,
+  //     quality: 85,
+  //   );
+  //   if (compressedBytes != null) {
+  //     List<int> compressedList = compressedBytes.toList();
+  //     File compressedImage = File(imagePath)..writeAsBytesSync(compressedList);
+  //     return compressedImage;
+  //   } else {
+  //     throw Exception('Image compression failed');
+  //   }
+  // }
 }

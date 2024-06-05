@@ -13,9 +13,7 @@ import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mediezy_user/divice_inf0.dart';
 import 'package:mediezy_user/firebase_options.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
@@ -42,15 +40,15 @@ Future<void> main() async {
 
 
 
-PackageInfo packageInfo = await PackageInfo.fromPlatform();
+// PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-String appName = packageInfo.appName;
-String packageName = packageInfo.packageName;
-String version = packageInfo.version;
+// String appName = packageInfo.appName;
+// String packageName = packageInfo.packageName;
+// String version = packageInfo.version;
 
-log("appname  $appName");
-log("packageName  $packageName");
-log("version  $version");
+// log("appname  $appName");
+// log("packageName  $packageName");
+// log("version  $version");
 
   await configureInjection();
   await GetStorage.init();
