@@ -34,6 +34,7 @@ class MedicineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(bottom: 5.h),
       padding: const EdgeInsets.all(6),
@@ -48,60 +49,58 @@ class MedicineWidget extends StatelessWidget {
               ? const SizedBox()
               : Row(
                   children: [
-                    Text("Medical store name :", style: grey12B500),
+                    Text("Medical store name : ", style: grey12B500),
                     const HorizontalSpacingWidget(width: 5),
-                    Text(medicalStoreName, style: black13B500)
+                    SizedBox(
+                      width: size.width * .50,
+                      child: Text(
+                        medicalStoreName,
+                        style: black13B500,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
                   ],
                 ),
-          const VerticalSpacingWidget(height: 5),
+          const VerticalSpacingWidget(height: 2),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Medicine Name :", style: grey12B500),
-              Text("Dosage :", style: grey12B500)
+              Text("Medicine Name : ", style: grey12B500),
+              SizedBox(
+                width: size.width * .60,
+                child: Text(
+                  medicineName,
+                  style: black13B500,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
           const VerticalSpacingWidget(height: 2),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(medicineName, style: black13B500),
+              Text("Dosage : ", style: grey12B500),
               dosage == 'null'
                   ? const SizedBox()
-                  : Text(dosage, style: black13B500)
-            ],
-          ),
-          const VerticalSpacingWidget(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Days :", style: grey12B500),
-              Text("", style: black13B500)
-            ],
-          ),
-          const VerticalSpacingWidget(height: 2),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(noOfDays, style: black13B500),
+                  : Text(dosage, style: black13B500),
               Text(
                   foodType == 0
                       ? ""
                       : foodType == 1
-                          ? "After food"
+                          ? " - After food"
                           : (foodType == 2)
-                              ? "Before food"
+                              ? " - Before food"
                               : (foodType == 3)
-                                  ? "With food"
-                                  : "If required",
+                                  ? " - With food"
+                                  : " - If required",
                   style: black13B500)
             ],
           ),
-          const VerticalSpacingWidget(height: 4),
+          const VerticalSpacingWidget(height: 2),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Medicine taken :", style: grey12B500),
+              Text("Medicine taken : ", style: grey12B500),
               Row(
                 children: [
                   morning == 1
@@ -135,19 +134,26 @@ class MedicineWidget extends StatelessWidget {
               )
             ],
           ),
+          const VerticalSpacingWidget(height: 2),
           intervel == 'null'
               ? const SizedBox()
               : Column(
                   children: [
                     Row(
                       children: [
-                        const VerticalSpacingWidget(height: 2),
                         Text("Intervel : ", style: grey12B500),
                         Text("$intervel $intervelSection", style: black13B500),
                       ],
                     ),
+                    const VerticalSpacingWidget(height: 2),
                   ],
                 ),
+          Row(
+            children: [
+              Text("Days : ", style: grey12B500),
+              Text(noOfDays, style: black13B500),
+            ],
+          ),
           const VerticalSpacingWidget(height: 2),
         ],
       ),

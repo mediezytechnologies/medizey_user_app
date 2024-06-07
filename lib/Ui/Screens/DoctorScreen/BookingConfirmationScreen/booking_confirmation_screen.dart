@@ -178,7 +178,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                                 style: black12B600),
                           ],
                         ),
-                        const HorizontalSpacingWidget(width: 20),
+                        const HorizontalSpacingWidget(width: 40),
                         Container(
                           height: 140.h,
                           width: 1.w,
@@ -190,7 +190,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                           children: [
                             Text("Doctor name", style: grey12B500),
                             SizedBox(
-                                width: size.width * .25,
+                                width: size.width * .45,
                                 child: Text(
                                   "Dr ${widget.doctorFirstName} ${widget.doctorSecondName}",
                                   style: black12B600,
@@ -203,11 +203,14 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                                 style: black12B600),
                             const VerticalSpacingWidget(height: 2),
                             Text("Clinic name", style: grey12B500),
-                            Text(widget.clinicName, style: black12B600),
+                            SizedBox(
+                                width: size.width * .45,
+                                child: Text(widget.clinicName,
+                                    style: black12B600)),
                             const VerticalSpacingWidget(height: 2),
                             Text("Location", style: grey12B500),
                             SizedBox(
-                              width: size.width * .50,
+                              width: size.width * .45,
                               child: Text(widget.location,
                                   style: black12B600,
                                   maxLines: 1,
@@ -225,7 +228,7 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                         const HorizontalSpacingWidget(width: 5),
                         Expanded(
                           child: Text(
-                              "You should arrive at ${widget.estimatedTime} or live estimated arrival time given on home page",
+                              "You should arrive at ${widget.estimatedTime} or the live estimated arrival time provided on the homepage.If you failed to do so,you will have to wait for a long time.",
                               style: red11B600),
                         )
                       ],
@@ -235,7 +238,8 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                 ),
               ),
               const Image(
-                  image: AssetImage("assets/images/confirm_screen_image.jpg")),
+                image: AssetImage("assets/images/confirm_screen_image.jpg"),
+              ),
               const VerticalSpacingWidget(height: 10),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),

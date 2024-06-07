@@ -99,7 +99,8 @@ class VitalsWidget extends StatelessWidget {
                   ? const SizedBox()
                   : VitalsRowTextWidget(
                       heading: "BP",
-                      data: "$sys / $dia",
+                      data:
+                          "${sys == 'null' ? 'N/A' : sys} / ${dia == 'null' ? 'N/A' : dia}",
                     ),
             ],
           ),

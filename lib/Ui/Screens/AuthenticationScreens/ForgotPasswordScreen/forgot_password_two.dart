@@ -25,6 +25,7 @@ class _ForgetPasswordTwoState extends State<ForgetPasswordTwo> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<ForgetPasswordTwoBloc, ForgetPasswordTwoState>(
@@ -51,10 +52,13 @@ class _ForgetPasswordTwoState extends State<ForgetPasswordTwo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Image(
-                    image: AssetImage("assets/icons/mediezyIcon.png"),
-                  ),
-                  const VerticalSpacingWidget(height: 20),
+                    const VerticalSpacingWidget(height: 60),
+                  Image(
+                      image: const AssetImage(
+                        "assets/icons/forgot_password_two.png",
+                      ),
+                      height: size.height * .17),
+                  const VerticalSpacingWidget(height: 30),
                   Text("Verify your code", style: black15B600),
                   const VerticalSpacingWidget(height: 15),
                   RichText(
@@ -82,7 +86,8 @@ class _ForgetPasswordTwoState extends State<ForgetPasswordTwo> {
                     length: 4,
                     keyboardType: TextInputType.number,
                     pinTheme: PinTheme(
-                        fieldOuterPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                        fieldOuterPadding:
+                            EdgeInsets.symmetric(horizontal: 10.w),
                         activeBorderWidth: .5.w,
                         inactiveBorderWidth: 1.5.w,
                         shape: PinCodeFieldShape.box,

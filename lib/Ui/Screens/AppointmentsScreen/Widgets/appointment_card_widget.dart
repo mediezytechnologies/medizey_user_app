@@ -20,6 +20,9 @@ import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 
+import '../../../../ddd/application/questionare/get_questionare_symptom/get_questionare_symptom_bloc_bloc.dart';
+import '../../HomeScreen/QuestionnaireScreen/common_symptoms_screen.dart';
+
 class AppointmentCardWidget extends StatefulWidget {
   const AppointmentCardWidget(
       {super.key,
@@ -419,6 +422,31 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   ),
                 ),
           const VerticalSpacingWidget(height: 5),
+          isSecondContainerVisible
+              ? const SizedBox()
+              : GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<GetQuestionareSymptomBlocBloc>(context)
+                        .add(const GetQuestionareSymptomBlocEvent.started());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CommonSymptomsScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(color: Colors.red, width: .5.w),
+                    ),
+                    child: Text(
+                      "Do you have any common health issues to check our questionnaire?",
+                      style: red10B500,
+                    ),
+                  ),
+                ),
           if (isSecondContainerVisible)
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),

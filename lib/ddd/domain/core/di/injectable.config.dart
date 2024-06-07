@@ -9,28 +9,34 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../../../application/add_member_image/add_member_image_bloc.dart'
-    as _i33;
+    as _i36;
 import '../../../application/add_members/add_members_bloc.dart' as _i9;
-import '../../../application/edit_member/edit_member_bloc.dart' as _i34;
+import '../../../application/edit_member/edit_member_bloc.dart' as _i37;
 import '../../../application/edit_member_image/edit_member_image_bloc.dart'
-    as _i35;
+    as _i38;
 import '../../../application/firebase_login/firebase_login_bloc.dart' as _i16;
 import '../../../application/forgot_password/forget_password_first/forget_password_first_bloc.dart'
-    as _i36;
+    as _i39;
 import '../../../application/forgot_password/forget_password_three/forget_password_three_bloc.dart'
-    as _i37;
+    as _i40;
 import '../../../application/forgot_password/forget_password_two/forget_password_two_bloc.dart'
-    as _i38;
-import '../../../application/get_docters/get_docters_bloc.dart' as _i39;
+    as _i41;
+import '../../../application/get_docters/get_docters_bloc.dart' as _i42;
 import '../../../application/get_fav_doctor/get_fav_doctor_bloc.dart' as _i23;
 import '../../../application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart'
-    as _i40;
+    as _i45;
 import '../../../application/notification_token/notificatio_token_bloc.dart'
     as _i26;
-import '../../../application/rating/rating_bloc.dart' as _i41;
-import '../../../application/rating_post/rating_post_bloc.dart' as _i42;
-import '../../../application/search_doctor/search_doctor_bloc.dart' as _i43;
-import '../../../application/user_location/user_location_bloc.dart' as _i44;
+import '../../../application/questionare/get_questionare_symptom/get_questionare_symptom_bloc_bloc.dart'
+    as _i43;
+import '../../../application/questionare/get_questions/get_questions_bloc.dart'
+    as _i44;
+import '../../../application/questionare/submit_answer/submit_answer_bloc.dart'
+    as _i33;
+import '../../../application/rating/rating_bloc.dart' as _i46;
+import '../../../application/rating_post/rating_post_bloc.dart' as _i47;
+import '../../../application/search_doctor/search_doctor_bloc.dart' as _i48;
+import '../../../application/user_location/user_location_bloc.dart' as _i49;
 import '../../../infrastructure/add_member/add_member_impl.dart' as _i8;
 import '../../../infrastructure/add_member_image/add_member_image_impl.dart'
     as _i6;
@@ -46,10 +52,11 @@ import '../../../infrastructure/get_fav_docters_service/get_fav_docters_service.
     as _i22;
 import '../../../infrastructure/get_recently_booked_doctors/get_recently_doctor_repo_impl.dart'
     as _i25;
-import '../../../infrastructure/rating/rating_repo_impl.dart' as _i28;
+import '../../../infrastructure/questionare/questionare_repo_impl.dart' as _i28;
+import '../../../infrastructure/rating/rating_repo_impl.dart' as _i30;
 import '../../../infrastructure/search_doctor/search_doctor_repo_impl.dart'
-    as _i30;
-import '../../../infrastructure/user_location/user_location_impl.dart' as _i32;
+    as _i32;
+import '../../../infrastructure/user_location/user_location_impl.dart' as _i35;
 import '../../add_member/add_member_service.dart' as _i7;
 import '../../add_member_image/add_image_impl.dart' as _i5;
 import '../../edit_member/edit_member_service.dart' as _i12;
@@ -61,10 +68,11 @@ import '../../get_doctors/docters_impl.dart' as _i19;
 import '../../get_fav_model/get_fav_impl.dart' as _i21;
 import '../../get_recently_booked_doctors/get_recently_booked_doctors_repository.dart'
     as _i24;
-import '../../rating/rating_repository.dart' as _i27;
-import '../../search_doctor/search_doctor_repository.dart' as _i29;
+import '../../questionare/questionare_repository.dart' as _i27;
+import '../../rating/rating_repository.dart' as _i29;
+import '../../search_doctor/search_doctor_repository.dart' as _i31;
 import '../../user_location/user_location_impl.dart'
-    as _i31; // ignore_for_file: unnecessary_lambdas
+    as _i34; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -99,34 +107,42 @@ _i1.GetIt $initGetIt(
       () => _i25.GetRecentlyBookedDoctorsImpl());
   gh.factory<_i26.NotificatioTokenBloc>(
       () => _i26.NotificatioTokenBloc(get<_i14.FccmTokenRepo>()));
-  gh.lazySingleton<_i27.RatingRepository>(() => _i28.RatingRepoImpl());
-  gh.lazySingleton<_i29.SearchDoctorRepository>(
-      () => _i30.SearchDoctorRepoImpl());
-  gh.lazySingleton<_i31.UserLocationRepo>(() => _i32.UserLoacationImpl());
-  gh.factory<_i33.AddMemberImageBloc>(
-      () => _i33.AddMemberImageBloc(get<_i5.AddMemberImageRepo>()));
-  gh.factory<_i34.EditMemberBloc>(
-      () => _i34.EditMemberBloc(get<_i12.EditMemberRepo>()));
-  gh.factory<_i35.EditMemberImageBloc>(
-      () => _i35.EditMemberImageBloc(get<_i10.EditMemberImageRepo>()));
-  gh.factory<_i36.ForgetPasswordFirstBloc>(
-      () => _i36.ForgetPasswordFirstBloc(get<_i17.ForgotPasswordRepository>()));
-  gh.factory<_i37.ForgetPasswordThreeBloc>(
-      () => _i37.ForgetPasswordThreeBloc(get<_i17.ForgotPasswordRepository>()));
-  gh.factory<_i38.ForgetPasswordTwoBloc>(
-      () => _i38.ForgetPasswordTwoBloc(get<_i17.ForgotPasswordRepository>()));
-  gh.factory<_i39.GetDoctersBloc>(
-      () => _i39.GetDoctersBloc(get<_i19.GetDoctersRepo>()));
-  gh.factory<_i40.GetRecentlyBookedDoctorBloc>(() =>
-      _i40.GetRecentlyBookedDoctorBloc(
+  gh.lazySingleton<_i27.QuestionareRepository>(
+      () => _i28.QuestionareRepoImpl());
+  gh.lazySingleton<_i29.RatingRepository>(() => _i30.RatingRepoImpl());
+  gh.lazySingleton<_i31.SearchDoctorRepository>(
+      () => _i32.SearchDoctorRepoImpl());
+  gh.factory<_i33.SubmitAnswerBloc>(
+      () => _i33.SubmitAnswerBloc(get<_i27.QuestionareRepository>()));
+  gh.lazySingleton<_i34.UserLocationRepo>(() => _i35.UserLoacationImpl());
+  gh.factory<_i36.AddMemberImageBloc>(
+      () => _i36.AddMemberImageBloc(get<_i5.AddMemberImageRepo>()));
+  gh.factory<_i37.EditMemberBloc>(
+      () => _i37.EditMemberBloc(get<_i12.EditMemberRepo>()));
+  gh.factory<_i38.EditMemberImageBloc>(
+      () => _i38.EditMemberImageBloc(get<_i10.EditMemberImageRepo>()));
+  gh.factory<_i39.ForgetPasswordFirstBloc>(
+      () => _i39.ForgetPasswordFirstBloc(get<_i17.ForgotPasswordRepository>()));
+  gh.factory<_i40.ForgetPasswordThreeBloc>(
+      () => _i40.ForgetPasswordThreeBloc(get<_i17.ForgotPasswordRepository>()));
+  gh.factory<_i41.ForgetPasswordTwoBloc>(
+      () => _i41.ForgetPasswordTwoBloc(get<_i17.ForgotPasswordRepository>()));
+  gh.factory<_i42.GetDoctersBloc>(
+      () => _i42.GetDoctersBloc(get<_i19.GetDoctersRepo>()));
+  gh.factory<_i43.GetQuestionareSymptomBlocBloc>(() =>
+      _i43.GetQuestionareSymptomBlocBloc(get<_i27.QuestionareRepository>()));
+  gh.factory<_i44.GetQuestionsBloc>(
+      () => _i44.GetQuestionsBloc(get<_i27.QuestionareRepository>()));
+  gh.factory<_i45.GetRecentlyBookedDoctorBloc>(() =>
+      _i45.GetRecentlyBookedDoctorBloc(
           get<_i24.GetRecentlyBookedDoctorRepository>()));
-  gh.factory<_i41.RatingBloc>(
-      () => _i41.RatingBloc(get<_i27.RatingRepository>()));
-  gh.factory<_i42.RatingPostBloc>(
-      () => _i42.RatingPostBloc(get<_i27.RatingRepository>()));
-  gh.factory<_i43.SearchDoctorBloc>(
-      () => _i43.SearchDoctorBloc(get<_i29.SearchDoctorRepository>()));
-  gh.factory<_i44.UserLocationBloc>(
-      () => _i44.UserLocationBloc(get<_i31.UserLocationRepo>()));
+  gh.factory<_i46.RatingBloc>(
+      () => _i46.RatingBloc(get<_i29.RatingRepository>()));
+  gh.factory<_i47.RatingPostBloc>(
+      () => _i47.RatingPostBloc(get<_i29.RatingRepository>()));
+  gh.factory<_i48.SearchDoctorBloc>(
+      () => _i48.SearchDoctorBloc(get<_i31.SearchDoctorRepository>()));
+  gh.factory<_i49.UserLocationBloc>(
+      () => _i49.UserLocationBloc(get<_i34.UserLocationRepo>()));
   return get;
 }
