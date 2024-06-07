@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -92,7 +94,12 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
         );
         return Future.value(false);
       },
-      child: Scaffold(
+      child: Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
         appBar: AppBar(
           title: const Text("Booking Successful"),
           centerTitle: true,

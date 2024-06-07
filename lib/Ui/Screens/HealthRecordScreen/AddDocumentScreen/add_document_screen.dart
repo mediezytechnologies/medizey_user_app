@@ -38,7 +38,12 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     log("image ${widget.image}");
-    return Scaffold(
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: Text(widget.appBarTitle),
         centerTitle: true,

@@ -47,7 +47,12 @@ class _AllDoctorNearYouScreenState extends State<AllDoctorNearYouScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Doctors Near You"),
         centerTitle: true,

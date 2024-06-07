@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
@@ -31,7 +33,13 @@ class _AllRecordsScreenState extends State<AllRecordsScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final size =MediaQuery.of(context).size;
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Health Record"),
         centerTitle: true,

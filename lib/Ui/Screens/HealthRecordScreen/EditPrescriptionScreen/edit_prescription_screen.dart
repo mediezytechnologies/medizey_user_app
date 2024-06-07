@@ -49,7 +49,13 @@ class _EditPrescriptionScreenState extends State<EditPrescriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final size=MediaQuery.of(context).size;
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Edit Prescription"),
         centerTitle: true,

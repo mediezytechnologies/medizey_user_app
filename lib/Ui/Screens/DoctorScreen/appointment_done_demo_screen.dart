@@ -282,6 +282,12 @@ class _AppointmentDoneDemoScreenState extends State<AppointmentDoneDemoScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+        bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Book Token"),
         centerTitle: true,

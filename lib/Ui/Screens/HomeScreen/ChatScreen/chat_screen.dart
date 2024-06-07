@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -94,8 +95,13 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
+      final size =MediaQuery.of(context).size;
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text("Mediezy bot", style: black15B600),
