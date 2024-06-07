@@ -109,7 +109,7 @@ class _HomeAappBarState extends State<HomeAappBar> {
                           );
                         }
                         return Text(
-                          locationController.subLocality.value,
+                locationController.subLocality.value==""?   "select location":       locationController.subLocality.value,
                           style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w400,

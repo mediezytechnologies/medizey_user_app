@@ -71,6 +71,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   bool isOtherTreatmentSelected = false;
   bool isOtherSurgerySelected = false;
 
+
   @override
   void initState() {
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
@@ -91,6 +92,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+            
               const VerticalSpacingWidget(height: 10),
               Stack(
                 children: [
