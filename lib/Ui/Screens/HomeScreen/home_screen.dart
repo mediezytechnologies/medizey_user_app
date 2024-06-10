@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: deprecated_member_use
 import 'dart:async';
+import 'dart:io' show Platform;
+
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -8,25 +11,27 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:mediezy_user/Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/recommend_doctor_card.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/home_recently_booked_doctor_widget.dart';
-import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_doctor_widget.dart';
+import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/get_favourite_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_appbar.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_intro_card.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/home_suggest_doctor_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HomeScreen/Widgets/upcoming_appoiment.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/get_docters/get_docters_bloc.dart';
+
 import '../../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
+import '../../CommonWidgets/custom_scaffold_widgets.dart';
 import 'ChatScreen/chat_screen.dart';
 import 'Widgets/get_completed_feedback_widget.dart';
-import 'dart:io' show Platform;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -120,88 +125,95 @@ class _HomeScreenState extends State<HomeScreen> {
           });
           return Future.value(false);
         },
-        child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            shape: const StadiumBorder(),
-            backgroundColor: kSubMainColor,
-            child: Icon(CupertinoIcons.chat_bubble_text,
-                size: 24.sp, color: kCardColor),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ChatScreen(),
+        child:  Container(
+          color:kSecondaryColor,
+          child: SafeArea(
+             child: Scaffold(
+                floatingActionButton: FloatingActionButton(
+                  shape: const StadiumBorder(),
+                  backgroundColor: kSubMainColor,
+                  child: Icon(CupertinoIcons.chat_bubble_text,
+                      size: 24.sp, color: kCardColor),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatScreen(),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-          backgroundColor: kSecondaryColor,
-          body: Column(
-            children: [
-              HomeAappBar(
-                isAppBar: _showAppbar ? size.height * .10 : 0.0,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  dragStartBehavior: DragStartBehavior.start,
-                  controller: _scrollViewController,
-                  physics: Platform.isAndroid
-                      ? const AlwaysScrollableScrollPhysics()
-                      : const ClampingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      SizedBox(height: size.height * 0.02),
-                      const HomeIntroCard(),
-                      Container(
-                        width: double.infinity,
-                        color: kSubScaffoldColor,
+                backgroundColor: kSecondaryColor,
+                body: Column(
+                  children: [
+                    HomeAappBar(
+                      isAppBar: _showAppbar ? size.height * .05 : 0.0,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        dragStartBehavior: DragStartBehavior.start,
+                        controller: _scrollViewController,
+                        physics: Platform.isAndroid
+                            ? const AlwaysScrollableScrollPhysics()
+                            : const ClampingScrollPhysics(),
                         child: Column(
                           children: [
-                            const VerticalSpacingWidget(height: 5),
-                            const UpcommingAppoiment(),
-                            const VerticalSpacingWidget(height: 5),
-                            const GetCompletedFeedbackWidget(),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.01),
-                              child: const GetDoctorWidget(),
+                            SizedBox(height: size.height * 0.006),
+                            const HomeIntroCard(),
+                            Container(
+                              width: double.infinity,
+                              color: kSubScaffoldColor,
+                              child: Column(
+                                children: [
+                                  const VerticalSpacingWidget(height: 5),
+                                  const UpcommingAppoiment(),
+                                  const VerticalSpacingWidget(height: 5),
+                                  const GetCompletedFeedbackWidget(),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.01),
+                                    child: const GetDoctorWidget(),
+                                  ),
+                                  const VerticalSpacingWidget(height: 5),
+                                  const GetFavouriteDoctorWidget(),
+                                  const VerticalSpacingWidget(height: 5),
+                                  const HomeRecentlyBookedDoctorWidget(),
+                                  const VerticalSpacingWidget(height: 5),
+                                ],
+                              ),
                             ),
-                            const VerticalSpacingWidget(height: 5),
-                            const GetFavouriteDoctorWidget(),
-                            const VerticalSpacingWidget(height: 5),
-                            const HomeRecentlyBookedDoctorWidget(),
-                            const VerticalSpacingWidget(height: 5),
+                            HomeSuggestDoctorWidget(
+                                suggestionController: suggestionController),
+                            Container(
+                              width: double.infinity,
+                              color: kSubScaffoldColor,
+                              child: Column(
+                                children: [
+                                  const VerticalSpacingWidget(height: 5),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.01),
+                                    child: const RecommendedDoctorCard(),
+                                  ),
+                                  const VerticalSpacingWidget(height: 5),
+                                ],
+                              ),
+                            ),
+                            const Image(
+                              image: AssetImage("assets/images/mediezy.jpg"),
+                            ),
                           ],
                         ),
                       ),
-                      HomeSuggestDoctorWidget(
-                          suggestionController: suggestionController),
-                      Container(
-                        width: double.infinity,
-                        color: kSubScaffoldColor,
-                        child: Column(
-                          children: [
-                            const VerticalSpacingWidget(height: 5),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.01),
-                              child: const RecommendedDoctorCard(),
-                            ),
-                            const VerticalSpacingWidget(height: 5),
-                          ],
-                        ),
-                      ),
-                      const Image(
-                        image: AssetImage("assets/images/mediezy.jpg"),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+           ),
+         ),
         ),
-      ),
+      //),
     );
   }
 }
+

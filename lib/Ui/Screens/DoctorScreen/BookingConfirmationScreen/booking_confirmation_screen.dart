@@ -281,9 +281,9 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                                       style: black14B600),
                                   children: [
                                     Text(
-                                      'If you are unable to visit the doctor, you should reschedule the appointment ATLEAST 5 hours before the scheduled time to allow others to book   THAT slot. Otherwise, the booking may be lost.',
+                                      'If you are unable to visit the doctor, you should reschedule the appointment atleast 5 hours before the scheduled time to allow others to book  that slot. Otherwise, the booking may be lost.',
                                       style: grey12B500,
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),

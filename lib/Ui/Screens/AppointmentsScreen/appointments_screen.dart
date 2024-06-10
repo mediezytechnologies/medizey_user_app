@@ -50,7 +50,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => BottomNavigationControlWidget(
-                selectedIndex: 1,
+                selectedIndex: 0,
               ),
             ),
           );

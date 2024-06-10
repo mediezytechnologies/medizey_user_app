@@ -49,7 +49,9 @@ class _HomeAappBarState extends State<HomeAappBar> {
       duration: const Duration(milliseconds: 500),
       width: double.infinity,
       height: widget.isAppBar,
-      color: kSecondaryColor,
+      color:
+      //Colors.black,
+       kSecondaryColor,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(
