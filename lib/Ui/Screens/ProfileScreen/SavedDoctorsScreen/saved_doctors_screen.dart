@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,12 @@ class _SavedDoctorsScreenState extends State<SavedDoctorsScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Favourite doctors"),
         centerTitle: true,

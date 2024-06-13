@@ -39,6 +39,7 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
     return Stack(
       children: [
         const Image(
+         // color: Colors.amber,
           image: AssetImage(
             "assets/images/home_screen.jpg",
           ),
@@ -104,7 +105,8 @@ class _HomeIntroCardState extends State<HomeIntroCard> {
                   color: kCardColor,
                   width: 1.0,
                 ),
-                color: const Color(0xFF429b79),
+                color: 
+                const Color(0xFF429b79),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(

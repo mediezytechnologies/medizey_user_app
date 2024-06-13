@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -92,7 +94,12 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
         );
         return Future.value(false);
       },
-      child: Scaffold(
+      child: Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
         appBar: AppBar(
           title: const Text("Booking Successful"),
           centerTitle: true,
@@ -270,13 +277,13 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                                   childrenPadding:
                                       EdgeInsets.symmetric(horizontal: 8.w),
                                   title: Text(
-                                      'What happened when I arrived late?',
+                                      'If am not able to visit the doctor?',
                                       style: black14B600),
                                   children: [
                                     Text(
-                                      'If you are unable to arrive at the estimated time on the app or the booked time, you can inform the clinic or hospital and wait for the next available time slot',
+                                      'If you are unable to visit the doctor, you should reschedule the appointment atleast 5 hours before the scheduled time to allow others to book  that slot. Otherwise, the booking may be lost.',
                                       style: grey12B500,
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -288,11 +295,11 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                                   childrenPadding:
                                       EdgeInsets.symmetric(horizontal: 8.w),
                                   title: Text(
-                                      'If I am not able to visit the doctor?',
+                                      'What happens when I arrive late?',
                                       style: black14B600),
                                   children: [
                                     Text(
-                                      'We request that you reschedule your appointment so that others waiting in line can book the available slot, otherwise, you will lose your booking',
+                                      'You will have to wait a long time if you fail to arrive on time because the rest of the slots are scheduled for others.',
                                       style: grey12B500,
                                     ),
                                   ],

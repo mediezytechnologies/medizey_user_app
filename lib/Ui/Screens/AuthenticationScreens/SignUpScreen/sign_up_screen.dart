@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -480,13 +479,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery,imageQuality: 85);
 
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
-      File compressedImage = await compressImage(imageFile);
+   //   File compressedImage = await compressImage(imageFile);
       setState(() {
-        imageFromGallery = compressedImage;
+        imageFromGallery = imageFile;
       });
     } else {
       setState(() {
@@ -496,25 +495,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
 //* Image compression function
-  Future<File> compressImage(File imageFile) async {
-    int fileSize = await imageFile.length();
-    int maxFileSize = 2048 * 1024;
-    if (fileSize <= maxFileSize) {
-      return imageFile;
-    }
-    Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
-      imageFile.path,
-      quality: 85,
-    );
-    if (compressedBytes != null) {
-      List<int> compressedList = compressedBytes.toList();
-      File compressedImage = File(imageFile.path)
-        ..writeAsBytesSync(compressedList);
-      return compressedImage;
-    } else {
-      throw Exception('Image compression failed');
-    }
-  }
+  // Future<File> compressImage(File imageFile) async {
+  //   int fileSize = await imageFile.length();
+  //   int maxFileSize = 2048 * 1024;
+  //   if (fileSize <= maxFileSize) {
+  //     return imageFile;
+  //   }
+  //   Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
+  //     imageFile.path,
+  //     quality: 85,
+  //   );
+  //   if (compressedBytes != null) {
+  //     List<int> compressedList = compressedBytes.toList();
+  //     File compressedImage = File(imageFile.path)
+  //       ..writeAsBytesSync(compressedList);
+  //     return compressedImage;
+  //   } else {
+  //     throw Exception('Image compression failed');
+  //   }
+  // }
 
   //! select date
   Future<void> selectDate({

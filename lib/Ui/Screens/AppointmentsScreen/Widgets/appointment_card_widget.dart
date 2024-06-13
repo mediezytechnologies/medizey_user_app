@@ -422,31 +422,31 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   ),
                 ),
           const VerticalSpacingWidget(height: 5),
-          isSecondContainerVisible
-              ? const SizedBox()
-              : GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<GetQuestionareSymptomBlocBloc>(context)
-                        .add(const GetQuestionareSymptomBlocEvent.started());
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CommonSymptomsScreen(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(color: Colors.red, width: .5.w),
-                    ),
-                    child: Text(
-                      "Do you have any common health issues to check our questionnaire?",
-                      style: red10B500,
-                    ),
-                  ),
-                ),
+          // isSecondContainerVisible
+          //     ? const SizedBox()
+          //     : GestureDetector(
+          //         onTap: () {
+          //           BlocProvider.of<GetQuestionareSymptomBlocBloc>(context)
+          //               .add(const GetQuestionareSymptomBlocEvent.started());
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => const CommonSymptomsScreen(),
+          //             ),
+          //           );
+          //         },
+          //         child: Container(
+          //           padding: const EdgeInsets.all(5),
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(10.r),
+          //             border: Border.all(color: Colors.red, width: .5.w),
+          //           ),
+          //           child: Text(
+          //             "Do you have any common health issues to check our questionnaire?",
+          //             style: red10B500,
+          //           ),
+          //         ),
+          //       ),
           if (isSecondContainerVisible)
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),

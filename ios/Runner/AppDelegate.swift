@@ -10,4 +10,9 @@ import Flutter
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+  // func application(application: UIApplication,
+  //                    didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+  //       Messaging.messaging().apnsToken = deviceToken
+  // }
+
 }

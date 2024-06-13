@@ -36,7 +36,6 @@ class VitalsWidget extends StatelessWidget {
         color: kCardColor,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -49,6 +48,7 @@ class VitalsWidget extends StatelessWidget {
                           data: "$height cm",
                         ),
                         const HorizontalSpacingWidget(width: 10),
+                      
                       ],
                     ),
               weight == 'null'

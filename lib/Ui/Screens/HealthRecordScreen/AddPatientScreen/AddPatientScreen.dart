@@ -71,6 +71,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   bool isOtherTreatmentSelected = false;
   bool isOtherSurgerySelected = false;
 
+
   @override
   void initState() {
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
@@ -80,7 +81,12 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Add Family Member"),
         centerTitle: true,
@@ -91,6 +97,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+            
               const VerticalSpacingWidget(height: 10),
               Stack(
                 children: [

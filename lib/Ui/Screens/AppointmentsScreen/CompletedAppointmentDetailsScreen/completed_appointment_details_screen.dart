@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import 'package:mediezy_user/pdf_demo.dart';
 import '../../../Consts/text_style.dart';
 import '../../../CommonWidgets/row_text_widget.dart';
 import 'widget/image_view_widget.dart';
@@ -56,9 +59,18 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+       bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Appointment Details"),
         centerTitle: true,
+        actions: [
+       //   PdfDownloadButton(doctorImage: doctorImage,)
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

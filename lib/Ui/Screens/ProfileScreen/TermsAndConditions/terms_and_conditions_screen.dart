@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:mediezy_user/Ui/Consts/text_style.dart';
@@ -8,7 +10,13 @@ class TermsAndConditionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final size =MediaQuery.of(context).size;
+    return Scaffold(  bottomNavigationBar: Platform.isIOS
+            ? SizedBox(
+                height: size.height * 0.038,
+                width: double.infinity,
+              )
+            : const SizedBox(),
       appBar: AppBar(
         title: const Text("Terms and conditions"),
         centerTitle: true,

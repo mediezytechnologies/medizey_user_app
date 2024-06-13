@@ -60,7 +60,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
           appBar: AppBar(
             title: const Text("My Bookings"),
             centerTitle: true,
-            automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
             bottom: TabBar(
               dividerColor: Colors.transparent,
               indicatorSize: TabBarIndicatorSize.label,

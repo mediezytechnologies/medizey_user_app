@@ -9,6 +9,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/Widgets/appointment_card_widget.dart';
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.dart';
 import '../../../../Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
+import '../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import 'home_screen_loading_widgets.dart';
 
 class UpcommingAppoiment extends StatefulWidget {
@@ -175,7 +176,7 @@ class _UpcommingAppoimentState extends State<UpcommingAppoiment> {
                               context,
                               MaterialPageRoute(
                                 builder: ((context) =>
-                                     AppointmentsScreen()),
+                                   BottomNavigationControlWidget(selectedIndex: 1)),
                               ),
                             );
                           },

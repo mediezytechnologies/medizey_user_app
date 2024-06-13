@@ -14,6 +14,7 @@ import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splas
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'ddd/infrastructure/firebase_service/notification_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -29,6 +30,26 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+   await Permission.notification.isDenied.then((value) {
+        if (value) {
+          log("permission page");
+          Permission.notification.request();
+        }
+      });
+      WidgetsFlutterBinding.ensureInitialized();
+
+
+
+// PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+// String appName = packageInfo.appName;
+// String packageName = packageInfo.packageName;
+// String version = packageInfo.version;
+
+// log("appname  $appName");
+// log("packageName  $packageName");
+// log("version  $version");
+
   await configureInjection();
   await GetStorage.init();
 
