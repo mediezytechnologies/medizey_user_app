@@ -7,7 +7,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/view_all_button_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/Widgets/appointment_card_widget.dart';
-import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.dart';
 import '../../../../Repository/Bloc/GetAppointment/GetUpcomingAppointment/get_upcoming_appointment_bloc.dart';
 import '../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import 'home_screen_loading_widgets.dart';

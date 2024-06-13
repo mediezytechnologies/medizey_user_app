@@ -45,6 +45,12 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                     itemCount: completedAppointment.appointmentDetails!.length,
                     itemBuilder: (context, index) {
                       return CompletedAppointmentCardWidget(
+                        labTest: completedAppointment
+                            .appointmentDetails![index].labTest!
+                            .toList(),
+                        scanTest: completedAppointment
+                            .appointmentDetails![index].scanTest!
+                            .toList(),
                         whenItStart: completedAppointment
                             .appointmentDetails![index].symptomStartTime
                             .toString(),
@@ -67,10 +73,7 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                             .appointmentDetails![index].doctorName
                             .toString(),
                         labName: completedAppointment
-                            .appointmentDetails![index].labName
-                            .toString(),
-                        labTestName: completedAppointment
-                            .appointmentDetails![index].labTest
+                            .appointmentDetails![index].labCentreName
                             .toString(),
                         note: completedAppointment
                             .appointmentDetails![index].notes
@@ -100,10 +103,7 @@ class AllCompletedAppointmentsScreen extends StatelessWidget {
                             .appointmentDetails![index].reviewAfter
                             .toString(),
                         scanningCenterName: completedAppointment
-                            .appointmentDetails![index].scanName
-                            .toString(),
-                        scanningTestName: completedAppointment
-                            .appointmentDetails![index].scanTest
+                            .appointmentDetails![index].scanningCentreName
                             .toString(),
                       );
                     });

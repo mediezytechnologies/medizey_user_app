@@ -33,8 +33,7 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
               // }
               if (state is GetCompletedFeedBackAppointmentLoaded) {
                 final data = state.getCompletedAppointmentsModel;
-                return data.appointmentDetails == null ||
-                        data.appointmentDetails!.isEmpty
+                return data.appointmentDetails!.isEmpty
                     ? const SizedBox()
                     : ListView.builder(
                         padding: EdgeInsets.zero,
@@ -88,11 +87,11 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
                                           .appointmentDetails![index].doctorName
                                           .toString(),
                                       labName: data
-                                          .appointmentDetails![index].labName
+                                          .appointmentDetails![index].labCentreName
                                           .toString(),
                                       labTestName: data
-                                          .appointmentDetails![index].labTest
-                                          .toString(),
+                                          .appointmentDetails![index].labTest!
+                                          .toList(),
                                       note: data
                                           .appointmentDetails![index].notes
                                           .toString(),
@@ -124,11 +123,11 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
                                           .reviewAfter
                                           .toString(),
                                       scanningCenterName: data
-                                          .appointmentDetails![index].scanTest
+                                          .appointmentDetails![index].scanningCentreName
                                           .toString(),
                                       scanningTestName: data
-                                          .appointmentDetails![index].scanName
-                                          .toString(),
+                                          .appointmentDetails![index].scanTest!
+                                          .toList(),
                                       checkOutTime: data
                                           .appointmentDetails![index]
                                           .checkoutTime

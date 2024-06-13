@@ -135,8 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       fadeDuration:
                                           const Duration(milliseconds: 400),
                                       child: ClipOval(
-                                        child: (
-                                          getUserModel
+                                        child: (getUserModel
                                                     .userdetails!.userProfile ==
                                                 null
                                             ? Image.asset(
@@ -423,11 +422,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     isPhoneNumberRemoved &&
                                     isEmailRemoved) {
                                   AuthServiceGoogle.instance.logOut(context);
-                                  Navigator.pushReplacement(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const OnBoardingScreen(),
-                                    ),
+                                        builder: (context) =>
+                                            const OnBoardingScreen()),
+                                    (route) => false,
                                   );
                                 } else {
                                   GeneralServices.instance.showToastMessage(

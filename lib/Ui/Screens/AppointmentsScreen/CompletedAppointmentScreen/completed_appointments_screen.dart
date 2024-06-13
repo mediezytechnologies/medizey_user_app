@@ -128,6 +128,12 @@ class _CompletedAppointmentScreenState
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return CompletedAppointmentCardWidget(
+                                labTest: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].labTest!
+                                    .toList(),
+                                scanTest: getCompletedAppointmentsModel
+                                    .appointmentDetails![index].scanTest!
+                                    .toList(),
                                 whenItStart: getCompletedAppointmentsModel
                                     .appointmentDetails![index].symptomStartTime
                                     .toString(),
@@ -150,10 +156,7 @@ class _CompletedAppointmentScreenState
                                     .appointmentDetails![index].doctorName
                                     .toString(),
                                 labName: getCompletedAppointmentsModel
-                                    .appointmentDetails![index].labName
-                                    .toString(),
-                                labTestName: getCompletedAppointmentsModel
-                                    .appointmentDetails![index].labTest
+                                    .appointmentDetails![index].labCentreName
                                     .toString(),
                                 note: getCompletedAppointmentsModel
                                     .appointmentDetails![index].notes
@@ -191,11 +194,8 @@ class _CompletedAppointmentScreenState
                                     .toString(),
                                 scanningCenterName:
                                     getCompletedAppointmentsModel
-                                        .appointmentDetails![index].scanName
+                                        .appointmentDetails![index].scanningCentreName
                                         .toString(),
-                                scanningTestName: getCompletedAppointmentsModel
-                                    .appointmentDetails![index].scanTest
-                                    .toString(),
                               );
                             });
                   }
