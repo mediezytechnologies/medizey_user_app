@@ -135,7 +135,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       fadeDuration:
                                           const Duration(milliseconds: 400),
                                       child: ClipOval(
-                                        child: (getUserModel
+                                        child: (
+                                          getUserModel
                                                     .userdetails!.userProfile ==
                                                 null
                                             ? Image.asset(
