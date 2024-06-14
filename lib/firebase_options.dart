@@ -28,10 +28,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -67,4 +64,16 @@ class DefaultFirebaseOptions {
     iosClientId: '220538846317-1rlm7ejs8e8fb47dhiu7l1shnl6pid0f.apps.googleusercontent.com',
     iosBundleId: 'com.mediezy.mediezytechnology.user',
   );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDRB-DcMcdcL8rJrIDSvQrB6pQbyv2N6Jc',
+    appId: '1:220538846317:ios:35d4b2c83eb1ad4a7f5364',
+    messagingSenderId: '220538846317',
+    projectId: 'mediezy-28594',
+    storageBucket: 'mediezy-28594.appspot.com',
+    androidClientId: '220538846317-12616eal8rltihnngmt2hut7q8i6jgkq.apps.googleusercontent.com',
+    iosClientId: '220538846317-1rlm7ejs8e8fb47dhiu7l1shnl6pid0f.apps.googleusercontent.com',
+    iosBundleId: 'com.mediezy.mediezytechnology.user',
+  );
+
 }

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f.apps.googleusercontent.com</string>
+	<string>220538846317-1rlm7ejs8e8fb47dhiu7l1shnl6pid0f.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.220538846317-vnfv89k6tnpcmrpkqm3bn90j1vtd4v2f</string>
+	<string>com.googleusercontent.apps.220538846317-1rlm7ejs8e8fb47dhiu7l1shnl6pid0f</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>220538846317-ce1q4mncb7n193ov8qut8994g2d7974k.apps.googleusercontent.com</string>
+	<string>220538846317-12616eal8rltihnngmt2hut7q8i6jgkq.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDRB-DcMcdcL8rJrIDSvQrB6pQbyv2N6Jc</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.mediezyUser</string>
+	<string>com.mediezy.mediezytechnology.user</string>
 	<key>PROJECT_ID</key>
 	<string>mediezy-28594</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:220538846317:ios:d9f8cbf0459d286e7f5364</string>
+	<string>1:220538846317:ios:35d4b2c83eb1ad4a7f5364</string>
 </dict>
 </plist>

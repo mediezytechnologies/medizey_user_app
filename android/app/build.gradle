@@ -70,7 +70,7 @@ android {
     }
      buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -82,5 +82,5 @@ flutter {
 
 dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-    implementation platform('com.google.firebase:firebase-bom:33.0.0')
+    implementation platform('com.google.firebase:firebase-bom:33.1.0')
 }
