@@ -33,7 +33,7 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
               // }
               if (state is GetCompletedFeedBackAppointmentLoaded) {
                 final data = state.getCompletedAppointmentsModel;
-                return data.appointmentDetails!.isEmpty
+                return data.appointmentDetails == null || data.appointmentDetails!.isEmpty
                     ? const SizedBox()
                     : ListView.builder(
                         padding: EdgeInsets.zero,
