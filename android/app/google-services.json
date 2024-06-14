@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "220538846317-oe3r0l8bckg1ccqfu3de7ejf1o8a4vmb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mediezy.mediezy_user",
+            "certificate_hash": "ec14d811cdfa896a62d860afa2630e4a6ed8f493"
+          }
+        },
+        {
           "client_id": "220538846317-p6bpvs781d4jtpf7ng5nrlumddot3b4v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
