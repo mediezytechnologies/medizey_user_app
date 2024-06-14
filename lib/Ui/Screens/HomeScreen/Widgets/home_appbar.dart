@@ -95,30 +95,12 @@ class _HomeAappBarState extends State<HomeAappBar> {
                     const HorizontalSpacingWidget(width: 5),
                     GestureDetector(
                       onTap: () {
-                        locationController.fetchCountry().then(
-                              (value) =>
-                                  BlocProvider.of<UserLocationBloc>(context)
-                                      .add(
-                                UserLocationEvent.started(
-                                  locationController.latitude.value.toString(),
-                                  locationController.longitude.value.toString(),
-                                  locationController.dist.value,
-                                  locationController.locality.value,
-                                  locationController.locationAdress.value,
-                                ),
-                              ),
-                            );
-                        Future.delayed(const Duration(seconds: 1), () {
-                          BlocProvider.of<GetDoctorBloc>(context).add(
-                            FetchGetDoctor(),
-                          );
-                        });
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const LocationScreen(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LocationScreen(),
+                          ),
+                        );
                       },
                       child: Obx(() {
                         if (locationController.loding.value) {
