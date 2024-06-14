@@ -64,14 +64,14 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-   final size =MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-        bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -355,7 +355,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             ),
                           ),
                           Positioned(
-                            bottom: 0,
+                            bottom: Platform.isIOS ? 0.h : 10.h,
                             left: 10.w,
                             right: 10.w,
                             child: CommonButtonWidget(

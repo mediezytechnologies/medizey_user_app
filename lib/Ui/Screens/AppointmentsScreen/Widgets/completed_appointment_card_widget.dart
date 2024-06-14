@@ -19,16 +19,16 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
       required this.tokenTime,
       required this.patientName,
       required this.note,
-      required this.labTestName,
       required this.labName,
       required this.prescriptionImage,
       required this.prescriptions,
       required this.reviewAfter,
       required this.vitals,
       required this.scanningCenterName,
-      required this.scanningTestName,
       required this.whenItStart,
-      required this.whenItsCome});
+      required this.whenItsCome,
+      required this.labTest,
+      required this.scanTest});
 
   final String doctorName;
   final String doctorImage;
@@ -38,16 +38,18 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
   final String tokenTime;
   final String patientName;
   final String note;
-  final String labTestName;
+
   final String labName;
   final String prescriptionImage;
   final List<DoctorMedicines> prescriptions;
   final String reviewAfter;
   final List<Vitals> vitals;
   final String scanningCenterName;
-  final String scanningTestName;
+
   final String whenItStart;
   final String whenItsCome;
+  final List<String> labTest;
+  final List<String> scanTest;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
               doctorImage: doctorImage,
               doctorName: doctorName,
               labName: labName,
-              labTestName: labTestName,
+              labTestName: labTest,
               note: note,
               patientName: patientName,
               prescriptionImage: prescriptionImage,
@@ -73,7 +75,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
               reviewAfter: reviewAfter,
               vitals: vitals,
               scanningCenterName: scanningCenterName,
-              scanningTestName: scanningTestName,
+              scanningTestName: scanTest,
               whenItStart: whenItStart,
               whenItsCome: whenItsCome,
             ),
@@ -97,7 +99,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: FancyShimmerImage(
                           height: size.height * .12,
-                            width: size.width * .25,
+                          width: size.width * .25,
                           boxFit: BoxFit.contain,
                           errorWidget: const Image(
                             image: AssetImage("assets/icons/no data.png"),

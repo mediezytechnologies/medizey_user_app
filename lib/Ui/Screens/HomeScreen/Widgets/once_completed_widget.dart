@@ -46,19 +46,19 @@ class OnceCompletedWidget extends StatelessWidget {
   final String tokenTime;
   final String patientName;
   final String note;
-  final String labTestName;
   final String labName;
   final String prescriptionImage;
   final List<DoctorMedicines> prescriptions;
   final String reviewAfter;
   final List<Vitals> vitals;
   final String scanningCenterName;
-  final String scanningTestName;
   final String whenItStart;
   final String whenItsCome;
   final String checkInTime;
   final String checkOutTime;
   final int appointmentId;
+  final List<String> labTestName;
+  final List<String> scanningTestName;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +110,7 @@ class OnceCompletedWidget extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: FancyShimmerImage(
-                         height: size.height * .13,
+                        height: size.height * .13,
                         width: size.width * .21,
                         boxFit: BoxFit.contain,
                         errorWidget: const Image(
@@ -177,18 +177,14 @@ class OnceCompletedWidget extends StatelessWidget {
                 ),
               ],
             ),
-            labTestName == "null"
+            labName == "null"
                 ? const SizedBox()
-                : scanningTestName == "null"
-                    ? const SizedBox()
-                    : RowTextWidget(heading: "Lab test", data: labTestName),
+                :RowTextWidget(heading: "Lab center", data: labName),
             const VerticalSpacingWidget(height: 2),
             scanningCenterName == "null"
                 ? const SizedBox()
-                : scanningTestName == "null"
-                    ? const SizedBox()
-                    : RowTextWidget(
-                        heading: "Scan test", data: scanningCenterName),
+                :  RowTextWidget(
+                        heading: "Scanning center", data: scanningCenterName),
             const VerticalSpacingWidget(height: 2),
             ListView.builder(
                 padding: EdgeInsets.zero,

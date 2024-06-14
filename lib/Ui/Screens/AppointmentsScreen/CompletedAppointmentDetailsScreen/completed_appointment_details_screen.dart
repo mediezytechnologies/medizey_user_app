@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
-import 'package:mediezy_user/pdf_demo.dart';
 import '../../../Consts/text_style.dart';
 import '../../../CommonWidgets/row_text_widget.dart';
 import 'widget/image_view_widget.dart';
@@ -44,33 +43,30 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
   final String tokenTime;
   final String patientName;
   final String note;
-  final String labTestName;
   final String labName;
   final String prescriptionImage;
   final List<DoctorMedicines> prescriptions;
   final String reviewAfter;
   final List<Vitals> vitals;
   final String scanningCenterName;
-  final String scanningTestName;
   final String whenItStart;
   final String whenItsCome;
+  final List<String> labTestName;
+  final List<String> scanningTestName;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-       bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         title: const Text("Appointment Details"),
         centerTitle: true,
-        actions: [
-       //   PdfDownloadButton(doctorImage: doctorImage,)
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -251,14 +247,6 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              labTestName == "null"
-                  ? Container()
-                  : Column(
-                      children: [
-                        RowTextWidget(heading: "Lab test", data: labTestName),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
               labName == "null"
                   ? Container()
                   : Column(
@@ -267,12 +255,26 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              scanningTestName == "null"
+              labTestName.isEmpty
                   ? Container()
                   : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        RowTextWidget(
-                            heading: "Scanning test", data: scanningTestName),
+                        Text("Lab tests : ", style: grey12B500),
+                        const VerticalSpacingWidget(height: 2),
+                        ListView.builder(
+                            itemCount: labTestName.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Row(
+                                children: [
+                                  Text("${index + 1}.", style: grey12B500),
+                                  const HorizontalSpacingWidget(width: 5),
+                                  Text(labTestName[index], style: black13B500),
+                                ],
+                              );
+                            }),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
@@ -283,6 +285,29 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         RowTextWidget(
                             heading: "Scanning center name",
                             data: scanningCenterName),
+                        const VerticalSpacingWidget(height: 5),
+                      ],
+                    ),
+              scanningTestName.isEmpty
+                  ? Container()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Lab tests : ", style: grey12B500),
+                        const VerticalSpacingWidget(height: 2),
+                        ListView.builder(
+                            itemCount: scanningTestName.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Row(
+                                children: [
+                                  Text("${index + 1}.", style: grey12B500),
+                                  const HorizontalSpacingWidget(width: 5),
+                                  Text(scanningTestName[index], style: black13B500),
+                                ],
+                              );
+                            }),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
