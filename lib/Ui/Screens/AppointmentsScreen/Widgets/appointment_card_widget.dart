@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -19,9 +20,6 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-
-import '../../../../ddd/application/questionare/get_questionare_symptom/get_questionare_symptom_bloc_bloc.dart';
-import '../../HomeScreen/QuestionnaireScreen/common_symptoms_screen.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
   const AppointmentCardWidget(
@@ -292,7 +290,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                   height: size.height * .075,
                                   width: size.width * .5,
                                   child: Text(
-                                    "You failed to reach on time, So your token will be considered as the last token",
+                                    "You failed to arrive on time. The next slots have been assigned to others, so you will have to waite a long time.",
                                     style: red11B600,
                                     maxLines: 3,
                                   ),
@@ -538,6 +536,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   const VerticalSpacingWidget(height: 5),
                   GestureDetector(
                     onTap: () {
+                      log("kdjfksjkf");
                       if (currentTime.isBefore(
                         appointmentDateTime.subtract(
                           const Duration(hours: 5),

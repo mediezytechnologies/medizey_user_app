@@ -41,6 +41,9 @@ final black10B500 =
 final black11B500 =
     TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: kTextColor);
 
+    final black3B400 = TextStyle(
+    fontSize: 14.sp, color: kTextColor, fontWeight: FontWeight.bold);
+
 //* grey
 
 final grey10B400 = TextStyle(
