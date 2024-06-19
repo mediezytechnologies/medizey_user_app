@@ -1648,9 +1648,23 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                  "Consultation fee (pay at clinic)",
-                                                  style: grey13B400),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: 'Consultation fee (',
+                                                  style: grey13B400,
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                        text: ' pay at clinic ',
+                                                        style: black14B600),
+                                                    TextSpan(
+                                                        text: ')',
+                                                        style: grey13B400),
+                                                  ],
+                                                ),
+                                              ),
+                                              // Text(
+                                              //     "Consultation fee (pay at clinic)",
+                                              //     style: grey13B400),
                                               Row(
                                                 children: [
                                                   // Transform.scale(
