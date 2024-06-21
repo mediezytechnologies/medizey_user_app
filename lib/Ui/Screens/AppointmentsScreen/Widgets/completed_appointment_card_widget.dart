@@ -28,7 +28,8 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
       required this.whenItStart,
       required this.whenItsCome,
       required this.labTest,
-      required this.scanTest});
+      required this.scanTest,
+      required this.medicalStoreName});
 
   final String doctorName;
   final String doctorImage;
@@ -38,18 +39,17 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
   final String tokenTime;
   final String patientName;
   final String note;
-
   final String labName;
   final String prescriptionImage;
   final List<DoctorMedicines> prescriptions;
   final String reviewAfter;
   final List<Vitals> vitals;
   final String scanningCenterName;
-
   final String whenItStart;
   final String whenItsCome;
   final List<String> labTest;
   final List<String> scanTest;
+  final String medicalStoreName;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +60,7 @@ class CompletedAppointmentCardWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => CompletedAppointmentDetailsScreen(
+              medicalStoreName: medicalStoreName,
               prescriptions: prescriptions,
               clinicName: clinicName,
               doctorImage: doctorImage,

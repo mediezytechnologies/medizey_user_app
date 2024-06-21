@@ -1,15 +1,18 @@
 import 'dart:io';
-import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
-import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import '../../../CommonWidgets/horizontal_spacing_widget.dart';
+import '../../../Consts/app_colors.dart';
 import '../../../Consts/text_style.dart';
-import '../../../CommonWidgets/row_text_widget.dart';
+import 'widget/additional_card_widget.dart';
 import 'widget/image_view_widget.dart';
 import 'widget/medicine_widget.dart';
+import 'widget/review_after_note_widget.dart';
+import 'widget/scan_lab_widget.dart';
+import 'widget/user_section_widget.dart';
 import 'widget/vitals_widget.dart';
 
 class CompletedAppointmentDetailsScreen extends StatelessWidget {
@@ -33,6 +36,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
     required this.scanningTestName,
     required this.whenItStart,
     required this.whenItsCome,
+    required this.medicalStoreName,
   });
 
   final String doctorName;
@@ -53,6 +57,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
   final String whenItsCome;
   final List<String> labTestName;
   final List<String> scanningTestName;
+  final String medicalStoreName;
 
   @override
   Widget build(BuildContext context) {
@@ -74,110 +79,27 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  FadedScaleAnimation(
-                    scaleDuration: const Duration(milliseconds: 400),
-                    fadeDuration: const Duration(milliseconds: 400),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FancyShimmerImage(
-                          height: size.height * .13,
-                          width: size.width * .32,
-                          boxFit: BoxFit.contain,
-                          errorWidget: const Image(
-                            image: AssetImage("assets/icons/no data.png"),
-                          ),
-                          imageUrl: doctorImage),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          width: size.width * .45,
-                          child: Text(
-                            "Dr $doctorName",
-                            style: black14B600,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * .45,
-                          child: Text(
-                            clinicName,
-                            style: grey12B500,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                Text("$tokenDate | ", style: black12B500),
-                                Text(tokenTime, style: black12B500),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                        Row(
-                          children: [
-                            Text("For: ", style: grey12B500),
-                            SizedBox(
-                              width: size.width * .45,
-                              child: Text(
-                                patientName,
-                                style: black12B500,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              UserSectionWidget(
+                  size: size,
+                  doctorImage: doctorImage,
+                  doctorName: doctorName,
+                  clinicName: clinicName,
+                  tokenDate: tokenDate,
+                  tokenTime: tokenTime,
+                  patientName: patientName),
               const VerticalSpacingWidget(height: 5),
               Text("Additional Details", style: grey13B600),
               const VerticalSpacingWidget(height: 5),
-              RowTextWidget(heading: "Appointment for", data: symptoms),
-              const VerticalSpacingWidget(height: 5),
-              whenItStart == "null"
-                  ? Container()
-                  : Column(
-                      children: [
-                        RowTextWidget(
-                          heading: "When did start",
-                          data: whenItsCome,
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
-              whenItsCome == "null"
-                  ? Container()
-                  : Column(
-                      children: [
-                        RowTextWidget(
-                          heading: "Intensity",
-                          data: whenItStart,
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
+              AdditionalCardWidget(
+                  size: size,
+                  symptoms: symptoms,
+                  whenItsCome: whenItsCome,
+                  whenItStart: whenItStart),
               vitals.isNotEmpty
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const VerticalSpacingWidget(height: 5),
                         Text("Vitals : ", style: black13B500),
                         const VerticalSpacingWidget(height: 5),
                         ListView.builder(
@@ -207,127 +129,99 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                       children: [
                         Text("Medicines : ", style: black13B500),
                         const VerticalSpacingWidget(height: 5),
-                        ListView.builder(
-                            itemCount: prescriptions.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return MedicineWidget(
-                                medicalStoreName: prescriptions[index]
-                                    .medicalStoreName
-                                    .toString(),
-                                medicineName: prescriptions[index]
-                                    .medicineName
-                                    .toString(),
-                                dosage: prescriptions[index].dosage.toString(),
-                                intervel:
-                                    prescriptions[index].interval.toString(),
-                                intervelSection:
-                                    prescriptions[index].timeSection.toString(),
-                                noOfDays:
-                                    prescriptions[index].noOfDays.toString(),
-                                morning: prescriptions[index].morning!,
-                                noon: prescriptions[index].noon!,
-                                evening: prescriptions[index].evening!,
-                                night: prescriptions[index].night!,
-                                foodType: prescriptions[index].type!,
-                              );
-                            }),
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: kCardColor,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text("Medical store name : ",
+                                      style: grey12B500),
+                                  const HorizontalSpacingWidget(width: 5),
+                                  SizedBox(
+                                    width: size.width * .50,
+                                    child: Text(
+                                      medicalStoreName,
+                                      style: black13B500,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const VerticalSpacingWidget(height: 2),
+                              ListView.builder(
+                                  itemCount: prescriptions.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return MedicineWidget(
+                                      medicineName: prescriptions[index]
+                                          .medicineName
+                                          .toString(),
+                                      dosage: prescriptions[index]
+                                          .dosage
+                                          .toString(),
+                                      intervel: prescriptions[index]
+                                          .interval
+                                          .toString(),
+                                      intervelSection: prescriptions[index]
+                                          .timeSection
+                                          .toString(),
+                                      noOfDays: prescriptions[index]
+                                          .noOfDays
+                                          .toString(),
+                                      morning: prescriptions[index].morning!,
+                                      noon: prescriptions[index].noon!,
+                                      evening: prescriptions[index].evening!,
+                                      night: prescriptions[index].night!,
+                                      foodType: prescriptions[index].type!,
+                                    );
+                                  }),
+                            ],
+                          ),
+                        ),
                       ],
                     )
                   : Container(),
-              reviewAfter == "null"
-                  ? Container()
-                  : Column(
-                      children: [
-                        RowTextWidget(
-                          heading: "Review after",
-                          data: "$reviewAfter days",
-                        ),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
-              labName == "null"
-                  ? Container()
-                  : Column(
-                      children: [
-                        RowTextWidget(heading: "Lab Name", data: labName),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
+              const VerticalSpacingWidget(height: 5),
               labTestName.isEmpty
-                  ? Container()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Lab tests : ", style: grey12B500),
-                        const VerticalSpacingWidget(height: 2),
-                        ListView.builder(
-                            itemCount: labTestName.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return Row(
-                                children: [
-                                  Text("${index + 1}.", style: grey12B500),
-                                  const HorizontalSpacingWidget(width: 5),
-                                  Text(labTestName[index], style: black13B500),
-                                ],
-                              );
-                            }),
-                        const VerticalSpacingWidget(height: 5),
-                      ],
-                    ),
-              scanningCenterName == "null"
-                  ? Container()
+                  ? const SizedBox()
                   : Column(
                       children: [
-                        RowTextWidget(
-                            heading: "Scanning center name",
-                            data: scanningCenterName),
+                        ScanLabWidget(
+                          labOrScanCenterName: labName,
+                          labOrScan: "Lab name",
+                          testLabOrScan: "Lab tests",
+                          testNames: labTestName,
+                        ),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
               scanningTestName.isEmpty
-                  ? Container()
+                  ? const SizedBox()
                   : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Lab tests : ", style: grey12B500),
-                        const VerticalSpacingWidget(height: 2),
-                        ListView.builder(
-                            itemCount: scanningTestName.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return Row(
-                                children: [
-                                  Text("${index + 1}.", style: grey12B500),
-                                  const HorizontalSpacingWidget(width: 5),
-                                  Text(scanningTestName[index], style: black13B500),
-                                ],
-                              );
-                            }),
+                        ScanLabWidget(
+                          labOrScanCenterName: scanningCenterName,
+                          labOrScan: "Scanning center name",
+                          testLabOrScan: "Scan tests",
+                          testNames: scanningTestName,
+                        ),
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              note == "null"
-                  ? Container()
-                  : Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Additional notes : ", style: grey12B500),
-                        const VerticalSpacingWidget(height: 2),
-                        Expanded(
-                          child: Text(note, style: black13B500),
-                        ),
-                      ],
-                    ),
+              ReviewAfterAndNoteWidget(reviewAfter: reviewAfter, note: note),
               prescriptionImage == "null"
                   ? Container()
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const VerticalSpacingWidget(height: 5),
                         Text("Prescription image : ", style: black13B500),
                         const VerticalSpacingWidget(height: 5),
                         Center(
@@ -344,7 +238,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FancyShimmerImage(
-                                  height: size.height * .3,
+                                  height: size.height * .2,
                                   boxFit: BoxFit.cover,
                                   errorWidget: const Image(
                                     image: AssetImage(
@@ -358,7 +252,6 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              const VerticalSpacingWidget(height: 5)
             ],
           ),
         ),

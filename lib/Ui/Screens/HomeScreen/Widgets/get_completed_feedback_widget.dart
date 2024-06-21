@@ -33,7 +33,8 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
               // }
               if (state is GetCompletedFeedBackAppointmentLoaded) {
                 final data = state.getCompletedAppointmentsModel;
-                return data.appointmentDetails == null || data.appointmentDetails!.isEmpty
+                return data.appointmentDetails == null ||
+                        data.appointmentDetails!.isEmpty
                     ? const SizedBox()
                     : ListView.builder(
                         padding: EdgeInsets.zero,
@@ -54,6 +55,10 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
                                     ),
                                     const VerticalSpacingWidget(height: 2),
                                     OnceCompletedWidget(
+                                      medicalStoreName: data
+                                          .appointmentDetails![index]
+                                          .medicalStoreName
+                                          .toString(),
                                       appointmentId: data
                                           .appointmentDetails![index]
                                           .appointmentId!,
@@ -86,8 +91,8 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
                                       doctorName: data
                                           .appointmentDetails![index].doctorName
                                           .toString(),
-                                      labName: data
-                                          .appointmentDetails![index].labCentreName
+                                      labName: data.appointmentDetails![index]
+                                          .labCentreName
                                           .toString(),
                                       labTestName: data
                                           .appointmentDetails![index].labTest!
@@ -123,7 +128,8 @@ class GetCompletedFeedbackWidget extends StatelessWidget {
                                           .reviewAfter
                                           .toString(),
                                       scanningCenterName: data
-                                          .appointmentDetails![index].scanningCentreName
+                                          .appointmentDetails![index]
+                                          .scanningCentreName
                                           .toString(),
                                       scanningTestName: data
                                           .appointmentDetails![index].scanTest!

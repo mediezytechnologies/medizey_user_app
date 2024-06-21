@@ -36,7 +36,7 @@ class OnceCompletedWidget extends StatelessWidget {
       required this.whenItsCome,
       required this.checkInTime,
       required this.checkOutTime,
-      required this.appointmentId});
+      required this.appointmentId, required this.medicalStoreName});
 
   final String doctorName;
   final String doctorImage;
@@ -59,6 +59,7 @@ class OnceCompletedWidget extends StatelessWidget {
   final int appointmentId;
   final List<String> labTestName;
   final List<String> scanningTestName;
+  final String medicalStoreName;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +70,7 @@ class OnceCompletedWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => CompletedAppointmentDetailsScreen(
+              medicalStoreName: medicalStoreName,
               prescriptions: prescriptions,
               clinicName: clinicName,
               doctorImage: doctorImage,

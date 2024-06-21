@@ -8,7 +8,6 @@ import '../../../../Consts/app_colors.dart';
 class MedicineWidget extends StatelessWidget {
   const MedicineWidget(
       {super.key,
-      required this.medicalStoreName,
       required this.medicineName,
       required this.dosage,
       required this.foodType,
@@ -20,7 +19,6 @@ class MedicineWidget extends StatelessWidget {
       required this.evening,
       required this.night});
 
-  final String medicalStoreName;
   final String medicineName;
   final String dosage;
   final int foodType;
@@ -40,29 +38,11 @@ class MedicineWidget extends StatelessWidget {
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        color: kCardColor,
+        color: kScaffoldColor,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          medicalStoreName == 'null'
-              ? const SizedBox()
-              : Row(
-                  children: [
-                    Text("Medical store name : ", style: grey12B500),
-                    const HorizontalSpacingWidget(width: 5),
-                    SizedBox(
-                      width: size.width * .50,
-                      child: Text(
-                        medicalStoreName,
-                        style: black13B500,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
-                  ],
-                ),
-          const VerticalSpacingWidget(height: 2),
           Row(
             children: [
               Text("Medicine Name : ", style: grey12B500),
@@ -80,21 +60,34 @@ class MedicineWidget extends StatelessWidget {
           const VerticalSpacingWidget(height: 2),
           Row(
             children: [
-              Text("Dosage : ", style: grey12B500),
+              dosage == 'null'
+                  ? const SizedBox()
+                  : Text("Dosage : ", style: grey12B500),
               dosage == 'null'
                   ? const SizedBox()
                   : Text(dosage, style: black13B500),
               Text(
-                  foodType == 0
-                      ? ""
-                      : foodType == 1
-                          ? " - After food"
-                          : (foodType == 2)
-                              ? " - Before food"
-                              : (foodType == 3)
-                                  ? " - With food"
-                                  : " - If required",
-                  style: black13B500)
+                dosage == 'null'
+                    ? (foodType == 0
+                        ? ""
+                        : foodType == 1
+                            ? "After food"
+                            : (foodType == 2)
+                                ? "Before food"
+                                : (foodType == 3)
+                                    ? "With food"
+                                    : "If required")
+                    : (foodType == 0
+                        ? ""
+                        : foodType == 1
+                            ? " - After food"
+                            : (foodType == 2)
+                                ? " - Before food"
+                                : (foodType == 3)
+                                    ? " - With food"
+                                    : " - If required"),
+                style: black13B500,
+              ),
             ],
           ),
           const VerticalSpacingWidget(height: 2),

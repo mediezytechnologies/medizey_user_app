@@ -60,6 +60,10 @@ class _UpcommingAppoimentState extends State<UpcommingAppoiment> {
                                   .upcomingAppointments!.length,
                           itemBuilder: (context, index) {
                             return AppointmentCardWidget(
+                              nextAvailableTimes: getUpComingAppointmentsModel
+                                  .upcomingAppointments![index]
+                                  .nextAvailableSchedule
+                                  .toString(),
                               sheduleLateMessage: getUpComingAppointmentsModel
                                   .upcomingAppointments![index]
                                   .sheduleLateMessage

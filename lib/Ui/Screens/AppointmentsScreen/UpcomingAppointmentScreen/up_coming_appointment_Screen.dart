@@ -159,6 +159,11 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                                   .upcomingAppointments!.length,
                               itemBuilder: (context, index) {
                                 return AppointmentCardWidget(
+                                  nextAvailableTimes:
+                                      getUpComingAppointmentsModel
+                                          .upcomingAppointments![index]
+                                          .nextAvailableSchedule
+                                          .toString(),
                                   sheduleLateMessage:
                                       getUpComingAppointmentsModel
                                           .upcomingAppointments![index]

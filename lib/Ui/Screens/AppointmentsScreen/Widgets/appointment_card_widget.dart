@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
@@ -50,7 +52,8 @@ class AppointmentCardWidget extends StatefulWidget {
       required this.doctorUniqueId,
       required this.isReached,
       required this.isCheckIn,
-      required this.sheduleLateMessage});
+      required this.sheduleLateMessage,
+      required this.nextAvailableTimes});
 
   final String doctorId;
   final String docterImage;
@@ -79,6 +82,7 @@ class AppointmentCardWidget extends StatefulWidget {
   final int isReached;
   final int isCheckIn;
   final String sheduleLateMessage;
+  final String nextAvailableTimes;
 
   @override
   State<AppointmentCardWidget> createState() => _AppointmentCardWidgetState();
@@ -119,8 +123,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: FancyShimmerImage(
-                        height: size.height * .13,
-                        width: size.width * .23,
+                        height: size.height * .12,
+                        width: size.width * .22,
                         boxFit: BoxFit.contain,
                         errorWidget: const Image(
                           image: AssetImage("assets/icons/no data.png"),
@@ -291,8 +295,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                   width: size.width * .5,
                                   child: Text(
                                     "You failed to arrive on time. The next slots have been assigned to others, so you will have to waite a long time.",
-                                    style: red11B600,
-                                    maxLines: 3,
+                                    style: red10B500,
+                                    maxLines: 4,
                                   ),
                                 )
                               : Row(
@@ -612,6 +616,20 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
     );
   }
 
+  String _getFormattedDate(String nextAvailableDateAndTime) {
+    final now = DateTime.now();
+    final formatter = DateFormat('dd-MM-yyyy');
+    final nextAvailableDate = formatter.parse(nextAvailableDateAndTime);
+
+    if (nextAvailableDate.difference(now).inDays == 0) {
+      return 'Today';
+    } else if (nextAvailableDate.difference(now).inDays == 1) {
+      return 'Tomorrow';
+    } else {
+      return nextAvailableDateAndTime;
+    }
+  }
+
   Future<dynamic> showAvailableToken(
       BuildContext context, String resheduleType) {
     final height = MediaQuery.of(context).size.height;
@@ -634,7 +652,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
               ),
               const VerticalSpacingWidget(height: 5),
               Text(
-                "Next Available Token details",
+                "Next Available",
                 style: black12B500,
                 textAlign: TextAlign.center,
               ),
@@ -649,18 +667,18 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                 ),
                 child: Column(
                   children: [
-                    widget.nextAvailableTokenNumber == "0"
+                    widget.nextAvailableDateAndTime == "null"
                         ? const SizedBox()
                         : Text(
-                            "Token No : ${widget.nextAvailableTokenNumber}",
+                            _getFormattedDate(widget.nextAvailableDateAndTime),
                             style: black14B600,
                             textAlign: TextAlign.center,
                           ),
                     const VerticalSpacingWidget(height: 3),
-                    widget.nextAvailableDateAndTime == "null"
+                    widget.nextAvailableTimes == "null"
                         ? const SizedBox()
                         : Text(
-                            widget.nextAvailableDateAndTime,
+                            widget.nextAvailableTimes,
                             style: black14B600,
                             textAlign: TextAlign.center,
                           ),
@@ -757,7 +775,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
               ),
               const VerticalSpacingWidget(height: 5),
               Text(
-                "Next Available Token details",
+                "Next Available",
                 style: black12B500,
                 textAlign: TextAlign.center,
               ),
@@ -772,7 +790,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                 ),
                 child: Column(
                   children: [
-                    widget.nextAvailableTokenNumber == "0"
+                    widget.nextAvailableTokenNumber == "null"
                         ? const SizedBox()
                         : Text(
                             "Token No : ${widget.nextAvailableTokenNumber}",
@@ -783,7 +801,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     widget.nextAvailableDateAndTime == "null"
                         ? const SizedBox()
                         : Text(
-                            widget.nextAvailableDateAndTime,
+                            _getFormattedDate(widget.nextAvailableDateAndTime),
                             style: black14B600,
                             textAlign: TextAlign.center,
                           ),

@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:http/http.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_completed_appointments_model.dart';
 import 'package:mediezy_user/Model/GetAppointments/get_upcoming_appointments_model.dart';
@@ -18,6 +17,7 @@ class GetAppointmentApi {
     final preference = await SharedPreferences.getInstance();
     userId = preference.getString('userId').toString();
     String basePath = "patient/upcomingEstimateCalculation/$userId";
+    // final body = {"user_id": userId};
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
     return GetUpComingAppointmentsModel.fromJson(json.decode(response.body));

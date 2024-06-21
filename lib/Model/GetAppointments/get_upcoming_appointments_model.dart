@@ -73,50 +73,51 @@ class UpcomingAppointments {
   OtherSymptom? otherSymptom;
   bool? patientAbsent;
   String? sheduleLateMessage;
+  String? nextAvailableSchedule;
 
-  UpcomingAppointments({
-    this.tokenId,
-    this.doctorId,
-    this.patientId,
-    this.tokenNumber,
-    this.tokenStartTime,
-    this.tokenScheduledDate,
-    this.doctorLateTime,
-    this.doctorEarlyTime,
-    this.doctorBreakTime,
-    this.tokenBookedTime,
-    this.isCheckedin,
-    this.isCheckedout,
-    this.checkinTime,
-    this.checkoutTime,
-    this.extraTimeTaken,
-    this.lessTimeTaken,
-    this.isReserved,
-    this.isReached,
-    this.rescheduleType,
-    this.checkinChange,
-    this.checkoutChange,
-    this.estimateOfNextToken,
-    this.estimateCheckinTime,
-    this.newEstimateTime,
-    this.scheduleStartTime,
-    this.leaveStatus,
-    this.tokenBookedDate,
-    this.liveToken,
-    this.patientName,
-    this.doctorName,
-    this.doctorImage,
-    this.clinicName,
-    this.estimateArrivalTime,
-    this.mediezyDoctorId,
-    this.mainSymptoms,
-    this.nextAvailableTokenNumber,
-    this.nextAvailableTokenDate,
-    this.clinics,
-    this.otherSymptom,
-    this.patientAbsent,
-    this.sheduleLateMessage,
-  });
+  UpcomingAppointments(
+      {this.tokenId,
+      this.doctorId,
+      this.patientId,
+      this.tokenNumber,
+      this.tokenStartTime,
+      this.tokenScheduledDate,
+      this.doctorLateTime,
+      this.doctorEarlyTime,
+      this.doctorBreakTime,
+      this.tokenBookedTime,
+      this.isCheckedin,
+      this.isCheckedout,
+      this.checkinTime,
+      this.checkoutTime,
+      this.extraTimeTaken,
+      this.lessTimeTaken,
+      this.isReserved,
+      this.isReached,
+      this.rescheduleType,
+      this.checkinChange,
+      this.checkoutChange,
+      this.estimateOfNextToken,
+      this.estimateCheckinTime,
+      this.newEstimateTime,
+      this.scheduleStartTime,
+      this.leaveStatus,
+      this.tokenBookedDate,
+      this.liveToken,
+      this.patientName,
+      this.doctorName,
+      this.doctorImage,
+      this.clinicName,
+      this.estimateArrivalTime,
+      this.mediezyDoctorId,
+      this.mainSymptoms,
+      this.nextAvailableTokenNumber,
+      this.nextAvailableTokenDate,
+      this.clinics,
+      this.otherSymptom,
+      this.patientAbsent,
+      this.sheduleLateMessage,
+      this.nextAvailableSchedule});
 
   UpcomingAppointments.fromJson(Map<String, dynamic> json) {
     tokenId = json['token_id'];
@@ -169,6 +170,7 @@ class UpcomingAppointments {
         : null;
     patientAbsent = json['patient_absent'];
     sheduleLateMessage = json['schedule_late_message'];
+    nextAvailableSchedule = json['next_available_schedule'];
   }
 
   Map<String, dynamic> toJson() {
@@ -220,6 +222,7 @@ class UpcomingAppointments {
     }
     data['patient_absent'] = patientAbsent;
     data['schedule_late_message'] = sheduleLateMessage;
+    data['next_available_schedule'] = nextAvailableSchedule;
     return data;
   }
 }

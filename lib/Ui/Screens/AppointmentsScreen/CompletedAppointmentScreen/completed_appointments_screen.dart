@@ -128,6 +128,10 @@ class _CompletedAppointmentScreenState
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return CompletedAppointmentCardWidget(
+                                medicalStoreName: getCompletedAppointmentsModel
+                                    .appointmentDetails![index]
+                                    .medicalStoreName
+                                    .toString(),
                                 labTest: getCompletedAppointmentsModel
                                     .appointmentDetails![index].labTest!
                                     .toList(),
@@ -194,7 +198,8 @@ class _CompletedAppointmentScreenState
                                     .toString(),
                                 scanningCenterName:
                                     getCompletedAppointmentsModel
-                                        .appointmentDetails![index].scanningCentreName
+                                        .appointmentDetails![index]
+                                        .scanningCentreName
                                         .toString(),
                               );
                             });
