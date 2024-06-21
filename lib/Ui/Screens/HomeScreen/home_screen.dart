@@ -38,8 +38,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController suggestionController = TextEditingController();
-  // bool _notificationsEnabled = false;
-  // final NotificationServices _notificationServices = NotificationServices();
+ 
 
   late Timer pollingTimer;
   bool isLoading = true;

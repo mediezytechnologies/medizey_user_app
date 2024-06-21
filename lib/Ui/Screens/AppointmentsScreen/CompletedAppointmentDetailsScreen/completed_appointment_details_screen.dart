@@ -215,7 +215,10 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
-              ReviewAfterAndNoteWidget(reviewAfter: reviewAfter, note: note),
+              reviewAfter == "null" && note == "null"
+                  ? const SizedBox()
+                  : ReviewAfterAndNoteWidget(
+                      reviewAfter: reviewAfter, note: note),
               prescriptionImage == "null"
                   ? Container()
                   : Column(

@@ -48,13 +48,14 @@ class _EditPrescriptionScreenState extends State<EditPrescriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size=MediaQuery.of(context).size;
-    return Scaffold(  bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         title: const Text("Edit Prescription"),
         centerTitle: true,
@@ -256,7 +257,7 @@ class _EditPrescriptionScreenState extends State<EditPrescriptionScreen> {
                       ),
                       const VerticalSpacingWidget(height: 20),
                       CommonButtonWidget(
-                       widget: Text("Update", style: white13B700),
+                        widget: Text("Update", style: white13B700),
                         onTapFunction: () {
                           if (imageFromGallery != null) {
                             BlocProvider.of<UploadDocumentFinalBloc>(context)
@@ -316,14 +317,15 @@ class _EditPrescriptionScreenState extends State<EditPrescriptionScreen> {
 
   Future pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery,imageQuality: 85);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
     if (pickedFile != null) {
       File compressedImage = File(pickedFile.path);
       setState(() {
         editedImage = compressedImage;
       });
-      imageFromGallery =  compressedImage;
+      imageFromGallery = compressedImage;
     } else {
       GeneralServices.instance.showToastMessage('No image selected');
     }

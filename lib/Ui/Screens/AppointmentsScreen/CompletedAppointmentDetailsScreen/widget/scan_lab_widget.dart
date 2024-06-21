@@ -68,7 +68,6 @@ class ScanLabWidget extends StatelessWidget {
                   ),
                 );
               }),
-          const VerticalSpacingWidget(height: 5),
         ],
       ),
     );

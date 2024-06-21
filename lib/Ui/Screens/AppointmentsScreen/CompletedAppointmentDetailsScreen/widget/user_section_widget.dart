@@ -40,16 +40,25 @@ class UserSectionWidget extends StatelessWidget {
           FadedScaleAnimation(
             scaleDuration: const Duration(milliseconds: 400),
             fadeDuration: const Duration(milliseconds: 400),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: FancyShimmerImage(
-                  height: size.height * .13,
-                  width: size.width * .32,
-                  boxFit: BoxFit.contain,
+            child: Container(
+              height: size.width * .26,
+              width: size.width * .26,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50.r),
+                color: Colors.grey.shade400,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50.r),
+                child: FancyShimmerImage(
+                  height: size.height * .15,
+                  width: size.width * .2,
+                  boxFit: BoxFit.cover,
                   errorWidget: const Image(
-                    image: AssetImage("assets/icons/no data.png"),
+                    image: AssetImage("assets/icons/no image.png"),
                   ),
-                  imageUrl: doctorImage),
+                  imageUrl: doctorImage,
+                ),
+              ),
             ),
           ),
           Padding(
