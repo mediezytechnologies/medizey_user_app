@@ -61,13 +61,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Future.value(false);
       },
       child: Scaffold(
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () async {
-        //     final preferences = await SharedPreferences.getInstance();
-        //     String? token = preferences.getString('token');
-        //     log("Token >>>>> $token");
-        //   },
-        // ),
         appBar: AppBar(
           title: const Text("Account"),
           centerTitle: true,
@@ -134,7 +127,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           const Duration(milliseconds: 400),
                                       fadeDuration:
                                           const Duration(milliseconds: 400),
-                                      child: ClipOval(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50.r),
                                         child: (getUserModel
                                                     .userdetails!.userProfile ==
                                                 null
@@ -223,8 +217,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
                   const VerticalSpacingWidget(height: 5),
-
-                  //! profile card items
                   Row(
                     children: [
                       Expanded(

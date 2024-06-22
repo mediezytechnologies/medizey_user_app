@@ -50,7 +50,6 @@ import 'package:mediezy_user/Repository/Bloc/Profile/GetUser/get_user_bloc.dart'
 import 'package:mediezy_user/Repository/Bloc/Profile/UploadUserImage/upload_user_image_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/QRCodeScan/qr_code_scan_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/Suggestion/suggestion_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/ContactUs/contact_us_bloc.dart';
 import 'package:mediezy_user/ddd/application/add_member_image/add_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member/edit_member_bloc.dart';
@@ -68,6 +67,7 @@ import '../../ddd/application/add_members/add_members_bloc.dart';
 import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../ddd/application/forgot_password/forget_password_three/forget_password_three_bloc.dart';
 import '../../ddd/application/forgot_password/forget_password_two/forget_password_two_bloc.dart';
+import '../../ddd/application/get_banner/get_banner_bloc.dart';
 import '../../ddd/application/get_recently_booked_doctor/get_recently_booked_doctor_bloc.dart';
 import '../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../ddd/application/questionare/get_questionare_symptom/get_questionare_symptom_bloc_bloc.dart';
@@ -120,7 +120,6 @@ class AppBlocProviders {
         BlocProvider(create: (context) => AddMedicineBloc()),
         BlocProvider(create: (context) => DoctorRecommendBloc()),
         BlocProvider(create: (context) => GetClinicBloc()),
-        BlocProvider(create: (context) => BannerBloc()),
         BlocProvider(create: (context) => DeleteMedicineBloc()),
         BlocProvider(create: (context) => UpdateMedicineBloc()),
         BlocProvider(create: (context) => GetUploadedLabReportBloc()),
@@ -162,5 +161,6 @@ class AppBlocProviders {
             create: (context) => getIt<GetQuestionareSymptomBlocBloc>()),
         BlocProvider(create: (context) => getIt<GetQuestionsBloc>()),
         BlocProvider(create: (context) => getIt<SubmitAnswerBloc>()),
+        BlocProvider(create: (context) => getIt<GetBannerBloc>()),
       ];
 }

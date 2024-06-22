@@ -19,7 +19,7 @@ class RatingState with _$RatingState {
     AddRatingModel? addRatingModel,
     required int radioIndex,
   }) = _Initial;
-  factory RatingState.initial() =>  RatingState(
+  factory RatingState.initial() => const RatingState(
         isloading: false,
         isError: false,
         message: '',

@@ -21,4 +21,6 @@ class ApiEndPoints {
   static const questionareGetSymptoms = '${baseUrl}patient/listSymptoms';
   static const getQuestions = '${baseUrl}patient/getSymptomsQuestions';
   static const submitAnswer = '${baseUrl}patient/addSymptomUserResponse';
+  static const getBanner = '${baseUrl}userbanner/';
+
 }

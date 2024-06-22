@@ -7,13 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_model.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/DeleteMember/delete_member_bloc.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
-import 'package:mediezy_user/Repository/Bloc/banner/banner_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/bottom_navigation_control_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/text_style.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/DoctorScreen/Widgets/get_banner_widget.dart';
+import 'package:mediezy_user/Ui/CommonWidgets/get_banner_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/add_documents_widget.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/go_to_all_record_widget.dart';
@@ -21,6 +20,8 @@ import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/round_name_wi
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/user_details_display_card_widget.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../ddd/application/get_banner/get_banner_bloc.dart';
 
 class HealthRecordScreen extends StatefulWidget {
   const HealthRecordScreen({super.key});
@@ -38,7 +39,8 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
   @override
   void initState() {
     BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
-    BlocProvider.of<BannerBloc>(context).add(FetchBannerEvent(type: "3"));
+    BlocProvider.of<GetBannerBloc>(context)
+        .add(const GetBannerEvent.fetchBanner("3"));
     super.initState();
   }
 
