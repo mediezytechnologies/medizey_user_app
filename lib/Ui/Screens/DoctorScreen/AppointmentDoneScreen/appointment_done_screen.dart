@@ -69,6 +69,7 @@ class AppointmentDoneScreen extends StatefulWidget {
   String? patientId;
   String? resheduleType;
   String? normalResheduleTokenId;
+  String phonePrefix = '******';
 
   @override
   State<AppointmentDoneScreen> createState() => _AppointmentDoneScreenState();
@@ -277,9 +278,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                               selectedBookingFor = 1.toString();
                                               BlocProvider.of<AutoFetchBloc>(
                                                       context)
-                                                  .add(FetchAutoFetch(
-                                                      section: "Self",
-                                                      patientId: ""));
+                                                  .add(
+                                                FetchAutoFetch(
+                                                    section: "Self",
+                                                    patientId: ""),
+                                              );
                                             });
                                           },
                                           child: Row(
@@ -679,7 +682,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                             if (getFamilyMembersModel
                                                                     .familyMember!
                                                                     .length ==
-                                                                5) {
+                                                                11) {
                                                               GeneralServices
                                                                   .instance
                                                                   .showDialogue(
@@ -817,8 +820,16 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                           height: size.height *
                                                               .065,
                                                           width:
-                                                              size.width * .6,
+                                                              size.width * .65,
                                                           child: TextFormField(
+                                                            validator: (value) {
+                                                              if (value!
+                                                                  .isEmpty) {
+                                                                return "Patient id is missing";
+                                                              } else {
+                                                                return null;
+                                                              }
+                                                            },
                                                             cursorColor:
                                                                 kMainColor,
                                                             controller:
@@ -851,30 +862,39 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                         .none,
                                                               ),
                                                               contentPadding:
-                                                                  EdgeInsets.symmetric(
+                                                                  const EdgeInsets
+                                                                      .symmetric(
                                                                       vertical:
-                                                                          5.h,
+                                                                          10.0,
                                                                       horizontal:
-                                                                          5.w),
+                                                                          10.0),
                                                             ),
                                                           ),
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
-                                                            BlocProvider.of<
-                                                                        OtherTypePatientDetailsBloc>(
-                                                                    context)
-                                                                .add(
-                                                              FetchOtherTypePatientDetails(
-                                                                  patientId:
-                                                                      patientIdSearchController
-                                                                          .text),
-                                                            );
+                                                            if (patientIdSearchController
+                                                                .text.isEmpty) {
+                                                              GeneralServices
+                                                                  .instance
+                                                                  .showToastMessage(
+                                                                      "Please enter patient id");
+                                                            } else {
+                                                              BlocProvider.of<
+                                                                          OtherTypePatientDetailsBloc>(
+                                                                      context)
+                                                                  .add(
+                                                                FetchOtherTypePatientDetails(
+                                                                    patientId:
+                                                                        patientIdSearchController
+                                                                            .text),
+                                                              );
+                                                            }
                                                           },
                                                           child: Container(
                                                             height:
                                                                 size.height *
-                                                                    .065,
+                                                                    .06,
                                                             width: size.width *
                                                                 .19,
                                                             decoration:
@@ -911,7 +931,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                         .065,
                                                                     width:
                                                                         size.width *
-                                                                            .6,
+                                                                            .65,
                                                                     child:
                                                                         TextFormField(
                                                                       cursorColor:
@@ -925,7 +945,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                           TextInputAction
                                                                               .done,
                                                                       maxLength:
-                                                                          10,
+                                                                          4,
                                                                       decoration:
                                                                           InputDecoration(
                                                                         counterText:
@@ -933,7 +953,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                         hintStyle:
                                                                             grey13B600,
                                                                         hintText:
-                                                                            "Enter mobile number",
+                                                                            "Enter last 4 digit of mobile number",
                                                                         filled:
                                                                             true,
                                                                         fillColor:
@@ -955,11 +975,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                   GestureDetector(
                                                                     onTap: () {
                                                                       if (otherTypePatientDetailsModel
-                                                                              .details!
-                                                                              .mobileNo
-                                                                              .toString() ==
-                                                                          searchPhoneNumber
-                                                                              .text) {
+                                                                          .details!
+                                                                          .mobileNo
+                                                                          .toString()
+                                                                          .endsWith(
+                                                                              searchPhoneNumber.text)) {
                                                                         GeneralServices
                                                                             .instance
                                                                             .showToastMessage("Phonenumber matched, please fill other details");
@@ -998,9 +1018,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                     },
                                                                     child:
                                                                         Container(
-                                                                      height: size
-                                                                              .height *
-                                                                          .065,
+                                                                      height:
+                                                                          size.height *
+                                                                              .06,
                                                                       width: size
                                                                               .width *
                                                                           .19,
@@ -1316,38 +1336,25 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                           height: size.height *
                                                               .065,
                                                           color: kCardColor,
-                                                          child: DropdownButton<
-                                                              String>(
-                                                            value:
-                                                                dropdownValue,
-                                                            onChanged: (String?
-                                                                newValue) {
-                                                              setState(() {
-                                                                dropdownValue =
-                                                                    newValue!;
-                                                              });
-                                                            },
-                                                            items: <String>[
-                                                              'Male',
-                                                              'Female',
-                                                              'Other'
-                                                            ].map<
-                                                                DropdownMenuItem<
-                                                                    String>>((String
-                                                                value) {
-                                                              return DropdownMenuItem<
-                                                                  String>(
-                                                                value: value,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
+                                                          child: Align(
+                                                            alignment: Alignment
+                                                                .centerLeft,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
                                                                           8.0),
-                                                                  child: Text(
-                                                                      value),
+                                                              child: Text(
+                                                                dropdownValue,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 16,
                                                                 ),
-                                                              );
-                                                            }).toList(),
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -1400,72 +1407,87 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                         BlocProvider.of<GetSymptomsBloc>(
                                                 context)
                                             .getSymptomsModel;
-                                    return Wrap(
-                                      children: List.generate(
-                                        getSymptomsModel.symptoms!.length,
-                                        (index) => Builder(
-                                          builder: (BuildContext context) {
-                                            return GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  if (selectedSymptoms.contains(
-                                                      getSymptomsModel
-                                                          .symptoms![index]
-                                                          .id!)) {
-                                                    selectedSymptoms.remove(
-                                                        getSymptomsModel
-                                                            .symptoms![index]
-                                                            .id!);
-                                                  } else {
-                                                    selectedSymptoms.add(
-                                                        getSymptomsModel
-                                                            .symptoms![index]
-                                                            .id!);
-                                                  }
-                                                });
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color:
-                                                      selectedSymptoms.contains(
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Symptoms", style: grey12B500),
+                                        const VerticalSpacingWidget(height: 2),
+                                        Wrap(
+                                          children: List.generate(
+                                            getSymptomsModel.symptoms!.length,
+                                            (index) => Builder(
+                                              builder: (BuildContext context) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (selectedSymptoms
+                                                          .contains(
                                                               getSymptomsModel
                                                                   .symptoms![
                                                                       index]
-                                                                  .id!)
-                                                          ? Colors.grey
-                                                          : kCardColor,
-                                                  border: Border.all(
-                                                      color: kMainColor,
-                                                      width: 1),
-                                                ),
-                                                margin:
-                                                    const EdgeInsets.all(3.0),
-                                                padding:
-                                                    const EdgeInsets.all(6.0),
-                                                child: Text(
-                                                  getSymptomsModel
-                                                      .symptoms![index].symtoms
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 10.sp,
+                                                                  .id!)) {
+                                                        selectedSymptoms.remove(
+                                                            getSymptomsModel
+                                                                .symptoms![
+                                                                    index]
+                                                                .id!);
+                                                      } else {
+                                                        selectedSymptoms.add(
+                                                            getSymptomsModel
+                                                                .symptoms![
+                                                                    index]
+                                                                .id!);
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
                                                       color: selectedSymptoms
                                                               .contains(
                                                                   getSymptomsModel
                                                                       .symptoms![
                                                                           index]
                                                                       .id!)
-                                                          ? Colors.white
-                                                          : kTextColor),
-                                                ),
-                                              ),
-                                            );
-                                          },
+                                                          ? Colors.grey
+                                                          : kCardColor,
+                                                      border: Border.all(
+                                                          color: kMainColor,
+                                                          width: 1),
+                                                    ),
+                                                    margin:
+                                                        const EdgeInsets.all(
+                                                            3.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            6.0),
+                                                    child: Text(
+                                                      getSymptomsModel
+                                                          .symptoms![index]
+                                                          .symtoms
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 10.sp,
+                                                          color: selectedSymptoms.contains(
+                                                                  getSymptomsModel
+                                                                      .symptoms![
+                                                                          index]
+                                                                      .id!)
+                                                              ? Colors.white
+                                                              : kTextColor),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     );
                                   }
                                   return Container();
@@ -1733,9 +1755,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                       } else if (selectedSymptoms.isEmpty &&
                                           appointmentForController
                                               .text.isEmpty) {
-                                        GeneralServices.instance
-                                            .showErrorMessage(context,
-                                                "Please select symptoms");
+                                        GeneralServices.instance.showErrorMessage(
+                                            context,
+                                            "Please select symptoms or type appointment for");
                                       } else if (selectedStart == -1) {
                                         GeneralServices.instance
                                             .showErrorMessage(context,

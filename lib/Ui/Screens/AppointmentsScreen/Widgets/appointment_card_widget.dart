@@ -294,7 +294,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                   height: size.height * .075,
                                   width: size.width * .5,
                                   child: Text(
-                                    "You failed to arrive on time. The next slots have been assigned to others, so you will have to waite a long time.",
+                                    "You failed to arrive on time. The next slots have been assigned to others, so you will have to wait a long time.",
                                     style: red10B500,
                                     maxLines: 4,
                                   ),

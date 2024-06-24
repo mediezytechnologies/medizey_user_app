@@ -1,11 +1,10 @@
 // ignore_for_file: avoid_print
 
-import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,8 +27,6 @@ import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:mediezy_user/ddd/application/edit_member/edit_member_bloc.dart';
 import 'package:mediezy_user/ddd/application/edit_member_image/edit_member_image_bloc.dart';
 import 'package:mediezy_user/ddd/domain/add_member/model/add_member_model.dart';
-import 'package:shimmer/shimmer.dart';
-
 import '../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../Consts/text_style.dart';
 
@@ -119,7 +116,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   @override
   void initState() {
     super.initState();
-    log("Patient imageee ${widget.patientImage}>>>>>>>>");
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
     BlocProvider.of<GetAllMembersBloc>(context).add(FetchAllMembers());
     BlocProvider.of<GetUpdatedMedicineBloc>(context)
@@ -166,12 +162,13 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(  bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+    return Scaffold(
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         title: const Text("Edit Patient"),
         centerTitle: true,
@@ -204,61 +201,35 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                         child: FadedScaleAnimation(
                           scaleDuration: const Duration(milliseconds: 400),
                           fadeDuration: const Duration(milliseconds: 400),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(70.r),
-                            child: imagePath != null
-                                ? Image.file(
-                                    File(imagePath!),
-                                    height: size.height * .14,
-                                    width: size.width * .30,
-                                    fit: BoxFit.cover,
-                                  )
-                                : (widget.patientImage == ""
-                                    ? Image.asset(
-                                        "assets/icons/profile pic.png",
-                                        height: size.height * .14,
-                                        width: size.width * .30,
-                                        color: kMainColor,
-                                      )
-                                    : Image.network(
-                                        widget.patientImage,
-                                        height: size.height * .14,
-                                        width: size.width * .30,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                Padding(
-                                          padding: const EdgeInsets.all(3.0),
-                                          child: Image.asset(
-                                            "assets/icons/profile pic.png",
-                                            height: size.height * .14,
-                                            width: size.width * .30,
-                                            color: kMainColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100.r),
+                              child: imagePath != null
+                                  ? Image.file(
+                                      File(imagePath!),
+                                      height: size.height * .14,
+                                      width: size.width * .30,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : (widget.patientImage == ""
+                                      ? Image.asset(
+                                          "assets/icons/profile pic.png",
+                                          height: size.height * .14,
+                                          width: size.width * .30,
+                                          color: kMainColor,
+                                        )
+                                      : FancyShimmerImage(
+                                          height: size.height * .14,
+                                          width: size.width * .30,
+                                          boxFit: BoxFit.cover,
+                                          errorWidget: const Image(
+                                            image: AssetImage(
+                                                "assets/icons/profile pic.png"),
                                           ),
-                                        ),
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent? loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return Center(
-                                            child: Shimmer.fromColors(
-                                              baseColor: kShimmerBaseColor,
-                                              highlightColor:
-                                                  kShimmerHighlightColor,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          80.r),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      )),
+                                          imageUrl: widget.patientImage,
+                                        )),
+                            ),
                           ),
                         ),
                       ),
@@ -1183,7 +1154,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                     children: List.generate(surgeryTypes.length, (index) {
                       bool isSelected =
                           selectedSurgery.contains(surgeryTypes[index]);
-
                       return GestureDetector(
                         onTap: () {
                           setState(
@@ -1206,7 +1176,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                   selectedSurgeryStart.remove(index);
                                   if (surgeryTypes[index] == "Other") {
                                     isOtherSurgerySelected = false;
-                                    otherSurgeryController.text = "null";
+                                    otherSurgeryController.text = "";
                                   }
                                 } else {
                                   surgeryIndex = surgeryTypes[index];
@@ -1309,7 +1279,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                     selectedTreatmentStart.remove(index);
                                     if (treatmentTypes[index] == "Other") {
                                       isTreatmentOtherSelected = false;
-                                      otherTreatmentController.text = "null";
+                                      otherTreatmentController.text = "";
                                     }
                                   } else {
                                     surgeryIndex = treatmentTypes[index];
@@ -1384,24 +1354,21 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                   BlocConsumer<EditMemberBloc, EditMemberState>(
                     listener: (context, state) {
                       if (state.isError && state.status == false) {
-                        log("message error catched ui");
-                        log("message error ${state.message}");
-                        log("message state emit ui ${state.message}");
                         GeneralServices.instance
                             .showErrorMessage(context, state.message);
                       } else if (state.status == true) {
-                        log("Not eroorr >>${state.isError.toString()}");
-                        log(" no error");
                         if (imagePath != null) {
-                          log("first call>>>>>>>>>");
-                          log(imagePath!);
                           Future.delayed(const Duration(seconds: 1)).then(
-                              (value) =>
-                                  BlocProvider.of<EditMemberImageBloc>(context)
-                                      .add(EditMemberImageEvent.started(
-                                          imagePath!, widget.patientId)));
-                          Future.delayed(const Duration(seconds: 1))
-                              .then((value) {
+                            (value) =>
+                                BlocProvider.of<EditMemberImageBloc>(context)
+                                    .add(
+                              EditMemberImageEvent.started(
+                                  imagePath!, widget.patientId),
+                            ),
+                          );
+                          Future.delayed(
+                            const Duration(seconds: 1),
+                          ).then((value) {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -1413,11 +1380,7 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                             GeneralServices.instance
                                 .showToastMessage("Updated successfully");
                           });
-                          log('button pressed in the image section');
                         } else {
-                          log("message state emit ui ${state.status}");
-                          log("image null");
-                          log("second call>>>>>>>>>");
                           Future.delayed(const Duration(seconds: 1))
                               .then((value) {
                             Navigator.pushReplacement(
@@ -1429,7 +1392,6 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                               ),
                             );
                           });
-                          log('button pressed in the form data section');
                           GeneralServices.instance
                               .showToastMessage("Updated successfully");
                         }
@@ -1449,31 +1411,69 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                 const Center(
                                   child: CircularProgressIndicator(),
                                 );
-                                log("loading Button pressed");
                               }
                             : () async {
-                                log("loaded Button pressed");
-                                BlocProvider.of<EditMemberBloc>(context).add(
-                                  EditMemberEvent.started(
-                                    widget.patientId,
-                                    nameController.text,
-                                    dateOfBirth == null
-                                        ? widget.dateOfBirth
-                                        : DateFormat('yyy-MM-dd')
-                                            .format(dateOfBirth!),
-                                    phoneNumberController.text,
-                                    selectedGender,
-                                    regularMedicine,
-                                    selectedSurgery.toString(),
-                                    selectedTreatment.toString(),
-                                    otherSurgeryController.text,
-                                    otherTreatmentController.text,
-                                    context,
-                                    allergies,
-                                    medicineDataLists!,
-                                  ),
-                                );
-                                log('button pressed');
+                                if (allergies.any((allergy) =>
+                                    allergy.allergyId == 1 &&
+                                    (allergy.allergyDetails == null ||
+                                        allergy.allergyDetails!.isEmpty))) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Enter drug allergy details");
+                                } else if (allergies.any((allergy) =>
+                                    allergy.allergyId == 2 &&
+                                    (allergy.allergyDetails == null ||
+                                        allergy.allergyDetails!.isEmpty))) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Enter skin allergy details");
+                                } else if (allergies.any((allergy) =>
+                                    allergy.allergyId == 3 &&
+                                    (allergy.allergyDetails == null ||
+                                        allergy.allergyDetails!.isEmpty))) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Enter dust allergy details");
+                                } else if (allergies.any((allergy) =>
+                                    allergy.allergyId == 4 &&
+                                    (allergy.allergyDetails == null ||
+                                        allergy.allergyDetails!.isEmpty))) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Enter food allergy details");
+                                } else if (allergies.any((allergy) =>
+                                    allergy.allergyId == 6 &&
+                                    (allergy.allergyDetails == null ||
+                                        allergy.allergyDetails!.isEmpty))) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Enter other allergy details");
+                                } else if (selectedSurgery.contains("Other") &&
+                                    otherSurgeryController.text.isEmpty) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Enter other surgery details");
+                                } else if (selectedTreatment
+                                        .contains("Other") &&
+                                    otherTreatmentController.text.isEmpty) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Enter other surgery details");
+                                } else {
+                                  BlocProvider.of<EditMemberBloc>(context).add(
+                                    EditMemberEvent.started(
+                                      widget.patientId,
+                                      nameController.text,
+                                      dateOfBirth == null
+                                          ? widget.dateOfBirth
+                                          : DateFormat('yyy-MM-dd')
+                                              .format(dateOfBirth!),
+                                      phoneNumberController.text,
+                                      selectedGender,
+                                      regularMedicine,
+                                      selectedSurgery.toString(),
+                                      selectedTreatment.toString(),
+                                      otherSurgeryController.text,
+                                      otherTreatmentController.text,
+                                      context,
+                                      allergies,
+                                      medicineDataLists!,
+                                    ),
+                                  );
+                                }
                               },
                         child: state.isloding
                             ? Center(

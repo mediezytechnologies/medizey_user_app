@@ -71,7 +71,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   bool isOtherTreatmentSelected = false;
   bool isOtherSurgerySelected = false;
 
-
   @override
   void initState() {
     BlocProvider.of<GetAllergyBloc>(context).add(FetchAllergy());
@@ -81,12 +80,13 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(  bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+    return Scaffold(
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         title: const Text("Add Family Member"),
         centerTitle: true,
@@ -97,7 +97,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            
               const VerticalSpacingWidget(height: 10),
               Stack(
                 children: [
@@ -1090,23 +1089,68 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             } else if (dateOfBirth == null) {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Fill date of birth");
-                            } else if (phoneNumberController.text.isEmpty ||
-                                phoneNumberController.text.length < 10) {
+                            } else if (phoneNumberController.text.isEmpty) {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Fill family member number");
+                            } else if (phoneNumberController.text.length < 10) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Phone number must have 10 digits");
                             } else if (regularMedicine == "Yes" &&
                                 (medicineDataLists!.isEmpty)) {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Add illness and medicine details");
-                            } else if (allergies.isEmpty) {
+                            }
+                            //! allergy checking
+                            else if (allergies.isEmpty) {
                               GeneralServices.instance
                                   .showErrorMessage(context, "Select allergy");
-                            } else if (selectedSurgery.isEmpty) {
+                            } else if (allergies.any((allergy) =>
+                                allergy.allergyId == 1 &&
+                                (allergy.allergyDetails == null ||
+                                    allergy.allergyDetails!.isEmpty))) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Enter drug allergy details");
+                            } else if (allergies.any((allergy) =>
+                                allergy.allergyId == 2 &&
+                                (allergy.allergyDetails == null ||
+                                    allergy.allergyDetails!.isEmpty))) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Enter skin allergy details");
+                            } else if (allergies.any((allergy) =>
+                                allergy.allergyId == 3 &&
+                                (allergy.allergyDetails == null ||
+                                    allergy.allergyDetails!.isEmpty))) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Enter dust allergy details");
+                            } else if (allergies.any((allergy) =>
+                                allergy.allergyId == 4 &&
+                                (allergy.allergyDetails == null ||
+                                    allergy.allergyDetails!.isEmpty))) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Enter food allergy details");
+                            } else if (allergies.any((allergy) =>
+                                allergy.allergyId == 6 &&
+                                (allergy.allergyDetails == null ||
+                                    allergy.allergyDetails!.isEmpty))) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Enter other allergy details");
+                            }
+                            //! surgey checking
+                            else if (selectedSurgery.isEmpty) {
                               GeneralServices.instance
                                   .showErrorMessage(context, "Select surgery");
-                            } else if (selectedTreatment.isEmpty) {
+                            } else if (selectedSurgery.contains("Other") &&
+                                otherSurgeryController.text.isEmpty) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Enter other surgery details");
+                            } //! treatment checking
+                            else if (selectedTreatment.isEmpty) {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Select treatment");
+                            } else if (selectedTreatment.contains("Other") &&
+                                otherTreatmentController.text.isEmpty) {
+                              GeneralServices.instance.showErrorMessage(
+                                  context, "Enter other surgery details");
                             } else {
                               BlocProvider.of<AddMembersBloc>(context).add(
                                 AddMembersEvent.started(

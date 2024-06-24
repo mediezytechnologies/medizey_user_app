@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../Consts/app_colors.dart';
-import '../Consts/text_style.dart';
+import '../../../Consts/app_colors.dart';
+import '../../../Consts/text_style.dart';
 
 class RowTextWidget extends StatelessWidget {
   const RowTextWidget({super.key, required this.heading, required this.data});
@@ -13,7 +13,6 @@ class RowTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: kCardColor,
         borderRadius: BorderRadius.circular(10.r),

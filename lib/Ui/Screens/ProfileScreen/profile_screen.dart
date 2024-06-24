@@ -128,7 +128,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       fadeDuration:
                                           const Duration(milliseconds: 400),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50.r),
+                                        borderRadius:
+                                            BorderRadius.circular(50.r),
                                         child: (getUserModel
                                                     .userdetails!.userProfile ==
                                                 null
@@ -306,7 +307,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                   ),
-                  const VerticalSpacingWidget(height: 5),
                   const VerticalSpacingWidget(height: 5),
                   Row(
                     children: [

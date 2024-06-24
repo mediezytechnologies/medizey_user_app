@@ -31,13 +31,7 @@ class RegisterServiceImpl implements AddMemberRepo {
     String userId = preference.getString('userId').toString();
     String? token =
         preference.getString('token') ?? preference.getString('tokenD');
-    try {
-      final response = await Dio(BaseOptions(
-        headers: {'Authorization': 'Bearer $token'},
-        contentType: 'application/json',
-      )).post(
-        ApiEndPoints.addMember,
-        data: {
+         var formData =  {
           "user_id": userId,
           "full_name": fullName,
           "mobile_number": mobileNumber,
@@ -50,8 +44,19 @@ class RegisterServiceImpl implements AddMemberRepo {
           "treatment_taken_details": treatmentTakenDetails,
           "allergies": allergies,
           "medicines": medicines,
-        },
+        };
+        for (var element in formData.entries) {
+          log("seelcted data : ${element.key} value : ${element.value}");
+        }
+    try {
+      final response = await Dio(BaseOptions(
+        headers: {'Authorization': 'Bearer $token'},
+        contentType: 'application/json',
+      )).post(
+        ApiEndPoints.addMember,
+        data:formData,
       );
+      
       log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = ClintClinicModelData.fromJson(response.data);

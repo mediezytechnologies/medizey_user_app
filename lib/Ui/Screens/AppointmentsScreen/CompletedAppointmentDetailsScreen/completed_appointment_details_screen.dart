@@ -137,23 +137,30 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  Text("Medical store name : ",
-                                      style: grey12B500),
-                                  const HorizontalSpacingWidget(width: 5),
-                                  SizedBox(
-                                    width: size.width * .50,
-                                    child: Text(
-                                      medicalStoreName,
-                                      style: black13B500,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                              medicalStoreName == "null"
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text("Medical store name : ",
+                                                style: grey12B500),
+                                            const HorizontalSpacingWidget(
+                                                width: 5),
+                                            SizedBox(
+                                              width: size.width * .50,
+                                              child: Text(
+                                                medicalStoreName,
+                                                style: black13B500,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        const VerticalSpacingWidget(height: 2),
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
-                              const VerticalSpacingWidget(height: 2),
                               ListView.builder(
                                   itemCount: prescriptions.length,
                                   shrinkWrap: true,
@@ -255,6 +262,7 @@ class CompletedAppointmentDetailsScreen extends StatelessWidget {
                         const VerticalSpacingWidget(height: 5),
                       ],
                     ),
+              const VerticalSpacingWidget(height: 5),
             ],
           ),
         ),

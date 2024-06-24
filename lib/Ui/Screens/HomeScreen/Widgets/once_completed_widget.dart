@@ -10,7 +10,7 @@ import '../../../Consts/text_style.dart';
 import '../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../Consts/app_colors.dart';
 import '../../AppointmentsScreen/CompletedAppointmentDetailsScreen/completed_appointment_details_screen.dart';
-import '../../../CommonWidgets/row_text_widget.dart';
+import 'row_text_widget.dart';
 import '../FeedbackScreen/feedback_screen.dart';
 
 class OnceCompletedWidget extends StatelessWidget {
@@ -36,7 +36,8 @@ class OnceCompletedWidget extends StatelessWidget {
       required this.whenItsCome,
       required this.checkInTime,
       required this.checkOutTime,
-      required this.appointmentId, required this.medicalStoreName});
+      required this.appointmentId,
+      required this.medicalStoreName});
 
   final String doctorName;
   final String doctorImage;
@@ -181,13 +182,23 @@ class OnceCompletedWidget extends StatelessWidget {
             ),
             labName == "null"
                 ? const SizedBox()
-                :RowTextWidget(heading: "Lab center", data: labName),
-            const VerticalSpacingWidget(height: 2),
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RowTextWidget(heading: "Lab center", data: labName),
+                      const VerticalSpacingWidget(height: 2),
+                    ],
+                  ),
             scanningCenterName == "null"
                 ? const SizedBox()
-                :  RowTextWidget(
-                        heading: "Scanning center", data: scanningCenterName),
-            const VerticalSpacingWidget(height: 2),
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RowTextWidget(
+                          heading: "Scanning center", data: scanningCenterName),
+                      const VerticalSpacingWidget(height: 2),
+                    ],
+                  ),
             ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
