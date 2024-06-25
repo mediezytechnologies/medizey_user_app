@@ -48,8 +48,8 @@ class _HomeAappBarState extends State<HomeAappBar> {
       width: double.infinity,
       height: widget.isAppBar,
       color:
-      //Colors.black,
-       kSecondaryColor,
+          //Colors.black,
+          kSecondaryColor,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(
@@ -93,7 +93,7 @@ class _HomeAappBarState extends State<HomeAappBar> {
                     const HorizontalSpacingWidget(width: 5),
                     GestureDetector(
                       onTap: () {
-                           log("message sfjksdfjkhdfjks");
+                        log("message sfjksdfjkhdfjks");
                         locationController.fetchCountry().then(
                               (value) =>
                                   BlocProvider.of<UserLocationBloc>(context)
