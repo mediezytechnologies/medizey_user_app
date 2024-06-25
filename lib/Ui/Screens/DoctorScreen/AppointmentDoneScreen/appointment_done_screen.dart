@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:io';
@@ -7,7 +7,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -25,7 +24,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/horizontal_spacing_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
-import 'package:mediezy_user/Ui/Screens/AppointmentsScreen/appointments_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookingConfirmationScreen/booking_confirmation_screen.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/AddPatientScreen/AddPatientScreen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
@@ -129,6 +127,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
   String? patientMediezyId;
   double platFormFee = 10.0;
   bool isFeeChecked = false;
+  bool isBookingInProgress = false;
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -171,22 +170,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
       appBar: AppBar(
         title: const Text("Book Token"),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AppointmentsScreen(),
-                ),
-              );
-            },
-            icon: Icon(
-              IconlyLight.calendar,
-              size: 18.sp,
-            ),
-          )
-        ],
       ),
       body: StreamBuilder<ConnectivityResult>(
           stream: Connectivity().onConnectivityChanged,
@@ -1724,9 +1707,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                   //     : const SizedBox(),
                                   const VerticalSpacingWidget(height: 20),
                                   CommonButtonWidget(
-                                    widget:
-                                        Text("Book Now", style: white13B700),
-                                    onTapFunction: () {
+                                    widget: isBookingInProgress
+                                        ? CircularProgressIndicator(
+                                            color: kCardColor)
+                                        : Text("Book Now", style: white13B700),
+                                    onTapFunction: () async {
                                       if (bookingFor == "Family Member" &&
                                           getFamilyMembersModel
                                               .familyMember!.isEmpty) {
@@ -1766,6 +1751,16 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             .showErrorMessage(context,
                                                 "Please select how frequently");
                                       } else {
+                                        if (isBookingInProgress) {
+                                          return;
+                                        }
+
+                                        setState(() {
+                                          isBookingInProgress = true;
+                                        });
+                                        await Future.delayed(
+                                          const Duration(seconds: 1),
+                                        );
                                         BlocProvider.of<BookAppointmentBloc>(
                                                 context)
                                             .add(
@@ -1824,6 +1819,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                               tokenId: widget.tokenId),
                                         );
                                       }
+                                      setState(() {
+                                        isBookingInProgress = false;
+                                      });
                                     },
                                   ),
                                   const VerticalSpacingWidget(height: 10)

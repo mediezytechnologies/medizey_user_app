@@ -501,6 +501,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     }
   }
 
+
+  
+
 //* Image compression function
   // Future<File> compressImage(File imageFile) async {
   //   int fileSize = await imageFile.length();
