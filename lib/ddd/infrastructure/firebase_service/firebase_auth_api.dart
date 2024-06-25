@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mediezy_user/ddd/domain/error_model/error_model.dart';
 import 'package:mediezy_user/ddd/infrastructure/core/api_end_pont.dart';
@@ -34,6 +35,7 @@ class FirebaseLoginImpl implements AddFirebaseLogin {
         },
       );
       log(response.data.toString());
+      Future.delayed(Duration(seconds: 3));
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = FirebaseLoginModel.fromJson(response.data);
 
@@ -54,24 +56,103 @@ class FirebaseLoginImpl implements AddFirebaseLogin {
         log("fcm tuserName api : $userName");
         log("fcm tuser id api : $userId");
 
-        //  await preference.setInt('patientId', result.patientId!);
+        //  await preference.setInt('patientId', result.user.!);
 
-        int? patianrId;
+        //   int? patianrId;
 
-        patianrId = preference.getInt('patientId');
-        log('Response data id : $patianrId');
+        //   patianrId = preference.getInt('patientId');
+        //   log('Response data id : $patianrId');
         return Right(result);
       } else {
         return Left(ErrorModel());
       }
     } on DioError catch (e) {
-      log(e.message!);
-      log(e.error.toString());
-      log(e.error.toString());
+      log('DioError: ${e.message}');
+      log('DioError type: ${e.type}');
+      log('DioError response: ${e.response}');
 
       final err = ErrorModel.fromJson(e.response!.data);
-      log("err: $err");
+      log("err=====: $err");
       return Left(err);
     }
   }
 }
+
+//another bloc call//
+
+// class FirebaseLogiginOnService {
+//   static Future<FirebaseLoginModel?> firebaseAuthServ(
+//     String phoneNumber,
+//   ) async {
+//     final preference = await SharedPreferences.getInstance();
+//     try {
+//       String? firebaseToken = preference.getString('firebaseTokens');
+//       var formData = {
+//         "access_token": firebaseToken,
+//         "mobile_number": phoneNumber
+//       };
+
+//       var response =
+//           await Dio().post(ApiEndPoints.firbaseLogin, data: formData);
+//       FirebaseLoginModel? model = FirebaseLoginModel.fromJson(response.data);
+//        log("result service : $model");
+//         preference.setString('token', model.token.toString());
+//         String? userId;
+
+//         preference.setString('firstName', model.user!.firstname.toString());
+
+//         preference.setString('userId', model.user!.id.toString());
+//         userId = preference.getString('userId').toString();
+//         log("<<<<<<userrr  $userId>>>>>>>>");
+//         preference.setString('phoneNumber', model.user!.mobileNo.toString());
+
+//         String? userName = preference.getString('firstName');
+
+//         log("fcm tok in api : ${preference.getString('token')}");
+//         log("fcm tuserName api : $userName");
+//         log("fcm tuser id api : $userId");
+//       log(formData.toString());
+//       log(model.toString());
+//       log("res ${response.data}");
+//       return model;
+
+//     } on DioError catch (e) {
+//       log("${e.response!.data}===========");
+//       log("${e.message}=fdsfg=fd");
+//       log('DioError: ${e.message}');
+//       log('DioError type: ${e.type}');
+//       log('DioError response: ${e.response}');
+//     }
+//     return null;
+//   }
+// }
+
+
+// class FirebseAuthController extends GetxController {
+
+
+//   RxBool loding = true.obs;
+//   var selectedIndex = 0.obs;
+//   var fireAuthCtr = FirebaseLoginModel().obs;
+
+//   Future<void> getMedicine(  String phoneNumber,) async {
+//     try {
+//       loding.value = true;
+//       var data = await FirebaseLogiginOnService.firebaseAuthServ(phoneNumber,);
+//       if (data != null) {
+//         fireAuthCtr.value = data;
+//       }
+//     } catch (e) {
+//       log('Error fetching medicine: $e');
+//     } finally {
+//       loding.value = false;
+//     }
+//   }
+
+//   @override
+//   void onInit() {
+//     //getMedicine();
+//     super.onInit();
+//   }
+// }
+

@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +42,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
         listener: (context, state) {
           if (state.isError && state.status == false) {
             GeneralServices.instance.showErrorMessage(context, state.message);
+            log("========errererere     ${state.message}");
           } else {
             Future.delayed(const Duration(seconds: 5))
                 .then((value) => Navigator.pushAndRemoveUntil(
@@ -162,13 +165,15 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                       );
                     }
                   },
-                  child: state.isloding
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            color: kCardColor,
-                          ),
-                        )
-                      : Text("Add Member", style: white13B700),
+                  child: 
+                  // state.isloding
+                  //     ? Center(
+                  //         child: CircularProgressIndicator(
+                  //           color: kCardColor,
+                  //         ),
+                  //       )
+                  //     : 
+                      Text("Add Member", style: white13B700),
                 ),
               ],
             ),
