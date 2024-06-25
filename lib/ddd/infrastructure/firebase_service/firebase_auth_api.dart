@@ -41,19 +41,19 @@ class FirebaseLoginImpl implements AddFirebaseLogin {
         preference.setString('token', result.token.toString());
         String? userId;
 
-        preference.setString('firstName', result.user!.firstname.toString());
+        preference.setString('firstName', result.user.firstname.toString());
 
-        preference.setString('userId', result.user!.id.toString());
+        preference.setString('userId', result.user.id.toString());
         userId = preference.getString('userId').toString();
         log("<<<<<<userrr  $userId>>>>>>>>");
-        preference.setString('phoneNumber', result.user!.mobileNo.toString());
+        preference.setString('phoneNumber', result.user.mobileNo.toString());
 
         String? userName = preference.getString('firstName');
 
         log("fcm tok in api : ${preference.getString('token')}");
-                log("fcm tuserName api : $userName");
-                        log("fcm tuser id api : $userId");
-                              
+        log("fcm tuserName api : $userName");
+        log("fcm tuser id api : $userId");
+
         //  await preference.setInt('patientId', result.patientId!);
 
         int? patianrId;
