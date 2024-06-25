@@ -1648,20 +1648,19 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                           style: black14B500),
                                     ],
                                   ),
-                                  const VerticalSpacingWidget(height: 5),
-                                  const VerticalSpacingWidget(height: 5),
-                                  widget.patientId == null
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Platform Fee",
-                                                style: grey13B400),
-                                            Text("₹ ${platFormFee.toString()}",
-                                                style: black14B500),
-                                          ],
-                                        )
-                                      : const SizedBox(),
+                                  // const VerticalSpacingWidget(height: 5),
+                                  // widget.patientId == null
+                                  //     ? Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //           Text("Platform Fee",
+                                  //               style: grey13B400),
+                                  //           Text("₹ ${platFormFee.toString()}",
+                                  //               style: black14B500),
+                                  //         ],
+                                  //       )
+                                  //     : const SizedBox(),
                                   const VerticalSpacingWidget(height: 5),
                                   widget.patientId == null
                                       ? SizedBox(
