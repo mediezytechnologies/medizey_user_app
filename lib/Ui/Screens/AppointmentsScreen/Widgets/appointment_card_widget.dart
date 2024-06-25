@@ -329,6 +329,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                       const VerticalSpacingWidget(height: 5),
                       GestureDetector(
                         onTap: () {
+                          log(widget.nextAvailableDateAndTime);
                           Platform.isIOS
                               ? showAvailableTokenIos(context, '1')
                               : showAvailableToken(context, '1');
@@ -540,7 +541,6 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                   const VerticalSpacingWidget(height: 5),
                   GestureDetector(
                     onTap: () {
-                      log("kdjfksjkf");
                       if (currentTime.isBefore(
                         appointmentDateTime.subtract(
                           const Duration(hours: 5),
@@ -614,20 +614,6 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
         ],
       ),
     );
-  }
-
-  String _getFormattedDate(String nextAvailableDateAndTime) {
-    final now = DateTime.now();
-    final formatter = DateFormat('dd-MM-yyyy');
-    final nextAvailableDate = formatter.parse(nextAvailableDateAndTime);
-
-    if (nextAvailableDate.difference(now).inDays == 0) {
-      return 'Today';
-    } else if (nextAvailableDate.difference(now).inDays == 1) {
-      return 'Tomorrow';
-    } else {
-      return nextAvailableDateAndTime;
-    }
   }
 
   Future<dynamic> showAvailableToken(
@@ -911,5 +897,27 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
         GeneralServices.instance.showToastMessage("Please try again");
       }
     });
+  }
+
+  String _getFormattedDate(String nextAvailableDateAndTime) {
+    final now = DateTime.now();
+    final formatter = DateFormat('dd-MM-yyyy');
+    final nextAvailableDate = formatter.parse(nextAvailableDateAndTime);
+
+    final nowDate = DateTime(now.year, now.month, now.day);
+    final nextDate = DateTime(
+        nextAvailableDate.year, nextAvailableDate.month, nextAvailableDate.day);
+
+    if (nextDate.isAtSameMomentAs(nowDate)) {
+      return 'Today';
+    } else if (nextDate.isAtSameMomentAs(
+      nowDate.add(
+        const Duration(days: 1),
+      ),
+    )) {
+      return 'Tomorrow';
+    } else {
+      return nextAvailableDateAndTime;
+    }
   }
 }
