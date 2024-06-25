@@ -33,8 +33,8 @@ class FirebaseLoginBloc extends Bloc<FirebaseLoginEvent, FirebaseLoginState> {
         return FirebaseLoginState(
             isloding: false,
             isError: false,
-            message: success!.response!,
-            status: success.status!);
+            message: success!.message,
+            status: success.status);
       });
       emit(state);
     });

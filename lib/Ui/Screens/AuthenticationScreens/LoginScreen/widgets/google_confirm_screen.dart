@@ -41,7 +41,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
           if (state.isError && state.status == false) {
             GeneralServices.instance.showErrorMessage(context, state.message);
           } else {
-            Future.delayed(const Duration(seconds: 3))
+            Future.delayed(const Duration(seconds: 5))
                 .then((value) => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -62,7 +62,7 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                 Image.asset(
                   'assets/icons/mediezyIcon.png',
                   height: size.height * .09,
-                  width:size.width * .20,
+                  width: size.width * .20,
                 ),
                 const VerticalSpacingWidget(
                   height: 10,
@@ -145,9 +145,9 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                           .add(FirebaseLoginEvent.started(
                         phoneNumberController.text,
                       ));
-                      locationController.fetchCountry().then(
-                            (value) =>
-                                BlocProvider.of<UserLocationBloc>(context).add(
+                      locationController.fetchCountry().then((value) =>
+                          Future.delayed(const Duration(seconds: 3), () {
+                            BlocProvider.of<UserLocationBloc>(context).add(
                               UserLocationEvent.started(
                                 locationController.latitude.value.toString(),
                                 locationController.longitude.value.toString(),
@@ -155,8 +155,8 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
                                 locationController.locality.value,
                                 locationController.locationAdress.value,
                               ),
-                            ),
-                          );
+                            );
+                          }));
                       BlocProvider.of<NotificatioTokenBloc>(context).add(
                         const NotificatioTokenEvent.started(),
                       );
