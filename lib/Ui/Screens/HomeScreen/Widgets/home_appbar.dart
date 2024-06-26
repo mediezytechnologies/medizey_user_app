@@ -120,17 +120,16 @@ class _HomeAappBarState extends State<HomeAappBar> {
                         // );
                       },
                       child: Obx(() {
-                        if (locationController.loding.value) {
+                        if (locationController.loding.value &&locationController.subLocality.value == "") {
                           const Center(
                             child: CupertinoActivityIndicator(
-                              color: kWhiteColor,
+                              color: Colors.amber,
                             ),
                           );
                         }
                         return Text(
-                          locationController.subLocality.value == ""
-                              ? "select location"
-                              : locationController.subLocality.value,
+                         
+                            locationController.subLocality.value,
                           style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w400,

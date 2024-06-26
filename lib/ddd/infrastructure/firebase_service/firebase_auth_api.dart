@@ -131,26 +131,29 @@ static Future<FirebaseLoginModel?> firebaseAuthServ(
 }
 
 class FirebseAuthController extends GetxController {
-  RxBool loding = true.obs;
+  RxBool loding = false.obs;
   var selectedIndex = 0.obs;
   var fireAuthCtr = FirebaseLoginModel(
     
   ).obs;
 Future<void> getFireAuth(String phoneNumber,) async {
   try {
-    loding.value = true;
+  
     var data = await FirebaseLogiginOnService.firebaseAuthServ(phoneNumber);
     if (data != null) {
       fireAuthCtr.value = data;
       log("================== ${fireAuthCtr.value.user!.id}");
+      // loding.value = false;
     } else {
       log('Firebase authentication returned null');
+       //loding.value = false;
     }
   } catch (e, stackTrace) {
     log('Error in Firebase Authentication: $e');
     log('Stack trace: $stackTrace');
+    // loding.value = false;
   } finally {
-    loding.value = false;
+   // loding.value = false;
   }
 }
 }

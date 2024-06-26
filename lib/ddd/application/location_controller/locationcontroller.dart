@@ -9,6 +9,7 @@ import '../../domain/location_model/location_model.dart';
 class LocationController extends GetxController {
   Rx<LocationModel> allLocation = LocationModel().obs;
   RxBool loding = true.obs;
+  var isLoading =true .obs;
 
   String location = 'Null, Press Button';
   var address = "".obs;
@@ -58,8 +59,8 @@ class LocationController extends GetxController {
   Future<void> getAddressFromLatLong(Position position) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
-    // log("pls====: ${placemarks.toString()}");
-    // log("pls lo====: ${placemarks.last.locality.toString()}");
+    log("pls====: ${placemarks.toString()}");
+    log("pls lo====: ${placemarks.last.locality.toString()}");
     Placemark place = placemarks[0];
 
     String? thoroughfare = place.thoroughfare == ""
@@ -78,6 +79,7 @@ class LocationController extends GetxController {
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}, ${place.name}';
     street.value = "${place.street}";
     subLocality.value = subloc!;
+    log("===============subloc ==================: ${subLocality.value}");
     locality.value = "${place.locality}";
     // subLocality.value = "${place.subLocality}";
     country.value = "${place.country}";
@@ -113,7 +115,9 @@ class LocationController extends GetxController {
 
   Future<void> fetchCountry() async {
     try {
+     
       Position position = await _getGeoLocationPosition();
+       isLoading.value=false;
       update();
       getAddressFromLatLong(position).then((value) => getLocation());
 

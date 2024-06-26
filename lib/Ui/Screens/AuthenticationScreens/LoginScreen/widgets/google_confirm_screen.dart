@@ -40,9 +40,11 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        FirebaseLogiginOnService.firebaseAuthServ(phoneNumberController.text);
-      },),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     FirebaseLogiginOnService.firebaseAuthServ(phoneNumberController.text);
+      //   },
+      // ),
       body:
           //  BlocConsumer<FirebaseLoginBloc, FirebaseLoginState>(
           // listener: (context, state) {
@@ -138,60 +140,60 @@ class _GoogleContirmUserScreenState extends State<GoogleContirmUserScreen> {
               height: 10,
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(330.w, 40.h),
-                backgroundColor: kMainColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(330.w, 40.h),
+                  backgroundColor: kMainColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
                 ),
-              ),
-              onPressed: () async {
-                final preference = await SharedPreferences.getInstance();
-                preference.setString(
-                    'email', auth.currentUser!.email.toString());
-                bool isValid = _formKey.currentState!.validate();
-                if (isValid) {
-                  firebseAuthController
-                      .getFireAuth(phoneNumberController.text)
-                      .then(
-                        (value) => Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  BottomNavigationControlWidget(
-                                selectedIndex: 0,
-                              ),
-                            ),
-                            (route) => false),
-                      );
+                onPressed: () async {
+                  final preference = await SharedPreferences.getInstance();
+                  preference.setString(
+                      'email', auth.currentUser!.email.toString());
+                  bool isValid = _formKey.currentState!.validate();
 
-                  locationController.fetchCountry().then(
-                      (value) => Future.delayed(const Duration(seconds: 3), () {
-                            BlocProvider.of<UserLocationBloc>(context).add(
-                              UserLocationEvent.started(
-                                locationController.latitude.value.toString(),
-                                locationController.longitude.value.toString(),
-                                locationController.dist.value,
-                                locationController.locality.value,
-                                locationController.locationAdress.value,
-                              ),
-                            );
-                          }));
-                  BlocProvider.of<NotificatioTokenBloc>(context).add(
-                    const NotificatioTokenEvent.started(),
-                  );
-                }
-              },
-              child:
-                  // state.isloding
-                  //     ? Center(
-                  //         child: CircularProgressIndicator(
-                  //           color: kCardColor,
-                  //         ),
-                  //       )
-                  //     :
-                  Text("Add Member", style: white13B700),
-            ),
+                  if (isValid) {
+                    firebseAuthController.loding.value = true;
+                    firebseAuthController
+                        .getFireAuth(phoneNumberController.text)
+                        .then(
+                          (value) => Future.delayed(const Duration(seconds: 2), () {
+                            firebseAuthController.loding.value = false;
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      BottomNavigationControlWidget(
+                                    selectedIndex: 0,
+                                  ),
+                                ),
+                                (route) => false);
+                          }),
+                        );
+
+                    locationController.fetchCountry().then((value) =>
+                        Future.delayed(const Duration(seconds: 3), () {
+                          BlocProvider.of<UserLocationBloc>(context).add(
+                            UserLocationEvent.started(
+                              locationController.latitude.value.toString(),
+                              locationController.longitude.value.toString(),
+                              locationController.dist.value,
+                              locationController.locality.value,
+                              locationController.locationAdress.value,
+                            ),
+                          );
+                        }));
+                    BlocProvider.of<NotificatioTokenBloc>(context).add(
+                      const NotificatioTokenEvent.started(),
+                    );
+                  }
+                },
+                child: Obx(() => firebseAuthController.loding.value &&
+                        phoneNumberController.text.isNotEmpty
+                    ? Center(
+                        child: CircularProgressIndicator(color: kCardColor))
+                    : Text("Add Member", style: white13B700)))
           ],
         ),
 
