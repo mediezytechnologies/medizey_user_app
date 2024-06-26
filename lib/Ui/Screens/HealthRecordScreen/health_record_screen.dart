@@ -20,7 +20,6 @@ import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/round_name_wi
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/Widgets/user_details_display_card_widget.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../ddd/application/get_banner/get_banner_bloc.dart';
 
 class HealthRecordScreen extends StatefulWidget {

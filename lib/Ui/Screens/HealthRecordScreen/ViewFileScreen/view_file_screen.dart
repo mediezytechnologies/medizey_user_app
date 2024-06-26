@@ -3,7 +3,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -34,8 +33,8 @@ class _ViewFileScreenState extends State<ViewFileScreen> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: FancyShimmerImage(
-              height:550.h,
-              boxFit: BoxFit.cover,
+              height: double.infinity,
+              boxFit: BoxFit.contain,
               errorWidget: const Image(
                 image: AssetImage("assets/icons/no image.png"),
               ),
