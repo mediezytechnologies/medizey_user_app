@@ -10,6 +10,7 @@ class LocationController extends GetxController {
   Rx<LocationModel> allLocation = LocationModel().obs;
   RxBool loding = true.obs;
   var isLoading =true .obs;
+   RxBool isLocationFetched = false.obs;
 
   String location = 'Null, Press Button';
   var address = "".obs;
@@ -92,38 +93,47 @@ class LocationController extends GetxController {
   }
   //dist api ===========
 
-  Future<LocationModel?> getLocation() async {
+   Future<void> fetchCountry() async {
     try {
-      var data = await LocationService.getLocatioinService();
-      loding.value = false;
-      allLocation.value = data!;
-      update();
-      dist.value = data.postOffice!.first.district!;
-      update();
-    //  log("dist ===============================================:${dist.value.toString()}");
-
-      return allLocation.value;
+      loding.value = true;
+      isLocationFetched.value = false;
+      
+      Position position = await _getGeoLocationPosition();
+      await getAddressFromLatLong(position);
+      await getLocation(); // This calls the API to get additional location data
+      
+      isLocationFetched.value = true;
     } catch (e) {
-      // log(e.toString());
-      // log('catch bloc called');
+      log('Error fetching location: $e');
+    } finally {
       loding.value = false;
     }
-    return null;
+  }
+
+  Future<void> getLocation() async {
+    try {
+      var data = await LocationService.getLocatioinService();
+      allLocation.value = data!;
+      dist.value = data.postOffice?.first.district ?? '';
+      update();
+    } catch (e) {
+      log('Error fetching location from API: $e');
+    }
   }
 
 // oninit =======================================
 
-  Future<void> fetchCountry() async {
-    try {
+  // Future<void> fetchCountry() async {
+  //   try {
      
-      Position position = await _getGeoLocationPosition();
-       isLoading.value=false;
-      update();
-      getAddressFromLatLong(position).then((value) => getLocation());
+  //     Position position = await _getGeoLocationPosition();
+  //      isLoading.value=false;
+  //     update();
+  //     getAddressFromLatLong(position).then((value) => getLocation());
 
-      update();
-    } catch (e) {
-      //log('Error fetching location: $e');
-    }
-  }
+  //     update();
+  //   } catch (e) {
+  //     //log('Error fetching location: $e');
+  //   }
+  // }
 }

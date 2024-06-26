@@ -92,26 +92,24 @@ class _HomeAappBarState extends State<HomeAappBar> {
                     ),
                     const HorizontalSpacingWidget(width: 5),
                     GestureDetector(
-                      onTap: () {
-                           log("message sfjksdfjkhdfjks");
-                        locationController.fetchCountry().then(
-                              (value) =>
-                                  BlocProvider.of<UserLocationBloc>(context)
-                                      .add(
-                                UserLocationEvent.started(
-                                  locationController.latitude.value.toString(),
-                                  locationController.longitude.value.toString(),
-                                  locationController.dist.value,
-                                  locationController.locality.value,
-                                  locationController.locationAdress.value,
-                                ),
-                              ),
-                            );
-                        Future.delayed(const Duration(seconds: 1), () {
-                          BlocProvider.of<GetDoctorBloc>(context).add(
-                            FetchGetDoctor(),
-                          );
-                        });
+                        onTap: () {
+    log("Fetching location...");
+    locationController.fetchCountry().then((_) {
+      BlocProvider.of<UserLocationBloc>(context).add(
+        UserLocationEvent.started(
+          locationController.latitude.value.toString(),
+          locationController.longitude.value.toString(),
+          locationController.dist.value,
+          locationController.locality.value,
+          locationController.locationAdress.value,
+        ),
+      );
+      Future.delayed(const Duration(seconds: 1), () {
+        BlocProvider.of<GetDoctorBloc>(context).add(
+          FetchGetDoctor(),
+        );
+      });
+    });
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
@@ -120,22 +118,34 @@ class _HomeAappBarState extends State<HomeAappBar> {
                         // );
                       },
                       child: Obx(() {
-                        if (locationController.loding.value &&locationController.subLocality.value == "") {
-                          const Center(
-                            child: CupertinoActivityIndicator(
-                              color: Colors.amber,
-                            ),
-                          );
-                        }
-                        return Text(
-                         
-                            locationController.subLocality.value,
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white),
-                        );
-                      }),
+    if (locationController.loding.value) {
+      return const Center(
+        child: CupertinoActivityIndicator(
+          color: Colors.amber,
+        ),
+      );
+    }
+    if (!locationController.isLocationFetched.value) {
+      return Text(
+        "Tap to get location",
+        style: TextStyle(
+          fontSize: 15.sp,
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+        ),
+      );
+    }
+    return Text(
+      locationController.subLocality.value.isEmpty
+          ? locationController.dist.value
+          : locationController.subLocality.value,
+      style: TextStyle(
+        fontSize: 15.sp,
+        fontWeight: FontWeight.w400,
+        color: Colors.white,
+      ),
+    );
+  }),
                     ),
                   ],
                 ),
