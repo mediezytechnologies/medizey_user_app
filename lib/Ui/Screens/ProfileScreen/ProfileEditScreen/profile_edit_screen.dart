@@ -298,8 +298,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                    onDateSelected: (DateTime picked)async {
                                       setState(() {
                                     dateofBirth = picked;
-                                    log("jfkldsfjkldsfjklsdfjksd===================$dateOfBirth");
+                                    log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
                                   });
+                                   log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
                                    },
                                    );
                                   // selectDate(
@@ -325,7 +326,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     children: [
                                       Text(
                                           dateofBirth == null?
-                                          widget.dob:DateFormat('dd-MM-yyy')
+                                          widget.dob:DateFormat('yyy-MM-dd')
                                               .format(dateofBirth!),
                                         // dOB != null
                                         //     ? DateFormat('dd-MM-yyyy')
@@ -556,6 +557,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           maximumDate: DateTime.now(),
           onDateTimeChanged: (DateTime newDate) {
             onDateSelected(newDate);
+            
           },
         );
       },
