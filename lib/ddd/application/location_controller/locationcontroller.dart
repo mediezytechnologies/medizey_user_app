@@ -58,8 +58,8 @@ class LocationController extends GetxController {
   Future<void> getAddressFromLatLong(Position position) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
-    log("pls====: ${placemarks.toString()}");
-    log("pls lo====: ${placemarks.last.locality.toString()}");
+    // log("pls====: ${placemarks.toString()}");
+    // log("pls lo====: ${placemarks.last.locality.toString()}");
     Placemark place = placemarks[0];
 
     String? thoroughfare = place.thoroughfare == ""
@@ -69,7 +69,7 @@ class LocationController extends GetxController {
         ? placemarks.last.subLocality
         : place.subLocality;
 
-    log("trot============================================.,///>>>>>>  : $thoroughfare");
+    //log("trot============================================.,///>>>>>>  : $thoroughfare");
 
     locationAdress.value = '$thoroughfare, ${place.subLocality}';
     latitude.value = position.latitude;
@@ -83,9 +83,9 @@ class LocationController extends GetxController {
     country.value = "${place.country}";
     name.value = "${place.administrativeArea}";
     postCode.value = "${place.postalCode}";
-    log('msg:${postCode.value}');
-    log('lat================:${latitude.value}');
-    log('log===============================:${longitude.value}');
+    // log('msg:${postCode.value}');
+    // log('lat================:${latitude.value}');
+    // log('log===============================:${longitude.value}');
     update();
   }
   //dist api ===========
@@ -98,12 +98,12 @@ class LocationController extends GetxController {
       update();
       dist.value = data.postOffice!.first.district!;
       update();
-      log("dist ===============================================:${dist.value.toString()}");
+    //  log("dist ===============================================:${dist.value.toString()}");
 
       return allLocation.value;
     } catch (e) {
-      log(e.toString());
-      log('catch bloc called');
+      // log(e.toString());
+      // log('catch bloc called');
       loding.value = false;
     }
     return null;
@@ -119,7 +119,7 @@ class LocationController extends GetxController {
 
       update();
     } catch (e) {
-      log('Error fetching location: $e');
+      //log('Error fetching location: $e');
     }
   }
 }

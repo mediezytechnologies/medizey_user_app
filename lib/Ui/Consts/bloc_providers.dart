@@ -147,7 +147,7 @@ class AppBlocProviders {
         BlocProvider(create: (context) => getIt<SearchDoctorBloc>()),
         BlocProvider(create: (context) => getIt<RatingBloc>()),
         BlocProvider(create: (context) => getIt<RatingPostBloc>()),
-        BlocProvider(create: (context) => getIt<FirebaseLoginBloc>()),
+      //  BlocProvider(create: (context) => getIt<FirebaseLoginBloc>()),
         BlocProvider(create: (context) => getIt<NotificatioTokenBloc>()),
         BlocProvider(
             create: (context) => GetCompletedFeedbackAppointmentBloc()),
