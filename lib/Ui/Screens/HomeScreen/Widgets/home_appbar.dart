@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mediezy_user/Repository/Bloc/GetDoctor/GetDoctors/get_doctor_bloc.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import '../../../../ddd/application/location_controller/locationcontroller.dart';
@@ -48,8 +49,8 @@ class _HomeAappBarState extends State<HomeAappBar> {
       width: double.infinity,
       height: widget.isAppBar,
       color:
-      //Colors.black,
-       kSecondaryColor,
+          //Colors.black,
+          kSecondaryColor,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
         child: Row(
@@ -92,24 +93,24 @@ class _HomeAappBarState extends State<HomeAappBar> {
                     ),
                     const HorizontalSpacingWidget(width: 5),
                     GestureDetector(
-                        onTap: () {
-    log("Fetching location...");
-    locationController.fetchCountry().then((_) {
-      BlocProvider.of<UserLocationBloc>(context).add(
-        UserLocationEvent.started(
-          locationController.latitude.value.toString(),
-          locationController.longitude.value.toString(),
-          locationController.dist.value,
-          locationController.locality.value,
-          locationController.locationAdress.value,
-        ),
-      );
-      Future.delayed(const Duration(seconds: 1), () {
-        BlocProvider.of<GetDoctorBloc>(context).add(
-          FetchGetDoctor(),
-        );
-      });
-    });
+                      onTap: () {
+                        log("Fetching location...");
+                        locationController.fetchCountry().then((_) {
+                          BlocProvider.of<UserLocationBloc>(context).add(
+                            UserLocationEvent.started(
+                              locationController.latitude.value.toString(),
+                              locationController.longitude.value.toString(),
+                              locationController.dist.value,
+                              locationController.locality.value,
+                              locationController.locationAdress.value,
+                            ),
+                          );
+                          Future.delayed(const Duration(seconds: 1), () {
+                            BlocProvider.of<GetDoctorBloc>(context).add(
+                              FetchGetDoctor(),
+                            );
+                          });
+                        });
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
@@ -118,35 +119,37 @@ class _HomeAappBarState extends State<HomeAappBar> {
                         // );
                       },
                       child: Obx(() {
-    // if (locationControlleObx(() {
-    if (locationController.loading.value) {
-      return  Center(
-        child: CupertinoActivityIndicator(radius: 15.r,
-          color: Colors.white,
-        ),
-      );
-    }
-    if (!locationController.isLocationFetched.value) {
-      return Text(
-        "Tap to get location",
-        style: TextStyle(
-          fontSize: 15.sp,
-          fontWeight: FontWeight.w400,
-          color: Colors.white,
-        ),
-      );
-    }
-    return Text(
-      locationController.subLocality.value.isEmpty
-          ? locationController.dist.value
-          : locationController.subLocality.value,
-      style: TextStyle(
-        fontSize: 15.sp,
-        fontWeight: FontWeight.w400,
-        color: Colors.white,
-      ),
-    );
-  }),
+                        // if (locationControlleObx(() {
+                        if (locationController.loading.value) {
+                          return Center(
+                              child: LoadingAnimationWidget.staggeredDotsWave(
+                                  color: Colors.white, size: 20.r));
+                        }
+                        if (!locationController.isLocationFetched.value) {
+                          return Text(
+                            "Tap to get location",
+                            style: TextStyle(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                          );
+                        }
+                        return Text(
+                          locationController.subLocality.value.isNotEmpty
+                              ? locationController.subLocality.value
+                              : locationController.locality.value.isNotEmpty
+                                  ? locationController.locality.value
+                                  : locationController.dist.value.isNotEmpty
+                                      ? locationController.dist.value
+                                      : "Tap to get location",
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        );
+                      }),
                     ),
                   ],
                 ),

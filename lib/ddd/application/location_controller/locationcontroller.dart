@@ -9,8 +9,8 @@ import '../../domain/location_model/location_model.dart';
 class LocationController extends GetxController {
   Rx<LocationModel> allLocation = LocationModel().obs;
   RxBool loading = true.obs;
-  var isLoading =true .obs;
-   RxBool isLocationFetched = false.obs;
+  var isLoading = true.obs;
+  RxBool isLocationFetched = false.obs;
 
   var locationError = ''.obs;
   String location = 'Null, Press Button';
@@ -28,12 +28,11 @@ class LocationController extends GetxController {
 
   @override
   void onInit() {
-   
     super.onInit();
-     fetchCountry();
+    fetchCountry();
   }
 
-Future<Position> _getGeoLocationPosition() async {
+  Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -57,8 +56,7 @@ Future<Position> _getGeoLocationPosition() async {
     }
 
     return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high
-    );
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   //===========================//
@@ -96,30 +94,39 @@ Future<Position> _getGeoLocationPosition() async {
 
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
-        subLocality.value = place.subLocality ?? '';
+        log(place.toString());
+        // String? thoroughfare = place.thoroughfare == ""
+        //     ? placemarks.last.thoroughfare
+        //     : place.thoroughfare;
+        String? subloc = place.subLocality == ""
+            ? placemarks.last.subLocality
+            : place.subLocality;
+        subLocality.value = subloc ?? '';
+        log("====================$subloc");
         locality.value = place.locality ?? '';
         country.value = place.country ?? '';
         latitude.value = position.latitude;
         longitude.value = position.longitude;
-        locationAdress.value = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.country}';
+        locationAdress.value =
+            '${place.street}, ${place.subLocality}, ${place.locality}, ${place.country}';
       }
     } catch (e) {
-    log('Error getting address: $e');
+      log('Error getting address: $e');
       locationError.value = 'Failed to get address details';
     }
   }
 
   //dist api ===========
 
- Future<void> fetchCountry() async {
+  Future<void> fetchCountry() async {
     try {
       loading.value = true;
       isLocationFetched.value = false;
-      
+
       Position position = await _getGeoLocationPosition();
       await getAddressFromLatLong(position);
       await getLocation(); // This calls the API to get additional location data
-      
+
       isLocationFetched.value = true;
     } catch (e) {
       log('Error fetching location: $e');
@@ -128,7 +135,7 @@ Future<Position> _getGeoLocationPosition() async {
     }
   }
 
-   Future<void> getLocation() async {
+  Future<void> getLocation() async {
     try {
       var data = await LocationService.getLocatioinService();
       allLocation.value = data!;
@@ -139,12 +146,11 @@ Future<Position> _getGeoLocationPosition() async {
     }
   }
 
-
 // oninit =======================================
 
   // Future<void> fetchCountry() async {
   //   try {
-     
+
   //     Position position = await _getGeoLocationPosition();
   //      isLoading.value=false;
   //     update();
@@ -156,4 +162,3 @@ Future<Position> _getGeoLocationPosition() async {
   //   }
   // }
 }
-

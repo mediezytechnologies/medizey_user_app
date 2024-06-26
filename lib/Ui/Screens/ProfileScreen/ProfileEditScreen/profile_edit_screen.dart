@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -53,12 +55,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileNoController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  DateTime? dateofBirth;
   String genderValue = "";
   String selectedGender = '';
   File? imageFromGallery;
   late StreamSubscription<ConnectivityResult> subscription;
   String? dateOfBirth;
-  DateTime? dOB;
+ // DateTime? dOB;
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -91,7 +94,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         : (widget.gender == "2")
             ? "2"
             : "0";
-    dateOfBirth = widget.dob == 'null' ? "" : widget.dob;
+   // dateOfBirth = widget.dob == 'null' ? "" : widget.dob;
     super.initState();
   }
 
@@ -290,15 +293,24 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               InkWell(
                                 onTap: () {
                                   FocusScope.of(context).unfocus();
-                                  selectDate(
-                                    context: context,
-                                    date: DateTime.now(),
-                                    onDateSelected: (DateTime picked) async {
+                                  selectIosDate(context: context,
+                                   date: dateofBirth??DateTime.now(),
+                                   onDateSelected: (DateTime picked)async {
                                       setState(() {
-                                        dOB = picked;
-                                      });
-                                    },
-                                  );
+                                    dateofBirth = picked;
+                                    log("jfkldsfjkldsfjklsdfjksd===================$dateOfBirth");
+                                  });
+                                   },
+                                   );
+                                  // selectDate(
+                                  //   context: context,
+                                  //   date: DateTime.now(),
+                                  //   onDateSelected: (DateTime picked) async {
+                                  //     setState(() {
+                                  //       dOB = picked;
+                                  //     });
+                                  //   },
+                                  // );
                                 },
                                 child: Container(
                                   height: size.height * .065,
@@ -312,10 +324,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
-                                        dOB != null
-                                            ? DateFormat('dd-MM-yyyy')
-                                                .format(dOB!)
-                                            : dateOfBirth.toString(),
+                                          dateofBirth == null?
+                                          widget.dob:DateFormat('dd-MM-yyy')
+                                              .format(dateofBirth!),
+                                        // dOB != null
+                                        //     ? DateFormat('dd-MM-yyyy')
+                                        //         .format(dOB!)
+                                        //     : dateOfBirth.toString(),
                                         style: black13B500,
                                       ),
                                       Icon(
@@ -454,11 +469,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           CommonButtonWidget(
                               widget: Text("Update", style: white13B700),
                               onTapFunction: () {
+                                log("=============== dateofbirthn   $dateofBirth");
+                                   log("=============== initial dob   ${widget.dob}");
                                 setNewUserName(firstNameController.text);
                                 BlocProvider.of<EditUserBloc>(context).add(
                                   FetchEditUser(
-                                      dob: dOB != null
-                                          ? DateFormat('yyy-MM-dd').format(dOB!)
+                                      dob: dateofBirth != null
+                                          ? DateFormat('yyy-MM-dd').format(dateofBirth!)
                                           : '',
                                       firstName: firstNameController.text,
                                       secondName: secondNameController.text,
@@ -524,31 +541,51 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   //     throw Exception('Image compression failed');
   //   }
   // }
-
-  //! select date
-  Future<void> selectDate({
+   Future<void> selectIosDate({
     required BuildContext context,
     required DateTime date,
     required Function(DateTime) onDateSelected,
   }) async {
-    final DateTime? picked = await showDatePicker(
+    await showModalBottomSheet<DateTime>(
       context: context,
-      initialDate: date,
-      firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-      lastDate: DateTime.now(),
-      builder: ((context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
-              primary: kMainColor,
-            ),
-          ),
-          child: child!,
+      builder: (BuildContext context) {
+        return CupertinoDatePicker(
+          mode: CupertinoDatePickerMode.date,
+          initialDateTime: date,
+          minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+          maximumDate: DateTime.now(),
+          onDateTimeChanged: (DateTime newDate) {
+            onDateSelected(newDate);
+          },
         );
-      }),
+      },
     );
-    if (picked != null) {
-      onDateSelected(picked);
-    }
   }
+
+  //! select date
+  // Future<void> selectDate({
+  //   required BuildContext context,
+  //   required DateTime date,
+  //   required Function(DateTime) onDateSelected,
+  // }) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: date,
+  //     firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
+  //     lastDate: DateTime.now(),
+  //     builder: ((context, child) {
+  //       return Theme(
+  //         data: Theme.of(context).copyWith(
+  //           colorScheme: ColorScheme.light(
+  //             primary: kMainColor,
+  //           ),
+  //         ),
+  //         child: child!,
+  //       );
+  //     }),
+  //   );
+  //   if (picked != null) {
+  //     onDateSelected(picked);
+  //   }
+  // }
 }
