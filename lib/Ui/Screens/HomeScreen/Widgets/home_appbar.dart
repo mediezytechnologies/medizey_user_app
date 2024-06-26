@@ -118,13 +118,13 @@ class _HomeAappBarState extends State<HomeAappBar> {
                         // );
                       },
                       child: Obx(() {
-    if (locationController.loding.value) {
-      return const Center(
-        child: CupertinoActivityIndicator(
-          color: Colors.amber,
-        ),
-      );
-    }
+    // if (locationController.loding.value) {
+    //   return const Center(
+    //     child: CupertinoActivityIndicator(
+    //       color: Colors.amber,
+    //     ),
+    //   );
+    // }
     if (!locationController.isLocationFetched.value) {
       return Text(
         "Tap to get location",
