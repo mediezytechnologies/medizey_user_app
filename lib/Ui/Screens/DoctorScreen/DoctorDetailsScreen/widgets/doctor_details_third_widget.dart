@@ -76,7 +76,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
         availableTokenCount == 0
             ? const SizedBox()
             : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -90,7 +90,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
         totalTokenCount == 0
             ? const SizedBox()
             : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -105,7 +105,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
             ? nextDateAvailableTokenTime == "null"
                 ? const SizedBox()
                 : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -139,16 +139,23 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
               onTap: () {
                 MapsLauncher.launchQuery(address);
               },
-              child: Wrap(
-                children: [
-                  Text('Get Location', style: grey11B400),
-                  const HorizontalSpacingWidget(width: 5),
-                  Icon(
-                    IconlyLight.location,
-                    color: kMainColor,
-                    size: 14.sp,
-                  )
-                ],
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.r),
+                  border: Border.all(color: kMainColor, width: 1.w),
+                ),
+                child: Wrap(
+                  children: [
+                    Text('Get Location', style: grey11B400),
+                    const HorizontalSpacingWidget(width: 5),
+                    Icon(
+                      IconlyLight.location,
+                      color: kMainColor,
+                      size: 14.sp,
+                    )
+                  ],
+                ),
               ),
             ),
           ],

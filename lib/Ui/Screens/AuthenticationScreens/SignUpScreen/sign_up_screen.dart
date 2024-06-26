@@ -430,6 +430,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         widget: Text("Sign up", style: white13B700),
                         onTapFunction: () {
                           if (_formKey.currentState!.validate()) {
+                            if (dateOfBirth == null) {
+                              GeneralServices.instance
+                                  .showToastMessage("Enter Date of birth");
+                            }
                             BlocProvider.of<LoginAndSignupBloc>(context).add(
                               SignUpEvent(
                                   email: emailController.text,
@@ -478,11 +482,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery,imageQuality: 85);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
-   //   File compressedImage = await compressImage(imageFile);
+      //   File compressedImage = await compressImage(imageFile);
       setState(() {
         imageFromGallery = imageFile;
       });

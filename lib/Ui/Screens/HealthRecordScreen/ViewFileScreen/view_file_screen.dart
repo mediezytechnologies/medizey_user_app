@@ -30,15 +30,23 @@ class _ViewFileScreenState extends State<ViewFileScreen> {
         ],
       ),
       body: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: FancyShimmerImage(
-              height: double.infinity,
-              boxFit: BoxFit.contain,
-              errorWidget: const Image(
-                image: AssetImage("assets/icons/no image.png"),
-              ),
-              imageUrl: widget.viewFile),
+        child: InteractiveViewer(
+          minScale: 0.5,
+          maxScale: 4.0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FancyShimmerImage(
+                  height: double.infinity,
+                  width: double.infinity,
+                  boxFit: BoxFit.contain,
+                  errorWidget: const Image(
+                    image: AssetImage("assets/icons/no image.png"),
+                  ),
+                  imageUrl: widget.viewFile),
+            ),
+          ),
         ),
       ),
     );

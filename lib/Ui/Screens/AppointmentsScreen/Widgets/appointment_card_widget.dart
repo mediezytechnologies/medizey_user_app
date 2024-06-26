@@ -168,7 +168,6 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                               ),
                             ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
@@ -186,43 +185,49 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                 ),
                               ),
                               Text(widget.appointmentTime, style: black12B500),
+                              const HorizontalSpacingWidget(width: 10),
+                              GestureDetector(
+                                onTap: () {
+                                  String clinicAddress =
+                                      getAvailableClinicAddress(
+                                          widget.bookedClinicName,
+                                          widget.clinicList);
+                                  MapsLauncher.launchQuery(clinicAddress);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.r),
+                                    border: Border.all(
+                                        color: kSecondaryColor, width: 1.w),
+                                  ),
+                                  child: Wrap(
+                                    children: [
+                                      Text('Location', style: grey11B400),
+                                      const HorizontalSpacingWidget(width: 5),
+                                      Icon(
+                                        IconlyLight.location,
+                                        color: kSecondaryColor,
+                                        size: 14.sp,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ],
                       ),
                       Row(
                         children: [
-                          Row(
-                            children: [
-                              Text("For: ", style: grey12B500),
-                              SizedBox(
-                                width: size.width * .28,
-                                child: Text(
-                                  widget.patientName,
-                                  style: black12B500,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const HorizontalSpacingWidget(width: 20),
-                          GestureDetector(
-                            onTap: () {
-                              String clinicAddress = getAvailableClinicAddress(
-                                  widget.bookedClinicName, widget.clinicList);
-                              MapsLauncher.launchQuery(clinicAddress);
-                            },
-                            child: Wrap(
-                              children: [
-                                Text('Location', style: grey11B400),
-                                const HorizontalSpacingWidget(width: 5),
-                                Icon(
-                                  IconlyLight.location,
-                                  color: kSecondaryColor,
-                                  size: 14.sp,
-                                )
-                              ],
+                          Text("For: ", style: grey12B500),
+                          SizedBox(
+                            width: size.width * .28,
+                            child: Text(
+                              widget.patientName,
+                              style: black12B500,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
