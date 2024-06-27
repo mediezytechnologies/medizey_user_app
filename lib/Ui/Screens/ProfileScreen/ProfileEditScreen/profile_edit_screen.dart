@@ -21,7 +21,6 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../Consts/text_style.dart';
 
 class ProfileEditScreen extends StatefulWidget {
@@ -451,28 +450,56 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 30),
-                          CommonButtonWidget(
-                              widget: Text("Update", style: white13B700),
-                              onTapFunction: () {
-                                setNewUserName(firstNameController.text);
-                                BlocProvider.of<EditUserBloc>(context).add(
-                                  FetchEditUser(
-                                      dob: dOB != null
-                                          ? DateFormat('yyy-MM-dd').format(dOB!)
-                                          : '',
-                                      firstName: firstNameController.text,
-                                      secondName: secondNameController.text,
-                                      mobileNo: mobileNoController.text,
-                                      email: emailController.text,
-                                      location: locationController.text,
-                                      gender: selectedGender),
+                          BlocConsumer<EditUserBloc, EditUserState>(
+                            listener: (context, state) {
+                              if (state is EditUserDetailsLoaded) {
+                                GeneralServices.instance.showToastMessage(
+                                    "Profile edit successfully");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        BottomNavigationControlWidget(
+                                            selectedIndex: 3),
+                                  ),
                                 );
-                                BlocProvider.of<UploadUserImageBloc>(context)
-                                    .add(
-                                  FetchUploadUserImage(
-                                      userImage: imageFromGallery!),
-                                );
-                              }),
+                              }
+                              if (state is EditUserDetailsError) {
+                                GeneralServices.instance.showToastMessage(
+                                    "Error occured while edit profile");
+                              }
+                            },
+                            builder: (context, state) {
+                              return CommonButtonWidget(
+                                  widget: state is EditUserDetailsLoading
+                                      ? CircularProgressIndicator(
+                                          color: kCardColor,
+                                        )
+                                      : Text("Update", style: white13B700),
+                                  onTapFunction: () {
+                                    setNewUserName(firstNameController.text);
+                                    BlocProvider.of<EditUserBloc>(context).add(
+                                      FetchEditUser(
+                                          dob: dOB != null
+                                              ? DateFormat('yyy-MM-dd')
+                                                  .format(dOB!)
+                                              : '',
+                                          firstName: firstNameController.text,
+                                          secondName: secondNameController.text,
+                                          mobileNo: mobileNoController.text,
+                                          email: emailController.text,
+                                          location: locationController.text,
+                                          gender: selectedGender),
+                                    );
+                                    BlocProvider.of<UploadUserImageBloc>(
+                                            context)
+                                        .add(
+                                      FetchUploadUserImage(
+                                          userImage: imageFromGallery!),
+                                    );
+                                  });
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -486,7 +513,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery,imageQuality: 85);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
@@ -500,9 +528,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       });
     }
   }
-
-
-  
 
 //* Image compression function
   // Future<File> compressImage(File imageFile) async {

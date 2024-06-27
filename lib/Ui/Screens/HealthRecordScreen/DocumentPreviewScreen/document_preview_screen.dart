@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field, avoid_print
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +6,8 @@ import 'package:mediezy_user/Model/HealthRecord/UploadDocumentModel/upload_docum
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/UploadDocument/UploadDocument/upload_document_bloc.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
+import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/HealthRecordScreen/SaveDocumentScreen/save_document_screen.dart';
-
 import '../../../Consts/text_style.dart';
 
 class DocumentPreviewScreen extends StatefulWidget {
@@ -34,74 +32,65 @@ class _DocumentPreviewScreenState extends State<DocumentPreviewScreen> {
       appBar: AppBar(
         title: const Text('Document Preview'),
       ),
-      body: BlocListener<UploadDocumentBloc, UploadDocumentState>(
-        listener: (context, state) {
-          if (state is UploadDocumentError) {
-            const Center(
-              child: Text("Something Went Wrong"),
-            );
-          }
-          if (state is UploadDocumentLoaded) {
-            upLoadDocumentModel = BlocProvider.of<UploadDocumentBloc>(context)
-                .uploadDocumentModel;
-            print(
-                "<<<<document id ${upLoadDocumentModel.document!.id.toString()}");
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DocumentSaveScreen(
-                  type: widget.type,
-                  documentId: upLoadDocumentModel.document!.id.toString(),
-                ),
-              ),
-            );
-          }
-        },
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                if (widget.imageFile != null)
-                  Image.file(
-                    widget.imageFile!,
-                    height: 500,
-                    width: 500,
-                  )
-                else if (widget.imageUrl != null)
-                  Image.network(
-                    widget.imageUrl!,
-                    height: 500,
-                    width: 500,
-                  )
-                // SizedBox(
-                //   height: 500,
-                //   width: 300,
-                //   child: PDFView(
-                //     filePath: widget.imageUrl,
-                //     autoSpacing: true,
-                //     pageSnap: true,
-                //     swipeHorizontal: true,
-                //     onViewCreated: (PDFViewController viewController) {
-                //       _pdfViewController = viewController;
-                //     },
-                //   ),
-                // ),
-                else
-                  const Text('No Image Selected'),
-                const VerticalSpacingWidget(height: 20),
-                CommonButtonWidget(
-                  widget: Text("Upload", style: white13B700),
-                  onTapFunction: () {
-                    print(
-                        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${widget.imageFile}");
-                    BlocProvider.of<UploadDocumentBloc>(context)
-                        .add(FetchUploadDocuments(document: widget.imageFile!));
-                  },
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (widget.imageFile != null)
+                Image.file(
+                  widget.imageFile!,
+                  height: 500,
+                  width: 500,
                 )
-              ],
-            ),
+              else if (widget.imageUrl != null)
+                Image.network(
+                  widget.imageUrl!,
+                  height: 500,
+                  width: 500,
+                )
+              else
+                const Text('No Image Selected'),
+              const VerticalSpacingWidget(height: 20),
+              BlocConsumer<UploadDocumentBloc, UploadDocumentState>(
+                listener: (context, state) {
+                  if (state is UploadDocumentError) {
+                    const Center(
+                      child: Text("Something Went Wrong"),
+                    );
+                  }
+                  if (state is UploadDocumentLoaded) {
+                    upLoadDocumentModel =
+                        BlocProvider.of<UploadDocumentBloc>(context)
+                            .uploadDocumentModel;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DocumentSaveScreen(
+                          type: widget.type,
+                          documentId:
+                              upLoadDocumentModel.document!.id.toString(),
+                        ),
+                      ),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return CommonButtonWidget(
+                    widget: state is UploadDocumentLoading
+                        ? CircularProgressIndicator(
+                            color: kCardColor,
+                          )
+                        : Text("Upload", style: white13B700),
+                    onTapFunction: () {
+                      BlocProvider.of<UploadDocumentBloc>(context).add(
+                          FetchUploadDocuments(document: widget.imageFile!));
+                    },
+                  );
+                },
+              )
+            ],
           ),
         ),
       ),

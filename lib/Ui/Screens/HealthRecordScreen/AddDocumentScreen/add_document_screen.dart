@@ -37,12 +37,13 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     log("image ${widget.image}");
-    return Scaffold(  bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+    return Scaffold(
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         title: Text(widget.appBarTitle),
         centerTitle: true,
@@ -234,7 +235,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
     setState(() async {
       if (pickedFile != null) {
         // Compress the selected image
-        imageFromGallery =   File(pickedFile.path);
+        imageFromGallery = File(pickedFile.path);
 
         // Navigate to DocumentPreviewScreen
         Navigator.push(
@@ -255,13 +256,13 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   //* pick image from camera
   Future<void> pickImageFromCamera() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera,imageQuality: 85);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.camera, imageQuality: 85);
 
     if (pickedFile != null) {
       try {
-        
         File file = File(pickedFile.path);
-     //   File compressedImage = await compressImage(pickedFile.path);
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -279,50 +280,4 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
       GeneralServices.instance.showToastMessage('No image selected');
     }
   }
-
-  //* Image compression function
-//   Future<File> compressImage(String imagePath) async {
-//     File imageFile = File(imagePath);
-//     int fileSize = await imageFile.length();
-//     int maxFileSize = 2048 * 1024;
-//     if (fileSize <= maxFileSize) {
-//       return imageFile;
-//     }
-//     // Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
-//     //   imagePath,
-//     //   quality: 85,
-//     // );
-//     if (compressedBytes != null) {
-//       List<int> compressedList = compressedBytes.toList();
-//       File compressedImage = File(imagePath)..writeAsBytesSync(compressedList);
-//       return compressedImage;
-//     } else {
-//       throw Exception('Image compression failed');
-//     }
-//   }
-// }
-//*pick file from mobile
-// Future<void> pickFile() async {
-//   try {
-//     FilePickerResult? result = await FilePicker.platform.pickFiles();
-//     if (result != null) {
-//       String path = result.files.single.path!;
-//       setState(() {
-//         filePath = path;
-//         print("<<<<PICK FILE PATH>>>>>>> $filePath");
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (context) =>
-//                 DocumentPreviewScreen(imageUrl: filePath!, type: widget.type),
-//           ),
-//         );
-//       });
-//     } else {
-//       // User canceled the file picker
-//     }
-//   } catch (e) {
-//     print('Error picking file: $e');
-//   }
-// }
 }

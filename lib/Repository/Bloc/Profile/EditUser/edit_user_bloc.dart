@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediezy_user/Model/Profile/edit_user_model.dart';
 import 'package:mediezy_user/Repository/Api/Profile/profile_api.dart';
-import 'package:meta/meta.dart';
-
 part 'edit_user_event.dart';
 part 'edit_user_state.dart';
 
