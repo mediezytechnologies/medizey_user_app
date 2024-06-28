@@ -136,12 +136,12 @@ class _GetBannerWidgetState extends State<GetBannerWidget> {
                   return Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 6.w, 0),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.r),
+                      borderRadius: BorderRadius.circular(20.r),
                       child: Image(
                         image: NetworkImage(
                           state.model!.bannerImages![index],
                         ),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   );

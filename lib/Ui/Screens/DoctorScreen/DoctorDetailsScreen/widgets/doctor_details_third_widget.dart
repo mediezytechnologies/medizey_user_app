@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import '../../../../CommonWidgets/horizontal_spacing_widget.dart';
+import '../../../../CommonWidgets/location_card_widget.dart';
 import '../../../../Consts/text_style.dart';
 import '../../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../Consts/app_colors.dart';
@@ -76,7 +75,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
         availableTokenCount == 0
             ? const SizedBox()
             : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -90,7 +89,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
         totalTokenCount == 0
             ? const SizedBox()
             : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -105,7 +104,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
             ? nextDateAvailableTokenTime == "null"
                 ? const SizedBox()
                 : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -139,17 +138,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
               onTap: () {
                 MapsLauncher.launchQuery(address);
               },
-              child: Wrap(
-                children: [
-                  Text('Get Location', style: grey11B400),
-                  const HorizontalSpacingWidget(width: 5),
-                  Icon(
-                    IconlyLight.location,
-                    color: kMainColor,
-                    size: 14.sp,
-                  )
-                ],
-              ),
+              child:LocationCardWidget(color: kMainColor)
             ),
           ],
         ),

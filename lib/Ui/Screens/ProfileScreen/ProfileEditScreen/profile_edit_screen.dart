@@ -23,7 +23,6 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../Consts/text_style.dart';
 
 class ProfileEditScreen extends StatefulWidget {
@@ -470,11 +469,48 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           CommonButtonWidget(
                               widget: Text("Update", style: white13B700),
                               onTapFunction: () {
-                                log("=============== dateofbirthn   $dateofBirth");
-                                   log("=============== initial dob   ${widget.dob}");
-                                setNewUserName(firstNameController.text);
-                                BlocProvider.of<EditUserBloc>(context).add(
-                                  FetchEditUser(
+                            
+                          BlocConsumer<EditUserBloc, EditUserState>(
+                            listener: (context, state) {
+                              if (state is EditUserDetailsLoaded) {
+                                GeneralServices.instance.showToastMessage(
+                                    "Profile edit successfully");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        BottomNavigationControlWidget(
+                                            selectedIndex: 3),
+                                  ),
+                                );
+                              }
+                              if (state is EditUserDetailsError) {
+                                GeneralServices.instance.showToastMessage(
+                                    "Error occured while edit profile");
+                              }
+                            },
+                            builder: (context, state) {
+                              return CommonButtonWidget(
+                                  widget: state is EditUserDetailsLoading
+                                      ? CircularProgressIndicator(
+                                          color: kCardColor,
+                                        )
+                                      : Text("Update", style: white13B700),
+                                  onTapFunction: () {
+                                    setNewUserName(firstNameController.text);
+                                    if (mobileNoController.text.isEmpty ||
+                                        int.tryParse(mobileNoController.text) ==
+                                            null) {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Mobile number should contain only digits");
+                                    } else if (mobileNoController.text.length <
+                                        10) {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Mobile number should have 10 digit");
+                                    } else {
+                                      BlocProvider.of<EditUserBloc>(context)
+                                          .add(
+                                         FetchEditUser(
                                       dob: dateofBirth != null
                                           ? DateFormat('yyy-MM-dd').format(dateofBirth!)
                                           : '',
@@ -484,13 +520,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       email: emailController.text,
                                       location: locationController.text,
                                       gender: selectedGender),
-                                );
-                                BlocProvider.of<UploadUserImageBloc>(context)
-                                    .add(
-                                  FetchUploadUserImage(
-                                      userImage: imageFromGallery!),
-                                );
-                              }),
+                                      );
+                                      BlocProvider.of<UploadUserImageBloc>(
+                                              context)
+                                          .add(
+                                        FetchUploadUserImage(
+                                            userImage: imageFromGallery!),
+                                      );
+                                    }
+                                  });
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -504,7 +544,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery,imageQuality: 85);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
@@ -518,9 +559,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       });
     }
   }
-
-
-  
 
 //* Image compression function
   // Future<File> compressImage(File imageFile) async {

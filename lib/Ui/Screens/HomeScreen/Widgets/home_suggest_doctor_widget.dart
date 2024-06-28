@@ -58,10 +58,7 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
           bottom: size.height * 0.02,
           child: Row(
             children: [
-              Text(
-                "We really appreciate\nyour feedback",
-                style: white10B500
-              ),
+              Text("We really appreciate\nyour feedback", style: white10B500),
               const HorizontalSpacingWidget(width: 40),
               Focus(
                 key: _suggestFocusRemoveKey,
@@ -78,11 +75,16 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
                   },
                   child: GestureDetector(
                     onTap: () {
-                      BlocProvider.of<SuggestionBloc>(context).add(
-                        FetchSuggestions(message: suggestionController.text),
-                      );
-                      suggestionController.clear();
-                      FocusScope.of(context).requestFocus(FocusNode());
+                      if (containsEmoji(suggestionController.text)) {
+                        GeneralServices.instance.showToastMessage(
+                            'Emoji are not allowed in feedback');
+                      } else {
+                        BlocProvider.of<SuggestionBloc>(context).add(
+                          FetchSuggestions(message: suggestionController.text),
+                        );
+                        suggestionController.clear();
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      }
                     },
                     child: Container(
                       height: 30.h,
@@ -109,5 +111,12 @@ class HomeSuggestDoctorWidget extends StatelessWidget {
         )
       ],
     );
+  }
+
+  bool containsEmoji(String text) {
+    final emojiRegex = RegExp(
+      r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
+    );
+    return emojiRegex.hasMatch(text);
   }
 }

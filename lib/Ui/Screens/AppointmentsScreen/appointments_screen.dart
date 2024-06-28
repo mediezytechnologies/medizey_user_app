@@ -70,7 +70,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Up Coming",
+                    "Upcoming",
                     style:
                         TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
                   ),

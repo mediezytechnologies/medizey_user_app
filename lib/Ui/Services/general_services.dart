@@ -1,4 +1,5 @@
-import 'dart:developer';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,26 +32,17 @@ class GeneralServices {
             context: context,
             builder: ((context) {
               return CupertinoAlertDialog(
-                content: Text(
-                  title,
-                  style: black16B600
-                ),
+                content: Text(title, style: black16B600),
                 actions: [
                   TextButton(
-                    child: Text(
-                      "No",
-                      style: black14B500
-                    ),
+                    child: Text("No", style: black14B500),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   TextButton(
                     onPressed: yesFunction,
-                    child: Text(
-                      "Yes",
-                      style:red16B600
-                    ),
+                    child: Text("Yes", style: red16B600),
                   )
                 ],
               );
@@ -65,26 +57,17 @@ class GeneralServices {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),
                 ),
-                content: Text(
-                  title,
-                  style:black16B600
-                ),
+                content: Text(title, style: black16B600),
                 actions: [
                   TextButton(
-                    child: Text(
-                      "No",
-                      style: black14B500
-                    ),
+                    child: Text("No", style: black14B500),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   TextButton(
                     onPressed: yesFunction,
-                    child: Text(
-                      "Yes",
-                      style: red16B600
-                    ),
+                    child: Text("Yes", style: red16B600),
                   )
                 ],
               );
@@ -233,18 +216,33 @@ class GeneralServices {
           );
   }
 
-  //* show delay success message
-  void showDelaySuccessMessage(BuildContext context, String message) {
-    Platform.isIOS
-        ? showCupertinoDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (context) {
-              Future.delayed(const Duration(seconds: 2), () {
-                Navigator.pop(context);
-                log("delay worked");
-              });
-              return CupertinoAlertDialog(
+  Future<void> showDelaySuccessMessage(
+      BuildContext context, String message) async {
+    // Show the dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        Future.delayed(const Duration(seconds: 2), () {
+          if (Navigator.of(dialogContext).canPop()) {
+            Navigator.of(dialogContext).pop();
+          }
+        });
+
+        return Platform.isIOS
+            ? CupertinoAlertDialog(
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset("assets/animations/success.json",
+                      height: 120.h),
+                ),
+                content: Text(
+                  message,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : AlertDialog(
                 title: Align(
                   alignment: Alignment.center,
                   child: Lottie.asset("assets/animations/success.json",
@@ -256,28 +254,11 @@ class GeneralServices {
                   textAlign: TextAlign.center,
                 ),
               );
-            },
-          )
-        : showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              Future.delayed(const Duration(seconds: 2), () {
-                Navigator.pop(context);
-                log("delay worked");
-              });
-              return AlertDialog(
-                title: Align(
-                  alignment: Alignment.center,
-                  child: Lottie.asset("assets/animations/success.json",
-                      height: 120.h),
-                ),
-                content: Text(
-                  message,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              );
-            },
-          );
+      },
+    );
+
+    await Future.delayed(
+      const Duration(seconds: 2, milliseconds: 100),
+    );
   }
 }

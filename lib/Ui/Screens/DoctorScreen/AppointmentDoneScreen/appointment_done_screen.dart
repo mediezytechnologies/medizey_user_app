@@ -100,6 +100,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
   final TextEditingController patientIdSearchController =
       TextEditingController();
   final TextEditingController searchPhoneNumber = TextEditingController();
+  final TextEditingController firstSixDigitsController =
+      TextEditingController();
+  final FocusNode phoneNumberFocusNode = FocusNode();
   String? originalAge;
   String dropdownValue = 'Male';
   String bookingFor = "Self";
@@ -744,9 +747,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                       patientContactNumberController.text =
                                           member.details!.first.mobileNo ?? "";
                                       dropdownValue =
-                                          member.details!.first.gender == "2"
-                                              ? "Female"
-                                              : "Male";
+                                          member.details!.first.gender == "1"
+                                              ? "Male"
+                                              : (member.details!.first.gender ==
+                                                      "2")
+                                                  ? "Female"
+                                                  : "Other";
                                       originalAge =
                                           member.details!.first.age.toString();
                                     }
@@ -782,6 +788,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                             .otherTypePatientDetailsModel;
                                                     setState(() {
                                                       isSelectPatient = true;
+                                                      firstSixDigitsController
+                                                              .text =
+                                                          otherTypePatientDetailsModel
+                                                              .details!.mobileNo
+                                                              .toString()
+                                                              .substring(0, 6);
                                                     });
                                                     GeneralServices.instance
                                                         .showToastMessage(state
@@ -794,6 +806,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
+                                                    Text("Patient id",
+                                                        style: grey12B500),
+                                                    const VerticalSpacingWidget(
+                                                        height: 5),
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -805,6 +821,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                           width:
                                                               size.width * .65,
                                                           child: TextFormField(
+                                                            onTap: () {},
                                                             validator: (value) {
                                                               if (value!
                                                                   .isEmpty) {
@@ -813,6 +830,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                 return null;
                                                               }
                                                             },
+                                                            textCapitalization:
+                                                                TextCapitalization
+                                                                    .characters,
                                                             cursorColor:
                                                                 kMainColor,
                                                             controller:
@@ -872,6 +892,10 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                         patientIdSearchController
                                                                             .text),
                                                               );
+                                                              FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      phoneNumberFocusNode);
                                                             }
                                                           },
                                                           child: Container(
@@ -898,136 +922,334 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                         ),
                                                       ],
                                                     ),
-                                                    isSelectPatient
-                                                        ? Column(
-                                                            children: [
-                                                              const VerticalSpacingWidget(
-                                                                  height: 10),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    height: size
-                                                                            .height *
-                                                                        .065,
-                                                                    width:
-                                                                        size.width *
-                                                                            .65,
-                                                                    child:
-                                                                        TextFormField(
-                                                                      cursorColor:
-                                                                          kMainColor,
-                                                                      controller:
-                                                                          searchPhoneNumber,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .phone,
-                                                                      textInputAction:
-                                                                          TextInputAction
-                                                                              .done,
-                                                                      maxLength:
-                                                                          4,
-                                                                      decoration:
-                                                                          InputDecoration(
-                                                                        counterText:
-                                                                            "",
-                                                                        hintStyle:
-                                                                            grey13B600,
-                                                                        hintText:
-                                                                            "Enter last 4 digit of mobile number",
-                                                                        filled:
-                                                                            true,
-                                                                        fillColor:
-                                                                            kCardColor,
-                                                                        border:
-                                                                            OutlineInputBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(4),
-                                                                          borderSide:
-                                                                              BorderSide.none,
-                                                                        ),
-                                                                        contentPadding: EdgeInsets.symmetric(
-                                                                            vertical:
-                                                                                5.h,
-                                                                            horizontal: 5.w),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      if (otherTypePatientDetailsModel
-                                                                          .details!
-                                                                          .mobileNo
-                                                                          .toString()
-                                                                          .endsWith(
-                                                                              searchPhoneNumber.text)) {
-                                                                        GeneralServices
-                                                                            .instance
-                                                                            .showToastMessage("Phonenumber matched, please fill other details");
-                                                                        setState(
-                                                                            () {
-                                                                          patientName = otherTypePatientDetailsModel
-                                                                              .details!
-                                                                              .firstname
-                                                                              .toString();
-                                                                          patientDisplayAge = otherTypePatientDetailsModel
-                                                                              .details!
-                                                                              .displayAge
-                                                                              .toString();
-                                                                          patientAge = otherTypePatientDetailsModel
-                                                                              .details!
-                                                                              .age
-                                                                              .toString();
-                                                                          patientGender = otherTypePatientDetailsModel
-                                                                              .details!
-                                                                              .gender
-                                                                              .toString();
-                                                                          patientPhoneNumber = otherTypePatientDetailsModel
-                                                                              .details!
-                                                                              .mobileNo
-                                                                              .toString();
-                                                                          patientMediezyId = otherTypePatientDetailsModel
-                                                                              .details!
-                                                                              .patientId
-                                                                              .toString();
-                                                                        });
-                                                                      } else {
-                                                                        GeneralServices
-                                                                            .instance
-                                                                            .showToastMessage("Phonenumber is not matched,\nenter correct phone number");
-                                                                      }
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          size.height *
-                                                                              .06,
+                                                    BlocListener<
+                                                        OtherTypePatientDetailsBloc,
+                                                        OtherTypePatientDetailsState>(
+                                                      listener:
+                                                          (context, state) {
+                                                        if (state
+                                                            is OtherTypePatientDetailsLoaded) {
+                                                          setState(() {
+                                                            isSelectPatient =
+                                                                true;
+                                                            otherTypePatientDetailsModel =
+                                                                state
+                                                                    .otherTypePatientDetailsModel;
+                                                          });
+                                                          FocusScope.of(context)
+                                                              .requestFocus(
+                                                                  phoneNumberFocusNode);
+                                                        }
+                                                      },
+                                                      child: isSelectPatient
+                                                          ? Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                const VerticalSpacingWidget(
+                                                                    height: 5),
+                                                                Text(
+                                                                    "Enter last 4 digit",
+                                                                    style:
+                                                                        grey12B500),
+                                                                const VerticalSpacingWidget(
+                                                                    height: 5),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      height: size
+                                                                              .height *
+                                                                          .065,
                                                                       width: size
                                                                               .width *
-                                                                          .19,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color:
-                                                                            kMainColor,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10),
-                                                                      ),
+                                                                          .65,
                                                                       child:
-                                                                          Center(
-                                                                        child: Text(
-                                                                            "Submit",
-                                                                            style:
-                                                                                white13B700),
+                                                                          TextFormField(
+                                                                        focusNode:
+                                                                            phoneNumberFocusNode,
+                                                                        autofocus:
+                                                                            true,
+                                                                        cursorColor:
+                                                                            kMainColor,
+                                                                        controller:
+                                                                            searchPhoneNumber,
+                                                                        keyboardType:
+                                                                            TextInputType.phone,
+                                                                        textInputAction:
+                                                                            TextInputAction.done,
+                                                                        maxLength:
+                                                                            4,
+                                                                        style:
+                                                                            black13B600,
+                                                                        decoration:
+                                                                            InputDecoration(
+                                                                          prefixText: otherTypePatientDetailsModel
+                                                                              .details!
+                                                                              .mobileNo
+                                                                              .toString()
+                                                                              .substring(0, 6),
+                                                                          counterText:
+                                                                              "",
+                                                                          hintStyle:
+                                                                              black13B600,
+                                                                          filled:
+                                                                              true,
+                                                                          fillColor:
+                                                                              kCardColor,
+                                                                          border:
+                                                                              OutlineInputBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(4),
+                                                                            borderSide:
+                                                                                BorderSide.none,
+                                                                          ),
+                                                                          contentPadding: EdgeInsets.symmetric(
+                                                                              vertical: 5.h,
+                                                                              horizontal: 5.w),
+                                                                        ),
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          if (value.length >
+                                                                              4) {
+                                                                            searchPhoneNumber.text =
+                                                                                value.substring(0, 4);
+                                                                            searchPhoneNumber.selection =
+                                                                                TextSelection.fromPosition(const TextPosition(offset: 4));
+                                                                          }
+                                                                        },
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          )
-                                                        : const SizedBox(),
+                                                                    GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        String
+                                                                            fullPhoneNumber =
+                                                                            otherTypePatientDetailsModel.details!.mobileNo.toString().substring(0, 6) +
+                                                                                searchPhoneNumber.text;
+                                                                        if (otherTypePatientDetailsModel.details!.mobileNo.toString() ==
+                                                                            fullPhoneNumber) {
+                                                                          GeneralServices
+                                                                              .instance
+                                                                              .showToastMessage("Phone number matched, please fill other details");
+                                                                          setState(
+                                                                              () {
+                                                                            patientName =
+                                                                                otherTypePatientDetailsModel.details!.firstname.toString();
+                                                                            patientDisplayAge =
+                                                                                otherTypePatientDetailsModel.details!.displayAge.toString();
+                                                                            patientAge =
+                                                                                otherTypePatientDetailsModel.details!.age.toString();
+                                                                            patientGender =
+                                                                                otherTypePatientDetailsModel.details!.gender.toString();
+                                                                            patientPhoneNumber =
+                                                                                otherTypePatientDetailsModel.details!.mobileNo.toString();
+                                                                            patientMediezyId =
+                                                                                otherTypePatientDetailsModel.details!.patientId.toString();
+                                                                          });
+                                                                        } else {
+                                                                          GeneralServices
+                                                                              .instance
+                                                                              .showToastMessage("Phone number is not matched, enter correct phone number");
+                                                                        }
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        height: size.height *
+                                                                            .06,
+                                                                        width: size.width *
+                                                                            .19,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              kMainColor,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
+                                                                        ),
+                                                                        child:
+                                                                            Center(
+                                                                          child: Text(
+                                                                              "Submit",
+                                                                              style: white13B700),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            )
+                                                          : const SizedBox(),
+                                                    ),
+                                                    // isSelectPatient
+                                                    //     ? Column(
+                                                    //         crossAxisAlignment:
+                                                    //             CrossAxisAlignment
+                                                    //                 .start,
+                                                    //         children: [
+                                                    //           const VerticalSpacingWidget(
+                                                    //               height: 5),
+                                                    //           Text(
+                                                    //               "Enter last 4 digit",
+                                                    //               style:
+                                                    //                   grey12B500),
+                                                    //           const VerticalSpacingWidget(
+                                                    //               height: 5),
+                                                    //           Row(
+                                                    //             mainAxisAlignment:
+                                                    //                 MainAxisAlignment
+                                                    //                     .spaceBetween,
+                                                    //             children: [
+                                                    //               SizedBox(
+                                                    //                 height: size
+                                                    //                         .height *
+                                                    //                     .065,
+                                                    //                 width:
+                                                    //                     size.width *
+                                                    //                         .65,
+                                                    //                 child:
+                                                    //                     TextFormField(
+                                                    //                   focusNode:
+                                                    //                       phoneNumberFocusNode,
+                                                    //                   autofocus:
+                                                    //                       true,
+                                                    //                   cursorColor:
+                                                    //                       kMainColor,
+                                                    //                   controller:
+                                                    //                       searchPhoneNumber,
+                                                    //                   keyboardType:
+                                                    //                       TextInputType
+                                                    //                           .phone,
+                                                    //                   textInputAction:
+                                                    //                       TextInputAction
+                                                    //                           .done,
+                                                    //                   maxLength:
+                                                    //                       10,
+                                                    //                   style:
+                                                    //                       black13B600,
+                                                    //                   decoration:
+                                                    //                       InputDecoration(
+                                                    //                     prefixText: otherTypePatientDetailsModel
+                                                    //                         .details!
+                                                    //                         .mobileNo
+                                                    //                         .toString()
+                                                    //                         .substring(0,
+                                                    //                             6),
+                                                    //                     counterText:
+                                                    //                         "",
+                                                    //                     hintStyle:
+                                                    //                         black13B600,
+                                                    //                     filled:
+                                                    //                         true,
+                                                    //                     fillColor:
+                                                    //                         kCardColor,
+                                                    //                     border:
+                                                    //                         OutlineInputBorder(
+                                                    //                       borderRadius:
+                                                    //                           BorderRadius.circular(4),
+                                                    //                       borderSide:
+                                                    //                           BorderSide.none,
+                                                    //                     ),
+                                                    //                     contentPadding: EdgeInsets.symmetric(
+                                                    //                         vertical:
+                                                    //                             5.h,
+                                                    //                         horizontal: 5.w),
+                                                    //                   ),
+                                                    //                   onChanged:
+                                                    //                       (value) {
+                                                    //                     if (value.length >
+                                                    //                         4) {
+                                                    //                       searchPhoneNumber.text = value.substring(
+                                                    //                           0,
+                                                    //                           4);
+                                                    //                       searchPhoneNumber.selection =
+                                                    //                           TextSelection.fromPosition(const TextPosition(offset: 4));
+                                                    //                     }
+                                                    //                   },
+                                                    //                 ),
+                                                    //               ),
+                                                    //               GestureDetector(
+                                                    //                 onTap: () {
+                                                    //                   String fullPhoneNumber = otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .mobileNo
+                                                    //                           .toString()
+                                                    //                           .substring(0,
+                                                    //                               6) +
+                                                    //                       searchPhoneNumber
+                                                    //                           .text;
+                                                    //                   if (otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .mobileNo
+                                                    //                           .toString() ==
+                                                    //                       fullPhoneNumber) {
+                                                    //                     GeneralServices
+                                                    //                         .instance
+                                                    //                         .showToastMessage("Phone number matched, please fill other details");
+                                                    //                     setState(
+                                                    //                         () {
+                                                    //                       patientName = otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .firstname
+                                                    //                           .toString();
+                                                    //                       patientDisplayAge = otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .displayAge
+                                                    //                           .toString();
+                                                    //                       patientAge = otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .age
+                                                    //                           .toString();
+                                                    //                       patientGender = otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .gender
+                                                    //                           .toString();
+                                                    //                       patientPhoneNumber = otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .mobileNo
+                                                    //                           .toString();
+                                                    //                       patientMediezyId = otherTypePatientDetailsModel
+                                                    //                           .details!
+                                                    //                           .patientId
+                                                    //                           .toString();
+                                                    //                     });
+                                                    //                   } else {
+                                                    //                     GeneralServices
+                                                    //                         .instance
+                                                    //                         .showToastMessage("Phone number is not matched, enter correct phone number");
+                                                    //                   }
+                                                    //                 },
+                                                    //                 child:
+                                                    //                     Container(
+                                                    //                   height:
+                                                    //                       size.height *
+                                                    //                           .06,
+                                                    //                   width: size
+                                                    //                           .width *
+                                                    //                       .19,
+                                                    //                   decoration:
+                                                    //                       BoxDecoration(
+                                                    //                     color:
+                                                    //                         kMainColor,
+                                                    //                     borderRadius:
+                                                    //                         BorderRadius.circular(10),
+                                                    //                   ),
+                                                    //                   child:
+                                                    //                       Center(
+                                                    //                     child: Text(
+                                                    //                         "Submit",
+                                                    //                         style:
+                                                    //                             white13B700),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //               ),
+                                                    //             ],
+                                                    //           ),
+                                                    //         ],
+                                                    //       )
+                                                    //     : const SizedBox(),
                                                     const VerticalSpacingWidget(
                                                         height: 5),
                                                     patientName == null
@@ -1354,127 +1576,167 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text("Appointment for", style: grey12B500),
-                                  const VerticalSpacingWidget(height: 2),
-                                  SizedBox(
-                                    height: size.height * .065,
-                                    child: TextFormField(
-                                      style: black12B500,
-                                      cursorColor: kMainColor,
-                                      controller: appointmentForController,
-                                      keyboardType: TextInputType.text,
-                                      textInputAction: TextInputAction.done,
-                                      decoration: InputDecoration(
-                                        counterText: "",
-                                        hintStyle: grey13B600,
-                                        hintText:
-                                            "eg. Chest pain, Body ache, etc.",
-                                        filled: true,
-                                        fillColor: kCardColor,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4.r),
-                                          borderSide: BorderSide.none,
-                                        ),
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 5.h, horizontal: 5.w),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const VerticalSpacingWidget(height: 10),
-                              BlocBuilder<GetSymptomsBloc, GetSymptomsState>(
-                                builder: (context, state) {
-                                  if (state is GetSymptomsLoaded) {
-                                    getSymptomsModel =
-                                        BlocProvider.of<GetSymptomsBloc>(
-                                                context)
-                                            .getSymptomsModel;
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                  const VerticalSpacingWidget(height: 5),
+                                  Container(
+                                    padding: EdgeInsets.zero,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        border: Border.all(
+                                            color: kMainColor, width: 1.w)),
+                                    child: Column(
                                       children: [
-                                        Text("Symptoms", style: grey12B500),
-                                        const VerticalSpacingWidget(height: 2),
-                                        Wrap(
-                                          children: List.generate(
-                                            getSymptomsModel.symptoms!.length,
-                                            (index) => Builder(
-                                              builder: (BuildContext context) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      if (selectedSymptoms
-                                                          .contains(
-                                                              getSymptomsModel
-                                                                  .symptoms![
-                                                                      index]
-                                                                  .id!)) {
-                                                        selectedSymptoms.remove(
-                                                            getSymptomsModel
-                                                                .symptoms![
-                                                                    index]
-                                                                .id!);
-                                                      } else {
-                                                        selectedSymptoms.add(
-                                                            getSymptomsModel
-                                                                .symptoms![
-                                                                    index]
-                                                                .id!);
-                                                      }
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      color: selectedSymptoms
-                                                              .contains(
-                                                                  getSymptomsModel
-                                                                      .symptoms![
-                                                                          index]
-                                                                      .id!)
-                                                          ? Colors.grey
-                                                          : kCardColor,
-                                                      border: Border.all(
-                                                          color: kMainColor,
-                                                          width: 1),
-                                                    ),
-                                                    margin:
-                                                        const EdgeInsets.all(
-                                                            3.0),
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            6.0),
-                                                    child: Text(
-                                                      getSymptomsModel
-                                                          .symptoms![index]
-                                                          .symtoms
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 10.sp,
-                                                          color: selectedSymptoms.contains(
-                                                                  getSymptomsModel
-                                                                      .symptoms![
-                                                                          index]
-                                                                      .id!)
-                                                              ? Colors.white
-                                                              : kTextColor),
-                                                    ),
-                                                  ),
-                                                );
-                                              },
+                                        const VerticalSpacingWidget(height: 10),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8.h),
+                                          child: SizedBox(
+                                            height: size.height * .065,
+                                            child: TextFormField(
+                                              style: black12B500,
+                                              cursorColor: kMainColor,
+                                              controller:
+                                                  appointmentForController,
+                                              keyboardType: TextInputType.text,
+                                              textInputAction:
+                                                  TextInputAction.done,
+                                              decoration: InputDecoration(
+                                                counterText: "",
+                                                hintStyle: grey13B600,
+                                                hintText:
+                                                    "eg. Chest pain, Body ache, etc.",
+                                                filled: true,
+                                                fillColor: kCardColor,
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.r),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: 5.h,
+                                                        horizontal: 5.w),
+                                              ),
                                             ),
                                           ),
                                         ),
+                                        const VerticalSpacingWidget(height: 10),
+                                        BlocBuilder<GetSymptomsBloc,
+                                            GetSymptomsState>(
+                                          builder: (context, state) {
+                                            if (state is GetSymptomsLoaded) {
+                                              getSymptomsModel = BlocProvider
+                                                      .of<GetSymptomsBloc>(
+                                                          context)
+                                                  .getSymptomsModel;
+                                              return Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text("Symptoms",
+                                                        style: grey12B500),
+                                                    const VerticalSpacingWidget(
+                                                        height: 2),
+                                                    Wrap(
+                                                      children: List.generate(
+                                                        getSymptomsModel
+                                                            .symptoms!.length,
+                                                        (index) => Builder(
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  if (selectedSymptoms.contains(
+                                                                      getSymptomsModel
+                                                                          .symptoms![
+                                                                              index]
+                                                                          .id!)) {
+                                                                    selectedSymptoms.remove(
+                                                                        getSymptomsModel
+                                                                            .symptoms![
+                                                                                index]
+                                                                            .id!);
+                                                                  } else {
+                                                                    selectedSymptoms.add(
+                                                                        getSymptomsModel
+                                                                            .symptoms![
+                                                                                index]
+                                                                            .id!);
+                                                                  }
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  color: selectedSymptoms.contains(getSymptomsModel
+                                                                          .symptoms![
+                                                                              index]
+                                                                          .id!)
+                                                                      ? Colors
+                                                                          .grey
+                                                                      : kCardColor,
+                                                                  border: Border.all(
+                                                                      color:
+                                                                          kMainColor,
+                                                                      width: 1),
+                                                                ),
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        right:
+                                                                            3.w,
+                                                                        top: 3.h,
+                                                                        bottom:
+                                                                            3.h),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(6.0),
+                                                                child: Text(
+                                                                  getSymptomsModel
+                                                                      .symptoms![
+                                                                          index]
+                                                                      .symtoms
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontSize:
+                                                                          10.sp,
+                                                                      color: selectedSymptoms.contains(getSymptomsModel
+                                                                              .symptoms![
+                                                                                  index]
+                                                                              .id!)
+                                                                          ? Colors
+                                                                              .white
+                                                                          : kTextColor),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const VerticalSpacingWidget(
+                                                        height: 10),
+                                                  ],
+                                                ),
+                                              );
+                                            }
+                                            return Container();
+                                          },
+                                        ),
                                       ],
-                                    );
-                                  }
-                                  return Container();
-                                },
+                                    ),
+                                  ),
+                                ],
                               ),
                               const VerticalSpacingWidget(height: 5),
                               Column(
@@ -1754,7 +2016,6 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                         if (isBookingInProgress) {
                                           return;
                                         }
-
                                         setState(() {
                                           isBookingInProgress = true;
                                         });

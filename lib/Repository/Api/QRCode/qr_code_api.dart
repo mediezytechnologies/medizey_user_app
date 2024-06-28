@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:http/http.dart';
 import 'package:mediezy_user/Model/QRScanModel/qr_scan_model.dart';
 import 'package:mediezy_user/Repository/Api/ApiClient.dart';
@@ -21,6 +20,7 @@ class QRCodeApi {
     log("qrcode body ${body.toString()}");
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "POST", body: body);
+      
     return QRCodeModel.fromJson(json.decode(response.body));
   }
 }

@@ -1092,6 +1092,11 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             } else if (phoneNumberController.text.isEmpty) {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Fill family member number");
+                            } else if ((phoneNumberController.text.isEmpty ||
+                                int.tryParse(phoneNumberController.text) ==
+                                    null)) {
+                              GeneralServices.instance.showErrorMessage(context,
+                                  "Mobile number should contain only digits");
                             } else if (phoneNumberController.text.length < 10) {
                               GeneralServices.instance.showErrorMessage(
                                   context, "Phone number must have 10 digits");
