@@ -42,10 +42,10 @@ class UserLoacationImpl implements UserLocationRepo {
         "city": city,
         "location_address": locationAddress,
       };
-      log("map data ==========================  ${data.toString()}");
+ log("map data ==========================  ${data.toString()}");
       final response = await Dio(BaseOptions(
         headers: {'Authorization': 'Bearer $token'},
-        //  contentType: 'application/json',
+       contentType: 'application/json',
       )).post(
         ApiEndPoints.userLocation,
         data: {
@@ -61,7 +61,7 @@ class UserLoacationImpl implements UserLocationRepo {
       log("res [[[]]]==========${response.data.toString()}");
 
       final result = UserLocationModel.fromJson(response.data);
-      log("res ===${result.data!.latitude}");
+ log("res ===${result.data!.latitude}");
       return Right(result);
     } on DioError catch (e) {
       log("dio error");
@@ -70,7 +70,7 @@ class UserLoacationImpl implements UserLocationRepo {
       log(e.error.toString());
 
       final err = ErrorModel.fromJson(e.response!.data);
-      log("err: $err");
+   log("err: $err");
       return Left(err);
     }
   }

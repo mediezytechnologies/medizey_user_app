@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/internet_handle_screen.dart';
 import 'package:mediezy_user/Ui/Consts/app_theme_style.dart';
 import 'package:mediezy_user/Ui/Consts/bloc_providers.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/SplashScreen/splash_screen.dart';
+import 'package:mediezy_user/ddd/application/location_controller/locationcontroller.dart';
 import 'package:mediezy_user/ddd/domain/core/di/injectable.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mediezy_user/firebase_options.dart';
@@ -37,6 +39,7 @@ Future<void> main() async {
         }
       });
       WidgetsFlutterBinding.ensureInitialized();
+       Get.put(LocationController());
 
 
 

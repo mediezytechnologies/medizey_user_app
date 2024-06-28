@@ -1,83 +1,66 @@
-// 
-
-
-// To parse this JSON data, do
-//
-//     final firebaseLoginModel = firebaseLoginModelFromJson(jsonString);
-// To parse this JSON data, do
-//
-//     final firebaseLoginModel = firebaseLoginModelFromJson(jsonString);
-
-import 'dart:convert';
-
-FirebaseLoginModel firebaseLoginModelFromJson(String str) => FirebaseLoginModel.fromJson(json.decode(str));
-
-String firebaseLoginModelToJson(FirebaseLoginModel data) => json.encode(data.toJson());
-
 class FirebaseLoginModel {
-    bool status;
-    User user;
-    String token;
-    String role;
-    String message;
+  bool? status;
+  User? user;
+  String? token;
+  String? role;
+  String? message;
 
-    FirebaseLoginModel({
-        required this.status,
-        required this.user,
-        required this.token,
-        required this.role,
-        required this.message,
-    });
+  FirebaseLoginModel({this.status, this.user, this.token, this.role, this.message});
 
-    factory FirebaseLoginModel.fromJson(Map<String, dynamic> json) => FirebaseLoginModel(
-        status: json["status"],
-        user: User.fromJson(json["user"]),
-        token: json["token"],
-        role: json["role"],
-        message: json["message"],
-    );
+  FirebaseLoginModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    user = json['user'] != null ?  User.fromJson(json['user']) : null;
+    token = json['token'];
+    role = json['role'];
+    message = json['message'];
+  }
 
-    Map<String, dynamic> toJson() => {
-        "status": status,
-        "user": user.toJson(),
-        "token": token,
-        "role": role,
-        "message": message,
-    };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['status'] = status;
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
+    data['token'] = token;
+    data['role'] = role;
+    data['message'] = message;
+    return data;
+  }
 }
-
 class User {
-    int id;
-    String firstname;
-    String mobileNo;
-    String email;
-    int userRole;
-    dynamic image;
+  int? id;
+  String? firstname;
+  String? mobileNo;
+  String? email;
+  String? userRole; // Changed from int? to String?
+  dynamic image;
 
-    User({
-        required this.id,
-        required this.firstname,
-        required this.mobileNo,
-        required this.email,
-        required this.userRole,
-        required this.image,
-    });
+  User({
+    this.id,
+    this.firstname,
+    this.mobileNo,
+    this.email,
+    this.userRole,
+    this.image
+  });
 
-    factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        firstname: json["firstname"],
-        mobileNo: json["mobileNo"],
-        email: json["email"],
-        userRole: json["user_role"],
-        image: json["image"],
-    );
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    firstname = json['firstname'];
+    mobileNo = json['mobileNo'];
+    email = json['email'];
+    userRole = json['user_role']?.toString(); // Convert to String
+    image = json['image'];
+  }
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "firstname": firstname,
-        "mobileNo": mobileNo,
-        "email": email,
-        "user_role": userRole,
-        "image": image,
-    };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['firstname'] = this.firstname;
+    data['mobileNo'] = this.mobileNo;
+    data['email'] = this.email;
+    data['user_role'] = this.userRole;
+    data['image'] = this.image;
+    return data;
+  }
 }

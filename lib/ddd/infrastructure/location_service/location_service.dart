@@ -15,9 +15,10 @@ class LocationService {
       return locationModel;
       // ignore: deprecated_member_use
     } on DioError catch (e) {
-      log(e.message.toString());
+    
+     // log(e.message.toString());
     } catch (e) {
-      log(e.toString());
+    //  log(e.toString());
     }
     return null;
   }

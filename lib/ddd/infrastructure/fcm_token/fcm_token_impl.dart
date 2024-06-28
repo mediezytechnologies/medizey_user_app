@@ -16,8 +16,8 @@ class FcmTokenImpl implements FccmTokenRepo {
     final preference = await SharedPreferences.getInstance();
     String? fcmToken = preference.getString('fcmToken');
     String userId = preference.getString('userId').toString();
-    log("message api natification fcm token called $fcmToken");
-    log("Apiiiiiiii>>>>> ${ApiEndPoints.fcmToken}");
+    // log("message api natification fcm token called $fcmToken");
+    // log("Apiiiiiiii>>>>> ${ApiEndPoints.fcmToken}");
     try {
       final response = await Dio(BaseOptions(
           //headers: {'Authorization': 'Bearer $token'},
@@ -29,20 +29,20 @@ class FcmTokenImpl implements FccmTokenRepo {
           "user_id": userId,
         },
       );
-      log("user id in token : $userId");
+      // log("user id in token : $userId");
 
-      log(response.data.toString());
-      log("res data${response.data.toString()}");
+      // log(response.data.toString());
+      // log("res data${response.data.toString()}");
 
       return Right(response.data);
     } on DioError catch (e) {
-      log(e.message!);
-      log(e.error.toString());
-      log(e.error.toString());
+      // log(e.message!);
+      // log(e.error.toString());
+      // log(e.error.toString());
 
       final err = ErrorModel.fromJson(e.response!.data);
-      log("err msg: ${err.message}");
-      log("err: ${err.status}");
+      // log("err msg: ${err.message}");
+      // log("err: ${err.status}");
       return Left(err);
     }
   }

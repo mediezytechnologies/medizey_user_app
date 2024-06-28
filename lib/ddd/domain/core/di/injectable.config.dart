@@ -89,7 +89,7 @@ _i1.GetIt $initGetIt(
     environment,
     environmentFilter,
   );
-  gh.lazySingleton<_i3.AddFirebaseLogin>(() => _i4.FirebaseLoginImpl());
+  //gh.lazySingleton<_i3.AddFirebaseLogin>(() => _i4.FirebaseLoginImpl());
   gh.lazySingleton<_i5.AddMemberImageRepo>(() => _i6.RegisterServiceImpl());
   gh.lazySingleton<_i7.AddMemberRepo>(() => _i8.RegisterServiceImpl());
   gh.factory<_i9.AddMembersBloc>(
@@ -98,8 +98,8 @@ _i1.GetIt $initGetIt(
       () => _i11.EditMemberImageServiceImpl());
   gh.lazySingleton<_i12.EditMemberRepo>(() => _i13.RegisterServiceImpl());
   gh.lazySingleton<_i14.FccmTokenRepo>(() => _i15.FcmTokenImpl());
-  gh.factory<_i16.FirebaseLoginBloc>(
-      () => _i16.FirebaseLoginBloc(get<_i3.AddFirebaseLogin>()));
+  // gh.factory<_i16.FirebaseLoginBloc>(
+  //     () => _i16.FirebaseLoginBloc(get<_i3.AddFirebaseLogin>()));
   gh.lazySingleton<_i17.ForgotPasswordRepository>(
       () => _i18.ForgotPasswordRepoImpl());
   gh.lazySingleton<_i19.GetBannerRepository>(() => _i20.GetRepoBannerImpl());
