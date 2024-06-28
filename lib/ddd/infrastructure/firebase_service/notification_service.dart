@@ -49,14 +49,14 @@ class NotificationServices {
   void requestNotificationPermisions() async {
     NotificationSettings settings = await messaging.getNotificationSettings();
     if (Platform.isIOS) {
-        FirebaseMessaging.instance.requestPermission();
+      FirebaseMessaging.instance.requestPermission();
       NotificationSettings settings = await messaging.requestPermission(
           alert: true,
           announcement: true,
           badge: true,
           carPlay: true,
           criticalAlert: true,
-      provisional: true,
+          provisional: true,
           sound: true);
       if (settings.authorizationStatus == AuthorizationStatus.authorized) {
         log('User granted permission');
@@ -124,7 +124,7 @@ class NotificationServices {
   void initLocalNotifications(
       BuildContext context, RemoteMessage message) async {
     var androidInitSettings =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('d');
     var iosInitSettings = const DarwinInitializationSettings();
 
     var initSettings = InitializationSettings(
@@ -209,14 +209,14 @@ class NotificationServices {
     //     MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
     //   );
     // }
-//  else  if (message.data['type']=='chat') {
-//     log("log chat done =====================");
-//     log(message.data.toString());
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
-//     );
-//   }
+     //  else  if (message.data['type']=='chat') {
+      //     log("log chat done =====================");
+      //     log(message.data.toString());
+     //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => SavedDoctorsScreen()),
+    //     );
+     //   }
     //log("un   log");
   }
 
@@ -273,7 +273,7 @@ class NotificationServices {
     });
   }
 
-//disable notification //===============
+   //disable notification //===============
   void requestNotificationPermisionsDenied() async {
     if (Platform.isIOS) {
       NotificationSettings notificationSettings =
