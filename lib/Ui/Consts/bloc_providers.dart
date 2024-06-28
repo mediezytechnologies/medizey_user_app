@@ -64,7 +64,6 @@ import '../../Repository/Bloc/BookAppointment/Payment/payment_bloc.dart';
 import '../../Repository/Bloc/Chat/chat_bloc.dart';
 import '../../Repository/Bloc/GetAppointment/bloc/get_completed_feedback_appointment_bloc.dart';
 import '../../ddd/application/add_members/add_members_bloc.dart';
-import '../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../ddd/application/forgot_password/forget_password_three/forget_password_three_bloc.dart';
 import '../../ddd/application/forgot_password/forget_password_two/forget_password_two_bloc.dart';
 import '../../ddd/application/get_banner/get_banner_bloc.dart';

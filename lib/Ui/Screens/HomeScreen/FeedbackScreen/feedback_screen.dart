@@ -42,7 +42,7 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
     "Less than 20 min",
     "20 min to 40 min",
     "40 min to 1 hr",
-    "more then 1 hr",
+    "more than 1 hr",
   ];
   List likeItem = [
     {'name': 'Yes  ', 'Icon': Icons.thumb_up_alt_outlined},

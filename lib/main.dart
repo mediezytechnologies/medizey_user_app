@@ -32,16 +32,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-   await Permission.notification.isDenied.then((value) {
-        if (value) {
-          log("permission page");
-          Permission.notification.request();
-        }
-      });
-      WidgetsFlutterBinding.ensureInitialized();
-       Get.put(LocationController());
-
-
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      log("permission page");
+      Permission.notification.request();
+    }
+  });
+  WidgetsFlutterBinding.ensureInitialized();
+  Get.put(LocationController());
 
 // PackageInfo packageInfo = await PackageInfo.fromPlatform();
 

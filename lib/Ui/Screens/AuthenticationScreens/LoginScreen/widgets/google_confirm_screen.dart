@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../ddd/application/firebase_login/firebase_login_bloc.dart';
 import '../../../../../ddd/application/location_controller/locationcontroller.dart';
 import '../../../../../ddd/application/notification_token/notificatio_token_bloc.dart';
 import '../../../../../ddd/application/user_location/user_location_bloc.dart';
@@ -17,7 +14,6 @@ import '../../../../../ddd/infrastructure/firebase_service/firebase_auth_api.dar
 import '../../../../CommonWidgets/bottom_navigation_control_widget.dart';
 import '../../../../Consts/text_style.dart';
 import '../../../../Consts/app_colors.dart';
-import '../../../../Services/general_services.dart';
 
 class GoogleContirmUserScreen extends StatefulWidget {
   const GoogleContirmUserScreen({

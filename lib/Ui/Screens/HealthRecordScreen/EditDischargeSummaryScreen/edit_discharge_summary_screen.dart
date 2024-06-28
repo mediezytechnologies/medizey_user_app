@@ -369,39 +369,34 @@ class _EditDischageSummaryScreenState extends State<EditDischageSummaryScreen> {
     );
   }
 
-  Future pickImageFromGallery() async {
+   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery,imageQuality: 85);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
     if (pickedFile != null) {
-      File compressedImage = File(pickedFile.path);
-      setState(() {
-        editedImage = compressedImage;
-      });
-      imageFromGallery = compressedImage;
+      File imageFile = File(pickedFile.path);
+      int fileSizeInBytes = await imageFile.length();
+      double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+
+      if (fileSizeInMB > 2) {
+        setState(() {
+          GeneralServices.instance.showToastMessage(
+              'Image size exceeds 2MB. Please select a smaller image.');
+        });
+      } else {
+        File compressedImage = imageFile;
+        setState(() {
+          imageFromGallery = compressedImage;
+        });
+      }
     } else {
-      GeneralServices.instance.showToastMessage('No image selected');
+      setState(() {
+        GeneralServices.instance.showToastMessage('Please select an image');
+      });
     }
   }
 
-  //* Image compression function
-  // Future<File> compressImage(String imagePath) async {
-  //   File imageFile = File(imagePath);
-  //   int fileSize = await imageFile.length();
-  //   int maxFileSize = 2048 * 1024;
-  //   if (fileSize <= maxFileSize) {
-  //     return imageFile;
-  //   }
-  //   Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
-  //     imagePath,
-  //     quality: 85,
-  //   );
-  //   if (compressedBytes != null) {
-  //     List<int> compressedList = compressedBytes.toList();
-  //     File compressedImage = File(imagePath)..writeAsBytesSync(compressedList);
-  //     return compressedImage;
-  //   } else {
-  //     throw Exception('Image compression failed');
-  //   }
-  // }
+
+ 
 }

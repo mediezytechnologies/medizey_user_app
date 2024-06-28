@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
@@ -60,7 +59,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   File? imageFromGallery;
   late StreamSubscription<ConnectivityResult> subscription;
   String? dateOfBirth;
-  // DateTime? dOB;
+
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -298,20 +297,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     onDateSelected: (DateTime picked) async {
                                       setState(() {
                                         dateofBirth = picked;
-                                        log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
                                       });
-                                      log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
                                     },
                                   );
-                                  // selectDate(
-                                  //   context: context,
-                                  //   date: DateTime.now(),
-                                  //   onDateSelected: (DateTime picked) async {
-                                  //     setState(() {
-                                  //       dOB = picked;
-                                  //     });
-                                  //   },
-                                  // );
                                 },
                                 child: Container(
                                   height: size.height * .065,
@@ -327,12 +315,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       Text(
                                         dateofBirth == null
                                             ? widget.dob
-                                            : DateFormat('yyy-MM-dd')
+                                            : DateFormat('dd-MM-yyyy')
                                                 .format(dateofBirth!),
-                                        // dOB != null
-                                        //     ? DateFormat('dd-MM-yyyy')
-                                        //         .format(dOB!)
-                                        //     : dateOfBirth.toString(),
                                         style: black13B500,
                                       ),
                                       Icon(
@@ -469,90 +453,68 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                           const VerticalSpacingWidget(height: 30),
 
-                          CommonButtonWidget(
-                              widget: Text("Update", style: white13B700),
-                              onTapFunction: () {
-                                BlocConsumer<EditUserBloc, EditUserState>(
-                                  listener: (context, state) {
-                                    if (state is EditUserDetailsLoaded) {
+                          BlocConsumer<EditUserBloc, EditUserState>(
+                            listener: (context, state) {
+                              if (state is EditUserDetailsLoaded) {
+                                GeneralServices.instance.showToastMessage(
+                                    "Profile edit successfully");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        BottomNavigationControlWidget(
+                                            selectedIndex: 3),
+                                  ),
+                                );
+                              }
+                              if (state is EditUserDetailsError) {
+                                GeneralServices.instance.showToastMessage(
+                                    "Error occured while edit profile");
+                              }
+                            },
+                            builder: (context, state) {
+                              return CommonButtonWidget(
+                                  widget: state is EditUserDetailsLoading
+                                      ? CircularProgressIndicator(
+                                          color: kCardColor,
+                                        )
+                                      : Text("Update", style: white13B700),
+                                  onTapFunction: () {
+                                    setNewUserName(firstNameController.text);
+                                    if (mobileNoController.text.isEmpty ||
+                                        int.tryParse(mobileNoController.text) ==
+                                            null) {
                                       GeneralServices.instance.showToastMessage(
-                                          "Profile edit successfully");
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (ctx) =>
-                                              BottomNavigationControlWidget(
-                                                  selectedIndex: 3),
-                                        ),
+                                          "Mobile number should contain only digits");
+                                    } else if (mobileNoController.text.length <
+                                        10) {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Mobile number should have 10 digit");
+                                    } else {
+                                      BlocProvider.of<EditUserBloc>(context)
+                                          .add(FetchEditUser(
+                                              dob: dateofBirth != null
+                                                  ? DateFormat('yyy-MM-dd')
+                                                      .format(dateofBirth!)
+                                                  : '',
+                                              firstName:
+                                                  firstNameController.text,
+                                              secondName:
+                                                  secondNameController.text,
+                                              mobileNo: mobileNoController.text,
+                                              email: emailController.text,
+                                              location: locationController.text,
+                                              gender: selectedGender));
+                                      BlocProvider.of<UploadUserImageBloc>(
+                                              context)
+                                          .add(
+                                        FetchUploadUserImage(
+                                            userImage: imageFromGallery!),
                                       );
                                     }
-                                    if (state is EditUserDetailsError) {
-                                      GeneralServices.instance.showToastMessage(
-                                          "Error occured while edit profile");
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return CommonButtonWidget(
-                                        widget: state is EditUserDetailsLoading
-                                            ? CircularProgressIndicator(
-                                                color: kCardColor,
-                                              )
-                                            : Text("Update",
-                                                style: white13B700),
-                                        onTapFunction: () {
-                                          setNewUserName(
-                                              firstNameController.text);
-                                          if (mobileNoController.text.isEmpty ||
-                                              int.tryParse(mobileNoController
-                                                      .text) ==
-                                                  null) {
-                                            GeneralServices.instance
-                                                .showToastMessage(
-                                                    "Mobile number should contain only digits");
-                                          } else if (mobileNoController
-                                                  .text.length <
-                                              10) {
-                                            GeneralServices.instance
-                                                .showToastMessage(
-                                                    "Mobile number should have 10 digit");
-                                          } else {
-                                            BlocProvider.of<EditUserBloc>(context)
-                                                .add(
-                                                    FetchEditUser(
-                                                        dob: dateofBirth != null
-                                                            ? DateFormat(
-                                                                    'yyy-MM-dd')
-                                                                .format(
-                                                                    dateofBirth!)
-                                                            : '',
-                                                        firstName:
-                                                            firstNameController
-                                                                .text,
-                                                        secondName:
-                                                            secondNameController
-                                                                .text,
-                                                        mobileNo:
-                                                            mobileNoController
-                                                                .text,
-                                                        email: emailController
-                                                            .text,
-                                                        location:
-                                                            locationController
-                                                                .text,
-                                                        gender:
-                                                            selectedGender));
-                                            BlocProvider.of<
-                                                        UploadUserImageBloc>(
-                                                    context)
-                                                .add(
-                                              FetchUploadUserImage(
-                                                  userImage: imageFromGallery!),
-                                            );
-                                          }
-                                        });
-                                  },
-                                );
-                              })
+                                  });
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -571,10 +533,20 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
-      File compressedImage = imageFile;
-      setState(() {
-        imageFromGallery = compressedImage;
-      });
+      int fileSizeInBytes = await imageFile.length();
+      double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+
+      if (fileSizeInMB > 2) {
+        setState(() {
+          GeneralServices.instance.showToastMessage(
+              'Image size exceeds 2MB. Please select a smaller image.');
+        });
+      } else {
+        File compressedImage = imageFile;
+        setState(() {
+          imageFromGallery = compressedImage;
+        });
+      }
     } else {
       setState(() {
         GeneralServices.instance.showToastMessage('Please select an image');
@@ -582,26 +554,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     }
   }
 
-//* Image compression function
-  // Future<File> compressImage(File imageFile) async {
-  //   int fileSize = await imageFile.length();
-  //   int maxFileSize = 2048 * 1024;
-  //   if (fileSize <= maxFileSize) {
-  //     return imageFile;
-  //   }
-  //   Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
-  //     imageFile.path,
-  //     quality: 85,
-  //   );
-  //   if (compressedBytes != null) {
-  //     List<int> compressedList = compressedBytes.toList();
-  //     File compressedImage = File(imageFile.path)
-  //       ..writeAsBytesSync(compressedList);
-  //     return compressedImage;
-  //   } else {
-  //     throw Exception('Image compression failed');
-  //   }
-  // }
   Future<void> selectIosDate({
     required BuildContext context,
     required DateTime date,
@@ -622,31 +574,4 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       },
     );
   }
-
-  //! select date
-  // Future<void> selectDate({
-  //   required BuildContext context,
-  //   required DateTime date,
-  //   required Function(DateTime) onDateSelected,
-  // }) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: date,
-  //     firstDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-  //     lastDate: DateTime.now(),
-  //     builder: ((context, child) {
-  //       return Theme(
-  //         data: Theme.of(context).copyWith(
-  //           colorScheme: ColorScheme.light(
-  //             primary: kMainColor,
-  //           ),
-  //         ),
-  //         child: child!,
-  //       );
-  //     }),
-  //   );
-  //   if (picked != null) {
-  //     onDateSelected(picked);
-  //   }
-  // }
 }
