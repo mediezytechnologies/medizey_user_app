@@ -141,7 +141,8 @@ class DoctorCardWidget extends StatelessWidget {
                   itemCount: clinicList.length,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return clinicList[index].availableTokenCount == 0
+                    return clinicList[index].availableTokenCount == 0 ||
+                            clinicList[index].leaveStatusMessage == 1
                         ? clinicList[index].nextDateAvailableTokenTime == null
                             ? const SizedBox()
                             : Padding(
@@ -189,29 +190,16 @@ class DoctorCardWidget extends StatelessWidget {
                                                     ],
                                                   ),
                                             GestureDetector(
-                                                onTap: () {
-                                                  MapsLauncher.launchQuery(
-                                                    clinicList[index]
-                                                        .clinicAddress
-                                                        .toString(),
-                                                  );
-                                                },
-                                                child: LocationCardWidget(
-                                                    color: kSecondaryColor)
-                                                //  Wrap(
-                                                //   children: [
-                                                //     Text('Get Location',
-                                                //         style: grey11B400),
-                                                //     const HorizontalSpacingWidget(
-                                                //         width: 5),
-                                                //     Icon(
-                                                //       IconlyLight.location,
-                                                //       color: kSecondaryColor,
-                                                //       size: 14.sp,
-                                                //     )
-                                                //   ],
-                                                // ),
-                                                ),
+                                              onTap: () {
+                                                MapsLauncher.launchQuery(
+                                                  clinicList[index]
+                                                      .clinicAddress
+                                                      .toString(),
+                                                );
+                                              },
+                                              child: LocationCardWidget(
+                                                  color: kSecondaryColor),
+                                            ),
                                           ],
                                         ),
                                       ],
@@ -273,29 +261,15 @@ class DoctorCardWidget extends StatelessWidget {
                                               ],
                                             ),
                                       GestureDetector(
-                                        onTap: () {
-                                          MapsLauncher.launchQuery(
-                                            clinicList[index]
-                                                .clinicAddress
-                                                .toString(),
-                                          );
-                                        },
-                                        child: LocationCardWidget(
-                                                    color: kSecondaryColor)
-                                        //  Wrap(
-                                        //   children: [
-                                        //     Text('Get Location',
-                                        //         style: grey11B400),
-                                        //     const HorizontalSpacingWidget(
-                                        //         width: 5),
-                                        //     Icon(
-                                        //       IconlyLight.location,
-                                        //       color: kSecondaryColor,
-                                        //       size: 14.sp,
-                                        //     )
-                                        //   ],
-                                        // ),
-                                      ),
+                                          onTap: () {
+                                            MapsLauncher.launchQuery(
+                                              clinicList[index]
+                                                  .clinicAddress
+                                                  .toString(),
+                                            );
+                                          },
+                                          child: LocationCardWidget(
+                                              color: kSecondaryColor)),
                                     ],
                                   ),
                                 ],

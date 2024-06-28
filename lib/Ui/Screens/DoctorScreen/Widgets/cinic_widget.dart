@@ -12,7 +12,8 @@ class ClinicWidget extends StatelessWidget {
       required this.clinicEndTime,
       required this.clinicAddress,
       required this.clinicLocation,
-      required this.availableTokenCounts});
+      required this.availableTokenCounts,
+      required this.isOnLeave});
   final bool isSelected;
   final String clinicName;
   final String clinicStartTime;
@@ -20,6 +21,7 @@ class ClinicWidget extends StatelessWidget {
   final String clinicAddress;
   final String clinicLocation;
   final String availableTokenCounts;
+  final int isOnLeave;
 
   @override
   Widget build(BuildContext context) {
@@ -47,34 +49,36 @@ class ClinicWidget extends StatelessWidget {
                     color: isSelected ? Colors.white : kTextColor,
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      clinicStartTime,
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: isSelected ? Colors.white : kTextColor,
-                      ),
-                    ),
-                    Text(
-                      " - ",
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: isSelected ? Colors.white : kTextColor,
-                      ),
-                    ),
-                    Text(
-                      clinicEndTime,
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: isSelected ? Colors.white : kTextColor,
-                      ),
-                    ),
-                  ],
-                )
+                isOnLeave == 1
+                    ? const SizedBox()
+                    : Row(
+                        children: [
+                          Text(
+                            clinicStartTime,
+                            style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: isSelected ? Colors.white : kTextColor,
+                            ),
+                          ),
+                          Text(
+                            " - ",
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: isSelected ? Colors.white : kTextColor,
+                            ),
+                          ),
+                          Text(
+                            clinicEndTime,
+                            style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: isSelected ? Colors.white : kTextColor,
+                            ),
+                          ),
+                        ],
+                      )
               ],
             ),
             Row(
@@ -93,27 +97,29 @@ class ClinicWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      availableTokenCounts,
-                      style: TextStyle(
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w600,
-                        color: isSelected ? Colors.white : kTextColor,
+                isOnLeave == 1
+                    ? const SizedBox()
+                    : Row(
+                        children: [
+                          Text(
+                            availableTokenCounts,
+                            style: TextStyle(
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w600,
+                              color: isSelected ? Colors.white : kTextColor,
+                            ),
+                          ),
+                          const HorizontalSpacingWidget(width: 2),
+                          Text(
+                            "slots available",
+                            style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: isSelected ? Colors.white : kTextColor,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const HorizontalSpacingWidget(width: 2),
-                    Text(
-                      "slots available",
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: isSelected ? Colors.white : kTextColor,
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ],

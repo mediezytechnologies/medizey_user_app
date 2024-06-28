@@ -51,7 +51,7 @@ class GetFavouriteDoctorWidget extends StatelessWidget {
             ),
             const VerticalSpacingWidget(height: 5),
             LimitedBox(
-              maxHeight: MediaQuery.of(context).size.height * .292,
+              maxHeight: MediaQuery.of(context).size.height * .3,
               child: ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,

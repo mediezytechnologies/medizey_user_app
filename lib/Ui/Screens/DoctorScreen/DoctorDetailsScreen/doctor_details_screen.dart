@@ -187,6 +187,11 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                 const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               return DoctorDetailsThirdWidget(
+                                                isOnLeave: getDoctorByIdModel
+                                                    .doctorDetails!
+                                                    .first
+                                                    .clinics![index]
+                                                    .leaveStatusMessage!,
                                                 consultationFee:
                                                     getDoctorByIdModel
                                                         .doctorDetails!

@@ -78,7 +78,7 @@ class _CompletedAppointmentScreenState
                             child: Column(
                               children: [
                                 const VerticalSpacingWidget(height: 30),
-                                Text("No appointment available", style: main20),
+                                Text("No appointments available", style: main20),
                                 const VerticalSpacingWidget(height: 20),
                                 Text(
                                   "Book a slot of your choice with expert\ndoctors near you and skip the queue\nwithout waiting for long time",

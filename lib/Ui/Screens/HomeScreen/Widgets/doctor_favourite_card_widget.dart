@@ -2,7 +2,6 @@
 import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mediezy_user/Model/Clinics/clinic_model.dart';
@@ -12,6 +11,8 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/DoctorDetailsScreen/doctor_details_screen.dart';
+
+import '../../../CommonWidgets/location_card_widget.dart';
 
 class DoctorFavouriteCardWidget extends StatelessWidget {
   DoctorFavouriteCardWidget({
@@ -131,7 +132,8 @@ class DoctorFavouriteCardWidget extends StatelessWidget {
                   itemCount: 1,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return clinicList[index].availableTokenCount == 0
+                    return clinicList[index].availableTokenCount == 0 ||
+                            clinicList[index].leaveStatusMessage == 1
                         ? clinicList[index].nextDateAvailableTokenTime == null
                             ? const SizedBox()
                             : Padding(
@@ -190,19 +192,8 @@ class DoctorFavouriteCardWidget extends StatelessWidget {
                                                       .toString(),
                                                 );
                                               },
-                                              child: Wrap(
-                                                children: [
-                                                  Text('Get Location',
-                                                      style: grey11B400),
-                                                  const HorizontalSpacingWidget(
-                                                      width: 5),
-                                                  Icon(
-                                                    IconlyLight.location,
-                                                    color: kSecondaryColor,
-                                                    size: 14.sp,
-                                                  )
-                                                ],
-                                              ),
+                                              child: LocationCardWidget(
+                                            color: kSecondaryColor),
                                             ),
                                           ],
                                         ),
@@ -278,19 +269,8 @@ class DoctorFavouriteCardWidget extends StatelessWidget {
                                                 .toString(),
                                           );
                                         },
-                                        child: Wrap(
-                                          children: [
-                                            Text('Get Location',
-                                                style: grey11B400),
-                                            const HorizontalSpacingWidget(
-                                                width: 5),
-                                            Icon(
-                                              IconlyLight.location,
-                                              color: kSecondaryColor,
-                                              size: 14.sp,
-                                            )
-                                          ],
-                                        ),
+                                        child: LocationCardWidget(
+                                            color: kSecondaryColor),
                                       ),
                                     ],
                                   ),
