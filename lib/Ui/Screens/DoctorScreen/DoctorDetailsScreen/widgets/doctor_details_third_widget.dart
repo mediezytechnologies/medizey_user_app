@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import '../../../../CommonWidgets/horizontal_spacing_widget.dart';
+import '../../../../CommonWidgets/location_card_widget.dart';
 import '../../../../Consts/text_style.dart';
 import '../../../../CommonWidgets/vertical_spacing_widget.dart';
 import '../../../../Consts/app_colors.dart';
@@ -139,24 +138,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
               onTap: () {
                 MapsLauncher.launchQuery(address);
               },
-              child: Container(
-                padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.r),
-                  border: Border.all(color: kMainColor, width: 1.w),
-                ),
-                child: Wrap(
-                  children: [
-                    Text('Get Location', style: grey11B400),
-                    const HorizontalSpacingWidget(width: 5),
-                    Icon(
-                      IconlyLight.location,
-                      color: kMainColor,
-                      size: 14.sp,
-                    )
-                  ],
-                ),
-              ),
+              child:LocationCardWidget(color: kMainColor)
             ),
           ],
         ),

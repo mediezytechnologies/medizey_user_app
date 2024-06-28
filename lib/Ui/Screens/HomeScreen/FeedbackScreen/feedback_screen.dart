@@ -52,12 +52,13 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(  bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+    return Scaffold(
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         title: Text("Dr ${widget.doctorName}"),
         centerTitle: true,
@@ -403,18 +404,18 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        Text(
+                          likeItem[index]['name'],
+                          style: state.likedIndex == index
+                              ? main12B600
+                              : black12B600,
+                        ),
                         Icon(
                           likeItem[index]['Icon'],
                           color: state.likedIndex == index
                               ? kMainColor
                               : kSubTextColor,
                           size: 18.sp,
-                        ),
-                        Text(
-                          likeItem[index]['name'],
-                          style: state.likedIndex == index
-                              ? main12B600
-                              : black12B600,
                         ),
                       ],
                     ),
@@ -445,14 +446,14 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
             child: ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          BlocProvider.of<RatingBloc>(context)
-                              .add(RatingEvent.ratingRadioChanged(index));
-                        },
-                        child: Container(
+                  return GestureDetector(
+                    onTap: () {
+                      BlocProvider.of<RatingBloc>(context)
+                          .add(RatingEvent.ratingRadioChanged(index));
+                    },
+                    child: Row(
+                      children: [
+                        Container(
                           height: 15,
                           width: 35,
                           clipBehavior: Clip.antiAlias,
@@ -463,15 +464,15 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                                   : kCardColor,
                               border: Border.all(color: kMainColor)),
                         ),
-                      ),
-                      const HorizontalSpacingWidget(width: 5),
-                      Text(
-                        radioItem[index],
-                        style: state.radioIndex == index
-                            ? main12B500
-                            : black12B500,
-                      ),
-                    ],
+                        const HorizontalSpacingWidget(width: 5),
+                        Text(
+                          radioItem[index],
+                          style: state.radioIndex == index
+                              ? main12B500
+                              : black12B500,
+                        ),
+                      ],
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) =>

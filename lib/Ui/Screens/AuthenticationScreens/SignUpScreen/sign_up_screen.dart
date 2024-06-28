@@ -438,20 +438,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               if (dateOfBirth == null) {
                                 GeneralServices.instance
                                     .showToastMessage("Enter Date of birth");
+                              } else if (phoneNumberController.text.isEmpty ||
+                                  int.tryParse(phoneNumberController.text) ==
+                                      null) {
+                                GeneralServices.instance.showToastMessage(
+                                    "Mobile number should contain only digits");
+                              } else {
+                                BlocProvider.of<LoginAndSignupBloc>(context)
+                                    .add(
+                                  SignUpEvent(
+                                      email: emailController.text,
+                                      age: DateFormat('yyy-MM-dd')
+                                          .format(dateOfBirth!),
+                                      location: locationController.text,
+                                      gender: selectedGender,
+                                      password: passwordController.text,
+                                      firstname: firstNameController.text,
+                                      secondname: lastNameController.text,
+                                      mobileNo: phoneNumberController.text,
+                                      userImage: imageFromGallery),
+                                );
                               }
-                              BlocProvider.of<LoginAndSignupBloc>(context).add(
-                                SignUpEvent(
-                                    email: emailController.text,
-                                    age: DateFormat('yyy-MM-dd')
-                                        .format(dateOfBirth!),
-                                    location: locationController.text,
-                                    gender: selectedGender,
-                                    password: passwordController.text,
-                                    firstname: firstNameController.text,
-                                    secondname: lastNameController.text,
-                                    mobileNo: phoneNumberController.text,
-                                    userImage: imageFromGallery),
-                              );
                             }
                           });
                     },

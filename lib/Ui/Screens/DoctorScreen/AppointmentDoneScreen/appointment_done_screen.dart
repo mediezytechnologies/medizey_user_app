@@ -747,9 +747,12 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                       patientContactNumberController.text =
                                           member.details!.first.mobileNo ?? "";
                                       dropdownValue =
-                                          member.details!.first.gender == "2"
-                                              ? "Female"
-                                              : "Male";
+                                          member.details!.first.gender == "1"
+                                              ? "Male"
+                                              : (member.details!.first.gender ==
+                                                      "2")
+                                                  ? "Female"
+                                                  : "Other";
                                       originalAge =
                                           member.details!.first.age.toString();
                                     }
@@ -1627,101 +1630,104 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                       .of<GetSymptomsBloc>(
                                                           context)
                                                   .getSymptomsModel;
-                                              return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text("Symptoms",
-                                                      style: grey12B500),
-                                                  const VerticalSpacingWidget(
-                                                      height: 2),
-                                                  Wrap(
-                                                    children: List.generate(
-                                                      getSymptomsModel
-                                                          .symptoms!.length,
-                                                      (index) => Builder(
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                if (selectedSymptoms.contains(
-                                                                    getSymptomsModel
-                                                                        .symptoms![
-                                                                            index]
-                                                                        .id!)) {
-                                                                  selectedSymptoms.remove(
+                                              return Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text("Symptoms",
+                                                        style: grey12B500),
+                                                    const VerticalSpacingWidget(
+                                                        height: 2),
+                                                    Wrap(
+                                                      children: List.generate(
+                                                        getSymptomsModel
+                                                            .symptoms!.length,
+                                                        (index) => Builder(
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  if (selectedSymptoms.contains(
                                                                       getSymptomsModel
                                                                           .symptoms![
                                                                               index]
-                                                                          .id!);
-                                                                } else {
-                                                                  selectedSymptoms.add(
-                                                                      getSymptomsModel
-                                                                          .symptoms![
-                                                                              index]
-                                                                          .id!);
-                                                                }
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                color: selectedSymptoms.contains(getSymptomsModel
-                                                                        .symptoms![
-                                                                            index]
-                                                                        .id!)
-                                                                    ? Colors
-                                                                        .grey
-                                                                    : kCardColor,
-                                                                border: Border.all(
-                                                                    color:
-                                                                        kMainColor,
-                                                                    width: 1),
-                                                              ),
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      right:
-                                                                          3.w,
-                                                                      top: 3.h,
-                                                                      bottom:
-                                                                          3.h),
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(6.0),
-                                                              child: Text(
-                                                                getSymptomsModel
-                                                                    .symptoms![
-                                                                        index]
-                                                                    .symtoms
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    color: selectedSymptoms.contains(getSymptomsModel
+                                                                          .id!)) {
+                                                                    selectedSymptoms.remove(
+                                                                        getSymptomsModel
                                                                             .symptoms![
                                                                                 index]
-                                                                            .id!)
-                                                                        ? Colors
-                                                                            .white
-                                                                        : kTextColor),
+                                                                            .id!);
+                                                                  } else {
+                                                                    selectedSymptoms.add(
+                                                                        getSymptomsModel
+                                                                            .symptoms![
+                                                                                index]
+                                                                            .id!);
+                                                                  }
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  color: selectedSymptoms.contains(getSymptomsModel
+                                                                          .symptoms![
+                                                                              index]
+                                                                          .id!)
+                                                                      ? Colors
+                                                                          .grey
+                                                                      : kCardColor,
+                                                                  border: Border.all(
+                                                                      color:
+                                                                          kMainColor,
+                                                                      width: 1),
+                                                                ),
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        right:
+                                                                            3.w,
+                                                                        top: 3.h,
+                                                                        bottom:
+                                                                            3.h),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(6.0),
+                                                                child: Text(
+                                                                  getSymptomsModel
+                                                                      .symptoms![
+                                                                          index]
+                                                                      .symtoms
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontSize:
+                                                                          10.sp,
+                                                                      color: selectedSymptoms.contains(getSymptomsModel
+                                                                              .symptoms![
+                                                                                  index]
+                                                                              .id!)
+                                                                          ? Colors
+                                                                              .white
+                                                                          : kTextColor),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          );
-                                                        },
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  const VerticalSpacingWidget(
-                                                      height: 10),
-                                                ],
+                                                    const VerticalSpacingWidget(
+                                                        height: 10),
+                                                  ],
+                                                ),
                                               );
                                             }
                                             return Container();

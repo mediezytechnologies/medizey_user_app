@@ -122,7 +122,7 @@ class _ForgetPasswordTwoState extends State<ForgetPasswordTwo> {
                           ),
                         );
                       },
-                      child: Text("Re send Otp", style: main13B600),
+                      child: Text("Resend OTP", style: main13B600),
                     ),
                   )
                 ],

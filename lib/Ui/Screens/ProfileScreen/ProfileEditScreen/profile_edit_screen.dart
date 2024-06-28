@@ -478,25 +478,38 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                       : Text("Update", style: white13B700),
                                   onTapFunction: () {
                                     setNewUserName(firstNameController.text);
-                                    BlocProvider.of<EditUserBloc>(context).add(
-                                      FetchEditUser(
-                                          dob: dOB != null
-                                              ? DateFormat('yyy-MM-dd')
-                                                  .format(dOB!)
-                                              : '',
-                                          firstName: firstNameController.text,
-                                          secondName: secondNameController.text,
-                                          mobileNo: mobileNoController.text,
-                                          email: emailController.text,
-                                          location: locationController.text,
-                                          gender: selectedGender),
-                                    );
-                                    BlocProvider.of<UploadUserImageBloc>(
-                                            context)
-                                        .add(
-                                      FetchUploadUserImage(
-                                          userImage: imageFromGallery!),
-                                    );
+                                    if (mobileNoController.text.isEmpty ||
+                                        int.tryParse(mobileNoController.text) ==
+                                            null) {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Mobile number should contain only digits");
+                                    } else if (mobileNoController.text.length <
+                                        10) {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Mobile number should have 10 digit");
+                                    } else {
+                                      BlocProvider.of<EditUserBloc>(context)
+                                          .add(
+                                        FetchEditUser(
+                                            dob: dOB != null
+                                                ? DateFormat('yyy-MM-dd')
+                                                    .format(dOB!)
+                                                : '',
+                                            firstName: firstNameController.text,
+                                            secondName:
+                                                secondNameController.text,
+                                            mobileNo: mobileNoController.text,
+                                            email: emailController.text,
+                                            location: locationController.text,
+                                            gender: selectedGender),
+                                      );
+                                      BlocProvider.of<UploadUserImageBloc>(
+                                              context)
+                                          .add(
+                                        FetchUploadUserImage(
+                                            userImage: imageFromGallery!),
+                                      );
+                                    }
                                   });
                             },
                           ),

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -22,6 +21,7 @@ import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/DoctorScreen/BookAppointmentScreen/book_appointment_screen.dart';
 import 'package:mediezy_user/Ui/Screens/SearchScreen/search_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
+import '../../../CommonWidgets/location_card_widget.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
   const AppointmentCardWidget(
@@ -194,25 +194,8 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                                           widget.clinicList);
                                   MapsLauncher.launchQuery(clinicAddress);
                                 },
-                                child: Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.r),
-                                    border: Border.all(
-                                        color: kSecondaryColor, width: 1.w),
-                                  ),
-                                  child: Wrap(
-                                    children: [
-                                      Text('Location', style: grey11B400),
-                                      const HorizontalSpacingWidget(width: 5),
-                                      Icon(
-                                        IconlyLight.location,
-                                        color: kSecondaryColor,
-                                        size: 14.sp,
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                child:
+                                    LocationCardWidget(color: kSecondaryColor),
                               ),
                             ],
                           ),

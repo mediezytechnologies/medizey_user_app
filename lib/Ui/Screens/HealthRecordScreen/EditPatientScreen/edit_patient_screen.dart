@@ -1413,7 +1413,17 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                                 );
                               }
                             : () async {
-                                if (allergies.any((allergy) =>
+                                if (phoneNumberController.text.isEmpty) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Fill family member number");
+                                } else if ((phoneNumberController
+                                        .text.isEmpty ||
+                                    int.tryParse(phoneNumberController.text) ==
+                                        null)) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context,
+                                      "Mobile number should contain only digits");
+                                } else if (allergies.any((allergy) =>
                                     allergy.allergyId == 1 &&
                                     (allergy.allergyDetails == null ||
                                         allergy.allergyDetails!.isEmpty))) {
