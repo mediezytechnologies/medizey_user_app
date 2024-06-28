@@ -469,9 +469,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                           const VerticalSpacingWidget(height: 30),
 
-                          CommonButtonWidget(
-                              widget: Text("Update", style: white13B700),
-                              onTapFunction: () {
+                       
                                 BlocConsumer<EditUserBloc, EditUserState>(
                                   listener: (context, state) {
                                     if (state is EditUserDetailsLoaded) {
@@ -551,8 +549,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           }
                                         });
                                   },
-                                );
-                              })
+                                )
+                              
                         ],
                       ),
                     ),
