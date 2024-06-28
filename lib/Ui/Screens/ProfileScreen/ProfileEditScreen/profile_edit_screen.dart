@@ -60,7 +60,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   File? imageFromGallery;
   late StreamSubscription<ConnectivityResult> subscription;
   String? dateOfBirth;
- // DateTime? dOB;
+  // DateTime? dOB;
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -93,7 +93,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         : (widget.gender == "2")
             ? "2"
             : "0";
-   // dateOfBirth = widget.dob == 'null' ? "" : widget.dob;
+    // dateOfBirth = widget.dob == 'null' ? "" : widget.dob;
     super.initState();
   }
 
@@ -292,16 +292,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               InkWell(
                                 onTap: () {
                                   FocusScope.of(context).unfocus();
-                                  selectIosDate(context: context,
-                                   date: dateofBirth??DateTime.now(),
-                                   onDateSelected: (DateTime picked)async {
+                                  selectIosDate(
+                                    context: context,
+                                    date: dateofBirth ?? DateTime.now(),
+                                    onDateSelected: (DateTime picked) async {
                                       setState(() {
-                                    dateofBirth = picked;
-                                    log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
-                                  });
-                                   log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
-                                   },
-                                   );
+                                        dateofBirth = picked;
+                                        log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
+                                      });
+                                      log("jfkldsfjkldsfjklsdfjksd===================$dateofBirth");
+                                    },
+                                  );
                                   // selectDate(
                                   //   context: context,
                                   //   date: DateTime.now(),
@@ -324,9 +325,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
-                                          dateofBirth == null?
-                                          widget.dob:DateFormat('yyy-MM-dd')
-                                              .format(dateofBirth!),
+                                        dateofBirth == null
+                                            ? widget.dob
+                                            : DateFormat('yyy-MM-dd')
+                                                .format(dateofBirth!),
                                         // dOB != null
                                         //     ? DateFormat('dd-MM-yyyy')
                                         //         .format(dOB!)
@@ -466,71 +468,91 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 30),
+
                           CommonButtonWidget(
                               widget: Text("Update", style: white13B700),
                               onTapFunction: () {
-                            
-                          BlocConsumer<EditUserBloc, EditUserState>(
-                            listener: (context, state) {
-                              if (state is EditUserDetailsLoaded) {
-                                GeneralServices.instance.showToastMessage(
-                                    "Profile edit successfully");
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (ctx) =>
-                                        BottomNavigationControlWidget(
-                                            selectedIndex: 3),
-                                  ),
-                                );
-                              }
-                              if (state is EditUserDetailsError) {
-                                GeneralServices.instance.showToastMessage(
-                                    "Error occured while edit profile");
-                              }
-                            },
-                            builder: (context, state) {
-                              return CommonButtonWidget(
-                                  widget: state is EditUserDetailsLoading
-                                      ? CircularProgressIndicator(
-                                          color: kCardColor,
-                                        )
-                                      : Text("Update", style: white13B700),
-                                  onTapFunction: () {
-                                    setNewUserName(firstNameController.text);
-                                    if (mobileNoController.text.isEmpty ||
-                                        int.tryParse(mobileNoController.text) ==
-                                            null) {
+                                BlocConsumer<EditUserBloc, EditUserState>(
+                                  listener: (context, state) {
+                                    if (state is EditUserDetailsLoaded) {
                                       GeneralServices.instance.showToastMessage(
-                                          "Mobile number should contain only digits");
-                                    } else if (mobileNoController.text.length <
-                                        10) {
-                                      GeneralServices.instance.showToastMessage(
-                                          "Mobile number should have 10 digit");
-                                    } else {
-                                      BlocProvider.of<EditUserBloc>(context)
-                                          .add(
-                                         FetchEditUser(
-                                      dob: dateofBirth != null
-                                          ? DateFormat('yyy-MM-dd').format(dateofBirth!)
-                                          : '',
-                                      firstName: firstNameController.text,
-                                      secondName: secondNameController.text,
-                                      mobileNo: mobileNoController.text,
-                                      email: emailController.text,
-                                      location: locationController.text,
-                                      gender: selectedGender),
-                                      );
-                                      BlocProvider.of<UploadUserImageBloc>(
-                                              context)
-                                          .add(
-                                        FetchUploadUserImage(
-                                            userImage: imageFromGallery!),
+                                          "Profile edit successfully");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (ctx) =>
+                                              BottomNavigationControlWidget(
+                                                  selectedIndex: 3),
+                                        ),
                                       );
                                     }
-                                  });
-                            },
-                          ),
+                                    if (state is EditUserDetailsError) {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Error occured while edit profile");
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    return CommonButtonWidget(
+                                        widget: state is EditUserDetailsLoading
+                                            ? CircularProgressIndicator(
+                                                color: kCardColor,
+                                              )
+                                            : Text("Update",
+                                                style: white13B700),
+                                        onTapFunction: () {
+                                          setNewUserName(
+                                              firstNameController.text);
+                                          if (mobileNoController.text.isEmpty ||
+                                              int.tryParse(mobileNoController
+                                                      .text) ==
+                                                  null) {
+                                            GeneralServices.instance
+                                                .showToastMessage(
+                                                    "Mobile number should contain only digits");
+                                          } else if (mobileNoController
+                                                  .text.length <
+                                              10) {
+                                            GeneralServices.instance
+                                                .showToastMessage(
+                                                    "Mobile number should have 10 digit");
+                                          } else {
+                                            BlocProvider.of<EditUserBloc>(context)
+                                                .add(
+                                                    FetchEditUser(
+                                                        dob: dateofBirth != null
+                                                            ? DateFormat(
+                                                                    'yyy-MM-dd')
+                                                                .format(
+                                                                    dateofBirth!)
+                                                            : '',
+                                                        firstName:
+                                                            firstNameController
+                                                                .text,
+                                                        secondName:
+                                                            secondNameController
+                                                                .text,
+                                                        mobileNo:
+                                                            mobileNoController
+                                                                .text,
+                                                        email: emailController
+                                                            .text,
+                                                        location:
+                                                            locationController
+                                                                .text,
+                                                        gender:
+                                                            selectedGender));
+                                            BlocProvider.of<
+                                                        UploadUserImageBloc>(
+                                                    context)
+                                                .add(
+                                              FetchUploadUserImage(
+                                                  userImage: imageFromGallery!),
+                                            );
+                                          }
+                                        });
+                                  },
+                                );
+                              })
                         ],
                       ),
                     ),
@@ -580,7 +602,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   //     throw Exception('Image compression failed');
   //   }
   // }
-   Future<void> selectIosDate({
+  Future<void> selectIosDate({
     required BuildContext context,
     required DateTime date,
     required Function(DateTime) onDateSelected,
@@ -595,7 +617,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           maximumDate: DateTime.now(),
           onDateTimeChanged: (DateTime newDate) {
             onDateSelected(newDate);
-            
           },
         );
       },
