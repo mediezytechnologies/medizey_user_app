@@ -478,7 +478,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         )
                                       : Text("Update", style: white13B700),
                                   onTapFunction: () {
-                                    setNewUserName(firstNameController.text);
                                     if (mobileNoController.text.isEmpty ||
                                         int.tryParse(mobileNoController.text) ==
                                             null) {
@@ -488,7 +487,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         10) {
                                       GeneralServices.instance.showToastMessage(
                                           "Mobile number should have 10 digit");
+                                    } else if (locationController
+                                        .text.isEmpty) {
+                                      GeneralServices.instance.showToastMessage(
+                                          "Please fill the location");
                                     } else {
+                                      setNewUserName(firstNameController.text);
                                       BlocProvider.of<EditUserBloc>(context)
                                           .add(FetchEditUser(
                                               dob: dateofBirth != null
