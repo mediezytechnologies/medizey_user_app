@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:animation_wrappers/animations/faded_slide_animation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -1631,7 +1632,8 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                           context)
                                                   .getSymptomsModel;
                                               return Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 4.w),
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -1650,22 +1652,19 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                             return GestureDetector(
                                                               onTap: () {
                                                                 setState(() {
-                                                                  if (selectedSymptoms.contains(
-                                                                      getSymptomsModel
-                                                                          .symptoms![
-                                                                              index]
-                                                                          .id!)) {
-                                                                    selectedSymptoms.remove(
-                                                                        getSymptomsModel
-                                                                            .symptoms![
-                                                                                index]
-                                                                            .id!);
+                                                                  if (selectedSymptoms.contains(getSymptomsModel
+                                                                      .symptoms![
+                                                                          index]
+                                                                      .id!)) {
+                                                                    selectedSymptoms.remove(getSymptomsModel
+                                                                        .symptoms![
+                                                                            index]
+                                                                        .id!);
                                                                   } else {
-                                                                    selectedSymptoms.add(
-                                                                        getSymptomsModel
-                                                                            .symptoms![
-                                                                                index]
-                                                                            .id!);
+                                                                    selectedSymptoms.add(getSymptomsModel
+                                                                        .symptoms![
+                                                                            index]
+                                                                        .id!);
                                                                   }
                                                                 });
                                                               },
@@ -1692,12 +1691,14 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                     .only(
                                                                         right:
                                                                             3.w,
-                                                                        top: 3.h,
+                                                                        top:
+                                                                            3.h,
                                                                         bottom:
                                                                             3.h),
                                                                 padding:
                                                                     const EdgeInsets
-                                                                        .all(6.0),
+                                                                        .all(
+                                                                        6.0),
                                                                 child: Text(
                                                                   getSymptomsModel
                                                                       .symptoms![
@@ -1711,11 +1712,9 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                                                       fontSize:
                                                                           10.sp,
                                                                       color: selectedSymptoms.contains(getSymptomsModel
-                                                                              .symptoms![
-                                                                                  index]
+                                                                              .symptoms![index]
                                                                               .id!)
-                                                                          ? Colors
-                                                                              .white
+                                                                          ? Colors.white
                                                                           : kTextColor),
                                                                 ),
                                                               ),
@@ -1974,6 +1973,7 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                             color: kCardColor)
                                         : Text("Book Now", style: white13B700),
                                     onTapFunction: () async {
+                                      log("selected start ${selectedStart}");
                                       if (bookingFor == "Family Member" &&
                                           getFamilyMembersModel
                                               .familyMember!.isEmpty) {
@@ -2008,6 +2008,11 @@ class _AppointmentDoneScreenState extends State<AppointmentDoneScreen> {
                                         GeneralServices.instance
                                             .showErrorMessage(context,
                                                 "Please select when did start");
+                                      } else if (selectedStart == 3 &&
+                                          daysController.text.isEmpty) {
+                                        GeneralServices.instance
+                                            .showErrorMessage(context,
+                                                "Please enter when did start");
                                       } else if (selectedCome == -1) {
                                         GeneralServices.instance
                                             .showErrorMessage(context,

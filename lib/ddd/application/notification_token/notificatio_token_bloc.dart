@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/error_model/error_model.dart';
 import '../../domain/fcmToken/fcmToken_service.dart';
-
 part 'notificatio_token_event.dart';
 part 'notificatio_token_state.dart';
 part 'notificatio_token_bloc.freezed.dart';

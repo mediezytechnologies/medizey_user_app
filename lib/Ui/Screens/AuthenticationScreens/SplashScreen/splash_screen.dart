@@ -60,6 +60,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: FadedSlideAnimation(
         beginOffset: const Offset(0, 0.3),
@@ -67,11 +69,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+              height: size.height,
+              width: size.width,
               child: Image.asset(
                 "assets/images/sp1.jpg",
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             )
           ],

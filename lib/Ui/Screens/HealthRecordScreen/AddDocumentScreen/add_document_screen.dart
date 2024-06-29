@@ -228,32 +228,34 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
     );
   }
 
-  //* pick image from gallery
-  Future pickImageFromGallery() async {
+  Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    setState(() async {
-      if (pickedFile != null) {
-        // Compress the selected image
-        imageFromGallery = File(pickedFile.path);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
-        // Navigate to DocumentPreviewScreen
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DocumentPreviewScreen(
-              imageFile: imageFromGallery!,
-              type: widget.type,
-            ),
-          ),
-        );
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      int fileSizeInBytes = await imageFile.length();
+      double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+
+      if (fileSizeInMB > 2) {
+        setState(() {
+          GeneralServices.instance.showToastMessage(
+              'Image size exceeds 2MB. Please select a smaller image.');
+        });
       } else {
-        GeneralServices.instance.showToastMessage('No image selected');
+        File compressedImage = imageFile;
+        setState(() {
+          imageFromGallery = compressedImage;
+        });
       }
-    });
+    } else {
+      setState(() {
+        GeneralServices.instance.showToastMessage('Please select an image');
+      });
+    }
   }
 
-  //* pick image from camera
   Future<void> pickImageFromCamera() async {
     final picker = ImagePicker();
     final pickedFile =
@@ -262,22 +264,29 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
     if (pickedFile != null) {
       try {
         File file = File(pickedFile.path);
+        int fileSizeInBytes = await file.length();
+        double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DocumentPreviewScreen(
-              imageFile: file,
-              type: widget.type,
+        if (fileSizeInMB > 2) {
+          GeneralServices.instance.showToastMessage(
+              'Image size exceeds 2MB. Please take a smaller image.');
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DocumentPreviewScreen(
+                imageFile: file,
+                type: widget.type,
+              ),
             ),
-          ),
-        );
+          );
+        }
       } catch (e) {
-        print('Error compressing image: $e');
-        GeneralServices.instance.showToastMessage('Error compressing image');
+        print('Error processing image: $e');
+        GeneralServices.instance.showToastMessage('Error processing image');
       }
     } else {
-      GeneralServices.instance.showToastMessage('No image selected');
+      GeneralServices.instance.showToastMessage('No image captured');
     }
   }
 }

@@ -131,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         borderRadius:
                                             BorderRadius.circular(50.r),
                                         child: (getUserModel
-                                                    .userdetails!.userProfile ==
+                                                    .userDetails!.userImage ==
                                                 null
                                             ? Image.asset(
                                                 "assets/icons/profile pic.png",
@@ -141,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               )
                                             : Image.network(
                                                 getUserModel
-                                                    .userdetails!.userProfile
+                                                    .userDetails!.userImage
                                                     .toString(),
                                                 height: size.height * .09,
                                                 width: size.width * .18,
@@ -195,17 +195,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        getUserModel.userdetails!.firstname
+                                        getUserModel.userDetails!.firstName
                                             .toString(),
                                         style: black15B600),
                                     const VerticalSpacingWidget(height: 2),
                                     Text(
-                                        getUserModel.userdetails!.email
+                                        getUserModel.userDetails!.email
                                             .toString(),
                                         style: grey13B400),
                                     const VerticalSpacingWidget(height: 2),
                                     Text(
-                                        "+91 ${getUserModel.userdetails!.mobileNo.toString()}",
+                                        "+91 ${getUserModel.userDetails!.mobileNumber.toString()}",
                                         style: grey13B400),
                                   ],
                                 )
@@ -230,22 +230,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (ctx) => ProfileEditScreen(
-                                  firstName: getUserModel.userdetails!.firstname
+                                  firstName: getUserModel.userDetails!.firstName
                                       .toString(),
-                                  secondname: getUserModel.userdetails!.lastname
+                                  email: getUserModel.userDetails!.email
                                       .toString(),
-                                  email: getUserModel.userdetails!.email
+                                  phNo: getUserModel.userDetails!.mobileNumber
                                       .toString(),
-                                  phNo: getUserModel.userdetails!.mobileNo
+                                  location: getUserModel.userDetails!.location
                                       .toString(),
-                                  location: getUserModel.userdetails!.location
+                                  gender: getUserModel.userDetails!.gender
                                       .toString(),
-                                  gender: getUserModel.userdetails!.gender
+                                  imageUrl: getUserModel.userDetails!.userImage
                                       .toString(),
-                                  imageUrl: getUserModel
-                                      .userdetails!.userProfile
+                                  dob: getUserModel.userDetails!.dateOfBirth
                                       .toString(),
-                                  dob: getUserModel.userdetails!.dateofbirth
+                                  dobShow: getUserModel.userDetails!.showDob
                                       .toString(),
                                 ),
                               ),

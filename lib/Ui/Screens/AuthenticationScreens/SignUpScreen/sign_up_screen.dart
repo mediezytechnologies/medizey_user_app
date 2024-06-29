@@ -18,7 +18,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Screens/AuthenticationScreens/LoginScreen/login_screen.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-
 import '../../../Consts/text_style.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -493,6 +492,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+ 
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFile =
@@ -500,10 +500,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
+      int fileSizeInBytes = await imageFile.length();
+      double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
 
-      setState(() {
-        imageFromGallery = imageFile;
-      });
+      if (fileSizeInMB > 2) {
+        setState(() {
+          GeneralServices.instance.showToastMessage(
+              'Image size exceeds 2MB. Please select a smaller image.');
+        });
+      } else {
+        File compressedImage = imageFile;
+        setState(() {
+          imageFromGallery = compressedImage;
+        });
+      }
     } else {
       setState(() {
         GeneralServices.instance.showToastMessage('Please select an image');
