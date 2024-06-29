@@ -229,32 +229,42 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   }
 
   Future<void> pickImageFromGallery() async {
-    final picker = ImagePicker();
-    final pickedFile =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
+  final picker = ImagePicker();
+  final pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
-    if (pickedFile != null) {   
-      File imageFile = File(pickedFile.path);
-      int fileSizeInBytes = await imageFile.length();
-      double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+  if (pickedFile != null) {
+    File imageFile = File(pickedFile.path);
+    int fileSizeInBytes = await imageFile.length();
+    double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
 
-      if (fileSizeInMB > 2) {
-        setState(() {
-          GeneralServices.instance.showToastMessage(
-              'Image size exceeds 2MB. Please select a smaller image.');
-        });
-      } else {
-        File compressedImage = imageFile;
-        setState(() {
-          imageFromGallery = compressedImage;
-        });
-      }
-    } else {
+    if (fileSizeInMB > 2) {
       setState(() {
-        GeneralServices.instance.showToastMessage('Please select an image');
+        GeneralServices.instance.showToastMessage(
+            'Image size exceeds 2MB. Please select a smaller image.');
       });
+    } else {
+      File compressedImage = imageFile;
+      setState(() {
+        imageFromGallery = compressedImage;
+      });
+
+      // Navigate to DocumentPreviewScreen on success
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DocumentPreviewScreen(
+            imageFile: imageFromGallery!,
+            type: widget.type,
+          ),
+        ),
+      );
     }
+  } else {
+    setState(() {
+      GeneralServices.instance.showToastMessage('Please select an image');
+    });
   }
+}
 
   Future<void> pickImageFromCamera() async {
     final picker = ImagePicker();
