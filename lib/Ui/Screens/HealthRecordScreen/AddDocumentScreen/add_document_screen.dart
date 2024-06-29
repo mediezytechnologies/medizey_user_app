@@ -233,7 +233,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
     final pickedFile =
         await picker.pickImage(source: ImageSource.gallery, imageQuality: 85);
 
-    if (pickedFile != null) {
+    if (pickedFile != null) {   
       File imageFile = File(pickedFile.path);
       int fileSizeInBytes = await imageFile.length();
       double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
