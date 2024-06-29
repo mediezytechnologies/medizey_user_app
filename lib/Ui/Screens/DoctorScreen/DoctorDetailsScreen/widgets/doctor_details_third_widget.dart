@@ -20,6 +20,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
     required this.nextAvailableTokenTime,
     required this.distanceFromUser,
     required this.consultationFee,
+    required this.isOnLeave,
   });
 
   final String clinicName;
@@ -33,6 +34,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
   final String nextAvailableTokenTime;
   final String distanceFromUser;
   final String consultationFee;
+  final int isOnLeave;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(clinicName, style: black13B500),
-        startTime == 'null'
+        startTime == 'null' || isOnLeave == 1
             ? const SizedBox()
             : Row(
                 children: [
@@ -72,7 +74,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
           ],
         ),
         const VerticalSpacingWidget(height: 2),
-        availableTokenCount == 0
+        availableTokenCount == 0 || isOnLeave == 1
             ? const SizedBox()
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +88,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
                   const VerticalSpacingWidget(height: 2),
                 ],
               ),
-        totalTokenCount == 0
+        totalTokenCount == 0 || isOnLeave == 1
             ? const SizedBox()
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,8 +102,8 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
                   const VerticalSpacingWidget(height: 2),
                 ],
               ),
-        availableTokenCount == 0
-            ? nextDateAvailableTokenTime == "null"
+        availableTokenCount == 0 || isOnLeave == 1
+            ? nextDateAvailableTokenTime == "null" 
                 ? const SizedBox()
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +117,7 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
                       const VerticalSpacingWidget(height: 2),
                     ],
                   )
-            : nextAvailableTokenTime == "null"
+            : nextAvailableTokenTime == "null" || isOnLeave == 1
                 ? const SizedBox()
                 : Row(
                     children: [
@@ -135,11 +137,10 @@ class DoctorDetailsThirdWidget extends StatelessWidget {
                     ],
                   ),
             GestureDetector(
-              onTap: () {
-                MapsLauncher.launchQuery(address);
-              },
-              child:LocationCardWidget(color: kMainColor)
-            ),
+                onTap: () {
+                  MapsLauncher.launchQuery(address);
+                },
+                child: LocationCardWidget(color: kMainColor)),
           ],
         ),
       ],

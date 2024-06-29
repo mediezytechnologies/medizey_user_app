@@ -19,6 +19,7 @@ import '../../../Repository/Bloc/Favourites/AddFavourites/add_favourites_bloc.da
 import '../../../ddd/application/get_docters/get_docters_bloc.dart';
 import '../../../ddd/application/get_fav_doctor/get_fav_doctor_bloc.dart';
 import '../../../ddd/application/search_doctor/search_doctor_bloc.dart';
+import '../../Consts/text_style.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen(
@@ -79,28 +80,32 @@ class _SearchScreenState extends State<SearchScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: SizedBox(
                         child: TextFormField(
+                          cursorHeight: 22.h,
                           autofocus: true,
                           cursorColor: kMainColor,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           onChanged: (newValue) {
                             BlocProvider.of<SearchDoctorBloc>(context).add(
-                                SearchDoctorEvent.started(newValue, false));
+                              SearchDoctorEvent.started(newValue, false),
+                            );
                           },
                           decoration: InputDecoration(
                             suffixIcon: Icon(
                               IconlyLight.search,
                               color: kMainColor,
+                              size: 18.sp,
                             ),
-                            hintStyle: TextStyle(
-                                fontSize: 16.sp, color: kSubTextColor),
+                            hintStyle: grey13B600,
                             hintText: "Search doctors",
                             filled: true,
                             fillColor: kCardColor,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10.r),
                               borderSide: BorderSide.none,
                             ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.h, horizontal: 10.w),
                           ),
                         ),
                       ),

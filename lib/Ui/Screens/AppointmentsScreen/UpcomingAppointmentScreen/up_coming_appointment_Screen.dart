@@ -106,7 +106,7 @@ class _UpComingAppointmentScreenState extends State<UpComingAppointmentScreen> {
                               child: Column(
                                 children: [
                                   const VerticalSpacingWidget(height: 30),
-                                  Text("No appointment available",
+                                  Text("No appointments available",
                                       style: main20),
                                   const VerticalSpacingWidget(height: 20),
                                   Text(

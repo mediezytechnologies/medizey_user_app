@@ -96,12 +96,13 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(  bottomNavigationBar: Platform.isIOS
-            ? SizedBox(
-                height: size.height * 0.038,
-                width: double.infinity,
-              )
-            : const SizedBox(),
+    return Scaffold(
+      bottomNavigationBar: Platform.isIOS
+          ? SizedBox(
+              height: size.height * 0.038,
+              width: double.infinity,
+            )
+          : const SizedBox(),
       appBar: AppBar(
         title: const Text("Select Date & Time"),
         centerTitle: true,
@@ -178,6 +179,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                       ? const SizedBox()
                                       : ClinicWidget(
                                           isSelected: isSelected,
+                                          isOnLeave: widget.clinicList[index]
+                                              .leaveStatusMessage!,
                                           clinicName: widget
                                               .clinicList[index].clinicName
                                               .toString(),
