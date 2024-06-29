@@ -218,7 +218,6 @@ class GeneralServices {
 
   Future<void> showDelaySuccessMessage(
       BuildContext context, String message) async {
-    // Show the dialog
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -228,7 +227,6 @@ class GeneralServices {
             Navigator.of(dialogContext).pop();
           }
         });
-
         return Platform.isIOS
             ? CupertinoAlertDialog(
                 title: Align(
@@ -256,9 +254,61 @@ class GeneralServices {
               );
       },
     );
-
     await Future.delayed(
       const Duration(seconds: 2, milliseconds: 100),
+    );
+  }
+
+  Future<void> selectDate({
+    required BuildContext context,
+    required DateTime date,
+    required Function(DateTime) onDateSelected,
+  }) async {
+    DateTime? tempDate = date;
+    await showModalBottomSheet<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CupertinoButton(
+                    child: Text('Cancel', style: main13B600),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  CupertinoButton(
+                    child: Text('OK', style: main13B600),
+                    onPressed: () {
+                      if (tempDate != null) {
+                        onDateSelected(tempDate!);
+                      }
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 300,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: date,
+                minimumDate: DateTime.now().subtract(
+                  const Duration(days: 365 * 100),
+                ),
+                maximumDate: DateTime.now(),
+                onDateTimeChanged: (DateTime newDate) {
+                  tempDate = newDate;
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
