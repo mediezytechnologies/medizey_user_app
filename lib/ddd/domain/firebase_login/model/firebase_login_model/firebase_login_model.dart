@@ -16,7 +16,7 @@ class FirebaseLoginModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['status'] = status;
     if (user != null) {
       data['user'] = user!.toJson();
@@ -54,13 +54,13 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['firstname'] = this.firstname;
-    data['mobileNo'] = this.mobileNo;
-    data['email'] = this.email;
-    data['user_role'] = this.userRole;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['firstname'] = firstname;
+    data['mobileNo'] = mobileNo;
+    data['email'] = email;
+    data['user_role'] = userRole;
+    data['image'] = image;
     return data;
   }
 }

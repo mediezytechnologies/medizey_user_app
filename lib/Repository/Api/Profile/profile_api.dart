@@ -22,7 +22,7 @@ class ProfileApi {
     String basePath = "Useredit/$userId";
     Response response =
         await apiClient.invokeAPI(path: basePath, method: "GET", body: null);
-    print("<<<<<<<<GET USER DETAILS WORKED SUCCESSFULLY>>>>>>");
+    log("<<<<<<<<GET USER DETAILS WORKED SUCCESSFULLY>>>>>>");
     return GetUserModel.fromJson(
       json.decode(response.body),
     );

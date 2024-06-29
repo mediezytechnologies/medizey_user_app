@@ -1,141 +1,82 @@
 class GetUserModel {
   bool? success;
-  Userdetails? userdetails;
-  String? code;
+  UserDetails? userDetails;
   String? message;
 
-  GetUserModel({this.success, this.userdetails, this.code, this.message});
+  GetUserModel({this.success, this.userDetails, this.message});
 
   GetUserModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    userdetails = json['Userdetails'] != null
-        ? Userdetails.fromJson(json['Userdetails'])
+    userDetails = json['user_details'] != null
+        ? UserDetails.fromJson(json['user_details'])
         : null;
-    code = json['code'];
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
-    if (userdetails != null) {
-      data['Userdetails'] = userdetails!.toJson();
+    if (userDetails != null) {
+      data['user_details'] = userDetails!.toJson();
     }
-    data['code'] = code;
     data['message'] = message;
     return data;
   }
 }
 
-class Userdetails {
+class UserDetails {
   int? id;
+  int? userId;
   String? mediezyPatientId;
-  String? firstname;
-  String? lastname;
-  int? age;
-  String? dateofbirth;
-  String? userImage;
-  String? mobileNo;
+  String? firstName;
+  String? dateOfBirth;
+  String? showDob;
+  String? mobileNumber;
   String? gender;
   String? location;
   String? email;
-  int? userId;
-  String? createdAt;
-  String? updatedAt;
-  int? userType;
-  String? regularMedicine;
-  String? illness;
-  String? medicineTaken;
-  String? allergyId;
-  String? allergyName;
-  String? surgeryName;
-  String? surgeryDetails;
-  String? treatmentTaken;
-  String? treatmentTakenDetails;
-  String? userProfile;
+  String? userImage;
 
-  Userdetails(
+  UserDetails(
       {this.id,
+      this.userId,
       this.mediezyPatientId,
-      this.firstname,
-      this.lastname,
-      this.age,
-      this.dateofbirth,
-      this.userImage,
-      this.mobileNo,
+      this.firstName,
+      this.dateOfBirth,
+      this.showDob,
+      this.mobileNumber,
       this.gender,
       this.location,
       this.email,
-      this.userId,
-      this.createdAt,
-      this.updatedAt,
-      this.userType,
-      this.regularMedicine,
-      this.illness,
-      this.medicineTaken,
-      this.allergyId,
-      this.allergyName,
-      this.surgeryName,
-      this.surgeryDetails,
-      this.treatmentTaken,
-      this.treatmentTakenDetails,
-      this.userProfile});
+      this.userImage});
 
-  Userdetails.fromJson(Map<String, dynamic> json) {
+  UserDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    userId = json['user_id'];
     mediezyPatientId = json['mediezy_patient_id'];
-    firstname = json['firstname'];
-    lastname = json['lastname'];
-    age = json['age'];
-    dateofbirth = json['dateofbirth'];
-    userImage = json['user_image'];
-    mobileNo = json['mobileNo'];
+    firstName = json['first_name'];
+    dateOfBirth = json['date_of_birth'];
+    showDob = json['show_dob'];
+    mobileNumber = json['mobile_number'];
     gender = json['gender'];
     location = json['location'];
     email = json['email'];
-    userId = json['UserId'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    userType = json['user_type'];
-    regularMedicine = json['regularMedicine'];
-    illness = json['illness'];
-    medicineTaken = json['Medicine_Taken'];
-    allergyId = json['allergy_id'];
-    allergyName = json['allergy_name'];
-    surgeryName = json['surgery_name'];
-    surgeryDetails = json['surgery_details'];
-    treatmentTaken = json['treatment_taken'];
-    treatmentTakenDetails = json['treatment_taken_details'];
-    userProfile = json['UserProfile'];
+    userImage = json['user_image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['user_id'] = userId;
     data['mediezy_patient_id'] = mediezyPatientId;
-    data['firstname'] = firstname;
-    data['lastname'] = lastname;
-    data['age'] = age;
-    data['dateofbirth'] = dateofbirth;
-    data['user_image'] = userImage;
-    data['mobileNo'] = mobileNo;
+    data['first_name'] = firstName;
+    data['date_of_birth'] = dateOfBirth;
+    data['show_dob'] = showDob;
+    data['mobile_number'] = mobileNumber;
     data['gender'] = gender;
     data['location'] = location;
     data['email'] = email;
-    data['UserId'] = userId;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    data['user_type'] = userType;
-    data['regularMedicine'] = regularMedicine;
-    data['illness'] = illness;
-    data['Medicine_Taken'] = medicineTaken;
-    data['allergy_id'] = allergyId;
-    data['allergy_name'] = allergyName;
-    data['surgery_name'] = surgeryName;
-    data['surgery_details'] = surgeryDetails;
-    data['treatment_taken'] = treatmentTaken;
-    data['treatment_taken_details'] = treatmentTakenDetails;
-    data['UserProfile'] = userProfile;
+    data['user_image'] = userImage;
     return data;
   }
 }

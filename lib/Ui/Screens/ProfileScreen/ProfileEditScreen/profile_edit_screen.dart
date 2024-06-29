@@ -28,21 +28,21 @@ class ProfileEditScreen extends StatefulWidget {
   const ProfileEditScreen(
       {super.key,
       required this.firstName,
-      required this.secondname,
       required this.email,
       required this.phNo,
       required this.location,
       required this.gender,
       required this.imageUrl,
-      required this.dob});
+      required this.dob,
+      required this.dobShow});
   final String firstName;
-  final String secondname;
   final String email;
   final String phNo;
   final String location;
   final String gender;
   final String imageUrl;
   final String dob;
+  final String dobShow;
   @override
   State<ProfileEditScreen> createState() => _ProfileEditScreenState();
 }
@@ -59,7 +59,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   File? imageFromGallery;
   late StreamSubscription<ConnectivityResult> subscription;
   String? dateOfBirth;
-
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -92,7 +91,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         : (widget.gender == "2")
             ? "2"
             : "0";
-    // dateOfBirth = widget.dob == 'null' ? "" : widget.dob;
     super.initState();
   }
 
@@ -225,7 +223,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ],
                           ),
                           const VerticalSpacingWidget(height: 20),
-                          //! first name
+
                           SizedBox(
                             height: size.height * .065,
                             child: TextFormField(
@@ -314,7 +312,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                     children: [
                                       Text(
                                         dateofBirth == null
-                                            ? widget.dob
+                                            ? widget.dobShow
                                             : DateFormat('dd-MM-yyyy')
                                                 .format(dateofBirth!),
                                         style: black13B500,
@@ -515,6 +513,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                   });
                             },
                           ),
+                          
                         ],
                       ),
                     ),

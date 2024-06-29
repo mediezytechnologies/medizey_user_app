@@ -8,6 +8,6 @@ class NotificatioTokenState with _$NotificatioTokenState {
     required String message,
     required bool status,
   }) = _Initial;
-  factory NotificatioTokenState.initial() => NotificatioTokenState(
+  factory NotificatioTokenState.initial() => const NotificatioTokenState(
       isloding: false, isError: false, message: "", status: false);
 }

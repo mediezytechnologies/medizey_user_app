@@ -176,33 +176,31 @@ class _RatingFormScreenState extends State<RatingFormScreen> {
                     },
                     builder: (context, postState) {
                       return CommonButtonWidget(
-                          widget: Text("Submit", style: white13B700),
-                          onTapFunction: () {
-                            log("appointment id = ${widget.appointmentId}");
-                            log("rating value = ${state.ratingValue}");
-                            log("selected review id = $reviewId");
-                            log("liked index = ${state.likedIndex}");
-                            log("radio index = ${state.radioIndex}");
-                            log("rating id = $ratingId");
-                            log("Other comments = ${otherController.text}");
-                            if (isOtherSelected == true &&
-                                otherController.text.isEmpty) {
-                              GeneralServices.instance.showErrorMessage(
-                                  context, "Please enter your feedback");
-                            } else {
-                              BlocProvider.of<RatingPostBloc>(context).add(
-                                RatingPostEvent.ratingAddFeedBacks(
-                                  widget.appointmentId,
-                                  state.ratingValue,
-                                  reviewId,
-                                  state.likedIndex,
-                                  state.radioIndex,
-                                  ratingId,
-                                  otherController.text,
-                                ),
-                              );
-                            }
-                          });
+                        widget: postState.isloding
+                            ? CircularProgressIndicator(color: kCardColor)
+                            : Text("Submit", style: white13B700),
+                        onTapFunction: postState.isloding
+                            ? () {}
+                            : () {
+                                if (isOtherSelected == true &&
+                                    otherController.text.isEmpty) {
+                                  GeneralServices.instance.showErrorMessage(
+                                      context, "Please enter your feedback");
+                                } else {
+                                  BlocProvider.of<RatingPostBloc>(context).add(
+                                    RatingPostEvent.ratingAddFeedBacks(
+                                      widget.appointmentId,
+                                      state.ratingValue,
+                                      reviewId,
+                                      state.likedIndex,
+                                      state.radioIndex,
+                                      ratingId,
+                                      otherController.text,
+                                    ),
+                                  );
+                                }
+                              },
+                      );
                     },
                   ),
                 ),
