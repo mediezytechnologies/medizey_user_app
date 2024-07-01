@@ -324,7 +324,8 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
                           InkWell(
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                              selectIosDate(
+
+                              GeneralServices.instance.selectDate(
                                 context: context,
                                 date: dateOfBirth ?? DateTime.now(),
                                 onDateSelected: (DateTime picked) async {
@@ -1542,26 +1543,5 @@ class _EditPatientScreenState extends State<EditPatientScreen> {
     if (picked != null) {
       onDateSelected(picked);
     }
-  }
-
-  Future<void> selectIosDate({
-    required BuildContext context,
-    required DateTime date,
-    required Function(DateTime) onDateSelected,
-  }) async {
-    await showModalBottomSheet<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoDatePicker(
-          mode: CupertinoDatePickerMode.date,
-          initialDateTime: date,
-          minimumDate: DateTime.now().subtract(const Duration(days: 365 * 100)),
-          maximumDate: DateTime.now(),
-          onDateTimeChanged: (DateTime newDate) {
-            onDateSelected(newDate);
-          },
-        );
-      },
-    );
   }
 }

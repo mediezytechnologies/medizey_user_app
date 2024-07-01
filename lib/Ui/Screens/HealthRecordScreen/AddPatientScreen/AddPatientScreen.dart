@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields, unused_local_variable
+// ignore_for_file: avoid_print, must_be_immutable, prefer_final_fields, unused_local_variable, file_names
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
@@ -216,7 +216,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                         VerticalSpacingWidget(height: 2.h),
                         InkWell(
                           onTap: () {
-                            selectIosDate(
+                            GeneralServices.instance.selectDate(
                               context: context,
                               date: dateOfBirth ?? DateTime.now(),
                               onDateSelected: (DateTime picked) async {
@@ -1230,31 +1230,5 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
     if (picked != null) {
       onDateSelected(picked);
     }
-  }
-
-  Future<void> selectIosDate({
-    required BuildContext context,
-    required DateTime date,
-    required Function(DateTime) onDateSelected,
-  }) async {
-    final DateTime? picked = await showModalBottomSheet<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 300.0,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: date,
-            minimumDate: DateTime.now().subtract(
-              const Duration(days: 365 * 100),
-            ),
-            maximumDate: DateTime.now(),
-            onDateTimeChanged: (DateTime newDate) {
-              onDateSelected(newDate);
-            },
-          ),
-        );
-      },
-    );
   }
 }

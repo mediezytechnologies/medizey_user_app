@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediezy_user/Model/HealthRecord/GetAllMembers/get_all_members_model.dart';
 import 'package:mediezy_user/Repository/Bloc/HealthRecord/GetAllMembers/get_all_members_bloc.dart';
@@ -13,7 +14,6 @@ import 'package:mediezy_user/Ui/CommonWidgets/common_button_widget.dart';
 import 'package:mediezy_user/Ui/CommonWidgets/vertical_spacing_widget.dart';
 import 'package:mediezy_user/Ui/Consts/app_colors.dart';
 import 'package:mediezy_user/Ui/Services/general_services.dart';
-
 import '../../../Consts/text_style.dart';
 
 class DocumentSaveScreen extends StatefulWidget {
@@ -185,25 +185,15 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                       const VerticalSpacingWidget(height: 5),
                       InkWell(
                         onTap: () {
-                          Platform.isIOS
-                              ? selectIosDate(
-                                  context: context,
-                                  date: selectedDate,
-                                  onDateSelected: (DateTime picked) {
-                                    setState(() {
-                                      selectedDate = picked;
-                                    });
-                                  },
-                                )
-                              : selectDate(
-                                  context: context,
-                                  date: selectedDate,
-                                  onDateSelected: (DateTime picked) {
-                                    setState(() {
-                                      selectedDate = picked;
-                                    });
-                                  },
-                                );
+                          GeneralServices.instance.selectDate(
+                            context: context,
+                            date: selectedDate,
+                            onDateSelected: (DateTime picked) {
+                              setState(() {
+                                selectedDate = picked;
+                              });
+                            },
+                          );
                         },
                         child: Container(
                           height: 45.h,
@@ -223,7 +213,7 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
                               Icon(
                                 Platform.isIOS
                                     ? CupertinoIcons.calendar
-                                    : Icons.calendar_month_outlined,
+                                    : IconlyLight.calendar,
                                 color: kMainColor,
                               )
                             ],
@@ -537,61 +527,7 @@ class _DocumentSaveScreenState extends State<DocumentSaveScreen> {
     );
   }
 
-  //* for select date
-  Future<void> selectDate({
-    required BuildContext context,
-    required DateTime date,
-    required Function(DateTime) onDateSelected,
-  }) async {
-    final DateTime now = DateTime.now();
-    final DateTime firstDate = DateTime(now.year - 25, now.month, now.day);
+ 
 
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: date,
-      firstDate: firstDate,
-      lastDate: now.add(const Duration(days: 30)),
-      builder: ((context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
-              primary: kMainColor,
-            ),
-          ),
-          child: child!,
-        );
-      }),
-    );
-    if (picked != null) {
-      onDateSelected(picked);
-    }
-  }
-
-  Future<void> selectIosDate({
-    required BuildContext context,
-    required DateTime date,
-    required Function(DateTime) onDateSelected,
-  }) async {
-    final DateTime now = DateTime.now();
-    final DateTime firstDate = DateTime(now.year - 25, now.month, now.day);
-    final DateTime? picked = await showModalBottomSheet<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 300.0,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: date,
-            minimumDate: firstDate,
-            maximumDate: now.add(
-              const Duration(days: 30),
-            ),
-            onDateTimeChanged: (DateTime newDate) {
-              onDateSelected(newDate);
-            },
-          ),
-        );
-      },
-    );
-  }
+ 
 }

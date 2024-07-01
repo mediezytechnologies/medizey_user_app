@@ -226,7 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       InkWell(
                         onTap: () {
                           FocusScope.of(context).unfocus();
-                          selectIosDate(
+                          GeneralServices.instance.selectDate(
                             context: context,
                             date: dateOfBirth ?? DateTime.now(),
                             onDateSelected: (DateTime picked) async {
@@ -492,7 +492,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
- 
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
     final pickedFile =
@@ -519,31 +518,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         GeneralServices.instance.showToastMessage('Please select an image');
       });
     }
-  }
-
-  Future<void> selectIosDate({
-    required BuildContext context,
-    required DateTime date,
-    required Function(DateTime) onDateSelected,
-  }) async {
-    final DateTime? picked = await showModalBottomSheet<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 300.0,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: date,
-            minimumDate:
-                DateTime.now().subtract(const Duration(days: 365 * 100)),
-            maximumDate: DateTime.now(),
-            onDateTimeChanged: (DateTime newDate) {
-              onDateSelected(newDate);
-            },
-          ),
-        );
-      },
-    );
   }
 
   @override
