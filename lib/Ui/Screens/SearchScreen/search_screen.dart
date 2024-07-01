@@ -39,6 +39,8 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   late SearchDoctorModel searchDoctorModel;
   late StreamSubscription<ConnectivityResult> subscription;
+  final TextEditingController _searchController = TextEditingController();
+  bool _hasSearchText = false;
 
   void handleConnectivityChange(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -54,7 +56,34 @@ class _SearchScreenState extends State<SearchScreen> {
     });
     BlocProvider.of<SearchDoctorBloc>(context)
         .add(const SearchDoctorEvent.started('', true));
+    _searchController.addListener(_onSearchChanged);
     super.initState();
+  }
+
+  void _onSearchChanged() {
+    setState(() {
+      _hasSearchText = _searchController.text.isNotEmpty;
+    });
+    BlocProvider.of<SearchDoctorBloc>(context).add(
+      SearchDoctorEvent.started(_searchController.text, false),
+    );
+  }
+
+  void _clearSearch() {
+    setState(() {
+      _searchController.clear();
+      _hasSearchText = false;
+    });
+    BlocProvider.of<SearchDoctorBloc>(context).add(
+      const SearchDoctorEvent.started('', false),
+    );
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,22 +109,27 @@ class _SearchScreenState extends State<SearchScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: SizedBox(
                         child: TextFormField(
+                          controller: _searchController,
                           cursorHeight: 22.h,
                           autofocus: true,
                           cursorColor: kMainColor,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
-                          onChanged: (newValue) {
-                            BlocProvider.of<SearchDoctorBloc>(context).add(
-                              SearchDoctorEvent.started(newValue, false),
-                            );
-                          },
                           decoration: InputDecoration(
-                            suffixIcon: Icon(
-                              IconlyLight.search,
-                              color: kMainColor,
-                              size: 18.sp,
-                            ),
+                            suffixIcon: _hasSearchText
+                                ? IconButton(
+                                    icon: Icon(
+                                      IconlyLight.closeSquare,
+                                      color: kMainColor,
+                                      size: 18.sp,
+                                    ),
+                                    onPressed: _clearSearch,
+                                  )
+                                : Icon(
+                                    IconlyLight.search,
+                                    color: kMainColor,
+                                    size: 18.sp,
+                                  ),
                             hintStyle: grey13B600,
                             hintText: "Search doctors",
                             filled: true,

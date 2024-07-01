@@ -1,4 +1,6 @@
-import 'dart:developer';
+
+// ignore_for_file: unused_catch_clause
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:mediezy_user/ddd/application/location_controller/locationcontroller.dart';
